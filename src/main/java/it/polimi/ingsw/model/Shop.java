@@ -6,4 +6,8 @@ public class Shop {
     public DevelopmentCard getFirst(int row,int column){
         return shopGrid[row][column].getFirst();
     }
+
+    public Deck[][] getGrid(){
+        return shopGrid;
+    }
 }

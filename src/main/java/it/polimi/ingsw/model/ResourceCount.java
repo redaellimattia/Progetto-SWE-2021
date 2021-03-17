@@ -28,4 +28,12 @@ public class ResourceCount {
     public int getShields() {
         return shields;
     }
+
+    public void addResources(){
+
+    }
+
+    public void removeResources(){
+
+    }
 }
