@@ -1,9 +1,13 @@
 package it.polimi.ingsw.model;
 
-public class WhiteChangeAbility extends SpecialAbility{
+import it.polimi.ingsw.model.enumeration.Resource;
+
+public class WhiteChangeAbility implements SpecialAbility{
     private Resource resourceType;
 
-    public Resource getResourceType() {
-        return resourceType;
-    }
+    @Override
+    public void useAbility(){}
+
+    @Override
+    public boolean isUsable(){return true;}
 }

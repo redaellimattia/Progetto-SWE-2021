@@ -1,26 +1,18 @@
 package it.polimi.ingsw.model;
 
-public class CardLevelRequirement extends Requirement{
+import it.polimi.ingsw.model.enumeration.CardColour;
+
+public class CardLevelRequirement implements Requirement{
     private CardColour colour;
     private int level;
     private int number;
 
-    public CardLevelRequirement(RequirementsType type, CardColour colour, int level, int number) {
-        super(type);
+    public CardLevelRequirement(CardColour colour, int level, int number) {
         this.colour = colour;
         this.level = level;
         this.number = number;
     }
 
-    public CardColour getColour() {
-        return colour;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public int getNumber() {
-        return number;
-    }
+    @Override
+    public boolean isPlayable(){return true;}
 }

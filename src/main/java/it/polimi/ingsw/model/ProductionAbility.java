@@ -1,9 +1,11 @@
 package it.polimi.ingsw.model;
 
-public class ProductionAbility extends SpecialAbility {
+public class ProductionAbility implements SpecialAbility {
     private Production production;
 
-    public Production getProduction() {
-        return production;
-    }
+    @Override
+    public void useAbility(){}
+
+    @Override
+    public boolean isUsable(){return true;}
 }

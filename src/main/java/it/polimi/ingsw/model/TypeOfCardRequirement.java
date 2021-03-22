@@ -1,14 +1,14 @@
 package it.polimi.ingsw.model;
 
-public class TypeOfCardRequirement extends Requirement{
+public class TypeOfCardRequirement implements Requirement{
     private ColourCount cardColours;
 
-    public TypeOfCardRequirement(RequirementsType type,ColourCount cardColours) {
-        super(type);
+    public TypeOfCardRequirement(ColourCount cardColours) {
         this.cardColours = cardColours;
     }
 
-    public ColourCount getCardColours() {
-        return cardColours;
+    @Override
+    public boolean isPlayable() {
+        return true;
     }
 }

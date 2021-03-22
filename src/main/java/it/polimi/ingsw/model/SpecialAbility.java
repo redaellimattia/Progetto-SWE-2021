@@ -1,10 +1,8 @@
 package it.polimi.ingsw.model;
 
-public abstract class SpecialAbility {
-    private AbilityType type;
+public interface SpecialAbility {
 
-    public AbilityType getType() {
-        return type;
-    }
+    public void useAbility();
+    public boolean isUsable();
 
 }

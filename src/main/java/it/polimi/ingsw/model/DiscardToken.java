@@ -1,12 +1,16 @@
 package it.polimi.ingsw.model;
 
-public class DiscardToken extends SoloToken{
+import it.polimi.ingsw.model.enumeration.CardColour;
+
+public class DiscardToken implements SoloToken{
     private CardColour colour;
 
     public DiscardToken(CardColour colour){
         this.colour = colour;
     }
-    public CardColour getColour() {
-        return colour;
+
+    @Override
+    public void useToken() {
+
     }
 }

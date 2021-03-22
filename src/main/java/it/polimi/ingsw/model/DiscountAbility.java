@@ -1,9 +1,13 @@
 package it.polimi.ingsw.model;
 
-public class DiscountAbility extends SpecialAbility{
+import it.polimi.ingsw.model.enumeration.Resource;
+
+public class DiscountAbility implements SpecialAbility{
     private Resource resourceType;
 
-    public Resource getResourceType() {
-        return resourceType;
-    }
+    @Override
+    public void useAbility(){}
+
+    @Override
+    public boolean isUsable(){return true;}
 }

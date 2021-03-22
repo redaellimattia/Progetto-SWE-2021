@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-public class AdvanceToken extends SoloToken {
+public class AdvanceToken implements SoloToken {
     private int steps;
     private boolean reRoll;
 
@@ -16,5 +16,10 @@ public class AdvanceToken extends SoloToken {
 
     public boolean isReRoll() {
         return reRoll;
+    }
+
+    @Override
+    public void useToken(){
+
     }
 }

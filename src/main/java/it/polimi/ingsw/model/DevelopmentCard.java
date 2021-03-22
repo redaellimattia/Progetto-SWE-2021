@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.enumeration.CardColour;
+
 public class DevelopmentCard extends Card{
     private ResourceCount cost;
     private Production productionPower;

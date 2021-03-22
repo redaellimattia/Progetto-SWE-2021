@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.enumeration.Resource;
+
 public class Storage {
     private Resource firstRow;
     private Resource[] secondRow = new Resource[2];

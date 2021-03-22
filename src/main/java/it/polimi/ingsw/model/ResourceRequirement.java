@@ -1,14 +1,14 @@
 package it.polimi.ingsw.model;
 
-public class ResourceRequirement extends Requirement{
+public class ResourceRequirement implements Requirement{
     private ResourceCount resources;
 
-    public ResourceRequirement(RequirementsType type,ResourceCount resources) {
-        super(type);
+    public ResourceRequirement(ResourceCount resources) {
         this.resources = resources;
     }
 
-    public ResourceCount getResources() {
-        return resources;
+    @Override
+    public boolean isPlayable() {
+        return true;
     }
 }
