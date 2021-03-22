@@ -1,4 +1,7 @@
 package it.polimi.ingsw.model;
+import it.polimi.ingsw.model.card.Card;
+import it.polimi.ingsw.model.token.SoloToken;
+
 import java.util.ArrayList;
 
 public class Game {

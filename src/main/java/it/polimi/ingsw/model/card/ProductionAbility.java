@@ -1,4 +1,6 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.card;
+
+import it.polimi.ingsw.model.Production;
 
 public class ProductionAbility implements SpecialAbility {
     private Production production;

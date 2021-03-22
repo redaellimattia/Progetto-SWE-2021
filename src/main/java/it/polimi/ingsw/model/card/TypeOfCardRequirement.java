@@ -1,6 +1,6 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.card;
 
-public class TypeOfCardRequirement implements Requirement{
+public class TypeOfCardRequirement implements Requirement {
     private ColourCount cardColours;
 
     public TypeOfCardRequirement(ColourCount cardColours) {

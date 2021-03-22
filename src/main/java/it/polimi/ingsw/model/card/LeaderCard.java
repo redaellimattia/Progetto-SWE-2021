@@ -1,6 +1,10 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.card;
 
-public class LeaderCard extends Card{
+import it.polimi.ingsw.model.card.Card;
+import it.polimi.ingsw.model.card.Requirement;
+import it.polimi.ingsw.model.card.SpecialAbility;
+
+public class LeaderCard extends Card {
     private Requirement requirement;
     private SpecialAbility specialAbility;
     private boolean inGame;

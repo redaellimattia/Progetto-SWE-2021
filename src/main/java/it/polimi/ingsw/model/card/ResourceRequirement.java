@@ -1,6 +1,8 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.card;
 
-public class ResourceRequirement implements Requirement{
+import it.polimi.ingsw.model.ResourceCount;
+
+public class ResourceRequirement implements Requirement {
     private ResourceCount resources;
 
     public ResourceRequirement(ResourceCount resources) {

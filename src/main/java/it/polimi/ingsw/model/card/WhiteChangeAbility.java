@@ -1,8 +1,9 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.card;
 
+import it.polimi.ingsw.model.card.SpecialAbility;
 import it.polimi.ingsw.model.enumeration.Resource;
 
-public class DiscountAbility implements SpecialAbility{
+public class WhiteChangeAbility implements SpecialAbility {
     private Resource resourceType;
 
     @Override

@@ -1,8 +1,8 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.enumeration.CardColour;
 
-public class CardLevelRequirement implements Requirement{
+public class CardLevelRequirement implements Requirement {
     private CardColour colour;
     private int level;
     private int number;

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.card.LeaderCard;
+
 public class PlayerDashboard extends Player{
     private int pathPosition;
     private Storage storage;
@@ -16,10 +18,7 @@ public class PlayerDashboard extends Player{
         this.leaderCards = leaderCards;
         this.basicProduction = basicProduction;
     }
-
-    public void chooseAction(){
-
-    }
+    
 
     public void updateStorage(){
 
