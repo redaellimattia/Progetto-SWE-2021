@@ -9,7 +9,8 @@ public class LeaderCard extends Card {
     private SpecialAbility specialAbility;
     private boolean inGame;
 
-    public LeaderCard(Requirement requirement, SpecialAbility specialAbility) {
+    public LeaderCard(int victoryPoints,Requirement requirement, SpecialAbility specialAbility) {
+        super(victoryPoints);
         this.requirement = requirement;
         this.specialAbility = specialAbility;
         this.inGame = false;

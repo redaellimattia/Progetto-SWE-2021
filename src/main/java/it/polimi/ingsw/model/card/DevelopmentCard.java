@@ -11,7 +11,8 @@ public class DevelopmentCard extends Card {
     private int level;
     private CardColour colour;
 
-    public DevelopmentCard(ResourceCount cost, Production productionPower, int level, CardColour colour) {
+    public DevelopmentCard(int victoryPoints,ResourceCount cost, Production productionPower, int level, CardColour colour) {
+        super(victoryPoints);
         this.cost = cost;
         this.productionPower = productionPower;
         this.level = level;
