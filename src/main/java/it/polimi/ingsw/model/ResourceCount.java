@@ -29,11 +29,18 @@ public class ResourceCount {
         return shields;
     }
 
-    public void addResources(){
-
+    public void addResources(int coins, int rocks, int servants, int shields){
+        this.coins += coins;
+        this.rocks += rocks;
+        this.servants += servants;
+        this.shields += shields;
     }
 
-    public void removeResources(){
+    public void removeResources(int coins, int rocks, int servants, int shields){
+        this.coins -= coins;
+        this.rocks -= rocks;
+        this.servants -= servants;
+        this.shields -= shields;
 
     }
 }

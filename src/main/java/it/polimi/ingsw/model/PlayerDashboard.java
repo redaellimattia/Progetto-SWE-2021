@@ -18,7 +18,7 @@ public class PlayerDashboard extends Player{
         this.leaderCards = leaderCards;
         this.basicProduction = basicProduction;
     }
-    
+
 
     public void updateStorage(){
 
