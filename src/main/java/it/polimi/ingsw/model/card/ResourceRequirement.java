@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.card;
 
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.ResourceCount;
 
 public class ResourceRequirement implements Requirement {
@@ -10,7 +11,7 @@ public class ResourceRequirement implements Requirement {
     }
 
     @Override
-    public boolean isPlayable() {
+    public boolean isPlayable(Player player) {
         return true;
     }
 }

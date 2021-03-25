@@ -1,7 +1,7 @@
 package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.enumeration.CardColour;
-
+import it.polimi.ingsw.model.Player;
 public class CardLevelRequirement implements Requirement {
     private CardColour colour;
     private int level;
@@ -14,5 +14,7 @@ public class CardLevelRequirement implements Requirement {
     }
 
     @Override
-    public boolean isPlayable(){return true;}
+    public boolean isPlayable(Player player){
+        return true;
+    }
 }
