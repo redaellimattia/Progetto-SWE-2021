@@ -3,7 +3,11 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
 
 public class MarketMarble {
-    private MarbleColour colour;
+    private final MarbleColour colour;
+
+    MarketMarble(MarbleColour colour) {
+        this.colour = colour;
+    }
 
     public MarbleColour getColour() {
         return colour;
