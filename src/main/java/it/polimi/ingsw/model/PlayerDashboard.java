@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 
 public class PlayerDashboard extends Player{
@@ -28,7 +29,8 @@ public class PlayerDashboard extends Player{
 
     }
 
-    public void updateDevCards(){
+    public void updateDevCards(DevelopmentCard card){
+
 
     }
 
@@ -37,10 +39,26 @@ public class PlayerDashboard extends Player{
     }
 
     public void updatePosition(){
-
+        pathPosition += 1;
     }
 
     public Production getBasicProduction(){
         return basicProduction;
+    }
+
+    public Deck[] getDevCards() {
+        return devCards;
+    }
+
+    public LeaderCard[] getLeaderCards() {
+        return leaderCards;
+    }
+
+    public Storage getStorage() {
+        return storage;
+    }
+
+    public ResourceCount getChest() {
+        return chest;
     }
 }
