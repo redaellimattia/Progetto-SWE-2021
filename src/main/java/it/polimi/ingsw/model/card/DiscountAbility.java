@@ -6,8 +6,15 @@ import it.polimi.ingsw.model.enumeration.Resource;
 public class DiscountAbility implements SpecialAbility {
     private Resource resourceType;
 
+    public DiscountAbility(Resource resourceType) {
+        this.resourceType = resourceType;
+    }
+
     @Override
     public boolean useAbility(){return false;}
+
+    @Override
+    public boolean useAbility(Resource res,int n){return false;}
 
     @Override
     public boolean useAbility(ResourceCount cost){ //Decreasing Resource Cost
