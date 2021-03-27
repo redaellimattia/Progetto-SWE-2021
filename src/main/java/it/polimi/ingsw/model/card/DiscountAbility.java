@@ -31,7 +31,6 @@ public class DiscountAbility implements SpecialAbility {
 
     @Override
     public boolean useAbility(){return false;}
-
     @Override
     public boolean useAbility(Resource res,int n){return false;}
 }

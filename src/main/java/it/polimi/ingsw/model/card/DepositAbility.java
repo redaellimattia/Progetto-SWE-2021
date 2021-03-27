@@ -36,9 +36,6 @@ public class  DepositAbility implements SpecialAbility {
 
     @Override
     public boolean useAbility(){return false;}
-
     @Override
-    public boolean useAbility(ResourceCount count) {
-        return false;
-    }
+    public boolean useAbility(ResourceCount count) {return false;}
 }
