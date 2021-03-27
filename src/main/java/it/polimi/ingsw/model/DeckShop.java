@@ -2,15 +2,18 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.card.DevelopmentCard;
 
+import java.util.ArrayList;
+
 public class DeckShop implements Deck{
-    private DevelopmentCard[] cardsDeck = new DevelopmentCard[4];
+    private ArrayList<DevelopmentCard> cardsDeck = new ArrayList<DevelopmentCard>();
+
     @Override
-    public DevelopmentCard[] getDeck() {
+    public ArrayList<DevelopmentCard> getDeck() {
         return cardsDeck;
     }
 
     @Override
     public DevelopmentCard getFirst() {
-        return cardsDeck[0];
+        return cardsDeck.get(0);
     }
 }

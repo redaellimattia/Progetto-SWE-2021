@@ -14,9 +14,8 @@ public class Shop {
     }
 
     public DevelopmentCard buy(int row, int column){
-        DevelopmentCard bought;
-        bought = shopGrid[row][column].getFirst();
-
+        DevelopmentCard bought = shopGrid[row][column].getFirst();
+        shopGrid[row][column].getDeck().remove(0);
         return bought;
     }
 }
