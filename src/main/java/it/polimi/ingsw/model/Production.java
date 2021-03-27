@@ -17,13 +17,11 @@ public class Production {
         return output;
     }
 
-    public ResourceCount useProduction(ResourceCount chest, Storage storage) throws Exception{
-        ResourceCount count = storage.readStorage(); //initialize count to the content of storage
-        count.addResources(chest.getCoins(), chest.getRocks(), chest.getServants(), chest.getShields()); //add chest resources to count
+    public boolean isPossible(ResourceCount temp){ //True if production is possible
         //count is now equals to all the resources available to the player
-        if(input.getCoins()<=count.getCoins()&&input.getRocks()<=count.getRocks()&&input.getServants()<=count.getServants()&&input.getShields()<=count.getShields())
-            return output;
+        if(input.getCoins()<=temp.getCoins()&&temp.getRocks()<=temp.getRocks()&&temp.getServants()<=temp.getServants()&&temp.getShields()<=temp.getShields())
+            return true; //Va decrement count
         else
-            throw new Exception();
+            return false;
     }
 }
