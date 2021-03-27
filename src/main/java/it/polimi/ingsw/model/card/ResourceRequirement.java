@@ -18,7 +18,7 @@ public class ResourceRequirement implements Requirement {
         ResourceCount chest = player.getChest();
         count.addResources(chest.getCoins(), chest.getRocks(), chest.getServants(), chest.getShields()); //add chest resources to count
         //now count is all the resources available to the player
-        if(resources.getCoins()<=count.getCoins()&&resources.getRocks()<=count.getRocks()&&resources.getServants()<=count.getServants()&&resources.getShields()<=count.getServants())
+        if(resources.getCoins()<=count.getCoins()&&resources.getRocks()<=count.getRocks()&&resources.getServants()<=count.getServants()&&resources.getShields()<=count.getShields())
             return true;
         else
             return false;

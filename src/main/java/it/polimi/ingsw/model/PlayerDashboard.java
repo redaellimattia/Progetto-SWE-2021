@@ -24,17 +24,11 @@ public class PlayerDashboard extends Player{
     //public void updateStorage(){} DA FARE NEL CONTROLLER LO SWAP
 
     public void addToChest(ResourceCount resources){
-        chest.coins += resources.coins;
-        chest.rocks += resources.rocks;
-        chest.servants += resources.servants;
-        chest.shields += resources.shields;
+        chest.addResources(resources.getCoins(),resources.getRocks(),resources.getServants(),resources.getShields());
     }
 
     public void subtractToChest(ResourceCount resources){
-        chest.coins -= resources.coins;
-        chest.rocks -= resources.rocks;
-        chest.servants -= resources.servants;
-        chest.shields -= resources.shields;
+        chest.removeResources(resources.getCoins(),resources.getRocks(),resources.getServants(),resources.getShields());
     }
 
     public void updateDevCards(DevelopmentCard card){

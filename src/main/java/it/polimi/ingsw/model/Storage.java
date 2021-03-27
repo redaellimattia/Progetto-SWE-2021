@@ -3,7 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 public class Storage {
-    private Resource firstRow = new Resource;
+    private Resource firstRow;
     private Resource[] secondRow = new Resource[2];
     private Resource[] thirdRow = new Resource[3];
 
@@ -38,7 +38,7 @@ public class Storage {
     }
 
     public ResourceCount readStorage(){
-        ResourceCount count = new ResourceCount(0,0,0,0);
+        ResourceCount count = new ResourceCount(0,0,0,0,0);
         readResource(firstRow,1,count); //Reading storage first row
         readResource(secondRow[0],calcAddNum(secondRow),count); //Reading storage second row
         readResource(thirdRow[0],calcAddNum(thirdRow),count);//Reading storage third row
@@ -55,6 +55,8 @@ public class Storage {
             case SERVANT: count.addResources(0,0,addNum,0); //If res is SERVANT then add (addNum) values to count
                 break;
             case SHIELD: count.addResources(0,0,0,addNum); //If res is SHIELD then add (addNum) values to count
+                break;
+            case FAITH:
                 break;
         }
     }

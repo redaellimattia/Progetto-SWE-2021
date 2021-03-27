@@ -5,12 +5,14 @@ public class ResourceCount {
     private int rocks;
     private int servants;
     private int shields;
+    private int faith;
 
-    public ResourceCount(int coins, int rocks, int servants, int shields) {
+    public ResourceCount(int coins, int rocks, int servants, int shields, int faith) {
         this.coins = coins;
         this.rocks = rocks;
         this.servants = servants;
         this.shields = shields;
+        this.faith = faith;
     }
 
     public int getCoins() {
@@ -28,6 +30,8 @@ public class ResourceCount {
     public int getShields() {
         return shields;
     }
+
+    public int getFaith() { return faith;}
 
     public void addResources(int coins, int rocks, int servants, int shields){
         this.coins += coins;
