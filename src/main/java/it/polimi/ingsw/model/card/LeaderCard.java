@@ -16,8 +16,8 @@ public class LeaderCard extends Card {
         return inGame;
     }
 
-    public void setInGame(boolean inGame) {
-        this.inGame = inGame;
+    public void setInGame() {
+        this.inGame = true;
     }
 
     public Requirement getRequirement() {

@@ -35,11 +35,7 @@ public class PlayerDashboard extends Player{
 
 
     }
-
-    public void updateLeaderCards(){
-
-    }
-
+    
     public void updatePosition(){
         pathPosition += 1;
     }
