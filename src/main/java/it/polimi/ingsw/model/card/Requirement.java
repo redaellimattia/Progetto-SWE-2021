@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model.card;
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerDashboard;
+
 public interface Requirement {
 
-    public boolean isPlayable(Player player);
+    public boolean isPlayable(PlayerDashboard player);
 }

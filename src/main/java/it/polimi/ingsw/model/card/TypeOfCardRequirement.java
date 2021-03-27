@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.card;
 
-import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerDashboard;
 
 public class TypeOfCardRequirement implements Requirement {
     private ColourCount cardColours;
@@ -10,7 +10,7 @@ public class TypeOfCardRequirement implements Requirement {
     }
 
     @Override
-    public boolean isPlayable(Player player) {
+    public boolean isPlayable(PlayerDashboard player) {
         return true;
     }
 }

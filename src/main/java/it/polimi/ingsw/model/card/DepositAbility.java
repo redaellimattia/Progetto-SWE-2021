@@ -4,17 +4,14 @@ import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 public class  DepositAbility implements SpecialAbility {
-    private Resource resourceType;
-
-    public Resource getResourceType() {
-        return resourceType;
-    }
+    private Resource[] deposit = new Resource[2];
 
     @Override
-    public void useAbility(){}
+    public boolean useAbility(){return true;} //Va pensato
 
     @Override
-    public void useAbility(ResourceCount count) {
+    public boolean useAbility(ResourceCount count) {
+        return false;
     }
 
     @Override

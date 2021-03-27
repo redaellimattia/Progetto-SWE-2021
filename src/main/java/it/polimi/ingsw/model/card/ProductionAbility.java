@@ -7,12 +7,17 @@ public class ProductionAbility implements SpecialAbility {
     private Production production;
 
     @Override
-    public void useAbility(){}
-
-    @Override
-    public void useAbility(ResourceCount count) {
+    public boolean useAbility(){ //Devo ritornare l'output?
+        return false;
     }
 
     @Override
-    public boolean isUsable(){return true;}
+    public boolean useAbility(ResourceCount count) {
+        return false;
+    }
+
+    @Override
+    public boolean isUsable(){
+        return true;
+    }
 }

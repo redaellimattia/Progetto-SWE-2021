@@ -7,10 +7,10 @@ public class DiscountAbility implements SpecialAbility {
     private Resource resourceType;
 
     @Override
-    public void useAbility(){}
+    public boolean useAbility(){return false;}
 
     @Override
-    public void useAbility(ResourceCount cost){ //Decreasing Resource Cost
+    public boolean useAbility(ResourceCount cost){ //Decreasing Resource Cost
         switch(resourceType){
             case COIN:  if(cost.getCoins()>0)
                             cost.removeResources(1,0,0,0);
@@ -25,6 +25,7 @@ public class DiscountAbility implements SpecialAbility {
                                 cost.removeResources(0,0,0,1);
                             break;
         }
+        return true;
     }
     @Override
     public boolean isUsable(){return true;}

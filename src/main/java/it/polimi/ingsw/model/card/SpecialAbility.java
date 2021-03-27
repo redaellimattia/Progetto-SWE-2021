@@ -4,8 +4,7 @@ import it.polimi.ingsw.model.ResourceCount;
 
 public interface SpecialAbility {
 
-    public void useAbility();
-    public void useAbility(ResourceCount count);
+    public boolean useAbility();
+    public boolean useAbility(ResourceCount count);
     public boolean isUsable();
-
 }

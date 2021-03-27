@@ -7,10 +7,13 @@ public class WhiteChangeAbility implements SpecialAbility {
     private Resource resourceType;
 
     @Override
-    public void useAbility(){}
+    public boolean useAbility(){ //Devo per forza ritornare, da pensare
+        return true;
+    }
 
     @Override
-    public void useAbility(ResourceCount count) {
+    public boolean useAbility(ResourceCount count) {
+        return true;
     }
 
     @Override
