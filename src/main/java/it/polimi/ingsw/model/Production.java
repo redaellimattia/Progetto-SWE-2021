@@ -1,10 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.enumeration.Resource;
-import it.polimi.ingsw.model.enumeration.ResourceProduction;
-
-import java.util.ArrayList;
-
 public class Production {
     private ResourceCount input;
     private ResourceCount output;

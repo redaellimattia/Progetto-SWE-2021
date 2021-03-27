@@ -12,4 +12,11 @@ public class Shop {
     public Deck[][] getGrid(){
         return shopGrid;
     }
+
+    public DevelopmentCard buy(int row, int column){
+        DevelopmentCard bought;
+        bought = shopGrid[row][column].getFirst();
+
+        return bought;
+    }
 }
