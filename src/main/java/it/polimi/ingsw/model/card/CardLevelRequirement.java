@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.DeckDashboard;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.enumeration.CardColour;
 
+import java.util.ArrayList;
+
 public class CardLevelRequirement implements Requirement {
     private CardColour colour;
     private int level; //Assuming level goes from 1 to 3
@@ -16,14 +18,16 @@ public class CardLevelRequirement implements Requirement {
     @Override
     public boolean isPlayable(PlayerDashboard player) throws IndexOutOfBoundsException{
         DeckDashboard devCards[] = player.getDevCards();
+        ArrayList<DevelopmentCard> devCardSlot;
         CardColour devCardColour;
+        int devCardLevel;
         for(int i=0;i<devCards.length;i++){
-            try {
-                devCardColour = devCards[i].getDeck().get(level - 1).getColour(); //Getting devCardLevel of card that level is level
-                if(devCardColour.equals(colour))
+            devCardSlot = devCards[i].getDeck();
+            for(int j=0;j<devCardSlot.size();j++){
+                devCardColour = devCardSlot.get(j).getColour(); //Reading devCard Level
+                devCardLevel = devCardSlot.get(j).getLevel(); //Reading devCard Colour
+                if(devCardColour.equals(this.colour)&&devCardLevel==this.level)
                     return true;
-            }catch (IndexOutOfBoundsException e){
-                e.printStackTrace(); //Return false here?
             }
         }
         return false;
