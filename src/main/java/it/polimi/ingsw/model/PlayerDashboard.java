@@ -7,11 +7,11 @@ public class PlayerDashboard extends Player{
     private int pathPosition;
     private Storage storage;
     private ResourceCount chest;
-    private Deck[] devCards = new Deck[3];
+    private DeckDashboard[] devCards = new DeckDashboard[3];
     private LeaderCard[] leaderCards = new LeaderCard[2];
     private Production basicProduction;
 
-    public PlayerDashboard(Storage storage, ResourceCount chest, Deck[] devCards, LeaderCard[] leaderCards, Production basicProduction) {
+    public PlayerDashboard(Storage storage, ResourceCount chest, DeckDashboard[] devCards, LeaderCard[] leaderCards, Production basicProduction) {
         this.pathPosition = 0;
         this.storage = storage;
         this.chest = chest;
@@ -48,7 +48,7 @@ public class PlayerDashboard extends Player{
         return basicProduction;
     }
 
-    public Deck[] getDevCards() {
+    public DeckDashboard[] getDevCards() {
         return devCards;
     }
 

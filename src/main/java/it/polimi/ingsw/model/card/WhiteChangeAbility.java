@@ -16,7 +16,7 @@ public class WhiteChangeAbility implements SpecialAbility {
     @Override
     public boolean useAbility(){ //Devo per forza ritornare, da pensare
         return true;
-    }
+    } //Da fare
 
     @Override
     public boolean useAbility(ResourceCount count) {

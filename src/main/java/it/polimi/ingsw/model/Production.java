@@ -17,9 +17,9 @@ public class Production {
         return output;
     }
 
-    public boolean isPossible(ResourceCount temp){ //True if production is possible
-        if(input.getCoins()<=temp.getCoins()&&input.getRocks()<=temp.getRocks()&&
-           input.getServants()<=temp.getServants()&&input.getShields()<=temp.getShields())
+    public boolean useProduction(ResourceCount count){ //True if production is possible
+        if(input.getCoins()<=count.getCoins()&&input.getRocks()<=count.getRocks()&&
+           input.getServants()<=count.getServants()&&input.getShields()<=count.getShields())
             return true;
         else
             return false;
