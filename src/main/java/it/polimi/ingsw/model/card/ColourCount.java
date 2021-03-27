@@ -28,4 +28,18 @@ public class ColourCount {
     public int getPurple() {
         return purple;
     }
+
+    public void addColours(int green, int yellow, int blue, int purple){
+        this.green += green;
+        this.yellow += yellow;
+        this.blue += blue;
+        this.purple += purple;
+    }
+
+    public void removeColours(int green, int yellow, int blue, int purple){
+        this.green -= green;
+        this.yellow -= yellow;
+        this.blue -= blue;
+        this.purple -= purple;
+    }
 }
