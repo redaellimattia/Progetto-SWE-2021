@@ -23,9 +23,4 @@ public class ProductionAbility implements SpecialAbility {
     public boolean useAbility(ResourceCount count) {
         return false;
     }
-
-    @Override
-    public boolean isUsable(){
-        return true;
-    }
 }

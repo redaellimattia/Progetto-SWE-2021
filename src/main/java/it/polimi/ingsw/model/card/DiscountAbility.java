@@ -34,6 +34,4 @@ public class DiscountAbility implements SpecialAbility {
         }
         return true;
     }
-    @Override
-    public boolean isUsable(){return true;}
 }

@@ -23,6 +23,4 @@ public class WhiteChangeAbility implements SpecialAbility {
         return false;
     }
 
-    @Override
-    public boolean isUsable(){return true;}
 }

@@ -13,9 +13,6 @@ public class  DepositAbility implements SpecialAbility {
     }
 
     @Override
-    public boolean useAbility(){return false;}
-
-    @Override
     public boolean useAbility(Resource res,int n){
         if(res!=resourceType)
             return false;
@@ -38,10 +35,10 @@ public class  DepositAbility implements SpecialAbility {
     }
 
     @Override
+    public boolean useAbility(){return false;}
+
+    @Override
     public boolean useAbility(ResourceCount count) {
         return false;
     }
-
-    @Override
-    public boolean isUsable(){return true;}
 }
