@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.Production;
 import it.polimi.ingsw.model.ResourceCount;
-import it.polimi.ingsw.model.card.Card;
 import it.polimi.ingsw.model.enumeration.CardColour;
 
 public class DevelopmentCard extends Card {

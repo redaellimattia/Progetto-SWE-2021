@@ -1,9 +1,5 @@
 package it.polimi.ingsw.model.card;
 
-import it.polimi.ingsw.model.card.Card;
-import it.polimi.ingsw.model.card.Requirement;
-import it.polimi.ingsw.model.card.SpecialAbility;
-
 public class LeaderCard extends Card {
     private Requirement requirement;
     private SpecialAbility specialAbility;
