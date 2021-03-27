@@ -15,10 +15,16 @@ public class Production {
     }
 
     public ArrayList<Resource> getInput() {
+
         return input;
     }
 
     public ArrayList<ResourceProduction> getOutput() {
+
         return output;
+    }
+
+    public ArrayList<ResourceProduction> useProduction(ResourceCount chest, Storage storage){
+
     }
 }

@@ -21,12 +21,20 @@ public class PlayerDashboard extends Player{
     }
 
 
-    public void updateStorage(){
+    //public void updateStorage(){} DA FARE NEL CONTROLLER LO SWAP
 
+    public void addToChest(ResourceCount resources){
+        chest.coins += resources.coins;
+        chest.rocks += resources.rocks;
+        chest.servants += resources.servants;
+        chest.shields += resources.shields;
     }
 
-    public void updateChest(){
-
+    public void subtractToChest(ResourceCount resources){
+        chest.coins -= resources.coins;
+        chest.rocks -= resources.rocks;
+        chest.servants -= resources.servants;
+        chest.shields -= resources.shields;
     }
 
     public void updateDevCards(DevelopmentCard card){
