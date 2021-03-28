@@ -17,11 +17,17 @@ public class Production {
         return output;
     }
 
-    public boolean useProduction(ResourceCount count){ //True if production is possible
+    public ResourceCount useProduction(ResourceCount count){ //Does production passing a chest
         if(input.getCoins()<=count.getCoins()&&input.getRocks()<=count.getRocks()&&
-           input.getServants()<=count.getServants()&&input.getShields()<=count.getShields())
-            return true;
+           input.getServants()<=count.getServants()&&input.getShields()<=count.getShields()) {
+            count.removeResources(count.getCoins(), count.getRocks(), count.getServants(), count.getShields());
+            return output;
+        }
         else
-            return false;
+            return null;
     }
+    public ResourceCount useProduction(Storage storage){ //Does production passing the storage
+        return null;
+    }
+
 }

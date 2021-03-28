@@ -3,34 +3,34 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 public class Storage {
-    private Resource firstRow;
-    private Resource[] secondRow = new Resource[2];
-    private Resource[] thirdRow = new Resource[3];
+    private CounterTop firstRow;
+    private CounterTop[] secondRow = new CounterTop[2];
+    private CounterTop[] thirdRow = new CounterTop[3];
 
-    public Resource getFirstRow() {
+    public CounterTop getFirstRow() {
         return firstRow;
     }
 
-    public void setFirstRow(Resource firstRow){
+    public void setFirstRow(CounterTop firstRow){
         this.firstRow = firstRow;
     }
 
-    public Resource[] getSecondRow() {
+    public CounterTop[] getSecondRow() {
         return secondRow;
     }
 
-    public void setSecondRow(Resource[] secondRow) throws IllegalArgumentException{
+    public void setSecondRow(CounterTop[] secondRow) throws IllegalArgumentException{
         if(secondRow.length > 2 ){
             throw new IllegalArgumentException();
         }
         this.secondRow = secondRow;
     }
 
-    public Resource[] getThirdRow() {
+    public CounterTop[] getThirdRow() {
         return thirdRow;
     }
 
-    public void setThirdRow(Resource[] thirdRow) throws IllegalArgumentException{
+    public void setThirdRow(CounterTop[] thirdRow) throws IllegalArgumentException{
         if(thirdRow.length > 3){
             throw new IllegalArgumentException();
         }
@@ -46,8 +46,9 @@ public class Storage {
         return count;
     }
 
-    private void readResource(Resource res,int addNum,ResourceCount count){
-        switch (res){
+    private void readResource(CounterTop res,int addNum,ResourceCount count){
+        Resource type = res.getResourceType();
+        switch (type){
             case COIN: count.addResources(addNum,0,0,0); //If res is COIN then add (addNum) values to count
                 break;
             case ROCK: count.addResources(0,addNum,0,0); //If res is ROCK then add (addNum) values to count
@@ -61,7 +62,7 @@ public class Storage {
         }
     }
 
-    private int calcAddNum(Resource resVet[]){
+    private int calcAddNum(CounterTop resVet[]){
         int addNum = 0;
         for(int i=0;i<resVet.length;i++)
             if(resVet[i]!=null)
