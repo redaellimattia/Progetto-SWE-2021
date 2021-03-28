@@ -9,18 +9,18 @@ public class WhiteChangeAbility implements SpecialAbility {
     public WhiteChangeAbility(Resource resourceType) {
         this.resourceType = resourceType;
     }
-
-    @Override
-    public boolean useAbility(Resource res,int n){return false;}
-
     @Override
     public boolean useAbility(){ //Devo per forza ritornare, da pensare
         return true;
     } //Da fare
 
     @Override
+    public boolean useAbility(Resource res,int n){return false;} //Used in DepositAbility
+    @Override
     public boolean useAbility(ResourceCount count) {
         return false;
-    }
+    } //Used in DiscountAbility
+    @Override
+    public boolean useAbility(ResourceCount count,boolean ctrl){return false;} //Used in productionAbility
 
 }

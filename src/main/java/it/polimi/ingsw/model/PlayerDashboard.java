@@ -39,7 +39,7 @@ public class PlayerDashboard extends Player{
     public boolean leadersInGame(){ //at least one leader is in game right now (true)
         return (leaderCards[0].isInGame() == true || leaderCards[1].isInGame() == true);
     }
-    
+
     public void updatePosition(){
         pathPosition += 1;
     }

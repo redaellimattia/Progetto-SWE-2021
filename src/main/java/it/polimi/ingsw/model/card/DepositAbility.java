@@ -12,6 +12,14 @@ public class  DepositAbility implements SpecialAbility {
         this.contDeposit = 0;
     }
 
+    public Resource getResourceType() {
+        return resourceType;
+    }
+
+    public int getContDeposit() {
+        return contDeposit;
+    }
+
     @Override
     public boolean useAbility(Resource res,int n){
         if(res!=resourceType)
@@ -37,5 +45,7 @@ public class  DepositAbility implements SpecialAbility {
     @Override
     public boolean useAbility(){return false;}
     @Override
-    public boolean useAbility(ResourceCount count) {return false;}
+    public boolean useAbility(ResourceCount cost) {return false;} //Used in DiscountAbility
+    @Override
+    public boolean useAbility(ResourceCount count,boolean ctrl){return false;} //Used in productionAbility
 }
