@@ -73,12 +73,4 @@ public class MarketDashboard {
         }
         return marketCopy;
     }
-
-    public void swapStructure(){
-
-    }
-
-    public void convertChosen(){
-
-    }
 }
