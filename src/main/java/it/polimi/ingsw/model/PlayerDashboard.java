@@ -35,6 +35,10 @@ public class PlayerDashboard extends Player{
     public void addDevCards(DevelopmentCard card, int position){ //the controller checks before buying the card if the player can place it, then checks where to put it;
         devCards[position].getDeck().add(0,card);
     }
+
+    public boolean leadersInGame(){ //at least one leader is in game right now (true)
+        return (leaderCards[0].isInGame() == true || leaderCards[1].isInGame() == true);
+    }
     
     public void updatePosition(){
         pathPosition += 1;
