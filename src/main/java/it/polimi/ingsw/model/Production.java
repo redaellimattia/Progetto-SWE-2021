@@ -20,7 +20,7 @@ public class Production {
     public ResourceCount useProduction(ResourceCount count){ //Activate production and return output;
         if(input.getCoins()<=count.getCoins()&&input.getRocks()<=count.getRocks()&&
            input.getServants()<=count.getServants()&&input.getShields()<=count.getShields()) {
-            count.removeResources(count.getCoins(), count.getRocks(), count.getServants(), count.getShields());
+            count.removeResources(input.getCoins(), input.getRocks(), input.getServants(), input.getShields());
             return output;
         }
         else
