@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
+import java.util.ArrayList;
 
 public class PlayerDashboard extends Player{
     private int pathPosition;
@@ -31,9 +32,8 @@ public class PlayerDashboard extends Player{
         chest.removeResources(resources.getCoins(),resources.getRocks(),resources.getServants(),resources.getShields());
     }
 
-    public void updateDevCards(DevelopmentCard card){
-
-
+    public void addDevCards(DevelopmentCard card, int position){
+        devCards[position].getDeck().add(card);
     }
     
     public void updatePosition(){
