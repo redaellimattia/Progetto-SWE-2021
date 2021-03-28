@@ -13,7 +13,7 @@ public class Shop {
         return shopGrid;
     }
 
-    public DevelopmentCard buy(int row, int column){
+    public DevelopmentCard buy(int row, int column){ //the controller check if the player can buy the card before;
         DevelopmentCard bought = shopGrid[row][column].getFirst();
         shopGrid[row][column].getDeck().remove(0);
         return bought;

@@ -17,7 +17,7 @@ public class Production {
         return output;
     }
 
-    public ResourceCount useProduction(ResourceCount count){ //Does production passing a chest
+    public ResourceCount useProduction(ResourceCount count){ //Activate production and return output;
         if(input.getCoins()<=count.getCoins()&&input.getRocks()<=count.getRocks()&&
            input.getServants()<=count.getServants()&&input.getShields()<=count.getShields()) {
             count.removeResources(count.getCoins(), count.getRocks(), count.getServants(), count.getShields());
@@ -25,9 +25,6 @@ public class Production {
         }
         else
             return null;
-    }
-    public ResourceCount useProduction(Storage storage){ //Does production passing the storage
-        return null;
     }
 
 }

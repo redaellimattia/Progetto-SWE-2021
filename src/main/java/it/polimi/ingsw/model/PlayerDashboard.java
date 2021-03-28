@@ -32,8 +32,8 @@ public class PlayerDashboard extends Player{
         chest.removeResources(resources.getCoins(),resources.getRocks(),resources.getServants(),resources.getShields());
     }
 
-    public void addDevCards(DevelopmentCard card, int position){
-        devCards[position].getDeck().add(card);
+    public void addDevCards(DevelopmentCard card, int position){ //the controller checks before buying the card if the player can place it, then checks where to put it;
+        devCards[position].getDeck().add(0,card);
     }
     
     public void updatePosition(){

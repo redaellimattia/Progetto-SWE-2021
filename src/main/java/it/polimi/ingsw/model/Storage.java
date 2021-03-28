@@ -4,34 +4,37 @@ import it.polimi.ingsw.model.enumeration.Resource;
 
 public class Storage {
     private CounterTop firstRow;
-    private CounterTop[] secondRow = new CounterTop[2];
-    private CounterTop[] thirdRow = new CounterTop[3];
+    private CounterTop secondRow;
+    private CounterTop thirdRow;
 
     public CounterTop getFirstRow() {
         return firstRow;
     }
 
-    public void setFirstRow(CounterTop firstRow){
+    public void setFirstRow(CounterTop firstRow) throws IllegalArgumentException{
+        if(firstRow.getContent() > 1 ){
+            throw new IllegalArgumentException();
+        }
         this.firstRow = firstRow;
     }
 
-    public CounterTop[] getSecondRow() {
+    public CounterTop getSecondRow() {
         return secondRow;
     }
 
-    public void setSecondRow(CounterTop[] secondRow) throws IllegalArgumentException{
-        if(secondRow.length > 2 ){
+    public void setSecondRow(CounterTop secondRow) throws IllegalArgumentException{
+        if(secondRow.getContent() > 2 ){
             throw new IllegalArgumentException();
         }
         this.secondRow = secondRow;
     }
 
-    public CounterTop[] getThirdRow() {
+    public CounterTop getThirdRow() {
         return thirdRow;
     }
 
-    public void setThirdRow(CounterTop[] thirdRow) throws IllegalArgumentException{
-        if(thirdRow.length > 3){
+    public void setThirdRow(CounterTop thirdRow) throws IllegalArgumentException{
+        if(thirdRow.getContent() > 3){
             throw new IllegalArgumentException();
         }
         this.thirdRow = thirdRow;
@@ -39,16 +42,15 @@ public class Storage {
 
     public ResourceCount readStorage(){
         ResourceCount count = new ResourceCount(0,0,0,0,0);
-        readResource(firstRow,1,count); //Reading storage first row
-        readResource(secondRow[0],calcAddNum(secondRow),count); //Reading storage second row
-        readResource(thirdRow[0],calcAddNum(thirdRow),count);//Reading storage third row
+        readResource(firstRow.getResourceType(),firstRow.getContent(),count); //Reading storage first row
+        readResource(secondRow.getResourceType(),secondRow.getContent(),count); //Reading storage second row
+        readResource(thirdRow.getResourceType(),thirdRow.getContent(),count);//Reading storage third row
 
         return count;
     }
 
-    private void readResource(CounterTop res,int addNum,ResourceCount count){
-        Resource type = res.getResourceType();
-        switch (type){
+    private void readResource(Resource res,int addNum,ResourceCount count){
+        switch (res){
             case COIN: count.addResources(addNum,0,0,0); //If res is COIN then add (addNum) values to count
                 break;
             case ROCK: count.addResources(0,addNum,0,0); //If res is ROCK then add (addNum) values to count
@@ -60,13 +62,5 @@ public class Storage {
             case FAITH:
                 break;
         }
-    }
-
-    private int calcAddNum(CounterTop resVet[]){
-        int addNum = 0;
-        for(int i=0;i<resVet.length;i++)
-            if(resVet[i]!=null)
-                addNum++;
-        return addNum;
     }
 }
