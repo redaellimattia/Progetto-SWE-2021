@@ -1,5 +1,9 @@
 package it.polimi.ingsw.model.token;
 
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.MarketDashboard;
+import it.polimi.ingsw.model.PlayerDashboard;
+
 public class AdvanceToken implements SoloToken {
     private int steps;
     private boolean reRoll;
@@ -20,6 +24,12 @@ public class AdvanceToken implements SoloToken {
 
     @Override
     public void useToken(){
-
+        int count;
+        for(count = 0; count < this.steps; count++) {
+            PlayerDashboard.updatePosition(); //TO-DO: The method should be called on the specific PlayerDashboard object (not class)
+        }
+        if(this.reRoll) {
+            Game.rollTokens(); //TO-DO: Game.rollTokens() should be static
+        }
     }
 }
