@@ -1,6 +1,8 @@
 package it.polimi.ingsw.model.token;
 
+import it.polimi.ingsw.model.PlayerDashboard;
+
 public interface SoloToken {
 
-    public void useToken();
+    void useToken(PlayerDashboard player);
 }

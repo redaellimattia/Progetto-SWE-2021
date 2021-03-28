@@ -23,13 +23,13 @@ public class AdvanceToken implements SoloToken {
     }
 
     @Override
-    public void useToken(){
+    public void useToken(PlayerDashboard player){
         int count;
         for(count = 0; count < this.steps; count++) {
-            PlayerDashboard.updatePosition(); //TO-DO: The method should be called on the specific PlayerDashboard object (not class)
+            player.updatePosition();
         }
         if(this.reRoll) {
-            Game.rollTokens(); //TO-DO: Game.rollTokens() should be static
+            Game.rollTokens();
         }
     }
 }
