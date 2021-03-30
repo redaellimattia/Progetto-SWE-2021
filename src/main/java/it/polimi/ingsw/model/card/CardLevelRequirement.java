@@ -16,7 +16,7 @@ public class CardLevelRequirement implements Requirement {
     }
 
     @Override
-    public boolean isPlayable(PlayerDashboard player) throws IndexOutOfBoundsException{
+    public boolean isPlayable(PlayerDashboard player){
         DeckDashboard devCards[] = player.getDevCards();
         ArrayList<DevelopmentCard> devCardSlot;
         CardColour devCardColour;
