@@ -18,7 +18,7 @@ public class  DepositAbility implements SpecialAbility {
     }
 
     @Override
-    public boolean useAbility(){return false;}
+    public Resource useAbility(){return null;}
     @Override
     public boolean useDiscountAbility(ResourceCount cost) {return false;} //Used in DiscountAbility
     @Override
