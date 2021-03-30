@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.token;
 
 import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.MarketDashboard;
 import it.polimi.ingsw.model.PlayerDashboard;
 
 public class AdvanceToken implements SoloToken {

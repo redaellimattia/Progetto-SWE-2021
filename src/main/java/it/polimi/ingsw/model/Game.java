@@ -30,4 +30,8 @@ public class Game {
     public static void rollTokens(){
 
     }
+
+    public static Shop getShop() {
+        return shop;
+    }
 }
