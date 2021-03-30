@@ -18,7 +18,7 @@ public class DiscountAbility implements SpecialAbility {
         return true; //True, devCard cost is reduced
     }
     @Override
-    public boolean useAbility(){return false;}
+    public Resource useAbility(){return null;}
     @Override
     public boolean useProductionAbility(ResourceCount count){return false;} //Used in productionAbility
     @Override
