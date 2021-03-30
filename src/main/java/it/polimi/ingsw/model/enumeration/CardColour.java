@@ -15,18 +15,8 @@ public enum CardColour {
         }
         @Override
         public int get(ColourCount count){return count.getGreen();}
-    },
-    YELLOW{
         @Override
-        public void add(ColourCount count,int n){
-            count.addYellow(n);
-        }
-        @Override
-        public void remove(ColourCount count,int n){
-            count.removeYellow(n);
-        }
-        @Override
-        public int get(ColourCount count){return count.getYellow();}
+        public int getColumn(){return 0;}
     },
     BLUE{
         @Override
@@ -39,6 +29,22 @@ public enum CardColour {
         }
         @Override
         public int get(ColourCount count){return count.getBlue();}
+        @Override
+        public int getColumn(){return 1;}
+    },
+    YELLOW{
+        @Override
+        public void add(ColourCount count,int n){
+            count.addYellow(n);
+        }
+        @Override
+        public void remove(ColourCount count,int n){
+            count.removeYellow(n);
+        }
+        @Override
+        public int get(ColourCount count){return count.getYellow();}
+        @Override
+        public int getColumn(){return 2;}
     },
     PURPLE{
         @Override
@@ -51,9 +57,12 @@ public enum CardColour {
         }
         @Override
         public int get(ColourCount count){return count.getPurple();}
+        @Override
+        public int getColumn(){return 3;}
     };
 
     public abstract void add(ColourCount count,int n);
     public abstract void remove(ColourCount count,int n);
     public abstract int get(ColourCount count);
+    public abstract int getColumn();
 }
