@@ -1,8 +1,13 @@
 package it.polimi.ingsw.model;
 
 public class MarketDashboard {
-    private MarketMarble[][] structure = new MarketMarble[3][4];
+    private MarketMarble[][] structure;
     private MarketMarble freeMarble;
+
+    public MarketDashboard(MarketMarble[][] structure, MarketMarble freeMarble) {
+        this.structure = structure;
+        this.freeMarble = freeMarble;
+    }
 
     public MarketMarble getFreeMarble(){
         return freeMarble;

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Game {
     private static ArrayList<Player> players = new ArrayList<>();
     private static Shop shop = new Shop();
-    private static MarketDashboard market = new MarketDashboard();
+    private static MarketDashboard market;
     private static ArrayList<Card> leadersDeck = new ArrayList<>();
     private static ArrayList<SoloToken> tokensDeck = new ArrayList<SoloToken>();
 
