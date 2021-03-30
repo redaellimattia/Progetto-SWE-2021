@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.card;
 
+import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.Resource;
 
@@ -15,12 +16,12 @@ public class WhiteChangeAbility implements SpecialAbility {
     } //Da fare
 
     @Override
-    public boolean useAbility(Resource res,int n){return false;} //Used in DepositAbility
-    @Override
-    public boolean useAbility(ResourceCount count) {
+    public boolean useDiscountAbility(ResourceCount count) {
         return false;
     } //Used in DiscountAbility
     @Override
-    public boolean useAbility(ResourceCount count,boolean ctrl){return false;} //Used in productionAbility
+    public boolean useProductionAbility(ResourceCount count){return false;} //Used in productionAbility
+    @Override
+    public boolean useDepositAbility(PlayerDashboard player){return false;} //Used in DepositAbility
 
 }

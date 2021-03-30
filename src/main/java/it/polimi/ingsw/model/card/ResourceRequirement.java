@@ -13,6 +13,7 @@ public class ResourceRequirement implements Requirement {
     @Override
     public boolean isPlayable(PlayerDashboard player) {
         ResourceCount count = player.getTotalResources(); //Now count is equal to all the resources available to the player
+
         //Controllare se ci sono carteLeader in gioco, poi controllare se ci sono depositAbility in gioco e guardare quello scaffale
         //Cosi da poterlo contare.
         if(resources.getCoins()<=count.getCoins()&&resources.getRocks()<=count.getRocks()&&

@@ -2,15 +2,18 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
+import it.polimi.ingsw.model.enumeration.Resource;
+
 import java.util.ArrayList;
 
 public class PlayerDashboard extends Player{
     private int pathPosition;
     private Storage storage;
     private ResourceCount chest;
-    private DeckDashboard[] devCards = new DeckDashboard[3];
-    private LeaderCard[] leaderCards = new LeaderCard[2];
+    private DeckDashboard[] devCards;
+    private LeaderCard[] leaderCards;
     private Production basicProduction;
+    private ArrayList<CounterTop> arrayDeposit;
 
     public PlayerDashboard(Storage storage, ResourceCount chest, DeckDashboard[] devCards, LeaderCard[] leaderCards, Production basicProduction) {
         this.pathPosition = 0;
@@ -19,8 +22,13 @@ public class PlayerDashboard extends Player{
         this.devCards = devCards;
         this.leaderCards = leaderCards;
         this.basicProduction = basicProduction;
+        this.arrayDeposit = new ArrayList<>();
     }
 
+    public void initArrayDeposit(Resource res){
+        if(arrayDeposit.size()<2)
+            arrayDeposit.add(new CounterTop(res,0));
+    }
 
     //public void updateStorage(){} DA FARE NEL CONTROLLER LO SWAP
 
@@ -62,6 +70,33 @@ public class PlayerDashboard extends Player{
 
     public ResourceCount getChest() {
         return chest;
+    }
+
+    public boolean isFull(Resource res){ //True if abilityDeposit with that res is full (Content=2)
+        for (CounterTop c: arrayDeposit) {
+            if(c.getResourceType().equals(res)&&c.getContent()<2)
+                return false;
+        }
+        return true;
+    }
+
+    public boolean addToDeposit(Resource res){ //Trying to add resource to abilityDeposit if it isn't full
+        if(!isFull(res)){
+            for (CounterTop c: arrayDeposit) {
+                if(c.getResourceType().equals(res)&&c.getContent()<2) {
+                    c.addContent();
+                    return true; //True if added correctly
+                }
+            }
+        }
+        return false; //False if couldn't add
+    }
+    public ResourceCount getAbilityDepositResources(){
+        ResourceCount count = new ResourceCount(0,0,0,0,0);
+        int addNum;
+        for (CounterTop c: arrayDeposit)
+            c.getResourceType().add(count,c.getContent());
+        return count;
     }
 
     public ResourceCount getTotalResources(){

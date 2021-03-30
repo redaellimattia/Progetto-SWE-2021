@@ -33,6 +33,31 @@ public class ResourceCount {
 
     public int getFaith() { return faith;}
 
+    public void addCoins(int coins){
+        this.coins += coins;
+    }
+    public void removeCoins(int coins){
+        this.coins -= coins;
+    }
+    public void addRocks(int rocks){
+        this.rocks += rocks;
+    }
+    public void removeRocks(int rocks){
+        this.rocks -= rocks;
+    }
+    public void addServants(int servants){
+        this.servants += servants;
+    }
+    public void removeServants(int servants){
+        this.servants -= servants;
+    }
+    public void addShields(int shields){
+        this.shields += shields;
+    }
+    public void removeShields(int shields){
+        this.shields -= shields;
+    }
+
     public void addResources(int coins, int rocks, int servants, int shields){
         this.coins += coins;
         this.rocks += rocks;
