@@ -12,19 +12,18 @@ public class LeaderCard extends Card {
         this.inGame = false;
     }
 
+    //GETTERS
     public boolean isInGame() {
         return inGame;
+    } //True if leaderCard is in Game
+    public Requirement getRequirement() {
+        return requirement;
+    }
+    public SpecialAbility getSpecialAbility() {
+        return specialAbility;
     }
 
     public void setInGame() {
         this.inGame = true;
-    }
-
-    public Requirement getRequirement() {
-        return requirement;
-    }
-
-    public SpecialAbility getSpecialAbility() {
-        return specialAbility;
-    }
+    } //LeaderCard has been played
 }

@@ -65,8 +65,8 @@ public class PlayerDashboard extends Player{
     }
 
     public ArrayList<LeaderCard> getLeaderCards() {
-        return leaderCards;
-    }
+        return new ArrayList<>(leaderCards);
+    } //Return copy of leaderCards
 
     public Storage getStorage() {
         return storage;

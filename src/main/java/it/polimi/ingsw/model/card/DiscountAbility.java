@@ -12,13 +12,13 @@ public class DiscountAbility implements SpecialAbility {
     }
 
     @Override
-    public boolean useDiscountAbility(ResourceCount cost){ //Decreasing Resource Cost
-        if(resourceType.get(cost)>0)
-            resourceType.remove(cost,1);
+    public boolean useDiscountAbility(ResourceCount cost){ //Decreasing Resource Cost of the card player is buying
+        if(resourceType.get(cost)>0) //If there are enough resource of this.resourceType
+            resourceType.remove(cost,1); //Remove 1 resource of this.resourceType from cost
         return true; //True, devCard cost is reduced
     }
     @Override
-    public Resource useAbility(){return null;}
+    public Resource useWhiteChangeAbility(){return null;} //Used in WhiteChangeAbility
     @Override
     public boolean useProductionAbility(ResourceCount count){return false;} //Used in productionAbility
     @Override

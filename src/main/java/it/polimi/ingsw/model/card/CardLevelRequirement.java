@@ -21,11 +21,11 @@ public class CardLevelRequirement implements Requirement {
         ArrayList<DevelopmentCard> devCardSlot;
         CardColour devCardColour;
         int devCardLevel;
-        for(int i=0;i<devCards.length;i++){
+        for(int i=0;i<devCards.length;i++){ //Reading devCards array
             devCardSlot = devCards[i].getDeck();
-            for(int j=0;j<devCardSlot.size();j++){
-                devCardColour = devCardSlot.get(j).getColour(); //Reading devCard Level
-                devCardLevel = devCardSlot.get(j).getLevel(); //Reading devCard Colour
+            for(int j=0;j<devCardSlot.size();j++){ //Reading the devCardSlot(Reading single arrayList slot)
+                devCardColour = devCardSlot.get(j).getColour(); //Reading devCard Colour
+                devCardLevel = devCardSlot.get(j).getLevel(); //Reading devCard Level
                 if(devCardColour.equals(this.colour)&&devCardLevel==this.level)
                     return true;
             }

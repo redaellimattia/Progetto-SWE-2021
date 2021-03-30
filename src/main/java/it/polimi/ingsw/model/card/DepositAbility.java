@@ -13,12 +13,12 @@ public class  DepositAbility implements SpecialAbility {
 
     @Override
     public boolean useDepositAbility(PlayerDashboard player){
-        player.initArrayDeposit(resourceType);
-        return true;
+        player.initArrayDeposit(resourceType); //Init arrayDeposit in PlayerDashboard
+        return true; //This should be always possible, because we run this method only when player actually puts the card in game
     }
 
     @Override
-    public Resource useAbility(){return null;}
+    public Resource useWhiteChangeAbility(){return null;} //Used in WhiteChangeAbility
     @Override
     public boolean useDiscountAbility(ResourceCount cost) {return false;} //Used in DiscountAbility
     @Override

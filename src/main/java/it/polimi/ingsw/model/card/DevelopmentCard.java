@@ -18,18 +18,16 @@ public class DevelopmentCard extends Card {
         this.colour = colour;
     }
 
+    //GETTERS
     public ResourceCount getCost() {
         return cost;
     }
-
     public Production getProductionPower() {
         return productionPower;
     }
-
     public int getLevel() {
         return level;
     }
-
     public CardColour getColour() {
         return colour;
     }

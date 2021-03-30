@@ -5,8 +5,8 @@ import it.polimi.ingsw.model.card.DevelopmentCard;
 import java.util.ArrayList;
 
 public interface Deck {
-    ArrayList<DevelopmentCard> getDeck();
-    DevelopmentCard getFirst();
-    void removeFirst();
-    DevelopmentCard getCard(int pos);
+    public ArrayList<DevelopmentCard> getDeck();
+    public DevelopmentCard getFirst();
+    public void removeFirst();
+    public DevelopmentCard getCard(int pos);
 }

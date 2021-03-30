@@ -11,14 +11,14 @@ public class ResourceRequirement implements Requirement {
     }
 
     @Override
-    public boolean isPlayable(PlayerDashboard player) { //True if player can actually play that card
+    public boolean isPlayable(PlayerDashboard player) { //True if player has enough resources
         ResourceCount count = player.getTotalResources();
-        ResourceCount abilityDepositResources = player.getAbilityDepositResources();
+        ResourceCount abilityDepositResources = player.getAbilityDepositResources(); // Fill with abilityDeposit, if there are any
         count.addResources(abilityDepositResources.getCoins(), abilityDepositResources.getRocks(), abilityDepositResources.getServants(), abilityDepositResources.getShields());
         //Now count is equal to all the resources available to the player
         if(resources.getCoins()<=count.getCoins()&&resources.getRocks()<=count.getRocks()&&
            resources.getServants()<=count.getServants()&&resources.getShields()<=count.getShields())
-            return true;
+            return true; //True if player has enough resources
         else
             return false;
     }

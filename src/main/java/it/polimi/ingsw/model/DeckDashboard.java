@@ -9,8 +9,8 @@ public class DeckDashboard implements Deck{
 
     @Override
     public ArrayList<DevelopmentCard> getDeck(){
-        return cardsDeck;
-    }
+        return new ArrayList<DevelopmentCard>(cardsDeck);
+    } //Return copy of cardsDeck
 
     @Override
     public DevelopmentCard getFirst() throws IndexOutOfBoundsException {

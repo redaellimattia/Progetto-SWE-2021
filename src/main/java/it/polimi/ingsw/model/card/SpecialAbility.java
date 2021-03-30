@@ -9,5 +9,5 @@ public interface SpecialAbility {
     public boolean useDepositAbility(PlayerDashboard player); //DepositAbility
     public boolean useProductionAbility(ResourceCount count); //ProductionAbility
     public boolean useDiscountAbility(ResourceCount cost); //DiscountAbility
-    public Resource useAbility();
+    public Resource useWhiteChangeAbility(); //Used in WhiteChangeAbility
 }

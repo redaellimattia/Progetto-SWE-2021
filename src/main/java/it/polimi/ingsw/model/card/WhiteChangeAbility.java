@@ -12,7 +12,7 @@ public class WhiteChangeAbility implements SpecialAbility {
     }
 
     @Override
-    public Resource useAbility(){ //Devo per forza ritornare, da pensare
+    public Resource useWhiteChangeAbility(){ //Devo per forza ritornare, da pensare
         return resourceType;
     } //Returns resourceType
 
