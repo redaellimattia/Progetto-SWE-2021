@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.enumeration;
 
-import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.ColourCount;
 
 public enum CardColour {
