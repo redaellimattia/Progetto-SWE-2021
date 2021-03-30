@@ -16,6 +16,7 @@ public class CardLevelRequirement implements Requirement {
     }
 
     @Override
+    //TRUE IF THE PLAYER CAN ACTUALLY PLAY THE CARD
     public boolean isPlayable(PlayerDashboard player){
         DeckDashboard devCards[] = player.getDevCards();
         ArrayList<DevelopmentCard> devCardSlot;

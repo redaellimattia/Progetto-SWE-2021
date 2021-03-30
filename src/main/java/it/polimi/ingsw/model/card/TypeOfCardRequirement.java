@@ -13,6 +13,7 @@ public class TypeOfCardRequirement implements Requirement {
     }
 
     @Override
+    //TRUE IF THE PLAYER CAN ACTUALLY PLAY THE CARD
     public boolean isPlayable(PlayerDashboard player) { //True if there are enough card colours
         DeckDashboard devCards[] = player.getDevCards();
         ColourCount countColourDevCards = new ColourCount(0,0,0,0);
@@ -25,6 +26,7 @@ public class TypeOfCardRequirement implements Requirement {
             return false;
     }
 
+    //COUNTS NUMBER OF PLAYER'S DEVCARDS COLOURS
     private void countColourDevCards(ColourCount count,DeckDashboard devCards[]){ //Creating count (Total of devCards colours)
         ArrayList<DevelopmentCard> devCardSlot;
         for(int i=0;i<devCards.length;i++){ //Reading player's devCards
