@@ -64,7 +64,7 @@ public enum Resource {
         public int get(ResourceCount count){return 0;}
     };
 
-    public abstract void add(ResourceCount count,int n);
-    public abstract void remove(ResourceCount count,int n);
-    public abstract int get(ResourceCount count);
+    public abstract void add(ResourceCount count,int n); //Adds to count, n Resources of the specified type
+    public abstract void remove(ResourceCount count,int n); //Removes in count, n Resources of the specified type
+    public abstract int get(ResourceCount count); //Gets the amount Resources of the specified type
 }

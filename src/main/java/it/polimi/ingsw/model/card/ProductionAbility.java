@@ -12,6 +12,7 @@ public class ProductionAbility implements SpecialAbility {
     }
 
     @Override
+    //WHEN IN PRODUCTIONACTION, THIS PRODUCTION IS AVAILABLE, TRUE IF POSSIBLE
     public boolean useProductionAbility(ResourceCount count){
         if(resourceType.get(count)>0){ //If there are enough resource of this.resourceType
             resourceType.remove(count, 1); //Remove 1 resource of this.resourceType from count

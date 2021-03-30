@@ -60,8 +60,8 @@ public enum CardColour {
         public int getColumn(){return 3;}
     };
 
-    public abstract void add(ColourCount count,int n);
-    public abstract void remove(ColourCount count,int n);
-    public abstract int get(ColourCount count);
-    public abstract int getColumn();
+    public abstract void add(ColourCount count,int n); //Adds to count, n Colours of the specified type
+    public abstract void remove(ColourCount count,int n); //Removes in count, n Colours of the specified type
+    public abstract int get(ColourCount count); //Gets the amount Colours of the specified type
+    public abstract int getColumn(); //Returns columns based on colour (For shopGrid)
 }

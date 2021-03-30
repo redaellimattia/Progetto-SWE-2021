@@ -11,6 +11,7 @@ public class ResourceRequirement implements Requirement {
     }
 
     @Override
+    //TRUE IF THE PLAYER CAN ACTUALLY PLAY THE CARD
     public boolean isPlayable(PlayerDashboard player) { //True if player has enough resources
         ResourceCount count = player.getTotalResources();
         ResourceCount abilityDepositResources = player.getAbilityDepositResources(); // Fill with abilityDeposit, if there are any

@@ -12,6 +12,7 @@ public class  DepositAbility implements SpecialAbility {
     }
 
     @Override
+    //WHEN PLAYED, INITIALIZE arrayDeposit IN PLAYERDASHBOARD
     public boolean useDepositAbility(PlayerDashboard player){
         player.initArrayDeposit(resourceType); //Init arrayDeposit in PlayerDashboard
         return true; //This should be always possible, because we run this method only when player actually puts the card in game
