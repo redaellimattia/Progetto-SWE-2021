@@ -11,11 +11,11 @@ public class PlayerDashboard extends Player{
     private Storage storage;
     private ResourceCount chest;
     private DeckDashboard[] devCards;
-    private LeaderCard[] leaderCards;
+    private ArrayList<LeaderCard> leaderCards;
     private Production basicProduction;
     private ArrayList<CounterTop> arrayDeposit;
 
-    public PlayerDashboard(Storage storage, ResourceCount chest, DeckDashboard[] devCards, LeaderCard[] leaderCards, Production basicProduction) {
+    public PlayerDashboard(Storage storage, ResourceCount chest, DeckDashboard[] devCards, ArrayList<LeaderCard> leaderCards, Production basicProduction) {
         this.pathPosition = 0;
         this.storage = storage;
         this.chest = chest;
@@ -45,7 +45,11 @@ public class PlayerDashboard extends Player{
     }
 
     public boolean leadersInGame(){ //at least one leader is in game right now (true)
-        return (leaderCards[0].isInGame() == true || leaderCards[1].isInGame() == true);
+        return (leaderCards.get(0).isInGame() == true || leaderCards.get(1).isInGame() == true);
+    }
+
+    public void discardLeader(int position){ //method to discard a LeaderCard, the controller will add a faith point;
+        leaderCards.remove(position);
     }
 
     public void updatePosition(){
@@ -60,7 +64,7 @@ public class PlayerDashboard extends Player{
         return devCards;
     }
 
-    public LeaderCard[] getLeaderCards() {
+    public ArrayList<LeaderCard> getLeaderCards() {
         return leaderCards;
     }
 
