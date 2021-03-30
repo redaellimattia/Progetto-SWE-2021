@@ -13,7 +13,17 @@ public class DeckDashboard implements Deck{
     }
 
     @Override
-    public DevelopmentCard getFirst() {
+    public DevelopmentCard getFirst() throws IndexOutOfBoundsException {
         return cardsDeck.get(0);
+    }
+
+    @Override
+    public void removeFirst() throws IndexOutOfBoundsException {
+        cardsDeck.remove(0);
+    }
+
+    @Override
+    public DevelopmentCard getCard(int pos) throws IndexOutOfBoundsException {
+        return cardsDeck.get(pos);
     }
 }
