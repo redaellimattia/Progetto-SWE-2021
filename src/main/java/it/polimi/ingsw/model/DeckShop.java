@@ -26,4 +26,10 @@ public class DeckShop implements Deck{
     public DevelopmentCard getCard(int pos) throws IndexOutOfBoundsException {
         return cardsDeck.get(pos);
     }
+
+    // Insert card on top
+    @Override
+    public void addCard(DevelopmentCard card) {
+        cardsDeck.add(0, card);
+    }
 }

@@ -9,4 +9,5 @@ public interface Deck {
     public DevelopmentCard getFirst();
     public void removeFirst();
     public DevelopmentCard getCard(int pos);
+    public void addCard(DevelopmentCard card);
 }
