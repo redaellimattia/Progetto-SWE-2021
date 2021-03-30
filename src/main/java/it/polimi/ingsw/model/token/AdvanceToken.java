@@ -24,9 +24,9 @@ public class AdvanceToken implements SoloToken {
     @Override
     public void useToken(PlayerDashboard player){
         int count;
-        for(count = 0; count < this.steps; count++) {
-            player.updatePosition();
-        }
+        //for(count = 0; count < this.steps; count++) {
+            player.updatePathPosition(steps); //LUCA SCUSA PICCOLA MODIFICHINA PERCHE' HO CAMBIATO IL METODO PERDONAMI XOXO;
+        //}
         if(this.reRoll) {
             Game.rollTokens();
         }

@@ -5,19 +5,23 @@ public class Storage {
     private CounterTop secondRow;
     private CounterTop thirdRow;
 
+    //GETTERS
     public CounterTop getFirstRow() {
         return firstRow;
     }
+    public CounterTop getSecondRow() {
+        return secondRow;
+    }
+    public CounterTop getThirdRow() {
+        return thirdRow;
+    }
 
+    //SETTERS
     public void setFirstRow(CounterTop firstRow) throws IllegalArgumentException{
         if(firstRow.getContent() > 1 ){
             throw new IllegalArgumentException();
         }
         this.firstRow = firstRow;
-    }
-
-    public CounterTop getSecondRow() {
-        return secondRow;
     }
 
     public void setSecondRow(CounterTop secondRow) throws IllegalArgumentException{
@@ -27,17 +31,13 @@ public class Storage {
         this.secondRow = secondRow;
     }
 
-    public CounterTop getThirdRow() {
-        return thirdRow;
-    }
-
     public void setThirdRow(CounterTop thirdRow) throws IllegalArgumentException{
         if(thirdRow.getContent() > 3){
             throw new IllegalArgumentException();
         }
         this.thirdRow = thirdRow;
     }
-
+    //RETURN IN A RESOURCECOUNT THE TOTAL OF THE RESOURCES PRESENT IN THE STORAGE;
     public ResourceCount readStorage(){
         ResourceCount count = new ResourceCount(0,0,0,0,0);
         firstRow.getResourceType().add(count,firstRow.getContent()); //Reading storage first row

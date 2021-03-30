@@ -10,22 +10,26 @@ public class CounterTop {
         this.resourceType = resourceType;
         this.content = content;
     }
-    public void addContent(){
-        this.content += 1;
-    }
+    //GETTERS
     public Resource getResourceType() {
         return resourceType;
     }
-
     public int getContent() {
         return content;
     }
 
+    //SETTERS
     public void setResourceType(Resource resourceType) {
         this.resourceType = resourceType;
     }
-
     public void setContent(int content) {
         this.content = content;
     }
+
+    //ADD ONE ELEMENT TO THE SHELF;
+    public void addContent(){
+        this.content += 1;
+    }
+
+
 }
