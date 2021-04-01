@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.card;
 
+import it.polimi.ingsw.model.ResourceCount;
+
 public class ColourCount {
     private int green;
     private int yellow;
@@ -71,5 +73,22 @@ public class ColourCount {
         this.yellow -= yellow;
         this.blue -= blue;
         this.purple -= purple;
+    }
+
+    //EQUALS
+    @Override
+    public boolean equals(Object o){
+        if (o == this) { //True if it's this instance
+            return true;
+        }
+        if (!(o instanceof ColourCount)) //Check if o is instanceOf ResourceCount
+            return false;
+
+        //Check if same values
+        ColourCount c = (ColourCount) o; //Cast to ResourceCount
+        if(this.getGreen()==c.getGreen()&&this.getYellow()==c.getYellow()&&
+                this.getBlue()==c.getBlue()&&this.getPurple()==c.getPurple())
+            return true;
+        return false;
     }
 }

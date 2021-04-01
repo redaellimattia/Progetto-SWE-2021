@@ -76,4 +76,21 @@ public class ResourceCount {
         this.shields -= shields;
 
     }
+
+    //EQUALS
+    @Override
+    public boolean equals(Object o){
+        if (o == this) { //True if it's this instance
+            return true;
+        }
+        if (!(o instanceof ResourceCount)) //Check if o is instanceOf ResourceCount
+            return false;
+
+        //Check if same values
+        ResourceCount c = (ResourceCount) o; //Cast to ResourceCount
+        if(this.getCoins()==c.getCoins()&&this.getRocks()==c.getRocks()&&
+           this.getServants()==c.getServants()&&this.getShields()==c.getShields()&&this.getFaith()==c.getFaith())
+            return true;
+        return false;
+    }
 }
