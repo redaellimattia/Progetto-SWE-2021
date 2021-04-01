@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model.card;
 
-import it.polimi.ingsw.model.ResourceCount;
-
 public class ColourCount {
     private int green;
     private int yellow;
