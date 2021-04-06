@@ -73,6 +73,12 @@ public class ColourCount {
         this.purple -= purple;
     }
 
+    //SUM 2 COLOURCOUNT
+    public void sumCounts(ColourCount add){
+        if(add!=null)
+            this.addColours(add.getGreen(),add.getYellow(), add.getBlue(), add.getPurple());
+    }
+
     //EQUALS
     @Override
     public boolean equals(Object o){
