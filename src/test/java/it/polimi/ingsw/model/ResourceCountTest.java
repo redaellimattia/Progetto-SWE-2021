@@ -13,4 +13,15 @@ class ResourceCountTest {
         count.addResources(1,1,1,1);
         assertEquals(check,count);
     }
+
+    @Test
+    void sumCounts(){
+        ResourceCount count = new ResourceCount(1,2,3,4,5);
+        ResourceCount sum = new ResourceCount(2,2,2,2,0);
+        ResourceCount result = new ResourceCount(3,4,5,6,5);
+        count.sumCounts(sum);
+        assertEquals(count,result);
+        count.sumCounts(null);
+        assertEquals(count,count);
+    }
 }
