@@ -34,7 +34,7 @@ public enum Resource {
         }
         @Override
         public void remove(ResourceCount count,int n){
-            count.removeRocks(n);
+            count.removeShields(n);
         }
         @Override
         public int get(ResourceCount count){return count.getShields();}
@@ -46,7 +46,7 @@ public enum Resource {
         }
         @Override
         public void remove(ResourceCount count,int n){
-            count.removeRocks(n);
+            count.removeServants(n);
         }
         @Override
         public int get(ResourceCount count){return count.getServants();}
