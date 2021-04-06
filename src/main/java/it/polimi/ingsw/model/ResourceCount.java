@@ -77,6 +77,12 @@ public class ResourceCount {
 
     }
 
+    //SUM 2 RESOURCECOUNT
+    public void sumCounts(ResourceCount add){
+        if(add!=null)
+            this.addResources(add.getCoins(),add.getRocks(), add.getServants(), add.getShields());
+    }
+
     //EQUALS
     @Override
     public boolean equals(Object o){
