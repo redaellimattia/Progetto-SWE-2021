@@ -6,15 +6,16 @@ import java.util.ArrayList;
 
 public class DeckDashboard extends Deck {
 
-    public DeckDashboard(ArrayList<DevelopmentCard> cards) {
-        for (DevelopmentCard  card: cards) {
-            addCard(card);
-        }
+    public DeckDashboard(ArrayList<DevelopmentCard> cards) { //modified because of constructor in super class;
+        //for (DevelopmentCard  card: cards) {
+         //   addCard(card);
+        //}
+        super(cards);
     }
 
     // Insert card on top
-    @Override
-    public void addCard(DevelopmentCard card) { // TO-DO: Check if the deck is full
-        super.addCard(card);
-    }
+    //@Override //It's not a method redefinition, it just specify 2 different thing; maybe it can be deleted;
+    //public void addCard(DevelopmentCard card) { // TO-DO: Check if the deck is full
+    //    super.addCard(card);
+    //}
 }

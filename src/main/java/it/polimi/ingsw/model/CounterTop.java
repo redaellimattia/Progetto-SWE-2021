@@ -27,8 +27,13 @@ public class CounterTop {
     }
 
     //ADD ONE ELEMENT TO THE SHELF;
-    public void addContent(){
-        this.content += 1;
+    public void addContent(int n){
+        this.content += n;
+    }
+
+    //REMOVE ONE ELEMENT FROM THE SHELF;
+    public void removeContent(int n){
+        this.content -= n;
     }
 
 

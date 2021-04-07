@@ -7,6 +7,10 @@ import java.util.ArrayList;
 public abstract class Deck {
     private ArrayList<DevelopmentCard> cardsDeck;
 
+    public Deck(ArrayList<DevelopmentCard> cardsDeck) {
+        this.cardsDeck = cardsDeck;
+    }
+
     //Return copy of cardsDeck
     public ArrayList<DevelopmentCard> getDeck() {
         return new ArrayList<DevelopmentCard>(cardsDeck);

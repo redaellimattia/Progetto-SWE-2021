@@ -5,6 +5,12 @@ public class Storage {
     private CounterTop secondRow;
     private CounterTop thirdRow;
 
+    public Storage(CounterTop firstRow, CounterTop secondRow, CounterTop thirdRow) {
+        this.firstRow = firstRow;
+        this.secondRow = secondRow;
+        this.thirdRow = thirdRow;
+    }
+
     //GETTERS
     public CounterTop getFirstRow() {
         return firstRow;

@@ -15,7 +15,8 @@ public class PlayerDashboard extends Player{
     private Production basicProduction;
     private ArrayList<CounterTop> arrayDeposit;
 
-    public PlayerDashboard(Storage storage, ResourceCount chest, DeckDashboard[] devCards, ArrayList<LeaderCard> leaderCards, Production basicProduction) {
+    public PlayerDashboard(Storage storage, ResourceCount chest, DeckDashboard[] devCards, ArrayList<LeaderCard> leaderCards, Production basicProduction, int position, String nickname, int points) {
+        super(position, nickname, points);
         this.pathPosition = 0;
         this.storage = storage;
         this.chest = chest;
@@ -53,7 +54,7 @@ public class PlayerDashboard extends Player{
 
     //ADD A GIVEN DEVCARD TO A GIVEN DEVCARD DECK ON THE PLAYERDASHBOARD;
     public void addDevCards(DevelopmentCard card, int position){ //the controller checks before buying the card if the player can place it, then checks where to put it;
-        devCards[position].getDeck().add(0,card); //TO DO: METHOD ADD IN DEVCARD DECK;
+        devCards[position].addCard(card); //TO DO: METHOD ADD IN DEVCARD DECK;
     }
 
     //RETURN TRUE IF AT LEAST ONE LEADER IS IN GAME;
@@ -86,7 +87,7 @@ public class PlayerDashboard extends Player{
         if(!isFull(res)){
             for (CounterTop c: arrayDeposit) {
                 if(c.getResourceType().equals(res)&&c.getContent()<2) {
-                    c.addContent();
+                    c.addContent(1);
                     return true; //True if added correctly
                 }
             }
