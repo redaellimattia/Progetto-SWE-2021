@@ -7,12 +7,12 @@ import it.polimi.ingsw.model.enumeration.Resource;
 public abstract class SpecialAbility {
     private Resource resourceType;
 
-    public Resource getResourceType() {
-        return resourceType;
-    }
-
     public SpecialAbility(Resource resourceType) {
         this.resourceType = resourceType;
+    }
+
+    public Resource getResourceType() {
+        return resourceType;
     }
 
     public boolean useDepositAbility(PlayerDashboard player) {return false;} //DepositAbility

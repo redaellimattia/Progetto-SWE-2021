@@ -10,7 +10,7 @@ public class CardLevelRequirement implements Requirement {
     private CardColour colour;
     private int level; //Assuming level goes from 1 to 3
 
-    public CardLevelRequirement(CardColour colour, int level, int number) {
+    public CardLevelRequirement(CardColour colour, int level) {
         this.colour = colour;
         this.level = level;
     }
