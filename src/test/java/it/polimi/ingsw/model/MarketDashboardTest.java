@@ -53,7 +53,14 @@ class MarketDashboardTest {
     }
 
     @Test
-    void testFixGrid() {
+    void fixGridRow() {
         MarketDashboard testDashboard = buildDashboard();
+        assertEquals(testDashboard.getFreeMarble().getColour(), MarbleColour.BLUE);
+        testDashboard.fixGrid(0, 1);
+        assertEquals(testDashboard.getFreeMarble().getColour(), MarbleColour.PURPLE);
+        assertEquals(testDashboard.getRow(1)[0].getColour(), MarbleColour.BLUE);
+        assertEquals(testDashboard.getRow(1)[1].getColour(), MarbleColour.PURPLE);
+        assertEquals(testDashboard.getRow(1)[2].getColour(), MarbleColour.GREY);
+        assertEquals(testDashboard.getRow(1)[3].getColour(), MarbleColour.BLUE);
     }
 }
