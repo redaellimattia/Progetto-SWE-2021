@@ -1,7 +1,8 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.enumeration.MarbleColour;
-import org.junit.Test;
+//import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,7 +35,8 @@ class MarketDashboardTest {
         testRow[1] = new MarketMarble(MarbleColour.BLUE);
         testRow[2] = new MarketMarble(MarbleColour.PURPLE);
         testRow[3] = new MarketMarble(MarbleColour.GREY);
-        testDashboard.getRow(0);
-        assertEquals(testDashboard.getRow(0), testRow);
+        for(int i=0; i<4; i++) {
+            assertEquals(testDashboard.getRow(1)[i].getColour(), testRow[i].getColour());
+        }
     }
 }
