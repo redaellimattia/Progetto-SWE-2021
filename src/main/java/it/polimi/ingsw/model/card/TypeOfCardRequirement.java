@@ -27,7 +27,7 @@ public class TypeOfCardRequirement implements Requirement {
     }
 
     //COUNTS NUMBER OF PLAYER'S DEVCARDS COLOURS
-    private void countColourDevCards(ColourCount count,DeckDashboard devCards[]){ //Creating count (Total of devCards colours)
+    private void countColourDevCards(ColourCount count, DeckDashboard[] devCards){ //Creating count (Total of devCards colours)
         ArrayList<DevelopmentCard> devCardSlot;
         for(int i=0;i<devCards.length;i++){ //Reading player's devCards
             devCardSlot = devCards[i].getDeck();
