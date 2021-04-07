@@ -39,4 +39,21 @@ class MarketDashboardTest {
             assertEquals(testDashboard.getRow(1)[i].getColour(), testRow[i].getColour());
         }
     }
+
+    @Test
+    void getColumn() {
+        MarketDashboard testDashboard = buildDashboard();
+        MarketMarble[] testColumn = new MarketMarble[3];
+        testColumn[0] = new MarketMarble(MarbleColour.PURPLE);
+        testColumn[1] = new MarketMarble(MarbleColour.WHITE);
+        testColumn[2] = new MarketMarble(MarbleColour.WHITE);
+        for(int i=0; i<3; i++) {
+            assertEquals(testDashboard.getColumn(1)[i].getColour(), testColumn[i].getColour());
+        }
+    }
+
+    @Test
+    void testFixGrid() {
+        MarketDashboard testDashboard = buildDashboard();
+    }
 }
