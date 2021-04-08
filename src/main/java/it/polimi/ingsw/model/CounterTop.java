@@ -36,5 +36,4 @@ public class CounterTop {
         this.content -= n;
     }
 
-
 }
