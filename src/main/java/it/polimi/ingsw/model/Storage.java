@@ -43,6 +43,31 @@ public class Storage {
         }
         this.thirdRow = thirdRow;
     }
+    //METHODS THAT ADD TO THE COUNTERTOP AND RETURNS HOW MANY ELEMENTS ARE BEING LEFT FOR NO SPACE;
+    public int addToFirstRow(int n){
+        if(firstRow.getContent() == 0 && n == 1){
+            firstRow.addContent(n);
+            return 0;
+        }
+        return n;
+    }
+    public int addToSecondRow(int n){
+        int val = n-secondRow.getContent();
+        if(n<=2){
+            secondRow.addContent(val);
+            return n - val;
+        }
+        return n;
+    }
+    public int addToThirdRow(int n){
+        int val = n-thirdRow.getContent();
+        if(n<=3){
+            thirdRow.addContent(val);
+            return n - val;
+        }
+        return n;
+    }
+
     //RETURN IN A RESOURCECOUNT THE TOTAL OF THE RESOURCES PRESENT IN THE STORAGE;
     public ResourceCount readStorage(){
         ResourceCount count = new ResourceCount(0,0,0,0,0);
