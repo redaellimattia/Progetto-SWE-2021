@@ -13,6 +13,9 @@ public class PlayerDashboard extends Player{
     private DeckDashboard[] devCards;
     private ArrayList<LeaderCard> leaderCards;
     private Production basicProduction;
+
+
+
     private ArrayList<CounterTop> arrayDeposit;
 
     public PlayerDashboard(Storage storage, ResourceCount chest, DeckDashboard[] devCards, ArrayList<LeaderCard> leaderCards, Production basicProduction, int position, String nickname, int points) {
@@ -33,6 +36,7 @@ public class PlayerDashboard extends Player{
     public ArrayList<LeaderCard> getLeaderCards() { return new ArrayList<>(leaderCards); } //Return copy of leaderCards
     public Storage getStorage() { return storage; }
     public ResourceCount getChest() { return chest; }
+    public ArrayList<CounterTop> getArrayDeposit() { return arrayDeposit; }
 
     //INITIALIZE A NEW SHELF WHEN A DEPOSITABILITY LEADER IS PLAYED;
     public void initArrayDeposit(Resource res){

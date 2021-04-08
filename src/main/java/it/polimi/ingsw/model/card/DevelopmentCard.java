@@ -31,4 +31,21 @@ public class DevelopmentCard extends Card {
     public CardColour getColour() {
         return colour;
     }
+
+
+    @Override
+    public boolean equals(Object o){
+        if (o == this) { //True if it's this instance
+            return true;
+        }
+        if (!(o instanceof DevelopmentCard)) //Check if o is instanceOf ResourceCount
+            return false;
+
+        //Check if same values
+        DevelopmentCard c = (DevelopmentCard) o; //Cast to ResourceCount
+        if(this.getVictoryPoints()==c.getVictoryPoints()&&this.getCost()==c.getCost()&&
+                this.getProductionPower()==c.getProductionPower()&&this.getLevel()==c.getLevel()&&this.getColour()==c.getColour())
+            return true;
+        return false;
+    }
 }
