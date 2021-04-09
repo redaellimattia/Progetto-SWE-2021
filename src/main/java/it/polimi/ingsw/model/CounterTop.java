@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 public class CounterTop {
@@ -36,4 +37,19 @@ public class CounterTop {
         this.content -= n;
     }
 
+
+    @Override
+    public boolean equals(Object o){
+        if (o == this) { //True if it's this instance
+            return true;
+        }
+        if (!(o instanceof CounterTop)) //Check if o is instanceOf ResourceCount
+            return false;
+
+        //Check if same values
+        CounterTop c = (CounterTop) o; //Cast to ResourceCount
+        if(this.getResourceType()==c.getResourceType()&&this.getContent()==c.getContent())
+            return true;
+        return false;
+    }
 }
