@@ -20,9 +20,9 @@ class TypeOfCardRequirementTest {
         DevelopmentCard card2 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1,CardColour.GREEN);
         DevelopmentCard card3 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1,CardColour.YELLOW);
 
-        player.getDevCards()[0] = new DeckDashboard(new ArrayList<DevelopmentCard>());
-        player.getDevCards()[1] = new DeckDashboard(new ArrayList<DevelopmentCard>());
-        player.getDevCards()[2] = new DeckDashboard(new ArrayList<DevelopmentCard>());
+        player.getDevCards()[0] = new DeckDashboard();
+        player.getDevCards()[1] = new DeckDashboard();
+        player.getDevCards()[2] = new DeckDashboard();
         player.getDevCards()[0].addCard(card1);
         player.getDevCards()[1].addCard(card2);
         player.getDevCards()[1].addCard(card3);

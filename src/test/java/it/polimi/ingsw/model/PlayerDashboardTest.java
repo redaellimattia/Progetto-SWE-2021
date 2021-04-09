@@ -32,7 +32,7 @@ class PlayerDashboardTest {
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
         DevelopmentCard card1 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1,CardColour.GREEN);
 
-        player.getDevCards()[0] = new DeckDashboard(new ArrayList<DevelopmentCard>());
+        player.getDevCards()[0] = new DeckDashboard();
         player.getDevCards()[0].addCard(card1);
 
         assertEquals(player.getDevCards()[0].getFirst(),card1);

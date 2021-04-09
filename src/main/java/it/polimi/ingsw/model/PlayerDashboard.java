@@ -24,6 +24,9 @@ public class PlayerDashboard extends Player{
         this.storage = storage;
         this.chest = chest;
         this.devCards = devCards;
+        this.devCards[0] = new DeckDashboard();
+        this.devCards[1] = new DeckDashboard();
+        this.devCards[2] = new DeckDashboard();
         this.leaderCards = leaderCards;
         this.basicProduction = basicProduction;
         this.arrayDeposit = new ArrayList<CounterTop>();
