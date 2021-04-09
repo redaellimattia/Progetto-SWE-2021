@@ -54,7 +54,7 @@ class PlayerDashboardTest {
     }
 
     @Test
-    void isFull() {
+    void isFull() { //basic isFull test
         PlayerDashboard player = createPlayer();
         Resource res = Resource.COIN;
 
@@ -62,6 +62,30 @@ class PlayerDashboardTest {
         player.addToDeposit(res);
         player.addToDeposit(res);
 
+        assertTrue(player.isFull(res));
+    }
+    @Test
+    void isFull1() {
+        PlayerDashboard player = createPlayer();
+        Resource res = Resource.COIN;
+        Resource res1 = Resource.ROCK;
+        Resource res2 = Resource.SERVANT;
+        player.initArrayDeposit(res);
+        player.addToDeposit(res);
+        player.addToDeposit(res);
+
+        player.initArrayDeposit(res1);
+        player.addToDeposit(res1);
+
+        assertTrue(player.isFull(res));
+        assertFalse(player.isFull(res1));
+        assertTrue(player.isFull(res2));
+    }
+    @Test
+    void isFull2() {
+        PlayerDashboard player = createPlayer();
+        Resource res = Resource.COIN;
+        player.addToDeposit(res);
         assertTrue(player.isFull(res));
     }
 
