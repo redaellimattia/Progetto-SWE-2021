@@ -41,7 +41,7 @@ public class PlayerDashboard extends Player{
     //INITIALIZE A NEW SHELF WHEN A DEPOSITABILITY LEADER IS PLAYED;
     public void initArrayDeposit(Resource res){
         if(arrayDeposit.size()<2)
-            arrayDeposit.add(new CounterTop(res,0));
+            arrayDeposit.add(0,new CounterTop(res,0));
     }
 
     //public void updateStorage(){} DA FARE NEL CONTROLLER LO SWAP
@@ -78,12 +78,23 @@ public class PlayerDashboard extends Player{
     }
 
     //IF A LEADER WITH A DEPOSITABILITY WITH A CERTAIN RESOURCES IS IN GAME AND IS ALREADY FULL RETURN TRUE; IN EVERY OTHER CASE FALSE;
-    public boolean isFull(Resource res){ //True if abilityDeposit with that res is full (Content=2)
+    public boolean isFull(Resource res){ //True if abilityDeposit with that res is full (Content=2) || there's no deposit for that resource
+        boolean notFound = false;
+
+        if(arrayDeposit.size() == 0)
+            return true;
+
         for (CounterTop c: arrayDeposit) {
-            if(c.getResourceType().equals(res)&&c.getContent()<2)
-                return false;
+            if(c.getResourceType().equals(res) && c.getContent()<2)
+                    return false;
+            else
+                if(c.getResourceType().equals(res) && c.getContent() == 2)
+                    return true;
+                else
+                    if(!c.getResourceType().equals(res))
+                        notFound = true;
         }
-        return true;
+        return notFound;
     }
 
     //METHOD TO TRY TO ADD A SINGLE RESOURCE AT A TIME TO A SPECIALABILITY DEPOSIT;
