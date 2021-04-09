@@ -28,8 +28,11 @@ public abstract class Deck {
         return cardsDeck.get(pos);
     }
 
-    // Insert card on top
-    public void addCard(DevelopmentCard card) {
+    // Insert card on top (only for DeckDashboard)
+    public void addCard(DevelopmentCard card) throws IllegalStateException {
+        if(this.cardsDeck.size()>=3) {
+            throw new IllegalStateException();
+        }
         cardsDeck.add(0, card);
     }
 }
