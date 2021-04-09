@@ -1,7 +1,6 @@
 package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.Resource;
 import org.junit.jupiter.api.Test;
 

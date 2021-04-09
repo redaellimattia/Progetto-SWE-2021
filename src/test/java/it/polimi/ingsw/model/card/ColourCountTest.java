@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.card;
 
-import it.polimi.ingsw.model.ResourceCount;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
