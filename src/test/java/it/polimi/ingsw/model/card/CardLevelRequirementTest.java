@@ -15,9 +15,11 @@ class CardLevelRequirementTest {
     void isPlayable() {
         PlayerDashboard player = createPlayer();
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
-        DevelopmentCard card1 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1,CardColour.GREEN);
+        DevelopmentCard card1 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1,CardColour.BLUE);
 
         player.getDevCards()[0] = new DeckDashboard(new ArrayList<DevelopmentCard>());
+        player.getDevCards()[1] = new DeckDashboard(new ArrayList<DevelopmentCard>());
+        player.getDevCards()[2] = new DeckDashboard(new ArrayList<DevelopmentCard>());
         player.getDevCards()[0].addCard(card1);
 
         CardLevelRequirement req = new CardLevelRequirement(CardColour.BLUE,1);
