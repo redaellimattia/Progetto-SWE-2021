@@ -78,7 +78,7 @@ class PlayerDashboardTest {
 
 
     PlayerDashboard createPlayer(){
-        String nickname = "gabri";
+        String nickname = "Prova";
         Resource coins =  Resource.COIN;
         CounterTop firstRow = new CounterTop(coins,0);
         CounterTop secondRow = new CounterTop(coins,0);

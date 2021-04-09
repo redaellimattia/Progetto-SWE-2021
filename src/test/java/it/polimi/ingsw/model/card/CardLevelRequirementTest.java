@@ -25,6 +25,9 @@ class CardLevelRequirementTest {
         CardLevelRequirement req = new CardLevelRequirement(CardColour.BLUE,1);
 
         assertTrue(req.isPlayable(player));
+
+        req = new CardLevelRequirement(CardColour.GREEN,1);
+        assertTrue(req.isPlayable(player));
     }
     PlayerDashboard createPlayer(){
         String nickname = "Primo";
