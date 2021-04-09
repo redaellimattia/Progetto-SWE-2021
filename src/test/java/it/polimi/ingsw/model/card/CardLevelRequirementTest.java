@@ -1,25 +1,18 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.model.card;
 
-import it.polimi.ingsw.model.card.*;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.Resource;
 import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PlayerDashboardTest {
+class CardLevelRequirementTest {
 
     @Test
-    void initArrayDeposit() {
-        PlayerDashboard player = createPlayer();
-
-        player.initArrayDeposit(Resource.COIN);
-        assertTrue(player.getArrayDeposit().size() == 1);
-    }
-
-    @Test
-    void addDevCards() {
+    void isPlayable() {
         PlayerDashboard player = createPlayer();
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
         DevelopmentCard card1 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1,CardColour.GREEN);
@@ -27,58 +20,12 @@ class PlayerDashboardTest {
         player.getDevCards()[0] = new DeckDashboard(new ArrayList<DevelopmentCard>());
         player.getDevCards()[0].addCard(card1);
 
-        assertEquals(player.getDevCards()[0].getFirst(),card1);
+        CardLevelRequirement req = new CardLevelRequirement(CardColour.BLUE,1);
+
+        assertTrue(req.isPlayable(player));
     }
-
-    @Test
-    void leadersInGame() {
-        PlayerDashboard player = createPlayer();
-
-        assertTrue(player.leadersInGame());
-    }
-
-    @Test
-    void discardLeader() {
-        PlayerDashboard player = createPlayer();
-
-        player.discardLeader(1);
-        assertTrue(player.getLeaderCards().size() == 1 && !player.getLeaderCards().get(0).isInGame());
-    }
-
-    @Test
-    void updatePathPosition() {
-        PlayerDashboard player = createPlayer();
-
-        player.updatePathPosition(1);
-        assertTrue(player.getPathPosition() == 1);
-    }
-
-    @Test
-    void isFull() {
-        PlayerDashboard player = createPlayer();
-        Resource res = Resource.COIN;
-
-        player.initArrayDeposit(res);
-        player.addToDeposit(res);
-        player.addToDeposit(res);
-
-        assertTrue(player.isFull(res));
-    }
-
-    @Test
-    void addToDeposit() {
-        PlayerDashboard player = createPlayer();
-        Resource res = Resource.COIN;
-
-        player.initArrayDeposit(res);
-        player.addToDeposit(res);
-        ResourceCount check = new ResourceCount(1,0,0,0,0);
-        assertEquals(player.getAbilityDepositResources(),check);
-    }
-
-
     PlayerDashboard createPlayer(){
-        String nickname = "gabri";
+        String nickname = "Primo";
         Resource coins =  Resource.COIN;
         CounterTop firstRow = new CounterTop(coins,0);
         CounterTop secondRow = new CounterTop(coins,0);
