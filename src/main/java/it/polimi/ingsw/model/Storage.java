@@ -52,22 +52,19 @@ public class Storage {
         return n;
     }
     public int addToSecondRow(int n){
-        int val = n-secondRow.getContent();
-        if(n<=2){
-            secondRow.addContent(val);
-            return n - val;
-        }
-        return n;
-    }
-    public int addToThirdRow(int n){
-        int val = n-thirdRow.getContent();
-        if(n<=3){
-            thirdRow.addContent(val);
-            return n - val;
-        }
-        return n;
+        int i = 0;
+        for(i = 0; i<n && secondRow.getContent()<2; i++)
+                secondRow.addContent(1);
+        return n-i;
     }
 
+    public int addToThirdRow(int n){
+        int i = 0;
+        for(i = 0; i<n && thirdRow.getContent()<3; i++)
+                thirdRow.addContent(1);
+
+        return n-i;
+    }
     //RETURN IN A RESOURCECOUNT THE TOTAL OF THE RESOURCES PRESENT IN THE STORAGE;
     public ResourceCount readStorage(){
         ResourceCount count = new ResourceCount(0,0,0,0,0);

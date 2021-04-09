@@ -13,9 +13,17 @@ class PlayerDashboardTest {
     @Test
     void initArrayDeposit() {
         PlayerDashboard player = createPlayer();
-
         player.initArrayDeposit(Resource.COIN);
         assertTrue(player.getArrayDeposit().size() == 1);
+    }
+    @Test
+    void initArrayDepositMax2() {
+        PlayerDashboard player = createPlayer();
+        player.initArrayDeposit(Resource.COIN);
+        player.initArrayDeposit(Resource.ROCK);
+        assertTrue(player.getArrayDeposit().size() == 2);
+        player.initArrayDeposit(Resource.SHIELD);
+        assertTrue(player.getArrayDeposit().size() == 2);
     }
 
     @Test
