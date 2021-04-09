@@ -8,7 +8,7 @@ public class DeckDashboard extends Deck {
 
     public DeckDashboard(ArrayList<DevelopmentCard> cards) throws IllegalArgumentException {
         super(cards);
-        if(cards.size() > 4) {
+        if(cards.size() > 3) {
             throw new IllegalArgumentException();
         }
     }
