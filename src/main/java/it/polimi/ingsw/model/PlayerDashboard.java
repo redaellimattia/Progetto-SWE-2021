@@ -51,7 +51,7 @@ public class PlayerDashboard extends Player{
 
     //ADD THE RESOURCES PASSED IN A RESOURCECOUNT TO THE CHEST;
     public void addToChest(ResourceCount resources){
-        chest.sumCounts(resources);
+        chest.addResources(resources.getCoins(),resources.getRocks(),resources.getServants(),resources.getShields());
     }
 
     //SUBTRACT THE RESOURCES PASSED IN A RESOURCECOUNT TO THE CHEST;
