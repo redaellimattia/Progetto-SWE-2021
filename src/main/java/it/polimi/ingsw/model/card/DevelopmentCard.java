@@ -43,8 +43,8 @@ public class DevelopmentCard extends Card {
 
         //Check if same values
         DevelopmentCard c = (DevelopmentCard) o; //Cast to ResourceCount
-        if(this.getVictoryPoints()==c.getVictoryPoints()&&this.getCost()==c.getCost()&&
-                this.getProductionPower()==c.getProductionPower()&&this.getLevel()==c.getLevel()&&this.getColour()==c.getColour())
+        if(this.getVictoryPoints()==c.getVictoryPoints()&&this.getCost().equals(c.getCost())&&
+                this.getProductionPower().equals(c.getProductionPower())&&this.getLevel()==c.getLevel()&&this.getColour()==c.getColour())
             return true;
         return false;
     }

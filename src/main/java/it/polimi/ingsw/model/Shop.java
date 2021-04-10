@@ -6,6 +6,10 @@ import it.polimi.ingsw.model.enumeration.CardColour;
 import java.util.ArrayList;
 
 public class Shop {
+    public Shop(Deck[][] shopGrid) {
+        this.shopGrid = shopGrid;
+    }
+
     private Deck[][] shopGrid = new DeckShop[3][4];
 
     public DevelopmentCard getFirst(int row, int column){

@@ -5,11 +5,19 @@ import it.polimi.ingsw.model.token.SoloToken;
 import java.util.ArrayList;
 
 public class Game {
-    private static ArrayList<Player> players = new ArrayList<>();
-    private static Shop shop = new Shop();
+    private static ArrayList<Player> players;
+    private static Shop shop;
     private static MarketDashboard market;
-    private static ArrayList<Card> leadersDeck = new ArrayList<>();
-    private static ArrayList<SoloToken> tokensDeck = new ArrayList<SoloToken>();
+    private static ArrayList<Card> leadersDeck;
+    private static ArrayList<SoloToken> tokensDeck;
+
+    public Game(ArrayList<Player> players,Shop shop,MarketDashboard market,ArrayList<Card> leadersDeck,ArrayList<SoloToken> tokensDeck) {
+        this.players = players;
+        this.shop = shop;
+        this.market = market;
+        this.leadersDeck = leadersDeck;
+        this.tokensDeck = tokensDeck;
+    }
 
     public static void startGame(){
 
