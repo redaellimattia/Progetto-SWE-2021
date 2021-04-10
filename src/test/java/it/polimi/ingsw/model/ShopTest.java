@@ -12,20 +12,26 @@ import static org.junit.jupiter.api.Assertions.*;
 class ShopTest {
 
     @Test
-    void buy() {
+    void buy() { //CHECK BUY METHODS AND ALL CORNER CASES (DECK EMPTY)
         Shop shop = createShop();
-        assertTrue(shop.getGrid()[1][2].getDeck().size() == 4);
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
         DevelopmentCard cardYellow = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
         DevelopmentCard bought = shop.buy(1,2);
         assertEquals(bought, cardYellow);
-        Deck[][] check = shop.getGrid();
-        //assertTrue(check[1][2].getDeck().size()==3);
-
+        assertTrue(shop.getGrid()[1][2].getDeck().size() == 3);
+        bought = shop.buy(1,2);
+        bought = shop.buy(1,2);
+        bought = shop.buy(1,2);
+        assertTrue(shop.getGrid()[1][2].getDeck().size() == 0);
+        bought = shop.buy(1,2);
+        assertTrue(shop.getGrid()[1][2].getDeck().size() == 0);
+        assertTrue(bought == null);
     }
 
     @Test
     void discardFromToken() {
+        Shop shop = createShop();
+
     }
 
 
