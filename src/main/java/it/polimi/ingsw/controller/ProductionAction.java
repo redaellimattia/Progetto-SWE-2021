@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.Production;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;
@@ -14,11 +15,15 @@ public class ProductionAction extends Action{
         this.bufferOutput = bufferOutput;
     }
 
-    //DEVCARDS
-    public boolean useProductionAction(DevelopmentCard card, ResourceCount playerCount){ //Receiving DevCard from the view, then using it
-        ResourceCount output = card.getProductionPower().useProduction(playerCount);
-        if(output==null)
+    //DEVCARDS || RETURN TRUE IF EVERYTHING IS DONE CORRECTLY (PAYMENT FROM STORAGE AND/OR CHEST) AND PLAYER HAS ENOUGH RESOURCES
+    //I GET FROM THE VIEW THE CARD, THE CHOSEN AMOUNT OF RESOURCES FROM STORAGE AND CHEST (EVENTUALLY NULL) AND THE PLAYER
+    public boolean useProductionAction(DevelopmentCard card, ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player){
+        ResourceCount cost = card.getProductionPower().getInput();
+        ResourceCount output = card.getProductionPower().useProduction(getTotal(storageCount,chestCount));
+
+        if(output==null || !deleteRes(storageCount,chestCount,player)) //NOT ENOUGH RESOURCES OR PAYMENT FAILED
             return false;
+
         bufferOutput.sumCounts(output);
         return true;
     }
@@ -44,9 +49,9 @@ public class ProductionAction extends Action{
         bufferOutput.sumCounts(output);
         return true;
     }
-
+    //ADD THE RESOURCES OBTAINED FROM THE PRODUCTIONS TO THE PLAYER AND THEN RESET THE BUFFER;
     public void endProductionAction(ResourceCount playerChest) {
         playerChest.sumCounts(bufferOutput);
-        bufferOutput = null;
+        bufferOutput = new ResourceCount(0,0,0,0,0);
     }
 }

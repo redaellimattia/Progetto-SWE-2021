@@ -19,11 +19,10 @@ public class Production {
         return output;
     }
 
-    //CHECK IF PRODUCTION IS DOABLE WITH THE RESOURCES PASSED AND EVENTUALLY DOES IT, REMOVING THE INPUT FROM THE RESOURCES AND RETURNING THE OUTPUT;
-    public ResourceCount useProduction(ResourceCount count){ //Activate production and return output;
+    //CHECK IF PRODUCTION IS DOABLE WITH THE RESOURCES PASSED AND EVENTUALLY RETURNS THE OUTPUT;
+    public ResourceCount useProduction(ResourceCount count){
         if(input.getCoins()<=count.getCoins()&&input.getRocks()<=count.getRocks()&&
            input.getServants()<=count.getServants()&&input.getShields()<=count.getShields()) {
-            count.removeResources(input.getCoins(), input.getRocks(), input.getServants(), input.getShields());
             return output;
         }
         else

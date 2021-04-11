@@ -76,13 +76,22 @@ public class ResourceCount {
         this.shields -= shields;
 
     }
-
+    //RETURN TRUE IF THIS RESOURCECOUNT HAS >= RESOURCES THAN THE PASSED ONE;
+    public boolean enoughResources(ResourceCount count){
+        if(this.coins >= count.getCoins()&& this.rocks >= count.getRocks()&& this.servants >= count.getServants()&& this.shields >= count.getShields())
+            return true;
+        return false;
+    }
     //SUM 2 RESOURCECOUNT
     public void sumCounts(ResourceCount add){
         if(add!=null)
             this.addResources(add.getCoins(),add.getRocks(), add.getServants(), add.getShields());
     }
-
+    //SUBTRACT 2 RESOURCECOUNT
+    public void subCounts(ResourceCount sub){
+        if(sub!=null)
+            this.removeResources(sub.getCoins(),sub.getRocks(), sub.getServants(), sub.getShields());
+    }
     //EQUALS
     @Override
     public boolean equals(Object o){

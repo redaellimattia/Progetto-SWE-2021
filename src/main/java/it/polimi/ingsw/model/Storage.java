@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.enumeration.Resource;
+
 public class Storage {
     private CounterTop firstRow;
     private CounterTop secondRow;
@@ -74,4 +76,9 @@ public class Storage {
 
         return count;
     }
+    //RETURN AN ARRAY WITH THE SHELVES OF STORAGE TO GET RESOURCE WHEN THE PLAYER NEEDS TO PAY;
+    public CounterTop[] getShelvesArray(){
+        return new CounterTop[]{this.firstRow, this.secondRow,this.thirdRow};
+    }
+
 }

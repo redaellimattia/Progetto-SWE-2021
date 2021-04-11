@@ -148,4 +148,14 @@ class StorageTest {
 
         return storage;
     }
+    @Test
+    void getShelvesArray(){
+        Storage storage = createStorage();
+        CounterTop[] array = storage.getShelvesArray();
+        storage.addToFirstRow(1);
+        assertEquals(storage.getFirstRow(),array[0]);
+        assertEquals(storage.getSecondRow(),array[1]);
+        assertEquals(storage.getThirdRow(),array[2]);
+
+    }
 }
