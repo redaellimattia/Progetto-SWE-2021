@@ -11,8 +11,8 @@ public class ProductionAction extends Action{
 
     private ResourceCount bufferOutput;
 
-    public ProductionAction(ResourceCount bufferOutput) { //Will be called in PlayerTurnManager
-        this.bufferOutput = bufferOutput;
+    public ProductionAction() { //Will be called in PlayerTurnManager
+        this.bufferOutput = new ResourceCount(0,0,0,0,0);
     }
 
     //DEVCARDS || RETURN TRUE IF EVERYTHING IS DONE CORRECTLY (PAYMENT FROM STORAGE AND/OR CHEST) AND PLAYER HAS ENOUGH RESOURCES
