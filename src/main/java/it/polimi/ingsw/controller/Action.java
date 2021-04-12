@@ -45,12 +45,6 @@ public abstract class Action {
         return true;
     }
     //RETURN THE TOTAL OF RESOURCES THAT THE PLAYER IS USING TO PAY;
-    public ResourceCount getTotal(ResourceCount storage, ResourceCount chest){
-        ResourceCount total = new ResourceCount(0,0,0,0,0);
-        total.sumCounts(storage);
-        total.sumCounts(chest);
-        return total;
-    }
 
     //CHECK IF EVERY COUNTERTOP OF THE STORAGE HAS A DIFFERENT RESOURCETYPE
     public boolean checkShelves(Storage storage){

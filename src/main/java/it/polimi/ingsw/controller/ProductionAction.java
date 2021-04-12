@@ -18,7 +18,7 @@ public class ProductionAction extends Action{
     //I GET FROM THE VIEW THE CARD, THE CHOSEN AMOUNT OF RESOURCES FROM STORAGE AND CHEST (EVENTUALLY NULL) AND THE PLAYER
     public boolean useProductionAction(DevelopmentCard card, ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player){
         ResourceCount cost = card.getProductionPower().getInput();
-        ResourceCount output = card.getProductionPower().useProduction(getTotal(storageCount,chestCount));
+        ResourceCount output = card.getProductionPower().useProduction(ResourceCount.getTotal(storageCount,chestCount));
 
         if(output==null || !deleteRes(storageCount,chestCount,player)) //NOT ENOUGH RESOURCES OR PAYMENT FAILED
             return false;
@@ -52,7 +52,7 @@ public class ProductionAction extends Action{
     //RECEIVING COST CHOSEN BY THE PLAYER, AND COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
     public boolean useProductionAction(ResourceCount cost, Resource res, ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player){
         //If Sum of storageCount and ChestCount != cost OR deleteRes goes wrong then return false
-        if(!getTotal(storageCount,chestCount).equals(cost)||!deleteRes(storageCount,chestCount,player))
+        if(!ResourceCount.getTotal(storageCount,chestCount).equals(cost)||!deleteRes(storageCount,chestCount,player))
             return false;
 
         ResourceCount output = new ResourceCount(0,0,0,0,1); //ResourceCount with 1 Faith

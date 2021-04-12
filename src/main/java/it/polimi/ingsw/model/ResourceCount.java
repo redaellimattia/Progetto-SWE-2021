@@ -90,6 +90,12 @@ public class ResourceCount {
         if(sub!=null) //Should avoid sub if it has more res than THIS?
             this.removeResources(sub.getCoins(),sub.getRocks(), sub.getServants(), sub.getShields());
     }
+    public static ResourceCount getTotal(ResourceCount storage, ResourceCount chest){
+        ResourceCount total = new ResourceCount(0,0,0,0,0);
+        total.sumCounts(storage);
+        total.sumCounts(chest);
+        return total;
+    }
     //EQUALS
     @Override
     public boolean equals(Object o){
