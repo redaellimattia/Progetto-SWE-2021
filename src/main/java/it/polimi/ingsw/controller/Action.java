@@ -16,7 +16,7 @@ public abstract class Action {
     }
     //REMOVING RESOURCES FROM STORAGE || USED 2 ARRAY OF SUPPORT TO SCAN THE RESOURCES IN THE COST AND THE SHELVES IN THE STORAGE;
     public boolean removeFromStorage(ResourceCount storageCount, Storage storage){
-        if(!storage.readStorage().enoughResources(storageCount))
+        if(!storage.readStorage().hasMoreOrEqualsResources(storageCount))
             return false;
 
         Resource[] resources = new Resource[]{ Resource.COIN, Resource.ROCK, Resource.SERVANT, Resource.SHIELD};
@@ -33,7 +33,7 @@ public abstract class Action {
     }
     //REMOVING RESOURCES FROM CHEST
     public boolean removeFromChest(ResourceCount chestCount,ResourceCount chest){
-        if(!chest.enoughResources(chestCount))
+        if(!chest.hasMoreOrEqualsResources(chestCount))
             return false;
         chest.subCounts(chestCount);
         return true;

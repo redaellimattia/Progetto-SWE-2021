@@ -14,9 +14,8 @@ public class ProductionAbility extends SpecialAbility {
     public boolean useProductionAbility(ResourceCount count){
         Resource resType = super.getResourceType();
         if(count!=null) {
-            if (resType.get(count) == 1) { //If there is exactly one res
+            if (resType.get(count) == 1) //If there is exactly one res
                 return true; //True if there are enough resources to use the production
-            }
         }
         return false; //False, not enough resources
     }

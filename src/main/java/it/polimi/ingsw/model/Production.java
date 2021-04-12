@@ -21,10 +21,8 @@ public class Production {
 
     //CHECK IF PRODUCTION IS DOABLE WITH THE RESOURCES PASSED AND EVENTUALLY RETURNS THE OUTPUT;
     public ResourceCount useProduction(ResourceCount count){
-        if(input.getCoins()<=count.getCoins()&&input.getRocks()<=count.getRocks()&&
-           input.getServants()<=count.getServants()&&input.getShields()<=count.getShields()) {
+        if(input.equals(count))
             return output;
-        }
         else
             return null;
     }

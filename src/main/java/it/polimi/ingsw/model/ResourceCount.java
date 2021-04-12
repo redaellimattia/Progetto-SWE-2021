@@ -77,10 +77,8 @@ public class ResourceCount {
 
     }
     //RETURN TRUE IF THIS RESOURCECOUNT HAS >= RESOURCES THAN THE PASSED ONE;
-    public boolean enoughResources(ResourceCount count){
-        if(this.coins >= count.getCoins()&& this.rocks >= count.getRocks()&& this.servants >= count.getServants()&& this.shields >= count.getShields())
-            return true;
-        return false;
+    public boolean hasMoreOrEqualsResources(ResourceCount count){
+        return this.coins >= count.getCoins() && this.rocks >= count.getRocks() && this.servants >= count.getServants() && this.shields >= count.getShields();
     }
     //SUM 2 RESOURCECOUNT
     public void sumCounts(ResourceCount add){

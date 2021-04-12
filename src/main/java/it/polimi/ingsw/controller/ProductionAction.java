@@ -1,7 +1,6 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.PlayerDashboard;
-import it.polimi.ingsw.model.Production;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
@@ -50,11 +49,13 @@ public class ProductionAction extends Action{
     }
 
     //BASICPRODUCTION
-    public boolean useProductionAction(ResourceCount cost,Resource res,ResourceCount playerCount){ //Receiving dashBoard production from the view, then using it
-        if(cost.getCoins()>playerCount.getCoins()||cost.getRocks()>playerCount.getRocks()||
-                cost.getServants()>playerCount.getServants()||cost.getShields()>playerCount.getShields())
+    //RECEIVING COST CHOSEN BY THE PLAYER, AND COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
+    public boolean useProductionAction(ResourceCount cost, Resource res, ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player){
+        //If Sum of storageCount and ChestCount != cost OR deleteRes goes wrong then return false
+        if(!getTotal(storageCount,chestCount).equals(cost)||!deleteRes(storageCount,chestCount,player))
             return false;
-        ResourceCount output = new ResourceCount(0,0,0,0,0); //ResourceCount with 1 Faith
+
+        ResourceCount output = new ResourceCount(0,0,0,0,1); //ResourceCount with 1 Faith
         res.add(output,1);
         bufferOutput.sumCounts(output);
         return true;
