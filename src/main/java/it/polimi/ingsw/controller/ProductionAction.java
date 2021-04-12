@@ -29,9 +29,19 @@ public class ProductionAction extends Action{
     }
 
     //LEADERCARDS
-    public boolean useProductionAction(LeaderCard card, ResourceCount playerCount, Resource res){ //Receiving LeaderCard from the view
-        if(!card.getSpecialAbility().useProductionAbility(playerCount))
+    //RECEIVING CARD,COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
+    public boolean useProductionAction(LeaderCard card, ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player, Resource res){
+        Resource abilityRes = card.getSpecialAbility().getResourceType();
+        ResourceCount cost = new ResourceCount(0,0,0,0,0);
+        abilityRes.add(cost,1);
+
+        //Player wants to use the Storage to pay || Return false if there aren't enough resources in StorageCount, or deleteRes goes wrong
+        if(storageCount!=null&&(!card.getSpecialAbility().useProductionAbility(storageCount)||!deleteRes(storageCount,chestCount,player)))
             return false;
+        //Player wants to use the Chest to pay || Return false if there aren't enough resources in StorageCount, or deleteRes goes wrong
+        if(chestCount!=null&&(!card.getSpecialAbility().useProductionAbility(chestCount)||!deleteRes(storageCount,chestCount,player)))
+            return false;
+
         //res is the chosen resource as output
         ResourceCount output = new ResourceCount(0,0,0,0,1); //ResourceCount with 1 Faith
         res.add(output,1);
