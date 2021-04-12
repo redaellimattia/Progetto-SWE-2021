@@ -90,11 +90,15 @@ public class ResourceCount {
         if(sub!=null) //Should avoid sub if it has more res than THIS?
             this.removeResources(sub.getCoins(),sub.getRocks(), sub.getServants(), sub.getShields());
     }
-    public static ResourceCount getTotal(ResourceCount storage, ResourceCount chest){
-        ResourceCount total = new ResourceCount(0,0,0,0,0);
-        total.sumCounts(storage);
-        total.sumCounts(chest);
-        return total;
+    //RETURNS SUM OF 2 RESOURCECOUNT AS A SINGLE NEW RESOURCECOUNT
+    public static ResourceCount getTotal(ResourceCount rc1, ResourceCount rc2){
+        if(rc1!=null&&rc2!=null) {
+            ResourceCount total = new ResourceCount(0, 0, 0, 0, 0);
+            total.sumCounts(rc1);
+            total.sumCounts(rc2);
+            return total;
+        }
+        return null;
     }
     //EQUALS
     @Override

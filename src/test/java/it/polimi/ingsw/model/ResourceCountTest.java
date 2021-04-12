@@ -72,4 +72,14 @@ class ResourceCountTest {
         assertFalse(count2.hasMoreOrEqualsResources(count));
         assertTrue(count.hasMoreOrEqualsResources(count));
     }
+
+    @Test
+    void getTotal(){
+        ResourceCount rc1 = new ResourceCount(5,5,5,5,0);
+        ResourceCount rc2 = new ResourceCount(2,3,4,1,0);
+        ResourceCount result = new ResourceCount(7,8,9,6,0);
+        assertNull(ResourceCount.getTotal(null,rc2));
+        assertEquals(rc1,ResourceCount.getTotal(rc1,new ResourceCount(0,0,0,0,0)));
+        assertEquals(result,ResourceCount.getTotal(rc1,rc2));
+    }
 }
