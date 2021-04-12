@@ -54,4 +54,22 @@ class ResourceCountTest {
         count.sumCounts(null);
         assertEquals(count,count);
     }
+    @Test
+    void subCounts(){
+        ResourceCount count = new ResourceCount(5,5,5,5,5);
+        ResourceCount sub = new ResourceCount(2,3,4,1,0);
+        ResourceCount result = new ResourceCount(3,2,1,4,5);
+        count.subCounts(sub);
+        assertEquals(count,result);
+        count.sumCounts(null);
+        assertEquals(count,count);
+    }
+    @Test
+    void hasMoreOrEqualsResources(){
+        ResourceCount count = new ResourceCount(5,5,5,5,5);
+        ResourceCount count2 = new ResourceCount(2,3,4,1,0);
+        assertTrue(count.hasMoreOrEqualsResources(count2));
+        assertFalse(count2.hasMoreOrEqualsResources(count));
+        assertTrue(count.hasMoreOrEqualsResources(count));
+    }
 }

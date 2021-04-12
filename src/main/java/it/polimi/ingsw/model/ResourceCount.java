@@ -78,7 +78,7 @@ public class ResourceCount {
     }
     //RETURN TRUE IF THIS RESOURCECOUNT HAS >= RESOURCES THAN THE PASSED ONE;
     public boolean hasMoreOrEqualsResources(ResourceCount count){
-        return this.coins >= count.getCoins() && this.rocks >= count.getRocks() && this.servants >= count.getServants() && this.shields >= count.getShields();
+        return (this.coins >= count.getCoins() && this.rocks >= count.getRocks() && this.servants >= count.getServants() && this.shields >= count.getShields());
     }
     //SUM 2 RESOURCECOUNT
     public void sumCounts(ResourceCount add){
@@ -87,7 +87,7 @@ public class ResourceCount {
     }
     //SUBTRACT 2 RESOURCECOUNT
     public void subCounts(ResourceCount sub){
-        if(sub!=null)
+        if(sub!=null) //Should avoid sub if it has more res than THIS?
             this.removeResources(sub.getCoins(),sub.getRocks(), sub.getServants(), sub.getShields());
     }
     //EQUALS
