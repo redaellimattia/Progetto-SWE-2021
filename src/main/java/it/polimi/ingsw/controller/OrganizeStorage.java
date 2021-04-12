@@ -6,20 +6,6 @@ import it.polimi.ingsw.model.PlayerDashboard;
 
 public class OrganizeStorage extends Action{
 
-    /*public boolean swapShelves(PlayerDashboard player, int from, int to){
-        CounterTop[] shelves = player.getStorage().getShelvesArray();
-        switch (to) {
-            case 1:
-                if(shelves[from].getContent() <= 1) {
-                    player.getStorage().swap(from,to);
-                }
-                return true;
-            case 2:
-                if(shelves[from].getContent() <= 2 && )
-        }
-
-
-    }*/
     //RETURN TRUE IF THE SHELVES ARE SWAPPED CORRECTLY AND THE STORAGE RESPECTS THE SAME RULES;
     public boolean swapShelves(PlayerDashboard player, int from, int to) {
         CounterTop[] shelves = player.getStorage().getShelvesArray();
@@ -29,5 +15,8 @@ public class OrganizeStorage extends Action{
                 return true;
 
         return false;
+    }
+    public boolean moveFromLeaderDeposit(PlayerDashboard player, int from, int to){
+        return true;
     }
 }
