@@ -14,6 +14,10 @@ public class ProductionAction extends Action{
         this.bufferOutput = new ResourceCount(0,0,0,0,0);
     }
 
+    public ResourceCount getBufferOutput() {
+        return bufferOutput;
+    }
+
     //DEVCARDS || RETURN TRUE IF EVERYTHING IS DONE CORRECTLY (PAYMENT FROM STORAGE AND/OR CHEST) AND PLAYER HAS ENOUGH RESOURCES
     //I GET FROM THE VIEW THE CARD, THE CHOSEN AMOUNT OF RESOURCES FROM STORAGE AND CHEST (EVENTUALLY NULL) AND THE PLAYER
     public boolean useProductionAction(DevelopmentCard card, ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player){

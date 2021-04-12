@@ -78,8 +78,10 @@ class ResourceCountTest {
         ResourceCount rc1 = new ResourceCount(5,5,5,5,0);
         ResourceCount rc2 = new ResourceCount(2,3,4,1,0);
         ResourceCount result = new ResourceCount(7,8,9,6,0);
-        assertNull(ResourceCount.getTotal(null,rc2));
-        assertEquals(rc1,ResourceCount.getTotal(rc1,new ResourceCount(0,0,0,0,0)));
-        assertEquals(result,ResourceCount.getTotal(rc1,rc2));
+        assertEquals(rc2,ResourceCount.getTotal(null,rc2)); //Returns rc2 if rc1 = null
+        assertEquals(rc1,ResourceCount.getTotal(rc1,null));//Returns rc1 if rc2 = null
+        assertEquals(rc1,ResourceCount.getTotal(rc1,new ResourceCount(0,0,0,0,0))); //Doesnt sum up
+        assertEquals(result,ResourceCount.getTotal(rc1,rc2)); //Correct total
+        assertNull(ResourceCount.getTotal(null,null)); //Returns null if rc1 = null AND rc2 = null
     }
 }

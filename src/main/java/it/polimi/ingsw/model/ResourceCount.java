@@ -98,8 +98,11 @@ public class ResourceCount {
             total.sumCounts(rc2);
             return total;
         }
-        return null;
+        if(rc1==null)
+            return rc2;
+        return rc1;
     }
+
     //EQUALS
     @Override
     public boolean equals(Object o){
