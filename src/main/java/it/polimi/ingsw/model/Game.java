@@ -42,4 +42,8 @@ public class Game {
     public static Shop getShop() {
         return shop;
     }
+
+    public static MarketDashboard getMarket() {
+        return market;
+    }
 }
