@@ -45,6 +45,15 @@ public abstract class Action {
         total.sumCounts(chest);
         return total;
     }
+
+    //CHECK IF EVERY COUNTERTOP OF THE STORAGE HAS A DIFFERENT RESOURCETYPE
+    public boolean checkShelves(Storage storage){
+        if(!storage.getFirstRow().getResourceType().equals(storage.getSecondRow().getResourceType()) &&
+                !storage.getFirstRow().getResourceType().equals(storage.getThirdRow().getResourceType()) &&
+                    !storage.getSecondRow().getResourceType().equals(storage.getThirdRow().getResourceType()))
+                        return true;
+        return false;
+    }
     public boolean endAction(){
         return false;
     }

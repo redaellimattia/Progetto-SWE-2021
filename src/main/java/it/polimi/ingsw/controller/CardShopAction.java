@@ -6,19 +6,18 @@ import it.polimi.ingsw.model.Shop;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 
 public class CardShopAction extends Action {
-
-    private DevelopmentCard boughtCard;
-
+    //AFTER CHECKING IF THE CHOSEN POSITION ON THE BOARD CAN FIT THE CHOSEN CARD, RETURN TRUE IF EVERYTHING IS DONE CORRECTLY, FALSE IF NOT
     public boolean buyCard(int row,int column, ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player, int deckPosition, Shop shop){
         DevelopmentCard chosen = shop.getGrid()[row][column].getDeck().get(0);
 
         if(checkIfPossible(chosen.getLevel(), player)){
             chosen = shop.buy(row,column);
             player.addDevCards(chosen,deckPosition);
-            deleteRes(storageCount,chestCount,player);
-            return true;
+            if(deleteRes(storageCount,chestCount,player))
+                return true;
+            else
+                return false;
         }
-
         return false;
     }
 

@@ -45,6 +45,22 @@ public class Storage {
         }
         this.thirdRow = thirdRow;
     }
+    //SET THE TARGET SHELF WITH THE PASSED COUNTERTOP
+    public boolean setThisRow(CounterTop substitute, int target){
+        switch(target){
+            case 1: if(substitute.getContent() <= 1)
+                    setFirstRow(substitute);
+                    return true;
+            case 2: if(substitute.getContent() <= 2)
+                    setSecondRow(substitute);
+                    return true;
+            case 3: if(substitute.getContent() <= 3)
+                    setThirdRow(substitute);
+                    return true;
+        }
+        return false;
+    }
+
     //METHODS THAT ADD TO THE COUNTERTOP AND RETURNS HOW MANY ELEMENTS ARE BEING LEFT FOR NO SPACE;
     public int addToFirstRow(int n){
         if(firstRow.getContent() == 0 && n == 1){
@@ -66,6 +82,12 @@ public class Storage {
                 thirdRow.addContent(1);
 
         return n-i;
+    }
+    //METHOD THAT SWAP TWO SHELVES, NEEDED CHECKS ARE MADE BY THE METHOD WHO INVOKES THIS ONE
+    public void swap(int from, int to){
+        CounterTop temp = getShelvesArray()[to];
+        getShelvesArray()[to] = getShelvesArray()[from];
+        getShelvesArray()[from] = temp;
     }
     //RETURN IN A RESOURCECOUNT THE TOTAL OF THE RESOURCES PRESENT IN THE STORAGE;
     public ResourceCount readStorage(){
