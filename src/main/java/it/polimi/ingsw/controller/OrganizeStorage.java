@@ -13,7 +13,11 @@ public class OrganizeStorage extends Action{
         if(player.getStorage().setThisRow(shelves[from],to) && player.getStorage().setThisRow(temp,from))
             if(super.checkShelves(player.getStorage()))
                 return true;
-
+            else{//IF FOR SOME REASON THE RULES ARE NOT FOLLOWED, NEED TO GO BACK TO NORMAL;
+                player.getStorage().setThisRow(shelves[to],from);
+                player.getStorage().setThisRow(temp,to);
+                return false;
+            }
         return false;
     }
     public boolean moveFromLeaderDeposit(PlayerDashboard player, int from, int to){
