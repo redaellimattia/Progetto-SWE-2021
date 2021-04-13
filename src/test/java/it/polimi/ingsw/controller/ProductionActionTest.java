@@ -19,7 +19,7 @@ class ProductionActionTest {
         PlayerDashboard player = createPlayer(true);
         ResourceCount storageCount = new ResourceCount(1,0,0,0,0);
         ResourceCount chestCount = new ResourceCount(0,2,0,0,0);
-        DevelopmentCard card = createDevCard();
+        DevelopmentCard card = createDevCard(3);
         assertTrue(action.useProductionAction(card,storageCount,chestCount,player));
         assertEquals(card.getProductionPower().getOutput(),action.getBufferOutput()); //Buffer equals to production output
 
@@ -28,7 +28,7 @@ class ProductionActionTest {
         player = createPlayer(true);
         storageCount = new ResourceCount(1,2,0,0,0); //Correct payment with storage
         chestCount = null;
-        card = createDevCard();
+        card = createDevCard(3);
         assertTrue(action.useProductionAction(card,storageCount,chestCount,player));
         assertEquals(card.getProductionPower().getOutput(),action.getBufferOutput()); //Buffer equals to production output
 
@@ -37,7 +37,7 @@ class ProductionActionTest {
         player = createPlayer(true);
         storageCount = null;
         chestCount = new ResourceCount(1,2,0,0,0); //Correct payment with chest
-        card = createDevCard();
+        card = createDevCard(3);
         assertTrue(action.useProductionAction(card,storageCount,chestCount,player));
         assertEquals(card.getProductionPower().getOutput(),action.getBufferOutput()); //Buffer equals to production output
 
@@ -46,7 +46,7 @@ class ProductionActionTest {
         player = createPlayer(true);
         storageCount = null;
         chestCount = new ResourceCount(0,2,0,0,0);
-        card = createDevCard();
+        card = createDevCard(3);
         assertFalse(action.useProductionAction(card,storageCount,chestCount,player));
 
         //OVERPAY
@@ -54,8 +54,15 @@ class ProductionActionTest {
         player = createPlayer(true);
         storageCount = null;
         chestCount = new ResourceCount(5,5,5,5,0);
-        card = createDevCard();
+        card = createDevCard(3);
         assertFalse(action.useProductionAction(card,storageCount,chestCount,player));
+
+        //WRONG CARD, DIFF LEVEL
+        action = new ProductionAction();
+        player = createPlayer(true);
+        chestCount = new ResourceCount(1,2,0,0,0);
+        card = createDevCard(2);
+        assertFalse(action.useProductionAction(card,null,chestCount,player));
 
     }
 
@@ -109,6 +116,14 @@ class ProductionActionTest {
         //WRONG CARD, Passing as it is inGame but it actually isnt
         action = new ProductionAction();
         player = createPlayer(false);
+        storageCount = null;
+        chestCount = new ResourceCount(1,0,0,0,0);
+        assertFalse(action.useProductionAction(card,storageCount,chestCount,player,Resource.COIN));
+
+        //WRONG CARD, NOT PROD ABILITY
+        action = new ProductionAction();
+        player = createPlayer(false);
+        card = createLeaderCardNotProd();
         storageCount = null;
         chestCount = new ResourceCount(1,0,0,0,0);
         assertFalse(action.useProductionAction(card,storageCount,chestCount,player,Resource.COIN));
@@ -195,7 +210,7 @@ class ProductionActionTest {
         ResourceCount resultChest = new ResourceCount(4,4,0,0,0);
         resultBuff.sumCounts(new ResourceCount(1,0,0,0,0));
         action.useProductionAction(Resource.COIN,null,chestCount,player);
-        assertEquals(resultChest,player.getChest()); //Paid correctly 
+        assertEquals(resultChest,player.getChest()); //Paid correctly
         assertEquals(resultBuff,action.getBufferOutput()); //Buffer equals to production output
 
         //END ACTION THEN CHECK IF PATHPOSITION INCREASED, AND CHEST INCREASED
@@ -220,13 +235,15 @@ class ProductionActionTest {
         leaderCards.add(0,createLeaderCard(inGame));
         leaderCards.add(0,createLeaderCard(false));
         PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,basicProduction,1,nickname,2);
-        devCards[0].addCard(createDevCard());
+        devCards[0].addCard(createDevCard(3));
+        devCards[1].addCard(createDevCard(3));
+        devCards[2].addCard(createDevCard(3));
         return player;
     }
 
-    DevelopmentCard createDevCard(){
+    DevelopmentCard createDevCard(int level){
         Production prod = new Production(new ResourceCount(1,2,0,0,0),new ResourceCount(0,0,3,0,0));
-        return new DevelopmentCard(5,new ResourceCount(0,0,0,0,0),prod,3, CardColour.BLUE);
+        return new DevelopmentCard(5,new ResourceCount(0,0,0,0,0),prod,level, CardColour.BLUE);
     }
 
     LeaderCard createLeaderCard(boolean inGame){
@@ -236,6 +253,14 @@ class ProductionActionTest {
         LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
         if(inGame)
             leader.setInGame();
+        return leader;
+    }
+    LeaderCard createLeaderCardNotProd(){
+        ColourCount count = new ColourCount(1,0,0,0);
+        TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
+        SpecialAbility specialAbility = new DiscountAbility(Resource.COIN);
+        LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
+        leader.setInGame();
         return leader;
     }
 }
