@@ -34,4 +34,24 @@ class DeckTest {
         assertEquals(4, testDeck.getCard(0).getCost().getCoins());
         assertEquals(0, testDeck.getCard(1).getCost().getCoins());
     }
+
+    @Test
+    void addCardTest() {
+        DeckDashboard testDeck = buildDeck();
+        ResourceCount testResourceCount = new ResourceCount(0, 2, 0, 0, 0);
+        ResourceCount testInput = new ResourceCount(0, 0, 1, 0, 0);
+        ResourceCount testOutput = new ResourceCount(0, 0, 0, 0, 1);
+        Production testProductionPower = new Production(testInput, testOutput);
+        DevelopmentCard testCard = new DevelopmentCard(1, testResourceCount, testProductionPower, 1, CardColour.YELLOW);
+        testDeck.addCard(testCard);
+        assertEquals(testCard, testDeck.getCard(0));
+    }
+
+    @Test
+    void removeCardTest() {
+        DeckDashboard testDeck = buildDeck();
+        DeckDashboard oldDeck = buildDeck();
+        testDeck.removeFirst();
+        assertEquals(oldDeck.getCard(1), testDeck.getCard(0));
+    }
 }
