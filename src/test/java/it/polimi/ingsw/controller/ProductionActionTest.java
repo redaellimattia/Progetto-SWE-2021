@@ -116,17 +116,93 @@ class ProductionActionTest {
     }
 
     @Test
-    void testUseProductionAction1() {
+    void testUseProductionAction1() { //BASICPRODUCTION
+        //HYBRID PAYMENT
+        ProductionAction action = new ProductionAction();
+        PlayerDashboard player = createPlayer(true);
+        ResourceCount storageCount = new ResourceCount(1,0,0,0,0);
+        ResourceCount chestCount = new ResourceCount(0,1,0,0,0);
+        ResourceCount resultStorage = new ResourceCount(0,2,0,0,0);
+        ResourceCount resultChest = new ResourceCount(5,4,0,0,0);
+        ResourceCount resultBuff = new ResourceCount(1,0,0,0,0);
+        assertTrue(action.useProductionAction(Resource.COIN,storageCount,chestCount,player));
+        assertEquals(resultStorage,player.getStorage().readStorage()); //Paid correctly
+        assertEquals(resultChest,player.getChest()); //Paid correctly
+        assertEquals(resultBuff,action.getBufferOutput()); //Buffer equals to production output
+
+        //STORAGE ONLY PAYMENT
+        action = new ProductionAction();
+        player = createPlayer(true);
+        storageCount = new ResourceCount(1,1,0,0,0);
+        chestCount = null;
+        resultStorage = new ResourceCount(0,1,0,0,0);
+        resultBuff = new ResourceCount(1,0,0,0,0);
+        assertTrue(action.useProductionAction(Resource.COIN,storageCount,chestCount,player));
+        assertEquals(resultStorage,player.getStorage().readStorage()); //Paid correctly
+        assertEquals(resultBuff,action.getBufferOutput()); //Buffer equals to production output
+
+        //CHEST ONLY PAYMENT
+        action = new ProductionAction();
+        player = createPlayer(true);
+        storageCount = null;
+        chestCount = new ResourceCount(1,1,0,0,0);
+        resultChest = new ResourceCount(4,4,0,0,0);
+        resultBuff = new ResourceCount(1,0,0,0,0);
+        assertTrue(action.useProductionAction(Resource.COIN,storageCount,chestCount,player));
+        assertEquals(resultChest,player.getChest()); //Paid correctly
+        assertEquals(resultBuff,action.getBufferOutput()); //Buffer equals to production output
+
+        //WRONG INPUT !=2: >2
+        action = new ProductionAction();
+        player = createPlayer(true);
+        storageCount = new ResourceCount(1,0,0,0,0);
+        chestCount = new ResourceCount(1,1,0,0,0);
+        assertFalse(action.useProductionAction(Resource.COIN,storageCount,chestCount,player));
+
+        //WRONG INPUT !=2: <2
+        action = new ProductionAction();
+        player = createPlayer(true);
+        storageCount = new ResourceCount(1,0,0,0,0);
+        chestCount = new ResourceCount(0,0,0,0,0);
+        assertFalse(action.useProductionAction(Resource.COIN,storageCount,chestCount,player));
+
+        //WRONG CHOSEN RESOURCE (CANT CHOOSE FAITH)
+        action = new ProductionAction();
+        player = createPlayer(true);
+        storageCount = new ResourceCount(1,0,0,0,0);
+        chestCount = new ResourceCount(0,1,0,0,0);
+        assertFalse(action.useProductionAction(Resource.FAITH,storageCount,chestCount,player));
+
     }
 
     @Test
     void endProductionAction() {
+        //ACTION THAT ADDS 1 COIN AND PATHPOSITION++
         ProductionAction action = new ProductionAction();
-        ResourceCount playerChest = new ResourceCount(5,5,0,0,0);
-        ResourceCount result = ResourceCount.getTotal(playerChest,action.getBufferOutput());
-        //CALL TO USEPRODUCTIONACTION
-        //action.endProductionAction(player);
-        assertEquals(result,playerChest);
+        PlayerDashboard player = createPlayer(true);
+        ResourceCount storageCount = new ResourceCount(1,0,0,0,0);
+        ResourceCount result = new ResourceCount(0,2,0,0,0);
+        ResourceCount resultBuff = new ResourceCount(1,0,0,0,1);
+
+        LeaderCard card = createLeaderCard(true);
+        action.useProductionAction(card,storageCount,null,player,Resource.COIN);
+        assertEquals(result,player.getStorage().readStorage()); //Paid correctly
+        assertEquals(resultBuff,action.getBufferOutput()); //Buffer equals to production output
+
+
+        //BASICPRODUCTION THAT ADDS 1 COIN
+        ResourceCount chestCount = new ResourceCount(1,1,0,0,0);
+        ResourceCount resultChest = new ResourceCount(4,4,0,0,0);
+        resultBuff.sumCounts(new ResourceCount(1,0,0,0,0));
+        action.useProductionAction(Resource.COIN,null,chestCount,player);
+        assertEquals(resultChest,player.getChest()); //Paid correctly 
+        assertEquals(resultBuff,action.getBufferOutput()); //Buffer equals to production output
+
+        //END ACTION THEN CHECK IF PATHPOSITION INCREASED, AND CHEST INCREASED
+        action.endProductionAction(player);
+        ResourceCount newChest = new ResourceCount(6,4,0,0,0);
+        assertEquals(1,player.getPathPosition());
+        assertEquals(newChest,player.getChest());
     }
     PlayerDashboard createPlayer(boolean inGame){
         String nickname = "Prova";
@@ -143,7 +219,9 @@ class ProductionActionTest {
         ArrayList<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
         leaderCards.add(0,createLeaderCard(inGame));
         leaderCards.add(0,createLeaderCard(false));
-        return new PlayerDashboard(storage,chest,devCards,leaderCards,basicProduction,1,nickname,2);
+        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,basicProduction,1,nickname,2);
+        devCards[0].addCard(createDevCard());
+        return player;
     }
 
     DevelopmentCard createDevCard(){
