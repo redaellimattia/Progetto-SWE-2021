@@ -26,4 +26,20 @@ public class LeaderCard extends Card {
     public void setInGame() {
         this.inGame = true;
     } //LeaderCard has been played
+
+    @Override
+    public boolean equals(Object o){
+        if (o == this) { //True if it's this instance
+            return true;
+        }
+        if (!(o instanceof LeaderCard))
+            return false;
+
+        //Check if same values
+        LeaderCard c = (LeaderCard) o;
+        if(this.getVictoryPoints()==c.getVictoryPoints()&&this.getRequirement().equals(c.getRequirement())&&
+                this.getSpecialAbility().equals(c.getSpecialAbility())&&this.inGame==c.inGame)
+            return true;
+        return false;
+    }
 }

@@ -13,4 +13,16 @@ public class WhiteChangeAbility extends SpecialAbility {
         return super.getResourceType();
     } //Returns resourceType
 
+    @Override
+    public boolean equals(Object o){
+        if (o == this) { //True if it's this instance
+            return true;
+        }
+        if (!(o instanceof WhiteChangeAbility))
+            return false;
+
+        //Check if same values
+        WhiteChangeAbility c = (WhiteChangeAbility) o;
+        return this.getResourceType().equals(c.getResourceType()); //True if same values
+    }
 }

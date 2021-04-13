@@ -15,6 +15,14 @@ public class CardLevelRequirement implements Requirement {
         this.level = level;
     }
 
+    public CardColour getColour() {
+        return colour;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
     @Override
     //TRUE IF THE PLAYER CAN ACTUALLY PLAY THE CARD
     public boolean isPlayable(PlayerDashboard player){
@@ -32,5 +40,18 @@ public class CardLevelRequirement implements Requirement {
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (o == this) { //True if it's this instance
+            return true;
+        }
+        if (!(o instanceof CardLevelRequirement))
+            return false;
+
+        //Check if same values
+        CardLevelRequirement c = (CardLevelRequirement) o;
+        return this.colour.equals(c.getColour()) && this.level == c.getLevel(); //True if same values
     }
 }

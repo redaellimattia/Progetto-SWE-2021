@@ -67,19 +67,21 @@ public class ResourceCount {
 
 
     //ADD RESOURCES, TO MODIFY MORE THAN ONE PARAMETER AT ONCE
-    public void addResources(int coins, int rocks, int servants, int shields){
+    public void addResources(int coins, int rocks, int servants, int shields,int faith){
         this.coins += coins;
         this.rocks += rocks;
         this.servants += servants;
         this.shields += shields;
+        this.faith += faith;
     }
 
     //REMOVE RESOURCES, TO MODIFY MORE THAN ONE PARAMETER AT ONCE
-    public void removeResources(int coins, int rocks, int servants, int shields){
+    public void removeResources(int coins, int rocks, int servants, int shields,int faith){
         this.coins -= coins;
         this.rocks -= rocks;
         this.servants -= servants;
         this.shields -= shields;
+        this.faith -= faith;
 
     }
     //RETURN TRUE IF THIS RESOURCECOUNT HAS >= RESOURCES THAN THE PASSED ONE;
@@ -89,12 +91,12 @@ public class ResourceCount {
     //SUM 2 RESOURCECOUNT
     public void sumCounts(ResourceCount add){
         if(add!=null)
-            this.addResources(add.getCoins(),add.getRocks(), add.getServants(), add.getShields());
+            this.addResources(add.getCoins(),add.getRocks(), add.getServants(), add.getShields(),add.getFaith());
     }
     //SUBTRACT 2 RESOURCECOUNT
     public void subCounts(ResourceCount sub){
         if(sub!=null) //Should avoid sub if it has more res than THIS?
-            this.removeResources(sub.getCoins(),sub.getRocks(), sub.getServants(), sub.getShields());
+            this.removeResources(sub.getCoins(),sub.getRocks(), sub.getServants(), sub.getShields(),sub.getFaith());
     }
     //RETURNS SUM OF 2 RESOURCECOUNT AS A SINGLE NEW RESOURCECOUNT
     public static ResourceCount getTotal(ResourceCount rc1, ResourceCount rc2){

@@ -16,59 +16,102 @@ class ProductionActionTest {
     void useProductionAction() { //DEVCARD PRODUCTION
         //HYBRID PAYMENT
         ProductionAction action = new ProductionAction();
-        PlayerDashboard player = createPlayer();
+        PlayerDashboard player = createPlayer(true);
         ResourceCount storageCount = new ResourceCount(1,0,0,0,0);
         ResourceCount chestCount = new ResourceCount(0,2,0,0,0);
         DevelopmentCard card = createDevCard();
-        assertTrue(action.useProductionAction(card,storageCount,chestCount,player)); //NEEDS TO BE TESTED USING CARD FROM PLAYER, PROBLEMS WITH DECK?
-        assertEquals(action.getBufferOutput(), card.getProductionPower().getOutput()); //Buffer equals to production output
+        assertTrue(action.useProductionAction(card,storageCount,chestCount,player));
+        assertEquals(card.getProductionPower().getOutput(),action.getBufferOutput()); //Buffer equals to production output
 
         //STORAGE ONLY PAYMENT
         action = new ProductionAction();
-        player = createPlayer();
+        player = createPlayer(true);
         storageCount = new ResourceCount(1,2,0,0,0); //Correct payment with storage
         chestCount = null;
         card = createDevCard();
-        assertTrue(action.useProductionAction(card,storageCount,chestCount,player)); //NEEDS TO BE TESTED USING CARD FROM PLAYER, PROBLEMS WITH DECK?
-        assertEquals(action.getBufferOutput(), card.getProductionPower().getOutput()); //Buffer equals to production output
+        assertTrue(action.useProductionAction(card,storageCount,chestCount,player));
+        assertEquals(card.getProductionPower().getOutput(),action.getBufferOutput()); //Buffer equals to production output
 
         //CHEST ONLY PAYMENT
         action = new ProductionAction();
-        player = createPlayer();
+        player = createPlayer(true);
         storageCount = null;
         chestCount = new ResourceCount(1,2,0,0,0); //Correct payment with chest
         card = createDevCard();
-        assertTrue(action.useProductionAction(card,storageCount,chestCount,player)); //NEEDS TO BE TESTED USING CARD FROM PLAYER, PROBLEMS WITH DECK?
-        assertEquals(action.getBufferOutput(), card.getProductionPower().getOutput()); //Buffer equals to production output
+        assertTrue(action.useProductionAction(card,storageCount,chestCount,player));
+        assertEquals(card.getProductionPower().getOutput(),action.getBufferOutput()); //Buffer equals to production output
 
         //CANT PAY
         action = new ProductionAction();
-        player = createPlayer();
+        player = createPlayer(true);
         storageCount = null;
         chestCount = new ResourceCount(0,2,0,0,0);
         card = createDevCard();
-        assertFalse(action.useProductionAction(card,storageCount,chestCount,player)); //NEEDS TO BE TESTED USING CARD FROM PLAYER, PROBLEMS WITH DECK?
+        assertFalse(action.useProductionAction(card,storageCount,chestCount,player));
 
         //OVERPAY
         action = new ProductionAction();
-        player = createPlayer();
+        player = createPlayer(true);
         storageCount = null;
         chestCount = new ResourceCount(5,5,5,5,0);
         card = createDevCard();
-        assertFalse(action.useProductionAction(card,storageCount,chestCount,player)); //NEEDS TO BE TESTED USING CARD FROM PLAYER, PROBLEMS WITH DECK?
+        assertFalse(action.useProductionAction(card,storageCount,chestCount,player));
 
     }
 
     @Test
     void testUseProductionAction() { //LEADERCARD PRODUCTION
         //STORAGE ONLY PAYMENT
-        /*ProductionAction action = new ProductionAction();
-        PlayerDashboard player = createPlayer();
+        ProductionAction action = new ProductionAction();
+        PlayerDashboard player = createPlayer(true);
         ResourceCount storageCount = new ResourceCount(1,0,0,0,0);
         ResourceCount chestCount = null;
+        ResourceCount result = new ResourceCount(0,2,0,0,0);
+        ResourceCount resultBuff = new ResourceCount(1,0,0,0,1);
         LeaderCard card = createLeaderCard(true);
-        assertTrue(action.useProductionAction(card,storageCount,chestCount,player,Resource.COIN)); //NEEDS TO BE TESTED USING CARD FROM PLAYER, PROBLEMS WITH DECK?
-        assertEquals(action.getBufferOutput(), card.getProductionPower().getOutput()); //Buffer equals to production output*/
+        assertTrue(action.useProductionAction(card,storageCount,chestCount,player,Resource.COIN));
+        assertEquals(result,player.getStorage().readStorage()); //Paid correctly
+        assertEquals(resultBuff,action.getBufferOutput()); //Buffer equals to production output
+
+        //CHEST ONLY PAYMENT
+        action = new ProductionAction();
+        player = createPlayer(true);
+        storageCount = null;
+        chestCount = new ResourceCount(1,0,0,0,0);
+        result = new ResourceCount(4,5,0,0,0);
+        resultBuff = new ResourceCount(1,0,0,0,1);
+        assertTrue(action.useProductionAction(card,storageCount,chestCount,player,Resource.COIN));
+        assertEquals(result,player.getChest()); //Paid correctly
+        assertEquals(resultBuff, action.getBufferOutput()); //Buffer equals to production output
+
+        //CANT PAY
+        action = new ProductionAction();
+        player = createPlayer(true);
+        storageCount = null;
+        chestCount = new ResourceCount(0,0,0,0,0);
+        assertFalse(action.useProductionAction(card,storageCount,chestCount,player,Resource.COIN));
+
+        //OVERPAY
+        action = new ProductionAction();
+        player = createPlayer(true);
+        storageCount = null;
+        chestCount = new ResourceCount(5,5,5,5,0);
+        assertFalse(action.useProductionAction(card,storageCount,chestCount,player,Resource.COIN));
+
+        //WRONG CARD, IT ISNT IN GAME
+        action = new ProductionAction();
+        player = createPlayer(false);
+        card = createLeaderCard(false);
+        storageCount = null;
+        chestCount = new ResourceCount(1,0,0,0,0);
+        assertFalse(action.useProductionAction(card,storageCount,chestCount,player,Resource.COIN));
+
+        //WRONG CARD, Passing as it is inGame but it actually isnt
+        action = new ProductionAction();
+        player = createPlayer(false);
+        storageCount = null;
+        chestCount = new ResourceCount(1,0,0,0,0);
+        assertFalse(action.useProductionAction(card,storageCount,chestCount,player,Resource.COIN));
 
     }
 
@@ -85,7 +128,7 @@ class ProductionActionTest {
         //action.endProductionAction(player);
         assertEquals(result,playerChest);
     }
-    PlayerDashboard createPlayer(){
+    PlayerDashboard createPlayer(boolean inGame){
         String nickname = "Prova";
         CounterTop firstRow = new CounterTop(Resource.COIN,1);
         CounterTop secondRow = new CounterTop(Resource.ROCK,2);
@@ -98,7 +141,7 @@ class ProductionActionTest {
         Production basicProduction = new Production(input,output);
 
         ArrayList<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
-        leaderCards.add(0,createLeaderCard(true));
+        leaderCards.add(0,createLeaderCard(inGame));
         leaderCards.add(0,createLeaderCard(false));
         return new PlayerDashboard(storage,chest,devCards,leaderCards,basicProduction,1,nickname,2);
     }
@@ -111,7 +154,7 @@ class ProductionActionTest {
     LeaderCard createLeaderCard(boolean inGame){
         ColourCount count = new ColourCount(1,0,0,0);
         TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
-        SpecialAbility specialAbility = new DepositAbility(Resource.COIN);
+        SpecialAbility specialAbility = new ProductionAbility(Resource.COIN);
         LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
         if(inGame)
             leader.setInGame();

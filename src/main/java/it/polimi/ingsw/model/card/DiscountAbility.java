@@ -15,4 +15,16 @@ public class DiscountAbility extends SpecialAbility {
             resType.remove(cost,1); //Remove 1 resource of this.resourceType from cost
         return true; //True, devCard cost is reduced
     }
+    @Override
+    public boolean equals(Object o){
+        if (o == this) { //True if it's this instance
+            return true;
+        }
+        if (!(o instanceof DiscountAbility))
+            return false;
+
+        //Check if same values
+        DiscountAbility c = (DiscountAbility) o;
+        return this.getResourceType().equals(c.getResourceType()); //True if same values
+    }
 }

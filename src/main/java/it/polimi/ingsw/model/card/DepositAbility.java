@@ -15,4 +15,16 @@ public class  DepositAbility extends SpecialAbility {
         player.initArrayDeposit(resType); //Init arrayDeposit in PlayerDashboard
         return true; //This should be always possible, because we run this method only when player actually puts the card in game
     }
+    @Override
+    public boolean equals(Object o){
+        if (o == this) { //True if it's this instance
+            return true;
+        }
+        if (!(o instanceof DepositAbility))
+            return false;
+
+        //Check if same values
+        DepositAbility c = (DepositAbility) o;
+        return this.getResourceType().equals(c.getResourceType()); //True if same values
+    }
 }

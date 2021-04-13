@@ -12,6 +12,10 @@ public class TypeOfCardRequirement implements Requirement {
         this.cardColours = cardColours;
     }
 
+    public ColourCount getCardColours() {
+        return cardColours;
+    }
+
     @Override
     //TRUE IF THE PLAYER CAN ACTUALLY PLAY THE CARD
     public boolean isPlayable(PlayerDashboard player) { //True if there are enough card colours
@@ -35,5 +39,17 @@ public class TypeOfCardRequirement implements Requirement {
                 devCardSlot.get(j).getColour().add(count,1); //Read colour then add to count
             }
         }
+    }
+    @Override
+    public boolean equals(Object o){
+        if (o == this) { //True if it's this instance
+            return true;
+        }
+        if (!(o instanceof TypeOfCardRequirement))
+            return false;
+
+        //Check if same values
+        TypeOfCardRequirement c = (TypeOfCardRequirement) o;
+        return this.cardColours.equals(c.getCardColours()); // true if same colourCount
     }
 }
