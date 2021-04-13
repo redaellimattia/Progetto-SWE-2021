@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller;
 
+import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;
@@ -65,8 +66,12 @@ public class ProductionAction extends Action{
         return true;
     }
     //ADD THE RESOURCES OBTAINED FROM THE PRODUCTIONS TO THE PLAYER AND THEN RESET THE BUFFER;
-    public void endProductionAction(ResourceCount playerChest) {
-        playerChest.sumCounts(bufferOutput);
+    public void endProductionAction(PlayerDashboard player) {
+        int faith = bufferOutput.getFaith();
+        if(faith!=0)
+                player.updatePathPosition(faith);
+        bufferOutput.removeFaith(faith);
+        player.getChest().sumCounts(bufferOutput);
         bufferOutput = new ResourceCount(0,0,0,0,0);
     }
 }

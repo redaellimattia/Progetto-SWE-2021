@@ -61,7 +61,7 @@ public class PlayerDashboard extends Player{
 
     //ADD A GIVEN DEVCARD TO A GIVEN DEVCARD DECK ON THE PLAYERDASHBOARD;
     public void addDevCards(DevelopmentCard card, int position){ //the controller checks before buying the card if the player can place it, then checks where to put it;
-        devCards[position].addCard(card); //TO DO: METHOD ADD IN DEVCARD DECK;
+        devCards[position].addCard(card);
     }
 
     //RETURN TRUE IF AT LEAST ONE LEADER IS IN GAME;

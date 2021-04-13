@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductionActionTest {
 
     @Test
-    void useProductionAction() {
+    void useProductionAction() { //DEVCARD PRODUCTION
         //HYBRID PAYMENT
         ProductionAction action = new ProductionAction();
         PlayerDashboard player = createPlayer();
@@ -60,7 +60,16 @@ class ProductionActionTest {
     }
 
     @Test
-    void testUseProductionAction() {
+    void testUseProductionAction() { //LEADERCARD PRODUCTION
+        //STORAGE ONLY PAYMENT
+        /*ProductionAction action = new ProductionAction();
+        PlayerDashboard player = createPlayer();
+        ResourceCount storageCount = new ResourceCount(1,0,0,0,0);
+        ResourceCount chestCount = null;
+        LeaderCard card = createLeaderCard(true);
+        assertTrue(action.useProductionAction(card,storageCount,chestCount,player,Resource.COIN)); //NEEDS TO BE TESTED USING CARD FROM PLAYER, PROBLEMS WITH DECK?
+        assertEquals(action.getBufferOutput(), card.getProductionPower().getOutput()); //Buffer equals to production output*/
+
     }
 
     @Test
@@ -73,7 +82,7 @@ class ProductionActionTest {
         ResourceCount playerChest = new ResourceCount(5,5,0,0,0);
         ResourceCount result = ResourceCount.getTotal(playerChest,action.getBufferOutput());
         //CALL TO USEPRODUCTIONACTION
-        action.endProductionAction(playerChest);
+        //action.endProductionAction(player);
         assertEquals(result,playerChest);
     }
     PlayerDashboard createPlayer(){
@@ -88,10 +97,6 @@ class ProductionActionTest {
         ResourceCount output = new ResourceCount(0,0,0,0,0);
         Production basicProduction = new Production(input,output);
 
-        //NON FUNZIONA--------------------------
-        devCards[0] = new DeckDashboard();
-        devCards[0].addCard(createDevCard());
-        //--------------------------------------
         ArrayList<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
         leaderCards.add(0,createLeaderCard(true));
         leaderCards.add(0,createLeaderCard(false));

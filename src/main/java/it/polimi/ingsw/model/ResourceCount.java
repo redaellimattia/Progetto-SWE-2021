@@ -44,6 +44,9 @@ public class ResourceCount {
     public void addShields(int shields){
         this.shields += shields;
     }
+    public void addFaith(int faith){
+        this.faith += faith;
+    }
 
     //REMOVE ON A SINGLE PARAMETER
     public void removeCoins(int coins){
@@ -57,6 +60,9 @@ public class ResourceCount {
     }
     public void removeShields(int shields){
         this.shields -= shields;
+    }
+    public void removeFaith(int faith){
+        this.faith -= faith;
     }
 
 

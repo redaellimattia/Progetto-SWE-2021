@@ -44,7 +44,6 @@ public abstract class Action {
         chest.subCounts(chestCost);
         return true;
     }
-    //RETURN THE TOTAL OF RESOURCES THAT THE PLAYER IS USING TO PAY;
 
     //CHECK IF EVERY COUNTERTOP OF THE STORAGE HAS A DIFFERENT RESOURCETYPE
     public boolean checkShelves(Storage storage){
