@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DeckTest {
+class DeckDashboardTest {
 
     DeckDashboard buildDeck() {
         DeckDashboard testDeck = new DeckDashboard();
