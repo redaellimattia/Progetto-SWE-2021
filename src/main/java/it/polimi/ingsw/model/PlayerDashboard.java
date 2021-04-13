@@ -36,7 +36,7 @@ public class PlayerDashboard extends Player{
     public int getPathPosition(){ return pathPosition;}
     public Production getBasicProduction(){ return basicProduction; }
     public DeckDashboard[] getDevCards() { return devCards; }
-    public ArrayList<LeaderCard> getLeaderCards() { return new ArrayList<>(leaderCards); } //Return copy of leaderCards
+    public ArrayList<LeaderCard> getLeaderCards() { return leaderCards; } //Return copy of leaderCards
     public Storage getStorage() { return storage; }
     public ResourceCount getChest() { return chest; }
     public ArrayList<CounterTop> getArrayDeposit() { return arrayDeposit; }

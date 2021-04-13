@@ -6,6 +6,8 @@ import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 
+import java.util.ArrayList;
+
 public class ProductionAction extends Action{
 
     private ResourceCount bufferOutput;
@@ -24,6 +26,17 @@ public class ProductionAction extends Action{
         ResourceCount cost = card.getProductionPower().getInput();
         ResourceCount output = card.getProductionPower().useProduction(ResourceCount.getTotal(storageCount,chestCount));
 
+        //Searching if card passed by the view actually exists in the model as first of the deck
+        /*boolean checkDevCardExists = false;
+        for(int i=0;i<player.getDevCards().length;i++) {
+            DevelopmentCard d = player.getDevCards()[i].getFirst();
+            if (card.equals(d))
+                checkDevCardExists = true;
+        }
+        //If devCard doesnt exist
+        if(!checkDevCardExists)
+            return false;*/
+
         if(output==null || !deleteRes(storageCount,chestCount,player)) //NOT ENOUGH RESOURCES OR PAYMENT FAILED
             return false;
 
@@ -38,6 +51,14 @@ public class ProductionAction extends Action{
         ResourceCount cost = new ResourceCount(0,0,0,0,0);
         abilityRes.add(cost,1);
 
+        boolean checkLeadCardExists = false;
+        for(LeaderCard l: player.getLeaderCards()){
+            if(card.equals(l)&&card.isInGame())
+                checkLeadCardExists = true;
+        }
+        //If leaderCard doesnt exist
+        if(!checkLeadCardExists)
+            return false;
         //Player wants to use the Storage to pay || Return false if there aren't enough resources in StorageCount, or deleteRes goes wrong
         if(storageCount!=null&&(!card.getSpecialAbility().useProductionAbility(storageCount)||!deleteRes(storageCount,chestCount,player)))
             return false;
@@ -54,9 +75,14 @@ public class ProductionAction extends Action{
 
     //BASICPRODUCTION
     //RECEIVING COST CHOSEN BY THE PLAYER, AND COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
-    public boolean useProductionAction(ResourceCount cost, Resource res, ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player){
-        //If Sum of storageCount and ChestCount != cost OR deleteRes goes wrong then return false
-        if(!ResourceCount.getTotal(storageCount,chestCount).equals(cost)||!deleteRes(storageCount,chestCount,player))
+    public boolean useProductionAction(Resource res, ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player){
+        //If Sum of storageCount and ChestCount != 2 OR deleteRes goes wrong then return false
+        int total = 0;
+        ResourceCount totalCount = ResourceCount.getTotal(storageCount,chestCount);
+        Resource[] resources = new Resource[]{ Resource.COIN, Resource.ROCK, Resource.SERVANT, Resource.SHIELD};
+        for (Resource r : resources)
+            total += r.get(totalCount);
+        if(!deleteRes(storageCount,chestCount,player)||total!=2||totalCount.getFaith()!=0)
             return false;
 
         ResourceCount output = new ResourceCount(0,0,0,0,1); //ResourceCount with 1 Faith

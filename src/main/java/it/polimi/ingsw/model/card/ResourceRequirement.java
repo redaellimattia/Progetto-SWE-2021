@@ -10,6 +10,10 @@ public class ResourceRequirement implements Requirement {
         this.resources = resources;
     }
 
+    public ResourceCount getResources() {
+        return resources;
+    }
+
     @Override
     //TRUE IF THE PLAYER CAN ACTUALLY PLAY THE CARD
     public boolean isPlayable(PlayerDashboard player) { //True if player has enough resources
@@ -22,5 +26,17 @@ public class ResourceRequirement implements Requirement {
             return true; //True if player has enough resources
         else
             return false;
+    }
+    @Override
+    public boolean equals(Object o){
+        if (o == this) { //True if it's this instance
+            return true;
+        }
+        if (!(o instanceof ResourceRequirement))
+            return false;
+
+        //Check if same values
+        ResourceRequirement c = (ResourceRequirement) o;
+        return this.resources.equals(c.getResources()); // true if same resourceCount
     }
 }
