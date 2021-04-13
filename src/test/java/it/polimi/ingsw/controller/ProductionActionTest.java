@@ -236,8 +236,7 @@ class ProductionActionTest {
         leaderCards.add(0,createLeaderCard(false));
         PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,basicProduction,1,nickname,2);
         devCards[0].addCard(createDevCard(3));
-        devCards[1].addCard(createDevCard(3));
-        devCards[2].addCard(createDevCard(3));
+        devCards[1].addCard(createDevCard(1));
         return player;
     }
 

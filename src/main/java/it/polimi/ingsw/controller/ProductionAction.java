@@ -1,13 +1,11 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.model.DeckDashboard;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 
-import java.util.ArrayList;
 
 public class ProductionAction extends Action{
 
@@ -30,9 +28,11 @@ public class ProductionAction extends Action{
         //Searching if card passed by the view actually exists in the model as first of the deck
         boolean checkDevCardExists = false;
         for(int i=0;i<player.getDevCards().length;i++) {
-            DevelopmentCard d = player.getDevCards()[i].getFirst();
-            if (card.equals(d))
-                checkDevCardExists = true;
+            if(player.getDevCards()[i].getDeck().size()!=0) {
+                DevelopmentCard d = player.getDevCards()[i].getFirst();
+                if (card.equals(d))
+                    checkDevCardExists = true;
+            }
         }
         //If devCard doesnt exist
         if(!checkDevCardExists)
