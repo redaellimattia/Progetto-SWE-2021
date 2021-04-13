@@ -1,7 +1,6 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.CounterTop;
-import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PlayerDashboard;
 
 public class OrganizeStorage extends Action{
@@ -10,10 +9,10 @@ public class OrganizeStorage extends Action{
     public boolean swapShelves(PlayerDashboard player, int from, int to) {
         CounterTop[] shelves = player.getStorage().getShelvesArray();
         CounterTop temp = shelves[to];
-        if(player.getStorage().setThisRow(shelves[from],to) && player.getStorage().setThisRow(temp,from))
-            if(super.checkShelves(player.getStorage()))
+        if(player.getStorage().setThisRow(shelves[from],to) && player.getStorage().setThisRow(temp,from)) //contemporaneamente forse non funziona;
+            if(player.getStorage().checkShelves())
                 return true;
-            else{//IF FOR SOME REASON THE RULES ARE NOT FOLLOWED, NEED TO GO BACK TO NORMAL;
+            else{//IF FOR SOME ABSURD REASON THE RULES ARE NOT FOLLOWED, NEED TO GO BACK TO NORMAL;
                 player.getStorage().setThisRow(shelves[to],from);
                 player.getStorage().setThisRow(temp,to);
                 return false;

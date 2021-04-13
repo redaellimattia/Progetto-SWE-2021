@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.enumeration.Resource;
-
 public class Storage {
     private CounterTop firstRow;
     private CounterTop secondRow;
@@ -102,5 +100,12 @@ public class Storage {
     public CounterTop[] getShelvesArray(){
         return new CounterTop[]{this.firstRow, this.secondRow,this.thirdRow};
     }
-
+    //CHECK IF EVERY COUNTERTOP OF THE STORAGE HAS A DIFFERENT RESOURCETYPE
+    public boolean checkShelves(){
+        if(!this.getFirstRow().getResourceType().equals(this.getSecondRow().getResourceType()) &&
+                !this.getFirstRow().getResourceType().equals(this.getThirdRow().getResourceType()) &&
+                !this.getSecondRow().getResourceType().equals(this.getThirdRow().getResourceType()))
+            return true;
+        return false;
+    }
 }

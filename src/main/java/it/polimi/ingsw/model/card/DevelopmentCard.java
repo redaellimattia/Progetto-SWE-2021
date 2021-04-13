@@ -14,7 +14,8 @@ public class DevelopmentCard extends Card {
         super(victoryPoints);
         this.cost = cost;
         this.productionPower = productionPower;
-        this.level = level;
+        if(level >= 1 && level <= 3)
+            this.level = level;
         this.colour = colour;
     }
 
