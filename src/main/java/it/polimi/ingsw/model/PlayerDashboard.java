@@ -51,12 +51,12 @@ public class PlayerDashboard extends Player{
 
     //ADD THE RESOURCES PASSED IN A RESOURCECOUNT TO THE CHEST;
     public void addToChest(ResourceCount resources){
-        chest.addResources(resources.getCoins(),resources.getRocks(),resources.getServants(),resources.getShields());
+        chest.addResources(resources.getCoins(),resources.getRocks(),resources.getServants(),resources.getShields(), resources.getFaith());
     }
 
     //SUBTRACT THE RESOURCES PASSED IN A RESOURCECOUNT TO THE CHEST;
     public void subtractToChest(ResourceCount resources){
-        chest.removeResources(resources.getCoins(),resources.getRocks(),resources.getServants(),resources.getShields());
+        chest.removeResources(resources.getCoins(),resources.getRocks(),resources.getServants(),resources.getShields(), resources.getFaith());
     }
 
     //ADD A GIVEN DEVCARD TO A GIVEN DEVCARD DECK ON THE PLAYERDASHBOARD;
@@ -124,7 +124,7 @@ public class PlayerDashboard extends Player{
     //RETURN ALL THE RESOURCES IN THE CHEST AND IN THE STORAGE;
     public ResourceCount getTotalResources(){
         ResourceCount count = storage.readStorage(); //initialize count to the content of storage
-        count.addResources(chest.getCoins(), chest.getRocks(), chest.getServants(), chest.getShields()); //add chest resources to count
+        count.addResources(chest.getCoins(), chest.getRocks(), chest.getServants(), chest.getShields(),chest.getFaith()); //add chest resources to count
         return count;
     }
 }

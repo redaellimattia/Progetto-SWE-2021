@@ -32,15 +32,15 @@ class ResourceCountTest {
     void removeColours(){
         ResourceCount count = new ResourceCount(3,4,1,5,0);
         ResourceCount check = new ResourceCount(2,3,0,4,0);
-        count.removeResources(1,1,1,1);
+        count.removeResources(1,1,1,1,0);
         assertEquals(check,count);
     }
 
     @Test
     void addResources() {
         ResourceCount count = new ResourceCount(3,4,1,5,0);
-        ResourceCount check = new ResourceCount(4,5,2,6,0);
-        count.addResources(1,1,1,1);
+        ResourceCount check = new ResourceCount(4,5,2,6,1);
+        count.addResources(1,1,1,1,1);
         assertEquals(check,count);
     }
 
