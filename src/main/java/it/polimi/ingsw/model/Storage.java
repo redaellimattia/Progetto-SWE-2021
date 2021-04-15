@@ -36,21 +36,20 @@ public class Storage {
         }
         this.firstRow = firstRow;
     }
-
     public void setSecondRow(CounterTop secondRow) throws IllegalArgumentException{
         if(secondRow.getContent() > 2 ){
             throw new IllegalArgumentException();
         }
         this.secondRow = secondRow;
     }
-
     public void setThirdRow(CounterTop thirdRow) throws IllegalArgumentException{
         if(thirdRow.getContent() > 3){
             throw new IllegalArgumentException();
         }
         this.thirdRow = thirdRow;
     }
-    //SET THE TARGET SHELF WITH THE PASSED COUNTERTOP
+
+    //CHECKS IF ITS POSSIBLE TO SWAP THE SELECTED COUNTERTOPS, AND IF SO IT DOES IT;
     public boolean swapRows(int to, int from){
         ArrayList<CounterTop> supportShelves = getShelvesArray();
         if(supportShelves.get(to-1).getContent() <= from){
@@ -74,7 +73,6 @@ public class Storage {
                 secondRow.addContent(1);
         return n-i;
     }
-
     public int addToThirdRow(int n){
         int i = 0;
         for(i = 0; i<n && thirdRow.getContent()<3; i++)
@@ -102,7 +100,7 @@ public class Storage {
 
         return count;
     }
-    //RETURN AN ARRAY WITH THE SHELVES OF STORAGE TO GET RESOURCE WHEN THE PLAYER NEEDS TO PAY;
+    //RETURN AN ARRAYLIST WITH THE SHELVES OF STORAGE;
     public ArrayList<CounterTop> getShelvesArray(){
         ArrayList<CounterTop> array = new ArrayList<>();
         array.add(0,thirdRow);
