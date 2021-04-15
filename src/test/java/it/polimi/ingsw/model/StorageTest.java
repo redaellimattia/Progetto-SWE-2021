@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.css.Counter;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class StorageTest {
@@ -161,11 +163,11 @@ class StorageTest {
     @Test
     void getShelvesArray(){
         Storage storage = createStorage();
-        CounterTop[] array = storage.getShelvesArray();
+        ArrayList<CounterTop> array = storage.getShelvesArray();
         storage.addToFirstRow(1);
-        assertEquals(storage.getFirstRow(),array[0]);
-        assertEquals(storage.getSecondRow(),array[1]);
-        assertEquals(storage.getThirdRow(),array[2]);
+        assertEquals(storage.getFirstRow(),array.get(0));
+        assertEquals(storage.getSecondRow(),array.get(1));
+        assertEquals(storage.getThirdRow(),array.get(2));
 
     }
 }

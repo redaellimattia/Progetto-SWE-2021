@@ -52,8 +52,8 @@ public class Storage {
     }
     //SET THE TARGET SHELF WITH THE PASSED COUNTERTOP
     public boolean swapRows(int to, int from){
-        CounterTop[] supportShelves = getShelvesArray();
-        if(supportShelves[to-1].getContent() <= from){
+        ArrayList<CounterTop> supportShelves = getShelvesArray();
+        if(supportShelves.get(to-1).getContent() <= from){
             swap(from-1,to-1);
             return true;
         }
@@ -85,10 +85,7 @@ public class Storage {
 
     //METHOD THAT SWAP TWO SHELVES, NEEDED CHECKS ARE MADE BY THE METHOD WHO INVOKES THIS ONE
     public void swap(int from, int to){
-        ArrayList<CounterTop> supportShelves = new ArrayList<>();
-        supportShelves.add(0,thirdRow);
-        supportShelves.add(0,secondRow);
-        supportShelves.add(0,firstRow);
+        ArrayList<CounterTop> supportShelves = getShelvesArray();
         Collections.swap(supportShelves,from,to);
 
         setFirstRow(supportShelves.get(0));
@@ -106,8 +103,12 @@ public class Storage {
         return count;
     }
     //RETURN AN ARRAY WITH THE SHELVES OF STORAGE TO GET RESOURCE WHEN THE PLAYER NEEDS TO PAY;
-    public CounterTop[] getShelvesArray(){
-        return new CounterTop[]{this.firstRow, this.secondRow,this.thirdRow};
+    public ArrayList<CounterTop> getShelvesArray(){
+        ArrayList<CounterTop> array = new ArrayList<>();
+        array.add(0,thirdRow);
+        array.add(0,secondRow);
+        array.add(0,firstRow);
+        return array;
     }
     //CHECK IF EVERY COUNTERTOP OF THE STORAGE HAS A DIFFERENT RESOURCETYPE
     public boolean checkShelves(){
