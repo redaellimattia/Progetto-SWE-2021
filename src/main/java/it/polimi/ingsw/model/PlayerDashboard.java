@@ -72,6 +72,7 @@ public class PlayerDashboard extends Player{
     //METHOD TO DISCARD A LEADER FROM THE HAND TO GAIN A FAITH POINT;
     public void discardLeader(int position){
         leaderCards.remove(position);
+        updatePathPosition(1);
     }
 
 
@@ -129,25 +130,34 @@ public class PlayerDashboard extends Player{
     }
 
     public boolean leaderCardExists(LeaderCard card){
-        boolean found = false;
         for(LeaderCard l:this.getLeaderCards())
-            if (l.equals(card)) {
-                found = true;
-                break;
-            }
-        return found;
+            if (l.equals(card))
+                return true;
+        return false;
     }
+
     public boolean devCardExists(DevelopmentCard card){
-        boolean found = false;
         for(int i=0;i<this.getDevCards().length;i++)
             if(this.getDevCards()[i].getDeck().size()!=0) {
                 DevelopmentCard d = this.getDevCards()[i].getFirst();
-                if (d.equals(card)){
-                    found = true;
-                    break;
-                }
+                if (d.equals(card))
+                    return true;
             }
-        return found;
+        return false;
+    }
+
+    //RETURNS POSITION IF EXISTS, -1 IF NOT FOUND
+    public int getLeaderPos(LeaderCard card){
+        for(int i=0;i<this.getLeaderCards().size();i++) {
+            LeaderCard l = this.getLeaderCards().get(i);
+            if(l.equals(card))
+                return i;
+        }
+        return -1;
+    }
+
+    public void setLeaderInGame(int position){
+        this.getLeaderCards().get(position).setInGame();
     }
 
 }
