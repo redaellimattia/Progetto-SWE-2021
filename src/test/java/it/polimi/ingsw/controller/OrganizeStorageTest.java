@@ -22,6 +22,13 @@ class OrganizeStorageTest {
         assertTrue(player.getStorage().getSecondRow().equals(check1));
         assertTrue(player.getStorage().getThirdRow().equals(check2));
     }
+    @Test //DOESNT DO SWAP IF IT'S NOT POSSIBLE;
+    void swapShelves1() {
+        PlayerDashboard player = createPlayer();
+        OrganizeStorage organize = new OrganizeStorage();
+        assertFalse(organize.swapShelves(player,2,1));
+    }
+
     PlayerDashboard createPlayer(){
         String nickname = "Prova";
         CounterTop firstRow = new CounterTop(Resource.COIN,1);
