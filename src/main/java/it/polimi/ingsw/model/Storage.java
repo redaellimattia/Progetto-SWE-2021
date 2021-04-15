@@ -1,5 +1,12 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.enumeration.Resource;
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+
 public class Storage {
     private CounterTop firstRow;
     private CounterTop secondRow;
@@ -44,17 +51,11 @@ public class Storage {
         this.thirdRow = thirdRow;
     }
     //SET THE TARGET SHELF WITH THE PASSED COUNTERTOP
-    public boolean setThisRow(CounterTop substitute, int target){
-        switch(target){
-            case 1: if(substitute.getContent() <= 1)
-                    setFirstRow(substitute);
-                    return true;
-            case 2: if(substitute.getContent() <= 2)
-                    setSecondRow(substitute);
-                    return true;
-            case 3: if(substitute.getContent() <= 3)
-                    setThirdRow(substitute);
-                    return true;
+    public boolean swapRows(int to, int from){
+        CounterTop[] supportShelves = getShelvesArray();
+        if(supportShelves[to-1].getContent() <= from){
+            swap(from-1,to-1);
+            return true;
         }
         return false;
     }
@@ -81,12 +82,20 @@ public class Storage {
 
         return n-i;
     }
+
     //METHOD THAT SWAP TWO SHELVES, NEEDED CHECKS ARE MADE BY THE METHOD WHO INVOKES THIS ONE
     public void swap(int from, int to){
-        CounterTop temp = getShelvesArray()[to];
-        getShelvesArray()[to] = getShelvesArray()[from];
-        getShelvesArray()[from] = temp;
+        ArrayList<CounterTop> supportShelves = new ArrayList<>();
+        supportShelves.add(0,thirdRow);
+        supportShelves.add(0,secondRow);
+        supportShelves.add(0,firstRow);
+        Collections.swap(supportShelves,from,to);
+
+        setFirstRow(supportShelves.get(0));
+        setSecondRow(supportShelves.get(1));
+        setThirdRow(supportShelves.get(2));
     }
+
     //RETURN IN A RESOURCECOUNT THE TOTAL OF THE RESOURCES PRESENT IN THE STORAGE;
     public ResourceCount readStorage(){
         ResourceCount count = new ResourceCount(0,0,0,0,0);

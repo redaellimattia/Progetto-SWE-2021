@@ -137,6 +137,16 @@ class StorageTest {
         assertEquals(storage.readStorage(),check);
     }
 
+    @Test
+    void swap(){
+        Storage storage= createStorage();
+        Resource coins = Resource.COIN;
+        Resource rocks = Resource.ROCK;
+        storage.swap(0,1);
+        assertEquals(rocks,storage.getFirstRow().getResourceType());
+        assertEquals(coins,storage.getSecondRow().getResourceType());
+    }
+
     public Storage createStorage(){
         Resource coins = Resource.COIN;
         Resource rocks = Resource.ROCK;
