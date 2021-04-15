@@ -46,4 +46,10 @@ public class Game {
     public static MarketDashboard getMarket() {
         return market;
     }
+
+    public static SoloToken pickNextToken() {
+        SoloToken picked = tokensDeck.get(0);
+        tokensDeck.remove(0);
+        return picked;
+    }
 }
