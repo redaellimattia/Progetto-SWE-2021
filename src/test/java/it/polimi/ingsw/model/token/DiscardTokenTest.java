@@ -57,7 +57,6 @@ class DiscardTokenTest {
         assertTrue(testShop.) */
     }
 
-    // TO-DO: Create a more "real" shop (e.g. using cards of different levels)
     Shop createShop(){
         Deck[][] testStructure = new DeckShop[3][4];
 
@@ -67,44 +66,113 @@ class DiscardTokenTest {
         DevelopmentCard cardYellow = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
         DevelopmentCard cardPurple = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
 
+        DevelopmentCard cardGreen2 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.GREEN);
+        DevelopmentCard cardBlue2 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.BLUE);
+        DevelopmentCard cardYellow2 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.YELLOW);
+        DevelopmentCard cardPurple2 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.PURPLE);
+
+        DevelopmentCard cardGreen3 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);
+        DevelopmentCard cardBlue3 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.BLUE);
+        DevelopmentCard cardYellow3 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.YELLOW);
+        DevelopmentCard cardPurple3 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
+
         ArrayList<DevelopmentCard> test1 = new ArrayList<DevelopmentCard>();
         test1.add(cardGreen);
         test1.add(cardGreen);
         test1.add(cardGreen);
         test1.add(cardGreen);
+        DeckShop deckGreen1 = new DeckShop(test1);
 
-        DeckShop deckGreen = new DeckShop(test1);
         ArrayList<DevelopmentCard> test2 = new ArrayList<DevelopmentCard>();
         test2.add(cardBlue);
         test2.add(cardBlue);
         test2.add(cardBlue);
         test2.add(cardBlue);
-        DeckShop deckBlue = new DeckShop(test2);
+        DeckShop deckBlue1 = new DeckShop(test2);
+
         ArrayList<DevelopmentCard> test3 = new ArrayList<DevelopmentCard>();
         test3.add(cardYellow);
         test3.add(cardYellow);
         test3.add(cardYellow);
         test3.add(cardYellow);
-        DeckShop deckYellow = new DeckShop(test3);
+        DeckShop deckYellow1 = new DeckShop(test3);
+
         ArrayList<DevelopmentCard> test4 = new ArrayList<DevelopmentCard>();
         test4.add(cardPurple);
         test4.add(cardPurple);
         test4.add(cardPurple);
         test4.add(cardPurple);
-        DeckShop deckPurple = new DeckShop(test4);
+        DeckShop deckPurple1 = new DeckShop(test4);
 
-        testStructure[0][0] = deckGreen;
-        testStructure[0][1] = deckBlue;
-        testStructure[0][2] = deckYellow;
-        testStructure[0][3] = deckPurple;
-        testStructure[1][0] = deckGreen;
-        testStructure[1][1] = deckBlue;
-        testStructure[1][2] = deckYellow;
-        testStructure[1][3] = deckPurple;
-        testStructure[2][0] = deckGreen;
-        testStructure[2][1] = deckBlue;
-        testStructure[2][2] = deckYellow;
-        testStructure[2][3] = deckPurple;
+        test1 = new ArrayList<DevelopmentCard>();
+        test1.add(cardGreen2);
+        test1.add(cardGreen2);
+        test1.add(cardGreen2);
+        test1.add(cardGreen2);
+        DeckShop deckGreen2 = new DeckShop(test1);
+
+        test2 = new ArrayList<DevelopmentCard>();
+        test2.add(cardBlue2);
+        test2.add(cardBlue2);
+        test2.add(cardBlue2);
+        test2.add(cardBlue2);
+        DeckShop deckBlue2 = new DeckShop(test2);
+
+        test3 = new ArrayList<DevelopmentCard>();
+        test3.add(cardYellow2);
+        test3.add(cardYellow2);
+        test3.add(cardYellow2);
+        test3.add(cardYellow2);
+        DeckShop deckYellow2 = new DeckShop(test3);
+
+        test4 = new ArrayList<DevelopmentCard>();
+        test4.add(cardPurple2);
+        test4.add(cardPurple2);
+        test4.add(cardPurple2);
+        test4.add(cardPurple2);
+        DeckShop deckPurple2 = new DeckShop(test4);
+
+        test1 = new ArrayList<DevelopmentCard>();
+        test1.add(cardGreen3);
+        test1.add(cardGreen3);
+        test1.add(cardGreen3);
+        test1.add(cardGreen3);
+        DeckShop deckGreen3 = new DeckShop(test1);
+
+        test2 = new ArrayList<DevelopmentCard>();
+        test2.add(cardBlue3);
+        test2.add(cardBlue3);
+        test2.add(cardBlue3);
+        test2.add(cardBlue3);
+        DeckShop deckBlue3 = new DeckShop(test2);
+
+        test3 = new ArrayList<DevelopmentCard>();
+        test3.add(cardYellow3);
+        test3.add(cardYellow3);
+        test3.add(cardYellow3);
+        test3.add(cardYellow3);
+        DeckShop deckYellow3 = new DeckShop(test3);
+
+        test4 = new ArrayList<DevelopmentCard>();
+        test4.add(cardPurple2);
+        test4.add(cardPurple2);
+        test4.add(cardPurple2);
+        test4.add(cardPurple2);
+        DeckShop deckPurple3 = new DeckShop(test4);
+
+
+        testStructure[0][0] = deckGreen3;
+        testStructure[0][1] = deckBlue3;
+        testStructure[0][2] = deckYellow3;
+        testStructure[0][3] = deckPurple3;
+        testStructure[1][0] = deckGreen2;
+        testStructure[1][1] = deckBlue2;
+        testStructure[1][2] = deckYellow2;
+        testStructure[1][3] = deckPurple2;
+        testStructure[2][0] = deckGreen1;
+        testStructure[2][1] = deckBlue1;
+        testStructure[2][2] = deckYellow1;
+        testStructure[2][3] = deckPurple1;
         Shop shop = new Shop(testStructure);
         return shop;
     }
