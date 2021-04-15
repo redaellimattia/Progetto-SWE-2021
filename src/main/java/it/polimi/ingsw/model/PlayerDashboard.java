@@ -127,4 +127,27 @@ public class PlayerDashboard extends Player{
         count.addResources(chest.getCoins(), chest.getRocks(), chest.getServants(), chest.getShields(),chest.getFaith()); //add chest resources to count
         return count;
     }
+
+    public boolean leaderCardExists(LeaderCard card){
+        boolean found = false;
+        for(LeaderCard l:this.getLeaderCards())
+            if (l.equals(card)) {
+                found = true;
+                break;
+            }
+        return found;
+    }
+    public boolean devCardExists(DevelopmentCard card){
+        boolean found = false;
+        for(int i=0;i<this.getDevCards().length;i++)
+            if(this.getDevCards()[i].getDeck().size()!=0) {
+                DevelopmentCard d = this.getDevCards()[i].getFirst();
+                if (d.equals(card)){
+                    found = true;
+                    break;
+                }
+            }
+        return found;
+    }
+
 }

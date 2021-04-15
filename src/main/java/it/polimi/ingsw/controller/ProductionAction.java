@@ -25,17 +25,8 @@ public class ProductionAction extends Action{
         ResourceCount cost = card.getProductionPower().getInput();
         ResourceCount output = card.getProductionPower().useProduction(ResourceCount.getTotal(storageCount,chestCount));
 
-        //Searching if card passed by the view actually exists in the model as first of the deck
-        boolean checkDevCardExists = false;
-        for(int i=0;i<player.getDevCards().length;i++) {
-            if(player.getDevCards()[i].getDeck().size()!=0) {
-                DevelopmentCard d = player.getDevCards()[i].getFirst();
-                if (card.equals(d))
-                    checkDevCardExists = true;
-            }
-        }
-        //If devCard doesnt exist
-        if(!checkDevCardExists)
+        //If devCard doesnt exist in the model then return false
+        if(!player.devCardExists(card))
             return false;
 
         if(output==null || !deleteRes(storageCount,chestCount,player)) //NOT ENOUGH RESOURCES OR PAYMENT FAILED
@@ -52,13 +43,8 @@ public class ProductionAction extends Action{
         ResourceCount cost = new ResourceCount(0,0,0,0,0);
         abilityRes.add(cost,1);
 
-        boolean checkLeadCardExists = false;
-        for(LeaderCard l: player.getLeaderCards()){
-            if(card.equals(l)&&card.isInGame())
-                checkLeadCardExists = true;
-        }
-        //If leaderCard doesnt exist
-        if(!checkLeadCardExists)
+        //If leaderCard doesnt exist in the model then return false
+        if(!(player.leaderCardExists(card)&&card.isInGame()))
             return false;
         //Player wants to use the Storage to pay || Return false if there aren't enough resources in StorageCount, or deleteRes goes wrong
         if(storageCount!=null&&(!card.getSpecialAbility().useProductionAbility(storageCount)||!deleteRes(storageCount,chestCount,player)))
