@@ -1,5 +1,12 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.model.enumeration.Resource;
+
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+
 public class Storage {
     private CounterTop firstRow;
     private CounterTop secondRow;
@@ -29,32 +36,25 @@ public class Storage {
         }
         this.firstRow = firstRow;
     }
-
     public void setSecondRow(CounterTop secondRow) throws IllegalArgumentException{
         if(secondRow.getContent() > 2 ){
             throw new IllegalArgumentException();
         }
         this.secondRow = secondRow;
     }
-
     public void setThirdRow(CounterTop thirdRow) throws IllegalArgumentException{
         if(thirdRow.getContent() > 3){
             throw new IllegalArgumentException();
         }
         this.thirdRow = thirdRow;
     }
-    //SET THE TARGET SHELF WITH THE PASSED COUNTERTOP
-    public boolean setThisRow(CounterTop substitute, int target){
-        switch(target){
-            case 1: if(substitute.getContent() <= 1)
-                    setFirstRow(substitute);
-                    return true;
-            case 2: if(substitute.getContent() <= 2)
-                    setSecondRow(substitute);
-                    return true;
-            case 3: if(substitute.getContent() <= 3)
-                    setThirdRow(substitute);
-                    return true;
+
+    //CHECKS IF ITS POSSIBLE TO SWAP THE SELECTED COUNTERTOPS, AND IF SO IT DOES IT;
+    public boolean swapRows(int to, int from){
+        ArrayList<CounterTop> supportShelves = getShelvesArray();
+        if(supportShelves.get(to-1).getContent() <= from){
+            swap(from-1,to-1);
+            return true;
         }
         return false;
     }
@@ -73,7 +73,6 @@ public class Storage {
                 secondRow.addContent(1);
         return n-i;
     }
-
     public int addToThirdRow(int n){
         int i = 0;
         for(i = 0; i<n && thirdRow.getContent()<3; i++)
@@ -81,12 +80,17 @@ public class Storage {
 
         return n-i;
     }
+
     //METHOD THAT SWAP TWO SHELVES, NEEDED CHECKS ARE MADE BY THE METHOD WHO INVOKES THIS ONE
     public void swap(int from, int to){
-        CounterTop temp = getShelvesArray()[to];
-        getShelvesArray()[to] = getShelvesArray()[from];
-        getShelvesArray()[from] = temp;
+        ArrayList<CounterTop> supportShelves = getShelvesArray();
+        Collections.swap(supportShelves,from,to);
+
+        setFirstRow(supportShelves.get(0));
+        setSecondRow(supportShelves.get(1));
+        setThirdRow(supportShelves.get(2));
     }
+
     //RETURN IN A RESOURCECOUNT THE TOTAL OF THE RESOURCES PRESENT IN THE STORAGE;
     public ResourceCount readStorage(){
         ResourceCount count = new ResourceCount(0,0,0,0,0);
@@ -96,9 +100,13 @@ public class Storage {
 
         return count;
     }
-    //RETURN AN ARRAY WITH THE SHELVES OF STORAGE TO GET RESOURCE WHEN THE PLAYER NEEDS TO PAY;
-    public CounterTop[] getShelvesArray(){
-        return new CounterTop[]{this.firstRow, this.secondRow,this.thirdRow};
+    //RETURN AN ARRAYLIST WITH THE SHELVES OF STORAGE;
+    public ArrayList<CounterTop> getShelvesArray(){
+        ArrayList<CounterTop> array = new ArrayList<>();
+        array.add(0,thirdRow);
+        array.add(0,secondRow);
+        array.add(0,firstRow);
+        return array;
     }
     //CHECK IF EVERY COUNTERTOP OF THE STORAGE HAS A DIFFERENT RESOURCETYPE
     public boolean checkShelves(){
