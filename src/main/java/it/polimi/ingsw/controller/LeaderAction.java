@@ -8,6 +8,8 @@ public class LeaderAction extends Action {
         int position = player.getLeaderPos(card);
         if(position==-1)
             return false;
+        if(player.getLeaderCards().get(position).isInGame())
+            return false;
         player.discardLeader(position);
         return true;
     }

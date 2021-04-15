@@ -36,7 +36,7 @@ public class PlayerDashboard extends Player{
     public int getPathPosition(){ return pathPosition;}
     public Production getBasicProduction(){ return basicProduction; }
     public DeckDashboard[] getDevCards() { return devCards; }
-    public ArrayList<LeaderCard> getLeaderCards() { return leaderCards; } //Return copy of leaderCards
+    public ArrayList<LeaderCard> getLeaderCards() { return leaderCards; }
     public Storage getStorage() { return storage; }
     public ResourceCount getChest() { return chest; }
     public ArrayList<CounterTop> getArrayDeposit() { return arrayDeposit; }
@@ -66,7 +66,7 @@ public class PlayerDashboard extends Player{
 
     //RETURN TRUE IF AT LEAST ONE LEADER IS IN GAME;
     public boolean leadersInGame(){
-        return (leaderCards.get(0).isInGame() == true || leaderCards.get(1).isInGame() == true);
+        return (leaderCards.get(0).isInGame() || leaderCards.get(1).isInGame());
     }
 
     //METHOD TO DISCARD A LEADER FROM THE HAND TO GAIN A FAITH POINT;
