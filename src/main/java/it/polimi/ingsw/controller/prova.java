@@ -7,11 +7,11 @@ import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 
-public class ProductionAction extends Action{
+public class LeaderCardProductioAction extends Action{
 
     private ResourceCount bufferOutput;
 
-    public ProductionAction() { //Will be called in PlayerTurnManager
+    public LeaderCardProductioAction() { //Will be called in PlayerTurnManager
         this.bufferOutput = new ResourceCount(0,0,0,0,0);
     }
 
@@ -38,27 +38,6 @@ public class ProductionAction extends Action{
 
     //LEADERCARDS
     //RECEIVING CARD,COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
-    public boolean useProductionAction(LeaderCard card, ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player, Resource res){
-        Resource abilityRes = card.getSpecialAbility().getResourceType();
-        ResourceCount cost = new ResourceCount(0,0,0,0,0);
-        abilityRes.add(cost,1);
-
-        //If leaderCard doesnt exist in the model then return false
-        if(!(player.leaderCardExists(card)&&card.isInGame()))
-            return false;
-        //Player wants to use the Storage to pay || Return false if there aren't enough resources in StorageCount, or deleteRes goes wrong
-        if(storageCount!=null&&(!card.getSpecialAbility().useProductionAbility(storageCount)||!deleteRes(storageCount,chestCount,player)))
-            return false;
-        //Player wants to use the Chest to pay || Return false if there aren't enough resources in StorageCount, or deleteRes goes wrong
-        if(chestCount!=null&&(!card.getSpecialAbility().useProductionAbility(chestCount)||!deleteRes(storageCount,chestCount,player)))
-            return false;
-
-        //res is the chosen resource as output
-        ResourceCount output = new ResourceCount(0,0,0,0,1); //ResourceCount with 1 Faith
-        res.add(output,1);
-        bufferOutput.sumCounts(output);
-        return true;
-    }
 
     //BASICPRODUCTION
     //RECEIVING COST CHOSEN BY THE PLAYER, AND COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
@@ -83,7 +62,7 @@ public class ProductionAction extends Action{
     public void endProductionAction(PlayerDashboard player) {
         int faith = bufferOutput.getFaith();
         if(faith!=0)
-                player.updatePathPosition(faith);
+            player.updatePathPosition(faith);
         bufferOutput.removeFaith(faith);
         player.getChest().sumCounts(bufferOutput);
         bufferOutput = new ResourceCount(0,0,0,0,0);

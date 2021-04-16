@@ -4,13 +4,16 @@ import it.polimi.ingsw.model.CounterTop;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.Shop;
 import it.polimi.ingsw.model.card.Card;
+import it.polimi.ingsw.model.card.DevelopmentCard;
+import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 public class Parameter {
     //ProductionAction
     private ResourceCount storageCount;
     private ResourceCount chestCount;
-    private Card card;
+    private LeaderCard leaderCard;
+    private DevelopmentCard devCard;
     private Resource res;
 
     //OrganizeStorage_CardShop
@@ -20,10 +23,11 @@ public class Parameter {
     private CounterTop leaderDeposit;
     private Shop shop;
 
-    public Parameter(ResourceCount storageCount, ResourceCount chestCount, Card card, Resource res, int from_row, int to_column, int number_deckPosition, CounterTop leaderDeposit, Shop shop) {
+    public Parameter(ResourceCount storageCount, ResourceCount chestCount, LeaderCard leaderCard, DevelopmentCard devCard, Resource res, int from_row, int to_column, int number_deckPosition, CounterTop leaderDeposit, Shop shop) {
         this.storageCount = storageCount;
         this.chestCount = chestCount;
-        this.card = card;
+        this.leaderCard = leaderCard;
+        this.devCard = devCard;
         this.res = res;
         this.from_row = from_row;
         this.to_column = to_column;
@@ -48,12 +52,20 @@ public class Parameter {
         this.chestCount = chestCount;
     }
 
-    public Card getCard() {
-        return card;
+    public LeaderCard getLeaderCard() {
+        return leaderCard;
     }
 
-    public void setCard(Card card) {
-        this.card = card;
+    public void setLeaderCard(LeaderCard leaderCard) {
+        this.leaderCard = leaderCard;
+    }
+
+    public DevelopmentCard getDevCard() {
+        return devCard;
+    }
+
+    public void setDevCard(DevelopmentCard devCard) {
+        this.devCard = devCard;
     }
 
     public Resource getRes() {
