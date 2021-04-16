@@ -12,6 +12,9 @@ public class LeaderCardProductionAction extends Action{
         this.bufferOutput = new ResourceCount(0,0,0,0,0);
     }
 
+    //LEADERCARDS
+    //RECEIVING CARD,COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
+    @Override
     public boolean useAction(PlayerDashboard player, Parameter param){
         LeaderCard card = param.getLeaderCard();
         ResourceCount storageCount = param.getStorageCount();
