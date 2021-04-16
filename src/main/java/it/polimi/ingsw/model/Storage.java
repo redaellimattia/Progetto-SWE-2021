@@ -49,16 +49,6 @@ public class Storage {
         this.thirdRow = thirdRow;
     }
 
-    //CHECKS IF ITS POSSIBLE TO SWAP THE SELECTED COUNTERTOPS, AND IF SO IT DOES IT;
-    public boolean swapRows(int to, int from){
-        ArrayList<CounterTop> supportShelves = getShelvesArray();
-        if(supportShelves.get(to-1).getContent() <= from){
-            swap(from-1,to-1);
-            return true;
-        }
-        return false;
-    }
-
     //METHODS THAT ADD TO THE COUNTERTOP AND RETURNS HOW MANY ELEMENTS ARE BEING LEFT FOR NO SPACE;
     public int addToFirstRow(int n){
         if(firstRow.getContent() == 0 && n == 1){
@@ -80,7 +70,15 @@ public class Storage {
 
         return n-i;
     }
-
+    //CHECKS IF ITS POSSIBLE TO SWAP THE SELECTED COUNTERTOPS, AND IF SO IT DOES IT;
+    public boolean swapRows(int to, int from){
+        ArrayList<CounterTop> supportShelves = getShelvesArray();
+        if(supportShelves.get(to-1).getContent() <= from){
+            swap(from-1,to-1);
+            return true;
+        }
+        return false;
+    }
     //METHOD THAT SWAP TWO SHELVES, NEEDED CHECKS ARE MADE BY THE METHOD WHO INVOKES THIS ONE
     public void swap(int from, int to){
         ArrayList<CounterTop> supportShelves = getShelvesArray();

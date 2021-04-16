@@ -4,6 +4,9 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 public abstract class Action {
+    public boolean useAction(PlayerDashboard player, Parameter param){return false;}
+    public boolean endAction(){return true;}
+
     //TRUE IF BOTH STORAGE AND CHEST PAY ARE DONE CORRECTLY
     public boolean deleteRes(ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player){
         boolean storageDone = false,chestDone = false;
@@ -43,10 +46,5 @@ public abstract class Action {
             return false;
         chest.subCounts(chestCost);
         return true;
-    }
-
-
-    public boolean endAction(){
-        return false;
     }
 }
