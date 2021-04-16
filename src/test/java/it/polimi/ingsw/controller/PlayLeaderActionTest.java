@@ -11,39 +11,43 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlayLeaderActionTest {
 
-    /*@Test
+    @Test
     void useAction() {
         //PLAY FIRST CARD
-        LeaderAction action = new LeaderAction();
+        PlayLeaderAction action = new PlayLeaderAction();
         PlayerDashboard player = createPlayer();
         LeaderCard card = createLeaderCard(false,new ColourCount(1,0,0,0));
+        Parameter param = new Parameter(null,null,card,null,null,0,0,0,null,null);
         assertFalse(player.leadersInGame()); //Not in game
-        assertTrue(action.playLeader(card,player)); //Play the card
+        assertTrue(action.useAction(player,param)); //Play the card
         assertTrue(player.leadersInGame()); //Now it's in game
         assertTrue(player.getLeaderCards().get(1).isInGame()); //CARD POS=1 IN GAME
         assertFalse(player.getLeaderCards().get(0).isInGame()); //CARD POS=0 NOT IN GAME
 
         //PLAY SECOND CARD
-        action = new LeaderAction();
+        action = new PlayLeaderAction();
         player = createPlayer();
         card = createLeaderCard(false,new ColourCount(0,2,1,0));
+        param = new Parameter(null,null,card,null,null,0,0,0,null,null);
         assertFalse(player.leadersInGame()); //Not in game
-        assertTrue(action.playLeader(card,player)); //Play the card
+        assertTrue(action.useAction(player,param)); //Play the card
         assertTrue(player.leadersInGame()); //Now it's in game
         assertFalse(player.getLeaderCards().get(1).isInGame()); //CARD POS=1 NOT IN GAME
         assertTrue(player.getLeaderCards().get(0).isInGame()); //CARD POS=0 IN GAME
 
         //PLAY FIRST CARD AFTER SECOND ALREADY IN GAME
         card = createLeaderCard(false,new ColourCount(1,0,0,0));
-        assertTrue(action.playLeader(card,player)); //Play the card
+        param = new Parameter(null,null,card,null,null,0,0,0,null,null);
+        assertTrue(action.useAction(player,param)); //Play the card
         assertTrue(player.getLeaderCards().get(1).isInGame()); //CARD POS=0 IN GAME
 
         //CARD THAT DOESN'T EXISTS
-        action = new LeaderAction();
+        action = new PlayLeaderAction();
         player = createPlayer();
         card = createLeaderCard(false,new ColourCount(5,5,5,5));
+        param = new Parameter(null,null,card,null,null,0,0,0,null,null);
         assertFalse(player.leadersInGame()); //Not in game
-        assertFalse(action.playLeader(card,player)); //Play the card
+        assertFalse(action.useAction(player,param)); //Play the card
         assertFalse(player.leadersInGame()); //Not in game
     }
     PlayerDashboard createPlayer(){
@@ -72,5 +76,5 @@ class PlayLeaderActionTest {
         if(inGame)
             leader.setInGame();
         return leader;
-    }*/
+    }
 }
