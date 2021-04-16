@@ -61,4 +61,16 @@ class DeckDashboardTest {
             assertEquals(testDeck.getCard(i), oldDeck.getCard(i+1));
         }
     }
+
+    @Test
+    void addCardInFullDeck() {
+        DeckDashboard testDeck = buildDeck();
+        ResourceCount testResourceCount = new ResourceCount(0, 0, 0, 7, 0);
+        ResourceCount testInput = new ResourceCount(0, 0, 1, 0, 0);
+        ResourceCount testOutput = new ResourceCount(1, 0, 0, 0, 3);
+        Production testProductionPower = new Production(testInput, testOutput);
+        DevelopmentCard testCard = new DevelopmentCard(2, testResourceCount, testProductionPower, 3, CardColour.GREEN);
+        testDeck.addCard(testCard);
+        assertThrows(IllegalStateException.class, () -> testDeck.addCard(testCard));
+    }
 }
