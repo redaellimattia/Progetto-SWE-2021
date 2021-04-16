@@ -1,11 +1,12 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.controller.action;
 
+import it.polimi.ingsw.controller.Parameter;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 
-public class LeaderCardProductionAction extends Action{
+public class LeaderCardProductionAction extends Action {
     private ResourceCount bufferOutput;
 
     public LeaderCardProductionAction() {
