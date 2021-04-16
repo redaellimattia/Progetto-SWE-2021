@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DeckDashboardTest {
-
+class DeckShopTest {
     DeckDashboard buildDeck() {
         DeckDashboard testDeck = new DeckDashboard();
         ResourceCount testResourceCount = new ResourceCount(0, 0, 0, 7, 0);

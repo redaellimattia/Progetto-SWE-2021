@@ -29,9 +29,15 @@ public abstract class Deck {
     }
 
     // Insert card on top (only for DeckDashboard)
-    public void addCard(DevelopmentCard card) throws IllegalStateException {
+    public void addCard(DevelopmentCard card) throws IllegalStateException, IllegalArgumentException {
         if(this.cardsDeck.size()>=3) {
             throw new IllegalStateException();
+        }
+        if(card.getLevel() == 1 && !this.cardsDeck.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+        if(card.getLevel() > 1 && !(this.cardsDeck.get(0).getLevel() == card.getLevel() - 1)) {
+            throw new IllegalArgumentException();
         }
         cardsDeck.add(0, card);
     }
