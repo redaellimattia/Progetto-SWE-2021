@@ -97,9 +97,9 @@ public class Storage {
         firstRow.getResourceType().add(count,firstRow.getContent()); //Reading storage first row
         secondRow.getResourceType().add(count,secondRow.getContent());//Reading storage second row
         thirdRow.getResourceType().add(count,thirdRow.getContent()); //Reading storage third row
-
         return count;
     }
+
     //RETURN AN ARRAYLIST WITH THE SHELVES OF STORAGE;
     public ArrayList<CounterTop> getShelvesArray(){
         ArrayList<CounterTop> array = new ArrayList<>();
@@ -108,6 +108,7 @@ public class Storage {
         array.add(0,firstRow);
         return array;
     }
+
     //CHECK IF EVERY COUNTERTOP OF THE STORAGE HAS A DIFFERENT RESOURCETYPE
     public boolean checkShelves(){
         if(!this.getFirstRow().getResourceType().equals(this.getSecondRow().getResourceType()) &&

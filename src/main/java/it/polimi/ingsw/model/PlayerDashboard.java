@@ -13,9 +13,6 @@ public class PlayerDashboard extends Player{
     private DeckDashboard[] devCards;
     private ArrayList<LeaderCard> leaderCards;
     private Production basicProduction;
-
-
-
     private ArrayList<CounterTop> arrayDeposit;
 
     public PlayerDashboard(Storage storage, ResourceCount chest, DeckDashboard[] devCards, ArrayList<LeaderCard> leaderCards, Production basicProduction, int position, String nickname, int points) {
@@ -129,13 +126,14 @@ public class PlayerDashboard extends Player{
         return count;
     }
 
+    //CHECK IF THE GIVEN LEADERCARD IS OWNED BY THE PLAYER
     public boolean leaderCardExists(LeaderCard card){
         for(LeaderCard l:this.getLeaderCards())
             if (l.equals(card))
                 return true;
         return false;
     }
-
+    //CHECK IF THE GIVEN DEVELOPMENTCARD IS OWNED BY THE PLAYER
     public boolean devCardExists(DevelopmentCard card){
         for(int i=0;i<this.getDevCards().length;i++)
             if(this.getDevCards()[i].getDeck().size()!=0) {
@@ -156,6 +154,7 @@ public class PlayerDashboard extends Player{
         return -1;
     }
 
+    //SET THE LEADER AT THE GIVEN POSITION IN GAME (LEADERACTION)
     public void setLeaderInGame(int position){
         this.getLeaderCards().get(position).setInGame();
     }

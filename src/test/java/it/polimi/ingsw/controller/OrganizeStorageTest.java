@@ -28,7 +28,29 @@ class OrganizeStorageTest {
         OrganizeStorage organize = new OrganizeStorage();
         assertFalse(organize.swapShelves(player,2,1));
     }
+    @Test
+    void moveFromLeaderDeposit(){
+        PlayerDashboard player = createPlayer();
+        OrganizeStorage organize = new OrganizeStorage();
+        LeaderAction action = new LeaderAction();
+        action.playLeader(player.getLeaderCards().get(1),player );
 
+        player.getArrayDeposit().get(0).addContent(1);
+        assertTrue(organize.moveFromLeaderDeposit(player, player.getArrayDeposit().get(0),3,1 ));
+        assertTrue(player.getStorage().getThirdRow().getContent() == 1);
+    }
+    //COMMENTED BECAUSE IT WAS A PARTICULAR SITUATION WHERE THIRDROW HAS 3 ELEM AND I TRY TO PUT ONE MORE.
+    /*@Test
+    void moveFromLeaderDeposit1(){ COMMENTED
+        PlayerDashboard player = createPlayer();
+        OrganizeStorage organize = new OrganizeStorage();
+        LeaderAction action = new LeaderAction();
+        action.playLeader(player.getLeaderCards().get(1),player );
+
+        player.getArrayDeposit().get(0).addContent(1);
+        assertFalse(organize.moveFromLeaderDeposit(player, player.getArrayDeposit().get(0),3,1 ));
+        assertTrue(player.getStorage().getThirdRow().getContent() == 3);
+    }*/
     PlayerDashboard createPlayer(){
         String nickname = "Prova";
         CounterTop firstRow = new CounterTop(Resource.COIN,1);
@@ -42,7 +64,7 @@ class OrganizeStorageTest {
         Production basicProduction = new Production(input,output);
 
         ArrayList<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
-        leaderCards.add(0,createLeaderCard(true));
+        leaderCards.add(0,createLeaderCard(false));
         leaderCards.add(0,createLeaderCard(false));
         PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,basicProduction,1,nickname,2);
         devCards[0].addCard(createDevCard(3));
@@ -52,7 +74,7 @@ class OrganizeStorageTest {
     LeaderCard createLeaderCard(boolean inGame){
         ColourCount count = new ColourCount(1,0,0,0);
         TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
-        SpecialAbility specialAbility = new ProductionAbility(Resource.COIN);
+        SpecialAbility specialAbility = new DepositAbility(Resource.SERVANT);
         LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
         if(inGame)
             leader.setInGame();
