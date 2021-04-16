@@ -12,7 +12,7 @@ public class OrganizeStorage extends Action{
             return player.getStorage().checkShelves();
         return false;
     }
-
+    //MOVE GIVEN RESOURCES FROM A LEADER DEPOSIT TO A SHELF, RESPECTING BASIC STORAGE RULES (CONTENT AND RESOURCETYPE) OR CONSIDERING THE CASE THE SHELF IS EMPTY;
     public boolean moveFromLeaderDeposit(PlayerDashboard player, CounterTop leaderDeposit, int to, int number){
         Storage storage = player.getStorage();
         switch(to){
