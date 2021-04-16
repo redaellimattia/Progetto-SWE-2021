@@ -32,7 +32,7 @@ class OrganizeStorageTest {
     void moveFromLeaderDeposit(){
         PlayerDashboard player = createPlayer();
         OrganizeStorage organize = new OrganizeStorage();
-        LeaderAction action = new LeaderAction();
+        PlayLeaderAction action = new PlayLeaderAction();
         action.playLeader(player.getLeaderCards().get(1),player );
 
         player.getArrayDeposit().get(0).addContent(1);
@@ -44,8 +44,8 @@ class OrganizeStorageTest {
     void moveFromLeaderDeposit1(){ COMMENTED
         PlayerDashboard player = createPlayer();
         OrganizeStorage organize = new OrganizeStorage();
-        LeaderAction action = new LeaderAction();
-        action.playLeader(player.getLeaderCards().get(1),player );
+        PlayLeaderAction action = new PlayLeaderAction();
+        action.useAction(player.getLeaderCards().get(1),player );
 
         player.getArrayDeposit().get(0).addContent(1);
         assertFalse(organize.moveFromLeaderDeposit(player, player.getArrayDeposit().get(0),3,1 ));
