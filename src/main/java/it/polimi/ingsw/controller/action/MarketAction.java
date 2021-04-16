@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action;
 
+import it.polimi.ingsw.controller.Parameter;
 import it.polimi.ingsw.model.*;
 
 import java.util.ArrayList;
@@ -11,22 +12,23 @@ public class MarketAction extends Action {
     // Returns true if everything is done correctly
     // type = 0: row; type = 1: column (chosen from view)
     // pos: number of the row/column (starting from 1) chosen from view
-    public boolean useMarketAction(int type, int pos, PlayerDashboard player) {
+    @Override
+    public boolean useAction(PlayerDashboard player, Parameter param) {
         int i;
         int total;
-        if (type == 0) {
+        if (param.getType() == 0) {
             total = 4; // If a row is selected, the user gets 4 marbles
             try {
-                MarketMarble[] marbles = Game.getMarket().getRow(pos);
+                MarketMarble[] marbles = Game.getMarket().getRow(param.getPos());
             }
             catch(IndexOutOfBoundsException e) {
                 return false;
             }
         }
-        if (type == 1) {
+        if (param.getType() == 1) {
             total = 3; // If a column is selected, the user gets 3 marbles
             try {
-                MarketMarble[] marbles = Game.getMarket().getColumn(pos);
+                MarketMarble[] marbles = Game.getMarket().getColumn(param.getPos());
             }
             catch(IndexOutOfBoundsException e) {
                 return false;
