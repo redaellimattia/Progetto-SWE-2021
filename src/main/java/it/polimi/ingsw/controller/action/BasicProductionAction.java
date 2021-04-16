@@ -1,10 +1,11 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.controller.action;
 
+import it.polimi.ingsw.controller.Parameter;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.Resource;
 
-public class BasicProductionAction extends Action{
+public class BasicProductionAction extends Action {
     private ResourceCount bufferOutput;
 
     public BasicProductionAction() { //Will be called in PlayerTurnManager

@@ -1,10 +1,10 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.controller.action;
 
 import it.polimi.ingsw.model.CounterTop;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.Storage;
 
-public class OrganizeStorage extends Action{
+public class OrganizeStorage extends Action {
 
     //RETURN TRUE IF THE SHELVES ARE SWAPPED CORRECTLY AND THE STORAGE RESPECTS THE RULES FOR RESOURCETYPES;
     public boolean swapShelves(PlayerDashboard player,Parameter param) {

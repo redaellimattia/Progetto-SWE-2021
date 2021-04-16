@@ -1,10 +1,10 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.controller.action;
 
+import it.polimi.ingsw.controller.Parameter;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.Shop;
 import it.polimi.ingsw.model.card.DevelopmentCard;
-import it.polimi.ingsw.model.enumeration.Resource;
 
 public class CardShopAction extends Action {
     //AFTER CHECKING IF THE CHOSEN POSITION ON THE BOARD CAN FIT THE CHOSEN CARD AND THE PLAYER CAN AFFORD IT, RETURN TRUE IF EVERYTHING IS DONE CORRECTLY, FALSE IF NOT
