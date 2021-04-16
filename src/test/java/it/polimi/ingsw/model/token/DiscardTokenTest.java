@@ -154,10 +154,10 @@ class DiscardTokenTest {
         DeckShop deckYellow3 = new DeckShop(test3);
 
         test4 = new ArrayList<DevelopmentCard>();
-        test4.add(cardPurple2);
-        test4.add(cardPurple2);
-        test4.add(cardPurple2);
-        test4.add(cardPurple2);
+        test4.add(cardPurple3);
+        test4.add(cardPurple3);
+        test4.add(cardPurple3);
+        test4.add(cardPurple3);
         DeckShop deckPurple3 = new DeckShop(test4);
 
 

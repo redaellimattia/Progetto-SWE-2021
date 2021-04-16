@@ -38,6 +38,7 @@ class DeckDashboardTest {
     @Test
     void addCardTest() {
         DeckDashboard testDeck = buildDeck();
+        DeckDashboard testDeckOld = buildDeck();
         ResourceCount testResourceCount = new ResourceCount(0, 2, 0, 0, 0);
         ResourceCount testInput = new ResourceCount(0, 0, 1, 0, 0);
         ResourceCount testOutput = new ResourceCount(0, 0, 0, 0, 1);
@@ -45,6 +46,10 @@ class DeckDashboardTest {
         DevelopmentCard testCard = new DevelopmentCard(1, testResourceCount, testProductionPower, 1, CardColour.YELLOW);
         testDeck.addCard(testCard);
         assertEquals(testCard, testDeck.getCard(0));
+        assertEquals(testCard, testDeck.getFirst());
+        for(int i = 0; i < testDeckOld.getDeck().size(); i++) {
+            assertEquals(testDeckOld.getCard(i), testDeck.getCard(i+1));
+        }
     }
 
     @Test
@@ -52,6 +57,8 @@ class DeckDashboardTest {
         DeckDashboard testDeck = buildDeck();
         DeckDashboard oldDeck = buildDeck();
         testDeck.removeFirst();
-        assertEquals(oldDeck.getCard(1), testDeck.getCard(0));
+        for(int i = 0; i < testDeck.getDeck().size(); i++) {
+            assertEquals(testDeck.getCard(i), oldDeck.getCard(i+1));
+        }
     }
 }
