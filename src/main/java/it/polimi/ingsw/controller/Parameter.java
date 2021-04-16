@@ -22,7 +22,11 @@ public class Parameter {
     private CounterTop leaderDeposit;
     private Shop shop;
 
-    public Parameter(ResourceCount storageCount, ResourceCount chestCount, LeaderCard leaderCard, DevelopmentCard devCard, Resource res, int from_row, int to_column, int number_deckPosition, CounterTop leaderDeposit, Shop shop) {
+    //MarketAction
+    private int type;
+    private int pos;
+
+    public Parameter(ResourceCount storageCount, ResourceCount chestCount, LeaderCard leaderCard, DevelopmentCard devCard, Resource res, int from_row, int to_column, int number_deckPosition, CounterTop leaderDeposit, Shop shop, int type, int pos) {
         this.storageCount = storageCount;
         this.chestCount = chestCount;
         this.leaderCard = leaderCard;
@@ -33,6 +37,8 @@ public class Parameter {
         this.number_deckPosition = number_deckPosition;
         this.leaderDeposit = leaderDeposit;
         this.shop = shop;
+        this.type = type;
+        this.pos = pos;
     }
 
     public ResourceCount getStorageCount() {
@@ -113,5 +119,21 @@ public class Parameter {
 
     public void setShop(Shop shop) {
         this.shop = shop;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getPos() {
+        return pos;
+    }
+
+    public void setPos(int pos) {
+        this.pos = pos;
     }
 }
