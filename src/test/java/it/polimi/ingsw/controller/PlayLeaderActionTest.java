@@ -2,7 +2,6 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
-import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.Resource;
 import org.junit.jupiter.api.Test;
 
@@ -10,47 +9,10 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LeaderActionTest {
+class PlayLeaderActionTest {
 
-    @Test
-    void discardLeaderAction() {
-        //DISCARD FIRST CARD
-        LeaderAction action = new LeaderAction();
-        PlayerDashboard player = createPlayer();
-        LeaderCard card = createLeaderCard(false,new ColourCount(1,0,0,0));
-        assertTrue(action.discardLeaderAction(card,player));
-        assertEquals(1,player.getPathPosition());
-
-        //DISCARD SECOND CARD
-        action = new LeaderAction();
-        player = createPlayer();
-        card = createLeaderCard(false,new ColourCount(0,2,1,0));
-        assertTrue(action.discardLeaderAction(card,player));
-        assertEquals(1,player.getPathPosition());
-
-        //DISCARD FIRST CARD AFTER SECOND
-        card = createLeaderCard(false,new ColourCount(1,0,0,0));
-        assertTrue(action.discardLeaderAction(card,player));
-        assertEquals(2,player.getPathPosition());
-
-        //CAN'T DISCARD, DOESN'T EXIST IN MODEL
-        action = new LeaderAction();
-        player = createPlayer();
-        card = createLeaderCard(false,new ColourCount(5,5,5,5));
-        assertFalse(action.discardLeaderAction(card,player));
-        assertEquals(0,player.getPathPosition());
-
-        //CAN'T DISCARD, IT'S IN GAME
-        action = new LeaderAction();
-        player = createPlayer();
-        card = createLeaderCard(false,new ColourCount(1,0,0,0));
-        action.playLeader(card,player); //Playing leader
-        assertFalse(action.discardLeaderAction(card,player)); //CAN'T DISCARD
-        assertEquals(0,player.getPathPosition());
-    }
-
-    @Test
-    void playLeader() {
+    /*@Test
+    void useAction() {
         //PLAY FIRST CARD
         LeaderAction action = new LeaderAction();
         PlayerDashboard player = createPlayer();
@@ -110,5 +72,5 @@ class LeaderActionTest {
         if(inGame)
             leader.setInGame();
         return leader;
-    }
+    }*/
 }
