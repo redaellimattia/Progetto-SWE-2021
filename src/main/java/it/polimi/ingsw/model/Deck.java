@@ -36,6 +36,9 @@ public abstract class Deck {
         if(card.getLevel() == 1 && !this.cardsDeck.isEmpty()) {
             throw new IllegalArgumentException();
         }
+        if(card.getLevel() > 1 && this.cardsDeck.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
         if(card.getLevel() > 1 && !(this.cardsDeck.get(0).getLevel() == card.getLevel() - 1)) {
             throw new IllegalArgumentException();
         }

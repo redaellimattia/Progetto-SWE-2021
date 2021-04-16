@@ -14,7 +14,7 @@ class DeckDashboardTest {
         ResourceCount testInput = new ResourceCount(0, 0, 1, 0, 0);
         ResourceCount testOutput = new ResourceCount(1, 0, 0, 0, 3);
         Production testProductionPower = new Production(testInput, testOutput);
-        DevelopmentCard testCard = new DevelopmentCard(2, testResourceCount, testProductionPower, 3, CardColour.GREEN);
+        DevelopmentCard testCard = new DevelopmentCard(2, testResourceCount, testProductionPower, 1, CardColour.GREEN);
         testDeck.addCard(testCard);
         testResourceCount = new ResourceCount(4,0,0,0,0);
         testInput = new ResourceCount(0, 0, 1, 0, 0);
@@ -40,7 +40,7 @@ class DeckDashboardTest {
         ResourceCount testInput = new ResourceCount(0, 0, 1, 0, 0);
         ResourceCount testOutput = new ResourceCount(0, 0, 0, 0, 1);
         Production testProductionPower = new Production(testInput, testOutput);
-        DevelopmentCard testCard = new DevelopmentCard(1, testResourceCount, testProductionPower, 1, CardColour.YELLOW);
+        DevelopmentCard testCard = new DevelopmentCard(1, testResourceCount, testProductionPower, 3, CardColour.YELLOW);
         testDeck.addCard(testCard);
         assertEquals(testCard, testDeck.getCard(0));
         assertEquals(testCard, testDeck.getFirst());
@@ -69,5 +69,32 @@ class DeckDashboardTest {
         DevelopmentCard testCard = new DevelopmentCard(2, testResourceCount, testProductionPower, 3, CardColour.GREEN);
         testDeck.addCard(testCard);
         assertThrows(IllegalStateException.class, () -> testDeck.addCard(testCard));
+    }
+
+    @Test
+    void addIllegalCard() {
+        DeckDashboard testDeck = buildDeck();
+        ResourceCount testResourceCount = new ResourceCount(0, 0, 0, 7, 0);
+        ResourceCount testInput = new ResourceCount(0, 0, 1, 0, 0);
+        ResourceCount testOutput = new ResourceCount(1, 0, 0, 0, 3);
+        Production testProductionPower = new Production(testInput, testOutput);
+        DevelopmentCard testCard = new DevelopmentCard(2, testResourceCount, testProductionPower, 1, CardColour.GREEN);
+        assertThrows(IllegalArgumentException.class, () -> testDeck.addCard(testCard));
+
+        DeckDashboard testDeck2 = buildDeck();
+        testResourceCount = new ResourceCount(0, 0, 0, 7, 0);
+        testInput = new ResourceCount(0, 0, 1, 0, 0);
+        testOutput = new ResourceCount(1, 0, 0, 0, 3);
+        testProductionPower = new Production(testInput, testOutput);
+        DevelopmentCard testCard2 = new DevelopmentCard(2, testResourceCount, testProductionPower, 1, CardColour.GREEN);
+        assertThrows(IllegalArgumentException.class, () -> testDeck2.addCard(testCard2));
+
+        DeckDashboard testDeck3 = new DeckDashboard();
+        testResourceCount = new ResourceCount(0, 0, 0, 7, 0);
+        testInput = new ResourceCount(0, 0, 1, 0, 0);
+        testOutput = new ResourceCount(1, 0, 0, 0, 3);
+        testProductionPower = new Production(testInput, testOutput);
+        DevelopmentCard testCard3 = new DevelopmentCard(2, testResourceCount, testProductionPower, 2, CardColour.GREEN);
+        assertThrows(IllegalArgumentException.class, () -> testDeck3.addCard(testCard3));
     }
 }
