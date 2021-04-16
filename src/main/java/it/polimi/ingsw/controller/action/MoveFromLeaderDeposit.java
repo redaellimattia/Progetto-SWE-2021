@@ -1,5 +1,6 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.controller.action;
 
+import it.polimi.ingsw.controller.Parameter;
 import it.polimi.ingsw.model.CounterTop;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.Storage;
@@ -7,7 +8,7 @@ import it.polimi.ingsw.model.Storage;
 public class MoveFromLeaderDeposit extends Action{
     //MOVE GIVEN RESOURCES FROM A LEADER DEPOSIT TO A SHELF, RESPECTING BASIC STORAGE RULES (CONTENT AND RESOURCETYPE) OR CONSIDERING THE CASE THE SHELF IS EMPTY;
     @Override
-    public boolean useAction(PlayerDashboard player,Parameter param){
+    public boolean useAction(PlayerDashboard player, Parameter param){
         CounterTop leaderDeposit = param.getLeaderDeposit();
         int to = param.getTo_column();
         int number = param.getNumber_deckPosition();
