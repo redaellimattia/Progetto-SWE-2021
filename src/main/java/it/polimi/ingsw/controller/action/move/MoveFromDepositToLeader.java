@@ -1,11 +1,12 @@
-package it.polimi.ingsw.controller.action;
+package it.polimi.ingsw.controller.action.move;
 
 import it.polimi.ingsw.controller.Parameter;
+import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.model.CounterTop;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.Storage;
 
-public class MoveFromDepositToLeader extends Action{
+public class MoveFromDepositToLeader extends Action {
     //FOR EACH CASE CHECK IF: THE SHELVES HAS ENOUGH RESOURCES TO MOVE (CONTENT >= NUMBER), THE NUMBER+ CONTENT OF ARRAY IS MAX 2 AND THAT RESOURCES ARE COMPATIBLE;
     @Override
     public boolean useAction(PlayerDashboard player, Parameter param){

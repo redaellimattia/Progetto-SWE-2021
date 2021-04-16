@@ -1,6 +1,7 @@
-package it.polimi.ingsw.controller.action;
+package it.polimi.ingsw.controller.action.move;
 
 import it.polimi.ingsw.controller.Parameter;
+import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.model.PlayerDashboard;
 
 public class OrganizeStorage extends Action {

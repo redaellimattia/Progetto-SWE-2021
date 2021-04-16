@@ -1,4 +1,4 @@
-package it.polimi.ingsw.controller.action;
+package it.polimi.ingsw.controller.action.productionAction;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;

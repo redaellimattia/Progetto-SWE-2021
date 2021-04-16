@@ -1,6 +1,5 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.controller.action.PlayerTurnManager;
 import it.polimi.ingsw.model.Game;
 
 public class GameManager {

@@ -1,7 +1,7 @@
-package it.polimi.ingsw.controller.action;
+package it.polimi.ingsw.controller.action.leaderAction;
 
 import it.polimi.ingsw.controller.Parameter;
-import it.polimi.ingsw.controller.action.PlayLeaderAction;
+import it.polimi.ingsw.controller.action.leaderAction.PlayLeaderAction;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.Resource;
