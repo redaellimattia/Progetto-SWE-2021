@@ -40,4 +40,15 @@ public class LeaderCardProductionAction extends Action{
         bufferOutput.sumCounts(output);
         return true;
     }
+
+    //ADD THE RESOURCES OBTAINED FROM THE PRODUCTIONS TO THE PLAYER AND THEN RESET THE BUFFER;
+    @Override
+    public void endAction(PlayerDashboard player) {
+        int faith = bufferOutput.getFaith();
+        if(faith!=0)
+            player.updatePathPosition(faith);
+        bufferOutput.removeFaith(faith);
+        player.getChest().sumCounts(bufferOutput);
+        bufferOutput = new ResourceCount(0,0,0,0,0);
+    }
 }

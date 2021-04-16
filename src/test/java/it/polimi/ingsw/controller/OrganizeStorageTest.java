@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class OrganizeStorageTest {
 
-    @Test
+    /*@Test
     void swapShelves() {
         PlayerDashboard player = createPlayer();
         OrganizeStorage organize = new OrganizeStorage();

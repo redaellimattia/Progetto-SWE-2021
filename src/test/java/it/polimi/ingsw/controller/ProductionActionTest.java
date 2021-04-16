@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ProductionActionTest {
 
-    @Test
+    /*@Test
     void useProductionAction() { //DEVCARD PRODUCTION
         //HYBRID PAYMENT
         ProductionAction action = new ProductionAction();
@@ -261,5 +261,5 @@ class ProductionActionTest {
         LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
         leader.setInGame();
         return leader;
-    }
+    }*/
 }
