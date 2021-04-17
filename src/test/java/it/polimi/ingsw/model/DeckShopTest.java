@@ -39,6 +39,34 @@ class DeckShopTest {
     }
 
     @Test
+    void illegalDeck() {
+        // Adding a card with different level should fail
+        ArrayList<DevelopmentCard> testArray = new ArrayList<DevelopmentCard>();
+        ResourceCount testResourceCount = new ResourceCount(0, 0, 0, 7, 0);
+        ResourceCount testInput = new ResourceCount(0, 0, 1, 0, 0);
+        ResourceCount testOutput = new ResourceCount(1, 0, 0, 0, 3);
+        Production testProductionPower = new Production(testInput, testOutput);
+        DevelopmentCard testCard1 = new DevelopmentCard(2, testResourceCount, testProductionPower, 3, CardColour.GREEN);
+        DevelopmentCard testCard2 = new DevelopmentCard(2, testResourceCount, testProductionPower, 3, CardColour.GREEN);
+        DevelopmentCard testCard3 = new DevelopmentCard(2, testResourceCount, testProductionPower, 2, CardColour.GREEN);
+        DevelopmentCard testCard4 = new DevelopmentCard(2, testResourceCount, testProductionPower, 3, CardColour.GREEN);
+        testArray.add(testCard1);
+        testArray.add(testCard2);
+        testArray.add(testCard3);
+        testArray.add(testCard4);
+        assertThrows(IllegalArgumentException.class, () -> new DeckShop(testArray));
+
+        // Adding a card of different colour should fail
+        ArrayList<DevelopmentCard> testArray2 = new ArrayList<DevelopmentCard>();
+        testCard4 = new DevelopmentCard(2, testResourceCount, testProductionPower, 3, CardColour.PURPLE);
+        testArray2.add(testCard1);
+        testArray2.add(testCard2);
+        testArray2.add(testCard3);
+        testArray2.add(testCard4);
+        assertThrows(IllegalArgumentException.class, () -> new DeckShop(testArray2));
+    }
+
+    @Test
     void addCardTest() {
         DeckShop testDeck = buildDeck(3, CardColour.GREEN);
         ResourceCount testResourceCount = new ResourceCount(0, 2, 0, 0, 0);
