@@ -1,11 +1,9 @@
 package it.polimi.ingsw.controller.action.productionAction;
 
-import it.polimi.ingsw.controller.Parameter;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;
-import it.polimi.ingsw.model.enumeration.Resource;
 
 public class DevCardProductionAction extends Action {
     private ResourceCount bufferOutput;

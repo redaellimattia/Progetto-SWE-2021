@@ -1,6 +1,5 @@
 package it.polimi.ingsw.controller.action;
 
-import it.polimi.ingsw.controller.Parameter;
 import it.polimi.ingsw.model.*;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ public class MarketAction extends Action {
                 return false;
             }
         }
-        if (param.getType() == 1) {
+        if (type == 1) {
             total = 3; // If a column is selected, the user gets 3 marbles
             try {
                 MarketMarble[] marbles = Game.getMarket().getColumn(pos);

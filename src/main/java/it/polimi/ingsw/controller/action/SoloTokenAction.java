@@ -1,15 +1,13 @@
 package it.polimi.ingsw.controller.action;
 
-import it.polimi.ingsw.controller.Parameter;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.PlayerDashboard;
-import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.token.SoloToken;
 
 public class SoloTokenAction extends Action {
 
     @Override
-    public boolean useAction(PlayerDashboard lorenzo, Parameter param) {
+    public boolean useAction(PlayerDashboard lorenzo) {
         SoloToken token = Game.pickNextToken();
         token.useToken(lorenzo);
         // TO-DO: Check if Vatican Report is triggered (if it isn't checked by model)

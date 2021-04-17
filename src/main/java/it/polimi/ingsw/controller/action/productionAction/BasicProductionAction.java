@@ -1,6 +1,5 @@
 package it.polimi.ingsw.controller.action.productionAction;
 
-import it.polimi.ingsw.controller.Parameter;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;

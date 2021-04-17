@@ -1,6 +1,5 @@
 package it.polimi.ingsw.controller.action;
 
-import it.polimi.ingsw.controller.Parameter;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.Resource;
 

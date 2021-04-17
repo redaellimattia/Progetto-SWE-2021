@@ -6,12 +6,10 @@ import it.polimi.ingsw.model.PlayerDashboard;
 public class PlayerTurnManager {
     private PlayerDashboard player;
     private Action action;
-    private Parameter parameter;
 
-    public PlayerTurnManager(PlayerDashboard player, Action action, Parameter parameter) {
+    public PlayerTurnManager(PlayerDashboard player, Action action) {
         this.player = player;
         this.action = action;
-        this.parameter = parameter;
     }
 
 

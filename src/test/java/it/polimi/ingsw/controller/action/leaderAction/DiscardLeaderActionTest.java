@@ -1,17 +1,5 @@
 package it.polimi.ingsw.controller.action.leaderAction;
 
-import it.polimi.ingsw.controller.Parameter;
-import it.polimi.ingsw.controller.action.leaderAction.DiscardLeaderAction;
-import it.polimi.ingsw.controller.action.leaderAction.PlayLeaderAction;
-import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.card.*;
-import it.polimi.ingsw.model.enumeration.Resource;
-import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 class DiscardLeaderActionTest {
 
     /*@Test
