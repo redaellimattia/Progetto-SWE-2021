@@ -8,7 +8,7 @@ public class DeckShop extends Deck {
 
     public DeckShop(ArrayList<DevelopmentCard> cards) throws IllegalArgumentException {
         super(cards);
-        if(cards.size() > 4) {
+        if(cards.size() != 4) {
             throw new IllegalArgumentException();
         }
     }
