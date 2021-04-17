@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 public abstract class Action {
-    public boolean useAction(PlayerDashboard player, Parameter param){return false;}
+    public boolean useAction(PlayerDashboard player){return false;}
     public void endAction(PlayerDashboard player){}
 
     //TRUE IF BOTH STORAGE AND CHEST PAY ARE DONE CORRECTLY

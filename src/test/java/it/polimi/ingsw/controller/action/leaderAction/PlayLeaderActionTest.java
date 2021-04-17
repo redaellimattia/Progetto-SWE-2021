@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PlayLeaderActionTest {
 
-    @Test
+    /*@Test
     void useAction() {
         //PLAY FIRST CARD
         PlayLeaderAction action = new PlayLeaderAction();
@@ -78,5 +78,5 @@ class PlayLeaderActionTest {
         if(inGame)
             leader.setInGame();
         return leader;
-    }
+    }*/
 }

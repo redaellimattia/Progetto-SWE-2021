@@ -6,20 +6,27 @@ import it.polimi.ingsw.model.*;
 import java.util.ArrayList;
 
 public class MarketAction extends Action {
-
+    private int type;
+    private int pos;
     private ArrayList<MarketMarble> marbles;
+
+    public MarketAction(int type, int pos) {
+        this.type = type;
+        this.pos = pos;
+        this.marbles = new ArrayList<>();
+    }
 
     // Returns true if everything is done correctly
     // type = 0: row; type = 1: column (chosen from view)
     // pos: number of the row/column (starting from 1) chosen from view
     @Override
-    public boolean useAction(PlayerDashboard player, Parameter param) {
+    public boolean useAction(PlayerDashboard player) {
         int i;
         int total;
-        if (param.getType() == 0) {
+        if (type == 0) {
             total = 4; // If a row is selected, the user gets 4 marbles
             try {
-                MarketMarble[] marbles = Game.getMarket().getRow(param.getPos());
+                MarketMarble[] marbles = Game.getMarket().getRow(pos);
             }
             catch(IndexOutOfBoundsException e) {
                 return false;
@@ -28,7 +35,7 @@ public class MarketAction extends Action {
         if (param.getType() == 1) {
             total = 3; // If a column is selected, the user gets 3 marbles
             try {
-                MarketMarble[] marbles = Game.getMarket().getColumn(param.getPos());
+                MarketMarble[] marbles = Game.getMarket().getColumn(pos);
             }
             catch(IndexOutOfBoundsException e) {
                 return false;

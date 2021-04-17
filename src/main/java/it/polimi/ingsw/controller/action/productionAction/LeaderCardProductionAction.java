@@ -4,24 +4,30 @@ import it.polimi.ingsw.controller.Parameter;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
+import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 public class LeaderCardProductionAction extends Action {
     private ResourceCount bufferOutput;
+    LeaderCard card;
+    ResourceCount storageCount;
+    ResourceCount chestCount;
+    Resource res;
 
-    public LeaderCardProductionAction() {
+    public LeaderCardProductionAction(LeaderCard card, ResourceCount storageCount, ResourceCount chestCount, Resource res) {
         this.bufferOutput = new ResourceCount(0,0,0,0,0);
+        this.card = card;
+        this.storageCount = storageCount;
+        this.chestCount = chestCount;
+        this.res = res;
     }
 
     //LEADERCARDS
     //RECEIVING CARD,COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
     @Override
-    public boolean useAction(PlayerDashboard player, Parameter param){
-        LeaderCard card = param.getLeaderCard();
-        ResourceCount storageCount = param.getStorageCount();
-        ResourceCount chestCount = param.getStorageCount();
-        Resource res = param.getRes();
+    public boolean useAction(PlayerDashboard player){
+
         Resource abilityRes = card.getSpecialAbility().getResourceType();
         ResourceCount cost = new ResourceCount(0,0,0,0,0);
         abilityRes.add(cost,1);

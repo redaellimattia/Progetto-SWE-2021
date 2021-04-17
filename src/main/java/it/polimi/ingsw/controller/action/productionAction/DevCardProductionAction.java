@@ -5,21 +5,25 @@ import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;
+import it.polimi.ingsw.model.enumeration.Resource;
 
 public class DevCardProductionAction extends Action {
     private ResourceCount bufferOutput;
+    DevelopmentCard card;
+    ResourceCount storageCount;
+    ResourceCount chestCount;
 
-    public DevCardProductionAction() {
+    public DevCardProductionAction(DevelopmentCard card, ResourceCount storageCount, ResourceCount chestCount) {
         this.bufferOutput = new ResourceCount(0,0,0,0,0);
+        this.card = card;
+        this.storageCount = storageCount;
+        this.chestCount = chestCount;
     }
 
     //DEVCARDS || RETURN TRUE IF EVERYTHING IS DONE CORRECTLY (PAYMENT FROM STORAGE AND/OR CHEST) AND PLAYER HAS ENOUGH RESOURCES
     //I GET FROM THE VIEW THE CARD, THE CHOSEN AMOUNT OF RESOURCES FROM STORAGE AND CHEST (EVENTUALLY NULL) AND THE PLAYER
     @Override
-    public boolean useAction(PlayerDashboard player, Parameter param){
-        DevelopmentCard card = param.getDevCard();
-        ResourceCount storageCount = param.getStorageCount();
-        ResourceCount chestCount = param.getStorageCount();
+    public boolean useAction(PlayerDashboard player){
         ResourceCount cost = card.getProductionPower().getInput();
         ResourceCount output = card.getProductionPower().useProduction(ResourceCount.getTotal(storageCount,chestCount));
 

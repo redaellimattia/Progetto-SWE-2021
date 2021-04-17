@@ -8,18 +8,22 @@ import it.polimi.ingsw.model.enumeration.Resource;
 
 public class BasicProductionAction extends Action {
     private ResourceCount bufferOutput;
+    private Resource res;
+    private ResourceCount storageCount ;
+    private ResourceCount chestCount ;
 
-    public BasicProductionAction() { //Will be called in PlayerTurnManager
+    public BasicProductionAction(Resource res,ResourceCount storageCount,ResourceCount chestCount) { //Will be called in PlayerTurnManager
         this.bufferOutput = new ResourceCount(0,0,0,0,0);
+        this.res = res;
+        this.storageCount = storageCount;
+        this.chestCount = chestCount;
     }
 
     //BASICPRODUCTION
     //RECEIVING COST CHOSEN BY THE PLAYER, AND COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
     @Override
-    public boolean useAction(PlayerDashboard player, Parameter param){
-        Resource res = param.getRes();
-        ResourceCount storageCount = param.getStorageCount();
-        ResourceCount chestCount = param.getStorageCount();
+    public boolean useAction(PlayerDashboard player){
+
         if(res.equals(Resource.FAITH))
             return false;
         //If Sum of storageCount and ChestCount != 2 OR deleteRes goes wrong then return false

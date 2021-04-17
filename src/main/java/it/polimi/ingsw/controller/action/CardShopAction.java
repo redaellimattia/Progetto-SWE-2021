@@ -7,15 +7,26 @@ import it.polimi.ingsw.model.Shop;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 
 public class CardShopAction extends Action {
+    private Shop shop;
+    private int row;
+    private int column;
+    private int deckPosition;
+    private ResourceCount storageCount;
+    private ResourceCount chestCount;
+
+    public CardShopAction(Shop shop, int row, int column, int deckPosition, ResourceCount storageCount, ResourceCount chestCount) {
+        this.shop = shop;
+        this.row = row;
+        this.column = column;
+        this.deckPosition = deckPosition;
+        this.storageCount = storageCount;
+        this.chestCount = chestCount;
+    }
+
     //AFTER CHECKING IF THE CHOSEN POSITION ON THE BOARD CAN FIT THE CHOSEN CARD AND THE PLAYER CAN AFFORD IT, RETURN TRUE IF EVERYTHING IS DONE CORRECTLY, FALSE IF NOT
     @Override
-    public boolean useAction(PlayerDashboard player, Parameter param ){
-        Shop shop = param.getShop();
-        int row = param.getFrom_row();
-        int column = param.getTo_column();
-        int deckPosition = param.getNumber_deckPosition();
-        ResourceCount storageCount = param.getStorageCount();
-        ResourceCount chestCount = param.getChestCount();
+    public boolean useAction(PlayerDashboard player){
+
         DevelopmentCard chosen = shop.getGrid()[row][column].getFirst();
 
         if(checkIfPossible(chosen.getLevel(),deckPosition, player) && chosen.getCost().equals(ResourceCount.getTotal(storageCount,chestCount))){

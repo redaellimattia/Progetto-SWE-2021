@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DiscardLeaderActionTest {
 
-    @Test
+    /*@Test
     void discardLeaderAction() {
         //DISCARD FIRST CARD
         DiscardLeaderAction action = new DiscardLeaderAction();
@@ -82,5 +82,5 @@ class DiscardLeaderActionTest {
         if(inGame)
             leader.setInGame();
         return leader;
-    }
+    }*/
 }
