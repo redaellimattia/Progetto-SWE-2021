@@ -8,8 +8,16 @@ public class DeckShop extends Deck {
 
     public DeckShop(ArrayList<DevelopmentCard> cards) throws IllegalArgumentException {
         super(cards);
+        // Each new DeckShop should contain 4 cards
         if(cards.size() != 4) {
             throw new IllegalArgumentException();
+        }
+        // Cards in the same DeckShop should have common colour and level
+        for(int i = 1; i < cards.size(); i++) {
+            if(!(cards.get(i).getColour() == cards.get(0).getColour() &&
+                    cards.get(i).getLevel() == cards.get(0).getLevel())) {
+                throw new IllegalArgumentException();
+            }
         }
     }
 
