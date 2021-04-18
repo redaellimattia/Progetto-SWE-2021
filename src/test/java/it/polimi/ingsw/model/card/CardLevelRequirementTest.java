@@ -24,7 +24,7 @@ class CardLevelRequirementTest {
         player.getDevCards()[2] = new DeckDashboard();
         player.getDevCards()[0].addCard(card1);
         player.getDevCards()[1].addCard(card2);
-        player.getDevCards()[1].addCard(card3);
+        player.getDevCards()[2].addCard(card3);
 
         CardLevelRequirement req = new CardLevelRequirement(CardColour.BLUE,1);
         assertTrue(req.isPlayable(player));
