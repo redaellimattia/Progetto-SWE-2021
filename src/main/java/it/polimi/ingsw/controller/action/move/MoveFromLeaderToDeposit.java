@@ -5,23 +5,27 @@ import it.polimi.ingsw.model.CounterTop;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.Storage;
 
-public class MoveFromLeaderDeposit extends Action {
-    private CounterTop leaderDeposit;
-    private int to;
+public class MoveFromLeaderToDeposit extends Action {
+    private int from_leader;
+    private int to_deposit;
     private int number;
 
-    public MoveFromLeaderDeposit(CounterTop leaderDeposit, int to, int number) {
-        this.leaderDeposit = leaderDeposit;
-        this.to = to;
+    public MoveFromLeaderToDeposit(int from_leader, int to_deposit, int number) {
+        this.from_leader = from_leader;
+        this.to_deposit = to_deposit;
         this.number = number;
     }
 
     //MOVE GIVEN RESOURCES FROM A LEADER DEPOSIT TO A SHELF, RESPECTING BASIC STORAGE RULES (CONTENT AND RESOURCETYPE) OR CONSIDERING THE CASE THE SHELF IS EMPTY;
+    //RETURN FALSE IF THAT DEPOSIT DOESN'T HAVE THE REQUIRED RESOURCES TO MOVE;
     @Override
     public boolean useAction(PlayerDashboard player){
-
+        CounterTop leaderDeposit = player.getArrayDeposit().get(from_leader);
         Storage storage = player.getStorage();
-        switch(to){
+        if(leaderDeposit.getContent()<= number)
+            return false;
+
+        switch(to_deposit){
             case 1: if(storage.getFirstRow().getContent() == 0 && number == 1) {
                 CounterTop substitute = new CounterTop(leaderDeposit.getResourceType(),number);
                 storage.setFirstRow(substitute);

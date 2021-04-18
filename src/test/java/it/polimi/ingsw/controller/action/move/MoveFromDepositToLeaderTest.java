@@ -11,54 +11,62 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MoveFromLeaderDepositTest {
+class MoveFromDepositToLeaderTest {
+
     @Test
-    void moveFromLeaderDeposit(){
-        PlayerDashboard player = createPlayer();
-        MoveFromLeaderToDeposit organize = new MoveFromLeaderToDeposit(0,3,1);
+    void useAction() { //BASIC MOVE OF RESOURCES
+        PlayerDashboard player = createPlayerThirdFull();
+        MoveFromDepositToLeader organize= new MoveFromDepositToLeader(0,3,1);
         PlayLeaderAction action = new PlayLeaderAction(player.getLeaderCards().get(1));
         action.useAction(player);
-
-        player.getArrayDeposit().get(0).addContent(1);
-        assertTrue(organize.useAction(player));
+        organize.useAction(player);
+        assertTrue(player.getArrayDeposit().get(0).getContent()== 1);
+        assertTrue(player.getStorage().getThirdRow().getContent() == 2);
+    }
+    @Test
+    void useAction1() { //BASIC MOVE OF RESOURCES AND STOP WHEN LEADERDEPOSIT IS FULL
+        PlayerDashboard player = createPlayerThirdFull();
+        MoveFromDepositToLeader organize= new MoveFromDepositToLeader(0,3,2);
+        PlayLeaderAction action = new PlayLeaderAction(player.getLeaderCards().get(1));
+        action.useAction(player);
+        organize.useAction(player);
+        assertTrue(player.getArrayDeposit().get(0).getContent()== 2);
+        assertTrue(player.getStorage().getThirdRow().getContent() == 1);
+        MoveFromDepositToLeader organize1= new MoveFromDepositToLeader(0,3,1);
+        assertFalse(organize1.useAction(player));
+        assertTrue(player.getArrayDeposit().get(0).getContent()== 2);
         assertTrue(player.getStorage().getThirdRow().getContent() == 1);
     }
-
-    @Test //DOESN'T ADD RESOURCES TO ALREADY FULL COUNTERTOPS
-    void moveFromLeaderDeposit1(){
+    @Test
+    void useAction2() { //DOESN'T MOVE RESOURCES TO A LEADER WITH A DIFFERENT RESOURCETYPE
         PlayerDashboard player = createPlayerThirdFull();
-        MoveFromLeaderToDeposit organize = new MoveFromLeaderToDeposit(0,3,1);
+        MoveFromDepositToLeader organize= new MoveFromDepositToLeader(0,2,1);
         PlayLeaderAction action = new PlayLeaderAction(player.getLeaderCards().get(1));
         action.useAction(player);
-
-        player.getArrayDeposit().get(0).addContent(1);
         assertFalse(organize.useAction(player));
-        assertTrue(player.getStorage().getThirdRow().getContent() == 3);
-    }
-    @Test //DOESN'T ADD RESOURCES TO A COUNTERTOP WITH A DIFFERENT RESOURCETYPE
-    void moveFromLeaderDeposit2(){
-        PlayerDashboard player = createPlayerThirdFull();
-        MoveFromLeaderToDeposit organize = new MoveFromLeaderToDeposit(0,2,1);
-        PlayLeaderAction action = new PlayLeaderAction(player.getLeaderCards().get(1));
-        action.useAction(player);
-
-        player.getArrayDeposit().get(0).addContent(1);
-        assertFalse(organize.useAction(player));
+        assertTrue(player.getArrayDeposit().get(0).getContent()== 0);
         assertTrue(player.getStorage().getSecondRow().getContent() == 1);
-        assertTrue(player.getStorage().getSecondRow().getResourceType() == Resource.ROCK);
-        assertTrue(player.getArrayDeposit().get(0).getResourceType() == Resource.SERVANT && player.getArrayDeposit().get(0).getContent() == 1);
     }
-    @Test // DOESN'T MOVE MORE RESOURCES THAN WHAT A LEADER ACTUALLY HAS
-    void moveFromLeaderDeposit3(){
-        PlayerDashboard player = createPlayer();
-        MoveFromLeaderToDeposit organize = new MoveFromLeaderToDeposit(0,3,2);
+    @Test
+    void useAction3(){ //DOESN'T MOVE MORE RESOURCES THAN WHAT A SHELF HAS
+        PlayerDashboard player = createPlayerThirdFull();
+        MoveFromDepositToLeader organize= new MoveFromDepositToLeader(0,3,2);
         PlayLeaderAction action = new PlayLeaderAction(player.getLeaderCards().get(1));
         action.useAction(player);
-
-        player.getArrayDeposit().get(0).addContent(1);
-        assertFalse(organize.useAction(player));
-        assertTrue(player.getStorage().getThirdRow().getContent() == 0);
-        assertTrue(player.getArrayDeposit().get(0).getContent() == 1);
+        organize.useAction(player);
+        assertTrue(player.getArrayDeposit().get(0).getContent()== 2);
+        assertTrue(player.getStorage().getThirdRow().getContent() == 1);
+        MoveFromDepositToLeader organize1= new MoveFromDepositToLeader(0,3,1);
+        assertFalse(organize1.useAction(player));
+        assertTrue(player.getArrayDeposit().get(0).getContent()== 2);
+        assertTrue(player.getStorage().getThirdRow().getContent() == 1);
+        PlayLeaderAction action1 = new PlayLeaderAction(player.getLeaderCards().get(0));
+        action1.useAction(player);
+        MoveFromDepositToLeader organize2= new MoveFromDepositToLeader(1,3,2);
+        assertFalse(organize2.useAction(player));
+        assertTrue(player.getArrayDeposit().get(0).getContent()== 0);
+        assertTrue(player.getArrayDeposit().get(1).getContent()== 2);
+        assertTrue(player.getStorage().getThirdRow().getContent() == 1);
     }
     PlayerDashboard createPlayer(){
         String nickname = "Prova";

@@ -21,12 +21,21 @@ class OrganizeStorageTest {
         CounterTop check2 = new CounterTop(Resource.ROCK,2);
         assertTrue(player.getStorage().getSecondRow().equals(check1));
         assertTrue(player.getStorage().getThirdRow().equals(check2));
+        OrganizeStorage organize1 = new OrganizeStorage(3,1);
+        assertFalse(organize1.useAction(player));
     }
-    @Test //DOESNT DO SWAP IF IT'S NOT POSSIBLE;
+    @Test //DOESNT DO SWAP IF IT'S NOT POSSIBLE AND SWAP EVEN 2 EMPTY SHELVES
     void swapShelves1() {
         PlayerDashboard player = createPlayer();
         OrganizeStorage organize = new OrganizeStorage(2,1);
         assertFalse(organize.useAction(player));
+        CounterTop check = new CounterTop(Resource.COIN,0);
+        player.getStorage().setFirstRow(check);
+        OrganizeStorage organize1 = new OrganizeStorage(1,3);
+        assertTrue(organize1.useAction(player));
+        assertEquals(player.getStorage().getThirdRow().getResourceType(),Resource.COIN);
+        assertEquals(player.getStorage().getFirstRow().getResourceType(),Resource.SERVANT);
+
     }
 
 

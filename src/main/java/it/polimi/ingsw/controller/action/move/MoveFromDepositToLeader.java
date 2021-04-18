@@ -6,13 +6,13 @@ import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.Storage;
 
 public class MoveFromDepositToLeader extends Action {
-    private CounterTop leaderDeposit;
-    private int from;
+    private int to_leader;
+    private int from_deposit;
     private int number;
 
-    public MoveFromDepositToLeader(CounterTop leaderDeposit, int from, int number) {
-        this.leaderDeposit = leaderDeposit;
-        this.from = from;
+    public MoveFromDepositToLeader(int to_leader, int from_deposit, int number) {
+        this.to_leader = to_leader;
+        this.from_deposit = from_deposit;
         this.number = number;
     }
 
@@ -20,7 +20,8 @@ public class MoveFromDepositToLeader extends Action {
     @Override
     public boolean useAction(PlayerDashboard player){
         Storage storage = player.getStorage();
-        switch(from){
+        CounterTop leaderDeposit = player.getArrayDeposit().get(to_leader);
+        switch(from_deposit){
             case 1: if( storage.getFirstRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getFirstRow().getResourceType().equals(leaderDeposit.getResourceType())) {
                 leaderDeposit.addContent(number);
                 storage.getFirstRow().removeContent(number);
