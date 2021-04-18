@@ -35,10 +35,9 @@ public class Shop {
         int column = colour.getColumn();
         ArrayList<DevelopmentCard> deck;
         int toDelete=2, i=2;
-
         while(toDelete > 0){
             deck = shopGrid[i][column].getDeck();
-            while(deck.size() != 0 && toDelete > 0){
+            while(!deck.isEmpty() && toDelete > 0){
                 shopGrid[i][column].removeFirst();
                 toDelete--;
             }

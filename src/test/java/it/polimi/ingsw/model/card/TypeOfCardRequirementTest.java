@@ -25,7 +25,7 @@ class TypeOfCardRequirementTest {
         player.getDevCards()[2] = new DeckDashboard();
         player.getDevCards()[0].addCard(card1);
         player.getDevCards()[1].addCard(card2);
-        player.getDevCards()[1].addCard(card3);
+        player.getDevCards()[2].addCard(card3);
 
         TypeOfCardRequirement req = new TypeOfCardRequirement(new ColourCount(1,1,0,0)); //Playable
         assertTrue(req.isPlayable(player));
