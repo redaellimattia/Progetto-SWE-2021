@@ -39,13 +39,16 @@ class ShopTest {
         shop.discardFromToken(purple);
         assertEquals(2, shop.getGrid()[2][3].getDeck().size());
         assertEquals(4, shop.getGrid()[1][3].getDeck().size());
-        //assertTrue(shop.getGrid()[2][3].getDeck().size() == 2);
-        //shop.discardFromToken(purple);
-        //assertTrue(shop.getGrid()[0][3].getDeck().size() == 0);
-        //assertTrue(shop.getGrid()[1][3].getDeck().size() == 4);
-        //shop.discardFromToken(purple);
-        //assertTrue(shop.getGrid()[0][3].getDeck().size() == 0 && shop.getGrid()[1][3].getDeck().size() == 2);
-
+        assertEquals(4, shop.getGrid()[0][3].getDeck().size());
+        shop.discardFromToken(purple);
+        assertEquals(0, shop.getGrid()[2][3].getDeck().size());
+        assertEquals(4, shop.getGrid()[1][3].getDeck().size());
+        shop.discardFromToken(purple);
+        assertTrue(shop.getGrid()[2][3].getDeck().size() == 0 && shop.getGrid()[1][3].getDeck().size() == 2);
+        DevelopmentCard bought = shop.buy(1,3);
+        shop.discardFromToken(purple);
+        assertEquals(0,shop.getGrid()[1][3].getDeck().size());
+        assertEquals(3,shop.getGrid()[0][3].getDeck().size());
     }
 
 
