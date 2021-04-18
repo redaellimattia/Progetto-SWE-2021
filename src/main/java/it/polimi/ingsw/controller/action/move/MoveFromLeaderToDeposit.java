@@ -22,6 +22,7 @@ public class MoveFromLeaderToDeposit extends Action {
     public boolean useAction(PlayerDashboard player){
         CounterTop leaderDeposit = player.getArrayDeposit().get(from_leader);
         Storage storage = player.getStorage();
+
         if(leaderDeposit.getContent()<= number)
             return false;
 
