@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.card.LeaderCard;
 public class PlayLeaderAction extends Action {
     private LeaderCard card;
 
+
     public PlayLeaderAction(LeaderCard card) {
         this.card = card;
     }

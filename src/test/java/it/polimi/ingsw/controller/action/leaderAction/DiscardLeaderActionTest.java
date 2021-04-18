@@ -1,47 +1,54 @@
 package it.polimi.ingsw.controller.action.leaderAction;
 
+
+import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.card.*;
+import it.polimi.ingsw.model.enumeration.Resource;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 class DiscardLeaderActionTest {
 
-    /*@Test
+    @Test
     void discardLeaderAction() {
         //DISCARD FIRST CARD
-        DiscardLeaderAction action = new DiscardLeaderAction();
         PlayerDashboard player = createPlayer();
         LeaderCard card = createLeaderCard(false,new ColourCount(1,0,0,0));
-        Parameter param = new Parameter(null,null,card,null,null,0,0,0,null,null);
-        assertTrue(action.useAction(player,param));
+        DiscardLeaderAction action = new DiscardLeaderAction(card);
+        assertTrue(action.useAction(player));
         assertEquals(1,player.getPathPosition());
 
         //DISCARD SECOND CARD
-        action = new DiscardLeaderAction();
         player = createPlayer();
         card = createLeaderCard(false,new ColourCount(0,2,1,0));
-        param = new Parameter(null,null,card,null,null,0,0,0,null,null);
-        assertTrue(action.useAction(player,param));
+        action = new DiscardLeaderAction(card);
+        assertTrue(action.useAction(player));
         assertEquals(1,player.getPathPosition());
 
         //DISCARD FIRST CARD AFTER SECOND
         card = createLeaderCard(false,new ColourCount(1,0,0,0));
-        param = new Parameter(null,null,card,null,null,0,0,0,null,null);
-        assertTrue(action.useAction(player,param));
+        action = new DiscardLeaderAction(card);
+        assertTrue(action.useAction(player));
         assertEquals(2,player.getPathPosition());
 
         //CAN'T DISCARD, DOESN'T EXIST IN MODEL
-        action = new DiscardLeaderAction();
         player = createPlayer();
         card = createLeaderCard(false,new ColourCount(5,5,5,5));
-        param = new Parameter(null,null,card,null,null,0,0,0,null,null);
-        assertFalse(action.useAction(player,param)); //CAN'T DISCARD
+        action = new DiscardLeaderAction(card);
+        assertFalse(action.useAction(player)); //CAN'T DISCARD
         assertEquals(0,player.getPathPosition());
 
         //CAN'T DISCARD, IT'S IN GAME
-        action = new DiscardLeaderAction();
-        PlayLeaderAction playAction = new PlayLeaderAction();
+
         player = createPlayer();
         card = createLeaderCard(false,new ColourCount(1,0,0,0));
-        param = new Parameter(null,null,card,null,null,0,0,0,null,null);
-        playAction.useAction(player,param); //Playing leader
-        assertFalse(action.useAction(player,param)); //CAN'T DISCARD
+        action = new DiscardLeaderAction(card);
+        PlayLeaderAction playAction = new PlayLeaderAction(card);
+        playAction.useAction(player); //Playing leader
+        assertFalse(action.useAction(player)); //CAN'T DISCARD
         assertEquals(0,player.getPathPosition());
     }
     PlayerDashboard createPlayer(){
@@ -70,5 +77,5 @@ class DiscardLeaderActionTest {
         if(inGame)
             leader.setInGame();
         return leader;
-    }*/
+    }
 }
