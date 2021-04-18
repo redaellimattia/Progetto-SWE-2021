@@ -11,16 +11,16 @@ public abstract class Deck {
         this.cardsDeck = cardsDeck;
     }
 
-    //Return copy of cardsDeck
+    //Return cardsDeck
     public ArrayList<DevelopmentCard> getDeck() {
-        return new ArrayList<DevelopmentCard>(cardsDeck);
+        return cardsDeck;
     }
 
     public DevelopmentCard getFirst() throws IndexOutOfBoundsException {
         return cardsDeck.get(0);
     }
 
-    public void removeFirst() throws IndexOutOfBoundsException {
+    public void removeFirst(){
         cardsDeck.remove(0);
     }
 

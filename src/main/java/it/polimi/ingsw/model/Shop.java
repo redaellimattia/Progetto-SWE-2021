@@ -6,11 +6,13 @@ import it.polimi.ingsw.model.enumeration.CardColour;
 import java.util.ArrayList;
 
 public class Shop {
+    private Deck[][] shopGrid;
+
     public Shop(Deck[][] shopGrid) {
         this.shopGrid = shopGrid;
     }
 
-    private Deck[][] shopGrid = new DeckShop[3][4];
+
 
     public DevelopmentCard getFirst(int row, int column){
         return shopGrid[row][column].getFirst();
@@ -33,6 +35,7 @@ public class Shop {
         int column = colour.getColumn();
         ArrayList<DevelopmentCard> deck;
         int toDelete=2, i=2;
+
         while(toDelete > 0){
             deck = shopGrid[i][column].getDeck();
             while(deck.size() != 0 && toDelete > 0){
@@ -41,5 +44,6 @@ public class Shop {
             }
             i--;
         }
+
     }
 }

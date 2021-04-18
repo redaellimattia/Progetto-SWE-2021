@@ -10,26 +10,30 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OrganizeStorageTest {
+class MoveFromLeaderDepositTest {
+ /*   @Test
+    void moveFromLeaderDeposit(){
+        PlayerDashboard player = createPlayer();
+        OrganizeStorage organize = new OrganizeStorage();
+        PlayLeaderAction action = new PlayLeaderAction();
+        action.playLeader(player.getLeaderCards().get(1),player );
 
+        player.getArrayDeposit().get(0).addContent(1);
+        assertTrue(organize.moveFromLeaderDeposit(player, player.getArrayDeposit().get(0),3,1 ));
+        assertTrue(player.getStorage().getThirdRow().getContent() == 1);
+    }
+    //COMMENTED BECAUSE IT WAS A PARTICULAR SITUATION WHERE THIRDROW HAS 3 ELEM AND I TRY TO PUT ONE MORE.
     @Test
-    void swapShelves() {
+    void moveFromLeaderDeposit1(){ COMMENTED
         PlayerDashboard player = createPlayer();
-        OrganizeStorage organize = new OrganizeStorage(2,3);
-        organize.useAction(player);
-        CounterTop check1 = new CounterTop(Resource.SERVANT,0);
-        CounterTop check2 = new CounterTop(Resource.ROCK,2);
-        assertTrue(player.getStorage().getSecondRow().equals(check1));
-        assertTrue(player.getStorage().getThirdRow().equals(check2));
-    }
-    @Test //DOESNT DO SWAP IF IT'S NOT POSSIBLE;
-    void swapShelves1() {
-        PlayerDashboard player = createPlayer();
-        OrganizeStorage organize = new OrganizeStorage(2,1);
-        assertFalse(organize.useAction(player));
-    }
+        OrganizeStorage organize = new OrganizeStorage();
+        PlayLeaderAction action = new PlayLeaderAction();
+        action.useAction(player.getLeaderCards().get(1),player );
 
-
+        player.getArrayDeposit().get(0).addContent(1);
+        assertFalse(organize.moveFromLeaderDeposit(player, player.getArrayDeposit().get(0),3,1 ));
+        assertTrue(player.getStorage().getThirdRow().getContent() == 3);
+    }*/
     PlayerDashboard createPlayer(){
         String nickname = "Prova";
         CounterTop firstRow = new CounterTop(Resource.COIN,1);
@@ -46,8 +50,8 @@ class OrganizeStorageTest {
         leaderCards.add(0,createLeaderCard(false));
         leaderCards.add(0,createLeaderCard(false));
         PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,basicProduction,1,nickname,2);
-        //devCards[0].addCard(createDevCard(3));
-        //devCards[1].addCard(createDevCard(1));
+        devCards[0].addCard(createDevCard(3));
+        devCards[1].addCard(createDevCard(1));
         return player;
     }
     LeaderCard createLeaderCard(boolean inGame){
