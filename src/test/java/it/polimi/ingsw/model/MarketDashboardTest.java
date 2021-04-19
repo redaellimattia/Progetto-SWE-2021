@@ -23,8 +23,7 @@ class MarketDashboardTest {
         testStructure[2][2] = new MarketMarble(MarbleColour.YELLOW);
         testStructure[2][3] = new MarketMarble(MarbleColour.YELLOW);
         MarketMarble testFreeMarble = new MarketMarble(MarbleColour.BLUE);
-        MarketDashboard testDashboard = new MarketDashboard(testStructure, testFreeMarble);
-        return testDashboard;
+        return new MarketDashboard(testStructure, testFreeMarble);
     }
 
     @Test

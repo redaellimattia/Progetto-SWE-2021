@@ -1,57 +1,39 @@
-package it.polimi.ingsw.model;
+package it.polimi.ingsw.controller.action;
 
-import it.polimi.ingsw.model.card.DevelopmentCard;
+import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.CardColour;
-import it.polimi.ingsw.model.enumeration.MarbleColour;
-import org.junit.jupiter.api.Test;
+import it.polimi.ingsw.model.enumeration.Resource;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ShopTest {
+class CardShopActionTest {
 
-    @Test
-    void buy() { //CHECK BUY METHODS AND ALL CORNER CASES (DECK EMPTY)
-        Shop shop = createShop();
-        Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
-        DevelopmentCard cardPurple = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
-        DevelopmentCard bought = shop.buy(0,3);
-        assertEquals(bought, cardPurple);
-        assertEquals(3, shop.getGrid()[0][3].getDeck().size());
-        assertEquals(4, shop.getGrid()[1][3].getDeck().size()); //same problem with removeFirst()
-        bought = shop.buy(0,3);
-        bought = shop.buy(0,3);
-        bought = shop.buy(0,3);
-        assertEquals(0, shop.getGrid()[0][3].getDeck().size());
-        bought = shop.buy(0,3);
-        assertEquals(0, shop.getGrid()[0][3].getDeck().size());
-        assertNull(bought);
+    PlayerDashboard createPlayer(){
+        String nickname = "Prova";
+        CounterTop firstRow = new CounterTop(Resource.COIN,1);
+        CounterTop secondRow = new CounterTop(Resource.ROCK,2);
+        CounterTop thirdRow = new CounterTop(Resource.SERVANT,0);
+        Storage storage = new Storage(firstRow,secondRow,thirdRow);
+        ResourceCount chest = new ResourceCount(5,5,0,0,0);
+        DeckDashboard[] devCards = new DeckDashboard[3];
+
+        ArrayList<LeaderCard> leaderCards = new ArrayList<>();
+        leaderCards.add(0,createLeaderCard(false));
+        leaderCards.add(0,createLeaderCard(false));
+        return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
     }
-
-    @Test
-    void discardFromToken() {
-        Shop shop = createShop();
-        CardColour purple = CardColour.PURPLE;
-        assertEquals(4, shop.getGrid()[0][3].getDeck().size());
-        assertEquals(4, shop.getGrid()[1][3].getDeck().size());
-        assertEquals(4, shop.getGrid()[2][3].getDeck().size());
-        shop.discardFromToken(purple);
-        assertEquals(2, shop.getGrid()[2][3].getDeck().size());
-        assertEquals(4, shop.getGrid()[1][3].getDeck().size());
-        assertEquals(4, shop.getGrid()[0][3].getDeck().size());
-        shop.discardFromToken(purple);
-        assertEquals(0, shop.getGrid()[2][3].getDeck().size());
-        assertEquals(4, shop.getGrid()[1][3].getDeck().size());
-        shop.discardFromToken(purple);
-        assertTrue(shop.getGrid()[2][3].getDeck().size() == 0 && shop.getGrid()[1][3].getDeck().size() == 2);
-        DevelopmentCard bought = shop.buy(1,3);
-        shop.discardFromToken(purple);
-        assertEquals(0,shop.getGrid()[1][3].getDeck().size());
-        assertEquals(3,shop.getGrid()[0][3].getDeck().size());
+    LeaderCard createLeaderCard(boolean inGame){
+        ColourCount count = new ColourCount(1,0,0,0);
+        TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
+        SpecialAbility specialAbility = new DepositAbility(Resource.SERVANT);
+        LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
+        if(inGame)
+            leader.setInGame();
+        return leader;
     }
-
-
     Shop createShop(){
         Deck[][] testStructure = new DeckShop[3][4];
 
@@ -204,5 +186,4 @@ class ShopTest {
         testStructure[2][3] = deckPurple1;
         return new Shop(testStructure);
     }
-
 }

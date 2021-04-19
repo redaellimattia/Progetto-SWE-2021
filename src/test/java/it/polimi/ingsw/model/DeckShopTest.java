@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DeckShopTest {
 
     DeckShop buildDeck(int level, CardColour colour) {
-        ArrayList<DevelopmentCard> testArray = new ArrayList<DevelopmentCard>();
+        ArrayList<DevelopmentCard> testArray = new ArrayList<>();
         ResourceCount testResourceCount = new ResourceCount(0, 0, 0, 7, 0);
         ResourceCount testInput = new ResourceCount(0, 0, 1, 0, 0);
         ResourceCount testOutput = new ResourceCount(1, 0, 0, 0, 3);
@@ -24,14 +24,13 @@ class DeckShopTest {
         testArray.add(testCard2);
         testArray.add(testCard3);
         testArray.add(testCard4);
-        DeckShop testShop = new DeckShop(testArray);
-        return testShop;
+        return new DeckShop(testArray);
     }
 
     @Test
     void testDeck() {
         DeckShop testDeck = buildDeck(3, CardColour.GREEN);
-        assertTrue(testDeck.getDeck().size() == 4);
+        assertEquals(4, testDeck.getDeck().size());
         for(int i = 0; i < testDeck.getDeck().size(); i++) {
             assertEquals(CardColour.GREEN, testDeck.getCard(i).getColour());
             assertEquals(3, testDeck.getCard(i).getLevel());
@@ -41,7 +40,7 @@ class DeckShopTest {
     @Test
     void illegalDeck() {
         // Adding a card with different level should fail
-        ArrayList<DevelopmentCard> testArray = new ArrayList<DevelopmentCard>();
+        ArrayList<DevelopmentCard> testArray = new ArrayList<>();
         ResourceCount testResourceCount = new ResourceCount(0, 0, 0, 7, 0);
         ResourceCount testInput = new ResourceCount(0, 0, 1, 0, 0);
         ResourceCount testOutput = new ResourceCount(1, 0, 0, 0, 3);
@@ -57,7 +56,7 @@ class DeckShopTest {
         assertThrows(IllegalArgumentException.class, () -> new DeckShop(testArray));
 
         // Adding a card of different colour should fail
-        ArrayList<DevelopmentCard> testArray2 = new ArrayList<DevelopmentCard>();
+        ArrayList<DevelopmentCard> testArray2 = new ArrayList<>();
         testCard4 = new DevelopmentCard(2, testResourceCount, testProductionPower, 3, CardColour.PURPLE);
         testArray2.add(testCard1);
         testArray2.add(testCard2);
@@ -82,7 +81,7 @@ class DeckShopTest {
         DeckShop testDeck = buildDeck(3, CardColour.GREEN);
         DeckShop oldDeck = buildDeck(3, CardColour.GREEN);
         testDeck.removeFirst();
-        assertTrue(testDeck.getDeck().size() == 3);
+        assertEquals(3, testDeck.getDeck().size());
         for(int i = 0; i < testDeck.getDeck().size(); i++) {
             assertEquals(testDeck.getCard(i), oldDeck.getCard(i+1));
         }

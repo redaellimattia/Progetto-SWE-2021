@@ -33,7 +33,7 @@ class MoveFromLeaderToDepositTest {
 
         player.getArrayDeposit().get(0).addContent(1);
         assertFalse(organize.useAction(player));
-        assertTrue(player.getStorage().getThirdRow().getContent() == 3);
+        assertEquals(3, player.getStorage().getThirdRow().getContent());
     }
     @Test //DOESN'T ADD RESOURCES TO A COUNTERTOP WITH A DIFFERENT RESOURCETYPE
     void moveFromLeaderDeposit2(){
@@ -44,8 +44,8 @@ class MoveFromLeaderToDepositTest {
 
         player.getArrayDeposit().get(0).addContent(1);
         assertFalse(organize.useAction(player));
-        assertTrue(player.getStorage().getSecondRow().getContent() == 1);
-        assertTrue(player.getStorage().getSecondRow().getResourceType() == Resource.ROCK);
+        assertEquals(1, player.getStorage().getSecondRow().getContent());
+        assertSame(player.getStorage().getSecondRow().getResourceType(), Resource.ROCK);
         assertTrue(player.getArrayDeposit().get(0).getResourceType() == Resource.SERVANT && player.getArrayDeposit().get(0).getContent() == 1);
     }
     @Test // DOESN'T MOVE MORE RESOURCES THAN WHAT A LEADER ACTUALLY HAS
@@ -57,8 +57,8 @@ class MoveFromLeaderToDepositTest {
 
         player.getArrayDeposit().get(0).addContent(1);
         assertFalse(organize.useAction(player));
-        assertTrue(player.getStorage().getThirdRow().getContent() == 0);
-        assertTrue(player.getArrayDeposit().get(0).getContent() == 1);
+        assertEquals(0, player.getStorage().getThirdRow().getContent());
+        assertEquals(1, player.getArrayDeposit().get(0).getContent());
     }
     PlayerDashboard createPlayer(){
         String nickname = "Prova";
@@ -69,12 +69,12 @@ class MoveFromLeaderToDepositTest {
         ResourceCount chest = new ResourceCount(5,5,0,0,0);
         DeckDashboard[] devCards = new DeckDashboard[3];
 
-        ArrayList<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
+        ArrayList<LeaderCard> leaderCards = new ArrayList<>();
         leaderCards.add(0,createLeaderCard(false));
         leaderCards.add(0,createLeaderCard(false));
         PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
-        //devCards[0].addCard(createDevCard(1));
-        //devCards[1].addCard(createDevCard(1));
+        devCards[0].addCard(createDevCard(1));
+        devCards[1].addCard(createDevCard(1));
         return player;
     }
     PlayerDashboard createPlayerThirdFull(){
@@ -89,10 +89,9 @@ class MoveFromLeaderToDepositTest {
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
         leaderCards.add(0,createLeaderCard(false));
         leaderCards.add(0,createLeaderCard(false));
-        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
         //devCards[0].addCard(createDevCard(3));
         //devCards[1].addCard(createDevCard(1));
-        return player;
+        return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
     }
     LeaderCard createLeaderCard(boolean inGame){
         ColourCount count = new ColourCount(1,0,0,0);
