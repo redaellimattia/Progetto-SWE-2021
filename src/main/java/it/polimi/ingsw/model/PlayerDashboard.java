@@ -12,11 +12,10 @@ public class PlayerDashboard extends Player{
     private ResourceCount chest;
     private DeckDashboard[] devCards;
     private ArrayList<LeaderCard> leaderCards;
-    private Production basicProduction;
     private ArrayList<CounterTop> arrayDeposit;
     private ResourceCount bufferProduction;
 
-    public PlayerDashboard(Storage storage, ResourceCount chest, DeckDashboard[] devCards, ArrayList<LeaderCard> leaderCards, Production basicProduction, int position, String nickname, int points) {
+    public PlayerDashboard(Storage storage, ResourceCount chest, DeckDashboard[] devCards, ArrayList<LeaderCard> leaderCards, int position, String nickname, int points) {
         super(position, nickname, points);
         this.pathPosition = 0;
         this.storage = storage;
@@ -26,14 +25,12 @@ public class PlayerDashboard extends Player{
         this.devCards[1] = new DeckDashboard();
         this.devCards[2] = new DeckDashboard();
         this.leaderCards = leaderCards;
-        this.basicProduction = basicProduction;
         this.arrayDeposit = new ArrayList<CounterTop>();
         bufferProduction = new ResourceCount(0,0,0,0,0);
     }
 
     //GETTERS
     public int getPathPosition(){ return pathPosition;}
-    public Production getBasicProduction(){ return basicProduction; }
     public DeckDashboard[] getDevCards() { return devCards; }
     public ArrayList<LeaderCard> getLeaderCards() { return leaderCards; }
     public Storage getStorage() { return storage; }
@@ -166,8 +163,10 @@ public class PlayerDashboard extends Player{
     //EMPTY BUFFERPRODUCTION WHEN PRODUCTIONACTION ENDS
     public void emptyBufferProduction(){
         int faith = bufferProduction.getFaith();
-        if(faith!=0)
-            updatePathPosition(faith);
+        while(faith!=0) {
+            updatePathPosition(1);
+            faith--;
+        }
         bufferProduction.removeFaith(faith);
         chest.sumCounts(bufferProduction);
         bufferProduction = new ResourceCount(0,0,0,0,0);

@@ -60,15 +60,9 @@ class ResourceRequirementTest {
     }
     PlayerDashboard createPlayer(CounterTop firstRow,CounterTop secondRow, CounterTop thirdRow,ResourceCount resCount){
         String nickname = "Primo";
-        Resource coins =  Resource.COIN;
         Storage storage = new Storage(firstRow,secondRow,thirdRow);
-        ResourceCount chest = resCount;
         DeckDashboard[] devCards = new DeckDashboard[3];
-        ResourceCount input = new ResourceCount(0,0,0,0,0);
-        ResourceCount output = new ResourceCount(0,0,0,0,0);
-        Production basicProduction = new Production(input,output);
-        ArrayList<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
-        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,basicProduction,1,nickname,2);
-        return player;
+        ArrayList<LeaderCard> leaderCards = new ArrayList<>();
+        return new PlayerDashboard(storage,resCount,devCards,leaderCards,1,nickname,2);
     }
 }

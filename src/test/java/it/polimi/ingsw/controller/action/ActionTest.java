@@ -145,14 +145,11 @@ class ActionTest {
         Storage storage = new Storage(firstRow,secondRow,thirdRow);
         ResourceCount chest = new ResourceCount(5,5,0,0,0);
         DeckDashboard[] devCards = new DeckDashboard[3];
-        ResourceCount input = new ResourceCount(0,0,0,0,0);
-        ResourceCount output = new ResourceCount(0,0,0,0,0);
-        Production basicProduction = new Production(input,output);
 
         ArrayList<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
         leaderCards.add(0,createLeaderCard(true));
         leaderCards.add(0,createLeaderCard(false));
-        return new PlayerDashboard(storage,chest,devCards,leaderCards,basicProduction,1,nickname,2);
+        return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
     }
 
     LeaderCard createLeaderCard(boolean inGame){

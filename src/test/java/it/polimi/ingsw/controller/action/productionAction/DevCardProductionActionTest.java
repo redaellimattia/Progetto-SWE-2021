@@ -73,12 +73,9 @@ class DevCardProductionActionTest {
         Storage storage = new Storage(firstRow,secondRow,thirdRow);
         ResourceCount chest = new ResourceCount(5,5,0,0,0);
         DeckDashboard[] devCards = new DeckDashboard[3];
-        ResourceCount input = new ResourceCount(0,0,0,0,0);
-        ResourceCount output = new ResourceCount(0,0,0,0,0);
-        Production basicProduction = new Production(input,output);
 
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,basicProduction,1,nickname,2);
+        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
         devCards[0].addCard(createDevCard(1));
         devCards[0].addCard(createDevCard(2));
         devCards[0].addCard(createDevCard(3));
