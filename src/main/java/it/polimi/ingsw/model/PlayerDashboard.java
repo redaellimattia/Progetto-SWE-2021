@@ -38,13 +38,12 @@ public class PlayerDashboard extends Player{
     public ResourceCount getChest() { return chest; }
     public ArrayList<CounterTop> getArrayDeposit() { return arrayDeposit; }
 
+
     //INITIALIZE A NEW SHELF WHEN A DEPOSITABILITY LEADER IS PLAYED;
     public void initArrayDeposit(Resource res){
         if(arrayDeposit.size()<2)
             arrayDeposit.add(0,new CounterTop(res,0));
     }
-
-    //public void updateStorage(){} DA FARE NEL CONTROLLER LO SWAP
 
     //ADD THE RESOURCES PASSED IN A RESOURCECOUNT TO THE CHEST;
     public void addToChest(ResourceCount resources){
