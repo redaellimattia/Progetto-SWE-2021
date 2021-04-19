@@ -76,8 +76,40 @@ class DiscardTokenTest {
         for(int i=0; i<4; i++) {
             if(i == testColour.getColumn()) {
                 assertTrue(testShop.getGrid()[2][i].getDeck().size() == 0);
+                assertTrue(testShop.getGrid()[1][i].getDeck().size() == 3);
                 for(int j = 0; j<3; j++) {
                     assertEquals(testShopOld.getGrid()[1][i].getDeck().get(j+1), testShop.getGrid()[1][i].getDeck().get(j));
+                }
+                for(int j = 0; j<4; j++) {
+                    assertEquals(testShopOld.getGrid()[0][i].getDeck().get(j), testShop.getGrid()[0][i].getDeck().get(j));
+                }
+            }
+            else {
+                for(int j = 0; j<4; j++) {
+                    assertEquals(testShopOld.getGrid()[2][i].getDeck().get(j), testShop.getGrid()[2][i].getDeck().get(j));
+                    assertEquals(testShopOld.getGrid()[1][i].getDeck().get(j), testShop.getGrid()[1][i].getDeck().get(j));
+                    assertEquals(testShopOld.getGrid()[0][i].getDeck().get(j), testShop.getGrid()[0][i].getDeck().get(j));
+                }
+            }
+
+        }
+    }
+
+    // In this test, all two cards will be removed from the level 2 row
+    @Test
+    void testDiscardToken3() {
+        Shop testShop = createShop();
+        Shop testShopOld = createShop();
+        CardColour testColour = CardColour.PURPLE;
+        testShop.discardFromToken(testColour);
+        testShop.discardFromToken(testColour);
+        testShop.discardFromToken(testColour);
+        for(int i=0; i<4; i++) {
+            if(i == testColour.getColumn()) {
+                assertTrue(testShop.getGrid()[2][i].getDeck().size() == 0);
+                assertTrue(testShop.getGrid()[1][i].getDeck().size() == 2);
+                for(int j = 0; j<2; j++) {
+                    assertEquals(testShopOld.getGrid()[1][i].getDeck().get(j+2), testShop.getGrid()[1][i].getDeck().get(j));
                 }
                 for(int j = 0; j<4; j++) {
                     assertEquals(testShopOld.getGrid()[0][i].getDeck().get(j), testShop.getGrid()[0][i].getDeck().get(j));
