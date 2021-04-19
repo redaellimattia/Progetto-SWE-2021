@@ -6,18 +6,27 @@ import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 public class BasicProductionAction extends Action {
-    private ResourceCount bufferOutput;
     private Resource res;
     private ResourceCount storageCount ;
     private ResourceCount chestCount ;
 
+    /**
+     *
+     * @param res resource chosen by the player as the output
+     * @param storageCount amount of resources in the Storage, that the player wants to pay with, can be null
+     * @param chestCount amount of resources in the Chest, that the player wants to pay with, can be null
+     */
     public BasicProductionAction(Resource res,ResourceCount storageCount,ResourceCount chestCount) { //Will be called in PlayerTurnManager
-        this.bufferOutput = new ResourceCount(0,0,0,0,0);
         this.res = res;
         this.storageCount = storageCount;
         this.chestCount = chestCount;
     }
 
+    /**
+     *
+     * @param player player that is doing the action
+     * @return true if ended correctly
+     */
     //BASICPRODUCTION
     //RECEIVING COST CHOSEN BY THE PLAYER, AND COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
     @Override
@@ -36,18 +45,17 @@ public class BasicProductionAction extends Action {
 
         ResourceCount output = new ResourceCount(0,0,0,0,0); //ResourceCount with 1 Faith
         res.add(output,1);
-        bufferOutput.sumCounts(output);
+        player.incrementBufferProduction(output);
         return true;
     }
 
+    /**
+     *
+     * @param player player that is ending the action
+     */
     //ADD THE RESOURCES OBTAINED FROM THE PRODUCTIONS TO THE PLAYER AND THEN RESET THE BUFFER;
     @Override
     public void endAction(PlayerDashboard player) {
-        int faith = bufferOutput.getFaith();
-        if(faith!=0)
-            player.updatePathPosition(faith);
-        bufferOutput.removeFaith(faith);
-        player.getChest().sumCounts(bufferOutput);
-        bufferOutput = new ResourceCount(0,0,0,0,0);
+        player.emptyBufferProduction();
     }
 }

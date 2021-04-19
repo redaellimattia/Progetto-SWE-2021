@@ -5,7 +5,6 @@ import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.Resource;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -45,11 +44,8 @@ class TypeOfCardRequirementTest {
         Storage storage = new Storage(firstRow,secondRow,thirdRow);
         ResourceCount chest = new ResourceCount(0,0,0,0,0);
         DeckDashboard[] devCards = new DeckDashboard[3];
-        ResourceCount input = new ResourceCount(0,0,0,0,0);
-        ResourceCount output = new ResourceCount(0,0,0,0,0);
-        Production basicProduction = new Production(input,output);
-        ArrayList<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
-        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,basicProduction,1,nickname,2);
-        return player;
+        ArrayList<LeaderCard> leaderCards = new ArrayList<>();
+
+        return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
     }
 }
