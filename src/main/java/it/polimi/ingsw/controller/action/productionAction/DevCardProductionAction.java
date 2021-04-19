@@ -10,12 +10,23 @@ public class DevCardProductionAction extends Action {
     ResourceCount storageCount;
     ResourceCount chestCount;
 
+    /**
+     *
+     * @param card DevCard chosen by the player to use its production
+     * @param storageCount amount of resources in the Storage, that the player wants to pay with, can be null
+     * @param chestCount amount of resources in the Chest, that the player wants to pay with, can be null
+     */
     public DevCardProductionAction(DevelopmentCard card, ResourceCount storageCount, ResourceCount chestCount) {
         this.card = card;
         this.storageCount = storageCount;
         this.chestCount = chestCount;
     }
 
+    /**
+     *
+     * @param player player that is doing the action
+     * @return true if ended correctly
+     */
     //DEVCARDS || RETURN TRUE IF EVERYTHING IS DONE CORRECTLY (PAYMENT FROM STORAGE AND/OR CHEST) AND PLAYER HAS ENOUGH RESOURCES
     //I GET FROM THE VIEW THE CARD, THE CHOSEN AMOUNT OF RESOURCES FROM STORAGE AND CHEST (EVENTUALLY NULL) AND THE PLAYER
     @Override
@@ -34,6 +45,10 @@ public class DevCardProductionAction extends Action {
         return true;
     }
 
+    /**
+     *
+     * @param player player that is ending the action
+     */
     //ADD THE RESOURCES OBTAINED FROM THE PRODUCTIONS TO THE PLAYER AND THEN RESET THE BUFFER;
     @Override
     public void endAction(PlayerDashboard player) {
