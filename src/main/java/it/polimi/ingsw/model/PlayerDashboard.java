@@ -14,6 +14,7 @@ public class PlayerDashboard extends Player{
     private ArrayList<LeaderCard> leaderCards;
     private Production basicProduction;
     private ArrayList<CounterTop> arrayDeposit;
+    private ResourceCount bufferProduction;
 
     public PlayerDashboard(Storage storage, ResourceCount chest, DeckDashboard[] devCards, ArrayList<LeaderCard> leaderCards, Production basicProduction, int position, String nickname, int points) {
         super(position, nickname, points);
@@ -27,6 +28,7 @@ public class PlayerDashboard extends Player{
         this.leaderCards = leaderCards;
         this.basicProduction = basicProduction;
         this.arrayDeposit = new ArrayList<CounterTop>();
+        bufferProduction = new ResourceCount(0,0,0,0,0);
     }
 
     //GETTERS
@@ -38,6 +40,9 @@ public class PlayerDashboard extends Player{
     public ResourceCount getChest() { return chest; }
     public ArrayList<CounterTop> getArrayDeposit() { return arrayDeposit; }
 
+    public ResourceCount getBufferProduction() {
+        return bufferProduction;
+    }
 
     //INITIALIZE A NEW SHELF WHEN A DEPOSITABILITY LEADER IS PLAYED;
     public void initArrayDeposit(Resource res){
@@ -158,4 +163,17 @@ public class PlayerDashboard extends Player{
         this.getLeaderCards().get(position).setInGame();
     }
 
+    //EMPTY BUFFERPRODUCTION WHEN PRODUCTIONACTION ENDS
+    public void emptyBufferProduction(){
+        int faith = bufferProduction.getFaith();
+        if(faith!=0)
+            updatePathPosition(faith);
+        bufferProduction.removeFaith(faith);
+        chest.sumCounts(bufferProduction);
+        bufferProduction = new ResourceCount(0,0,0,0,0);
+    }
+
+    public void incrementBufferProduction(ResourceCount count){
+        bufferProduction.sumCounts(count);
+    }
 }

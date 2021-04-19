@@ -6,13 +6,11 @@ import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 
 public class DevCardProductionAction extends Action {
-    private ResourceCount bufferOutput;
     DevelopmentCard card;
     ResourceCount storageCount;
     ResourceCount chestCount;
 
     public DevCardProductionAction(DevelopmentCard card, ResourceCount storageCount, ResourceCount chestCount) {
-        this.bufferOutput = new ResourceCount(0,0,0,0,0);
         this.card = card;
         this.storageCount = storageCount;
         this.chestCount = chestCount;
@@ -32,18 +30,13 @@ public class DevCardProductionAction extends Action {
         if(output==null || !deleteRes(storageCount,chestCount,player)) //NOT ENOUGH RESOURCES OR PAYMENT FAILED
             return false;
 
-        bufferOutput.sumCounts(output);
+        player.incrementBufferProduction(output);
         return true;
     }
 
     //ADD THE RESOURCES OBTAINED FROM THE PRODUCTIONS TO THE PLAYER AND THEN RESET THE BUFFER;
     @Override
     public void endAction(PlayerDashboard player) {
-        int faith = bufferOutput.getFaith();
-        if(faith!=0)
-            player.updatePathPosition(faith);
-        bufferOutput.removeFaith(faith);
-        player.getChest().sumCounts(bufferOutput);
-        bufferOutput = new ResourceCount(0,0,0,0,0);
+        player.emptyBufferProduction();
     }
 }
