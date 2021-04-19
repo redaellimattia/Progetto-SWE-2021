@@ -110,19 +110,19 @@ class ShopTest {
         DevelopmentCard cardPurple12 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
 
         //GREEN DECKS
-        ArrayList<DevelopmentCard> testG3 = new ArrayList<DevelopmentCard>();
+        ArrayList<DevelopmentCard> testG3 = new ArrayList<>();
         testG3.add(cardGreen1);
         testG3.add(cardGreen2);
         testG3.add(cardGreen3);
         testG3.add(cardGreen4);
         DeckShop deckGreen3 = new DeckShop(testG3);
-        ArrayList<DevelopmentCard> testG2 = new ArrayList<DevelopmentCard>();
+        ArrayList<DevelopmentCard> testG2 = new ArrayList<>();
         testG2.add(cardGreen5);
         testG2.add(cardGreen6);
         testG2.add(cardGreen7);
         testG2.add(cardGreen8);
         DeckShop deckGreen2 = new DeckShop(testG2);
-        ArrayList<DevelopmentCard> testG1 = new ArrayList<DevelopmentCard>();
+        ArrayList<DevelopmentCard> testG1 = new ArrayList<>();
         testG1.add(cardGreen9);
         testG1.add(cardGreen10);
         testG1.add(cardGreen11);
@@ -130,19 +130,19 @@ class ShopTest {
         DeckShop deckGreen1 = new DeckShop(testG1);
 
         //BLUE DECKS
-        ArrayList<DevelopmentCard> testB3 = new ArrayList<DevelopmentCard>();
+        ArrayList<DevelopmentCard> testB3 = new ArrayList<>();
         testB3.add(cardBlue1);
         testB3.add(cardBlue2);
         testB3.add(cardBlue3);
         testB3.add(cardBlue4);
         DeckShop deckBlue3 = new DeckShop(testB3);
-        ArrayList<DevelopmentCard> testB2 = new ArrayList<DevelopmentCard>();
+        ArrayList<DevelopmentCard> testB2 = new ArrayList<>();
         testB2.add(cardBlue5);
         testB2.add(cardBlue6);
         testB2.add(cardBlue7);
         testB2.add(cardBlue8);
         DeckShop deckBlue2 = new DeckShop(testB2);
-        ArrayList<DevelopmentCard> testB1 = new ArrayList<DevelopmentCard>();
+        ArrayList<DevelopmentCard> testB1 = new ArrayList<>();
         testB1.add(cardBlue9);
         testB1.add(cardBlue10);
         testB1.add(cardBlue11);
@@ -150,19 +150,19 @@ class ShopTest {
         DeckShop deckBlue1 = new DeckShop(testB1);
 
         //YELLOW DECKS
-        ArrayList<DevelopmentCard> testY3 = new ArrayList<DevelopmentCard>();
+        ArrayList<DevelopmentCard> testY3 = new ArrayList<>();
         testY3.add(cardYellow1);
         testY3.add(cardYellow2);
         testY3.add(cardYellow3);
         testY3.add(cardYellow4);
         DeckShop deckYellow3 = new DeckShop(testY3);
-        ArrayList<DevelopmentCard> testY2 = new ArrayList<DevelopmentCard>();
+        ArrayList<DevelopmentCard> testY2 = new ArrayList<>();
         testY2.add(cardYellow5);
         testY2.add(cardYellow6);
         testY2.add(cardYellow7);
         testY2.add(cardYellow8);
         DeckShop deckYellow2 = new DeckShop(testY2);
-        ArrayList<DevelopmentCard> testY1 = new ArrayList<DevelopmentCard>();
+        ArrayList<DevelopmentCard> testY1 = new ArrayList<>();
         testY1.add(cardYellow9);
         testY1.add(cardYellow10);
         testY1.add(cardYellow11);
@@ -170,19 +170,19 @@ class ShopTest {
         DeckShop deckYellow1 = new DeckShop(testY1);
 
         //PURPLE DECKS
-        ArrayList<DevelopmentCard> testP3 = new ArrayList<DevelopmentCard>();
+        ArrayList<DevelopmentCard> testP3 = new ArrayList<>();
         testP3.add(cardPurple1);
         testP3.add(cardPurple2);
         testP3.add(cardPurple3);
         testP3.add(cardPurple4);
         DeckShop deckPurple3 = new DeckShop(testP3);
-        ArrayList<DevelopmentCard> testP2 = new ArrayList<DevelopmentCard>();
+        ArrayList<DevelopmentCard> testP2 = new ArrayList<>();
         testP2.add(cardPurple5);
         testP2.add(cardPurple6);
         testP2.add(cardPurple7);
         testP2.add(cardPurple8);
         DeckShop deckPurple2 = new DeckShop(testP2);
-        ArrayList<DevelopmentCard> testP1 = new ArrayList<DevelopmentCard>();
+        ArrayList<DevelopmentCard> testP1 = new ArrayList<>();
         testP1.add(cardPurple9);
         testP1.add(cardPurple10);
         testP1.add(cardPurple11);
@@ -202,8 +202,7 @@ class ShopTest {
         testStructure[2][1] = deckBlue1;
         testStructure[2][2] = deckYellow1;
         testStructure[2][3] = deckPurple1;
-        Shop shop = new Shop(testStructure);
-        return shop;
+        return new Shop(testStructure);
     }
 
 }

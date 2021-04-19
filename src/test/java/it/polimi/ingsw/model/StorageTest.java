@@ -2,7 +2,6 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.enumeration.Resource;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.css.Counter;
 
 import java.util.ArrayList;
 
@@ -67,51 +66,51 @@ class StorageTest {
         Storage storage = createStorage();
 
         storage.addToFirstRow(1);
-        assertTrue(storage.getFirstRow().getContent() == 1);
+        assertEquals(1, storage.getFirstRow().getContent());
     }
     @Test //
     void addToFirstRow1() {
         Storage storage = createStorage();
         storage.addToFirstRow(1);
-        assertTrue(storage.addToFirstRow(1) == 1);
+        assertEquals(1, storage.addToFirstRow(1));
     }
     @Test
     void addToSecondRow() {
         Storage storage = createStorage();
 
         storage.addToSecondRow(2);
-        assertTrue(storage.getSecondRow().getContent() == 2);
+        assertEquals(2, storage.getSecondRow().getContent());
     }
     @Test
     void addToSecondRow1() {
         Storage storage = createStorage();
 
         storage.addToSecondRow(2);
-        assertTrue(storage.getSecondRow().getContent() == 2);
-        assertTrue(storage.addToSecondRow(1) == 1);
+        assertEquals(2, storage.getSecondRow().getContent());
+        assertEquals(1, storage.addToSecondRow(1));
     }
     @Test
     void addToSecondRow2() {
         Storage storage = createStorage();
 
         storage.addToSecondRow(2);
-        assertTrue(storage.getSecondRow().getContent() == 2);
-        assertTrue(storage.addToSecondRow(3) == 3);
+        assertEquals(2, storage.getSecondRow().getContent());
+        assertEquals(3, storage.addToSecondRow(3));
     }
     @Test
     void addToThirdRow() {
         Storage storage = createStorage();
 
         storage.addToThirdRow(3);
-        assertTrue(storage.getThirdRow().getContent() == 3);
+        assertEquals(3, storage.getThirdRow().getContent());
     }
     @Test
     void addToThirdRow1() {
         Storage storage = createStorage();
 
         storage.addToThirdRow(3);
-        assertTrue(storage.getThirdRow().getContent() == 3);
-        assertTrue(storage.addToThirdRow(1) == 1);
+        assertEquals(3, storage.getThirdRow().getContent());
+        assertEquals(1, storage.addToThirdRow(1));
     }
 
     @Test
@@ -119,11 +118,11 @@ class StorageTest {
         Storage storage = createStorage();
         CounterTop newThird = new CounterTop(Resource.SERVANT, 3);
         storage.setThirdRow(newThird);
-        assertTrue(storage.addToThirdRow(1) == 1);
+        assertEquals(1, storage.addToThirdRow(1));
         CounterTop newThird1 = new CounterTop(Resource.SERVANT, 1);
         storage.setThirdRow(newThird1);
-        assertTrue(storage.getThirdRow().getContent() == 1);
-        assertTrue(storage.addToThirdRow(2) == 0);
+        assertEquals(1, storage.getThirdRow().getContent());
+        assertEquals(0, storage.addToThirdRow(2));
     }
 
     @Test
@@ -156,9 +155,8 @@ class StorageTest {
         CounterTop firstRow = new CounterTop(coins,0);
         CounterTop secondRow = new CounterTop(rocks,0);
         CounterTop thirdRow = new CounterTop(shields,0);
-        Storage storage = new Storage(firstRow,secondRow,thirdRow);
 
-        return storage;
+        return new Storage(firstRow,secondRow,thirdRow);
     }
     @Test
     void getShelvesArray(){
