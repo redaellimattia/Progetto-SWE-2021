@@ -24,6 +24,10 @@ class DiscardTokenTest {
                 for(int j = 0; j<2; j++) {
                     assertEquals(testShopOld.getGrid()[2][i].getDeck().get(j+2), testShop.getGrid()[2][i].getDeck().get(j));
                 }
+                for(int j = 0; j<4; j++) {
+                    assertEquals(testShopOld.getGrid()[1][i].getDeck().get(j), testShop.getGrid()[1][i].getDeck().get(j));
+                    assertEquals(testShopOld.getGrid()[0][i].getDeck().get(j), testShop.getGrid()[0][i].getDeck().get(j));
+                }
             }
             else {
                 for(int j = 0; j<4; j++) {
@@ -34,6 +38,9 @@ class DiscardTokenTest {
             }
 
         }
+
+
+
         /*int toDiscard = 2;
         // Checking how many cards will be discarded in each row
         int[] toDiscardInRow = new int[3];
@@ -55,6 +62,36 @@ class DiscardTokenTest {
         }
 
         assertTrue(testShop.) */
+    }
+
+   // In this test, 1 card will be removed from level 1 row and 1 card from level 2 row
+    @Test
+    void testDiscardToken2() {
+        Shop testShop = createShop();
+        Shop testShopOld = createShop();
+        CardColour testColour = CardColour.PURPLE;
+        testShop.discardFromToken(testColour); // Removed 2 cords in level 1 row
+        testShop.buy(2, testColour.getColumn()); // Removed 1 card in level 1 row
+        testShop.discardFromToken(testColour); // Removed 1 card in level 1 row and 1 card in level 2
+        for(int i=0; i<4; i++) {
+            if(i == testColour.getColumn()) {
+                assertTrue(testShop.getGrid()[2][i].getDeck().size() == 0);
+                for(int j = 0; j<3; j++) {
+                    assertEquals(testShopOld.getGrid()[1][i].getDeck().get(j+1), testShop.getGrid()[1][i].getDeck().get(j));
+                }
+                for(int j = 0; j<4; j++) {
+                    assertEquals(testShopOld.getGrid()[0][i].getDeck().get(j), testShop.getGrid()[0][i].getDeck().get(j));
+                }
+            }
+            else {
+                for(int j = 0; j<4; j++) {
+                    assertEquals(testShopOld.getGrid()[2][i].getDeck().get(j), testShop.getGrid()[2][i].getDeck().get(j));
+                    assertEquals(testShopOld.getGrid()[1][i].getDeck().get(j), testShop.getGrid()[1][i].getDeck().get(j));
+                    assertEquals(testShopOld.getGrid()[0][i].getDeck().get(j), testShop.getGrid()[0][i].getDeck().get(j));
+                }
+            }
+
+        }
     }
 
     Shop createShop(){
