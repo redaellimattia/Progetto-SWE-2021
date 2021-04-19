@@ -18,7 +18,7 @@ class AdvanceTokenTest {
         Storage testStorage = new Storage(testCounterTop1, testCounterTop2, testCounterTop3);
         ResourceCount testChest = new ResourceCount(0, 0, 0, 0, 0);
         DeckDashboard[] testDevCards = new DeckDashboard[3];
-        ArrayList<LeaderCard> testLeaderCards = new ArrayList<LeaderCard>(0);
+        ArrayList<LeaderCard> testLeaderCards = new ArrayList<>(0);
         return new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, 0, "Test", 0);
     }
 

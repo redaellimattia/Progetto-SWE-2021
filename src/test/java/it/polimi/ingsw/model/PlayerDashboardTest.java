@@ -14,16 +14,16 @@ class PlayerDashboardTest {
     void initArrayDeposit() {
         PlayerDashboard player = createPlayer();
         player.initArrayDeposit(Resource.COIN);
-        assertTrue(player.getArrayDeposit().size() == 1);
+        assertEquals(1, player.getArrayDeposit().size());
     }
     @Test
     void initArrayDepositMax2() {
         PlayerDashboard player = createPlayer();
         player.initArrayDeposit(Resource.COIN);
         player.initArrayDeposit(Resource.ROCK);
-        assertTrue(player.getArrayDeposit().size() == 2);
+        assertEquals(2, player.getArrayDeposit().size());
         player.initArrayDeposit(Resource.SHIELD);
-        assertTrue(player.getArrayDeposit().size() == 2);
+        assertEquals(2, player.getArrayDeposit().size());
     }
 
     @Test
@@ -57,7 +57,7 @@ class PlayerDashboardTest {
         PlayerDashboard player = createPlayer();
 
         player.updatePathPosition(1);
-        assertTrue(player.getPathPosition() == 1);
+        assertEquals(1, player.getPathPosition());
     }
 
     @Test
@@ -118,11 +118,10 @@ class PlayerDashboardTest {
         ResourceCount chest = new ResourceCount(0,0,0,0,0);
         DeckDashboard[] devCards = new DeckDashboard[3];
 
-        ArrayList <LeaderCard> leaderCards = new ArrayList<LeaderCard>();
+        ArrayList <LeaderCard> leaderCards = new ArrayList<>();
         leaderCards.add(0,createLeaderCard(true));
         leaderCards.add(0,createLeaderCard(false));
-        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
-        return player;
+        return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
     }
 
     LeaderCard createLeaderCard(boolean inGame){

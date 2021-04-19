@@ -19,8 +19,8 @@ class OrganizeStorageTest {
         organize.useAction(player);
         CounterTop check1 = new CounterTop(Resource.SERVANT,0);
         CounterTop check2 = new CounterTop(Resource.ROCK,2);
-        assertTrue(player.getStorage().getSecondRow().equals(check1));
-        assertTrue(player.getStorage().getThirdRow().equals(check2));
+        assertEquals(player.getStorage().getSecondRow(), check1);
+        assertEquals(player.getStorage().getThirdRow(), check2);
         OrganizeStorage organize1 = new OrganizeStorage(3,1);
         assertFalse(organize1.useAction(player));
     }
@@ -47,13 +47,13 @@ class OrganizeStorageTest {
         Storage storage = new Storage(firstRow,secondRow,thirdRow);
         ResourceCount chest = new ResourceCount(5,5,0,0,0);
         DeckDashboard[] devCards = new DeckDashboard[3];
-        ArrayList<LeaderCard> leaderCards = new ArrayList<>();
 
+        ArrayList<LeaderCard> leaderCards = new ArrayList<>();
         leaderCards.add(0,createLeaderCard(false));
         leaderCards.add(0,createLeaderCard(false));
         PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
-        //devCards[0].addCard(createDevCard(3));
-        //devCards[1].addCard(createDevCard(1));
+        devCards[0].addCard(createDevCard(1));
+        devCards[1].addCard(createDevCard(1));
         return player;
     }
     LeaderCard createLeaderCard(boolean inGame){
