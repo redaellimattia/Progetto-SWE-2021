@@ -11,13 +11,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class DepositAbilityTest {
 
     @Test
-    void useDepositAbility() {
+    void useDepositAbilityCoin() {
         PlayerDashboard player = createPlayer();
         DepositAbility ability = new DepositAbility(Resource.COIN);
         ability.useDepositAbility(player);
-        assertTrue(player.getArrayDeposit().size()!=0&&player.getArrayDeposit().get(0).getResourceType().equals(ability.getResourceType()));
-
-        ability = new DepositAbility(Resource.ROCK);
+        assertTrue(player.getArrayDeposit().size() != 0 && player.getArrayDeposit().get(0).getResourceType().equals(ability.getResourceType()));
+    }
+    @Test
+    void useDepositAbilityRock() {
+        PlayerDashboard player = createPlayer();
+        DepositAbility ability = new DepositAbility(Resource.ROCK);
         ability.useDepositAbility(player);
         assertTrue(player.getArrayDeposit().size()!=0&&player.getArrayDeposit().get(0).getResourceType().equals(ability.getResourceType()));
     }

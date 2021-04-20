@@ -7,16 +7,42 @@ import it.polimi.ingsw.model.enumeration.Resource;
 public abstract class SpecialAbility {
     private Resource resourceType;
 
+    /**
+     *
+     * @param resourceType Resource of the Card
+     */
     public SpecialAbility(Resource resourceType) {
         this.resourceType = resourceType;
     }
 
+    /**
+     *
+     * @return resourceType as Resource
+     */
     public Resource getResourceType() {
         return resourceType;
     }
 
-    public boolean useDepositAbility(PlayerDashboard player) {return false;} //DepositAbility
+    /**
+     *
+     * @param player player whom i am adding the deposit
+     */
+    public void useDepositAbility(PlayerDashboard player) {} //DepositAbility
+
+    /**
+     *
+     * @param count passed ResourceCount, equals to the resources chosen to pay
+     * @return true if there are enough resources to use the production
+     */
     public boolean useProductionAbility(ResourceCount count) {return false;} //ProductionAbility
-    public boolean useDiscountAbility(ResourceCount cost){return false;}  //DiscountAbility
+    /**
+     *
+     * @param cost passed ResourceCount, it's the DevCard cost
+     */
+    public void useDiscountAbility(ResourceCount cost){}  //DiscountAbility
+    /**
+     *
+     * @return Resource of the Card
+     */
     public Resource useWhiteChangeAbility(){return null;}  //Used in WhiteChangeAbility
 }

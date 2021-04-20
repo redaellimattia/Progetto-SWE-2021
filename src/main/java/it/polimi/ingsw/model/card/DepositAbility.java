@@ -4,17 +4,31 @@ import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 public class  DepositAbility extends SpecialAbility {
+
+    /**
+     *
+     * @param resourceType Resource of the deposit
+     */
     public DepositAbility(Resource resourceType) {
         super(resourceType);
     }
 
+    /**
+     *
+     * @param player player whom i am adding the deposit
+     */
     @Override
     //WHEN PLAYED, INITIALIZE arrayDeposit IN PLAYERDASHBOARD
-    public boolean useDepositAbility(PlayerDashboard player){
+    public void useDepositAbility(PlayerDashboard player){
         Resource resType = super.getResourceType();
         player.initArrayDeposit(resType); //Init arrayDeposit in PlayerDashboard
-        return true; //This should be always possible, because we run this method only when player actually puts the card in game
     }
+
+    /**
+     *
+     * @param o passed Object
+     * @return true if o is the same object of this, or it has the same Resource deposit
+     */
     @Override
     public boolean equals(Object o){
         if (o == this) { //True if it's this instance
