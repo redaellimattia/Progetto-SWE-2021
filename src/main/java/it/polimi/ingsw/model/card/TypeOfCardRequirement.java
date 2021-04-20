@@ -10,7 +10,7 @@ public class TypeOfCardRequirement implements Requirement {
 
     /**
      *
-     * @param cardColours keeps card cost as ColourCount
+     * @param cardColours keeps card requirement as ColourCount
      */
     public TypeOfCardRequirement(ColourCount cardColours) {
         this.cardColours = cardColours;

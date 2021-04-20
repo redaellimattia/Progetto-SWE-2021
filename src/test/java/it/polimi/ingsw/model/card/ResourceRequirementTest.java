@@ -11,53 +11,75 @@ import static org.junit.jupiter.api.Assertions.*;
 class ResourceRequirementTest {
 
     @Test
-    void isPlayable() {
-        //CHEST
-        PlayerDashboard player = createPlayer(new CounterTop(Resource.COIN,0),new CounterTop(Resource.COIN,0),new CounterTop(Resource.COIN,0)
-                ,new ResourceCount(5,5,5,5,0));
+    void isPlayableWithChest() { //CHEST
+        PlayerDashboard player = createPlayer(new CounterTop(Resource.COIN, 0), new CounterTop(Resource.COIN, 0), new CounterTop(Resource.COIN, 0)
+                , new ResourceCount(5, 5, 5, 5, 0));
 
-        ResourceRequirement req = new ResourceRequirement(new ResourceCount(1,1,0,0,0));
+        ResourceRequirement req = new ResourceRequirement(new ResourceCount(1, 1, 0, 0, 0));
         assertTrue(req.isPlayable(player));
+    }
 
-        //CHEST NOT ENOUGH
-         player = createPlayer(new CounterTop(Resource.COIN,0),new CounterTop(Resource.COIN,0),new CounterTop(Resource.COIN,0)
+    @Test
+    void NotPlayableWithChest(){ //CHEST NOT ENOUGH
+        PlayerDashboard player = createPlayer(new CounterTop(Resource.COIN,0),new CounterTop(Resource.COIN,0),new CounterTop(Resource.COIN,0)
                 ,new ResourceCount(1,0,50,5,0));
 
-         req = new ResourceRequirement(new ResourceCount(1,1,0,0,0));
-        assertFalse(req.isPlayable(player));
-
-        //STORAGE
-        player = createPlayer(new CounterTop(Resource.COIN,1),new CounterTop(Resource.ROCK,1),new CounterTop(Resource.COIN,0)
-                ,new ResourceCount(0,0,0,0,0));
-        req = new ResourceRequirement(new ResourceCount(1,1,0,0,0));
-        assertTrue(req.isPlayable(player));
-
-        //NOT ENOUGH
-        player = createPlayer(new CounterTop(Resource.COIN,0),new CounterTop(Resource.ROCK,1),new CounterTop(Resource.COIN,0)
-                ,new ResourceCount(0,0,0,0,0));
-        req = new ResourceRequirement(new ResourceCount(1,1,0,1,0));
-        assertFalse(req.isPlayable(player));
-
-        //ABILITYDEPOSIT
-        player = createPlayer(new CounterTop(Resource.COIN,0),new CounterTop(Resource.ROCK,1),new CounterTop(Resource.COIN,0)
-                ,new ResourceCount(0,0,0,0,0));
-        player.initArrayDeposit(Resource.COIN);
-        player.addToDeposit(Resource.COIN);
-        player.initArrayDeposit(Resource.ROCK);
-        player.addToDeposit(Resource.ROCK);
-        req = new ResourceRequirement(new ResourceCount(1,1,0,0,0));
-        assertTrue(req.isPlayable(player));
-
-        //ABILITYDEPOSITNOTENOUGH
-        player = createPlayer(new CounterTop(Resource.COIN,0),new CounterTop(Resource.ROCK,1),new CounterTop(Resource.COIN,0)
-                ,new ResourceCount(0,0,0,0,0));
-        player.initArrayDeposit(Resource.COIN);
-        player.addToDeposit(Resource.COIN);
-        player.initArrayDeposit(Resource.ROCK);
-        player.addToDeposit(Resource.ROCK);
-        req = new ResourceRequirement(new ResourceCount(1,1,0,1,0));
+        ResourceRequirement req = new ResourceRequirement(new ResourceCount(1,1,0,0,0));
         assertFalse(req.isPlayable(player));
     }
+
+    @Test
+    void isPlayableWithStorage() { //STORAGE
+        PlayerDashboard player = createPlayer(new CounterTop(Resource.COIN,1),new CounterTop(Resource.ROCK,1),new CounterTop(Resource.COIN,0)
+                ,new ResourceCount(0,0,0,0,0));
+        ResourceRequirement req = new ResourceRequirement(new ResourceCount(1,1,0,0,0));
+        assertTrue(req.isPlayable(player));
+    }
+
+    @Test
+    void notPlayableWithStorage(){ //NOT ENOUGH
+        PlayerDashboard player = createPlayer(new CounterTop(Resource.COIN,0),new CounterTop(Resource.ROCK,1),new CounterTop(Resource.COIN,0)
+                ,new ResourceCount(0,0,0,0,0));
+        ResourceRequirement req = new ResourceRequirement(new ResourceCount(1,1,0,1,0));
+        assertFalse(req.isPlayable(player));
+    }
+
+    @Test
+    void isPlayableWithAbilityDeposit() { //ABILITYDEPOSIT
+        PlayerDashboard player = createPlayer(new CounterTop(Resource.COIN,0),new CounterTop(Resource.ROCK,1),new CounterTop(Resource.COIN,0)
+                ,new ResourceCount(0,0,0,0,0));
+        player.initArrayDeposit(Resource.COIN);
+        player.addToDeposit(Resource.COIN);
+        player.initArrayDeposit(Resource.ROCK);
+        player.addToDeposit(Resource.ROCK);
+        ResourceRequirement req = new ResourceRequirement(new ResourceCount(1,1,0,0,0));
+        assertTrue(req.isPlayable(player));
+    }
+
+    @Test
+    void notPlayableWithAbilityDeposit() { //ABILITYDEPOSITNOTENOUGH
+        PlayerDashboard player = createPlayer(new CounterTop(Resource.COIN,0),new CounterTop(Resource.ROCK,1),new CounterTop(Resource.COIN,0)
+                ,new ResourceCount(0,0,0,0,0));
+        player.initArrayDeposit(Resource.COIN);
+        player.addToDeposit(Resource.COIN);
+        player.initArrayDeposit(Resource.ROCK);
+        player.addToDeposit(Resource.ROCK);
+        ResourceRequirement req = new ResourceRequirement(new ResourceCount(1,1,0,1,0));
+        assertFalse(req.isPlayable(player));
+    }
+
+    @Test
+    void isPlayableHybrid() { //Hybrid
+        PlayerDashboard player = createPlayer(new CounterTop(Resource.COIN,0),new CounterTop(Resource.ROCK,1),new CounterTop(Resource.SERVANT,2)
+                ,new ResourceCount(1,1,0,0,0));
+        player.initArrayDeposit(Resource.COIN);
+        player.addToDeposit(Resource.COIN);
+        player.initArrayDeposit(Resource.ROCK);
+        player.addToDeposit(Resource.ROCK);
+        ResourceRequirement req = new ResourceRequirement(new ResourceCount(2,2,2,0,0));
+        assertTrue(req.isPlayable(player));
+    }
+
     PlayerDashboard createPlayer(CounterTop firstRow,CounterTop secondRow, CounterTop thirdRow,ResourceCount resCount){
         String nickname = "Primo";
         Storage storage = new Storage(firstRow,secondRow,thirdRow);
