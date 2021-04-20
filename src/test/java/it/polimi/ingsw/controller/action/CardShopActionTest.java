@@ -40,7 +40,20 @@ class CardShopActionTest {
         CardShopAction action = new CardShopAction(shop,1,3,0,payment,null);
         assertFalse(action.useAction(player));
     }
-
+    @Test //shop remove correctly the card and its placed in the right place.
+    void legitimateBuyCheckDiscounts(){
+        PlayerDashboard player = createPlayer();
+        Shop shop = createShop();
+        ResourceCount payment = new ResourceCount(1,1,0,0,0);
+        CardShopAction action = new CardShopAction(shop,2,2,0,payment,null);
+        action.useAction(player);
+        assertEquals(0,payment.getCoins()); //DiscountAbility works fine
+        assertEquals(0,payment.getRocks());
+        Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
+        DevelopmentCard cardYellow12 = new DevelopmentCard(1,new ResourceCount(1,1,0,0,0),prod,1, CardColour.YELLOW);
+        assertEquals(player.getDevCards()[0].getFirst(),cardYellow12);
+        assertEquals(3,shop.getGrid()[2][2].getDeck().size());
+    }
     PlayerDashboard createPlayer(){
         String nickname = "Prova";
         CounterTop firstRow = new CounterTop(Resource.COIN,1);
@@ -52,7 +65,7 @@ class CardShopActionTest {
 
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
         leaderCards.add(0,createLeaderCardDiscount(true));
-        leaderCards.add(0,createLeaderCard(false));
+        leaderCards.add(0,createLeaderCardDiscount2(true));
         return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
     }
     PlayerDashboard createPlayerWithCards(){
@@ -82,10 +95,20 @@ class CardShopActionTest {
             leader.setInGame();
         return leader;
     }
+
     LeaderCard createLeaderCardDiscount(boolean inGame){
         ColourCount count = new ColourCount(1,0,0,0);
         TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
         SpecialAbility specialAbility = new DiscountAbility(Resource.COIN);
+        LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
+        if(inGame)
+            leader.setInGame();
+        return leader;
+    }
+    LeaderCard createLeaderCardDiscount2(boolean inGame){
+        ColourCount count = new ColourCount(1,0,0,0);
+        TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
+        SpecialAbility specialAbility = new DiscountAbility(Resource.ROCK);
         LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
         if(inGame)
             leader.setInGame();
@@ -137,7 +160,7 @@ class CardShopActionTest {
         DevelopmentCard cardYellow9 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
         DevelopmentCard cardYellow10 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
         DevelopmentCard cardYellow11 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
-        DevelopmentCard cardYellow12 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
+        DevelopmentCard cardYellow12 = new DevelopmentCard(1,new ResourceCount(1,1,0,0,0),prod,1, CardColour.YELLOW);
         //PURPLE CARDS
         DevelopmentCard cardPurple1 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
         DevelopmentCard cardPurple2 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
@@ -209,7 +232,7 @@ class CardShopActionTest {
         testY1.add(cardYellow9);
         testY1.add(cardYellow10);
         testY1.add(cardYellow11);
-        testY1.add(cardYellow12);
+        testY1.add(0,cardYellow12);
         DeckShop deckYellow1 = new DeckShop(testY1);
 
         //PURPLE DECKS
