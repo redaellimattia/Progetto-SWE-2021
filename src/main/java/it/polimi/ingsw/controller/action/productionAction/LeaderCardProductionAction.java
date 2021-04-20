@@ -12,6 +12,13 @@ public class LeaderCardProductionAction extends Action {
     ResourceCount chestCount;
     Resource res;
 
+    /**
+     *
+     * @param card LeaderCard chosen by the player to use its production
+     * @param storageCount amount of resources in the Storage, that the player wants to pay with, can be null
+     * @param chestCount amount of resources in the Chest, that the player wants to pay with, can be null
+     * @param res resource chosen as output
+     */
     public LeaderCardProductionAction(LeaderCard card, ResourceCount storageCount, ResourceCount chestCount, Resource res) {
         this.card = card;
         this.storageCount = storageCount;
@@ -19,6 +26,11 @@ public class LeaderCardProductionAction extends Action {
         this.res = res;
     }
 
+    /**
+     *
+     * @param player player that is doing the action
+     * @return true if ended correctly
+     */
     //LEADERCARDS
     //RECEIVING CARD,COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
     @Override
@@ -45,6 +57,10 @@ public class LeaderCardProductionAction extends Action {
         return true;
     }
 
+    /**
+     *
+     * @param player player that is ending the action
+     */
     //ADD THE RESOURCES OBTAINED FROM THE PRODUCTIONS TO THE PLAYER AND THEN RESET THE BUFFER;
     @Override
     public void endAction(PlayerDashboard player) {

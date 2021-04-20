@@ -25,7 +25,7 @@ public class PlayerDashboard extends Player{
         this.devCards[1] = new DeckDashboard();
         this.devCards[2] = new DeckDashboard();
         this.leaderCards = leaderCards;
-        this.arrayDeposit = new ArrayList<CounterTop>();
+        this.arrayDeposit = new ArrayList<>();
         bufferProduction = new ResourceCount(0,0,0,0,0);
     }
 
@@ -163,11 +163,11 @@ public class PlayerDashboard extends Player{
     //EMPTY BUFFERPRODUCTION WHEN PRODUCTIONACTION ENDS
     public void emptyBufferProduction(){
         int faith = bufferProduction.getFaith();
+        bufferProduction.removeFaith(faith);
         while(faith!=0) {
             updatePathPosition(1);
             faith--;
         }
-        bufferProduction.removeFaith(faith);
         chest.sumCounts(bufferProduction);
         bufferProduction = new ResourceCount(0,0,0,0,0);
     }

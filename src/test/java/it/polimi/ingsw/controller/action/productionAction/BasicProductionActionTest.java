@@ -25,6 +25,7 @@ class BasicProductionActionTest {
         assertEquals(resultChest, player.getChest()); //Paid correctly
         assertEquals(resultBuff, player.getBufferProduction()); //Buffer equals to production output
     }
+
     @Test
     void useActionStorageOnlyPayment(){ //STORAGE ONLY PAYMENT
          PlayerDashboard player = createPlayer();
@@ -36,6 +37,7 @@ class BasicProductionActionTest {
          assertEquals(resultStorage,player.getStorage().readStorage()); //Paid correctly
          assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
     }
+
     @Test
     void useActionChestOnlyPayment() { //CHEST ONLY PAYMENT
         PlayerDashboard player = createPlayer();
@@ -47,6 +49,7 @@ class BasicProductionActionTest {
         assertEquals(resultChest,player.getChest()); //Paid correctly
         assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
     }
+
     @Test
     void useActionWrongInputMoreThan2() { //WRONG INPUT !=2: >2
         PlayerDashboard player = createPlayer();
@@ -55,6 +58,7 @@ class BasicProductionActionTest {
         BasicProductionAction action = new BasicProductionAction(Resource.COIN, storageCount, chestCount);
         assertFalse(action.useAction(player));
     }
+
     @Test
     void useActionWrongInputLessThan2() { //WRONG INPUT !=2: <2
         PlayerDashboard player = createPlayer();
@@ -63,6 +67,7 @@ class BasicProductionActionTest {
         BasicProductionAction action = new BasicProductionAction(Resource.COIN, storageCount, chestCount);
         assertFalse(action.useAction(player));
     }
+
     @Test
     void useActionWrongChosenResource() { //WRONG CHOSEN RESOURCE (CANT CHOOSE FAITH)
         PlayerDashboard player = createPlayer();
@@ -90,6 +95,7 @@ class BasicProductionActionTest {
         assertEquals(0,player.getPathPosition());
         assertEquals(newChest,player.getChest());
     }
+
     PlayerDashboard createPlayer(){
         String nickname = "Prova";
         CounterTop firstRow = new CounterTop(Resource.COIN,1);

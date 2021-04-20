@@ -13,44 +13,55 @@ import static org.junit.jupiter.api.Assertions.*;
 class DiscardLeaderActionTest {
 
     @Test
-    void discardLeaderAction() {
-        //DISCARD FIRST CARD
+    void useActionFirstCard() { //DISCARD FIRST CARD
         PlayerDashboard player = createPlayer();
-        LeaderCard card = createLeaderCard(new ColourCount(1,0,0,0));
+        LeaderCard card = createLeaderCard(new ColourCount(1, 0, 0, 0));
+        DiscardLeaderAction action = new DiscardLeaderAction(card);
+        assertTrue(action.useAction(player));
+        assertEquals(1, player.getPathPosition());
+    }
+
+    @Test
+    void useActionSecondCard() { //DISCARD SECOND CARD
+        PlayerDashboard player = createPlayer();
+        LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
         assertTrue(action.useAction(player));
         assertEquals(1,player.getPathPosition());
+    }
 
-        //DISCARD SECOND CARD
-        player = createPlayer();
-        card = createLeaderCard(new ColourCount(0,2,1,0));
-        action = new DiscardLeaderAction(card);
-        assertTrue(action.useAction(player));
-        assertEquals(1,player.getPathPosition());
-
-        //DISCARD FIRST CARD AFTER SECOND
+    @Test
+    void useActionFirstAndSecondCard() { //DISCARD FIRST CARD AFTER SECOND
+        PlayerDashboard player = createPlayer();
+        LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
+        DiscardLeaderAction action = new DiscardLeaderAction(card);
+        action.useAction(player);
         card = createLeaderCard(new ColourCount(1,0,0,0));
         action = new DiscardLeaderAction(card);
         assertTrue(action.useAction(player));
         assertEquals(2,player.getPathPosition());
+    }
 
-        //CAN'T DISCARD, DOESN'T EXIST IN MODEL
-        player = createPlayer();
-        card = createLeaderCard(new ColourCount(5,5,5,5));
-        action = new DiscardLeaderAction(card);
+    @Test
+    void useActionCardNotInModel() { //CAN'T DISCARD, DOESN'T EXIST IN MODEL
+        PlayerDashboard player = createPlayer();
+        LeaderCard card = createLeaderCard(new ColourCount(5,5,5,5));
+        DiscardLeaderAction action = new DiscardLeaderAction(card);
         assertFalse(action.useAction(player)); //CAN'T DISCARD
         assertEquals(0,player.getPathPosition());
+    }
 
-        //CAN'T DISCARD, IT'S IN GAME
-
-        player = createPlayer();
-        card = createLeaderCard(new ColourCount(1,0,0,0));
-        action = new DiscardLeaderAction(card);
+    @Test
+    void useActionInGame() { //CAN'T DISCARD, IT'S IN GAME
+        PlayerDashboard player = createPlayer();
+        LeaderCard card = createLeaderCard(new ColourCount(1,0,0,0));
+        DiscardLeaderAction action = new DiscardLeaderAction(card);
         PlayLeaderAction playAction = new PlayLeaderAction(card);
         playAction.useAction(player); //Playing leader
         assertFalse(action.useAction(player)); //CAN'T DISCARD
         assertEquals(0,player.getPathPosition());
     }
+
     PlayerDashboard createPlayer(){
         String nickname = "Prova";
         CounterTop firstRow = new CounterTop(Resource.COIN,1);

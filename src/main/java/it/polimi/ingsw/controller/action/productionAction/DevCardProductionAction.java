@@ -31,7 +31,6 @@ public class DevCardProductionAction extends Action {
     //I GET FROM THE VIEW THE CARD, THE CHOSEN AMOUNT OF RESOURCES FROM STORAGE AND CHEST (EVENTUALLY NULL) AND THE PLAYER
     @Override
     public boolean useAction(PlayerDashboard player){
-        ResourceCount cost = card.getProductionPower().getInput();
         ResourceCount output = card.getProductionPower().useProduction(ResourceCount.getTotal(storageCount,chestCount));
 
         //If devCard doesnt exist in the model then return false
