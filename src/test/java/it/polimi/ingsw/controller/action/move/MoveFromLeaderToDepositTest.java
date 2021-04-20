@@ -21,7 +21,7 @@ class MoveFromLeaderToDepositTest {
 
         player.getArrayDeposit().get(0).addContent(1);
         assertTrue(organize.useAction(player));
-        //assertTrue(player.getStorage().getThirdRow().getContent() == 1);
+        assertTrue(player.getStorage().getThirdRow().getContent() == 1);
     }
 
     @Test //DOESN'T ADD RESOURCES TO ALREADY FULL COUNTERTOPS
@@ -89,8 +89,9 @@ class MoveFromLeaderToDepositTest {
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
         leaderCards.add(0,createLeaderCard(false));
         leaderCards.add(0,createLeaderCard(false));
-        //devCards[0].addCard(createDevCard(3));
-        //devCards[1].addCard(createDevCard(1));
+        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
+        devCards[0].addCard(createDevCard(1));
+        devCards[1].addCard(createDevCard(1));
         return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
     }
     LeaderCard createLeaderCard(boolean inGame){

@@ -30,7 +30,7 @@ class ShopTest {
     }
 
     @Test
-    void discardFromToken() {
+    void discardFromTokenSubsequentialDiscard() {
         Shop shop = createShop();
         CardColour purple = CardColour.PURPLE;
         assertEquals(4, shop.getGrid()[0][3].getDeck().size());
@@ -50,7 +50,24 @@ class ShopTest {
         assertEquals(0,shop.getGrid()[1][3].getDeck().size());
         assertEquals(3,shop.getGrid()[0][3].getDeck().size());
     }
-
+    @Test //Even if column is empty the discard doesn't trigger anything, a method that check will be called by the controller to end the game in solo.
+    void emptyWholeColumn(){
+        Shop shop = createShop();
+        CardColour purple = CardColour.PURPLE;
+        shop.discardFromToken(purple);
+        shop.discardFromToken(purple);
+        shop.discardFromToken(purple);
+        shop.discardFromToken(purple);
+        shop.discardFromToken(purple);
+        shop.discardFromToken(purple);
+        assertEquals(0, shop.getGrid()[0][3].getDeck().size());
+        assertEquals(0, shop.getGrid()[1][3].getDeck().size());
+        assertEquals(0, shop.getGrid()[2][3].getDeck().size());
+        shop.discardFromToken(purple);
+        assertEquals(0, shop.getGrid()[0][3].getDeck().size());
+        assertEquals(0, shop.getGrid()[1][3].getDeck().size());
+        assertEquals(0, shop.getGrid()[2][3].getDeck().size());
+    }
 
     Shop createShop(){
         Deck[][] testStructure = new DeckShop[3][4];
