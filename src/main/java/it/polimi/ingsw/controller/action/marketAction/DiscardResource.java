@@ -1,4 +1,11 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
-public class DiscardResource {
+import it.polimi.ingsw.model.MarketMarble;
+import it.polimi.ingsw.model.PlayerDashboard;
+
+public class DiscardResource implements AtomicMarketAction {
+    @Override
+    public boolean useAction(MarketMarble marble, PlayerDashboard player) {
+        return false;
+    }
 }
