@@ -31,9 +31,9 @@ public class BasicProductionAction extends Action {
     //RECEIVING COST CHOSEN BY THE PLAYER, AND COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
     @Override
     public boolean useAction(PlayerDashboard player){
-
         if(res.equals(Resource.FAITH))
             return false;
+
         //If Sum of storageCount and ChestCount != 2 OR deleteRes goes wrong then return false
         int total = 0;
         ResourceCount totalCount = ResourceCount.getTotal(storageCount,chestCount);
