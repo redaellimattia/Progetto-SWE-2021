@@ -4,12 +4,41 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.Resource;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CardShopActionTest {
+    @Test //shop remove correctly the card and its placed in the right place.
+    void legitimateBuy(){
+        PlayerDashboard player = createPlayer();
+        Shop shop = createShop();
+        ResourceCount payment = new ResourceCount(1,0,0,0,0);
+        CardShopAction action = new CardShopAction(shop,2,3,0,payment,null);
+        action.useAction(player);
+        Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
+        DevelopmentCard cardPurple12 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
+        assertEquals(player.getDevCards()[0].getFirst(),cardPurple12);
+        assertEquals(3,shop.getGrid()[2][3].getDeck().size());
+    }
+    @Test //try to put level 1 card on a level 2 deck
+    void illegitimateBuy1(){
+        PlayerDashboard player = createPlayerWithCards();
+        Shop shop = createShop();
+        ResourceCount payment = new ResourceCount(1,0,0,0,0);
+        CardShopAction action = new CardShopAction(shop,2,3,0,payment,null);
+        assertFalse(action.useAction(player));
+    }
+    @Test//try to put level 2 card on a level 0 deck
+    void illegitimateBuy2(){
+        PlayerDashboard player = createPlayer();
+        Shop shop = createShop();
+        ResourceCount payment = new ResourceCount(1,0,0,0,0);
+        CardShopAction action = new CardShopAction(shop,1,3,0,payment,null);
+        assertFalse(action.useAction(player));
+    }
 
     PlayerDashboard createPlayer(){
         String nickname = "Prova";
@@ -25,6 +54,24 @@ class CardShopActionTest {
         leaderCards.add(0,createLeaderCard(false));
         return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
     }
+    PlayerDashboard createPlayerWithCards(){
+        String nickname = "Prova";
+        CounterTop firstRow = new CounterTop(Resource.COIN,1);
+        CounterTop secondRow = new CounterTop(Resource.ROCK,2);
+        CounterTop thirdRow = new CounterTop(Resource.SERVANT,0);
+        Storage storage = new Storage(firstRow,secondRow,thirdRow);
+        ResourceCount chest = new ResourceCount(5,5,0,0,0);
+        DeckDashboard[] devCards = new DeckDashboard[3];
+
+        ArrayList<LeaderCard> leaderCards = new ArrayList<>();
+        leaderCards.add(0,createLeaderCard(false));
+        leaderCards.add(0,createLeaderCard(false));
+        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
+        devCards[0].addCard(createDevCard(1));
+        devCards[0].addCard(createDevCard(2));
+        devCards[1].addCard(createDevCard(1));
+        return player;
+    }
     LeaderCard createLeaderCard(boolean inGame){
         ColourCount count = new ColourCount(1,0,0,0);
         TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
@@ -33,6 +80,10 @@ class CardShopActionTest {
         if(inGame)
             leader.setInGame();
         return leader;
+    }
+    DevelopmentCard createDevCard(int level){
+        Production prod = new Production(new ResourceCount(1,2,0,0,0),new ResourceCount(0,0,3,0,0));
+        return new DevelopmentCard(5,new ResourceCount(0,0,0,0,0),prod,level, CardColour.BLUE);
     }
     Shop createShop(){
         Deck[][] testStructure = new DeckShop[3][4];
