@@ -6,6 +6,10 @@ import java.util.ArrayList;
 
 public class DeckShop extends Deck {
 
+    /**
+     *
+     * @param cards The cards inside the deck
+     */
     public DeckShop(ArrayList<DevelopmentCard> cards) throws IllegalArgumentException {
         super(cards);
         // Each new DeckShop should contain 4 cards
@@ -21,6 +25,10 @@ public class DeckShop extends Deck {
         }
     }
 
+    /**
+     *
+     * @param card the card to be added
+     */
     // Adding cards to a DeckShop is not allowed
     @Override
     public void addCard(DevelopmentCard card) throws IllegalStateException {
