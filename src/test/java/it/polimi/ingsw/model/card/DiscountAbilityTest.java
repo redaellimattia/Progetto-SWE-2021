@@ -9,30 +9,41 @@ import static org.junit.jupiter.api.Assertions.*;
 class DiscountAbilityTest {
 
     @Test
-    void useDiscountAbility() {
-        DiscountAbility discountAbility;
-        ResourceCount cost = new ResourceCount(2,2,2,2,0);
-        ResourceCount expected = new ResourceCount(1,2,2,2,0);
-        //COIN
-        discountAbility = initDiscountAbility(Resource.COIN);
-        assertTrue(discountAbility.useDiscountAbility(cost)); //Returns true and decreases cost
-        assertEquals(expected,cost); //Check if cost is decreased
-        //ROCK
-        discountAbility = initDiscountAbility(Resource.ROCK);
-        expected.removeRocks(1);
-        assertTrue(discountAbility.useDiscountAbility(cost)); //Returns true and decreases cost
-        assertEquals(expected,cost); //Check if cost is decreased
-        //SERVANT
-        discountAbility = initDiscountAbility(Resource.SERVANT);
-        expected.removeServants(1);
-        assertTrue(discountAbility.useDiscountAbility(cost)); //Returns true and decreases cost
-        assertEquals(expected,cost); //Check if cost is decreased
-        //SHIELD
-        discountAbility = initDiscountAbility(Resource.SHIELD);
-        expected.removeShields(1);
-        assertTrue(discountAbility.useDiscountAbility(cost)); //Returns true and decreases cost
+    void useDiscountAbilityWithCoin() { //COIN
+        ResourceCount cost = new ResourceCount(2, 2, 2, 2, 0);
+        ResourceCount expected = new ResourceCount(1, 2, 2, 2, 0);
+        DiscountAbility discountAbility = initDiscountAbility(Resource.COIN);
+        discountAbility.useDiscountAbility(cost); //Returns true and decreases cost
+        assertEquals(expected, cost); //Check if cost is decreased
+    }
+
+    @Test
+    void useDiscountAbilityWithRock() { //ROCK
+        ResourceCount cost = new ResourceCount(1, 2, 2, 2, 0);
+        ResourceCount expected = new ResourceCount(1, 1, 2, 2, 0);
+        DiscountAbility discountAbility = initDiscountAbility(Resource.ROCK);
+        discountAbility.useDiscountAbility(cost); //Returns true and decreases cost
         assertEquals(expected,cost); //Check if cost is decreased
     }
+
+    @Test
+    void useDiscountAbilityWithServant() { //SERVANT
+        ResourceCount cost = new ResourceCount(1, 1, 2, 2, 0);
+        ResourceCount expected = new ResourceCount(1, 1, 1, 2, 0);
+        DiscountAbility discountAbility = initDiscountAbility(Resource.SERVANT);
+        discountAbility.useDiscountAbility(cost); //Returns true and decreases cost
+        assertEquals(expected,cost); //Check if cost is decreased
+    }
+
+    @Test
+    void useDiscountAbilityWithShield() { //SHIELD
+        ResourceCount cost = new ResourceCount(1, 1, 1, 2, 0);
+        ResourceCount expected = new ResourceCount(1, 1, 1, 1, 0);
+        DiscountAbility discountAbility = initDiscountAbility(Resource.SHIELD);
+        discountAbility.useDiscountAbility(cost); //Returns true and decreases cost
+        assertEquals(expected,cost); //Check if cost is decreased
+    }
+
     DiscountAbility initDiscountAbility(Resource res){
         return new DiscountAbility(res);
     }

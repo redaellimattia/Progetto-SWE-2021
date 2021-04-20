@@ -4,6 +4,8 @@ import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.Shop;
 import it.polimi.ingsw.model.card.DevelopmentCard;
+import it.polimi.ingsw.model.card.LeaderCard;
+import it.polimi.ingsw.model.enumeration.Resource;
 
 public class CardShopAction extends Action {
     private Shop shop;
@@ -31,6 +33,16 @@ public class CardShopAction extends Action {
         if(checkIfPossible(chosen.getLevel(),deckPosition, player) && chosen.getCost().equals(ResourceCount.getTotal(storageCount,chestCount))){
             chosen = shop.buy(row,column);
             player.addDevCards(chosen,deckPosition);
+
+            for (LeaderCard l: player.getLeaderCards()) {
+                Resource res = l.getSpecialAbility().getResourceType();
+                if(storageCount != null)
+                    if(res.get(storageCount) != 0)
+                        l.getSpecialAbility().useDiscountAbility(storageCount);
+                else if(chestCount != null)
+                    if(res.get(chestCount) != 0 && chestCount != null)
+                        l.getSpecialAbility().useDiscountAbility(chestCount);
+            }
             deleteRes(storageCount,chestCount,player);
             return true;
         }
