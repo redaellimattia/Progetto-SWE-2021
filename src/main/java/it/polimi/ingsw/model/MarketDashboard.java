@@ -4,17 +4,29 @@ public class MarketDashboard {
     private MarketMarble[][] structure;
     private MarketMarble freeMarble;
 
+    /**
+     *
+     * @param structure the matrix representing the MarketDashboard
+     * @param freeMarble the marble that is not in the matrix
+     */
     public MarketDashboard(MarketMarble[][] structure, MarketMarble freeMarble) {
         this.structure = structure;
         this.freeMarble = freeMarble;
     }
 
+    /**
+     *
+     * @return the marble that is not in the matrix
+     */
     public MarketMarble getFreeMarble(){
         return freeMarble;
     }
 
-    // type = 0: row to be fixed; type = 1: column to be fixed
-    // pos: number of the row/column (starting from 1)
+    /**
+     *
+     * @param type 0: row to be fixed; 1: column to be fixed
+     * @param pos number of the row/column (starting from 1)
+     */
     public void fixGrid(int type, int pos) throws IllegalArgumentException {
         MarketMarble temp;
         int cur;
@@ -42,7 +54,12 @@ public class MarketDashboard {
         }
     }
 
-    // Returns a copy of the selected row
+    /**
+     *
+     * @param row number of the row (starting from 1)
+     * @return a copy of the selected row
+     * @throws IllegalArgumentException if the selected row does not exist
+     */
     public MarketMarble[] getRow(int row) throws IllegalArgumentException {
         MarketMarble[] selectedRow = new MarketMarble[4];
         if(row < 1 || row > 3) {
@@ -55,7 +72,12 @@ public class MarketDashboard {
         return selectedRow;
     }
 
-    // Returns a copy of the selected column
+    /**
+     *
+     * @param col number of the column (starting from 1)
+     * @return a copy of the selected column
+     * @throws IllegalArgumentException if the selected column does not exist
+     */
     public MarketMarble[] getColumn(int col) throws IllegalArgumentException {
         MarketMarble[] selectedCol = new MarketMarble[3];
         if(col < 1 || col > 4) {
@@ -68,6 +90,10 @@ public class MarketDashboard {
         return selectedCol;
     }
 
+    /**
+     *
+     * @return a copy of the market structure
+     */
     public MarketMarble[][] getStructure() {
         MarketMarble[][] marketCopy = new MarketMarble[3][4];
         int curRow, curCol;

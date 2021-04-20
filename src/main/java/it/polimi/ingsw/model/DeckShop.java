@@ -9,6 +9,8 @@ public class DeckShop extends Deck {
     /**
      *
      * @param cards The cards inside the deck
+     * @throws IllegalArgumentException if cards size is not 4 or
+     *                                  if cards don't share the same colour and level
      */
     public DeckShop(ArrayList<DevelopmentCard> cards) throws IllegalArgumentException {
         super(cards);
@@ -28,6 +30,7 @@ public class DeckShop extends Deck {
     /**
      *
      * @param card the card to be added
+     * @throws IllegalStateException because adding cards to a DeckShop is not allowed
      */
     // Adding cards to a DeckShop is not allowed
     @Override

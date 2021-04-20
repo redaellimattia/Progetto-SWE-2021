@@ -5,10 +5,18 @@ import it.polimi.ingsw.model.enumeration.MarbleColour;
 public class MarketMarble {
     private final MarbleColour colour;
 
+    /**
+     *
+     * @param colour the color of the marble
+     */
     MarketMarble(MarbleColour colour) {
         this.colour = colour;
     }
 
+    /**
+     *
+     * @returns the color of the marble
+     */
     public MarbleColour getColour() {
         return colour;
     }
