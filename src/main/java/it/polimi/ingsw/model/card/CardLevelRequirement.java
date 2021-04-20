@@ -10,38 +10,61 @@ public class CardLevelRequirement implements Requirement {
     private CardColour colour;
     private int level; //Assuming level goes from 1 to 3
 
+    /**
+     *
+     * @param colour colour as CardColour
+     * @param level value
+     */
     public CardLevelRequirement(CardColour colour, int level) {
         this.colour = colour;
         this.level = level;
     }
 
+    /**
+     *
+     * @return colour as CardColour
+     */
     public CardColour getColour() {
         return colour;
     }
 
+    /**
+     *
+     * @return level value
+     */
     public int getLevel() {
         return level;
     }
 
+    /**
+     *
+     * @param player player trying to play the card
+     * @return true if playing that leader is possible
+     */
     @Override
     //TRUE IF THE PLAYER CAN ACTUALLY PLAY THE CARD
     public boolean isPlayable(PlayerDashboard player){
-        DeckDashboard devCards[] = player.getDevCards();
+        DeckDashboard[] devCards = player.getDevCards();
         ArrayList<DevelopmentCard> devCardSlot;
         CardColour devCardColour;
         int devCardLevel;
-        for(int i=0;i<devCards.length;i++){ //Reading devCards array
-            devCardSlot = devCards[i].getDeck();
-            for(int j=0;j<devCardSlot.size();j++){ //Reading the devCardSlot(Reading single arrayList slot)
-                devCardColour = devCardSlot.get(j).getColour(); //Reading devCard Colour
-                devCardLevel = devCardSlot.get(j).getLevel(); //Reading devCard Level
-                if(devCardColour.equals(this.colour)&&devCardLevel==this.level)
+        for (DeckDashboard devCard : devCards) { //Reading devCards array
+            devCardSlot = devCard.getDeck();
+            for (DevelopmentCard developmentCard : devCardSlot) { //Reading the devCardSlot(Reading single arrayList slot)
+                devCardColour = developmentCard.getColour(); //Reading devCard Colour
+                devCardLevel = developmentCard.getLevel(); //Reading devCard Level
+                if (devCardColour.equals(this.colour) && devCardLevel == this.level)
                     return true;
             }
         }
         return false;
     }
 
+    /**
+     *
+     * @param o passed Object
+     * @return true if o is the same object of this, or it has the same colour and level values
+     */
     @Override
     public boolean equals(Object o){
         if (o == this) { //True if it's this instance
