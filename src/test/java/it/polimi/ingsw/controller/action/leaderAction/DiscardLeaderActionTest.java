@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class DiscardLeaderActionTest {
 
     @Test
-    void discardLeaderActionFirstCard() { //DISCARD FIRST CARD
+    void useActionFirstCard() { //DISCARD FIRST CARD
         PlayerDashboard player = createPlayer();
         LeaderCard card = createLeaderCard(new ColourCount(1, 0, 0, 0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
@@ -22,7 +22,7 @@ class DiscardLeaderActionTest {
     }
 
     @Test
-    void discardLeaderActionSecondCard() { //DISCARD SECOND CARD
+    void useActionSecondCard() { //DISCARD SECOND CARD
         PlayerDashboard player = createPlayer();
         LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
@@ -31,12 +31,11 @@ class DiscardLeaderActionTest {
     }
 
     @Test
-    void DiscardLeaderActionFirstAndSecondCard() { //DISCARD FIRST CARD AFTER SECOND
+    void useActionFirstAndSecondCard() { //DISCARD FIRST CARD AFTER SECOND
         PlayerDashboard player = createPlayer();
         LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
-        assertTrue(action.useAction(player));
-        assertEquals(1,player.getPathPosition());
+        action.useAction(player);
         card = createLeaderCard(new ColourCount(1,0,0,0));
         action = new DiscardLeaderAction(card);
         assertTrue(action.useAction(player));
@@ -44,7 +43,7 @@ class DiscardLeaderActionTest {
     }
 
     @Test
-    void DiscardLeaderActionCardNotInModel() { //CAN'T DISCARD, DOESN'T EXIST IN MODEL
+    void useActionCardNotInModel() { //CAN'T DISCARD, DOESN'T EXIST IN MODEL
         PlayerDashboard player = createPlayer();
         LeaderCard card = createLeaderCard(new ColourCount(5,5,5,5));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
@@ -53,7 +52,7 @@ class DiscardLeaderActionTest {
     }
 
     @Test
-    void DiscardLeaderActionInGame() { //CAN'T DISCARD, IT'S IN GAME
+    void useActionInGame() { //CAN'T DISCARD, IT'S IN GAME
         PlayerDashboard player = createPlayer();
         LeaderCard card = createLeaderCard(new ColourCount(1,0,0,0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
