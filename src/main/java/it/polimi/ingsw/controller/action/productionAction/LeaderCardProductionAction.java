@@ -14,7 +14,7 @@ public class LeaderCardProductionAction extends Action {
 
     /**
      *
-     * @param card DevCard chosen by the player to use its production
+     * @param card LeaderCard chosen by the player to use its production
      * @param storageCount amount of resources in the Storage, that the player wants to pay with, can be null
      * @param chestCount amount of resources in the Chest, that the player wants to pay with, can be null
      * @param res resource chosen as output
