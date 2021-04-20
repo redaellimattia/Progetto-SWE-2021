@@ -47,6 +47,10 @@ public class Game {
         return market;
     }
 
+    public static ArrayList<Player> getPlayers() {
+        return players;
+    }
+
     public static SoloToken pickNextToken() {
         SoloToken picked = tokensDeck.get(0);
         tokensDeck.remove(0);
