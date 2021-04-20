@@ -18,6 +18,7 @@ class CardShopActionTest {
         ResourceCount payment = new ResourceCount(1,0,0,0,0);
         CardShopAction action = new CardShopAction(shop,2,3,0,payment,null);
         action.useAction(player);
+        assertEquals(0,payment.getCoins()); //DiscountAbility works fine
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
         DevelopmentCard cardPurple12 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
         assertEquals(player.getDevCards()[0].getFirst(),cardPurple12);
@@ -50,7 +51,7 @@ class CardShopActionTest {
         DeckDashboard[] devCards = new DeckDashboard[3];
 
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        leaderCards.add(0,createLeaderCard(false));
+        leaderCards.add(0,createLeaderCardDiscount(true));
         leaderCards.add(0,createLeaderCard(false));
         return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
     }
@@ -76,6 +77,15 @@ class CardShopActionTest {
         ColourCount count = new ColourCount(1,0,0,0);
         TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
         SpecialAbility specialAbility = new DepositAbility(Resource.SERVANT);
+        LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
+        if(inGame)
+            leader.setInGame();
+        return leader;
+    }
+    LeaderCard createLeaderCardDiscount(boolean inGame){
+        ColourCount count = new ColourCount(1,0,0,0);
+        TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
+        SpecialAbility specialAbility = new DiscountAbility(Resource.COIN);
         LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
         if(inGame)
             leader.setInGame();
