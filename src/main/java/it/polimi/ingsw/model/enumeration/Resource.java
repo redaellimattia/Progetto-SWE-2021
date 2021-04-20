@@ -64,7 +64,23 @@ public enum Resource {
         public int get(ResourceCount count){return 0;}
     };
 
+    /**
+     *
+     * @param count passed ResourceCount
+     * @param n counter
+     */
     public abstract void add(ResourceCount count,int n); //Adds to count, n Resources of the specified type
+    /**
+     *
+     * @param count passed ResourceCount
+     * @param n counter
+     */
     public abstract void remove(ResourceCount count,int n); //Removes in count, n Resources of the specified type
+
+    /**
+     *
+     * @param count passed ResourceCount
+     * @return amount of resources in that count
+     */
     public abstract int get(ResourceCount count); //Gets the amount Resources of the specified type
 }
