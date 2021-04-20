@@ -10,6 +10,14 @@ public class DevelopmentCard extends Card {
     private int level;
     private CardColour colour;
 
+    /**
+     *
+     * @param victoryPoints victoryPoints value of the card
+     * @param cost cost as ResourceCount to buy the card
+     * @param productionPower production of the card
+     * @param level level value of the card
+     * @param colour colour of the card as CardColour
+     */
     public DevelopmentCard(int victoryPoints,ResourceCount cost, Production productionPower, int level, CardColour colour) {
         super(victoryPoints);
         this.cost = cost;
@@ -20,20 +28,42 @@ public class DevelopmentCard extends Card {
     }
 
     //GETTERS
+
+    /**
+     *
+     * @return cost value as ResourceCount
+     */
     public ResourceCount getCost() {
         return cost;
     }
+    /**
+     *
+     * @return production as Production
+     */
     public Production getProductionPower() {
         return productionPower;
     }
+    /**
+     *
+     * @return level value as int
+     */
     public int getLevel() {
         return level;
     }
+    /**
+     *
+     * @return colour as CardColour
+     */
     public CardColour getColour() {
         return colour;
     }
 
 
+    /**
+     *
+     * @param o passed Object
+     * @return true if o is the same object of this, or it has the same attributes
+     */
     @Override
     public boolean equals(Object o){
         if (o == this) { //True if it's this instance
@@ -44,9 +74,7 @@ public class DevelopmentCard extends Card {
 
         //Check if same values
         DevelopmentCard c = (DevelopmentCard) o; //Cast to ResourceCount
-        if(this.getVictoryPoints()==c.getVictoryPoints()&&this.getCost().equals(c.getCost())&&
-                this.getProductionPower().equals(c.getProductionPower())&&this.getLevel()==c.getLevel()&&this.getColour()==c.getColour())
-            return true;
-        return false;
+        return this.getVictoryPoints() == c.getVictoryPoints() && this.getCost().equals(c.getCost()) &&
+                this.getProductionPower().equals(c.getProductionPower()) && this.getLevel() == c.getLevel() && this.getColour() == c.getColour();
     }
 }

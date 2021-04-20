@@ -40,7 +40,7 @@ public class CardShopAction extends Action {
                     if(res.get(storageCount) != 0)
                         l.getSpecialAbility().useDiscountAbility(storageCount);
                 else if(chestCount != null)
-                    if(res.get(chestCount) != 0 && chestCount != null)
+                    if(res.get(chestCount) != 0)
                         l.getSpecialAbility().useDiscountAbility(chestCount);
             }
             deleteRes(storageCount,chestCount,player);

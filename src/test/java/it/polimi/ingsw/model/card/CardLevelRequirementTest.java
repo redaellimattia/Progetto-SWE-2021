@@ -12,27 +12,23 @@ import static org.junit.jupiter.api.Assertions.*;
 class CardLevelRequirementTest {
 
     @Test
-    void isPlayable() {
+    void isPlayableBlue1() {
         PlayerDashboard player = createPlayer();
-        Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
-        DevelopmentCard card1 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1,CardColour.BLUE);
-        DevelopmentCard card2 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1,CardColour.GREEN);
-        DevelopmentCard card3 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1,CardColour.YELLOW);
-
-        player.getDevCards()[0] = new DeckDashboard();
-        player.getDevCards()[1] = new DeckDashboard();
-        player.getDevCards()[2] = new DeckDashboard();
-        player.getDevCards()[0].addCard(card1);
-        player.getDevCards()[1].addCard(card2);
-        player.getDevCards()[2].addCard(card3);
-
-        CardLevelRequirement req = new CardLevelRequirement(CardColour.BLUE,1);
+        CardLevelRequirement req = new CardLevelRequirement(CardColour.BLUE, 1);
         assertTrue(req.isPlayable(player));
+    }
 
-        req = new CardLevelRequirement(CardColour.GREEN,1);
+    @Test
+    void isPlayableGreen1() {
+        PlayerDashboard player = createPlayer();
+        CardLevelRequirement req = new CardLevelRequirement(CardColour.GREEN, 1);
         assertTrue(req.isPlayable(player));
+    }
 
-        req = new CardLevelRequirement(CardColour.YELLOW,2);
+    @Test
+    void isPlayableYellow2() {
+        PlayerDashboard player = createPlayer();
+        CardLevelRequirement req = new CardLevelRequirement(CardColour.YELLOW,2);
         assertFalse(req.isPlayable(player));
     }
     PlayerDashboard createPlayer(){
@@ -46,6 +42,19 @@ class CardLevelRequirementTest {
         DeckDashboard[] devCards = new DeckDashboard[3];
         ArrayList <LeaderCard> leaderCards = new ArrayList<>();
 
-        return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
+        PlayerDashboard player =  new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
+
+        Production prod = new Production(new ResourceCount(0, 0, 0, 0, 0), new ResourceCount(0, 0, 0, 0, 0));
+        DevelopmentCard card1 = new DevelopmentCard(1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.BLUE);
+        DevelopmentCard card2 = new DevelopmentCard(1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.GREEN);
+        DevelopmentCard card3 = new DevelopmentCard(1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.YELLOW);
+        player.getDevCards()[0] = new DeckDashboard();
+        player.getDevCards()[1] = new DeckDashboard();
+        player.getDevCards()[2] = new DeckDashboard();
+        player.getDevCards()[0].addCard(card1);
+        player.getDevCards()[1].addCard(card2);
+        player.getDevCards()[2].addCard(card3);
+
+        return player;
     }
 }
