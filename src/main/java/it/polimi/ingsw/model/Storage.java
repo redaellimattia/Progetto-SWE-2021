@@ -1,8 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.enumeration.Resource;
-
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -199,10 +196,8 @@ public class Storage {
      */
     //CHECK IF EVERY COUNTERTOP OF THE STORAGE HAS A DIFFERENT RESOURCETYPE
     public boolean checkShelves(){
-        if(!this.getFirstRow().getResourceType().equals(this.getSecondRow().getResourceType()) &&
+        return !this.getFirstRow().getResourceType().equals(this.getSecondRow().getResourceType()) &&
                 !this.getFirstRow().getResourceType().equals(this.getThirdRow().getResourceType()) &&
-                !this.getSecondRow().getResourceType().equals(this.getThirdRow().getResourceType()))
-            return true;
-        return false;
+                !this.getSecondRow().getResourceType().equals(this.getThirdRow().getResourceType());
     }
 }

@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.card.DevelopmentCard;
+
 
 public class Production {
     private ResourceCount input;
@@ -58,8 +58,6 @@ public class Production {
 
         //Check if same values
         Production p = (Production) o; //Cast to ResourceCount
-        if(this.input.equals(p.getInput())&&this.output.equals(p.getOutput()))
-            return true;
-        return false;
+        return this.input.equals(p.getInput()) && this.output.equals(p.getOutput());
     }
 }
