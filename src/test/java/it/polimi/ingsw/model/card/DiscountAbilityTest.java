@@ -13,7 +13,7 @@ class DiscountAbilityTest {
         ResourceCount cost = new ResourceCount(2, 2, 2, 2, 0);
         ResourceCount expected = new ResourceCount(1, 2, 2, 2, 0);
         DiscountAbility discountAbility = initDiscountAbility(Resource.COIN);
-        assertTrue(discountAbility.useDiscountAbility(cost)); //Returns true and decreases cost
+        discountAbility.useDiscountAbility(cost); //Returns true and decreases cost
         assertEquals(expected, cost); //Check if cost is decreased
     }
 
@@ -22,7 +22,7 @@ class DiscountAbilityTest {
         ResourceCount cost = new ResourceCount(1, 2, 2, 2, 0);
         ResourceCount expected = new ResourceCount(1, 1, 2, 2, 0);
         DiscountAbility discountAbility = initDiscountAbility(Resource.ROCK);
-        assertTrue(discountAbility.useDiscountAbility(cost)); //Returns true and decreases cost
+        discountAbility.useDiscountAbility(cost); //Returns true and decreases cost
         assertEquals(expected,cost); //Check if cost is decreased
     }
 
@@ -31,7 +31,7 @@ class DiscountAbilityTest {
         ResourceCount cost = new ResourceCount(1, 1, 2, 2, 0);
         ResourceCount expected = new ResourceCount(1, 1, 1, 2, 0);
         DiscountAbility discountAbility = initDiscountAbility(Resource.SERVANT);
-        assertTrue(discountAbility.useDiscountAbility(cost)); //Returns true and decreases cost
+        discountAbility.useDiscountAbility(cost); //Returns true and decreases cost
         assertEquals(expected,cost); //Check if cost is decreased
     }
 
@@ -40,7 +40,7 @@ class DiscountAbilityTest {
         ResourceCount cost = new ResourceCount(1, 1, 1, 2, 0);
         ResourceCount expected = new ResourceCount(1, 1, 1, 1, 0);
         DiscountAbility discountAbility = initDiscountAbility(Resource.SHIELD);
-        assertTrue(discountAbility.useDiscountAbility(cost)); //Returns true and decreases cost
+        discountAbility.useDiscountAbility(cost); //Returns true and decreases cost
         assertEquals(expected,cost); //Check if cost is decreased
     }
 

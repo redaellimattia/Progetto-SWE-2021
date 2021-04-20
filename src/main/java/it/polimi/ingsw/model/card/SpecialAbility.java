@@ -15,8 +15,8 @@ public abstract class SpecialAbility {
         return resourceType;
     }
 
-    public boolean useDepositAbility(PlayerDashboard player) {return false;} //DepositAbility
+    public void useDepositAbility(PlayerDashboard player) {} //DepositAbility
     public boolean useProductionAbility(ResourceCount count) {return false;} //ProductionAbility
-    public boolean useDiscountAbility(ResourceCount cost){return false;}  //DiscountAbility
+    public void useDiscountAbility(ResourceCount cost){}  //DiscountAbility
     public Resource useWhiteChangeAbility(){return null;}  //Used in WhiteChangeAbility
 }
