@@ -10,12 +10,23 @@ public class MoveFromLeaderToDeposit extends Action {
     private int to_deposit;
     private int number;
 
+    /**
+     *
+     * @param from_leader position of the LeaderDeposit from which the resources will be taken
+     * @param to_deposit position of the target CounterTop on which the resources will be placed
+     * @param number number of resources switched
+     */
     public MoveFromLeaderToDeposit(int from_leader, int to_deposit, int number) {
         this.from_leader = from_leader;
         this.to_deposit = to_deposit;
         this.number = number;
     }
 
+    /**
+     *
+     * @param player player that wanted to switch resources
+     * @return true if the action is done correctly, false otherwise
+     */
     //MOVE GIVEN RESOURCES FROM A LEADER DEPOSIT TO A SHELF, RESPECTING BASIC STORAGE RULES (CONTENT AND RESOURCETYPE) OR CONSIDERING THE CASE THE SHELF IS EMPTY;
     //RETURN FALSE IF THAT DEPOSIT DOESN'T HAVE THE REQUIRED RESOURCES TO MOVE;
     @Override

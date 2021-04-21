@@ -15,6 +15,15 @@ public class CardShopAction extends Action {
     private ResourceCount storageCount;
     private ResourceCount chestCount;
 
+    /**
+     *
+     * @param shop Game's related shop
+     * @param row chosen shop's row
+     * @param column chosen shop's column
+     * @param deckPosition chosen player.DevCards deck position on which the card will be placed
+     * @param storageCount resources taken to pay from the storage
+     * @param chestCount resources taken to pay from the chest
+     */
     public CardShopAction(Shop shop, int row, int column, int deckPosition, ResourceCount storageCount, ResourceCount chestCount) {
         this.shop = shop;
         this.row = row;
@@ -24,6 +33,11 @@ public class CardShopAction extends Action {
         this.chestCount = chestCount;
     }
 
+    /**
+     *
+     * @param player player that wants to buy the card
+     * @return true if everything is done correctly, false otherwise
+     */
     //AFTER CHECKING IF THE CHOSEN POSITION ON THE BOARD CAN FIT THE CHOSEN CARD AND THE PLAYER CAN AFFORD IT, RETURN TRUE IF EVERYTHING IS DONE CORRECTLY, FALSE IF NOT
     @Override
     public boolean useAction(PlayerDashboard player){
