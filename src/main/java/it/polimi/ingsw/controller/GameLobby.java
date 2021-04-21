@@ -18,7 +18,7 @@ public class GameLobby {
 
     }
 
-    public void initGame() {
+    public void createGame() {
 
     }
 }

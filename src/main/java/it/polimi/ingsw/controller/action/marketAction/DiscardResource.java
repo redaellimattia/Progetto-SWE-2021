@@ -8,9 +8,9 @@ import it.polimi.ingsw.model.PlayerDashboard;
 public class DiscardResource implements AtomicMarketAction {
     @Override
     public boolean useAction(MarketMarble marble, PlayerDashboard player) {
-        for(Player i: Game.getPlayers()) {
+        /* for(Player i: Game.getPlayers()) {
             // Update path position if the player selected is not the current player
-        }
+        } */
         return true;
     }
 }
