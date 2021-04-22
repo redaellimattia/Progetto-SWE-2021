@@ -14,7 +14,7 @@ public class FaithPoint implements AtomicMarketAction {
         if(marble.getColour().convertToResource() != Resource.FAITH) {
             return false; // This choice requires a red marble
         }
-        player.updatePathPosition(1);
+        player.updatePathPosition();
         return true;
     }
 }

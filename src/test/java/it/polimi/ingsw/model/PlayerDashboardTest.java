@@ -57,7 +57,7 @@ class PlayerDashboardTest {
     void updatePathPosition() {
         PlayerDashboard player = createPlayer();
 
-        player.updatePathPosition(1);
+        player.updatePathPosition();
         assertEquals(1, player.getPathPosition());
     }
 

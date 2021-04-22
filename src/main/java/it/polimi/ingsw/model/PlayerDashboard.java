@@ -140,16 +140,16 @@ public class PlayerDashboard extends Player{
     //METHOD TO DISCARD A LEADER FROM THE HAND TO GAIN A FAITH POINT;
     public void discardLeader(int position){
         leaderCards.remove(position);
-        updatePathPosition(1);
+        updatePathPosition();
     }
 
     /**
-     *
-     * @param number value to add to the position on the Faith Path
+     * ADVANCE OF 1 ON THE PATH POSITION
      */
-    //ADVANCE OF A GIVEN NUMBER OF STEPS ON THE PATH POSITION;
-    public void updatePathPosition(int number){
-        pathPosition += number;
+    //
+    public void updatePathPosition(){
+        pathPosition += 1;
+        //checkPathPosition() to check Papal influence
     }
 
     /**
@@ -279,7 +279,7 @@ public class PlayerDashboard extends Player{
         int faith = bufferProduction.getFaith();
         bufferProduction.removeFaith(faith);
         while(faith!=0) {
-            updatePathPosition(1);
+            updatePathPosition();
             faith--;
         }
         chest.sumCounts(bufferProduction);

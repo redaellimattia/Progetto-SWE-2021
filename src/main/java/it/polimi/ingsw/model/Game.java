@@ -41,6 +41,7 @@ public class Game {
         }
         return null;
     }
+
     public static Shop getShop() {
         return shop;
     }
