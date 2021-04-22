@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.CounterTopOverloadException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -53,9 +55,9 @@ public class Storage {
      * @param firstRow new first row to put as storage.firstRow
      * @throws IllegalArgumentException if the passed object has o.getContent > 1 i can't put it as firstRow
      */
-    public void setFirstRow(CounterTop firstRow) throws IllegalArgumentException{
+    public void setFirstRow(CounterTop firstRow) throws CounterTopOverloadException{
         if(firstRow.getContent() > 1 ){
-            throw new IllegalArgumentException();
+            throw new CounterTopOverloadException("1");
         }
         this.firstRow = firstRow;
     }
@@ -65,9 +67,9 @@ public class Storage {
      * @param secondRow new second row to put as storage.secondRow
      * @throws IllegalArgumentException if the passed object has o.getContent > 2 i can't put it as secondRow
      */
-    public void setSecondRow(CounterTop secondRow) throws IllegalArgumentException{
+    public void setSecondRow(CounterTop secondRow) throws CounterTopOverloadException {
         if(secondRow.getContent() > 2 ){
-            throw new IllegalArgumentException();
+            throw new CounterTopOverloadException("2");
         }
         this.secondRow = secondRow;
     }
@@ -77,9 +79,9 @@ public class Storage {
      * @param thirdRow new third row to put as storage.thirdRow
      * @throws IllegalArgumentException if the passed object has o.getContent > 3 i can't put it as secondRow
      */
-    public void setThirdRow(CounterTop thirdRow) throws IllegalArgumentException{
+    public void setThirdRow(CounterTop thirdRow) throws CounterTopOverloadException{
         if(thirdRow.getContent() > 3){
-            throw new IllegalArgumentException();
+            throw new CounterTopOverloadException("3");
         }
         this.thirdRow = thirdRow;
     }
@@ -153,9 +155,10 @@ public class Storage {
         ArrayList<CounterTop> supportShelves = getShelvesArray();
         Collections.swap(supportShelves,from,to);
 
-        setFirstRow(supportShelves.get(0));
-        setSecondRow(supportShelves.get(1));
-        setThirdRow(supportShelves.get(2));
+        try{setFirstRow(supportShelves.get(0));
+            setSecondRow(supportShelves.get(1));
+            setThirdRow(supportShelves.get(2));}
+        catch(CounterTopOverloadException e){};
     }
 
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -182,16 +183,16 @@ public class PlayerDashboard extends Player{
      * @return true if the addition is done correctly
      */
     //METHOD TO TRY TO ADD A SINGLE RESOURCE AT A TIME TO A SPECIALABILITY DEPOSIT;
-    public boolean addToDeposit(Resource res){ //Trying to add resource to abilityDeposit if it isn't full
+    public void addToDeposit(Resource res) throws CounterTopOverloadException { //Trying to add resource to abilityDeposit if it isn't full
         if(!isFull(res)){
             for (CounterTop c: arrayDeposit) {
                 if(c.getResourceType().equals(res)&&c.getContent()<2) {
                     c.addContent(1);
-                    return true; //True if added correctly
                 }
             }
         }
-        return false; //False if couldn't add
+        else
+            throw new CounterTopOverloadException();
     }
 
     /**

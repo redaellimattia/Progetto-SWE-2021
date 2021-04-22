@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.card;
 
+import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.Resource;
 import org.junit.jupiter.api.Test;
@@ -45,7 +46,7 @@ class ResourceRequirementTest {
     }
 
     @Test
-    void isPlayableWithAbilityDeposit() { //ABILITYDEPOSIT
+    void isPlayableWithAbilityDeposit() throws CounterTopOverloadException { //ABILITYDEPOSIT
         PlayerDashboard player = createPlayer(new CounterTop(Resource.COIN,0),new CounterTop(Resource.ROCK,1),new CounterTop(Resource.COIN,0)
                 ,new ResourceCount(0,0,0,0,0));
         player.initArrayDeposit(Resource.COIN);
@@ -57,7 +58,7 @@ class ResourceRequirementTest {
     }
 
     @Test
-    void notPlayableWithAbilityDeposit() { //ABILITYDEPOSITNOTENOUGH
+    void notPlayableWithAbilityDeposit() throws CounterTopOverloadException { //ABILITYDEPOSITNOTENOUGH
         PlayerDashboard player = createPlayer(new CounterTop(Resource.COIN,0),new CounterTop(Resource.ROCK,1),new CounterTop(Resource.COIN,0)
                 ,new ResourceCount(0,0,0,0,0));
         player.initArrayDeposit(Resource.COIN);
@@ -69,7 +70,7 @@ class ResourceRequirementTest {
     }
 
     @Test
-    void isPlayableHybrid() { //Hybrid
+    void isPlayableHybrid() throws CounterTopOverloadException { //Hybrid
         PlayerDashboard player = createPlayer(new CounterTop(Resource.COIN,0),new CounterTop(Resource.ROCK,1),new CounterTop(Resource.SERVANT,2)
                 ,new ResourceCount(1,1,0,0,0));
         player.initArrayDeposit(Resource.COIN);

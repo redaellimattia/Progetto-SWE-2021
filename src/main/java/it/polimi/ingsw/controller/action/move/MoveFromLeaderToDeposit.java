@@ -1,7 +1,8 @@
 package it.polimi.ingsw.controller.action.move;
 
 import it.polimi.ingsw.controller.action.Action;
-import it.polimi.ingsw.exceptions.WrongResourcesMovedException;
+import it.polimi.ingsw.exceptions.CounterTopOverloadException;
+import it.polimi.ingsw.exceptions.action.WrongResourcesMovedException;
 import it.polimi.ingsw.model.CounterTop;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.Storage;
@@ -41,7 +42,7 @@ public class MoveFromLeaderToDeposit extends Action {
         switch(to_deposit){
             case 1: if(storage.getFirstRow().getContent() == 0 && number == 1) {
                 CounterTop substitute = new CounterTop(leaderDeposit.getResourceType(),number);
-                storage.setFirstRow(substitute);
+                try{storage.setFirstRow(substitute);}catch(CounterTopOverloadException e){}
                 leaderDeposit.removeContent(number);
                 //return storage.checkShelves();
             }
@@ -50,7 +51,7 @@ public class MoveFromLeaderToDeposit extends Action {
                 break;
             case 2: if((storage.getSecondRow().getContent() + number) <= 2 && storage.getSecondRow().getResourceType().equals(leaderDeposit.getResourceType()) || (storage.getSecondRow().getContent() == 0)){
                 CounterTop substitute = new CounterTop(leaderDeposit.getResourceType(),number+storage.getSecondRow().getContent());
-                storage.setSecondRow(substitute);
+                try{storage.setSecondRow(substitute);}catch(CounterTopOverloadException e){};
                 leaderDeposit.removeContent(number);
                 //return storage.checkShelves();
             }
@@ -59,7 +60,7 @@ public class MoveFromLeaderToDeposit extends Action {
                 break;
             case 3: if(((storage.getThirdRow().getContent() + number) <= 3 && storage.getThirdRow().getResourceType().equals(leaderDeposit.getResourceType())) || (storage.getThirdRow().getContent() == 0)){
                 CounterTop substitute = new CounterTop(leaderDeposit.getResourceType(),number+storage.getThirdRow().getContent());
-                storage.setThirdRow(substitute);
+                try{storage.setThirdRow(substitute);}catch(CounterTopOverloadException e){};
                 leaderDeposit.removeContent(number);
                 //return storage.checkShelves();
             }

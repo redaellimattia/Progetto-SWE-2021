@@ -1,8 +1,5 @@
 package it.polimi.ingsw.controller.action;
 
-import it.polimi.ingsw.exceptions.CardNotExistsException;
-import it.polimi.ingsw.exceptions.PaymentFailedException;
-import it.polimi.ingsw.exceptions.WrongResourceException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.Resource;
 

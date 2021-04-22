@@ -1,6 +1,6 @@
 package it.polimi.ingsw.controller.action.leaderAction;
 
-import it.polimi.ingsw.exceptions.CardNotExistsException;
+import it.polimi.ingsw.exceptions.action.CardNotExistsException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.Resource;

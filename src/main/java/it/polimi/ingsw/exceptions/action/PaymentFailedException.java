@@ -1,6 +1,8 @@
-package it.polimi.ingsw.exceptions;
+package it.polimi.ingsw.exceptions.action;
 
-public class PaymentFailedException extends MasterOfRenaissanceRuntimeException{
+import it.polimi.ingsw.exceptions.MasterOfRenaissanceRuntimeException;
+
+public class PaymentFailedException extends MasterOfRenaissanceRuntimeException {
     public PaymentFailedException(String count) {
         super("Payment failed using the resources from the " + count);
     }

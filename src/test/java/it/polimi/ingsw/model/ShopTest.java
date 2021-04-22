@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.EmptyDeckException;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
@@ -12,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ShopTest {
 
     @Test
-    void buy() { //CHECK BUY METHODS AND ALL CORNER CASES (DECK EMPTY)
+    void buy() throws EmptyDeckException { //CHECK BUY METHODS AND ALL CORNER CASES (DECK EMPTY)
         Shop shop = createShop();
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
         DevelopmentCard cardPurple = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
@@ -24,13 +25,13 @@ class ShopTest {
         bought = shop.buy(0,3);
         bought = shop.buy(0,3);
         assertEquals(0, shop.getGrid()[0][3].getDeck().size());
-        bought = shop.buy(0,3);
+        assertThrows(EmptyDeckException.class,() -> shop.buy(0, 3));
         assertEquals(0, shop.getGrid()[0][3].getDeck().size());
-        assertNull(bought);
+
     }
 
     @Test
-    void discardFromTokenSubsequentialDiscard() {
+    void discardFromTokenSubsequentialDiscard() throws EmptyDeckException{
         Shop shop = createShop();
         CardColour purple = CardColour.PURPLE;
         assertEquals(4, shop.getGrid()[0][3].getDeck().size());

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.model.enumeration.Resource;
 import org.junit.jupiter.api.Test;
 
@@ -10,16 +11,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class StorageTest {
 
     @Test
-    void setFirstRow() {
+    void setFirstRow() throws CounterTopOverloadException{
         Storage storage = createStorage();
         CounterTop newFirst = new CounterTop(Resource.SERVANT, 1);
-
         storage.setFirstRow(newFirst);
         assertEquals(storage.getFirstRow(),newFirst);
     }
 
     @Test
-    void setSecondRow() {
+    void setSecondRow() throws CounterTopOverloadException{
         Storage storage = createStorage();
         CounterTop newSecond = new CounterTop(Resource.SERVANT, 2);
 
@@ -27,7 +27,7 @@ class StorageTest {
         assertEquals(storage.getSecondRow(),newSecond);
     }
     @Test
-    void setSecondRowNotFull() {
+    void setSecondRowNotFull() throws CounterTopOverloadException{
         Storage storage = createStorage();
         CounterTop newSecond = new CounterTop(Resource.SERVANT, 1);
 
@@ -35,18 +35,17 @@ class StorageTest {
         assertEquals(storage.getSecondRow(),newSecond);
     }
     @Test
-    void setThirdRow() {
-            Storage storage = createStorage();
-            CounterTop newThird = new CounterTop(Resource.SERVANT, 3);
+    void setThirdRow() throws CounterTopOverloadException{
+        Storage storage = createStorage();
+        CounterTop newThird = new CounterTop(Resource.SERVANT, 3);
 
-            storage.setThirdRow(newThird);
-            assertEquals(storage.getThirdRow(),newThird);
+        storage.setThirdRow(newThird);
+        assertEquals(storage.getThirdRow(),newThird);
     }
     @Test
-    void setThirdRowNotFull() {
+    void setThirdRowNotFull() throws CounterTopOverloadException{
         Storage storage = createStorage();
         CounterTop newThird2 = new CounterTop(Resource.SERVANT, 2);
-
         storage.setThirdRow(newThird2);
         assertEquals(storage.getThirdRow(),newThird2);
 
@@ -114,7 +113,7 @@ class StorageTest {
     }
 
     @Test
-    void generalAddRemove(){
+    void generalAddRemove() throws CounterTopOverloadException{
         Storage storage = createStorage();
         CounterTop newThird = new CounterTop(Resource.SERVANT, 3);
         storage.setThirdRow(newThird);
@@ -126,7 +125,7 @@ class StorageTest {
     }
 
     @Test
-    void readStorage() {
+    void readStorage() throws CounterTopOverloadException{
         Storage storage = createStorage();
         CounterTop newFirst = new CounterTop(Resource.ROCK, 1);
         CounterTop newSecond = new CounterTop(Resource.SHIELD, 1);
@@ -134,6 +133,7 @@ class StorageTest {
         storage.setFirstRow(newFirst);
         storage.setSecondRow(newSecond);
         storage.setThirdRow(newThird);
+
         ResourceCount check = new ResourceCount(0,1,3,1,0);
         assertEquals(storage.readStorage(),check);
     }

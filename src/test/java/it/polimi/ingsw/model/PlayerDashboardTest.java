@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -61,7 +62,7 @@ class PlayerDashboardTest {
     }
 
     @Test
-    void isFull() { //basic isFull test
+    void isFull() throws CounterTopOverloadException { //basic isFull test
         PlayerDashboard player = createPlayer();
         Resource res = Resource.COIN;
 
@@ -72,7 +73,7 @@ class PlayerDashboardTest {
         assertTrue(player.isFull(res));
     }
     @Test
-    void isFull1() {
+    void isFull1() throws CounterTopOverloadException {
         PlayerDashboard player = createPlayer();
         Resource res = Resource.COIN;
         Resource res1 = Resource.ROCK;
@@ -89,15 +90,15 @@ class PlayerDashboardTest {
         assertTrue(player.isFull(res2));
     }
     @Test
-    void isFull2() {
+    void isFull2() throws CounterTopOverloadException {
         PlayerDashboard player = createPlayer();
         Resource res = Resource.COIN;
-        player.addToDeposit(res);
+        assertThrows(CounterTopOverloadException.class, ()-> player.addToDeposit(res));
         assertTrue(player.isFull(res));
     }
 
     @Test
-    void addToDeposit() {
+    void addToDeposit() throws CounterTopOverloadException {
         PlayerDashboard player = createPlayer();
         Resource res = Resource.COIN;
 

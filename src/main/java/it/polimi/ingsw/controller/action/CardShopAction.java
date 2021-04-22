@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller.action;
 
-import it.polimi.ingsw.exceptions.PaymentFailedException;
+import it.polimi.ingsw.exceptions.EmptyDeckException;
+import it.polimi.ingsw.exceptions.action.PaymentFailedException;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.Shop;
@@ -41,7 +42,7 @@ public class CardShopAction extends Action {
      */
     //AFTER CHECKING IF THE CHOSEN POSITION ON THE BOARD CAN FIT THE CHOSEN CARD AND THE PLAYER CAN AFFORD IT, RETURN TRUE IF EVERYTHING IS DONE CORRECTLY, FALSE IF NOT
     @Override
-    public boolean useAction(PlayerDashboard player){
+    public boolean useAction(PlayerDashboard player) {
 
         DevelopmentCard chosen = shop.getGrid()[row][column].getFirst();
 

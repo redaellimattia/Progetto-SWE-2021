@@ -1,8 +1,8 @@
 package it.polimi.ingsw.controller.action.productionAction;
 
 import it.polimi.ingsw.controller.action.Action;
-import it.polimi.ingsw.exceptions.CardNotExistsException;
-import it.polimi.ingsw.exceptions.PaymentFailedException;
+import it.polimi.ingsw.exceptions.action.CardNotExistsException;
+import it.polimi.ingsw.exceptions.action.PaymentFailedException;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.token;
 
+import it.polimi.ingsw.exceptions.EmptyDeckException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.enumeration.CardColour;
@@ -66,7 +67,7 @@ class DiscardTokenTest {
 
    // In this test, 1 card will be removed from level 1 row and 1 card from level 2 row
     @Test
-    void testDiscardToken2() {
+    void testDiscardToken2() throws EmptyDeckException {
         Shop testShop = createShop();
         Shop testShopOld = createShop();
         CardColour testColour = CardColour.PURPLE;

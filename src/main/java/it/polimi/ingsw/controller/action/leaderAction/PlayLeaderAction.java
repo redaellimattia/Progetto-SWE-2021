@@ -1,7 +1,7 @@
 package it.polimi.ingsw.controller.action.leaderAction;
 
 import it.polimi.ingsw.controller.action.Action;
-import it.polimi.ingsw.exceptions.CardNotExistsException;
+import it.polimi.ingsw.exceptions.action.CardNotExistsException;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.card.LeaderCard;
 

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.controller.action.move;
 
-import it.polimi.ingsw.exceptions.PaymentFailedException;
-import it.polimi.ingsw.exceptions.WrongResourcesMovedException;
+import it.polimi.ingsw.exceptions.CounterTopOverloadException;
+import it.polimi.ingsw.exceptions.action.WrongResourcesMovedException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.CardColour;
@@ -34,7 +34,7 @@ class OrganizeStorageTest {
         //assertFalse(organize.useAction(player));
         assertThrows(WrongResourcesMovedException.class, () -> organize.useAction(player));
         CounterTop check = new CounterTop(Resource.COIN,0);
-        player.getStorage().setFirstRow(check);
+        try{player.getStorage().setFirstRow(check);}catch(CounterTopOverloadException e){}
         OrganizeStorage organize1 = new OrganizeStorage(1,3);
         assertTrue(organize1.useAction(player));
         assertEquals(player.getStorage().getThirdRow().getResourceType(),Resource.COIN);

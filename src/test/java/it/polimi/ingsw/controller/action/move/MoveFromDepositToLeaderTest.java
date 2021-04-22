@@ -1,8 +1,7 @@
 package it.polimi.ingsw.controller.action.move;
 
 import it.polimi.ingsw.controller.action.leaderAction.PlayLeaderAction;
-import it.polimi.ingsw.exceptions.CardNotExistsException;
-import it.polimi.ingsw.exceptions.WrongResourcesMovedException;
+import it.polimi.ingsw.exceptions.action.WrongResourcesMovedException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.CardColour;

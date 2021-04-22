@@ -16,7 +16,7 @@ class ProductionTest {
     void useProduction1() {
         Production production = createProduction();
         ResourceCount enoughResources = new ResourceCount(0,0,2,0,0);
-        assertEquals(production.useProduction(enoughResources), null);
+        assertNull(production.useProduction(enoughResources));
     }
 
     Production createProduction(){
