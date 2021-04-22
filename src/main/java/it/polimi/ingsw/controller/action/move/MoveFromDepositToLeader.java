@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller.action.move;
 
 import it.polimi.ingsw.controller.action.Action;
+import it.polimi.ingsw.exceptions.WrongResourcesMovedException;
 import it.polimi.ingsw.model.CounterTop;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.Storage;
@@ -36,20 +37,26 @@ public class MoveFromDepositToLeader extends Action {
             case 1: if( storage.getFirstRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getFirstRow().getResourceType().equals(leaderDeposit.getResourceType())) {
                 leaderDeposit.addContent(number);
                 storage.getFirstRow().removeContent(number);
-                return storage.checkShelves();
+                //return storage.checkShelves();
             }
+            else
+                throw new WrongResourcesMovedException();
                 break;
             case 2: if( storage.getSecondRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getSecondRow().getResourceType().equals(leaderDeposit.getResourceType())) {
                 leaderDeposit.addContent(number);
                 storage.getSecondRow().removeContent(number);
-                return storage.checkShelves();
+                //return storage.checkShelves();
             }
+            else
+                throw new WrongResourcesMovedException();
                 break;
             case 3: if( storage.getThirdRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getThirdRow().getResourceType().equals(leaderDeposit.getResourceType())) {
                 leaderDeposit.addContent(number);
                 storage.getThirdRow().removeContent(number);
-                return storage.checkShelves();
+                //return storage.checkShelves();
             }
+            else
+                throw new WrongResourcesMovedException();
                 break;
         }
         return false;

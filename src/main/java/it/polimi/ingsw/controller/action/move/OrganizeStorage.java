@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller.action.move;
 
 import it.polimi.ingsw.controller.action.Action;
+import it.polimi.ingsw.exceptions.WrongResourcesMovedException;
 import it.polimi.ingsw.model.PlayerDashboard;
 
 public class OrganizeStorage extends Action {
@@ -26,7 +27,8 @@ public class OrganizeStorage extends Action {
     public boolean useAction(PlayerDashboard player) {
         if(player.getStorage().swapRows(from,to))
             return player.getStorage().checkShelves();
-        return false;
+        throw new WrongResourcesMovedException();
+        //return false;
     }
 
 

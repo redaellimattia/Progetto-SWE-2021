@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action;
 
+import it.polimi.ingsw.exceptions.PaymentFailedException;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.Shop;
@@ -60,7 +61,8 @@ public class CardShopAction extends Action {
             deleteRes(storageCount,chestCount,player);
             return true;
         }
-        return false;
+        throw new PaymentFailedException();
+        //return false;
     }
 
     //CHECK IF THE CHOSEN POSITION FIT THE CARD CHOSEN

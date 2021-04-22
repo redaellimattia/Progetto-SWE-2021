@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller.action.move;
 
 import it.polimi.ingsw.controller.action.leaderAction.PlayLeaderAction;
+import it.polimi.ingsw.exceptions.WrongResourcesMovedException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.CardColour;
@@ -20,8 +21,8 @@ class MoveFromLeaderToDepositTest {
         action.useAction(player);
 
         player.getArrayDeposit().get(0).addContent(1);
-        assertTrue(organize.useAction(player));
-        assertTrue(player.getStorage().getThirdRow().getContent() == 1);
+        organize.useAction(player);
+        assertEquals(1, player.getStorage().getThirdRow().getContent());
     }
 
     @Test //DOESN'T ADD RESOURCES TO ALREADY FULL COUNTERTOPS
@@ -32,7 +33,8 @@ class MoveFromLeaderToDepositTest {
         action.useAction(player);
 
         player.getArrayDeposit().get(0).addContent(1);
-        assertFalse(organize.useAction(player));
+        //assertFalse(organize.useAction(player));
+        assertThrows(WrongResourcesMovedException.class, () -> organize.useAction(player));
         assertEquals(3, player.getStorage().getThirdRow().getContent());
     }
     @Test //DOESN'T ADD RESOURCES TO A COUNTERTOP WITH A DIFFERENT RESOURCETYPE
@@ -43,7 +45,8 @@ class MoveFromLeaderToDepositTest {
         action.useAction(player);
 
         player.getArrayDeposit().get(0).addContent(1);
-        assertFalse(organize.useAction(player));
+        //assertFalse(organize.useAction(player));
+        assertThrows(WrongResourcesMovedException.class, () -> organize.useAction(player));
         assertEquals(1, player.getStorage().getSecondRow().getContent());
         assertSame(player.getStorage().getSecondRow().getResourceType(), Resource.ROCK);
         assertTrue(player.getArrayDeposit().get(0).getResourceType() == Resource.SERVANT && player.getArrayDeposit().get(0).getContent() == 1);
@@ -56,7 +59,8 @@ class MoveFromLeaderToDepositTest {
         action.useAction(player);
 
         player.getArrayDeposit().get(0).addContent(1);
-        assertFalse(organize.useAction(player));
+        //assertFalse(organize.useAction(player));
+        assertThrows(WrongResourcesMovedException.class, () -> organize.useAction(player));
         assertEquals(0, player.getStorage().getThirdRow().getContent());
         assertEquals(1, player.getArrayDeposit().get(0).getContent());
     }

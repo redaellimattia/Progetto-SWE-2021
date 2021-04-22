@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller.action.move;
 
 import it.polimi.ingsw.controller.action.leaderAction.PlayLeaderAction;
+import it.polimi.ingsw.exceptions.CardNotExistsException;
+import it.polimi.ingsw.exceptions.WrongResourcesMovedException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.CardColour;
@@ -33,7 +35,8 @@ class MoveFromDepositToLeaderTest {
         assertEquals(2, player.getArrayDeposit().get(0).getContent());
         assertEquals(1, player.getStorage().getThirdRow().getContent());
         MoveFromDepositToLeader organize1= new MoveFromDepositToLeader(0,3,1);
-        assertFalse(organize1.useAction(player));
+        //assertFalse(organize1.useAction(player));
+        assertThrows(WrongResourcesMovedException.class, () -> organize1.useAction(player));
         assertEquals(2, player.getArrayDeposit().get(0).getContent());
         assertEquals(1, player.getStorage().getThirdRow().getContent());
     }
@@ -43,7 +46,8 @@ class MoveFromDepositToLeaderTest {
         MoveFromDepositToLeader organize= new MoveFromDepositToLeader(0,2,1);
         PlayLeaderAction action = new PlayLeaderAction(player.getLeaderCards().get(1));
         action.useAction(player);
-        assertFalse(organize.useAction(player));
+        //assertFalse(organize.useAction(player));
+        assertThrows(WrongResourcesMovedException.class, () -> organize.useAction(player));
         assertEquals(0, player.getArrayDeposit().get(0).getContent());
         assertEquals(1, player.getStorage().getSecondRow().getContent());
     }
@@ -57,13 +61,15 @@ class MoveFromDepositToLeaderTest {
         assertEquals(2, player.getArrayDeposit().get(0).getContent());
         assertEquals(1, player.getStorage().getThirdRow().getContent());
         MoveFromDepositToLeader organize1= new MoveFromDepositToLeader(0,3,1);
-        assertFalse(organize1.useAction(player));
+        //assertFalse(organize1.useAction(player));
+        assertThrows(WrongResourcesMovedException.class, () -> organize1.useAction(player));
         assertEquals(2, player.getArrayDeposit().get(0).getContent());
         assertEquals(1, player.getStorage().getThirdRow().getContent());
         PlayLeaderAction action1 = new PlayLeaderAction(player.getLeaderCards().get(0));
         action1.useAction(player);
         MoveFromDepositToLeader organize2= new MoveFromDepositToLeader(1,3,2);
-        assertFalse(organize2.useAction(player));
+        //assertFalse(organize2.useAction(player));
+        assertThrows(WrongResourcesMovedException.class, () -> organize2.useAction(player));
         assertEquals(0, player.getArrayDeposit().get(0).getContent());
         assertEquals(2, player.getArrayDeposit().get(1).getContent());
         assertEquals(1, player.getStorage().getThirdRow().getContent());

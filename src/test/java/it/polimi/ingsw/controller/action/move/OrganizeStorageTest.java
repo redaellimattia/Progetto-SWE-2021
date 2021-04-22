@@ -1,5 +1,7 @@
 package it.polimi.ingsw.controller.action.move;
 
+import it.polimi.ingsw.exceptions.PaymentFailedException;
+import it.polimi.ingsw.exceptions.WrongResourcesMovedException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.CardColour;
@@ -22,13 +24,15 @@ class OrganizeStorageTest {
         assertEquals(player.getStorage().getSecondRow(), check1);
         assertEquals(player.getStorage().getThirdRow(), check2);
         OrganizeStorage organize1 = new OrganizeStorage(3,1);
-        assertFalse(organize1.useAction(player));
+        //assertFalse(organize1.useAction(player));
+        assertThrows(WrongResourcesMovedException.class, () -> organize1.useAction(player));
     }
     @Test //DOESNT DO SWAP IF IT'S NOT POSSIBLE AND SWAP EVEN 2 EMPTY SHELVES
     void swapShelves1() {
         PlayerDashboard player = createPlayer();
         OrganizeStorage organize = new OrganizeStorage(2,1);
-        assertFalse(organize.useAction(player));
+        //assertFalse(organize.useAction(player));
+        assertThrows(WrongResourcesMovedException.class, () -> organize.useAction(player));
         CounterTop check = new CounterTop(Resource.COIN,0);
         player.getStorage().setFirstRow(check);
         OrganizeStorage organize1 = new OrganizeStorage(1,3);

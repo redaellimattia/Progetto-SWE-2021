@@ -1,5 +1,7 @@
 package it.polimi.ingsw.controller.action;
 
+import it.polimi.ingsw.exceptions.CardNotExistsException;
+import it.polimi.ingsw.exceptions.PaymentFailedException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.CardColour;
@@ -30,7 +32,8 @@ class CardShopActionTest {
         Shop shop = createShop();
         ResourceCount payment = new ResourceCount(1,0,0,0,0);
         CardShopAction action = new CardShopAction(shop,2,3,0,payment,null);
-        assertFalse(action.useAction(player));
+        //assertFalse(action.useAction(player));
+        assertThrows(PaymentFailedException.class, () -> action.useAction(player));
     }
     @Test//try to put level 2 card on a level 0 deck
     void illegitimateBuy2(){
@@ -38,7 +41,8 @@ class CardShopActionTest {
         Shop shop = createShop();
         ResourceCount payment = new ResourceCount(1,0,0,0,0);
         CardShopAction action = new CardShopAction(shop,1,3,0,payment,null);
-        assertFalse(action.useAction(player));
+        //assertFalse(action.useAction(player));
+        assertThrows(PaymentFailedException.class, () -> action.useAction(player));
     }
     @Test //shop remove correctly the card and its placed in the right place.
     void legitimateBuyCheckDiscounts(){
