@@ -7,12 +7,18 @@ public class PlayerTurnManager {
     private PlayerDashboard player;
     private Action action;
 
-    public PlayerTurnManager(PlayerDashboard player, Action action) {
+    public PlayerTurnManager(PlayerDashboard player) {
         this.player = player;
-        this.action = action;
+        this.action = null;
     }
 
+    public PlayerDashboard getPlayer() {
+        return player;
+    }
 
+    public void setAction(Action action) {
+        this.action = action;
+    }
 
     public void onUpdate() {
 
