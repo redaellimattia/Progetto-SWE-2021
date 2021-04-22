@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller.action.leaderAction;
 
 
+import it.polimi.ingsw.exceptions.CardNotExistsException;
+import it.polimi.ingsw.exceptions.CardInGameException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -17,7 +19,7 @@ class DiscardLeaderActionTest {
         PlayerDashboard player = createPlayer();
         LeaderCard card = createLeaderCard(new ColourCount(1, 0, 0, 0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
-        assertTrue(action.useAction(player));
+        assertDoesNotThrow(() ->{ action.useAction(player); });
         assertEquals(1, player.getPathPosition());
     }
 
@@ -26,7 +28,7 @@ class DiscardLeaderActionTest {
         PlayerDashboard player = createPlayer();
         LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
-        assertTrue(action.useAction(player));
+        assertDoesNotThrow(() ->{ action.useAction(player); });
         assertEquals(1,player.getPathPosition());
     }
 
@@ -38,7 +40,8 @@ class DiscardLeaderActionTest {
         action.useAction(player);
         card = createLeaderCard(new ColourCount(1,0,0,0));
         action = new DiscardLeaderAction(card);
-        assertTrue(action.useAction(player));
+        action.useAction(player);
+        //assertDoesNotThrow(() ->{ action.useAction(player); });
         assertEquals(2,player.getPathPosition());
     }
 
@@ -47,18 +50,20 @@ class DiscardLeaderActionTest {
         PlayerDashboard player = createPlayer();
         LeaderCard card = createLeaderCard(new ColourCount(5,5,5,5));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
-        assertFalse(action.useAction(player)); //CAN'T DISCARD
+        assertThrows(CardNotExistsException.class, () -> action.useAction(player)); //CAN'T DISCARD
         assertEquals(0,player.getPathPosition());
     }
 
     @Test
     void useActionInGame() { //CAN'T DISCARD, IT'S IN GAME
         PlayerDashboard player = createPlayer();
-        LeaderCard card = createLeaderCard(new ColourCount(1,0,0,0));
+        LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
         PlayLeaderAction playAction = new PlayLeaderAction(card);
-        playAction.useAction(player); //Playing leader
-        assertFalse(action.useAction(player)); //CAN'T DISCARD
+        assertDoesNotThrow(() ->{ playAction.useAction(player); }); //Playing leader
+        assertTrue(player.leadersInGame());
+        card.setInGame();
+        assertThrows(CardInGameException.class, () -> action.useAction(player)); //CAN'T DISCARD
         assertEquals(0,player.getPathPosition());
     }
 

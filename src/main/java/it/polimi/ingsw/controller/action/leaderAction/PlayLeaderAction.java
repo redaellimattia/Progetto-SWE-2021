@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller.action.leaderAction;
 
 import it.polimi.ingsw.controller.action.Action;
+import it.polimi.ingsw.exceptions.CardNotExistsException;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.card.LeaderCard;
 
@@ -24,7 +25,7 @@ public class PlayLeaderAction extends Action {
     public boolean useAction(PlayerDashboard player){
         int position = player.getLeaderPos(card);
         if(position==-1)
-            return false;
+            throw new CardNotExistsException("Leader Card");
         player.setLeaderInGame(position);
         card.getSpecialAbility().useDepositAbility(player);
         return true;
