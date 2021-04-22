@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
@@ -149,7 +150,7 @@ public class PlayerDashboard extends Player{
     //
     public void updatePathPosition(){
         pathPosition += 1;
-        //checkPathPosition() to check Papal influence
+        //GameManager.checkFaithPath();// to check Papal influence
     }
 
     /**

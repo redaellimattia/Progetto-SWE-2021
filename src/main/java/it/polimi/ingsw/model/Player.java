@@ -22,4 +22,6 @@ public abstract class Player {
     public int getPoints() {
         return points;
     }
+
+    public void addPoints(int number){ points += number;}
 }
