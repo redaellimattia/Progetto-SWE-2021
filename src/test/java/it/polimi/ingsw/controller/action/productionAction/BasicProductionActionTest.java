@@ -22,7 +22,7 @@ class BasicProductionActionTest {
         ResourceCount resultChest = new ResourceCount(5, 4, 0, 0, 0);
         ResourceCount resultBuff = new ResourceCount(1, 0, 0, 0, 0);
         BasicProductionAction action = new BasicProductionAction(Resource.COIN, storageCount, chestCount);
-        assertDoesNotThrow(() ->{ action.useAction(player); });
+        action.useAction(player);
         assertEquals(resultStorage, player.getStorage().readStorage()); //Paid correctly
         assertEquals(resultChest, player.getChest()); //Paid correctly
         assertEquals(resultBuff, player.getBufferProduction()); //Buffer equals to production output
@@ -35,7 +35,7 @@ class BasicProductionActionTest {
          ResourceCount resultStorage = new ResourceCount(0,1,0,0,0);
          ResourceCount resultBuff = new ResourceCount(1,0,0,0,0);
          BasicProductionAction action = new BasicProductionAction(Resource.COIN, storageCount, null);
-         assertDoesNotThrow(() ->{ action.useAction(player); });
+         action.useAction(player);
          assertEquals(resultStorage,player.getStorage().readStorage()); //Paid correctly
          assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
     }
@@ -47,7 +47,7 @@ class BasicProductionActionTest {
         ResourceCount resultChest = new ResourceCount(4,4,0,0,0);
         ResourceCount resultBuff = new ResourceCount(1,0,0,0,0);
         BasicProductionAction action = new BasicProductionAction(Resource.COIN, null, chestCount);
-        assertDoesNotThrow(() ->{ action.useAction(player); });
+        action.useAction(player);
         assertEquals(resultChest,player.getChest()); //Paid correctly
         assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
     }
@@ -86,7 +86,7 @@ class BasicProductionActionTest {
         ResourceCount resultChest = new ResourceCount(4,4,0,0,0);
         ResourceCount resultBuff = new ResourceCount(1,0,0,0,0);
         BasicProductionAction action = new BasicProductionAction(Resource.COIN, null, chestCount);
-        assertDoesNotThrow(() ->{ action.useAction(player); });
+        action.useAction(player);
         assertEquals(resultChest,player.getChest()); //Paid correctly
         assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
 
