@@ -21,7 +21,7 @@ class LeaderCardProductionActionTest {
         ResourceCount resultBuff = new ResourceCount(1, 0, 0, 0, 1);
         LeaderCard card = createLeaderCard(true);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card,storageCount,null,Resource.COIN);
-        assertDoesNotThrow(() ->{ action.useAction(player); });
+        action.useAction(player);
         assertEquals(result, player.getStorage().readStorage()); //Paid correctly
         assertEquals(resultBuff, player.getBufferProduction()); //Buffer equals to production output
     }
@@ -34,7 +34,7 @@ class LeaderCardProductionActionTest {
         ResourceCount resultBuff = new ResourceCount(1,0,0,0,1);
         LeaderCard card = createLeaderCard(true);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card,null,chestCount,Resource.COIN);
-        assertDoesNotThrow(() ->{ action.useAction(player); });
+        action.useAction(player);
         assertEquals(result,player.getChest()); //Paid correctly
         assertEquals(resultBuff, player.getBufferProduction()); //Buffer equals to production output
     }
@@ -92,7 +92,7 @@ class LeaderCardProductionActionTest {
         ResourceCount resultBuff = new ResourceCount(1,0,0,0,1);
         LeaderCard card = createLeaderCard(true);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card, null, chestCount,Resource.COIN);
-        assertDoesNotThrow(() -> { action.useAction(player); });
+        action.useAction(player);
         assertEquals(resultChest,player.getChest()); //Paid correctly
         assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
 

@@ -18,7 +18,7 @@ class PlayLeaderActionTest {
         LeaderCard card = createLeaderCard(new ColourCount(1, 0, 0, 0));
         PlayLeaderAction action = new PlayLeaderAction(card);
         assertFalse(player.leadersInGame()); //Not in game
-        assertDoesNotThrow(() ->{ action.useAction(player); }); //Play the card
+        action.useAction(player); //Play the card
         assertTrue(player.leadersInGame()); //Now it's in game
         assertTrue(player.getLeaderCards().get(1).isInGame()); //CARD POS=1 IN GAME
         assertFalse(player.getLeaderCards().get(0).isInGame()); //CARD POS=0 NOT IN GAME
@@ -30,7 +30,7 @@ class PlayLeaderActionTest {
         LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
         PlayLeaderAction action = new PlayLeaderAction(card);
         assertFalse(player.leadersInGame()); //Not in game
-        assertDoesNotThrow(() ->{ action.useAction(player); }); //Play the card
+        action.useAction(player); //Play the card
         assertTrue(player.leadersInGame()); //Now it's in game
         assertFalse(player.getLeaderCards().get(1).isInGame()); //CARD POS=1 NOT IN GAME
         assertTrue(player.getLeaderCards().get(0).isInGame()); //CARD POS=0 IN GAME
@@ -41,8 +41,7 @@ class PlayLeaderActionTest {
         PlayerDashboard player = createPlayer();
         LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
         PlayLeaderAction action = new PlayLeaderAction(card);
-        action.useAction(player);
-        //assertDoesNotThrow(() -> { action.useAction(player); }); //Play the card
+        action.useAction(player); //Play the card
         card = createLeaderCard(new ColourCount(1,0,0,0));
         action = new PlayLeaderAction(card);
         assertTrue(action.useAction(player)); //Play the card

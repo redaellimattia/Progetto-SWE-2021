@@ -21,7 +21,7 @@ class DevCardProductionActionTest {
         ResourceCount chestCount = new ResourceCount(0, 2, 0, 0, 0);
         DevelopmentCard card = createDevCard(3);
         DevCardProductionAction action = new DevCardProductionAction(card,storageCount,chestCount);
-        assertDoesNotThrow(() ->{ action.useAction(player); });
+        action.useAction(player);
         assertEquals(card.getProductionPower().getOutput(), player.getBufferProduction()); //Buffer equals to production output
     }
 
@@ -31,7 +31,7 @@ class DevCardProductionActionTest {
         ResourceCount storageCount = new ResourceCount(1,2,0,0,0); //Correct payment with storage
         DevelopmentCard card = createDevCard(3);
         DevCardProductionAction action = new DevCardProductionAction(card,storageCount,null);
-        assertDoesNotThrow(() ->{ action.useAction(player); });
+        action.useAction(player);
         assertEquals(card.getProductionPower().getOutput(),player.getBufferProduction()); //Buffer equals to production output
     }
 
@@ -41,7 +41,7 @@ class DevCardProductionActionTest {
         ResourceCount chestCount = new ResourceCount(1,2,0,0,0); //Correct payment with chest
         DevelopmentCard card = createDevCard(3);
         DevCardProductionAction action = new DevCardProductionAction(card,null,chestCount);
-        assertDoesNotThrow(() ->{ action.useAction(player); });
+        action.useAction(player);
         assertEquals(card.getProductionPower().getOutput(),player.getBufferProduction()); //Buffer equals to production output
     }
 
@@ -80,7 +80,7 @@ class DevCardProductionActionTest {
         ResourceCount resultBuff = new ResourceCount(0,0,3,0,0);
         DevelopmentCard card = createDevCard(3);
         DevCardProductionAction action = new DevCardProductionAction(card, null, chestCount);
-        assertDoesNotThrow(() ->{ action.useAction(player); });
+        action.useAction(player);
         assertEquals(resultChest,player.getChest()); //Paid correctly
         assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
 
@@ -100,7 +100,7 @@ class DevCardProductionActionTest {
         ResourceCount resultBuff = new ResourceCount(0,0,2,0,1);
         DevelopmentCard card = createDevCardWithFaith();
         DevCardProductionAction action = new DevCardProductionAction(card, null, chestCount);
-        assertDoesNotThrow(() ->{ action.useAction(player); });
+        action.useAction(player);
         assertEquals(resultChest,player.getChest()); //Paid correctly
         assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
 

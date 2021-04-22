@@ -19,7 +19,7 @@ class DiscardLeaderActionTest {
         PlayerDashboard player = createPlayer();
         LeaderCard card = createLeaderCard(new ColourCount(1, 0, 0, 0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
-        assertDoesNotThrow(() ->{ action.useAction(player); });
+        action.useAction(player);
         assertEquals(1, player.getPathPosition());
     }
 
@@ -28,7 +28,7 @@ class DiscardLeaderActionTest {
         PlayerDashboard player = createPlayer();
         LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
-        assertDoesNotThrow(() ->{ action.useAction(player); });
+        action.useAction(player);
         assertEquals(1,player.getPathPosition());
     }
 
@@ -41,7 +41,6 @@ class DiscardLeaderActionTest {
         card = createLeaderCard(new ColourCount(1,0,0,0));
         action = new DiscardLeaderAction(card);
         action.useAction(player);
-        //assertDoesNotThrow(() ->{ action.useAction(player); });
         assertEquals(2,player.getPathPosition());
     }
 
@@ -60,7 +59,7 @@ class DiscardLeaderActionTest {
         LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
         PlayLeaderAction playAction = new PlayLeaderAction(card);
-        assertDoesNotThrow(() ->{ playAction.useAction(player); }); //Playing leader
+        playAction.useAction(player); //Playing leader
         assertTrue(player.leadersInGame());
         card.setInGame();
         assertThrows(CardInGameException.class, () -> action.useAction(player)); //CAN'T DISCARD
