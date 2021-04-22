@@ -1,5 +1,7 @@
 package it.polimi.ingsw.controller.action.productionAction;
 
+import it.polimi.ingsw.exceptions.PaymentFailedException;
+import it.polimi.ingsw.exceptions.WrongResourceException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -20,7 +22,7 @@ class BasicProductionActionTest {
         ResourceCount resultChest = new ResourceCount(5, 4, 0, 0, 0);
         ResourceCount resultBuff = new ResourceCount(1, 0, 0, 0, 0);
         BasicProductionAction action = new BasicProductionAction(Resource.COIN, storageCount, chestCount);
-        assertTrue(action.useAction(player));
+        assertDoesNotThrow(() ->{ action.useAction(player); });
         assertEquals(resultStorage, player.getStorage().readStorage()); //Paid correctly
         assertEquals(resultChest, player.getChest()); //Paid correctly
         assertEquals(resultBuff, player.getBufferProduction()); //Buffer equals to production output
@@ -33,7 +35,7 @@ class BasicProductionActionTest {
          ResourceCount resultStorage = new ResourceCount(0,1,0,0,0);
          ResourceCount resultBuff = new ResourceCount(1,0,0,0,0);
          BasicProductionAction action = new BasicProductionAction(Resource.COIN, storageCount, null);
-         assertTrue(action.useAction(player));
+         assertDoesNotThrow(() ->{ action.useAction(player); });
          assertEquals(resultStorage,player.getStorage().readStorage()); //Paid correctly
          assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
     }
@@ -45,7 +47,7 @@ class BasicProductionActionTest {
         ResourceCount resultChest = new ResourceCount(4,4,0,0,0);
         ResourceCount resultBuff = new ResourceCount(1,0,0,0,0);
         BasicProductionAction action = new BasicProductionAction(Resource.COIN, null, chestCount);
-        assertTrue(action.useAction(player));
+        assertDoesNotThrow(() ->{ action.useAction(player); });
         assertEquals(resultChest,player.getChest()); //Paid correctly
         assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
     }
@@ -56,7 +58,7 @@ class BasicProductionActionTest {
         ResourceCount storageCount = new ResourceCount(1,0,0,0,0);
         ResourceCount chestCount = new ResourceCount(1,1,0,0,0);
         BasicProductionAction action = new BasicProductionAction(Resource.COIN, storageCount, chestCount);
-        assertFalse(action.useAction(player));
+        assertThrows(PaymentFailedException.class, () -> action.useAction(player));
     }
 
     @Test
@@ -65,7 +67,7 @@ class BasicProductionActionTest {
         ResourceCount storageCount = new ResourceCount(1,0,0,0,0);
         ResourceCount chestCount = new ResourceCount(0,0,0,0,0);
         BasicProductionAction action = new BasicProductionAction(Resource.COIN, storageCount, chestCount);
-        assertFalse(action.useAction(player));
+        assertThrows(PaymentFailedException.class, () -> action.useAction(player));
     }
 
     @Test
@@ -74,7 +76,7 @@ class BasicProductionActionTest {
         ResourceCount storageCount = new ResourceCount(1,0,0,0,0);
         ResourceCount chestCount = new ResourceCount(0,1,0,0,0);
         BasicProductionAction action = new BasicProductionAction(Resource.FAITH, storageCount, chestCount);
-        assertFalse(action.useAction(player));
+        assertThrows(WrongResourceException.class, () -> action.useAction(player));
     }
 
     @Test
@@ -84,7 +86,7 @@ class BasicProductionActionTest {
         ResourceCount resultChest = new ResourceCount(4,4,0,0,0);
         ResourceCount resultBuff = new ResourceCount(1,0,0,0,0);
         BasicProductionAction action = new BasicProductionAction(Resource.COIN, null, chestCount);
-        action.useAction(player);
+        assertDoesNotThrow(() ->{ action.useAction(player); });
         assertEquals(resultChest,player.getChest()); //Paid correctly
         assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
 

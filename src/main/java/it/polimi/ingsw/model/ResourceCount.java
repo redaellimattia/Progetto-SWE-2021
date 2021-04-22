@@ -152,6 +152,7 @@ public class ResourceCount {
 
 
     /**
+     * ADD RESOURCES, TO MODIFY MORE THAN ONE PARAMETER AT ONCE
      *
      * @param coins  Resource.COIN counter incremented of coins
      * @param rocks Resource.ROCK counter incremented of rocks
@@ -159,7 +160,6 @@ public class ResourceCount {
      * @param shields Resource.SHIELD counter incremented of shields
      * @param faith Resource.FAITH counter incremented of coins
      */
-    //ADD RESOURCES, TO MODIFY MORE THAN ONE PARAMETER AT ONCE
     public void addResources(int coins, int rocks, int servants, int shields,int faith){
         this.coins += coins;
         this.rocks += rocks;
@@ -169,6 +169,7 @@ public class ResourceCount {
     }
 
     /**
+     * REMOVE RESOURCES, TO MODIFY MORE THAN ONE PARAMETER AT ONCE
      *
      * @param coins  Resource.COIN counter reduced of coins
      * @param rocks Resource.ROCK counter reduced of rocks
@@ -176,7 +177,6 @@ public class ResourceCount {
      * @param shields Resource.SHIELD counter reduced of shields
      * @param faith Resource.FAITH counter reduced of coins
      */
-    //REMOVE RESOURCES, TO MODIFY MORE THAN ONE PARAMETER AT ONCE
     public void removeResources(int coins, int rocks, int servants, int shields,int faith){
         this.coins -= coins;
         this.rocks -= rocks;
@@ -187,42 +187,42 @@ public class ResourceCount {
     }
 
     /**
+     *RETURN TRUE IF THIS RESOURCECOUNT HAS >= RESOURCES THAN THE PASSED ONE
      *
      * @param count passed ResourceCount
      * @return true if this has more or equal resources compared to count
      */
-    //RETURN TRUE IF THIS RESOURCECOUNT HAS >= RESOURCES THAN THE PASSED ONE;
     public boolean hasMoreOrEqualsResources(ResourceCount count){
         return (this.coins >= count.getCoins() && this.rocks >= count.getRocks() && this.servants >= count.getServants() && this.shields >= count.getShields());
     }
 
     /**
+     * SUM 2 RESOURCECOUNT
      *
      * @param add passed ResourceCount
      */
-    //SUM 2 RESOURCECOUNT
     public void sumCounts(ResourceCount add){
         if(add!=null)
             this.addResources(add.getCoins(),add.getRocks(), add.getServants(), add.getShields(),add.getFaith());
     }
 
     /**
+     * SUBTRACT 2 RESOURCECOUNT
      *
      * @param sub passed ResourceCount
      */
-    //SUBTRACT 2 RESOURCECOUNT
     public void subCounts(ResourceCount sub){
         if(sub!=null) //Should avoid sub if it has more res than THIS?
             this.removeResources(sub.getCoins(),sub.getRocks(), sub.getServants(), sub.getShields(),sub.getFaith());
     }
 
     /**
+     * RETURNS SUM OF 2 RESOURCECOUNT AS A SINGLE NEW RESOURCECOUNT
      *
      * @param rc1 first ResourceCount passed
      * @param rc2 second ResourceCount passed
      * @return new ResourceCount as Sum of rc1 and rc2
      */
-    //RETURNS SUM OF 2 RESOURCECOUNT AS A SINGLE NEW RESOURCECOUNT
     public static ResourceCount getTotal(ResourceCount rc1, ResourceCount rc2){
         if(rc1!=null&&rc2!=null) {
             ResourceCount total = new ResourceCount(0, 0, 0, 0, 0);
@@ -236,11 +236,11 @@ public class ResourceCount {
     }
 
     /**
+     *EQUALS
      *
      * @param o passed Object
      * @return true if o is the same object of this, or it has the same number of resources
      */
-    //EQUALS
     @Override
     public boolean equals(Object o){
         if (o == this) { //True if it's this instance

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.controller.action.productionAction;
 
+import it.polimi.ingsw.exceptions.CardNotExistsException;
+import it.polimi.ingsw.exceptions.PaymentFailedException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -19,7 +21,7 @@ class LeaderCardProductionActionTest {
         ResourceCount resultBuff = new ResourceCount(1, 0, 0, 0, 1);
         LeaderCard card = createLeaderCard(true);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card,storageCount,null,Resource.COIN);
-        assertTrue(action.useAction(player));
+        assertDoesNotThrow(() ->{ action.useAction(player); });
         assertEquals(result, player.getStorage().readStorage()); //Paid correctly
         assertEquals(resultBuff, player.getBufferProduction()); //Buffer equals to production output
     }
@@ -32,7 +34,7 @@ class LeaderCardProductionActionTest {
         ResourceCount resultBuff = new ResourceCount(1,0,0,0,1);
         LeaderCard card = createLeaderCard(true);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card,null,chestCount,Resource.COIN);
-        assertTrue(action.useAction(player));
+        assertDoesNotThrow(() ->{ action.useAction(player); });
         assertEquals(result,player.getChest()); //Paid correctly
         assertEquals(resultBuff, player.getBufferProduction()); //Buffer equals to production output
     }
@@ -43,7 +45,7 @@ class LeaderCardProductionActionTest {
         ResourceCount chestCount = new ResourceCount(0,0,0,0,0);
         LeaderCard card = createLeaderCard(true);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card,null,chestCount,Resource.COIN);
-        assertFalse(action.useAction(player));
+        assertThrows(PaymentFailedException.class, () -> action.useAction(player));
     }
 
     @Test
@@ -52,7 +54,7 @@ class LeaderCardProductionActionTest {
         ResourceCount chestCount = new ResourceCount(5,5,5,5,0);
         LeaderCard card = createLeaderCard(true);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card,null,chestCount,Resource.COIN);
-        assertFalse(action.useAction(player));
+        assertThrows(PaymentFailedException.class, () -> action.useAction(player));
     }
 
     @Test
@@ -61,7 +63,7 @@ class LeaderCardProductionActionTest {
         LeaderCard card = createLeaderCard(false);
         ResourceCount chestCount = new ResourceCount(1,0,0,0,0);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card,null,chestCount,Resource.COIN);
-        assertFalse(action.useAction(player));
+        assertThrows(CardNotExistsException.class, () -> action.useAction(player));
     }
 
     @Test
@@ -70,7 +72,7 @@ class LeaderCardProductionActionTest {
         ResourceCount chestCount = new ResourceCount(1,0,0,0,0);
         LeaderCard card = createLeaderCard(true);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card,null,chestCount,Resource.COIN);
-        assertFalse(action.useAction(player));
+        assertThrows(CardNotExistsException.class, () -> action.useAction(player));
     }
 
     @Test
@@ -79,7 +81,7 @@ class LeaderCardProductionActionTest {
         LeaderCard card = createLeaderCardNotProd();
         ResourceCount chestCount = new ResourceCount(1,0,0,0,0);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card,null,chestCount,Resource.COIN);
-        assertFalse(action.useAction(player));
+        assertThrows(CardNotExistsException.class, () -> action.useAction(player));
     }
 
     @Test
@@ -90,7 +92,7 @@ class LeaderCardProductionActionTest {
         ResourceCount resultBuff = new ResourceCount(1,0,0,0,1);
         LeaderCard card = createLeaderCard(true);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card, null, chestCount,Resource.COIN);
-        action.useAction(player);
+        assertDoesNotThrow(() -> { action.useAction(player); });
         assertEquals(resultChest,player.getChest()); //Paid correctly
         assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
 

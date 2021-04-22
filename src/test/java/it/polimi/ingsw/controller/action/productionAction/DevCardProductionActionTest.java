@@ -1,5 +1,7 @@
 package it.polimi.ingsw.controller.action.productionAction;
 
+import it.polimi.ingsw.exceptions.CardNotExistsException;
+import it.polimi.ingsw.exceptions.PaymentFailedException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.CardColour;
@@ -19,7 +21,7 @@ class DevCardProductionActionTest {
         ResourceCount chestCount = new ResourceCount(0, 2, 0, 0, 0);
         DevelopmentCard card = createDevCard(3);
         DevCardProductionAction action = new DevCardProductionAction(card,storageCount,chestCount);
-        assertTrue(action.useAction(player));
+        assertDoesNotThrow(() ->{ action.useAction(player); });
         assertEquals(card.getProductionPower().getOutput(), player.getBufferProduction()); //Buffer equals to production output
     }
 
@@ -29,7 +31,7 @@ class DevCardProductionActionTest {
         ResourceCount storageCount = new ResourceCount(1,2,0,0,0); //Correct payment with storage
         DevelopmentCard card = createDevCard(3);
         DevCardProductionAction action = new DevCardProductionAction(card,storageCount,null);
-        assertTrue(action.useAction(player));
+        assertDoesNotThrow(() ->{ action.useAction(player); });
         assertEquals(card.getProductionPower().getOutput(),player.getBufferProduction()); //Buffer equals to production output
     }
 
@@ -39,7 +41,7 @@ class DevCardProductionActionTest {
         ResourceCount chestCount = new ResourceCount(1,2,0,0,0); //Correct payment with chest
         DevelopmentCard card = createDevCard(3);
         DevCardProductionAction action = new DevCardProductionAction(card,null,chestCount);
-        assertTrue(action.useAction(player));
+        assertDoesNotThrow(() ->{ action.useAction(player); });
         assertEquals(card.getProductionPower().getOutput(),player.getBufferProduction()); //Buffer equals to production output
     }
 
@@ -49,7 +51,7 @@ class DevCardProductionActionTest {
         ResourceCount chestCount = new ResourceCount(0, 2, 0, 0, 0);
         DevelopmentCard card = createDevCard(3);
         DevCardProductionAction action = new DevCardProductionAction(card,null,chestCount);
-        assertFalse(action.useAction(player));
+        assertThrows(PaymentFailedException.class, () -> action.useAction(player));
     }
 
     @Test
@@ -58,7 +60,7 @@ class DevCardProductionActionTest {
         ResourceCount chestCount = new ResourceCount(5,5,5,5,0);
         DevelopmentCard card = createDevCard(3);
         DevCardProductionAction action = new DevCardProductionAction(card,null,chestCount);
-        assertFalse(action.useAction(player));
+        assertThrows(PaymentFailedException.class, () -> action.useAction(player));
     }
 
     @Test
@@ -67,7 +69,7 @@ class DevCardProductionActionTest {
         ResourceCount chestCount = new ResourceCount(1,2,0,0,0);
         DevelopmentCard card = createDevCard(2);
         DevCardProductionAction action = new DevCardProductionAction(card,null,chestCount);
-        assertFalse(action.useAction(player));
+        assertThrows(CardNotExistsException.class, () -> action.useAction(player));
     }
 
     @Test
@@ -78,7 +80,7 @@ class DevCardProductionActionTest {
         ResourceCount resultBuff = new ResourceCount(0,0,3,0,0);
         DevelopmentCard card = createDevCard(3);
         DevCardProductionAction action = new DevCardProductionAction(card, null, chestCount);
-        action.useAction(player);
+        assertDoesNotThrow(() ->{ action.useAction(player); });
         assertEquals(resultChest,player.getChest()); //Paid correctly
         assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
 
@@ -98,7 +100,7 @@ class DevCardProductionActionTest {
         ResourceCount resultBuff = new ResourceCount(0,0,2,0,1);
         DevelopmentCard card = createDevCardWithFaith();
         DevCardProductionAction action = new DevCardProductionAction(card, null, chestCount);
-        action.useAction(player);
+        assertDoesNotThrow(() ->{ action.useAction(player); });
         assertEquals(resultChest,player.getChest()); //Paid correctly
         assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
 

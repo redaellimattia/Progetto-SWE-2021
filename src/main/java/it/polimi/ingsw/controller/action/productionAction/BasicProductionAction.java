@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller.action.productionAction;
 
 import it.polimi.ingsw.controller.action.Action;
+import it.polimi.ingsw.exceptions.PaymentFailedException;
+import it.polimi.ingsw.exceptions.WrongResourceException;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -23,16 +25,15 @@ public class BasicProductionAction extends Action {
     }
 
     /**
+     * RECEIVING COST CHOSEN BY THE PLAYER, AND COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
      *
      * @param player player that is doing the action
      * @return true if ended correctly
      */
-    //BASICPRODUCTION
-    //RECEIVING COST CHOSEN BY THE PLAYER, AND COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
     @Override
-    public boolean useAction(PlayerDashboard player){
+    public boolean useAction(PlayerDashboard player) {
         if(res.equals(Resource.FAITH))
-            return false;
+            throw new WrongResourceException("Faith");
 
         //If Sum of storageCount and ChestCount != 2 OR deleteRes goes wrong then return false
         int total = 0;
@@ -41,7 +42,7 @@ public class BasicProductionAction extends Action {
         for (Resource r : resources)
             total += r.get(totalCount);
         if(!deleteRes(storageCount,chestCount,player)||total!=2||totalCount.getFaith()!=0)
-            return false;
+            throw new PaymentFailedException();
 
         ResourceCount output = new ResourceCount(0,0,0,0,0); //ResourceCount with 1 Faith
         res.add(output,1);
@@ -50,10 +51,10 @@ public class BasicProductionAction extends Action {
     }
 
     /**
+     * ADD THE RESOURCES OBTAINED FROM THE PRODUCTIONS TO THE PLAYER AND THEN RESET THE BUFFER
      *
      * @param player player that is ending the action
      */
-    //ADD THE RESOURCES OBTAINED FROM THE PRODUCTIONS TO THE PLAYER AND THEN RESET THE BUFFER;
     @Override
     public void endAction(PlayerDashboard player) {
         player.emptyBufferProduction();

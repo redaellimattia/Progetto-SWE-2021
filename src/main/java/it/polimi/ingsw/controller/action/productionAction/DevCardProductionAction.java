@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller.action.productionAction;
 
 import it.polimi.ingsw.controller.action.Action;
+import it.polimi.ingsw.exceptions.CardNotExistsException;
+import it.polimi.ingsw.exceptions.PaymentFailedException;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;
@@ -23,32 +25,32 @@ public class DevCardProductionAction extends Action {
     }
 
     /**
+     * DEVCARDS || RETURN TRUE IF EVERYTHING IS DONE CORRECTLY (PAYMENT FROM STORAGE AND/OR CHEST) AND PLAYER HAS ENOUGH RESOURCES
+     * I GET FROM THE VIEW THE CARD, THE CHOSEN AMOUNT OF RESOURCES FROM STORAGE AND CHEST (EVENTUALLY NULL) AND THE PLAYER
      *
      * @param player player that is doing the action
      * @return true if ended correctly
      */
-    //DEVCARDS || RETURN TRUE IF EVERYTHING IS DONE CORRECTLY (PAYMENT FROM STORAGE AND/OR CHEST) AND PLAYER HAS ENOUGH RESOURCES
-    //I GET FROM THE VIEW THE CARD, THE CHOSEN AMOUNT OF RESOURCES FROM STORAGE AND CHEST (EVENTUALLY NULL) AND THE PLAYER
     @Override
-    public boolean useAction(PlayerDashboard player){
+    public boolean useAction(PlayerDashboard player) {
         ResourceCount output = card.getProductionPower().useProduction(ResourceCount.getTotal(storageCount,chestCount));
 
-        //If devCard doesnt exist in the model then return false
+        //If devCard doesnt exist in the model then throw Exception
         if(!player.devCardExists(card))
-            return false;
+            throw new CardNotExistsException("Development Card");
 
         if(output==null || !deleteRes(storageCount,chestCount,player)) //NOT ENOUGH RESOURCES OR PAYMENT FAILED
-            return false;
+            throw new PaymentFailedException();
 
         player.incrementBufferProduction(output);
         return true;
     }
 
     /**
+     * ADD THE RESOURCES OBTAINED FROM THE PRODUCTIONS TO THE PLAYER AND THEN RESET THE BUFFER
      *
      * @param player player that is ending the action
      */
-    //ADD THE RESOURCES OBTAINED FROM THE PRODUCTIONS TO THE PLAYER AND THEN RESET THE BUFFER;
     @Override
     public void endAction(PlayerDashboard player) {
         player.emptyBufferProduction();
