@@ -17,15 +17,12 @@ public class GameManager {
         vReports[2] = new VaticanReport(false,4,19,24);
     }
     public void checkFaithPath(PlayerDashboard player){
-        if(player.getPathPosition() == 8 && !vReports[0].isUsed()){
+        if(player.getPathPosition() == 8 && !vReports[0].isUsed())
             vReports[0].activateReport(game.getPlayers(),player);
-        }
-        if(player.getPathPosition() == 12 && !vReports[1].isUsed()){
+        if(player.getPathPosition() == 12 && !vReports[1].isUsed())
             vReports[1].activateReport(game.getPlayers(),player);
-        }
-        if(player.getPathPosition() == 19 && !vReports[1].isUsed()){
-            vReports[2].activateReport(game.getPlayers(),player);
-        }
+        if(player.getPathPosition() == 19 && !vReports[2].isUsed())
+            vReports[2].activateReport(game.getPlayers(),player); //Game must end
     }
     public void initGame() { //Distribuire risorse + creaz shop etc
 
@@ -37,6 +34,8 @@ public class GameManager {
 
     public void nextRound() {
         PlayerDashboard player = this.turnManager.getPlayer();
+        //if(game.isLastPlayer(player))
+
         PlayerDashboard nextPlayer = game.getNextPlayer(player);
         if(nextPlayer!=null)
             this.turnManager = new PlayerTurnManager(nextPlayer);

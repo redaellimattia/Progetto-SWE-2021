@@ -19,6 +19,10 @@ public class Game {
         this.tokensDeck = tokensDeck;
     }
 
+    public boolean isLastPlayer(PlayerDashboard player){
+        return player.equals(players.get(players.size() - 1));
+    }
+
     public static void startGame(){
 
     }
