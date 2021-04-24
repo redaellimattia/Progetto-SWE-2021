@@ -2,6 +2,8 @@ package it.polimi.ingsw.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductionTest {
@@ -10,13 +12,13 @@ class ProductionTest {
     void useProduction() {
         Production production = createProduction();
         ResourceCount enoughResources = new ResourceCount(1,0,2,0,0);
-        assertEquals(production.useProduction(enoughResources), production.getOutput());
+        assertEquals(production.useProduction(enoughResources), Optional.of(production.getOutput()));
     }
-    @Test//RETURN NULL IF THE RESOURCES AREN'T ENOUGH TO START THE PRODUCTION
+    @Test//RETURN EMPTY OPTIONAL IF THE RESOURCES AREN'T ENOUGH TO START THE PRODUCTION
     void useProduction1() {
         Production production = createProduction();
         ResourceCount enoughResources = new ResourceCount(0,0,2,0,0);
-        assertNull(production.useProduction(enoughResources));
+        assertTrue(production.useProduction(enoughResources).isEmpty());
     }
 
     Production createProduction(){

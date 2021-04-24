@@ -7,6 +7,8 @@ import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 
+import java.util.Optional;
+
 public class DevCardProductionAction extends Action {
     DevelopmentCard card;
     ResourceCount storageCount;
@@ -33,16 +35,17 @@ public class DevCardProductionAction extends Action {
      */
     @Override
     public boolean useAction(PlayerDashboard player) {
-        ResourceCount output = card.getProductionPower().useProduction(ResourceCount.getTotal(storageCount,chestCount));
+        Optional<ResourceCount> output = card.getProductionPower().useProduction(ResourceCount.getTotal(storageCount,chestCount));
+
 
         //If devCard doesnt exist in the model then throw Exception
         if(!player.devCardExists(card))
             throw new CardNotExistsException("Development Card");
 
-        if(output==null || !deleteRes(storageCount,chestCount,player)) //NOT ENOUGH RESOURCES OR PAYMENT FAILED
+        if(output.isEmpty() || !deleteRes(storageCount,chestCount,player)) //NOT ENOUGH RESOURCES OR PAYMENT FAILED
             throw new PaymentFailedException();
 
-        player.incrementBufferProduction(output);
+        player.incrementBufferProduction(output.get());
         return true;
     }
 

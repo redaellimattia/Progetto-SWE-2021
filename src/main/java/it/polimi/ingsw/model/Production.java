@@ -1,6 +1,7 @@
 package it.polimi.ingsw.model;
 
 
+import java.util.Optional;
 
 public class Production {
     private ResourceCount input;
@@ -37,11 +38,11 @@ public class Production {
      * @return output if the production is doable, null the other way
      */
     //CHECK IF PRODUCTION IS DOABLE WITH THE RESOURCES PASSED AND EVENTUALLY RETURNS THE OUTPUT;
-    public ResourceCount useProduction(ResourceCount count){
+    public Optional<ResourceCount> useProduction(ResourceCount count){
         if(input.equals(count))
-            return output;
+            return Optional.of(output);
         else
-            return null;
+            return Optional.empty();
     }
     /**
      *

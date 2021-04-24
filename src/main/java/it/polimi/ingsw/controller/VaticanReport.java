@@ -5,10 +5,10 @@ import it.polimi.ingsw.model.PlayerDashboard;
 import java.util.ArrayList;
 
 public class VaticanReport {
-    private boolean isUsed;
-    private int victoryPoints;
-    private int start;
-    private int finish;
+    private final boolean isUsed;
+    private final int victoryPoints;
+    private final int start;
+    private final int finish;
 
     public VaticanReport(boolean isUsed, int victoryPoints, int start, int finish) {
         this.isUsed = isUsed;
