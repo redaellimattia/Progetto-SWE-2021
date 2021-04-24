@@ -5,13 +5,13 @@ import it.polimi.ingsw.model.PlayerDashboard;
 import java.util.ArrayList;
 
 public class VaticanReport {
-    private final boolean isUsed;
+    private boolean isUsed;
     private final int victoryPoints;
     private final int start;
     private final int finish;
 
-    public VaticanReport(boolean isUsed, int victoryPoints, int start, int finish) {
-        this.isUsed = isUsed;
+    public VaticanReport(int victoryPoints, int start, int finish) {
+        this.isUsed = false;
         this.victoryPoints = victoryPoints;
         this.start = start;
         this.finish = finish;
@@ -25,5 +25,6 @@ public class VaticanReport {
             if(pos >= start && pos <= finish)
                 p.addPoints(victoryPoints);
         }
+        isUsed = true;
     }
 }

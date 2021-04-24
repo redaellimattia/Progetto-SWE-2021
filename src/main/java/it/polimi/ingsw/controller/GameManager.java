@@ -4,7 +4,6 @@ import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.PlayerDashboard;
 
-import java.util.ArrayList;
 
 public class GameManager {
     private Game game;
@@ -16,9 +15,9 @@ public class GameManager {
         this.game = game;
         this.turnManager = turnManager;
         vReports = new VaticanReport[3];
-        vReports[0] = new VaticanReport(false,2,5,8);
-        vReports[1] = new VaticanReport(false,3,12,16);
-        vReports[2] = new VaticanReport(false,4,19,24);
+        vReports[0] = new VaticanReport(2,5,8);
+        vReports[1] = new VaticanReport(3,12,16);
+        vReports[2] = new VaticanReport(4,19,24);
         gameMustEnd = false;
     }
 
@@ -50,7 +49,7 @@ public class GameManager {
 
     public void nextRound() {
         PlayerDashboard player = this.turnManager.getPlayer();
-        
+
         if(player.hasSevenDevCards()) //If this player has 7 devCards, game must end
             setGameMustEnd();
 
