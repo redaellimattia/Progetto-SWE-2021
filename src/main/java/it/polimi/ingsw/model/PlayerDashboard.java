@@ -287,6 +287,10 @@ public class PlayerDashboard extends Player{
         bufferProduction = new ResourceCount(0,0,0,0,0);
     }
 
+    public boolean hasSevenDevCards(){
+        return devCards[0].getDeck().size() + devCards[1].getDeck().size() + devCards[2].getDeck().size() == 7;
+    }
+
     /**
      *
      * @param count add a specific ResourceCount to bufferProduction

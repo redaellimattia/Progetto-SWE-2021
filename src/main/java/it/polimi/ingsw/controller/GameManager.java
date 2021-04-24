@@ -22,7 +22,7 @@ public class GameManager {
         gameMustEnd = false;
     }
 
-    public void endingGame() {
+    public void setGameMustEnd() {
         this.gameMustEnd = true;
     }
 
@@ -33,7 +33,7 @@ public class GameManager {
             vReports[1].activateReport(game.getPlayers(),player);
         if(player.getPathPosition() == 19 && !vReports[2].isUsed()) {
             vReports[2].activateReport(game.getPlayers(), player); //Game must end
-            endingGame();
+            setGameMustEnd();
         }
     }
     public void initGame() { //Distribuire risorse + creaz shop etc
@@ -47,10 +47,14 @@ public class GameManager {
     public void endGame(){
         //game.setScoreboard();
     }
+
     public void nextRound() {
         PlayerDashboard player = this.turnManager.getPlayer();
+        
+        if(player.hasSevenDevCards()) //If this player has 7 devCards, game must end
+            setGameMustEnd();
 
-        if(game.isLastPlayer(player)&&gameMustEnd) //Ending Game
+        if(game.isLastPlayer(player)&&gameMustEnd) //Ending Game if last player has finished his turn and gameMustEnd is true
             endGame();
 
         PlayerDashboard nextPlayer = game.getNextPlayer(player);
