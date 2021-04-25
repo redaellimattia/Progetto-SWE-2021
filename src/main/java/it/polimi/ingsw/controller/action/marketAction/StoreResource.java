@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
+import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
@@ -30,10 +31,38 @@ public class StoreResource implements AtomicMarketAction {
                     return false; // User cannot add a resource into a full counterTop
                 }
                 player.getStorage().addToFirstRow(1); break;
-            case 2: player.getStorage().addToSecondRow(1); break;
-            case 3: player.getStorage().addToThirdRow(1); break;
+            case 2:
+                if(player.getStorage().getSecondRow().getContent() == 0) {
+                    // If a counterTop is empty, we need to set the new resource type
+                    player.getStorage().getSecondRow().setResourceType(marble.getColour().convertToResource());
+                }
+                if(player.getStorage().getSecondRow().getResourceType() != marble.getColour().convertToResource()) {
+                    return false; // User cannot add a resource of a different type
+                }
+                if(player.getStorage().getSecondRow().getContent() > 1) {
+                    return false; // User cannot add a resource into a full counterTop
+                }
+                player.getStorage().addToSecondRow(1); break;
+            case 3:
+                if(player.getStorage().getThirdRow().getContent() == 0) {
+                    // If a counterTop is empty, we need to set the new resource type
+                    player.getStorage().getThirdRow().setResourceType(marble.getColour().convertToResource());
+                }
+                if(player.getStorage().getThirdRow().getResourceType() != marble.getColour().convertToResource()) {
+                    return false; // User cannot add a resource of a different type
+                }
+                if(player.getStorage().getThirdRow().getContent() > 2) {
+                    return false; // User cannot add a resource into a full counterTop
+                }
+                player.getStorage().addToThirdRow(1); break;
+            case 4:
+                try {
+                    player.addToDeposit(marble.getColour().convertToResource());
+                }
+                catch (CounterTopOverloadException e) {
+                    return false; // User cannot add a resource in an additional deposit if it is full or not present
+                }
         }
-
-        return false;
+        return true;
     }
 }
