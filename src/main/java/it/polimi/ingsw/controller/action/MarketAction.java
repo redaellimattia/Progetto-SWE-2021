@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller.action;
 
 import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.enumeration.MarbleColour;
 
 import java.util.ArrayList;
 
@@ -43,14 +44,19 @@ public class MarketAction extends Action {
         }
 
         // Executing actions (useAction method will check if an action is legal)
+        int j = 0; // current position in choices list
+        // (different from i because choices doesn't contain elements associated to red marbles)
         for(int i = 0; i < marbles.length; i++) {
-            error = choices.get(i).useAction(marbles[i], player);
-            if(error) return false;
+            if(marbles[i].getColour() == MarbleColour.RED) {
+                player.updatePathPosition();
+            }
+            else {
+                error = choices.get(j).useAction(marbles[i], player);
+                if(error) return false;
+                j++;
+            }
         }
         return true;
-        // TO-DO: The method creates an object in the model containing the marbles.
-        // The user will choose from the view where to put every marble
-        // The view will then call another method in this class to finalize the action
     }
 
 }
