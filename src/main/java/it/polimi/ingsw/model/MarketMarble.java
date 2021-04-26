@@ -9,7 +9,7 @@ public class MarketMarble {
      *
      * @param colour the color of the marble
      */
-    MarketMarble(MarbleColour colour) {
+    public MarketMarble(MarbleColour colour) {
         this.colour = colour;
     }
 

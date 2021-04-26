@@ -1,8 +1,11 @@
 package it.polimi.ingsw.model.token;
 
 import it.polimi.ingsw.controller.GameManager;
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.card.Card;
 import it.polimi.ingsw.model.card.LeaderCard;
+import it.polimi.ingsw.model.enumeration.MarbleColour;
 import it.polimi.ingsw.model.enumeration.Resource;
 import org.junit.jupiter.api.Test;
 
@@ -23,11 +26,22 @@ class AdvanceTokenTest {
         return new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, 0, "Test", 0);
     }
 
+    public GameManager buildGameManager() {
+        PlayerDashboard player1 = buildPlayerDashboard();
+        PlayerDashboard lorenzo = buildPlayerDashboard();
+        ArrayList<PlayerDashboard> players = new ArrayList<PlayerDashboard>();
+        players.add(player1);
+        players.add(lorenzo);
+        Game game = new Game(players, new Shop(new Deck[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<Card>(), new ArrayList<SoloToken>());
+        GameManager gameManager = new GameManager(game, new PlayerTurnManager(player1));
+        return gameManager;
+    }
+
     @Test
     public void testNoReRollToken() {
         PlayerDashboard testDashboard = buildPlayerDashboard();
         int oldPos = testDashboard.getPathPosition();
-        AdvanceToken testToken = new AdvanceToken(false, null);
+        AdvanceToken testToken = new AdvanceToken(false, buildGameManager());
         testToken.useToken(testDashboard);
         assertEquals(oldPos + 2, testDashboard.getPathPosition());
     }
@@ -36,7 +50,7 @@ class AdvanceTokenTest {
     public void testReRollToken() {
         PlayerDashboard testDashboard = buildPlayerDashboard();
         int oldPos = testDashboard.getPathPosition();
-        AdvanceToken testToken = new AdvanceToken(true, null);
+        AdvanceToken testToken = new AdvanceToken(true, buildGameManager());
         testToken.useToken(testDashboard);
         assertEquals(oldPos + 1, testDashboard.getPathPosition());
     }

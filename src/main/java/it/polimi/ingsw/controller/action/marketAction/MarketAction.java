@@ -1,7 +1,6 @@
 package it.polimi.ingsw.controller.action.marketAction;
-
+import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.controller.action.Action;
-import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
 
@@ -11,17 +10,20 @@ public class MarketAction extends Action {
     private int type;
     private int pos;
     private ArrayList<AtomicMarketAction> choices;
+    private GameManager gameManager;
 
     /**
      *
      * @param type 0: user selected a row; 1: user selected a column
      * @param pos number of the row/column (starting from 1)
      * @param choices the choices made by the user for each marble (excluding red marbles)
+     * @param gameManager the gameManager associated with the current game
      */
-    public MarketAction(int type, int pos, ArrayList<AtomicMarketAction> choices) {
+    public MarketAction(int type, int pos, ArrayList<AtomicMarketAction> choices, GameManager gameManager) {
         this.type = type;
         this.pos = pos;
         this.choices = choices;
+        this.gameManager = gameManager;
     }
 
     /**
@@ -33,7 +35,7 @@ public class MarketAction extends Action {
     @Override
     public boolean useAction(PlayerDashboard player) {
         MarketMarble[] marbles = new MarketMarble[0];
-        boolean error = false;
+        boolean error;
 
         // Getting marbles from the market
         if (type == 0) { // A row is selected
@@ -56,13 +58,13 @@ public class MarketAction extends Action {
         // Executing actions (useAction method will check if an action is legal)
         int j = 0; // current position in choices list
         // (different from i because choices doesn't contain elements associated to red marbles)
-        for(int i = 0; i < marbles.length; i++) {
-            if(marbles[i].getColour() == MarbleColour.RED) {
+        for (MarketMarble marble : marbles) {
+            if (marble.getColour() == MarbleColour.RED) {
                 player.updatePathPosition();
-            }
-            else {
-                error = choices.get(j).useAction(marbles[i], player);
-                if(error) return false;
+                gameManager.checkFaithPath(player);
+            } else {
+                error = choices.get(j).useAction(marble, player);
+                if (error) return false;
                 j++;
             }
         }
