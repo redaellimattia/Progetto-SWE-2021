@@ -6,6 +6,14 @@ import it.polimi.ingsw.model.Player;
 import it.polimi.ingsw.model.PlayerDashboard;
 
 public class DiscardResource implements AtomicMarketAction {
+
+    /**
+     *
+     * @param marble the marble to discard
+     * @param player the player performing the action
+     * @return true if ended correctly
+     *         false if the action was illegal
+     */
     @Override
     public boolean useAction(MarketMarble marble, PlayerDashboard player) {
         /* for(Player i: Game.getPlayers()) {

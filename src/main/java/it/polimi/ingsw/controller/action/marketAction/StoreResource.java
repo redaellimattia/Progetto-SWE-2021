@@ -6,6 +6,16 @@ import it.polimi.ingsw.model.enumeration.Resource;
 
 public class StoreResource {
 
+    /**
+     *
+     * @param player the player storing the resource
+     * @param resource the resource to store
+     * @param storageRow the number of the storage row in which the resource should be added
+     *                   1-3: first row, second row, third row
+     *                   4: special deposit (leader card ability)
+     * @return true if ended correctly
+     *         false if the action was illegal
+     */
     // Store a resource from GetResource or ConvertWhiteMarble
     static boolean storeResource(PlayerDashboard player, Resource resource, int storageRow) {
         switch(storageRow) {
