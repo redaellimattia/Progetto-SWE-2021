@@ -1,5 +1,6 @@
-package it.polimi.ingsw.controller.action;
+package it.polimi.ingsw.controller.action.marketAction;
 
+import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
@@ -11,15 +12,24 @@ public class MarketAction extends Action {
     private int pos;
     private ArrayList<AtomicMarketAction> choices;
 
+    /**
+     *
+     * @param type 0: user selected a row; 1: user selected a column
+     * @param pos number of the row/column (starting from 1)
+     * @param choices the choices made by the user for each marble (excluding red marbles)
+     */
     public MarketAction(int type, int pos, ArrayList<AtomicMarketAction> choices) {
         this.type = type;
         this.pos = pos;
         this.choices = choices;
     }
 
-    // Returns true if everything is done correctly
-    // type = 0: row; type = 1: column (chosen from view)
-    // pos: number of the row/column (starting from 1) chosen from view
+    /**
+     *
+     * @param player the player performing the action
+     * @return true if everything is done correctly
+     *         false if the action was illegal
+     */
     @Override
     public boolean useAction(PlayerDashboard player) {
         MarketMarble[] marbles = new MarketMarble[0];
