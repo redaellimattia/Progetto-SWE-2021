@@ -1,17 +1,21 @@
 package it.polimi.ingsw.model.token;
 
+import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.PlayerDashboard;
 
 public class AdvanceToken implements SoloToken {
     private int steps;
     private boolean reRoll;
+    private GameManager gameManager;
 
-    public AdvanceToken(boolean reRoll){
+    public AdvanceToken(boolean reRoll, GameManager gameManager){
+        this.gameManager = gameManager;
+        this.reRoll = reRoll;
          if(reRoll)
-             steps = 1;
+             this.steps = 1;
          else
-             steps = 2;
+             this.steps = 2;
     }
     public int getSteps() {
         return steps;
@@ -26,6 +30,7 @@ public class AdvanceToken implements SoloToken {
         int countSteps = steps;
         while(countSteps!=0) {
             lorenzo.updatePathPosition();
+            gameManager.checkFaithPath(lorenzo);
             countSteps--;
         }
         if(this.reRoll) {

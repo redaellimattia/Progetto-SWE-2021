@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.token;
 
+import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -26,7 +27,7 @@ class AdvanceTokenTest {
     public void testNoReRollToken() {
         PlayerDashboard testDashboard = buildPlayerDashboard();
         int oldPos = testDashboard.getPathPosition();
-        AdvanceToken testToken = new AdvanceToken(false);
+        AdvanceToken testToken = new AdvanceToken(false, null);
         testToken.useToken(testDashboard);
         assertEquals(oldPos + 2, testDashboard.getPathPosition());
     }
@@ -35,7 +36,7 @@ class AdvanceTokenTest {
     public void testReRollToken() {
         PlayerDashboard testDashboard = buildPlayerDashboard();
         int oldPos = testDashboard.getPathPosition();
-        AdvanceToken testToken = new AdvanceToken(true);
+        AdvanceToken testToken = new AdvanceToken(true, null);
         testToken.useToken(testDashboard);
         assertEquals(oldPos + 1, testDashboard.getPathPosition());
     }
