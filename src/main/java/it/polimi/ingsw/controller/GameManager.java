@@ -35,6 +35,20 @@ public class GameManager {
             setGameMustEnd();
         }
     }
+
+    /**
+     *
+     * @param player the player that will be excluded from the path position update
+     */
+    public void updateOpponentsPathPosition(PlayerDashboard player) {
+        for(PlayerDashboard i: game.getPlayers()) {
+            if(!i.getNickName().equals(player.getNickName())) {
+                i.updatePathPosition();
+                checkFaithPath(i);
+            }
+        }
+    }
+
     public void initGame() { //Distribuire risorse + creaz shop etc
 
     }

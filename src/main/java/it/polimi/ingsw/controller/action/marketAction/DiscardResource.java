@@ -1,10 +1,20 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
-import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.model.PlayerDashboard;
 
 public class DiscardResource implements AtomicMarketAction {
+
+    private GameManager gameManager;
+
+    /**
+     *
+     * @param gameManager the gameManager associated with the current game
+     */
+    public DiscardResource(GameManager gameManager) {
+        this.gameManager = gameManager;
+    }
 
     /**
      *
@@ -15,12 +25,7 @@ public class DiscardResource implements AtomicMarketAction {
      */
     @Override
     public boolean useAction(MarketMarble marble, PlayerDashboard player) {
-        for(PlayerDashboard i: Game.getPlayers()) {
-            if(i.getNickName() != player.getNickName()) {
-                i.updatePathPosition();
-                // Check path position
-            }
-        }
+        gameManager.updateOpponentsPathPosition(player);
         return true;
     }
 }
