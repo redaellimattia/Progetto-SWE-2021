@@ -51,7 +51,7 @@ public class BasicProductionAction extends Action {
     }
 
     /**
-     * ADD THE RESOURCES OBTAINED FROM THE PRODUCTIONS TO THE PLAYER AND THEN RESET THE BUFFER
+     * EMPTY BUFFER
      *
      * @param player player that is ending the action
      */

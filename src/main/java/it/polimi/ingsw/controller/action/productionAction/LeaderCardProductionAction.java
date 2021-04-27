@@ -44,10 +44,10 @@ public class LeaderCardProductionAction extends Action {
         //If leaderCard doesnt exist in the model then throw Exception
         if(!(player.leaderCardExists(card)&&card.isInGame()))
             throw new CardNotExistsException("Leader Card");
-        //Player wants to use the Storage to pay || Return false if there aren't enough resources in StorageCount, or deleteRes goes wrong
+        //Player wants to use the Storage to pay || throw exception if there aren't enough resources in StorageCount, or deleteRes goes wrong
         if(storageCount!=null&&(!card.getSpecialAbility().useProductionAbility(storageCount)||!deleteRes(storageCount,chestCount,player)))
             throw new PaymentFailedException("Storage");
-        //Player wants to use the Chest to pay || Return false if there aren't enough resources in StorageCount, or deleteRes goes wrong
+        //Player wants to use the Chest to pay || throw exception if there aren't enough resources in StorageCount, or deleteRes goes wrong
         if(chestCount!=null&&(!card.getSpecialAbility().useProductionAbility(chestCount)||!deleteRes(storageCount,chestCount,player)))
             throw new PaymentFailedException("Chest");
 
@@ -59,10 +59,10 @@ public class LeaderCardProductionAction extends Action {
     }
 
     /**
+     * EMPTY BUFFER
      *
      * @param player player that is ending the action
      */
-    //ADD THE RESOURCES OBTAINED FROM THE PRODUCTIONS TO THE PLAYER AND THEN RESET THE BUFFER;
     @Override
     public void endAction(PlayerDashboard player) {
         player.emptyBufferProduction();
