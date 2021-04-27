@@ -9,9 +9,10 @@ public class GameManager {
     private Game game;
     private PlayerTurnManager turnManager;
     private VaticanReport[] vReports;
+    private boolean isSinglePlayer;
     private boolean gameMustEnd;
 
-    public GameManager(Game game, PlayerTurnManager turnManager) {
+    public GameManager(Game game, PlayerTurnManager turnManager,boolean isSinglePlayer) {
         this.game = game;
         this.turnManager = turnManager;
         vReports = new VaticanReport[3];
@@ -19,6 +20,7 @@ public class GameManager {
         vReports[1] = new VaticanReport(3,12,16);
         vReports[2] = new VaticanReport(4,19,24);
         gameMustEnd = false;
+        this.isSinglePlayer = isSinglePlayer;
     }
 
     public void setGameMustEnd() {
@@ -27,11 +29,11 @@ public class GameManager {
 
     public void checkFaithPath(PlayerDashboard player){
         if(player.getPathPosition() == 8 && !vReports[0].isUsed())
-            vReports[0].activateReport(game.getPlayers(),player);
-        if(player.getPathPosition() == 12 && !vReports[1].isUsed())
-            vReports[1].activateReport(game.getPlayers(),player);
-        if(player.getPathPosition() == 19 && !vReports[2].isUsed()) {
-            vReports[2].activateReport(game.getPlayers(), player); //Game must end
+            vReports[0].activateReport(game.getPlayers());
+        if(player.getPathPosition() == 16 && !vReports[1].isUsed())
+            vReports[1].activateReport(game.getPlayers());
+        if(player.getPathPosition() == 24 && !vReports[2].isUsed()) {
+            vReports[2].activateReport(game.getPlayers()); //Game must end
             setGameMustEnd();
         }
     }
@@ -62,16 +64,19 @@ public class GameManager {
     }
 
     public void nextRound() {
-        PlayerDashboard player = this.turnManager.getPlayer();
+        if(!isSinglePlayer) {
+            PlayerDashboard player = this.turnManager.getPlayer();
 
-        if(player.hasSevenDevCards()) //If this player has 7 devCards, game must end
-            setGameMustEnd();
+            if (player.hasSevenDevCards()) //If this player has 7 devCards, game must end
+                setGameMustEnd();
 
-        if(game.isLastPlayer(player)&&gameMustEnd) //Ending Game if last player has finished his turn and gameMustEnd is true
-            endGame();
-
-        PlayerDashboard nextPlayer = game.getNextPlayer(player);
-        if(nextPlayer!=null) //Increment Turn
-            this.turnManager = new PlayerTurnManager(nextPlayer);
+            if (game.isLastPlayer(player) && gameMustEnd) //Ending Game if last player has finished his turn and gameMustEnd is true
+                endGame();
+            else {
+                PlayerDashboard nextPlayer = game.getNextPlayer(player);
+                if (nextPlayer != null) //Increment Turn
+                    this.turnManager = new PlayerTurnManager(nextPlayer);
+            }
+        }
     }
 }

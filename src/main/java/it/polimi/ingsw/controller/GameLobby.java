@@ -26,7 +26,10 @@ public class GameLobby {
         return true;
     }
 
-    public void createGameManager() {
-        //games.add(new GameManager(new Game(players,...),null));
+    public void createGameManager(boolean singlePlayer) {
+        /*if(singlePlayer)
+            //createSingleplayer
+        else
+        //games.add(new GameManager(new Game(players,...),null));*/
     }
 }

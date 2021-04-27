@@ -19,7 +19,7 @@ public class VaticanReport {
 
     public boolean isUsed() { return isUsed; }
 
-    public void activateReport(ArrayList<PlayerDashboard> players, PlayerDashboard playerOnTile){
+    public void activateReport(ArrayList<PlayerDashboard> players){
         for (PlayerDashboard p: players) {
             int pos = p.getPathPosition();
             if(pos >= start && pos <= finish)
