@@ -187,7 +187,7 @@ public class ResourceCount {
     }
 
     /**
-     *RETURN TRUE IF THIS RESOURCECOUNT HAS >= RESOURCES THAN THE PASSED ONE
+     * RETURN TRUE IF THIS RESOURCECOUNT HAS >= RESOURCES THAN THE PASSED ONE
      *
      * @param count passed ResourceCount
      * @return true if this has more or equal resources compared to count
@@ -236,7 +236,7 @@ public class ResourceCount {
     }
 
     /**
-     *EQUALS
+     * EQUALS
      *
      * @param o passed Object
      * @return true if o is the same object of this, or it has the same number of resources

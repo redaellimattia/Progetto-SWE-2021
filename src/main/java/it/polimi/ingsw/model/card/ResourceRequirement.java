@@ -28,7 +28,6 @@ public class ResourceRequirement implements Requirement {
      * @return true if playing that leader is possible
      */
     @Override
-    //TRUE IF THE PLAYER CAN ACTUALLY PLAY THE CARD
     public boolean isPlayable(PlayerDashboard player) { //True if player has enough resources
         ResourceCount count = player.getTotalResources();
         ResourceCount abilityDepositResources = player.getAbilityDepositResources(); // Fill with abilityDeposit, if there are any
@@ -39,6 +38,7 @@ public class ResourceRequirement implements Requirement {
     }
 
     /**
+     * EQUALS
      *
      * @param o passed Object
      * @return true if o is the same object of this, or it has the same ResourceCount cost

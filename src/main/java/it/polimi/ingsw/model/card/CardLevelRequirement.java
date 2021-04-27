@@ -42,7 +42,6 @@ public class CardLevelRequirement implements Requirement {
      * @return true if playing that leader is possible
      */
     @Override
-    //TRUE IF THE PLAYER CAN ACTUALLY PLAY THE CARD
     public boolean isPlayable(PlayerDashboard player){
         DeckDashboard[] devCards = player.getDevCards();
         ArrayList<DevelopmentCard> devCardSlot;
@@ -61,6 +60,7 @@ public class CardLevelRequirement implements Requirement {
     }
 
     /**
+     * EQUALS
      *
      * @param o passed Object
      * @return true if o is the same object of this, or it has the same colour and level values

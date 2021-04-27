@@ -60,6 +60,7 @@ public class DevelopmentCard extends Card {
 
 
     /**
+     * EQUALS
      *
      * @param o passed Object
      * @return true if o is the same object of this, or it has the same attributes

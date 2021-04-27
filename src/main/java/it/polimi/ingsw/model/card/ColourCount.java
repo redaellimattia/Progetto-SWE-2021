@@ -125,13 +125,13 @@ public class ColourCount {
 
 
     /**
+     * ADD COLOURS, TO MODIFY MORE THAN ONE PARAMETER AT ONCE
      *
      * @param green CardColour.GREEN counter incremented of green
      * @param yellow CardColour.YELLOW counter incremented of yellow
      * @param blue CardColour.BLUE counter incremented of blue
      * @param purple CardColour.PURPLE counter incremented of purple
      */
-    //ADD COLOURS, TO MODIFY MORE THAN ONE PARAMETER AT ONCE
     public void addColours(int green, int yellow, int blue, int purple){
         this.green += green;
         this.yellow += yellow;
@@ -140,13 +140,13 @@ public class ColourCount {
     }
 
     /**
+     * REMOVE COLOURS, TO MODIFY MORE THAN ONE PARAMETER AT ONCE
      *
      * @param green CardColour.GREEN counter reduced of green
      * @param yellow CardColour.YELLOW counter reduced of yellow
      * @param blue CardColour.BLUE counter reduced of blue
      * @param purple CardColour.PURPLE counter reduced of purple
      */
-    //REMOVE COLOURS, TO MODIFY MORE THAN ONE PARAMETER AT ONCE
     public void removeColours(int green, int yellow, int blue, int purple){
         this.green -= green;
         this.yellow -= yellow;
@@ -155,16 +155,17 @@ public class ColourCount {
     }
 
     /**
+     * SUM 2 COLOURCOUNT
      *
      * @param add passed ColourCount
      */
-    //SUM 2 COLOURCOUNT
     public void sumCounts(ColourCount add){
         if(add!=null)
             this.addColours(add.getGreen(),add.getYellow(), add.getBlue(), add.getPurple());
     }
 
     /**
+     * EQUALS
      *
      * @param o passed Object
      * @return true if o is the same object of this, or it has the same number of colours

@@ -14,12 +14,12 @@ public class ProductionAbility extends SpecialAbility {
     }
 
     /**
+     * WHEN IN PRODUCTIONACTION, THIS PRODUCTION IS AVAILABLE, TRUE IF POSSIBLE
      *
      * @param count passed ResourceCount, equals to the resources chosen to pay
      * @return true if there are enough resources to use the production
      */
     @Override
-    //WHEN IN PRODUCTIONACTION, THIS PRODUCTION IS AVAILABLE, TRUE IF POSSIBLE
     public boolean useProductionAbility(ResourceCount count){
         Resource resType = super.getResourceType();
         if(count!=null)
@@ -28,6 +28,7 @@ public class ProductionAbility extends SpecialAbility {
     }
 
     /**
+     * EQUALS
      *
      * @param o passed Object
      * @return true if o is the same object of this, or it has the same Resource cost

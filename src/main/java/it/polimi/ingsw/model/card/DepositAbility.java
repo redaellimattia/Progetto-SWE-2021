@@ -14,17 +14,18 @@ public class  DepositAbility extends SpecialAbility {
     }
 
     /**
+     * WHEN PLAYED, INITIALIZE arrayDeposit IN PLAYERDASHBOARD
      *
      * @param player player whom i am adding the deposit
      */
     @Override
-    //WHEN PLAYED, INITIALIZE arrayDeposit IN PLAYERDASHBOARD
     public void useDepositAbility(PlayerDashboard player){
         Resource resType = super.getResourceType();
         player.initArrayDeposit(resType); //Init arrayDeposit in PlayerDashboard
     }
 
     /**
+     * EQUALS
      *
      * @param o passed Object
      * @return true if o is the same object of this, or it has the same Resource deposit

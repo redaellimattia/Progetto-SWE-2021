@@ -12,11 +12,11 @@ public class DiscountAbility extends SpecialAbility {
     public DiscountAbility(Resource resourceType) {super(resourceType);}
 
     /**
+     * WHEN TRYING TO BUY A CARD FROM THE SHOP,DECREASE ITS COST
      *
      * @param cost passed ResourceCount, it's the DevCard cost
      */
     @Override
-    //WHEN TRYING TO BUY A CARD FROM THE SHOP,DECREASE ITS COST
     public void useDiscountAbility(ResourceCount cost){ //Decreasing Resource Cost of the card player is buying
         Resource resType = super.getResourceType();
         if(resType.get(cost)>0) //If there are not enough resource of this.resourceType, return false
@@ -24,6 +24,7 @@ public class DiscountAbility extends SpecialAbility {
     }
 
     /**
+     * EQUALS
      *
      * @param o passed Object
      * @return true if o is the same object of this, or it has the same Resource discount

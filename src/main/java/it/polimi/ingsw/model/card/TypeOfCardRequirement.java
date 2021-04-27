@@ -30,7 +30,6 @@ public class TypeOfCardRequirement implements Requirement {
      * @return true if playing that leader is possible
      */
     @Override
-    //TRUE IF THE PLAYER CAN ACTUALLY PLAY THE CARD
     public boolean isPlayable(PlayerDashboard player) { //True if there are enough card colours
         DeckDashboard[] devCards = player.getDevCards();
         ColourCount countColourDevCards = new ColourCount(0,0,0,0);
@@ -41,11 +40,11 @@ public class TypeOfCardRequirement implements Requirement {
     }
 
     /**
+     * COUNTS NUMBER OF PLAYER'S DEVCARDS COLOURS
      *
      * @param count will be equal to sum of DevCards colours
      * @param devCards needed to sum up to the total
      */
-    //COUNTS NUMBER OF PLAYER'S DEVCARDS COLOURS
     private void countColourDevCards(ColourCount count, DeckDashboard[] devCards){ //Creating count (Total of devCards colours)
         ArrayList<DevelopmentCard> devCardSlot;
         for (DeckDashboard devCard : devCards) { //Reading player's devCards
@@ -56,6 +55,7 @@ public class TypeOfCardRequirement implements Requirement {
     }
 
     /**
+     * EQUALS
      *
      * @param o passed Object
      * @return true if o is the same object of this, or it has the same ColourCount cost
