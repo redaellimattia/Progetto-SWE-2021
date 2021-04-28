@@ -27,6 +27,10 @@ public class GameManager {
         this.isSinglePlayer = isSinglePlayer;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
     public void setGameMustEnd() {
         this.gameMustEnd = true;
     }

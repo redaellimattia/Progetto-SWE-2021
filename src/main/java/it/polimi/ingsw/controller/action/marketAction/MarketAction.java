@@ -40,7 +40,7 @@ public class MarketAction extends Action {
         // Getting marbles from the market
         if (type == 0) { // A row is selected
             try {
-                marbles = Game.getMarket().getRow(pos);
+                marbles = gameManager.getGame().getMarket().getRow(pos);
             }
             catch(IndexOutOfBoundsException e) {
                 return false;
@@ -48,7 +48,7 @@ public class MarketAction extends Action {
         }
         if (type == 1) { // A column is selected
             try {
-                marbles = Game.getMarket().getColumn(pos);
+                marbles = gameManager.getGame().getMarket().getColumn(pos);
             }
             catch(IndexOutOfBoundsException e) {
                 return false;

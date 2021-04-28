@@ -1,5 +1,4 @@
 package it.polimi.ingsw.model;
-import it.polimi.ingsw.model.card.Card;
 import it.polimi.ingsw.model.token.SoloToken;
 
 import java.util.ArrayList;
@@ -8,7 +7,7 @@ import java.util.Collections;
 public class Game {
     private ArrayList<PlayerDashboard> players;
     private Shop shop;
-    private static MarketDashboard market; //DA FIXARE
+    private MarketDashboard market;
     private ArrayList<SoloToken> tokensDeck;
     private ArrayList<SoloToken> discardedTokens;
     private boolean lorenzoWin;
@@ -58,9 +57,9 @@ public class Game {
         return shop;
     }
 
-    public static MarketDashboard getMarket() {
+    public MarketDashboard getMarket() {
         return market;
-    } //DA FIXARE PER TOGLIERE STATIC
+    }
 
     public ArrayList<PlayerDashboard> getPlayers() {
         return players;
