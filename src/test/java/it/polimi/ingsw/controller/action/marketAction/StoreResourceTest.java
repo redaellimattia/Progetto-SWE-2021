@@ -48,12 +48,11 @@ class StoreResourceTest {
         assertFalse(ok);
     }
 
-    // TO-DO: Fix isFull method in PlayerDashboard
-    /* @Test
+    @Test
     void depositNotPresent() {
         boolean ok;
         PlayerDashboard testPlayer = buildPlayerDashboard(1, 1, 3);
         ok = StoreResource.storeResource(testPlayer, Resource.SHIELD, 4);
         assertFalse(ok);
-    } */
+    }
 }
