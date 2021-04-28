@@ -98,7 +98,7 @@ public class Server implements Runnable{
         SocketServer serverSocket = new SocketServer(this, socketPort);
         serverSocket.startSocketServer();
 
-        LOGGER.info("Socket Server Started");
+        LOGGER.info("Socket Server Started with port: "+socketPort);
     }
 
     @Override
