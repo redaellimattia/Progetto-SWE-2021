@@ -40,6 +40,9 @@ public class ConvertWhiteMarble implements AtomicMarketAction {
             return false; // User must own the leaderCard
         }
         Resource resource = leaderCard.getSpecialAbility().useWhiteChangeAbility();
+        if(resource == null) {
+            return false; // Leader card must have WhiteChangeAbility
+        }
         return StoreResource.storeResource(player, resource, storageRow);
     }
 }
