@@ -28,7 +28,7 @@ class SoloTokenActionTest {
         ResourceCount testChest = new ResourceCount(0, 0, 0, 0, 0);
         DeckDashboard[] testDevCards = new DeckDashboard[3];
         ArrayList<LeaderCard> testLeaderCards = new ArrayList<>(0);
-        return new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, 0, "Test", 0);
+        return new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, 0, "Test", 0, false);
     }
 
     public GameManager buildGameManager() {
@@ -37,7 +37,7 @@ class SoloTokenActionTest {
         ArrayList<PlayerDashboard> players = new ArrayList<PlayerDashboard>();
         players.add(player1);
         players.add(lorenzo);
-        Game game = new Game(players, createShop(), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<Card>(), new ArrayList<SoloToken>());
+        Game game = new Game(players, createShop(), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
         GameManager gameManager = new GameManager(game, new PlayerTurnManager(player1),true);
         return gameManager;
     }
