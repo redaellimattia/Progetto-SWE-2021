@@ -26,8 +26,8 @@ public class PlayerDashboard extends Player{
      * @param nickname nickname of the player
      * @param points total of victory Points
      */
-    public PlayerDashboard(Storage storage, ResourceCount chest, DeckDashboard[] devCards, ArrayList<LeaderCard> leaderCards, int position, String nickname, int points) {
-        super(position, nickname, points);
+    public PlayerDashboard(Storage storage, ResourceCount chest, DeckDashboard[] devCards, ArrayList<LeaderCard> leaderCards, int position, String nickname, int points, boolean isLorenzo) {
+        super(position, nickname, points,isLorenzo);
         this.pathPosition = 0;
         this.storage = storage;
         this.chest = chest;
@@ -183,10 +183,11 @@ public class PlayerDashboard extends Player{
      * @param res specific resource searched
      */
     public void addToDeposit(Resource res) throws CounterTopOverloadException { //Trying to add resource to abilityDeposit if it isn't full
-        if(!isFull(res))
-            for (CounterTop c: arrayDeposit)
-                if(c.getResourceType().equals(res)&&c.getContent()<2)
+        if(!isFull(res)) {
+            for (CounterTop c : arrayDeposit)
+                if (c.getResourceType().equals(res) && c.getContent() < 2)
                     c.addContent(1);
+        }
         else
             throw new CounterTopOverloadException();
     }

@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.token.SoloToken;
 
 public class SoloTokenAction extends Action {
 
-    @Override
+ /*   @Override
     public boolean useAction(PlayerDashboard lorenzo) {
         SoloToken token = Game.pickNextToken();
         token.useToken(lorenzo);
@@ -42,8 +42,7 @@ public class SoloTokenAction extends Action {
             return true;
         }
 
-         */
-        return true;
-    }
 
+        return true;
+    }*/
 }

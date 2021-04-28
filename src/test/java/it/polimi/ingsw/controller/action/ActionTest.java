@@ -149,7 +149,7 @@ class ActionTest {
         ArrayList<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
         leaderCards.add(0,createLeaderCard(true));
         leaderCards.add(0,createLeaderCard(false));
-        return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
+        return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2,false);
     }
 
     LeaderCard createLeaderCard(boolean inGame){

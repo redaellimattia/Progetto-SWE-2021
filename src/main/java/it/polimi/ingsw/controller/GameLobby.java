@@ -28,7 +28,7 @@ public class GameLobby {
 
     public void createGameManager(boolean singlePlayer) {
         /*if(singlePlayer)
-            //createSingleplayer
+            //createSingleplayer si aggiunge Lorenzo nella lista di player
         else
         //games.add(new GameManager(new Game(players,...),null));*/
     }

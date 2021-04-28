@@ -70,7 +70,7 @@ class PlayLeaderActionTest {
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
         leaderCards.add(0,createLeaderCard(new ColourCount(1,0,0,0)));
         leaderCards.add(0,createLeaderCard(new ColourCount(0,2,1,0)));
-        return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
+        return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2, false);
     }
 
     LeaderCard createLeaderCard(ColourCount count){

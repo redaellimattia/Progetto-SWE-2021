@@ -108,6 +108,6 @@ class BasicProductionActionTest {
         DeckDashboard[] devCards = new DeckDashboard[3];
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
 
-        return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2);
+        return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2,false);
     }
 }

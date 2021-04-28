@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.PlayerDashboard;
+import it.polimi.ingsw.model.token.SoloToken;
 
 
 public class GameManager {
@@ -11,6 +12,7 @@ public class GameManager {
     private VaticanReport[] vReports;
     private boolean isSinglePlayer;
     private boolean gameMustEnd;
+    private PlayerDashboard lorenzo;
 
     public GameManager(Game game, PlayerTurnManager turnManager,boolean isSinglePlayer) {
         this.game = game;
@@ -64,19 +66,27 @@ public class GameManager {
     }
 
     public void nextRound() {
-        if(!isSinglePlayer) {
+        //if(!isSinglePlayer) {
             PlayerDashboard player = this.turnManager.getPlayer();
 
             if (player.hasSevenDevCards()) //If this player has 7 devCards, game must end
                 setGameMustEnd();
-
+            if (game.getShop().emptyColumn())
+                setGameMustEnd();
             if (game.isLastPlayer(player) && gameMustEnd) //Ending Game if last player has finished his turn and gameMustEnd is true
                 endGame();
             else {
-                PlayerDashboard nextPlayer = game.getNextPlayer(player);
-                if (nextPlayer != null) //Increment Turn
-                    this.turnManager = new PlayerTurnManager(nextPlayer);
+                if(isSinglePlayer) {
+                    SoloToken token = game.pickNextToken();
+                    token.useToken(lorenzo, game);
+                    this.turnManager = new PlayerTurnManager(player); //da controllare se serve svuotare tutto
+                }
+                else {
+                    PlayerDashboard nextPlayer = game.getNextPlayer(player);
+                    if (nextPlayer != null) //Increment Turn
+                        this.turnManager = new PlayerTurnManager(nextPlayer);
+                }
             }
-        }
+       // }
     }
 }
