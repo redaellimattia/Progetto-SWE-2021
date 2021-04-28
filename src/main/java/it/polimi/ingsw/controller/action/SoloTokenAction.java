@@ -10,7 +10,6 @@ public class SoloTokenAction extends Action {
     public boolean useAction(PlayerDashboard lorenzo) {
         SoloToken token = Game.pickNextToken();
         token.useToken(lorenzo);
-        // TO-DO: Check if Vatican Report is triggered (if it isn't checked by model)
 
         // Code below to be moved
         /*

@@ -236,6 +236,14 @@ public class ResourceCount {
     }
 
     /**
+     * RETURN AS AN INT THE NUMBER OF THE TOTAL RESOURCES
+     * @param rc ResourceCount to convert to an int
+     * @return the number of resources in rc
+     */
+    public static int resCountToInt(ResourceCount rc){
+        return rc.getCoins()+rc.getRocks()+rc.getServants()+rc.getShields();
+    }
+    /**
      * EQUALS
      *
      * @param o passed Object

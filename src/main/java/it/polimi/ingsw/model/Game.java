@@ -11,6 +11,7 @@ public class Game {
     private static MarketDashboard market; //DA FIXARE
     private ArrayList<SoloToken> tokensDeck;
     private ArrayList<SoloToken> discardedTokens;
+    private boolean lorenzoWin;
 
     public Game(ArrayList<PlayerDashboard> players,Shop shop,MarketDashboard market,ArrayList<SoloToken> tokensDeck) {
         this.players = players;
@@ -18,6 +19,7 @@ public class Game {
         this.market = market;
         this.tokensDeck = tokensDeck;
         this.discardedTokens = new ArrayList<>();
+        this.lorenzoWin = false;
     }
 
     public boolean isLastPlayer(PlayerDashboard player){
@@ -30,6 +32,10 @@ public class Game {
 
     public void endGame(){
 
+    }
+
+    public void setLorenzoWin(){
+        this.lorenzoWin = true;
     }
 
     public void rollTokens(){
