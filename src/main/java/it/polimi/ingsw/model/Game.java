@@ -9,15 +9,13 @@ public class Game {
     private ArrayList<PlayerDashboard> players;
     private Shop shop;
     private static MarketDashboard market; //DA FIXARE
-    private ArrayList<Card> leadersDeck;
     private ArrayList<SoloToken> tokensDeck;
     private ArrayList<SoloToken> discardedTokens;
 
-    public Game(ArrayList<PlayerDashboard> players,Shop shop,MarketDashboard market,ArrayList<Card> leadersDeck,ArrayList<SoloToken> tokensDeck) {
+    public Game(ArrayList<PlayerDashboard> players,Shop shop,MarketDashboard market,ArrayList<SoloToken> tokensDeck) {
         this.players = players;
         this.shop = shop;
         this.market = market;
-        this.leadersDeck = leadersDeck;
         this.tokensDeck = tokensDeck;
         this.discardedTokens = new ArrayList<>();
     }
