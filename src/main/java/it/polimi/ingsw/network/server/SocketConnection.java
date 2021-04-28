@@ -1,16 +1,15 @@
 package it.polimi.ingsw.network.server;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
+import java.util.logging.Level;
 
 public class SocketConnection implements Runnable{
     private final SocketServer socketServer;
     private final Socket socket;
 
-    private ObjectInputStream in;
-    private ObjectOutputStream out;
+    private BufferedReader  in;
+    private PrintWriter out;
 
     private final Object outLock = new Object();
     private final Object inLock = new Object();
@@ -40,12 +39,12 @@ public class SocketConnection implements Runnable{
 
         try {
             synchronized (inLock) {
-                this.in = new ObjectInputStream(socket.getInputStream());
+                this.in = new BufferedReader (new InputStreamReader(socket.getInputStream()));
             }
             synchronized (outLock) {
-                this.out = new ObjectOutputStream(socket.getOutputStream());
+                this.out = new PrintWriter(socket.getOutputStream());
             }
-        } catch (IOException e) {}
+        } catch (IOException e) {Server.LOGGER.log(Level.SEVERE,"Error while creating the Socket Connection.\n"+ e.getMessage());}
 
         socketListener = new Thread(this);
         socketListener.start();
@@ -56,29 +55,25 @@ public class SocketConnection implements Runnable{
      */
     @Override
     public void run() {
-        /*while (!Thread.currentThread().isInterrupted()) {
+        while (!Thread.currentThread().isInterrupted()) {
             try {
                 synchronized (inLock) {
-                   //Lettura messaggi in entrata dal client, login e messaggi
+                    String msg = in.readLine();
+                    if(msg!=null) socketServer.onMessage(this,msg);
                 }
-            } catch (IOException e) {
-                disconnect();
-            } catch (ClassNotFoundException e) {}
-        }*/
+                //Lettura messaggi in entrata dal client, login e messaggi
+            } catch (IOException e) { Server.LOGGER.log(Level.SEVERE,"Error while reading.\n"+ e.getMessage());}
+        }
     }
 
     /**
      * Sending messages to the client
      */
-    public void send() {
+    public void send(String json) {
         if (isConnected) {
-            try {
-                synchronized (outLock) {
-                    //out.writeObject();
-                    out.flush();
-                }
-            } catch (IOException e) {
-                disconnect();
+            synchronized (outLock) {
+                out.println(json);
+                out.flush();
             }
         }
     }
@@ -91,7 +86,7 @@ public class SocketConnection implements Runnable{
             try {
                 if (!socket.isClosed())
                     socket.close();
-            } catch (IOException e) {}
+            } catch (IOException e) {Server.LOGGER.log(Level.SEVERE,"Error while closing the Socket Connection\n"+ e.getMessage());}
 
             socketListener.interrupt(); // Interrupts the thread
             isConnected = false;

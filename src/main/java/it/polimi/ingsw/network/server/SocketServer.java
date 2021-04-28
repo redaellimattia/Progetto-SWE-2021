@@ -28,7 +28,7 @@ public class SocketServer extends Thread{
         try {
             serverSocket = new ServerSocket(port);
             start();
-        } catch (IOException e) {Server.LOGGER.log(Level.SEVERE,"Error while creating ServerSocket.");}
+        } catch (IOException e) {Server.LOGGER.log(Level.SEVERE,"Error while creating ServerSocket\n"+ e.getMessage());}
     }
 
     /**
@@ -40,8 +40,8 @@ public class SocketServer extends Thread{
             try {
                 Socket client = serverSocket.accept();
                 new SocketConnection(this, client);
-            } catch (IOException e) {//LOGGER}
-            }
+                Server.LOGGER.log(Level.INFO,"Client Trying to connect..");
+            } catch (IOException e) {Server.LOGGER.log(Level.SEVERE,"Error while accepting client.\n"+ e.getMessage());}
         }
     }
 
@@ -50,22 +50,15 @@ public class SocketServer extends Thread{
      * @param clientConnection client that is disconnected, passing it to the Server
      */
     public void onDisconnect(SocketConnection clientConnection) {
-        //server.onDisconnect(clientConnection);
+        server.onDisconnect(clientConnection);
     }
 
     /**
      *
-     * @param clientConnection client that wrote a message
+     * @param clientConnection SocketConnetion of the client who wrote the msg
+     * @param msg String msg wrote by the client
      */
-    public void onMessage(SocketConnection clientConnection) {
-        //server.onMessage(clientConnection);
-    }
-
-    /**
-     *
-     * @param clientConnection client trying to log in the lobby
-     */
-    public void onLogin(SocketConnection clientConnection) {
-        //server.onLogin(clientConnection);
+    public void onMessage(SocketConnection clientConnection,String msg) {
+        server.onMessage(clientConnection,msg);
     }
 }

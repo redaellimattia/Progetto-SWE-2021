@@ -71,7 +71,7 @@ public class Server implements Runnable{
     }
 
     /**
-     * Create LOGGER file
+     * Create LOGGER
      */
     private void initLogger() {
         Date date = GregorianCalendar.getInstance().getTime();
@@ -89,6 +89,24 @@ public class Server implements Runnable{
 
     private void playerLogin(){
 
+    }
+
+    /**
+     *
+     * @param sockConnection Client that is sending the message
+     * @param msg String msg wrote by the client
+     */
+    public void onMessage(SocketConnection sockConnection,String msg){
+
+
+    }
+
+    /**
+     *
+     * @param sockConnection Client that is disconnecting
+     */
+    public void onDisconnect(SocketConnection sockConnection){
+        //Gestito per resilienza
     }
 
     /**
