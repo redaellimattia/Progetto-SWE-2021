@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model;
 
-public abstract class Player {
+public abstract class Player implements Comparable<Player>{
     private int position;
     private String nickname;
     private int points;
@@ -26,4 +26,12 @@ public abstract class Player {
     }
 
     public void addPoints(int number){ points += number;}
+
+    @Override
+    public int compareTo(Player p){
+        if (this.getPoints() < p.getPoints()) return -1;
+        else if (this.getPoints() > p.getPoints()) return 1;
+        return 0;
+    }
+
 }

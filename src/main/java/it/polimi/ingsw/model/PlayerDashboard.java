@@ -196,7 +196,7 @@ public class PlayerDashboard extends Player{
      *
      * @return total resources stored on SpecialAbility deposit
      */
-    //RETURN IN A RESOURCECOUNT THE RESOURCES STORED ON THE LEADERCARDS; (not the ones in the specialability deposits);
+    //RETURN IN A RESOURCECOUNT THE RESOURCES STORED ON THE LEADERCARDS;
     public ResourceCount getAbilityDepositResources(){
         ResourceCount count = new ResourceCount(0,0,0,0,0);
         for (CounterTop c: arrayDeposit)
