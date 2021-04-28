@@ -26,7 +26,7 @@ public class AdvanceToken implements SoloToken {
     }
 
     @Override
-    public void useToken(PlayerDashboard lorenzo){
+    public void useToken(PlayerDashboard lorenzo, Game game){
         int countSteps = steps;
         while(countSteps!=0) {
             lorenzo.updatePathPosition();
@@ -34,7 +34,7 @@ public class AdvanceToken implements SoloToken {
             countSteps--;
         }
         if(this.reRoll) {
-            Game.rollTokens();
+            game.rollTokens();
         }
     }
 }

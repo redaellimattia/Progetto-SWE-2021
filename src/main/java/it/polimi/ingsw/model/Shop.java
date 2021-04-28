@@ -70,6 +70,16 @@ public class Shop {
             }
             i--;
         }while(toDelete > 0 && i>=0);
+    }
 
+    public boolean emptyColumn(){
+        if(shopGrid[0][0].getDeck().size() == 0 && shopGrid[1][0].getDeck().size() == 0 && shopGrid[2][0].getDeck().size() == 0 )
+            return true;
+        if(shopGrid[0][1].getDeck().size() == 0 && shopGrid[1][1].getDeck().size() == 0 && shopGrid[2][1].getDeck().size() == 0 )
+            return true;
+        if(shopGrid[0][2].getDeck().size() == 0 && shopGrid[1][2].getDeck().size() == 0 && shopGrid[2][2].getDeck().size() == 0 )
+            return true;
+
+        return false;
     }
 }

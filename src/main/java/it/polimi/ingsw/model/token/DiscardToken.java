@@ -12,7 +12,7 @@ public class DiscardToken implements SoloToken {
     }
 
     @Override
-    public void useToken(PlayerDashboard player) {
-        Game.getShop().discardFromToken(colour);
+    public void useToken(PlayerDashboard player, Game game) {
+        game.getShop().discardFromToken(colour);
     }
 }

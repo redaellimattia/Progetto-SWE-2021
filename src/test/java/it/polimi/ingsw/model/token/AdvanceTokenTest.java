@@ -23,7 +23,7 @@ class AdvanceTokenTest {
         ResourceCount testChest = new ResourceCount(0, 0, 0, 0, 0);
         DeckDashboard[] testDevCards = new DeckDashboard[3];
         ArrayList<LeaderCard> testLeaderCards = new ArrayList<>(0);
-        return new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, 0, "Test", 0);
+        return new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, 0, "Test", 0,false);
     }
 
     public GameManager buildGameManager() {
@@ -32,7 +32,7 @@ class AdvanceTokenTest {
         ArrayList<PlayerDashboard> players = new ArrayList<PlayerDashboard>();
         players.add(player1);
         players.add(lorenzo);
-        Game game = new Game(players, new Shop(new Deck[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<Card>(), new ArrayList<SoloToken>());
+        Game game = new Game(players, new Shop(new Deck[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
         GameManager gameManager = new GameManager(game, new PlayerTurnManager(player1),true);
         return gameManager;
     }
@@ -41,8 +41,14 @@ class AdvanceTokenTest {
     public void testNoReRollToken() {
         PlayerDashboard testDashboard = buildPlayerDashboard();
         int oldPos = testDashboard.getPathPosition();
+        PlayerDashboard player1 = buildPlayerDashboard();
+        PlayerDashboard lorenzo = buildPlayerDashboard();
+        ArrayList<PlayerDashboard> players = new ArrayList<PlayerDashboard>();
+        players.add(player1);
+        players.add(lorenzo);
+        Game game = new Game(players, new Shop(new Deck[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
         AdvanceToken testToken = new AdvanceToken(false, buildGameManager());
-        testToken.useToken(testDashboard);
+        testToken.useToken(testDashboard, game);
         assertEquals(oldPos + 2, testDashboard.getPathPosition());
     }
 
@@ -50,8 +56,14 @@ class AdvanceTokenTest {
     public void testReRollToken() {
         PlayerDashboard testDashboard = buildPlayerDashboard();
         int oldPos = testDashboard.getPathPosition();
+        PlayerDashboard player1 = buildPlayerDashboard();
+        PlayerDashboard lorenzo = buildPlayerDashboard();
+        ArrayList<PlayerDashboard> players = new ArrayList<PlayerDashboard>();
+        players.add(player1);
+        players.add(lorenzo);
+        Game game = new Game(players, new Shop(new Deck[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
         AdvanceToken testToken = new AdvanceToken(true, buildGameManager());
-        testToken.useToken(testDashboard);
+        testToken.useToken(testDashboard, game);
         assertEquals(oldPos + 1, testDashboard.getPathPosition());
     }
 }

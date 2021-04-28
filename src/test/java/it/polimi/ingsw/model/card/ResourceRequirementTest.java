@@ -86,6 +86,6 @@ class ResourceRequirementTest {
         Storage storage = new Storage(firstRow,secondRow,thirdRow);
         DeckDashboard[] devCards = new DeckDashboard[3];
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        return new PlayerDashboard(storage,resCount,devCards,leaderCards,1,nickname,2);
+        return new PlayerDashboard(storage,resCount,devCards,leaderCards,1,nickname,2,false);
     }
 }
