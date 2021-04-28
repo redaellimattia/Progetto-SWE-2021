@@ -3,6 +3,7 @@ package it.polimi.ingsw.network.server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.Level;
 
 public class SocketServer extends Thread{
     private final Server server;
@@ -27,7 +28,7 @@ public class SocketServer extends Thread{
         try {
             serverSocket = new ServerSocket(port);
             start();
-        } catch (IOException e) {}
+        } catch (IOException e) {Server.LOGGER.log(Level.SEVERE,"Error while creating ServerSocket.");}
     }
 
     /**

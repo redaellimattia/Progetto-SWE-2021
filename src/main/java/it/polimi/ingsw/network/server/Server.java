@@ -25,7 +25,7 @@ public class Server implements Runnable{
 
     private Thread serverThread;
 
-    private static final Logger LOGGER = Logger.getLogger("Server");
+    protected static final Logger LOGGER = Logger.getLogger("Server");
 
     /**
      *
@@ -44,7 +44,9 @@ public class Server implements Runnable{
         startServer();
 
         LOGGER.log(Level.INFO, "Game lobby created.");
+
         serverThread = new Thread(this);
+        LOGGER.log(Level.INFO, "Server Thread created.");
     }
 
     //Parameter -p socketPort
