@@ -35,7 +35,7 @@ public class MarketAction extends Action {
     @Override
     public boolean useAction(PlayerDashboard player) {
         MarketMarble[] marbles = new MarketMarble[0];
-        boolean error;
+        boolean ok = true;
 
         // Getting marbles from the market
         if (type == 0) { // A row is selected
@@ -63,11 +63,15 @@ public class MarketAction extends Action {
                 player.updatePathPosition();
                 gameManager.checkFaithPath(player);
             } else {
-                error = choices.get(j).useAction(marble, player);
-                if (error) return false;
+                ok = choices.get(j).useAction(marble, player);
+                if (!ok) return false;
                 j++;
             }
         }
+
+        // Fixing grid
+        gameManager.getGame().getMarket().fixGrid(type, pos);
+
         return true;
     }
 
