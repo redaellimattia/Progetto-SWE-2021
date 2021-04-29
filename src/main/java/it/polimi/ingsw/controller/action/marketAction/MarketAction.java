@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller.action.marketAction;
 import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.controller.action.Action;
+import it.polimi.ingsw.exceptions.action.IllegalMarketPositionException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
 
@@ -43,7 +44,7 @@ public class MarketAction extends Action {
                 marbles = gameManager.getGame().getMarket().getRow(pos);
             }
             catch(IndexOutOfBoundsException e) {
-                return false;
+                throw new IllegalMarketPositionException();
             }
         }
         if (type == 1) { // A column is selected
@@ -51,7 +52,7 @@ public class MarketAction extends Action {
                 marbles = gameManager.getGame().getMarket().getColumn(pos);
             }
             catch(IndexOutOfBoundsException e) {
-                return false;
+                throw new IllegalMarketPositionException();
             }
         }
 
