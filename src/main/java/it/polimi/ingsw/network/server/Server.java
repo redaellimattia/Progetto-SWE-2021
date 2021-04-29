@@ -1,6 +1,9 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.GameLobby;
+import it.polimi.ingsw.network.messages.ActionMessage;
+import it.polimi.ingsw.network.messages.CardShopMessage;
+import it.polimi.ingsw.network.messages.Message;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -97,7 +100,7 @@ public class Server implements Runnable{
      * @param msg String msg wrote by the client
      */
     public void onMessage(SocketConnection sockConnection,String msg){
-
+        //CAPIRE COME SWITCHARE IN BASE A RISULTATO DI MESSAGE.ONMESSAGE
 
     }
 

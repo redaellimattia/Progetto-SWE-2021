@@ -122,12 +122,9 @@ public class GameManager {
     }
 
     public void nextRound() {
-        //if(!isSinglePlayer) {
             PlayerDashboard player = this.turnManager.getPlayer();
-
-            if (player.hasSevenDevCards()) //If this player has 7 devCards, game must end
-                setGameMustEnd();
-            if (game.getShop().emptyColumn())
+            //FIXARE LA CHIAMATA DI ENDGAME NEL CASO DI SINGLE PLAYER
+            if (game.getShop().emptyColumn() || player.hasSevenDevCards())//If this player has 7 devCards or a shop column is empty, game must end
                 setGameMustEnd();
             if (game.isLastPlayer(player) && gameMustEnd) //Ending Game if last player has finished his turn and gameMustEnd is true
                 endGame();
@@ -143,6 +140,5 @@ public class GameManager {
                         this.turnManager = new PlayerTurnManager(nextPlayer);
                 }
             }
-       // }
     }
 }

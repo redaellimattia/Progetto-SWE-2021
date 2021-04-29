@@ -11,7 +11,7 @@ public abstract class ActionMessage extends Message{
     static GsonBuilder builder = new GsonBuilder();
     static Gson gson = builder.create();
 
-    public static ActionMessage deserializeAction(JsonObject jsonObj) {
+    public static ActionMessage deserializeAction(JsonObject jsonObj) { // /"actionType"/: CARDSHOP
         String actionType = jsonObj.get("actionType").getAsString();
         if (actionType == null)
             throw new IllegalArgumentException("Not a valid action");

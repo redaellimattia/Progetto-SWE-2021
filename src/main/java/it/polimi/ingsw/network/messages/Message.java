@@ -8,7 +8,7 @@ public abstract class Message {
     static GsonBuilder builder = new GsonBuilder();
     static Gson gson = builder.create();
 
-    public static Message onMessage(String msg){
+    public static Message onMessage(String msg){ // /"type"/ : ACTION
         JsonObject jsonObj = gson.fromJson(msg, JsonElement.class).getAsJsonObject();
         String msgType = jsonObj.get("type").getAsString();
         if(msgType == null)
