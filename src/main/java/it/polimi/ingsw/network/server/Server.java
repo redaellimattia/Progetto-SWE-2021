@@ -85,9 +85,7 @@ public class Server implements Runnable{
             fh.setFormatter(new SimpleFormatter());
 
             LOGGER.addHandler(fh);
-        } catch (IOException e) {
-            LOGGER.severe(e.getMessage());
-        }
+        } catch (IOException e) { LOGGER.severe(e.getMessage()); }
     }
 
     private void playerLogin(){
@@ -100,8 +98,15 @@ public class Server implements Runnable{
      * @param msg String msg wrote by the client
      */
     public void onMessage(SocketConnection sockConnection,String msg){
-        //CAPIRE COME SWITCHARE IN BASE A RISULTATO DI MESSAGE.ONMESSAGE
-
+        switch(Message.onMessage(msg).getClass().getSimpleName()){
+            case "ConnectionMessage": playerLogin();
+                break;
+            case "DisconnectionMessage": //resilienzaDisconnessioni
+                break;
+            case "ActionMessage":   //createAction()
+                break;
+            default: break;
+        }
     }
 
     /**
@@ -119,7 +124,7 @@ public class Server implements Runnable{
         SocketServer serverSocket = new SocketServer(this, socketPort);
         serverSocket.startSocketServer();
 
-        LOGGER.info("Socket Server Started with port: "+socketPort);
+        LOGGER.info("Socket Server listening on port: "+socketPort);
     }
 
     @Override
