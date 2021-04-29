@@ -1,8 +1,7 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.GameLobby;
-import it.polimi.ingsw.network.messages.ActionMessage;
-import it.polimi.ingsw.network.messages.CardShopMessage;
+import it.polimi.ingsw.network.messages.ConnectionMessage;
 import it.polimi.ingsw.network.messages.Message;
 
 import java.io.IOException;
@@ -88,8 +87,18 @@ public class Server implements Runnable{
         } catch (IOException e) { LOGGER.severe(e.getMessage()); }
     }
 
-    private void playerLogin(){
+    private void knownPlayerLogin(){
 
+    }
+    private void newPlayerLogin(){
+
+    }
+    private void playerLogin(ConnectionMessage msg){
+        /*if(msg.getNickname().wasPlaying()){
+            knownPlayerLogin();
+        }
+        else
+            newPlayerLogin();*/
     }
 
     /**
@@ -98,8 +107,9 @@ public class Server implements Runnable{
      * @param msg String msg wrote by the client
      */
     public void onMessage(SocketConnection sockConnection,String msg){
-        switch(Message.onMessage(msg).getClass().getSimpleName()){
-            case "ConnectionMessage": playerLogin();
+        Message deserializedMessage = Message.onMessage(msg);
+        switch(deserializedMessage.getClass().getSimpleName()){
+            case "ConnectionMessage": playerLogin((ConnectionMessage) deserializedMessage);
                 break;
             case "DisconnectionMessage": //resilienzaDisconnessioni
                 break;
