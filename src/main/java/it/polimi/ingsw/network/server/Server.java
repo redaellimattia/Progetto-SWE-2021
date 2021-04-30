@@ -18,7 +18,7 @@ import java.util.logging.SimpleFormatter;
 
 public class Server implements Runnable{
     private static final int DEFAULT_SOCKET_PORT = 1337;
-    private int socketPort;
+    private final int socketPort;
 
     private Map<String, SocketConnection> clients;
 
@@ -77,7 +77,7 @@ public class Server implements Runnable{
         DateFormat dateFormat = new SimpleDateFormat("dd-MM_HH.mm.ss");
 
         try {
-            FileHandler fh = new FileHandler("log/server-" + dateFormat.format(date) + ".log");
+            FileHandler fh = new FileHandler("utilities/server_log/server-" + dateFormat.format(date) + ".log");
             fh.setFormatter(new SimpleFormatter());
 
             LOGGER.addHandler(fh);

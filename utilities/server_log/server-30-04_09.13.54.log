@@ -1,0 +1,6 @@
+apr 30, 2021 9:13:54 AM it.polimi.ingsw.network.server.Server startServer
+INFO: Socket Server listening on port: 1338
+apr 30, 2021 9:13:54 AM it.polimi.ingsw.network.server.Server <init>
+INFO: Game lobby created.
+apr 30, 2021 9:13:54 AM it.polimi.ingsw.network.server.Server <init>
+INFO: Server Thread created.
