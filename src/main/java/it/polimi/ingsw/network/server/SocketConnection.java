@@ -11,9 +11,6 @@ public class SocketConnection implements Runnable{
     private BufferedReader  in;
     private PrintWriter out;
 
-    private final Object outLock = new Object();
-    private final Object inLock = new Object();
-
     private boolean isConnected;
 
     private Thread socketListener;
@@ -38,12 +35,8 @@ public class SocketConnection implements Runnable{
         this.isConnected = true;
 
         try {
-            synchronized (inLock) {
-                this.in = new BufferedReader (new InputStreamReader(socket.getInputStream()));
-            }
-            synchronized (outLock) {
-                this.out = new PrintWriter(socket.getOutputStream());
-            }
+            this.in = new BufferedReader (new InputStreamReader(socket.getInputStream()));
+            this.out = new PrintWriter(socket.getOutputStream());
         } catch (IOException e) {Server.LOGGER.log(Level.SEVERE,"Error while creating the Socket Connection.\n"+ e.getMessage());}
 
         socketListener = new Thread(this);
@@ -57,10 +50,8 @@ public class SocketConnection implements Runnable{
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                synchronized (inLock) {
-                    String msg = in.readLine();
-                    if(msg!=null) socketServer.onMessage(this,msg);
-                }
+                String msg = in.readLine();
+                if(msg!=null) socketServer.onMessage(this,msg);
                 //Lettura messaggi in entrata dal client, login e messaggi
             } catch (IOException e) { Server.LOGGER.log(Level.SEVERE,"Error while reading.\n"+ e.getMessage());}
         }
@@ -71,10 +62,8 @@ public class SocketConnection implements Runnable{
      */
     public void send(String json) {
         if (isConnected) {
-            synchronized (outLock) {
-                out.println(json);
-                out.flush();
-            }
+            out.println(json);
+            out.flush();
         }
     }
 

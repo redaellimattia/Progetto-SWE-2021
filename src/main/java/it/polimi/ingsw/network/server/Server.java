@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class Server implements Runnable{
-    private final Object clientsLock = new Object();
     private static final int DEFAULT_SOCKET_PORT = 1337;
     private int socketPort;
 
@@ -39,9 +38,7 @@ public class Server implements Runnable{
         this.socketPort = socketPort;
         this.gameLobby = new GameLobby();
 
-        synchronized (clientsLock) {
-            this.clients = new HashMap<>();
-        }
+        this.clients = new HashMap<>();
 
         startServer();
 
@@ -140,12 +137,10 @@ public class Server implements Runnable{
     @Override
     public void run(){
         while (!Thread.currentThread().isInterrupted()) {
-            synchronized (clientsLock) {
                 for(Map.Entry<String, SocketConnection> c: clients.entrySet())
                     if (c.getValue() == null || !c.getValue().isConnected()){
                         //Resilienza Disconnessioni
                     }
-            }
         }
     }
 
