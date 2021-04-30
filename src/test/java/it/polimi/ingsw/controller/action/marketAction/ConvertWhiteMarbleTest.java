@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
+import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.CardColour;
@@ -31,7 +32,7 @@ class ConvertWhiteMarbleTest {
     }
 
     @Test
-    void convertAndInsert() {
+    void convertAndInsert() throws CounterTopOverloadException {
         boolean ok;
         PlayerDashboard testPlayer = buildPlayerDashboard(0, 2, 3);
         LeaderCard leaderTest = testPlayer.getLeaderCards().get(0);
@@ -43,7 +44,7 @@ class ConvertWhiteMarbleTest {
     }
 
     @Test
-    void leaderCardNotOwned() {
+    void leaderCardNotOwned() throws CounterTopOverloadException {
         boolean ok;
         PlayerDashboard testPlayer = buildPlayerDashboard(0, 2, 3);
         LeaderCard leaderTest = new LeaderCard(3, new CardLevelRequirement(CardColour.YELLOW, 2), new WhiteChangeAbility(Resource.COIN));
@@ -55,7 +56,7 @@ class ConvertWhiteMarbleTest {
     }
 
     @Test
-    void marbleNotWhite() {
+    void marbleNotWhite() throws CounterTopOverloadException {
         boolean ok;
         PlayerDashboard testPlayer = buildPlayerDashboard(0, 2, 3);
         LeaderCard leaderTest = testPlayer.getLeaderCards().get(0);
@@ -65,7 +66,7 @@ class ConvertWhiteMarbleTest {
     }
 
     @Test
-    void leaderCardOfAnotherType() {
+    void leaderCardOfAnotherType() throws CounterTopOverloadException {
         boolean ok;
         PlayerDashboard testPlayer = buildPlayerDashboard(0, 2, 3);
         LeaderCard leaderTest = testPlayer.getLeaderCards().get(1);

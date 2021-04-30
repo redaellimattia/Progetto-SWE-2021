@@ -32,7 +32,7 @@ public class ConvertWhiteMarble implements AtomicMarketAction {
      *         false if the action was illegal
      */
     @Override
-    public boolean useAction(MarketMarble marble, PlayerDashboard player) {
+    public boolean useAction(MarketMarble marble, PlayerDashboard player) throws CounterTopOverloadException {
         if(marble.getColour() != MarbleColour.WHITE) {
             return false; // User cannot convert a marble that isn't white
         }

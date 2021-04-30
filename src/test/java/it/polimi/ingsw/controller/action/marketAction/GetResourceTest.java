@@ -1,5 +1,7 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
+import it.polimi.ingsw.exceptions.CounterTopOverloadException;
+import it.polimi.ingsw.exceptions.action.WrongMarbleException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
@@ -24,7 +26,7 @@ class GetResourceTest {
     }
 
     @Test
-    void addResourceToFirstRow() {
+    void addResourceToFirstRow() throws CounterTopOverloadException {
         boolean ok;
         GetResource test = new GetResource(1);
         ok = test.useAction(new MarketMarble(MarbleColour.PURPLE), buildPlayerDashboard(0, 2, 2));
@@ -32,7 +34,7 @@ class GetResourceTest {
     }
 
     @Test
-    void addResourceToSecondRow() {
+    void addResourceToSecondRow() throws CounterTopOverloadException {
         boolean ok;
         GetResource test = new GetResource(2);
         ok = test.useAction(new MarketMarble(MarbleColour.GREY), buildPlayerDashboard(1, 1, 3));
@@ -41,12 +43,9 @@ class GetResourceTest {
 
     @Test
     void IllegalGet() {
-        boolean ok;
-        GetResource test = new GetResource(2);
-        ok = test.useAction(new MarketMarble(MarbleColour.RED), buildPlayerDashboard(1, 0, 3));
-        assertFalse(ok);
-        test = new GetResource(3);
-        ok = test.useAction(new MarketMarble(MarbleColour.WHITE), buildPlayerDashboard(1, 1, 0));
-        assertFalse(ok);
+        GetResource test1 = new GetResource(2);
+        assertThrows(WrongMarbleException.class, () -> test1.useAction(new MarketMarble(MarbleColour.RED), buildPlayerDashboard(1, 0, 3)));
+        GetResource test2 = new GetResource(3);
+        assertThrows(WrongMarbleException.class, () -> test2.useAction(new MarketMarble(MarbleColour.WHITE), buildPlayerDashboard(1, 1, 0)));
     }
 }

@@ -1,6 +1,8 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
 import it.polimi.ingsw.exceptions.CounterTopOverloadException;
+import it.polimi.ingsw.exceptions.action.NoAdditionalDepositException;
+import it.polimi.ingsw.exceptions.action.WrongCounterTopException;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.enumeration.Resource;
 
@@ -17,7 +19,7 @@ public class StoreResource {
      *         false if the action was illegal
      */
     // Store a resource from GetResource or ConvertWhiteMarble
-    static boolean storeResource(PlayerDashboard player, Resource resource, int storageRow) {
+    static boolean storeResource(PlayerDashboard player, Resource resource, int storageRow) throws CounterTopOverloadException {
         switch(storageRow) {
             case 1:
                 if(player.getStorage().getFirstRow().getContent() == 0) {
@@ -25,10 +27,10 @@ public class StoreResource {
                     player.getStorage().getFirstRow().setResourceType(resource);
                 }
                 if(player.getStorage().getFirstRow().getResourceType() != resource) {
-                    return false; // User cannot add a resource of a different type
+                    throw new WrongCounterTopException(resource); // User cannot add a resource of a different type
                 }
                 if(player.getStorage().getFirstRow().getContent() > 0) {
-                    return false; // User cannot add a resource into a full counterTop
+                    throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
                 }
                 player.getStorage().addToFirstRow(1); return true;
             case 2:
@@ -37,10 +39,10 @@ public class StoreResource {
                     player.getStorage().getSecondRow().setResourceType(resource);
                 }
                 if(player.getStorage().getSecondRow().getResourceType() != resource) {
-                    return false; // User cannot add a resource of a different type
+                    throw new WrongCounterTopException(resource); // User cannot add a resource of a different type
                 }
                 if(player.getStorage().getSecondRow().getContent() > 1) {
-                    return false; // User cannot add a resource into a full counterTop
+                    throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
                 }
                 player.getStorage().addToSecondRow(1); return true;
             case 3:
@@ -49,10 +51,10 @@ public class StoreResource {
                     player.getStorage().getThirdRow().setResourceType(resource);
                 }
                 if(player.getStorage().getThirdRow().getResourceType() != resource) {
-                    return false; // User cannot add a resource of a different type
+                    throw new WrongCounterTopException(resource); // User cannot add a resource of a different type
                 }
                 if(player.getStorage().getThirdRow().getContent() > 2) {
-                    return false; // User cannot add a resource into a full counterTop
+                    throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
                 }
                 player.getStorage().addToThirdRow(1); return true;
             case 4:
@@ -61,10 +63,10 @@ public class StoreResource {
                     return true;
                 }
                 catch (CounterTopOverloadException e) {
-                    return false; // User cannot add a resource in an additional deposit if it is full or not present
+                    throw new NoAdditionalDepositException(resource); // User cannot add a resource in an additional deposit if it is full or not present
                 }
             default:
-                return false;
+                throw new IllegalArgumentException();
         }
     }
 }
