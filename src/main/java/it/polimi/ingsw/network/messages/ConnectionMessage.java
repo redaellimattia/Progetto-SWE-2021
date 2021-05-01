@@ -11,4 +11,6 @@ public class ConnectionMessage extends Message{
     public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
+
+
 }

@@ -25,7 +25,7 @@ public class SocketConnection implements Runnable{
 
     /**
      *
-     * @param socketServer ServerSocket Object Server-Side
+     * @param socketServer ServerSocket Object ServerThread-Side
      * @param socket Socket Object Client-Side
      */
     public SocketConnection(SocketServer socketServer, Socket socket) {
@@ -37,7 +37,8 @@ public class SocketConnection implements Runnable{
         try {
             this.in = new BufferedReader (new InputStreamReader(socket.getInputStream()));
             this.out = new PrintWriter(socket.getOutputStream());
-        } catch (IOException e) {Server.LOGGER.log(Level.SEVERE,"Error while creating the Socket Connection.\n"+ e.getMessage());}
+        } catch (IOException e) {
+            Server.LOGGER.log(Level.SEVERE,"Error while creating the Socket Connection.\n"+ e.getMessage());}
 
         socketListener = new Thread(this);
         socketListener.start();
@@ -75,7 +76,8 @@ public class SocketConnection implements Runnable{
             try {
                 if (!socket.isClosed())
                     socket.close();
-            } catch (IOException e) {Server.LOGGER.log(Level.SEVERE,"Error while closing the Socket Connection\n"+ e.getMessage());}
+            } catch (IOException e) {
+                Server.LOGGER.log(Level.SEVERE,"Error while closing the Socket Connection\n"+ e.getMessage());}
 
             socketListener.interrupt(); // Interrupts the thread
             isConnected = false;

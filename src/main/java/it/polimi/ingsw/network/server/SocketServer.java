@@ -16,23 +16,24 @@ public class SocketServer extends Thread{
      * @param server Server Object
      * @param port port listening
      */
-    public SocketServer(Server server,int port){
+    public SocketServer(Server server, int port){
         this.server = server;
         this.port = port;
     }
 
     /**
-     * Starting the Socket Server-Side
+     * Starting the Socket ServerThread-Side
      */
     void startSocketServer(){
         try {
             serverSocket = new ServerSocket(port);
             start();
-        } catch (IOException e) {Server.LOGGER.log(Level.SEVERE,"Error while creating ServerSocket\n"+ e.getMessage());}
+        } catch (IOException e) {
+            Server.LOGGER.log(Level.SEVERE,"Error while creating ServerSocket\n"+ e.getMessage());}
     }
 
     /**
-     * Running the Server
+     * Running the ServerThread
      */
     @Override
     public void run() {
@@ -40,17 +41,18 @@ public class SocketServer extends Thread{
             try {
                 Socket client = serverSocket.accept();
                 new SocketConnection(this, client);
-                Server.LOGGER.log(Level.INFO,"Client Trying to connect..");
-            } catch (IOException e) {Server.LOGGER.log(Level.SEVERE,"Error while accepting client.\n"+ e.getMessage());}
+                Server.LOGGER.log(Level.INFO,"Client Trying to connect...");
+            } catch (IOException e) {
+                Server.LOGGER.log(Level.SEVERE,"Error while accepting client.\n"+ e.getMessage());}
         }
     }
 
     /**
      *
-     * @param clientConnection client that is disconnected, passing it to the Server
+     * @param clientConnection client that is disconnected, passing it to the ServerThread
      */
     public void onDisconnect(SocketConnection clientConnection) {
-        server.onDisconnect(clientConnection);
+        //server.onDisconnect(clientConnection);
     }
 
     /**

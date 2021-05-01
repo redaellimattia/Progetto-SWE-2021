@@ -1,7 +1,5 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.controller.GameLobby;
-import it.polimi.ingsw.network.messages.ConnectionMessage;
 import it.polimi.ingsw.network.messages.Message;
 
 import java.io.IOException;
@@ -16,86 +14,40 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
-public class Server implements Runnable{
+public class Server {
     private static final int DEFAULT_SOCKET_PORT = 1337;
     private final int socketPort;
 
-    private Map<String, SocketConnection> clients;
+    protected static final Logger LOGGER = Logger.getLogger("ServerThread");
 
-    private GameLobby gameLobby;
+    private Map<Long, ServerThread> serverThreads;
 
-    private Thread serverThread;
-
-    protected static final Logger LOGGER = Logger.getLogger("Server");
-
-    /**
-     *
-     * @param socketPort port chosen while launching the server
-     */
     private Server(int socketPort){
         initLogger();
 
         this.socketPort = socketPort;
-        this.gameLobby = new GameLobby();
 
-        this.clients = new HashMap<>();
+        this.serverThreads = new HashMap<>();
+        LOGGER.log(Level.INFO, "Server running.");
 
         startServer();
-
-        LOGGER.log(Level.INFO, "Game lobby created.");
-
-        serverThread = new Thread(this);
-        LOGGER.log(Level.INFO, "Server Thread created.");
+        ServerThread serverThread = new ServerThread();
+        serverThreads.put(serverThread.getThreadId(),serverThread);
+        LOGGER.log(Level.INFO, "ServerThread created, waiting for clients.");
     }
-
-    //Parameter -p socketPort
     public static void main(String[] args){
         int socketPort = DEFAULT_SOCKET_PORT;
         if(args.length > 0 && args.length < 3) { //1 Parameter
             int i=0;
             while (i < args.length) {
                 if (args[i].charAt(0) == '-' && args[i].length() == 2) {
-                    switch (args[i].charAt(1)) {
-                        case 'p':
-                            socketPort = Integer.parseInt(args[++i]);
-                            break;
-                        default:
-                            break;
-                    }
+                    if (args[i].charAt(1)=='p')
+                        socketPort = Integer.parseInt(args[++i]);
                 }
                 i++;
             }
         }
         new Server(socketPort);
-    }
-
-    /**
-     * Create LOGGER
-     */
-    private void initLogger() {
-        Date date = GregorianCalendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM_HH.mm.ss");
-
-        try {
-            FileHandler fh = new FileHandler("utilities/server_log/server-" + dateFormat.format(date) + ".log");
-            fh.setFormatter(new SimpleFormatter());
-
-            LOGGER.addHandler(fh);
-        } catch (IOException e) { LOGGER.severe(e.getMessage()); }
-    }
-
-    private void knownPlayerLogin(){
-
-    }
-    private void newPlayerLogin(){
-
-    }
-    private void playerLogin(ConnectionMessage msg){
-        /*if(msg.getNickname().wasPlaying()){
-            knownPlayerLogin();
-        }
-        else
-            newPlayerLogin();*/
     }
 
     /**
@@ -105,43 +57,28 @@ public class Server implements Runnable{
      */
     public void onMessage(SocketConnection sockConnection,String msg){
         Message deserializedMessage = Message.onMessage(msg);
-        switch(deserializedMessage.getClass().getSimpleName()){
-            case "ConnectionMessage": playerLogin((ConnectionMessage) deserializedMessage);
-                break;
-            case "DisconnectionMessage": //resilienzaDisconnessioni
-                break;
-            case "ActionMessage":   //createAction()
-                break;
-            default: break;
-        }
+        //deserializedMessage.useMessage(sockConnection);
     }
 
     /**
-     *
-     * @param sockConnection Client that is disconnecting
-     */
-    public void onDisconnect(SocketConnection sockConnection){
-        //Gestito per resilienza
-    }
-
-    /**
-     * Launch Socket Server
+     * Launch Socket Server Thread
      */
     private void startServer() {
         SocketServer serverSocket = new SocketServer(this, socketPort);
         serverSocket.startSocketServer();
 
-        LOGGER.info("Socket Server listening on port: "+socketPort);
+        LOGGER.info("Socket ServerThread listening on port: "+socketPort);
     }
 
-    @Override
-    public void run(){
-        while (!Thread.currentThread().isInterrupted()) {
-                for(Map.Entry<String, SocketConnection> c: clients.entrySet())
-                    if (c.getValue() == null || !c.getValue().isConnected()){
-                        //Resilienza Disconnessioni
-                    }
-        }
-    }
+    private void initLogger() {
+        Date date = GregorianCalendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM_HH.mm.ss");
 
+        try {
+            FileHandler fh = new FileHandler("utilities/server_log/serverThread-" +Thread.currentThread().getId()+ "-date-" + dateFormat.format(date) + ".log");
+            fh.setFormatter(new SimpleFormatter());
+
+            LOGGER.addHandler(fh);
+        } catch (IOException e) { LOGGER.severe(e.getMessage()); }
+    }
 }

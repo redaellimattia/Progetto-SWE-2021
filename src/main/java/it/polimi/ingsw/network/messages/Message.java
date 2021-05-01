@@ -30,4 +30,5 @@ public abstract class Message {
     public String sendBack(){
         return gson.toJson(this);
     }
+
 }
