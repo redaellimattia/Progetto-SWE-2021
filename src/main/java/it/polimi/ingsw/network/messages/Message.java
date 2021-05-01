@@ -15,6 +15,7 @@ public abstract class Message {
 
     static GsonBuilder builder = new GsonBuilder();
     static Gson gson = builder.create();
+    private MessageType type;
     private String nickname;
     private long serverThreadID;
 
@@ -26,14 +27,21 @@ public abstract class Message {
         return nickname;
     }
 
+    public Message(MessageType type, String nickname, long serverThreadID) {
+        this.type = type;
+        this.nickname = nickname;
+        this.serverThreadID = serverThreadID;
+    }
+
     /**
      *
      * @param msg message that needs to be deserialized
      * @return deserialized message
      */
     public static Message onMessage(String msg){
-        JsonObject jsonObj = gson.fromJson(msg, JsonElement.class).getAsJsonObject();
+        JsonObject jsonObj = gson.fromJson(msg,JsonElement.class).getAsJsonObject();
         String msgType = jsonObj.get("type").getAsString();
+
         if(msgType == null)
             throw new IllegalArgumentException("No type of message was received;");
 

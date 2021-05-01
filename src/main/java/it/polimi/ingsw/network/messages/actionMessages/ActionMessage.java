@@ -6,14 +6,20 @@ import com.google.gson.JsonObject;
 import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.network.enumeration.ActionType;
+import it.polimi.ingsw.network.enumeration.MessageType;
 import it.polimi.ingsw.network.messages.Message;
 import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public abstract class ActionMessage extends Message {
-    private String content;
     static GsonBuilder builder = new GsonBuilder();
     static Gson gson = builder.create();
+    private ActionType actionType;
+
+    public ActionMessage(MessageType type, String nickname, long serverThreadID, ActionType actionType) {
+        super(type, nickname, serverThreadID);
+        this.actionType = actionType;
+    }
 
     public static ActionMessage deserializeAction(JsonObject jsonObj) { // /"actionType"/: CARDSHOP
         String actionType = jsonObj.get("actionType").getAsString();
