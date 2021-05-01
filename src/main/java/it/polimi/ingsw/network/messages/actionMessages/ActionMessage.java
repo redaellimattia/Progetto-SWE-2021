@@ -3,8 +3,11 @@ package it.polimi.ingsw.network.messages.actionMessages;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import it.polimi.ingsw.controller.PlayerTurnManager;
+import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.network.enumeration.ActionType;
 import it.polimi.ingsw.network.messages.Message;
+import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public abstract class ActionMessage extends Message {
@@ -45,5 +48,18 @@ public abstract class ActionMessage extends Message {
     }
 
     @Override
-    public void useMessage(SocketConnection socketConnection, Message message){}
+    public void useMessage(SocketConnection socketConnection){}
+
+    /**
+     *  call the turnManager to set and use the action;
+     *
+     * @param action the action that needs to be done
+     * @param socketConnection the connection from which the message has arrived
+     */
+    public void useAction(Action action, SocketConnection socketConnection){
+        ServerThread serverThread = getServerThread(socketConnection);
+        PlayerTurnManager turnManager = serverThread.getGameLobby().getGameManager().getTurnManager();
+        turnManager.setAction(action);
+        turnManager.useAction();
+    }
 }

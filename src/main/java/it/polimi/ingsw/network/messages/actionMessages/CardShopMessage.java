@@ -1,12 +1,8 @@
 package it.polimi.ingsw.network.messages.actionMessages;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import it.polimi.ingsw.controller.action.CardShopAction;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.Shop;
-import it.polimi.ingsw.network.messages.Message;
-import it.polimi.ingsw.network.messages.actionMessages.ActionMessage;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public class CardShopMessage extends ActionMessage {
@@ -19,9 +15,9 @@ public class CardShopMessage extends ActionMessage {
     private ResourceCount chestCount;
 
     @Override
-    public void useMessage(SocketConnection socketConnection, Message message){
+    public void useMessage(SocketConnection socketConnection){
 
         CardShopAction action = new CardShopAction(shop,row,column,deckPosition,storageCount,chestCount);
-        //action.useAction(socketConnection.getPlayer());
+        useAction(action,socketConnection);
     }
 }

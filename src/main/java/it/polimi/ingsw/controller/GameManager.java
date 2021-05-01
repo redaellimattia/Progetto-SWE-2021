@@ -31,6 +31,10 @@ public class GameManager {
         return game;
     }
 
+    public PlayerTurnManager getTurnManager() {
+        return turnManager;
+    }
+
     public void setGameMustEnd() {
         this.gameMustEnd = true;
     }

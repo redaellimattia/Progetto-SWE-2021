@@ -20,6 +20,9 @@ public class PlayerTurnManager {
         this.action = action;
     }
 
+    public void useAction(){
+        action.useAction(player);
+    }
     public void onUpdate() {
 
     }

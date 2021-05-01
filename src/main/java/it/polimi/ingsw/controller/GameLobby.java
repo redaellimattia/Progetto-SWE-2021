@@ -8,7 +8,9 @@ public class GameLobby {
 
 
     private ArrayList<String> players;
-    private ArrayList<GameManager> games;
+
+
+    private GameManager gameManager;
 
     public void addPlayer(String nickname) {
         this.players.add(nickname);
@@ -24,6 +26,10 @@ public class GameLobby {
                 return false;
         }
         return true;
+    }
+
+    public GameManager getGameManager() {
+        return gameManager;
     }
 
     public void createGameManager(boolean singlePlayer) {

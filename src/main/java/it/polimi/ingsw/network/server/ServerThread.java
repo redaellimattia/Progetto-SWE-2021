@@ -15,7 +15,6 @@ public class ServerThread implements Runnable{
 
     private Thread serverThread;
 
-
     protected ServerThread(){
 
         this.gameLobby = new GameLobby();
@@ -27,6 +26,9 @@ public class ServerThread implements Runnable{
         Server.LOGGER.log(Level.INFO, "Server: "+Thread.currentThread().getId()+" Game lobby created.");
     }
 
+    public GameLobby getGameLobby() {
+        return gameLobby;
+    }
 
     private void knownPlayerLogin(){
 

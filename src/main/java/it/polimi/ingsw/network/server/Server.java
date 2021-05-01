@@ -20,7 +20,7 @@ public class Server {
 
     protected static final Logger LOGGER = Logger.getLogger("ServerThread");
 
-    private Map<Long, ServerThread> serverThreads;
+    public static Map<Long, ServerThread> serverThreads;
 
     private Server(int socketPort){
         initLogger();
@@ -57,7 +57,7 @@ public class Server {
      */
     public void onMessage(SocketConnection sockConnection,String msg){
         Message deserializedMessage = Message.onMessage(msg);
-        //useMessage(sockConnection, deserializedMessage);
+        //useMessage(sockConnection);
     }
 
     /**
