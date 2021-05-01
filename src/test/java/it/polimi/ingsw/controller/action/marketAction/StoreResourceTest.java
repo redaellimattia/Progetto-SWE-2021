@@ -1,5 +1,8 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
+import it.polimi.ingsw.exceptions.CounterTopOverloadException;
+import it.polimi.ingsw.exceptions.action.NoAdditionalDepositException;
+import it.polimi.ingsw.exceptions.action.WrongCounterTopException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -23,7 +26,7 @@ class StoreResourceTest {
     }
 
     @Test
-    void storeInFirstRow() {
+    void storeInFirstRow() throws CounterTopOverloadException {
         boolean ok;
         PlayerDashboard testPlayer = buildPlayerDashboard(0, 2, 3);
         ok = StoreResource.storeResource(testPlayer, Resource.SHIELD, 1);
@@ -33,7 +36,7 @@ class StoreResourceTest {
     }
 
     @Test
-    void storeInSecondRow() {
+    void storeInSecondRow() throws CounterTopOverloadException {
         boolean ok;
         PlayerDashboard testPlayer = buildPlayerDashboard(1, 1, 3);
         ok = StoreResource.storeResource(testPlayer, Resource.ROCK, 2);
@@ -44,25 +47,19 @@ class StoreResourceTest {
 
     @Test
     void addInFullRow() {
-        boolean ok;
         PlayerDashboard testPlayer = buildPlayerDashboard(1, 2, 3);
-        ok = StoreResource.storeResource(testPlayer, Resource.SHIELD, 1);
-        assertFalse(ok);
+        assertThrows(CounterTopOverloadException.class, () -> StoreResource.storeResource(testPlayer, Resource.COIN, 1));
     }
 
     @Test
     void illegalStore() {
-        boolean ok;
         PlayerDashboard testPlayer = buildPlayerDashboard(1, 1, 3);
-        ok = StoreResource.storeResource(testPlayer, Resource.SHIELD, 2);
-        assertFalse(ok);
+        assertThrows(WrongCounterTopException.class, () -> StoreResource.storeResource(testPlayer, Resource.SHIELD, 2));
     }
 
     @Test
     void depositNotPresent() {
-        boolean ok;
         PlayerDashboard testPlayer = buildPlayerDashboard(1, 1, 3);
-        ok = StoreResource.storeResource(testPlayer, Resource.SHIELD, 4);
-        assertFalse(ok);
+        assertThrows(NoAdditionalDepositException.class, () -> StoreResource.storeResource(testPlayer, Resource.SHIELD, 4));
     }
 }

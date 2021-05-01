@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller.action.marketAction;
 import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.controller.action.Action;
+import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.exceptions.action.IllegalMarketPositionException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
@@ -64,7 +65,11 @@ public class MarketAction extends Action {
                 player.updatePathPosition();
                 gameManager.checkFaithPath(player);
             } else {
-                ok = choices.get(j).useAction(marble, player);
+                try {
+                    ok = choices.get(j).useAction(marble, player);
+                } catch (CounterTopOverloadException e) {
+                    return false;
+                }
                 if (!ok) return false;
                 j++;
             }

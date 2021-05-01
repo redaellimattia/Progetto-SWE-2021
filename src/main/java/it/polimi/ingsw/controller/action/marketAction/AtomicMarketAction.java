@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
+import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.model.PlayerDashboard;
 
@@ -12,5 +13,5 @@ public interface AtomicMarketAction {
      * @return true if ended correctly
      *         false if the action was illegal
      */
-    boolean useAction(MarketMarble marble, PlayerDashboard player);
+    boolean useAction(MarketMarble marble, PlayerDashboard player) throws CounterTopOverloadException;
 }

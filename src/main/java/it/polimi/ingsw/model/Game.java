@@ -25,13 +25,6 @@ public class Game {
         return player.equals(players.get(players.size() - 1));
     }
 
-    public void startGame(){
-
-    }
-
-    public void endGame(){
-
-    }
 
     public void setLorenzoWin(){
         this.lorenzoWin = true;
