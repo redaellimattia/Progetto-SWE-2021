@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.messages;
 
 import com.google.gson.*;
 import it.polimi.ingsw.network.enumeration.MessageType;
+import it.polimi.ingsw.network.messages.actionMessages.ActionMessage;
 
 public abstract class Message {
 
