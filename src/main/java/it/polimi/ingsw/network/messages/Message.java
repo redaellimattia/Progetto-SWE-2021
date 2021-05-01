@@ -1,8 +1,10 @@
 package it.polimi.ingsw.network.messages;
 
 import com.google.gson.*;
+import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.network.enumeration.MessageType;
 import it.polimi.ingsw.network.messages.actionMessages.ActionMessage;
+import it.polimi.ingsw.network.server.SocketConnection;
 
 public abstract class Message {
 
@@ -27,7 +29,7 @@ public abstract class Message {
                 throw new IllegalArgumentException("MessageType not valid;");
         }
     }
-
+    public void useMessage(SocketConnection socketConnection, Message message){};
     public String sendBack(){
         return gson.toJson(this);
     }

@@ -57,7 +57,7 @@ public class Server {
      */
     public void onMessage(SocketConnection sockConnection,String msg){
         Message deserializedMessage = Message.onMessage(msg);
-        //deserializedMessage.useMessage(sockConnection);
+        //useMessage(sockConnection, deserializedMessage);
     }
 
     /**

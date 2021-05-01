@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import it.polimi.ingsw.network.enumeration.ActionType;
 import it.polimi.ingsw.network.messages.Message;
+import it.polimi.ingsw.network.server.SocketConnection;
 
 public abstract class ActionMessage extends Message {
     private String content;
@@ -18,12 +19,31 @@ public abstract class ActionMessage extends Message {
         ActionType type = ActionType.valueOf(actionType);
 
         switch(type){
+            case BASICPRODUCTION:
+                return gson.fromJson(jsonObj, BasicProductionMessage.class);
             case CARDSHOP:
                 return gson.fromJson(jsonObj, CardShopMessage.class);
+            case DEVCARDPRODUCTION:
+                return gson.fromJson(jsonObj, DevCardProductionMessage.class);
+            case DISCARDLEADER:
+                return gson.fromJson(jsonObj, DiscardLeaderMessage.class);
+            case LEADERPRODUCTION:
+                return gson.fromJson(jsonObj, LeaderProductionMessage.class);
+            case MARKETACTION:
+                return gson.fromJson(jsonObj, MarketActionMessage.class);
+            case MOVEFROMDEPOSITTOLEADER:
+                return gson.fromJson(jsonObj, MoveFromDepositToLeaderMessage.class);
+            case MOVEFROMLEADERTODEPOSIT:
+                return gson.fromJson(jsonObj, MoveFromLeaderToDepositMessage.class);
+            case ORGANIZESTORAGE:
+                return gson.fromJson(jsonObj, OrganizeStorageMessage.class);
             case PLAYLEADER:
                 return gson.fromJson(jsonObj, PlayLeaderMessage.class);
             default:
                 throw new IllegalArgumentException("actionType not found");
         }
     }
+
+    @Override
+    public void useMessage(SocketConnection socketConnection, Message message){}
 }
