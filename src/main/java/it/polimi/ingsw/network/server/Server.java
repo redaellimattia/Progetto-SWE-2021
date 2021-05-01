@@ -75,7 +75,7 @@ public class Server {
         DateFormat dateFormat = new SimpleDateFormat("dd-MM_HH.mm.ss");
 
         try {
-            FileHandler fh = new FileHandler("utilities/server_log/serverThread-" +Thread.currentThread().getId()+ "-date-" + dateFormat.format(date) + ".log");
+            FileHandler fh = new FileHandler("utilities/server_log/server-" + dateFormat.format(date) + ".log");
             fh.setFormatter(new SimpleFormatter());
 
             LOGGER.addHandler(fh);
