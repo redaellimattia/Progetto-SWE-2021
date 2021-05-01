@@ -56,7 +56,7 @@ public class GameManager {
      */
     public void updateOpponentsPathPosition(PlayerDashboard player) {
         for(PlayerDashboard i: game.getPlayers()) {
-            if(!i.getNickName().equals(player.getNickName())) {
+            if(!i.getNickname().equals(player.getNickname())) {
                 i.updatePathPosition();
                 checkFaithPath(i);
             }
@@ -144,5 +144,29 @@ public class GameManager {
                         this.turnManager = new PlayerTurnManager(nextPlayer);
                 }
             }
+    }
+
+    /**
+     *
+     * @param nickName nickName of the player that is trying to reconnect
+     * @return true if this player was in Game
+     */
+    public int wasPlaying(String nickName){
+        ArrayList<PlayerDashboard> players = game.getPlayers();
+        for(int i=0;i<players.size();i++) {
+            PlayerDashboard p = players.get(i);
+            if (p.getNickname().equals(nickName) && !p.isPlaying())
+                return i;
+        }
+        return -1;
+    }
+
+    /**
+     *
+     * @param playerPosition position of the player in the arraylist
+     * @param nickname nickname of the player
+     */
+    public void playerComeback(int playerPosition,String nickname){
+        game.getPlayers().get(playerPosition).setPlaying(true);
     }
 }

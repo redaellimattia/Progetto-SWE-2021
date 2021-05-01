@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.GameLobby;
+import it.polimi.ingsw.exceptions.network.nicknameAlreadyUsedException;
 import it.polimi.ingsw.network.messages.ConnectionMessage;
 
 import java.util.HashMap;
@@ -36,20 +37,42 @@ public class ServerThread extends Thread{
         return gameLobby;
     }
 
-    public void knownPlayerLogin(){
-
+    /**
+     *
+     * @param playerPosition position of the player in the arraylist of players in game
+     * @param nickname player nickname
+     * @param clientConnection socketConnection of the client
+     */
+    public void knownPlayerLogin(int playerPosition,String nickname,SocketConnection clientConnection){
+        gameLobby.getGameManager().playerComeback(playerPosition,nickname);
+        clients.put(nickname,clientConnection);
     }
 
-    public void newPlayerLogin(){
-
-    }
-
-    public void playerLogin(ConnectionMessage msg){
-        /*if(msg.getNickname().wasPlaying()){
-            knownPlayerLogin();
+    /**
+     *
+     * @param nickname nickname chosen by the client
+     * @param clientConnection socketConnection of the client
+     */
+    public void newPlayerLogin(String nickname,SocketConnection clientConnection){
+        //QUANTI PLAYER NELLA LOBBY?
+        if(gameLobby.checkNickname(nickname)) {
+            gameLobby.addPlayer(nickname);
+            clients.put(nickname, clientConnection);
         }
         else
-            newPlayerLogin();*/
+            throw new nicknameAlreadyUsedException(nickname);
+    }
+
+    /**
+     *
+     * @param msg ConnectionMessage received from the client
+     */
+    public void playerLogin(ConnectionMessage msg,SocketConnection clientConnection){
+        int playerPosition = gameLobby.getGameManager().wasPlaying(msg.getNickname());
+        if(playerPosition!=-1)
+            knownPlayerLogin(playerPosition,msg.getNickname(),clientConnection);
+        else
+            newPlayerLogin(msg.getNickname(),clientConnection);
     }
 
 
