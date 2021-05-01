@@ -4,7 +4,7 @@ import it.polimi.ingsw.network.enumeration.ActionType;
 import it.polimi.ingsw.network.enumeration.MessageType;
 
 public class DiscardLeaderMessage extends ActionMessage{
-    public DiscardLeaderMessage(MessageType type, String nickname, long serverThreadID, ActionType actionType) {
+    /*public DiscardLeaderMessage(MessageType type, String nickname, long serverThreadID, ActionType actionType) {
         super(type, nickname, serverThreadID, actionType);
-    }
+    }*/
 }

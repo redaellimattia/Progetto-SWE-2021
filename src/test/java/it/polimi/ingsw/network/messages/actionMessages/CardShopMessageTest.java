@@ -14,41 +14,32 @@ class CardShopMessageTest {
 
     @Test
     void useMessage() {
-       /* String JSON_DATA =
-                "{"
-                        + "  \"message\": ["
-                        + "    {"
-                        + "      \"serverThreadID\": \"0\","
-                        + "      \"nickname\": \"prova\","
-                        + "      \"type\" : \"ACTION\","
-                        + "      \"actionType\" : \"CARDSHOP\","
-                        + "      \"row\" : \"1\","
-                        + "      \"column\" : \"2\","
-                        + "      \"deckPosition\" : \"1\","
-                        + "      \"storageCount\" : ["
-                        + "         {"
-                        + "      \"coins\": \"1\","
-                        + "      \"rocks\": \"2\","
-                        + "      \"servants\": \"3\","
-                        + "      \"shields\": \"4\","
-                        + "      \"faith\": \"5\""
-                        + "     }"
-                        + " ],"
-                        + "      \"chestCount\" : ["
-                        + "         {"
-                        + "      \"coins\": \"1\","
-                        + "      \"rocks\": \"2\","
-                        + "      \"servants\": \"3\","
-                        + "      \"shields\": \"4\","
-                        + "      \"faith\": \"5\""
-                        + "     }"
-                        + " ]"
-                        + "   }" +
-                        "]"
-                        + "}";*/
-        CardShopMessage message = new CardShopMessage(MessageType.ACTION,"giann1",0, ActionType.CARDSHOP,1,1,1,new ResourceCount(1,1,1,1,0),new ResourceCount(1,1,1,1,0));
-        Gson gson = new Gson();
-        String json = gson.toJson(message);
+
+        
+        String json = "{" +
+                "    \"row\":1," +
+                "    \"column\":1," +
+                "    \"deckPosition\":1," +
+                "    \"storageCount\":{" +
+                "        \"coins\":1," +
+                "        \"rocks\":1," +
+                "        \"servants\":1," +
+                "        \"shields\":1," +
+                "        \"faith\":0" +
+                "    }," +
+                "    \"chestCount\":{" +
+                "        \"coins\":1," +
+                "        \"rocks\":1," +
+                "        \"servants\":1," +
+                "        \"shields\":1," +
+                "        \"faith\":0" +
+                "    }," +
+                "    \"actionType\":\"CARDSHOP\"," +
+                "    \"type\":\"ACTION\"," +
+                "    \"nickname\":\"giann1\"," +
+                "    \"serverThreadID\":0" +
+                "}";//= gson.toJson(message);
+        //System.out.println(json);
         ResourceCount check = new ResourceCount(1,1,1,1,0);
 
         Message deserializedMessage = Message.onMessage(json);

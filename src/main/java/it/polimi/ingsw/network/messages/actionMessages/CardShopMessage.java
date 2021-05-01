@@ -24,14 +24,14 @@ public class CardShopMessage extends ActionMessage {
         useActionMessage(action,socketConnection);
     }
 
-    public CardShopMessage(MessageType type, String nickname, long serverThreadID, ActionType actionType, int row, int column, int deckPosition, ResourceCount storageCount, ResourceCount chestCount) {
+    /*public CardShopMessage(MessageType type, String nickname, long serverThreadID, ActionType actionType, int row, int column, int deckPosition, ResourceCount storageCount, ResourceCount chestCount) {
         super(type, nickname, serverThreadID, actionType);
         this.row = row;
         this.column = column;
         this.deckPosition = deckPosition;
         this.storageCount = storageCount;
         this.chestCount = chestCount;
-    }
+    }*/
 
     public int getRow() {
         return row;

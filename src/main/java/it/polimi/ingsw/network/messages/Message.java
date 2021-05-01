@@ -15,7 +15,7 @@ public abstract class Message {
 
     static GsonBuilder builder = new GsonBuilder();
     static Gson gson = builder.create();
-    private MessageType type;
+    //private MessageType type;
     private String nickname;
     private long serverThreadID;
 
@@ -27,11 +27,11 @@ public abstract class Message {
         return nickname;
     }
 
-    public Message(MessageType type, String nickname, long serverThreadID) {
+    /*public Message(MessageType type, String nickname, long serverThreadID) {
         this.type = type;
         this.nickname = nickname;
         this.serverThreadID = serverThreadID;
-    }
+    }*/
 
     /**
      *

@@ -14,12 +14,12 @@ import it.polimi.ingsw.network.server.SocketConnection;
 public abstract class ActionMessage extends Message {
     static GsonBuilder builder = new GsonBuilder();
     static Gson gson = builder.create();
-    private ActionType actionType;
+    //private ActionType actionType;
 
-    public ActionMessage(MessageType type, String nickname, long serverThreadID, ActionType actionType) {
+    /*public ActionMessage(MessageType type, String nickname, long serverThreadID, ActionType actionType) {
         super(type, nickname, serverThreadID);
         this.actionType = actionType;
-    }
+    }*/
 
     public static ActionMessage deserializeAction(JsonObject jsonObj) { // /"actionType"/: CARDSHOP
         String actionType = jsonObj.get("actionType").getAsString();
