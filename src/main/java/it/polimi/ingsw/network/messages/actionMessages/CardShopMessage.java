@@ -18,6 +18,6 @@ public class CardShopMessage extends ActionMessage {
     public void useMessage(SocketConnection socketConnection){
 
         CardShopAction action = new CardShopAction(shop,row,column,deckPosition,storageCount,chestCount);
-        useAction(action,socketConnection);
+        useActionMessage(action,socketConnection);
     }
 }

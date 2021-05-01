@@ -42,6 +42,8 @@ public abstract class ActionMessage extends Message {
                 return gson.fromJson(jsonObj, OrganizeStorageMessage.class);
             case PLAYLEADER:
                 return gson.fromJson(jsonObj, PlayLeaderMessage.class);
+            case END:
+                return gson.fromJson(jsonObj,EndMessage.class);
             default:
                 throw new IllegalArgumentException("actionType not found");
         }
@@ -56,7 +58,7 @@ public abstract class ActionMessage extends Message {
      * @param action the action that needs to be done
      * @param socketConnection the connection from which the message has arrived
      */
-    public void useAction(Action action, SocketConnection socketConnection){
+    public void useActionMessage(Action action, SocketConnection socketConnection){
         ServerThread serverThread = getServerThread(socketConnection);
         PlayerTurnManager turnManager = serverThread.getGameLobby().getGameManager().getTurnManager();
         turnManager.setAction(action);
