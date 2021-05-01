@@ -26,6 +26,10 @@ public class ServerThread implements Runnable{
         Server.LOGGER.log(Level.INFO, "Server: "+Thread.currentThread().getId()+" Game lobby created.");
     }
 
+    public Map<String, SocketConnection> getClients() {
+        return new HashMap<>(clients);
+    }
+
     public GameLobby getGameLobby() {
         return gameLobby;
     }
