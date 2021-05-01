@@ -2,27 +2,29 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.GameLobby;
 import it.polimi.ingsw.network.messages.ConnectionMessage;
-import it.polimi.ingsw.network.messages.Message;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
-public class ServerThread implements Runnable{
+public class ServerThread extends Thread{
 
     private Map<String, SocketConnection> clients;
 
     private GameLobby gameLobby;
 
-    private Thread serverThread;
 
+    /**
+     * Creating Game Lobby, Clients HashMap and starting the Thread
+     */
     protected ServerThread(){
 
         this.gameLobby = new GameLobby();
 
         this.clients = new HashMap<>();
 
-        serverThread = new Thread(this);
-        Server.LOGGER.log(Level.INFO, "ServerThread: "+Thread.currentThread().getId()+" Thread created.");
+        start(); //Start the thread
+        Server.LOGGER.log(Level.INFO, "ServerThread: "+Thread.currentThread().getId()+" Thread created, waiting for clients...");
         Server.LOGGER.log(Level.INFO, "Server: "+Thread.currentThread().getId()+" Game lobby created.");
     }
 
@@ -34,13 +36,15 @@ public class ServerThread implements Runnable{
         return gameLobby;
     }
 
-    private void knownPlayerLogin(){
+    public void knownPlayerLogin(){
 
     }
-    private void newPlayerLogin(){
+
+    public void newPlayerLogin(){
 
     }
-    private void playerLogin(ConnectionMessage msg){
+
+    public void playerLogin(ConnectionMessage msg){
         /*if(msg.getNickname().wasPlaying()){
             knownPlayerLogin();
         }
@@ -58,8 +62,9 @@ public class ServerThread implements Runnable{
     }
 
 
-
-
+    /**
+     * Thread pinging clients to check if they are still playing
+     */
     @Override
     public void run(){
         while (!Thread.currentThread().isInterrupted()) {

@@ -24,6 +24,7 @@ public class SocketConnection implements Runnable{
     }
 
     /**
+     * Creating socketConnection
      *
      * @param socketServer ServerSocket Object ServerThread-Side
      * @param socket Socket Object Client-Side
@@ -45,7 +46,7 @@ public class SocketConnection implements Runnable{
     }
 
     /**
-     * Running the Thread and keeping listening
+     * Running the Thread and keeping listening for messages
      */
     @Override
     public void run() {

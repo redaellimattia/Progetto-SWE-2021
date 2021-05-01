@@ -22,19 +22,28 @@ public class Server {
 
     public static Map<Long, ServerThread> serverThreads;
 
+    /**
+     *
+     * @param socketPort default socketPort or chosen when running the Server
+     */
     private Server(int socketPort){
         initLogger();
 
         this.socketPort = socketPort;
 
-        this.serverThreads = new HashMap<>();
+        serverThreads = new HashMap<>();
         LOGGER.log(Level.INFO, "Server running.");
 
         startServer();
         ServerThread serverThread = new ServerThread();
         serverThreads.put(serverThread.getThreadId(),serverThread);
-        LOGGER.log(Level.INFO, "ServerThread created, waiting for clients.");
     }
+
+    /**
+     * Reading parameters
+     *
+     * @param args args passed when launching the .jar
+     */
     public static void main(String[] args){
         int socketPort = DEFAULT_SOCKET_PORT;
         if(args.length > 0 && args.length < 3) { //1 Parameter
@@ -70,6 +79,9 @@ public class Server {
         LOGGER.info("Socket ServerThread listening on port: "+socketPort);
     }
 
+    /**
+     * Creating logger file handler
+     */
     private void initLogger() {
         Date date = GregorianCalendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM_HH.mm.ss");
