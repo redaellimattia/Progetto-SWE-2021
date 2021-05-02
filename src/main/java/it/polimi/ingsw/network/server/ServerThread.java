@@ -2,7 +2,7 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.GameLobby;
 import it.polimi.ingsw.exceptions.network.nicknameAlreadyUsedException;
-import it.polimi.ingsw.network.messages.ConnectionMessage;
+import it.polimi.ingsw.network.messages.CreateGameMessage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,15 +18,13 @@ public class ServerThread extends Thread{
     /**
      * Creating Game Lobby, Clients HashMap and starting the Thread
      */
-    protected ServerThread(){
-
-        this.gameLobby = new GameLobby();
-
+    public ServerThread(int numberOfPlayers){
         this.clients = new HashMap<>();
 
         start(); //Start the thread
         Server.LOGGER.log(Level.INFO, "ServerThread: "+Thread.currentThread().getId()+" Thread created, waiting for clients...");
-        Server.LOGGER.log(Level.INFO, "Server: "+Thread.currentThread().getId()+" Game lobby created.");
+        GameLobby gamelobby = new GameLobby(Thread.currentThread().getId(),numberOfPlayers);
+        Server.LOGGER.log(Level.INFO, "Server: "+Thread.currentThread().getId()+" Game lobby created with "+numberOfPlayers+" players.");
     }
 
     public Map<String, SocketConnection> getClients() {
@@ -54,8 +52,7 @@ public class ServerThread extends Thread{
      * @param clientConnection socketConnection of the client
      */
     public void newPlayerLogin(String nickname,SocketConnection clientConnection){
-        //QUANTI PLAYER NELLA LOBBY?
-        if(gameLobby.checkNickname(nickname)) {
+        if(Server.checkNickname(nickname)) {
             gameLobby.addPlayer(nickname);
             clients.put(nickname, clientConnection);
         }
@@ -65,9 +62,9 @@ public class ServerThread extends Thread{
 
     /**
      *
-     * @param msg ConnectionMessage received from the client
+     * @param msg CreateGameMessage received from the client
      */
-    public void playerLogin(ConnectionMessage msg,SocketConnection clientConnection){
+    public void playerLogin(CreateGameMessage msg, SocketConnection clientConnection){
         int playerPosition = gameLobby.getGameManager().wasPlaying(msg.getNickname());
         if(playerPosition!=-1)
             knownPlayerLogin(playerPosition,msg.getNickname(),clientConnection);

@@ -14,7 +14,7 @@ import java.util.Map;
 public abstract class Message {
 
     static GsonBuilder builder = new GsonBuilder();
-    static Gson gson = builder.create();
+    static Gson gson = builder.setPrettyPrinting().create();
     //private MessageType type;
     private String nickname;
     private long serverThreadID;
@@ -47,8 +47,12 @@ public abstract class Message {
 
         MessageType type = MessageType.valueOf(msgType);
         switch(type){
-            case CONNECTION:
-                return gson.fromJson(msg,ConnectionMessage.class);
+            case ASKLOBBIES:
+                return gson.fromJson(msg,AskLobbyMessage.class);
+            case CREATEGAME:
+                return gson.fromJson(msg,CreateGameMessage.class);
+            case JOINGAME:
+                return gson.fromJson(msg,JoinGameMessage.class);
             case DISCONNECTION:
                 return gson.fromJson(msg,DisconnectionMessage.class);
             case ACTION:
@@ -61,7 +65,7 @@ public abstract class Message {
     public void useMessage(SocketConnection socketConnection){};
 
     /**
-     * if exists, return the corret serverThread for that socketConnection
+     * if exists, return the correct serverThread for that socketConnection
      * @param socketConnection socket from which the message came from
      * @return the serverThread associated with that specific socketConnection
      */

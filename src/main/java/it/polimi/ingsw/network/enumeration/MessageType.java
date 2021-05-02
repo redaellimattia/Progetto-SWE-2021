@@ -1,5 +1,5 @@
 package it.polimi.ingsw.network.enumeration;
 
 public enum MessageType {
-    CONNECTION,DISCONNECTION,ACTION;
+    ASKLOBBIES,CREATEGAME,JOINGAME,DISCONNECTION,ACTION;
 }

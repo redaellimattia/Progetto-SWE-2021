@@ -1,14 +1,12 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.controller.GameLobby;
 import it.polimi.ingsw.network.messages.Message;
 
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,8 +33,6 @@ public class Server {
         LOGGER.log(Level.INFO, "Server running.");
 
         startServer();
-        ServerThread serverThread = new ServerThread();
-        serverThreads.put(serverThread.getThreadId(),serverThread);
     }
 
     /**
@@ -80,6 +76,18 @@ public class Server {
     }
 
     /**
+     *
+     * @param nickname nickname chosen by the player
+     * @return true if it's possible to add that player, nickname is unique
+     */
+    public static synchronized boolean checkNickname(String nickname){
+        boolean checkNickname = true;
+        for(Long key: serverThreads.keySet())
+            checkNickname = serverThreads.get(key).getGameLobby().checkNickname(nickname);
+        return checkNickname;
+    }
+
+    /**
      * Creating logger file handler
      */
     private void initLogger() {
@@ -93,4 +101,6 @@ public class Server {
             LOGGER.addHandler(fh);
         } catch (IOException e) { LOGGER.severe(e.getMessage()); }
     }
+
+
 }

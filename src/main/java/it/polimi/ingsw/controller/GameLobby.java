@@ -8,9 +8,15 @@ public class GameLobby {
 
 
     private ArrayList<String> players;
-
-
     private GameManager gameManager;
+    private final long serverThreadID;
+    private final int numberOfPlayers;
+
+    public GameLobby(long serverThreadID,int numberOfPlayers) {
+        this.players = new ArrayList<>();
+        this.serverThreadID = serverThreadID;
+        this.numberOfPlayers = numberOfPlayers;
+    }
 
     public void addPlayer(String nickname) {
         this.players.add(nickname);
@@ -21,10 +27,9 @@ public class GameLobby {
      * @return true if the nickname isn't used yet
      */
     public boolean checkNickname(String chosenNickname) {
-        for (String nickname: players) {
+        for (String nickname: players)
             if(chosenNickname.equals(nickname))
                 return false;
-        }
         return true;
     }
 
