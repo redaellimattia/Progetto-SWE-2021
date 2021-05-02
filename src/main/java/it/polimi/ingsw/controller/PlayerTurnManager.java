@@ -23,6 +23,11 @@ public class PlayerTurnManager {
     public void useAction(){
         action.useAction(player);
     }
+
+    public Action getAction() {
+        return action;
+    }
+
     public void onUpdate() {
 
     }

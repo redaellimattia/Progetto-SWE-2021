@@ -3,8 +3,6 @@ package it.polimi.ingsw.network.messages.actionMessages;
 import it.polimi.ingsw.controller.action.CardShopAction;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.ResourceCount;
-import it.polimi.ingsw.network.enumeration.ActionType;
-import it.polimi.ingsw.network.enumeration.MessageType;
 import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
 
