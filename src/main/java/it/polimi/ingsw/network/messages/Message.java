@@ -1,14 +1,13 @@
 package it.polimi.ingsw.network.messages;
 
 import com.google.gson.*;
-import it.polimi.ingsw.controller.GameManager;
+
 import it.polimi.ingsw.network.enumeration.MessageType;
 import it.polimi.ingsw.network.messages.actionMessages.ActionMessage;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Message {
@@ -62,6 +61,10 @@ public abstract class Message {
         }
     }
 
+    /**
+     *
+     * @param socketConnection method that will be Overrided in the sub-classes
+     */
     public void useMessage(SocketConnection socketConnection){};
 
     /**

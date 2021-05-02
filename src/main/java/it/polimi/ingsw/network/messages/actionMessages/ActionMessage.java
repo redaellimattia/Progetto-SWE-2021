@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.network.enumeration.ActionType;
-import it.polimi.ingsw.network.enumeration.MessageType;
 import it.polimi.ingsw.network.messages.Message;
 import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
@@ -21,6 +20,11 @@ public abstract class ActionMessage extends Message {
         this.actionType = actionType;
     }*/
 
+    /**
+     *
+     * @param jsonObj JsonObject passed from the AbstractMessage class
+     * @return the specific ActionMessage that need to be executed
+     */
     public static ActionMessage deserializeAction(JsonObject jsonObj) { // /"actionType"/: CARDSHOP
         String actionType = jsonObj.get("actionType").getAsString();
         if (actionType == null)
@@ -55,6 +59,10 @@ public abstract class ActionMessage extends Message {
         }
     }
 
+    /**
+     *
+     * @param socketConnection the connection from which the message has arrived
+     */
     @Override
     public void useMessage(SocketConnection socketConnection){}
 

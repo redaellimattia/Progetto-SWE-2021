@@ -4,8 +4,6 @@ import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.controller.action.productionAction.BasicProductionAction;
 import it.polimi.ingsw.model.ResourceCount;
-import it.polimi.ingsw.network.enumeration.ActionType;
-import it.polimi.ingsw.network.enumeration.MessageType;
 import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
 
@@ -15,6 +13,7 @@ public class EndMessage extends ActionMessage{
     }*/
 
     /**
+     * In case of multiple productionAction, this message is called to close the window of production and empty the ResourceBuffer of the player.
      * a little bit rusty, maybe need to be checked
      * @param socketConnection
      */

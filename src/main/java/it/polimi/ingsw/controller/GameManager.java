@@ -27,18 +27,33 @@ public class GameManager {
         this.isSinglePlayer = isSinglePlayer;
     }
 
+    /**
+     *
+     * @return the game which this object is referring
+     */
     public Game getGame() {
         return game;
     }
 
+    /**
+     *
+     * @return the actual PlayerTurnManager of this round
+     */
     public PlayerTurnManager getTurnManager() {
         return turnManager;
     }
 
+    /**
+     * set the boolean attribute gameMustEnd as true to indicate that this is the last round of the game
+     */
     public void setGameMustEnd() {
         this.gameMustEnd = true;
     }
 
+    /**
+     *  check whether the  VaticanReports need to be activated || the game must end
+     * @param player the player whom we need to check the FaithPath position
+     */
     public void checkFaithPath(PlayerDashboard player){
         if(player.getPathPosition() == 8 && !vReports[0].isUsed())
             vReports[0].activateReport(game.getPlayers());
@@ -51,7 +66,7 @@ public class GameManager {
     }
 
     /**
-     *
+     *  Add a faith point to each player when a player discard resources from the market
      * @param player the player that will be excluded from the path position update
      */
     public void updateOpponentsPathPosition(PlayerDashboard player) {
@@ -67,10 +82,10 @@ public class GameManager {
 
     }
 
-    public void createAction(Action action){
-        this.turnManager.setAction(action);
-    }
-
+    /**
+     *
+     * @param p the player we want to calculate the total points scored
+     */
     public void calculatePoints(PlayerDashboard p){
         //ADD POINT GIVEN BY DEVELOPMENTCARDS HE HAS IN GAME
         for (int i = 0; i < 3; i++) {
@@ -108,7 +123,11 @@ public class GameManager {
         total += ResourceCount.resCountToInt(p.getAbilityDepositResources());
         p.addPoints(total % 5);
     }
-    //MULTIPLAYER: SORT THE LIST OF PLAYER ON THE POINTS THEY HAVE; SOLOPLAYER: EITHER LORENZO WINS OR YOU GET YOUR TOTAL OF POINTS SCORED;
+
+    /**
+     * MULTIPLAYER: SORT THE LIST OF PLAYER ON THE POINTS THEY HAVE; SOLOPLAYER: EITHER LORENZO WINS OR YOU GET YOUR TOTAL OF POINTS SCORED;
+     */
+
     public void endGame() {
         if(!isSinglePlayer) {
             for (PlayerDashboard p : game.getPlayers()) {
@@ -125,12 +144,16 @@ public class GameManager {
         }
     }
 
+    /**
+     * upon being called, switch the PlayerTurnManager to the next player on the list of players
+     */
     public void nextRound() {
             PlayerDashboard player = this.turnManager.getPlayer();
-            //FIXARE LA CHIAMATA DI ENDGAME NEL CASO DI SINGLE PLAYER
             if (game.getShop().emptyColumn() || player.hasSevenDevCards())//If this player has 7 devCards or a shop column is empty, game must end
                 setGameMustEnd();
-            if (game.isLastPlayer(player) && gameMustEnd) //Ending Game if last player has finished his turn and gameMustEnd is true
+            //this check should work. Lorenzo is in the player list, so the passive changes are made correctly and setGameMustEnd is called correctly.
+            //In the case of single player, it doesn't matter which player is last, it will just end the game
+            if (((game.isLastPlayer(player)) || isSinglePlayer) && gameMustEnd) //Ending Game if last player has finished his turn and gameMustEnd is true
                 endGame();
             else {
                 if(isSinglePlayer) {

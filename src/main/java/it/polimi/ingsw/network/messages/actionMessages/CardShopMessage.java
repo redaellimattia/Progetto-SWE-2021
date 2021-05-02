@@ -14,6 +14,10 @@ public class CardShopMessage extends ActionMessage {
     private ResourceCount storageCount;
     private ResourceCount chestCount;
 
+    /**
+     * Create a CardShopAction and uses it.
+     * @param socketConnection the connection from which the message has arrived
+     */
     @Override
     public void useMessage(SocketConnection socketConnection){
         ServerThread serverThread = getServerThread(socketConnection);
