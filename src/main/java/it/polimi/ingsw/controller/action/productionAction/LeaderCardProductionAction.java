@@ -32,10 +32,9 @@ public class LeaderCardProductionAction extends Action {
      * RECEIVING LEADER CARD,COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
      *
      * @param player player that is doing the action
-     * @return true if ended correctly
      */
     @Override
-    public boolean useAction(PlayerDashboard player) {
+    public void useAction(PlayerDashboard player) {
 
         Resource abilityRes = card.getSpecialAbility().getResourceType();
         ResourceCount cost = new ResourceCount(0,0,0,0,0);
@@ -55,7 +54,6 @@ public class LeaderCardProductionAction extends Action {
         ResourceCount output = new ResourceCount(0,0,0,0,1); //ResourceCount with 1 Faith
         res.add(output,1);
         player.incrementBufferProduction(output);
-        return true;
     }
 
     /**

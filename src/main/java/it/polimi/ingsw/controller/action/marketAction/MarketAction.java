@@ -31,13 +31,10 @@ public class MarketAction extends Action {
     /**
      *
      * @param player the player performing the action
-     * @return true if everything is done correctly
-     *         false if the action was illegal
      */
     @Override
-    public boolean useAction(PlayerDashboard player) {
+    public void useAction(PlayerDashboard player) {
         MarketMarble[] marbles = new MarketMarble[0];
-        boolean ok = true;
 
         // Getting marbles from the market
         if (type == 0) { // A row is selected
@@ -66,19 +63,15 @@ public class MarketAction extends Action {
                 gameManager.checkFaithPath(player);
             } else {
                 try {
-                    ok = choices.get(j).useAction(marble, player);
+                    choices.get(j).useAction(marble, player);
                 } catch (CounterTopOverloadException e) {
-                    return false;
                 }
-                if (!ok) return false;
                 j++;
             }
         }
 
         // Fixing grid
         gameManager.getGame().getMarket().fixGrid(type, pos);
-
-        return true;
     }
 
 }

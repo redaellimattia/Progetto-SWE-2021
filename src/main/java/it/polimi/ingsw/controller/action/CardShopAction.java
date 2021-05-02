@@ -38,11 +38,10 @@ public class CardShopAction extends Action {
     /**
      *
      * @param player player that wants to buy the card
-     * @return true if everything is done correctly, false otherwise
      */
     //AFTER CHECKING IF THE CHOSEN POSITION ON THE BOARD CAN FIT THE CHOSEN CARD AND THE PLAYER CAN AFFORD IT, RETURN TRUE IF EVERYTHING IS DONE CORRECTLY, FALSE IF NOT
     @Override
-    public boolean useAction(PlayerDashboard player) {
+    public void useAction(PlayerDashboard player) {
 
         DevelopmentCard chosen = shop.getGrid()[row][column].getFirst();
 
@@ -60,10 +59,8 @@ public class CardShopAction extends Action {
                         l.getSpecialAbility().useDiscountAbility(chestCount);
             }
             deleteRes(storageCount,chestCount,player);
-            return true;
         }
         throw new PaymentFailedException();
-        //return false;
     }
 
     //CHECK IF THE CHOSEN POSITION FIT THE CARD CHOSEN

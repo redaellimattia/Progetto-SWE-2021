@@ -26,18 +26,16 @@ public class MoveFromDepositToLeader extends Action {
     /**
      *
      * @param player player that wanted to switch resources
-     * @return true if the action is done correctly, false otherwise
      */
     //FOR EACH CASE CHECK IF: THE SHELVES HAS ENOUGH RESOURCES TO MOVE (CONTENT >= NUMBER), THE NUMBER+ CONTENT OF ARRAY IS MAX 2 AND THAT RESOURCES ARE COMPATIBLE;
     @Override
-    public boolean useAction(PlayerDashboard player){
+    public void useAction(PlayerDashboard player){
         Storage storage = player.getStorage();
         CounterTop leaderDeposit = player.getArrayDeposit().get(to_leader);
         switch(from_deposit){
             case 1: if( storage.getFirstRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getFirstRow().getResourceType().equals(leaderDeposit.getResourceType())) {
                 leaderDeposit.addContent(number);
                 storage.getFirstRow().removeContent(number);
-                //return storage.checkShelves();
             }
             else
                 throw new WrongResourcesMovedException();
@@ -45,7 +43,6 @@ public class MoveFromDepositToLeader extends Action {
             case 2: if( storage.getSecondRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getSecondRow().getResourceType().equals(leaderDeposit.getResourceType())) {
                 leaderDeposit.addContent(number);
                 storage.getSecondRow().removeContent(number);
-                //return storage.checkShelves();
             }
             else
                 throw new WrongResourcesMovedException();
@@ -53,13 +50,11 @@ public class MoveFromDepositToLeader extends Action {
             case 3: if( storage.getThirdRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getThirdRow().getResourceType().equals(leaderDeposit.getResourceType())) {
                 leaderDeposit.addContent(number);
                 storage.getThirdRow().removeContent(number);
-                //return storage.checkShelves();
             }
             else
                 throw new WrongResourcesMovedException();
                 break;
         }
-        return false;
     }
 
 }

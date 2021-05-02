@@ -28,10 +28,9 @@ public class BasicProductionAction extends Action {
      * RECEIVING COST CHOSEN BY THE PLAYER, AND COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
      *
      * @param player player that is doing the action
-     * @return true if ended correctly
      */
     @Override
-    public boolean useAction(PlayerDashboard player) {
+    public void useAction(PlayerDashboard player) {
         if(res.equals(Resource.FAITH))
             throw new WrongResourceException("Faith");
 
@@ -47,7 +46,6 @@ public class BasicProductionAction extends Action {
         ResourceCount output = new ResourceCount(0,0,0,0,0); //ResourceCount with 1 Faith
         res.add(output,1);
         player.incrementBufferProduction(output);
-        return true;
     }
 
     /**

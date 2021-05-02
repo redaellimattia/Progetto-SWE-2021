@@ -21,14 +21,12 @@ public class OrganizeStorage extends Action {
     /**
      *
      * @param player player that wanted to switch Storage's shelves
-     * @return true if the action is done correctly, false otherwise
      */
     //RETURN TRUE IF THE SHELVES ARE SWAPPED CORRECTLY AND THE STORAGE RESPECTS THE RULES FOR RESOURCETYPES;
-    public boolean useAction(PlayerDashboard player) {
+    public void useAction(PlayerDashboard player) {
         if(player.getStorage().swapRows(from,to))
-            return player.getStorage().checkShelves();
+            player.getStorage().checkShelves();
         throw new WrongResourcesMovedException();
-        //return false;
     }
 
 

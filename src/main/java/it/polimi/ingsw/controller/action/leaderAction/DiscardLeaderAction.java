@@ -20,16 +20,14 @@ public class DiscardLeaderAction extends Action {
     /**
      *
      * @param player player that is doing the action
-     * @return true if ended correctly
      */
     @Override
-    public boolean useAction(PlayerDashboard player){
+    public void useAction(PlayerDashboard player){
         int position = player.getLeaderPos(card);
         if(position==-1)
             throw new CardNotExistsException("Leader Card");
         if(player.getLeaderCards().get(position).isInGame())
             throw new CardInGameException();
         player.discardLeader(position);
-        return true;
     }
 }

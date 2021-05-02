@@ -31,10 +31,9 @@ public class DevCardProductionAction extends Action {
      * I GET FROM THE VIEW THE CARD, THE CHOSEN AMOUNT OF RESOURCES FROM STORAGE AND CHEST (EVENTUALLY NULL) AND THE PLAYER
      *
      * @param player player that is doing the action
-     * @return true if ended correctly
      */
     @Override
-    public boolean useAction(PlayerDashboard player) {
+    public void useAction(PlayerDashboard player) {
         Optional<ResourceCount> output = card.getProductionPower().useProduction(ResourceCount.getTotal(storageCount,chestCount));
 
 
@@ -46,7 +45,6 @@ public class DevCardProductionAction extends Action {
             throw new PaymentFailedException();
 
         player.incrementBufferProduction(output.get());
-        return true;
     }
 
     /**
