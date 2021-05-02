@@ -4,7 +4,7 @@ import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.model.PlayerDashboard;
 
-public class DiscardResource implements AtomicMarketAction {
+public class DiscardResource extends AtomicMarketAction {
 
     private GameManager gameManager;
 

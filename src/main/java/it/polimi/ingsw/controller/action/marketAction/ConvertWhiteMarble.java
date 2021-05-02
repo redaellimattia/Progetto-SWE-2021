@@ -1,17 +1,15 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
-import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.exceptions.action.CardNotExistsException;
 import it.polimi.ingsw.exceptions.action.NoWhiteMarbleException;
 import it.polimi.ingsw.exceptions.action.WrongAbilityException;
-import it.polimi.ingsw.exceptions.action.WrongMarbleException;
 import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
 import it.polimi.ingsw.model.enumeration.Resource;
 
-public class ConvertWhiteMarble implements AtomicMarketAction {
+public class ConvertWhiteMarble extends AtomicMarketAction {
 
     private LeaderCard leaderCard;
     private int storageRow;
@@ -36,7 +34,7 @@ public class ConvertWhiteMarble implements AtomicMarketAction {
      *         false if the action was illegal
      */
     @Override
-    public boolean useAction(MarketMarble marble, PlayerDashboard player) throws CounterTopOverloadException {
+    public boolean useAction(MarketMarble marble, PlayerDashboard player) {
         if(marble.getColour() != MarbleColour.WHITE) {
             throw new NoWhiteMarbleException(); // User cannot convert a marble that isn't white
         }
@@ -47,6 +45,6 @@ public class ConvertWhiteMarble implements AtomicMarketAction {
         if(resource == null) {
             throw new WrongAbilityException("White change ability"); // Leader card must have WhiteChangeAbility
         }
-        return StoreResource.storeResource(player, resource, storageRow);
+        return storeResource(player, resource, storageRow);
     }
 }

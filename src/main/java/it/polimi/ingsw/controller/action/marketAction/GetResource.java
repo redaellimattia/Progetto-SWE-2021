@@ -1,12 +1,11 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
-import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.exceptions.action.WrongMarbleException;
 import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
 
-public class GetResource implements AtomicMarketAction {
+public class GetResource extends AtomicMarketAction {
 
     private int storageRow;
 
@@ -27,10 +26,10 @@ public class GetResource implements AtomicMarketAction {
      * @throws WrongMarbleException if the action was illegal
      */
     @Override
-    public boolean useAction(MarketMarble marble, PlayerDashboard player) throws CounterTopOverloadException {
+    public boolean useAction(MarketMarble marble, PlayerDashboard player) {
         if (marble.getColour() == MarbleColour.WHITE || marble.getColour() == MarbleColour.RED) {
             throw new WrongMarbleException(marble); // User cannot obtain a resource from red or white marble (without using the WhiteChangeAbility)
         }
-        return StoreResource.storeResource(player, marble.getColour().convertToResource(), storageRow);
+        return storeResource(player, marble.getColour().convertToResource(), storageRow);
     }
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class StoreResourceTest {
+class AtomicMarketActionTest {
 
     public PlayerDashboard buildPlayerDashboard(int val1, int val2, int val3) {
         CounterTop testCounterTop1 = new CounterTop(Resource.COIN, val1);
@@ -29,7 +29,8 @@ class StoreResourceTest {
     void storeInFirstRow() throws CounterTopOverloadException {
         boolean ok;
         PlayerDashboard testPlayer = buildPlayerDashboard(0, 2, 3);
-        ok = StoreResource.storeResource(testPlayer, Resource.SHIELD, 1);
+        AtomicMarketAction testAction = new AtomicMarketAction() {};
+        ok = testAction.storeResource(testPlayer, Resource.SHIELD, 1);
         assertTrue(ok);
         assertTrue(testPlayer.getStorage().getFirstRow().getResourceType() == Resource.SHIELD);
         assertTrue(testPlayer.getStorage().getFirstRow().getContent() == 1);
@@ -39,7 +40,8 @@ class StoreResourceTest {
     void storeInSecondRow() throws CounterTopOverloadException {
         boolean ok;
         PlayerDashboard testPlayer = buildPlayerDashboard(1, 1, 3);
-        ok = StoreResource.storeResource(testPlayer, Resource.ROCK, 2);
+        AtomicMarketAction testAction = new AtomicMarketAction() {};
+        ok = testAction.storeResource(testPlayer, Resource.ROCK, 2);
         assertTrue(ok);
         assertTrue(testPlayer.getStorage().getSecondRow().getResourceType() == Resource.ROCK);
         assertTrue(testPlayer.getStorage().getSecondRow().getContent() == 2);
@@ -48,18 +50,22 @@ class StoreResourceTest {
     @Test
     void addInFullRow() {
         PlayerDashboard testPlayer = buildPlayerDashboard(1, 2, 3);
-        assertThrows(CounterTopOverloadException.class, () -> StoreResource.storeResource(testPlayer, Resource.COIN, 1));
+        AtomicMarketAction testAction = new AtomicMarketAction() {};
+        assertThrows(CounterTopOverloadException.class, () -> testAction.storeResource(testPlayer, Resource.COIN, 1));
     }
 
     @Test
     void illegalStore() {
         PlayerDashboard testPlayer = buildPlayerDashboard(1, 1, 3);
-        assertThrows(WrongCounterTopException.class, () -> StoreResource.storeResource(testPlayer, Resource.SHIELD, 2));
+        AtomicMarketAction testAction = new AtomicMarketAction() {};
+        assertThrows(WrongCounterTopException.class, () -> testAction.storeResource(testPlayer, Resource.SHIELD, 2));
     }
 
     @Test
     void depositNotPresent() {
         PlayerDashboard testPlayer = buildPlayerDashboard(1, 1, 3);
-        assertThrows(NoAdditionalDepositException.class, () -> StoreResource.storeResource(testPlayer, Resource.SHIELD, 4));
+        AtomicMarketAction testAction = new AtomicMarketAction() {};
+        assertThrows(NoAdditionalDepositException.class, () -> testAction.storeResource(testPlayer, Resource.SHIELD, 4));
     }
+
 }
