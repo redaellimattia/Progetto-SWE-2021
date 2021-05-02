@@ -26,7 +26,8 @@ public class OrganizeStorage extends Action {
     public void useAction(PlayerDashboard player) {
         if(player.getStorage().swapRows(from,to))
             player.getStorage().checkShelves();
-        throw new WrongResourcesMovedException();
+        else
+            throw new WrongResourcesMovedException();
     }
 
 

@@ -44,7 +44,7 @@ class PlayLeaderActionTest {
         action.useAction(player); //Play the card
         card = createLeaderCard(new ColourCount(1,0,0,0));
         action = new PlayLeaderAction(card);
-        assertTrue(action.useAction(player)); //Play the card
+        action.useAction(player); //Play the card
         assertTrue(player.getLeaderCards().get(1).isInGame()); //CARD POS=0 IN GAME
     }
 

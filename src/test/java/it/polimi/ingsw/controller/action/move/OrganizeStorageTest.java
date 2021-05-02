@@ -36,7 +36,7 @@ class OrganizeStorageTest {
         CounterTop check = new CounterTop(Resource.COIN,0);
         try{player.getStorage().setFirstRow(check);}catch(CounterTopOverloadException e){}
         OrganizeStorage organize1 = new OrganizeStorage(1,3);
-        assertTrue(organize1.useAction(player));
+        organize1.useAction(player);
         assertEquals(player.getStorage().getThirdRow().getResourceType(),Resource.COIN);
         assertEquals(player.getStorage().getFirstRow().getResourceType(),Resource.SERVANT);
 

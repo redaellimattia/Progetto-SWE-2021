@@ -60,7 +60,8 @@ public class CardShopAction extends Action {
             }
             deleteRes(storageCount,chestCount,player);
         }
-        throw new PaymentFailedException();
+        else
+            throw new PaymentFailedException();
     }
 
     //CHECK IF THE CHOSEN POSITION FIT THE CARD CHOSEN

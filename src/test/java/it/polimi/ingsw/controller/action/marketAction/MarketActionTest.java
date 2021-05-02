@@ -55,8 +55,7 @@ class MarketActionTest {
         testChoices.add(new DiscardResource(testGameManager));
         testChoices.add(new ConvertWhiteMarble(testGameManager.getGame().getPlayers().get(0).getLeaderCards().get(0), 1));
         MarketAction test = new MarketAction(0, 1, testChoices, testGameManager);
-        ok = test.useAction(testGameManager.getGame().getPlayers().get(0));
-        assertTrue(ok);
+        test.useAction(testGameManager.getGame().getPlayers().get(0));
         assertEquals(1, testGameManager.getGame().getPlayers().get(0).getStorage().getFirstRow().getContent()); // Coin converted with White Marble stored
         assertEquals(1, testGameManager.getGame().getPlayers().get(1).getPathPosition()); // Opponent path position updated
     }
