@@ -28,7 +28,7 @@ public abstract class ActionMessage extends ClientMessage {
     public static ActionMessage deserializeAction(JsonObject jsonObj) { // /"actionType"/: CARDSHOP
         String actionType = jsonObj.get("actionType").getAsString();
         if (actionType == null)
-            throw new IllegalArgumentException("Not a valid action");
+            throw new IllegalArgumentException("Not a valid action.");
         ActionType type = ActionType.valueOf(actionType);
 
         switch(type){
@@ -55,7 +55,7 @@ public abstract class ActionMessage extends ClientMessage {
             case END:
                 return gson.fromJson(jsonObj,EndMessage.class);
             default:
-                throw new IllegalArgumentException("actionType not found");
+                throw new IllegalArgumentException("actionType not found.");
         }
     }
 
@@ -66,6 +66,10 @@ public abstract class ActionMessage extends ClientMessage {
     @Override
     public void useMessage(SocketConnection socketConnection){}
 
+    public PlayerTurnManager getPlayerTurnManager(SocketConnection socketConnection){
+        ServerThread serverThread = getServerThread(socketConnection);
+        return serverThread.getGameLobby().getGameManager().getTurnManager();
+    }
     /**
      *  call the turnManager to set and use the action;
      *
@@ -73,15 +77,13 @@ public abstract class ActionMessage extends ClientMessage {
      * @param socketConnection the connection from which the message has arrived
      */
     public void useActionMessage(Action action, SocketConnection socketConnection){
-        ServerThread serverThread = getServerThread(socketConnection);
-        PlayerTurnManager turnManager = serverThread.getGameLobby().getGameManager().getTurnManager();
+        PlayerTurnManager turnManager = getPlayerTurnManager(socketConnection);
         turnManager.setAction(action);
         turnManager.useAction();
     }
 
     public void useSideActionMessage(Action action, SocketConnection socketConnection){
-        ServerThread serverThread = getServerThread(socketConnection);
-        PlayerTurnManager turnManager = serverThread.getGameLobby().getGameManager().getTurnManager();
+        PlayerTurnManager turnManager = getPlayerTurnManager(socketConnection);
         turnManager.setSideAction(action);
         turnManager.useSideAction();
     }

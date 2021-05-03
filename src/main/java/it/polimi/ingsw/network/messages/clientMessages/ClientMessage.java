@@ -42,7 +42,7 @@ public abstract class ClientMessage {
         String msgType = jsonObj.get("type").getAsString();
 
         if(msgType == null)
-            throw new IllegalArgumentException("No type of message was received;");
+            throw new IllegalArgumentException("No type of message was received.");
 
         ClientMessageType type = ClientMessageType.valueOf(msgType);
         switch(type){
@@ -57,7 +57,7 @@ public abstract class ClientMessage {
             case ACTION:
                 return ActionMessage.deserializeAction(jsonObj);
             default:
-                throw new IllegalArgumentException("ClientMessageType not valid;");
+                throw new IllegalArgumentException("ClientMessageType not valid.");
         }
     }
 

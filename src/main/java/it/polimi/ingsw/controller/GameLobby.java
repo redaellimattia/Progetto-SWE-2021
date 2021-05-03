@@ -11,11 +11,13 @@ public class GameLobby {
     private GameManager gameManager;
     private final long serverThreadID;
     private final int numberOfPlayers;
+    private boolean gameStarted;
 
     public GameLobby(long serverThreadID,int numberOfPlayers) {
         this.players = new ArrayList<>();
         this.serverThreadID = serverThreadID;
         this.numberOfPlayers = numberOfPlayers;
+        this.gameStarted = false;
     }
 
     public ArrayList<String> getPlayers() {
@@ -49,10 +51,11 @@ public class GameLobby {
         return gameManager;
     }
 
-    public void createGameManager(boolean singlePlayer) {
+    public void startGame(boolean singlePlayer) {
         /*if(singlePlayer)
             //createSingleplayer si aggiunge Lorenzo nella lista di player
         else
         //games.add(new GameManager(new Game(players,...),null));*/
+        this.gameStarted = true;
     }
 }
