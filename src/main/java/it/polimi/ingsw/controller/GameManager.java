@@ -162,9 +162,11 @@ public class GameManager {
                     this.turnManager = new PlayerTurnManager(player); //da controllare se serve svuotare tutto
                 }
                 else {
-                    PlayerDashboard nextPlayer = game.getNextPlayer(player);
-                    if (nextPlayer != null) //Increment Turn
-                        this.turnManager = new PlayerTurnManager(nextPlayer);
+                    PlayerDashboard nextPlayer = player;
+                    do { //Searching nextPlayer that is playing
+                        nextPlayer = game.getNextPlayer(nextPlayer);
+                    }while(nextPlayer != null&&nextPlayer.isPlaying());
+                    this.turnManager = new PlayerTurnManager(nextPlayer);
                 }
             }
     }

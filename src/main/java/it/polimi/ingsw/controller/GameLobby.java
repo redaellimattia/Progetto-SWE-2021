@@ -20,6 +20,10 @@ public class GameLobby {
         this.gameStarted = false;
     }
 
+    public boolean isGameStarted() {
+        return gameStarted;
+    }
+
     public ArrayList<String> getPlayers() {
         return players;
     }

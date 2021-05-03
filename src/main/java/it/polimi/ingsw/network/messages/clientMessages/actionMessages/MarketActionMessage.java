@@ -4,7 +4,6 @@ import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
 import it.polimi.ingsw.controller.action.marketAction.MarketAction;
 import it.polimi.ingsw.network.enumeration.ActionType;
-import it.polimi.ingsw.network.enumeration.ServerMessageType;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 import java.util.ArrayList;
@@ -14,9 +13,9 @@ public class MarketActionMessage extends ActionMessage{
     private int pos;
     private ArrayList<AtomicMarketAction> choices;
 
-    /*public MarketActionMessage(MessageType type, String nickname, long serverThreadID, ActionType actionType) {
-        super(type, nickname, serverThreadID, actionType);
-    }*/
+    public MarketActionMessage(String nickname, long serverThreadID) {
+        super(ActionType.MARKETACTION, nickname, serverThreadID);
+    }
 
     /**
      * Create a MarketAction and uses it.

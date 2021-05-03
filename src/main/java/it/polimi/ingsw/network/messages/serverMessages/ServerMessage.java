@@ -26,6 +26,8 @@ public abstract class ServerMessage {
         switch(type){
             case LOBBIES:
                 return gson.fromJson(msg, ReturnLobbiesMessage.class);
+            case YOURTURN:
+                return gson.fromJson(msg, YourTurnMessage.class);
             default:
                 throw new IllegalArgumentException("ServerMessageType not valid.");
         }

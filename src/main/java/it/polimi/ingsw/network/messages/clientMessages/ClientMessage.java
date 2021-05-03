@@ -26,11 +26,11 @@ public abstract class ClientMessage {
         return nickname;
     }
 
-    /*public ClientMessage(ClientMessageType type, String nickname, long serverThreadID) {
+    public ClientMessage(ClientMessageType type, String nickname, long serverThreadID) {
         this.type = type;
         this.nickname = nickname;
         this.serverThreadID = serverThreadID;
-    }*/
+    }
 
     /**
      *

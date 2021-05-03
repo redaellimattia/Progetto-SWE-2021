@@ -3,13 +3,15 @@ package it.polimi.ingsw.network.messages.clientMessages.actionMessages;
 
 import it.polimi.ingsw.controller.action.leaderAction.PlayLeaderAction;
 import it.polimi.ingsw.model.card.LeaderCard;
+import it.polimi.ingsw.network.enumeration.ActionType;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public class PlayLeaderMessage extends ActionMessage {
     private LeaderCard card;
-    /*public PlayLeaderMessage(ClientMessageType type, String nickname, long serverThreadID, ActionType actionType) {
-        super(type, nickname, serverThreadID, actionType);
-    }*/
+
+    public PlayLeaderMessage(String nickname, long serverThreadID) {
+        super(ActionType.PLAYLEADER, nickname, serverThreadID);
+    }
 
     /**
      * set a specific leader card in game

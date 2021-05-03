@@ -1,15 +1,17 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.GameLobby;
-import it.polimi.ingsw.exceptions.network.nicknameAlreadyUsedException;
+import it.polimi.ingsw.exceptions.network.GameAlreadyStartedException;
+import it.polimi.ingsw.exceptions.network.NicknameAlreadyUsedException;
 import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
+import it.polimi.ingsw.network.messages.serverMessages.YourTurnMessage;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 
 public class ServerThread extends Thread{
-
+    private final Object gameLock = new Object();
     private Map<String, SocketConnection> clients;
 
     private GameLobby gameLobby;
@@ -36,6 +38,16 @@ public class ServerThread extends Thread{
     }
 
     /**
+     * Forwarding Round then telling the new player that it's his turn to play
+     */
+    public void endRound(){
+        gameLobby.getGameManager().nextRound();
+        String nickname = gameLobby.getGameManager().getTurnManager().getPlayer().getNickname();
+        SocketConnection clientConnection = clients.get(nickname);
+        YourTurnMessage yourTurn = new YourTurnMessage();
+        clientConnection.send(yourTurn.serialize());
+    }
+    /**
      *
      * @param playerPosition position of the player in the arraylist of players in game
      * @param nickname player nickname
@@ -52,12 +64,19 @@ public class ServerThread extends Thread{
      * @param clientConnection socketConnection of the client
      */
     public void newPlayerLogin(String nickname,SocketConnection clientConnection){
-        if(Server.checkNickname(nickname)) {
-            gameLobby.addPlayer(nickname);
-            clients.put(nickname, clientConnection);
+        synchronized (gameLock) {
+            if (gameLobby.isGameStarted())
+                throw new GameAlreadyStartedException();
+            if (Server.checkNickname(nickname)) {
+                gameLobby.addPlayer(nickname);
+                clients.put(nickname, clientConnection);
+                if (gameLobby.getNumberOfPlayers() == 1)
+                    gameLobby.startGame(true);
+                else if (clients.size() == gameLobby.getNumberOfPlayers())
+                    gameLobby.startGame(false);
+            } else
+                throw new NicknameAlreadyUsedException(nickname);
         }
-        else
-            throw new nicknameAlreadyUsedException(nickname);
     }
 
     /**
@@ -95,6 +114,10 @@ public class ServerThread extends Thread{
         }
     }
 
+    /**
+     *
+     * @return this thread ID
+     */
     public long getThreadId(){
         return Thread.currentThread().getId();
     }

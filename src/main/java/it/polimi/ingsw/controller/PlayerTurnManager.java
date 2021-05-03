@@ -61,7 +61,7 @@ public class PlayerTurnManager {
 
     /**
      *  used to call the endAction method
-     * @param player player who sent the EndMessage
+     * @param player player who sent the EndActionMessage
      */
     public void endAction(PlayerDashboard player ){action.endAction(player);}
 

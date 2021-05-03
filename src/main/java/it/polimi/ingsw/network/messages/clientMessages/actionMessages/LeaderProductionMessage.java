@@ -14,9 +14,9 @@ public class LeaderProductionMessage extends ActionMessage{
     ResourceCount chestCount;
     Resource res;
 
-    /*public LeaderProductionMessage(MessageType type, String nickname, long serverThreadID, ActionType actionType) {
-        super(type, nickname, serverThreadID, actionType);
-    }*/
+    public LeaderProductionMessage(String nickname, long serverThreadID) {
+        super(ActionType.LEADERPRODUCTION, nickname, serverThreadID);
+    }
 
     /**
      * Create a LeaderCardProductionAction and uses it

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.messages.clientMessages;
 
+import it.polimi.ingsw.network.enumeration.ClientMessageType;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
@@ -8,10 +9,10 @@ import it.polimi.ingsw.network.server.SocketConnection;
 public class CreateGameMessage extends ClientMessage {
     private int numberOfPlayers;
 
-    /*public CreateGameMessage(ClientMessageType type, String nickname, long serverThreadID, int numberOfPlayers) {
-        super(type, nickname, serverThreadID);
+    public CreateGameMessage(String nickname, long serverThreadID, int numberOfPlayers) {
+        super(ClientMessageType.CREATEGAME, nickname, serverThreadID);
         this.numberOfPlayers = numberOfPlayers;
-    }*/
+    }
 
     public int getNumberOfPlayers() {
         return numberOfPlayers;
