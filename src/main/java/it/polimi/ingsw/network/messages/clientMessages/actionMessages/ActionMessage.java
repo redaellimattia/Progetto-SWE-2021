@@ -12,7 +12,7 @@ import it.polimi.ingsw.network.server.SocketConnection;
 
 public abstract class ActionMessage extends ClientMessage {
     static GsonBuilder builder = new GsonBuilder();
-    static Gson gson = builder.create();
+    static Gson gson = builder.setPrettyPrinting().create();
     //private ActionType actionType;
 
     /*public ActionMessage(ClientMessageType type, String nickname, long serverThreadID, ActionType actionType) {
