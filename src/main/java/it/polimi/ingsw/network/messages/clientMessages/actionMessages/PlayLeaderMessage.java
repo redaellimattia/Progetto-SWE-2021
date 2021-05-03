@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network.messages.actionMessages;
+package it.polimi.ingsw.network.messages.clientMessages.actionMessages;
 
 
 import it.polimi.ingsw.controller.action.leaderAction.PlayLeaderAction;
@@ -7,7 +7,7 @@ import it.polimi.ingsw.network.server.SocketConnection;
 
 public class PlayLeaderMessage extends ActionMessage {
     private LeaderCard card;
-    /*public PlayLeaderMessage(MessageType type, String nickname, long serverThreadID, ActionType actionType) {
+    /*public PlayLeaderMessage(ClientMessageType type, String nickname, long serverThreadID, ActionType actionType) {
         super(type, nickname, serverThreadID, actionType);
     }*/
 
@@ -18,6 +18,6 @@ public class PlayLeaderMessage extends ActionMessage {
     @Override
     public void useMessage(SocketConnection socketConnection){
         PlayLeaderAction action = new PlayLeaderAction(card);
-        useActionMessage(action,socketConnection);
+        useSideActionMessage(action,socketConnection);
     }
 }

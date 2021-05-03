@@ -2,7 +2,7 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.GameLobby;
 import it.polimi.ingsw.exceptions.network.nicknameAlreadyUsedException;
-import it.polimi.ingsw.network.messages.CreateGameMessage;
+import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
 
 import java.util.HashMap;
 import java.util.Map;

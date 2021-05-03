@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network.messages.actionMessages;
+package it.polimi.ingsw.network.messages.clientMessages.actionMessages;
 
 import it.polimi.ingsw.controller.action.leaderAction.DiscardLeaderAction;
 import it.polimi.ingsw.model.card.LeaderCard;
@@ -6,7 +6,7 @@ import it.polimi.ingsw.network.server.SocketConnection;
 
 public class DiscardLeaderMessage extends ActionMessage{
     private LeaderCard card;
-    /*public DiscardLeaderMessage(MessageType type, String nickname, long serverThreadID, ActionType actionType) {
+    /*public DiscardLeaderMessage(ClientMessageType type, String nickname, long serverThreadID, ActionType actionType) {
         super(type, nickname, serverThreadID, actionType);
     }*/
 
@@ -17,7 +17,7 @@ public class DiscardLeaderMessage extends ActionMessage{
     @Override
     public void useMessage(SocketConnection socketConnection){
         DiscardLeaderAction action = new DiscardLeaderAction(card);
-        useActionMessage(action,socketConnection);
+        useSideActionMessage(action,socketConnection);
     }
 
 }
