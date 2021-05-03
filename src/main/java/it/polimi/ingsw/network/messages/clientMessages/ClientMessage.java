@@ -26,6 +26,10 @@ public abstract class ClientMessage {
         return nickname;
     }
 
+    public long getServerThreadID() {
+        return serverThreadID;
+    }
+
     public ClientMessage(ClientMessageType type, String nickname, long serverThreadID) {
         this.type = type;
         this.nickname = nickname;

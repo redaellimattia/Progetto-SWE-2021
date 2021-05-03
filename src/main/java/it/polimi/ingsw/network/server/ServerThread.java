@@ -81,14 +81,15 @@ public class ServerThread extends Thread{
 
     /**
      *
-     * @param msg CreateGameMessage received from the client
+     * @param nickname nickname chosen by the client
+     * @param clientConnection socketConnection of the client
      */
-    public void playerLogin(CreateGameMessage msg, SocketConnection clientConnection){
-        int playerPosition = gameLobby.getGameManager().wasPlaying(msg.getNickname());
+    public void playerLogin(String nickname, SocketConnection clientConnection){
+        int playerPosition = gameLobby.getGameManager().wasPlaying(nickname);
         if(playerPosition!=-1)
-            knownPlayerLogin(playerPosition,msg.getNickname(),clientConnection);
+            knownPlayerLogin(playerPosition,nickname,clientConnection);
         else
-            newPlayerLogin(msg.getNickname(),clientConnection);
+            newPlayerLogin(nickname,clientConnection);
     }
 
 
