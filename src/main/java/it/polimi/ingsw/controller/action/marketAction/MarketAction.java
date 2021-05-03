@@ -1,8 +1,8 @@
 package it.polimi.ingsw.controller.action.marketAction;
 import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.controller.action.Action;
-import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.exceptions.action.IllegalMarketPositionException;
+import it.polimi.ingsw.exceptions.action.IncompleteListException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
 
@@ -64,7 +64,8 @@ public class MarketAction extends Action {
             } else {
                 try {
                     choices.get(j).useAction(marble, player);
-                } catch (CounterTopOverloadException e) {
+                } catch (IndexOutOfBoundsException e) {
+                    throw new IncompleteListException();
                 }
                 j++;
             }
