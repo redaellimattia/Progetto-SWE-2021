@@ -1,20 +1,20 @@
-package it.polimi.ingsw.network.messages;
+package it.polimi.ingsw.network.messages.clientMessages;
 
 import com.google.gson.*;
 
-import it.polimi.ingsw.network.enumeration.MessageType;
-import it.polimi.ingsw.network.messages.actionMessages.ActionMessage;
+import it.polimi.ingsw.network.enumeration.ClientMessageType;
+import it.polimi.ingsw.network.messages.clientMessages.actionMessages.ActionMessage;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 import java.util.Map;
 
-public abstract class Message {
+public abstract class ClientMessage {
 
     static GsonBuilder builder = new GsonBuilder();
     static Gson gson = builder.setPrettyPrinting().create();
-    //private MessageType type;
+    private ClientMessageType type;
     private String nickname;
     private long serverThreadID;
 
@@ -26,7 +26,7 @@ public abstract class Message {
         return nickname;
     }
 
-    /*public Message(MessageType type, String nickname, long serverThreadID) {
+    /*public ClientMessage(ClientMessageType type, String nickname, long serverThreadID) {
         this.type = type;
         this.nickname = nickname;
         this.serverThreadID = serverThreadID;
@@ -37,14 +37,14 @@ public abstract class Message {
      * @param msg message that needs to be deserialized
      * @return deserialized message
      */
-    public static Message onMessage(String msg){
+    public static ClientMessage onMessage(String msg){
         JsonObject jsonObj = gson.fromJson(msg,JsonElement.class).getAsJsonObject();
         String msgType = jsonObj.get("type").getAsString();
 
         if(msgType == null)
             throw new IllegalArgumentException("No type of message was received;");
 
-        MessageType type = MessageType.valueOf(msgType);
+        ClientMessageType type = ClientMessageType.valueOf(msgType);
         switch(type){
             case ASKLOBBIES:
                 return gson.fromJson(msg,AskLobbyMessage.class);
@@ -57,7 +57,7 @@ public abstract class Message {
             case ACTION:
                 return ActionMessage.deserializeAction(jsonObj);
             default:
-                throw new IllegalArgumentException("MessageType not valid;");
+                throw new IllegalArgumentException("ClientMessageType not valid;");
         }
     }
 

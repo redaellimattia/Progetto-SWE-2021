@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network.messages.actionMessages;
+package it.polimi.ingsw.network.messages.clientMessages.actionMessages;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,16 +6,16 @@ import com.google.gson.JsonObject;
 import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.network.enumeration.ActionType;
-import it.polimi.ingsw.network.messages.Message;
+import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
 import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
 
-public abstract class ActionMessage extends Message {
+public abstract class ActionMessage extends ClientMessage {
     static GsonBuilder builder = new GsonBuilder();
     static Gson gson = builder.create();
     //private ActionType actionType;
 
-    /*public ActionMessage(MessageType type, String nickname, long serverThreadID, ActionType actionType) {
+    /*public ActionMessage(ClientMessageType type, String nickname, long serverThreadID, ActionType actionType) {
         super(type, nickname, serverThreadID);
         this.actionType = actionType;
     }*/
@@ -77,5 +77,12 @@ public abstract class ActionMessage extends Message {
         PlayerTurnManager turnManager = serverThread.getGameLobby().getGameManager().getTurnManager();
         turnManager.setAction(action);
         turnManager.useAction();
+    }
+
+    public void useSideActionMessage(Action action, SocketConnection socketConnection){
+        ServerThread serverThread = getServerThread(socketConnection);
+        PlayerTurnManager turnManager = serverThread.getGameLobby().getGameManager().getTurnManager();
+        turnManager.setSideAction(action);
+        turnManager.useSideAction();
     }
 }

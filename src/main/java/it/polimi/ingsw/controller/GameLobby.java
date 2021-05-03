@@ -18,6 +18,18 @@ public class GameLobby {
         this.numberOfPlayers = numberOfPlayers;
     }
 
+    public ArrayList<String> getPlayers() {
+        return players;
+    }
+
+    public long getServerThreadID() {
+        return serverThreadID;
+    }
+
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
     public void addPlayer(String nickname) {
         this.players.add(nickname);
     }

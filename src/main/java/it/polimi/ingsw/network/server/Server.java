@@ -1,7 +1,6 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.controller.GameLobby;
-import it.polimi.ingsw.network.messages.Message;
+import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -61,7 +60,7 @@ public class Server {
      * @param msg String msg wrote by the client
      */
     public void onMessage(SocketConnection sockConnection,String msg){
-        Message deserializedMessage = Message.onMessage(msg);
+        ClientMessage deserializedMessage = ClientMessage.onMessage(msg);
         deserializedMessage.useMessage(sockConnection);
     }
 

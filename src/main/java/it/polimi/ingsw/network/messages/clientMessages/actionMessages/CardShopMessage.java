@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network.messages.actionMessages;
+package it.polimi.ingsw.network.messages.clientMessages.actionMessages;
 
 import it.polimi.ingsw.controller.action.CardShopAction;
 import it.polimi.ingsw.model.Game;
@@ -26,7 +26,7 @@ public class CardShopMessage extends ActionMessage {
         useActionMessage(action,socketConnection);
     }
 
-    /*public CardShopMessage(MessageType type, String nickname, long serverThreadID, ActionType actionType, int row, int column, int deckPosition, ResourceCount storageCount, ResourceCount chestCount) {
+    /*public CardShopMessage(ClientMessageType type, String nickname, long serverThreadID, ActionType actionType, int row, int column, int deckPosition, ResourceCount storageCount, ResourceCount chestCount) {
         super(type, nickname, serverThreadID, actionType);
         this.row = row;
         this.column = column;

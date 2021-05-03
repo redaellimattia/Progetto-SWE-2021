@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network.messages.actionMessages;
+package it.polimi.ingsw.network.messages.clientMessages.actionMessages;
 
 import it.polimi.ingsw.controller.action.move.OrganizeStorage;
 import it.polimi.ingsw.network.server.SocketConnection;
@@ -6,7 +6,7 @@ import it.polimi.ingsw.network.server.SocketConnection;
 public class OrganizeStorageMessage extends ActionMessage{
     private int from;
     private int to;
-    /*public OrganizeStorageMessage(MessageType type, String nickname, long serverThreadID, ActionType actionType) {
+    /*public OrganizeStorageMessage(ClientMessageType type, String nickname, long serverThreadID, ActionType actionType) {
         super(type, nickname, serverThreadID, actionType);
     }*/
 
@@ -17,6 +17,6 @@ public class OrganizeStorageMessage extends ActionMessage{
     @Override
     public void useMessage(SocketConnection socketConnection){
         OrganizeStorage action = new OrganizeStorage(from,to);
-        useActionMessage(action,socketConnection);
+        useSideActionMessage(action,socketConnection);
     }
 }

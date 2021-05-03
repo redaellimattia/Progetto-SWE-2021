@@ -1,4 +1,4 @@
-package it.polimi.ingsw.network.messages.actionMessages;
+package it.polimi.ingsw.network.messages.clientMessages.actionMessages;
 
 
 import it.polimi.ingsw.controller.action.move.MoveFromLeaderToDeposit;
@@ -8,7 +8,7 @@ public class MoveFromLeaderToDepositMessage extends ActionMessage{
     private int from_leader;
     private int to_deposit;
     private int number;
-    /*public MoveFromLeaderToDepositMessage(MessageType type, String nickname, long serverThreadID, ActionType actionType) {
+    /*public MoveFromLeaderToDepositMessage(ClientMessageType type, String nickname, long serverThreadID, ActionType actionType) {
         super(type, nickname, serverThreadID, actionType);
     }*/
 
@@ -19,6 +19,6 @@ public class MoveFromLeaderToDepositMessage extends ActionMessage{
     @Override
     public void useMessage(SocketConnection socketConnection){
         MoveFromLeaderToDeposit action = new MoveFromLeaderToDeposit(from_leader,to_deposit,number);
-        useActionMessage(action,socketConnection);
+        useSideActionMessage(action,socketConnection);
     }
 }
