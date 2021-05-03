@@ -21,8 +21,6 @@ public class EndMessage extends ActionMessage{
     public void useMessage(SocketConnection socketConnection){
         ServerThread serverThread = getServerThread(socketConnection);
         PlayerTurnManager turnManager = serverThread.getGameLobby().getGameManager().getTurnManager();
-        Action action = new BasicProductionAction(null,new ResourceCount(0,0,0,0,0), new ResourceCount(0,0,0,0,0));
-        turnManager.setAction(action);
-        turnManager.getAction().endAction(turnManager.getPlayer());
+        turnManager.endAction(turnManager.getPlayer());
     }
 }
