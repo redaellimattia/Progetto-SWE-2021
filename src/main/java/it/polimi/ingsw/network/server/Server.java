@@ -63,7 +63,7 @@ public class Server {
      * @param msg String msg wrote by the client
      */
     public void onMessage(SocketConnection sockConnection,String msg){
-        //if the player sending the message has not the turn active, i don't do it and i send him a message;
+        //if the player sending the message has not the turn active, i don't do it and i send him a message.
         ClientMessage deserializedMessage = ClientMessage.onMessage(msg);
         String actualPlayer = deserializedMessage.getServerThread(sockConnection).getGameLobby().getGameManager().getTurnManager().getPlayer().getNickname();
         String askingPlayer = deserializedMessage.getNickname();
