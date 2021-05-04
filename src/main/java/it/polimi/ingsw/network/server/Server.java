@@ -1,5 +1,8 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.exceptions.network.NotYourTurnException;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
 
 import java.io.IOException;
@@ -60,8 +63,15 @@ public class Server {
      * @param msg String msg wrote by the client
      */
     public void onMessage(SocketConnection sockConnection,String msg){
+        //if the player sending the message has not the turn active, i don't do it and i send him a message;
         ClientMessage deserializedMessage = ClientMessage.onMessage(msg);
-        deserializedMessage.useMessage(sockConnection);
+        String actualPlayer = deserializedMessage.getServerThread(sockConnection).getGameLobby().getGameManager().getTurnManager().getPlayer().getNickname();
+        String askingPlayer = deserializedMessage.getNickname();
+
+        if(actualPlayer.equals(askingPlayer))
+            deserializedMessage.useMessage(sockConnection);
+        else
+            throw new NotYourTurnException();
     }
 
     /**
