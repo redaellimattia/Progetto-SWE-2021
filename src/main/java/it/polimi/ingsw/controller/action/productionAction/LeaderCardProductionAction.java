@@ -55,14 +55,4 @@ public class LeaderCardProductionAction extends Action {
         res.add(output,1);
         player.incrementBufferProduction(output);
     }
-
-    /**
-     * EMPTY BUFFER
-     *
-     * @param player player that is ending the action
-     */
-    @Override
-    public void endAction(PlayerDashboard player) {
-        player.emptyBufferProduction();
-    }
 }

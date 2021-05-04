@@ -29,11 +29,10 @@ public class CardShopMessage extends ActionMessage {
      * @param socketConnection the connection from which the message has arrived
      */
     @Override
-    public void useMessage(SocketConnection socketConnection){
-        ServerThread serverThread = getServerThread(socketConnection);
+    public void useMessage(SocketConnection socketConnection,ServerThread serverThread){
         Game game = serverThread.getGameLobby().getGameManager().getGame();
         CardShopAction action = new CardShopAction(game.getShop(),row,column,deckPosition,storageCount,chestCount);
-        useActionMessage(action,socketConnection);
+        useActionMessage(action,socketConnection,serverThread);
     }
 
     public int getRow() {

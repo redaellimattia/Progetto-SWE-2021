@@ -48,13 +48,4 @@ public class BasicProductionAction extends Action {
         player.incrementBufferProduction(output);
     }
 
-    /**
-     * EMPTY BUFFER
-     *
-     * @param player player that is ending the action
-     */
-    @Override
-    public void endAction(PlayerDashboard player) {
-        player.emptyBufferProduction();
-    }
 }

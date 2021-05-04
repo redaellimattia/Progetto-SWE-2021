@@ -17,12 +17,11 @@ public class EndActionMessage extends ActionMessage{
     /**
      * In case of multiple productionAction, this message is called to close the window of production and empty the ResourceBuffer of the player.
      * a little bit rusty, maybe need to be checked
-     * @param socketConnection
+     * @param socketConnection socketConnection of the client
      */
     @Override
-    public void useMessage(SocketConnection socketConnection){
-        ServerThread serverThread = getServerThread(socketConnection);
-        PlayerTurnManager turnManager = serverThread.getGameLobby().getGameManager().getTurnManager();
+    public void useMessage(SocketConnection socketConnection,ServerThread serverThread){
+        PlayerTurnManager turnManager = getPlayerTurnManager(serverThread);
         turnManager.endAction(turnManager.getPlayer());
     }
 }

@@ -47,13 +47,4 @@ public class DevCardProductionAction extends Action {
         player.incrementBufferProduction(output.get());
     }
 
-    /**
-     * EMPTY BUFFER
-     *
-     * @param player player that is ending the action
-     */
-    @Override
-    public void endAction(PlayerDashboard player) {
-        player.emptyBufferProduction();
-    }
 }

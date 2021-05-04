@@ -1,8 +1,5 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.exceptions.network.NotYourTurnException;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
 
 import java.io.IOException;
@@ -58,6 +55,8 @@ public class Server {
     }
 
     /**
+     * If serverThread = -1 means that the client it's not in a game yet, so it must be a Connection or AskLobby
+     * If serverThread != -1 the correct serverThread will be called, and it will handle the request
      *
      * @param sockConnection Client that is sending the message
      * @param msg String msg wrote by the client
@@ -65,13 +64,11 @@ public class Server {
     public void onMessage(SocketConnection sockConnection,String msg){
         //if the player sending the message has not the turn active, i don't do it and i send him a message.
         ClientMessage deserializedMessage = ClientMessage.onMessage(msg);
-        String actualPlayer = deserializedMessage.getServerThread(sockConnection).getGameLobby().getGameManager().getTurnManager().getPlayer().getNickname();
-        String askingPlayer = deserializedMessage.getNickname();
-
-        if(actualPlayer.equals(askingPlayer))
-            deserializedMessage.useMessage(sockConnection);
+        long serverThreadID = deserializedMessage.getServerThreadID();
+        if(serverThreadID!=-1&&serverThreads.containsKey(serverThreadID))
+            serverThreads.get(serverThreadID).onMessage(sockConnection,deserializedMessage);
         else
-            throw new NotYourTurnException();
+            deserializedMessage.useMessage(sockConnection);
     }
 
     /**

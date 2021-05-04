@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.action.productionAction.BasicProductionAction;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.enumeration.ActionType;
+import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public class BasicProductionMessage extends ActionMessage{
@@ -20,8 +21,8 @@ public class BasicProductionMessage extends ActionMessage{
      * @param socketConnection the connection from which the message has arrived
      */
     @Override
-    public void useMessage(SocketConnection socketConnection) {
+    public void useMessage(SocketConnection socketConnection, ServerThread serverThread) {
         BasicProductionAction action = new BasicProductionAction(res, storageCount, chestCount);
-        useActionMessage(action, socketConnection);
+        useActionMessage(action, socketConnection,serverThread);
     }
 }

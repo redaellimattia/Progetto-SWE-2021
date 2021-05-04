@@ -4,6 +4,7 @@ package it.polimi.ingsw.network.messages.clientMessages.actionMessages;
 import it.polimi.ingsw.controller.action.leaderAction.PlayLeaderAction;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.network.enumeration.ActionType;
+import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public class PlayLeaderMessage extends ActionMessage {
@@ -18,8 +19,8 @@ public class PlayLeaderMessage extends ActionMessage {
      * @param socketConnection the connection from which the message has arrived
      */
     @Override
-    public void useMessage(SocketConnection socketConnection){
+    public void useMessage(SocketConnection socketConnection, ServerThread serverThread){
         PlayLeaderAction action = new PlayLeaderAction(card);
-        useSideActionMessage(action,socketConnection);
+        useSideActionMessage(action,socketConnection,serverThread);
     }
 }

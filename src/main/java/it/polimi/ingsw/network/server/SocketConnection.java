@@ -54,7 +54,6 @@ public class SocketConnection implements Runnable{
             try {
                 String msg = in.readLine();
                 if(msg!=null) socketServer.onMessage(this,msg);
-                //Lettura messaggi in entrata dal client, login e messaggi
             } catch (IOException e) { Server.LOGGER.log(Level.SEVERE,"Error while reading.\n"+ e.getMessage());}
         }
     }

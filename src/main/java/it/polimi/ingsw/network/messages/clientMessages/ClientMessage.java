@@ -4,11 +4,8 @@ import com.google.gson.*;
 
 import it.polimi.ingsw.network.enumeration.ClientMessageType;
 import it.polimi.ingsw.network.messages.clientMessages.actionMessages.ActionMessage;
-import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
-
-import java.util.Map;
 
 public abstract class ClientMessage {
 
@@ -66,28 +63,19 @@ public abstract class ClientMessage {
     }
 
     /**
+     * Method that will be overridden
      *
      * @param socketConnection method that will be Overrided in the sub-classes
      */
     public void useMessage(SocketConnection socketConnection){};
 
     /**
-     * if exists, return the correct serverThread for that socketConnection
-     * @param socketConnection socket from which the message came from
-     * @return the serverThread associated with that specific socketConnection
+     * Method that will be overridden
+     *
+     * @param socketConnection the connection from which the message has arrived
+     * @param serverThread serverThread of the client
      */
-    public ServerThread getServerThread(SocketConnection socketConnection){
-
-        if(Server.serverThreads.containsKey(serverThreadID)) {
-
-            ServerThread serverThread = Server.serverThreads.get(serverThreadID);
-            Map<String,SocketConnection> clients = serverThread.getClients();
-
-            if (clients.containsKey(nickname) && clients.get(nickname).equals(socketConnection))
-                return serverThread;
-        }
-        return null;
-    }
+    public void useMessage(SocketConnection socketConnection,ServerThread serverThread){};
 
 
     /**

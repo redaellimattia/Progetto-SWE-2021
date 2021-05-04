@@ -8,6 +8,7 @@ import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.network.enumeration.ActionType;
 import it.polimi.ingsw.network.enumeration.ClientMessageType;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
+import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
 
@@ -61,14 +62,23 @@ public abstract class ActionMessage extends ClientMessage {
     }
 
     /**
+     * Method that will be overridden
      *
      * @param socketConnection the connection from which the message has arrived
      */
     @Override
     public void useMessage(SocketConnection socketConnection){}
 
-    public PlayerTurnManager getPlayerTurnManager(SocketConnection socketConnection){
-        ServerThread serverThread = getServerThread(socketConnection);
+    /**
+     * Method that will be overridden
+     *
+     * @param socketConnection the connection from which the message has arrived
+     * @param serverThread serverThread of the client
+     */
+    @Override
+    public void useMessage(SocketConnection socketConnection,ServerThread serverThread){}
+
+    public PlayerTurnManager getPlayerTurnManager(ServerThread serverThread){
         return serverThread.getGameLobby().getGameManager().getTurnManager();
     }
     /**
@@ -77,14 +87,14 @@ public abstract class ActionMessage extends ClientMessage {
      * @param action the action that needs to be done
      * @param socketConnection the connection from which the message has arrived
      */
-    public void useActionMessage(Action action, SocketConnection socketConnection){
-        PlayerTurnManager turnManager = getPlayerTurnManager(socketConnection);
+    public void useActionMessage(Action action, SocketConnection socketConnection, ServerThread serverThread){
+        PlayerTurnManager turnManager = getPlayerTurnManager(serverThread);
         turnManager.setAction(action);
         turnManager.useAction();
     }
 
-    public void useSideActionMessage(Action action, SocketConnection socketConnection){
-        PlayerTurnManager turnManager = getPlayerTurnManager(socketConnection);
+    public void useSideActionMessage(Action action, SocketConnection socketConnection,ServerThread serverThread){
+        PlayerTurnManager turnManager = getPlayerTurnManager(serverThread);
         turnManager.setSideAction(action);
         turnManager.useSideAction();
     }

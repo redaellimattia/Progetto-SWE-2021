@@ -3,7 +3,9 @@ package it.polimi.ingsw.network.server;
 import it.polimi.ingsw.controller.GameLobby;
 import it.polimi.ingsw.exceptions.network.GameAlreadyStartedException;
 import it.polimi.ingsw.exceptions.network.NicknameAlreadyUsedException;
-import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
+import it.polimi.ingsw.exceptions.network.NotYourTurnException;
+import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
+import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.YourTurnMessage;
 
 import java.util.HashMap;
@@ -37,6 +39,25 @@ public class ServerThread extends Thread{
         return gameLobby;
     }
 
+    /**
+     * Checks it's actually the player's turn and that the player is actually in this game
+     *
+     * @param socketConnection socketConnection of the client
+     * @param deserializedMessage ClientMessage sent by the client
+     */
+    public void onMessage(SocketConnection socketConnection, ClientMessage deserializedMessage){
+        String actualPlayer = gameLobby.getGameManager().getTurnManager().getPlayer().getNickname();
+        String askingPlayer = deserializedMessage.getNickname();
+
+        //If there isn't the askingPlayer or the askingPlayer nickname on the clients map doesn't match the socketConnection
+        if(!clients.containsKey(askingPlayer) || !clients.get(askingPlayer).equals(socketConnection))
+            throw new UnrecognisedPlayerException();
+
+        if(actualPlayer.equals(askingPlayer)) //If it's the player's turn
+            deserializedMessage.useMessage(socketConnection,this);
+        else
+            throw new NotYourTurnException();
+    }
     /**
      * Forwarding Round then telling the new player that it's his turn to play
      */
