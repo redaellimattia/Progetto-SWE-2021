@@ -32,6 +32,14 @@ public class ClientSocket implements Runnable {
         } catch (IOException e) { Client.LOGGER.severe("Failed to connect to: "+ address+":" + socketPort + "\n" +e.getMessage()); }
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
     public void startConnection() {
         //on connection request the available lobbies
         send(new AskLobbyMessage(this.nickname, -1).serialize());

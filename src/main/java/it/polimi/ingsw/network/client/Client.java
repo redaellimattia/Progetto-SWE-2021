@@ -19,6 +19,7 @@ public class Client {
 
     private String nickname;
     private ClientSocket clientSocket;
+    private long serverThreadID;
 
     private Client(String address, int socketPort, String choice) {
         //qui verrà avviata la view e questa prenderà tutte le informazioni dal client
@@ -27,15 +28,21 @@ public class Client {
         connection("nickname" /* verrà passato da view*/, address,socketPort);
 
     }
+
+    public String getNickname() {
+        return nickname;
+    }
+    public long getServerThreadID() {
+        return serverThreadID;
+    }
+
     public void connection(String nickname,String address, int socketPort ){
         clientSocket = new ClientSocket(address, socketPort,this);
         clientSocket.startConnection();
 
     }
 
-    public String getNickname() {
-        return nickname;
-    }
+
 
     // IP - PORT - CLI/GUI
     // -ip 127.0.0.1 -p 1337 -gui

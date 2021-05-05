@@ -44,7 +44,6 @@ public class SocketConnection implements Runnable{
 
         socketListener = new Thread(this);
         socketListener.start();
-        //send("Ciao");
     }
 
     /**

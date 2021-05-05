@@ -1,16 +1,19 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.GameLobby;
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.exceptions.network.GameAlreadyStartedException;
 import it.polimi.ingsw.exceptions.network.NicknameAlreadyUsedException;
 import it.polimi.ingsw.exceptions.network.NotYourTurnException;
 import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
+import it.polimi.ingsw.network.messages.serverMessages.PingMessage;
 import it.polimi.ingsw.network.messages.serverMessages.YourTurnMessage;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
+import java.util.Timer;
 
 public class ServerThread extends Thread{
     private final Object gameLock = new Object();
@@ -38,7 +41,7 @@ public class ServerThread extends Thread{
     public GameLobby getGameLobby() {
         return gameLobby;
     }
-
+    public PlayerTurnManager getTurnManager(){return gameLobby.getGameManager().getTurnManager();}
     /**
      * Checks it's actually the player's turn and that the player is actually in this game
      *
@@ -46,7 +49,7 @@ public class ServerThread extends Thread{
      * @param deserializedMessage ClientMessage sent by the client
      */
     public void onMessage(SocketConnection socketConnection, ClientMessage deserializedMessage){
-        String actualPlayer = gameLobby.getGameManager().getTurnManager().getPlayer().getNickname();
+        String actualPlayer = getTurnManager().getPlayer().getNickname();
         String askingPlayer = deserializedMessage.getNickname();
 
         //If there isn't the askingPlayer or the askingPlayer nickname on the clients map doesn't match the socketConnection
@@ -63,7 +66,7 @@ public class ServerThread extends Thread{
      */
     public void endRound(){
         gameLobby.getGameManager().nextRound();
-        String nickname = gameLobby.getGameManager().getTurnManager().getPlayer().getNickname();
+        String nickname = getTurnManager().getPlayer().getNickname();
         SocketConnection clientConnection = clients.get(nickname);
         YourTurnMessage yourTurn = new YourTurnMessage();
         clientConnection.send(yourTurn.serialize());
@@ -122,17 +125,21 @@ public class ServerThread extends Thread{
         //Gestito per resilienza
     }
 
+    public void resetTimer(){
 
+    }
     /**
      * Thread pinging clients to check if they are still playing
      */
     @Override
     public void run(){
         while (!Thread.currentThread().isInterrupted()) {
-                for(Map.Entry<String, SocketConnection> c: clients.entrySet())
-                    if (c.getValue() == null || !c.getValue().isConnected()){
-                        //Resilienza Disconnessioni
-                    }
+            boolean pingReceived = false;
+            String currPlayerNickname = getTurnManager().getPlayer().getNickname();
+            SocketConnection socketConnection = clients.get(currPlayerNickname);
+            socketConnection.send(new PingMessage().serialize());
+
+
         }
     }
 

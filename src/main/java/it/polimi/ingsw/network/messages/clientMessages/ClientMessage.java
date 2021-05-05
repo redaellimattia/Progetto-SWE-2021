@@ -4,6 +4,7 @@ import com.google.gson.*;
 
 import it.polimi.ingsw.network.enumeration.ClientMessageType;
 import it.polimi.ingsw.network.messages.clientMessages.actionMessages.ActionMessage;
+import it.polimi.ingsw.network.messages.serverMessages.PingMessage;
 import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
 
@@ -61,6 +62,8 @@ public abstract class ClientMessage {
                 return gson.fromJson(msg,DisconnectionMessage.class);
             case ACTION:
                 return ActionMessage.deserializeAction(jsonObj);
+            case PINGRESPONSE:
+                return gson.fromJson(msg,PingResponseMessage.class);
             default:
                 throw new IllegalArgumentException("ClientMessageType not valid.");
         }
