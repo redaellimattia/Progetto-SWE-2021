@@ -3,7 +3,7 @@ package it.polimi.ingsw.network.client;
 import it.polimi.ingsw.network.server.Server;
 
 public class Client {
-    private static final int DEFAULT_SOCKET_PORT = 1337;
+    private static final int DEFAULT_SOCKET_PORT = 1338;
     private static final String DEFAULT_SOCKET_IP = "127.0.0.1";
     private static final String DEFAULT_CHOICE = "cli";
 
