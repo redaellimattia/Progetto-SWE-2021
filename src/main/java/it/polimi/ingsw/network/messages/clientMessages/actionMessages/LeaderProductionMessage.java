@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.messages.clientMessages.actionMessages;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.productionAction.LeaderCardProductionAction;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.LeaderCard;
@@ -25,6 +26,7 @@ public class LeaderProductionMessage extends ActionMessage{
     @Override
     public void useMessage(SocketConnection socketConnection, ServerThread serverThread) {
         LeaderCardProductionAction action = new LeaderCardProductionAction(card, storageCount, chestCount, res);
-        useActionMessage(action, socketConnection,serverThread);
+        PlayerTurnManager turnManager = getPlayerTurnManager(serverThread);
+        turnManager.addLeaderCardProduction(action);
     }
 }

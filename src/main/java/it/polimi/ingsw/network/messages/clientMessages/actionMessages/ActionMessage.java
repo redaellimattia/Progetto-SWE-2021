@@ -81,6 +81,7 @@ public abstract class ActionMessage extends ClientMessage {
     public PlayerTurnManager getPlayerTurnManager(ServerThread serverThread){
         return serverThread.getGameLobby().getGameManager().getTurnManager();
     }
+
     /**
      *  call the turnManager to set and use the action;
      *
@@ -93,6 +94,12 @@ public abstract class ActionMessage extends ClientMessage {
         turnManager.useAction();
     }
 
+    /**
+     * call the turnManager to set and use the action;
+     * @param action
+     * @param socketConnection
+     * @param serverThread
+     */
     public void useSideActionMessage(Action action, SocketConnection socketConnection,ServerThread serverThread){
         PlayerTurnManager turnManager = getPlayerTurnManager(serverThread);
         turnManager.setSideAction(action);

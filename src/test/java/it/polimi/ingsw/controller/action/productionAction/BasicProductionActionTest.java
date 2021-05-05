@@ -79,24 +79,6 @@ class BasicProductionActionTest {
         assertThrows(WrongResourceException.class, () -> action.useAction(player));
     }
 
-    @Test
-    void endProductionAction() { //BASICPRODUCTION THAT ADDS 1 COIN
-        PlayerDashboard player = createPlayer();
-        ResourceCount chestCount = new ResourceCount(1,1,0,0,0);
-        ResourceCount resultChest = new ResourceCount(4,4,0,0,0);
-        ResourceCount resultBuff = new ResourceCount(1,0,0,0,0);
-        BasicProductionAction action = new BasicProductionAction(Resource.COIN, null, chestCount);
-        action.useAction(player);
-        assertEquals(resultChest,player.getChest()); //Paid correctly
-        assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
-
-        //END ACTION THEN CHECK IF PATHPOSITION INCREASED, AND CHEST INCREASED
-        action.endAction(player);
-        assertEquals(new ResourceCount(0,0,0,0,0),player.getBufferProduction()); //Buffer is empty
-        ResourceCount newChest = new ResourceCount(5,4,0,0,0);
-        assertEquals(0,player.getPathPosition());
-        assertEquals(newChest,player.getChest());
-    }
 
     PlayerDashboard createPlayer(){
         String nickname = "Prova";

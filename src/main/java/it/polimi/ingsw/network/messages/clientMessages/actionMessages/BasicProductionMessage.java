@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.messages.clientMessages.actionMessages;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.productionAction.BasicProductionAction;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -23,6 +24,7 @@ public class BasicProductionMessage extends ActionMessage{
     @Override
     public void useMessage(SocketConnection socketConnection, ServerThread serverThread) {
         BasicProductionAction action = new BasicProductionAction(res, storageCount, chestCount);
-        useActionMessage(action, socketConnection,serverThread);
+        PlayerTurnManager turnManager = getPlayerTurnManager(serverThread);
+        turnManager.addBasicProduction(action);
     }
 }

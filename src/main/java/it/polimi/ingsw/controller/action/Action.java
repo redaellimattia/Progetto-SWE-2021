@@ -1,11 +1,17 @@
 package it.polimi.ingsw.controller.action;
 
+import it.polimi.ingsw.controller.action.productionAction.BasicProductionAction;
+import it.polimi.ingsw.controller.action.productionAction.DevCardProductionAction;
+import it.polimi.ingsw.controller.action.productionAction.LeaderCardProductionAction;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 public abstract class Action {
     public void useAction(PlayerDashboard player) {}
     public void endAction(PlayerDashboard player){}
+    public void addBasicProduction(BasicProductionAction basicProduction,PlayerDashboard player) {}
+    public void addDevCardProduction(DevCardProductionAction devCardProduction,PlayerDashboard player) {}
+    public void addLeaderCardProduction(LeaderCardProductionAction leaderCardProduction,PlayerDashboard player) {}
 
     //TRUE IF BOTH STORAGE AND CHEST PAY ARE DONE CORRECTLY
     public boolean deleteRes(ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player){

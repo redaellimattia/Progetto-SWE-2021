@@ -84,25 +84,6 @@ class LeaderCardProductionActionTest {
         assertThrows(CardNotExistsException.class, () -> action.useAction(player));
     }
 
-    @Test
-    void endAction() { //LEADERCARDPRODUCTION THAT ADDS 3 SERVANTS
-        PlayerDashboard player = createPlayer(true);
-        ResourceCount chestCount = new ResourceCount(1,0,0,0,0);
-        ResourceCount resultChest = new ResourceCount(4,5,0,0,0);
-        ResourceCount resultBuff = new ResourceCount(1,0,0,0,1);
-        LeaderCard card = createLeaderCard(true);
-        LeaderCardProductionAction action = new LeaderCardProductionAction(card, null, chestCount,Resource.COIN);
-        action.useAction(player);
-        assertEquals(resultChest,player.getChest()); //Paid correctly
-        assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
-
-        //END ACTION THEN CHECK IF PATHPOSITION INCREASED, AND CHEST INCREASED
-        action.endAction(player);
-        assertEquals(new ResourceCount(0,0,0,0,0),player.getBufferProduction()); //Buffer is empty
-        ResourceCount newChest = new ResourceCount(5,5,0,0,0);
-        assertEquals(1,player.getPathPosition());
-        assertEquals(newChest,player.getChest());
-    }
 
     PlayerDashboard createPlayer(boolean inGame){
         String nickname = "Prova";

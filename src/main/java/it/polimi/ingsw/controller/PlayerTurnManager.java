@@ -2,6 +2,9 @@ package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.controller.action.productionAction.BasicProductionAction;
+import it.polimi.ingsw.controller.action.productionAction.DevCardProductionAction;
+import it.polimi.ingsw.controller.action.productionAction.LeaderCardProductionAction;
+import it.polimi.ingsw.controller.action.productionAction.ProductionAction;
 import it.polimi.ingsw.exceptions.action.IllegalActionException;
 import it.polimi.ingsw.model.PlayerDashboard;
 
@@ -40,7 +43,7 @@ public class PlayerTurnManager {
 
     /**
      *
-     * @param action
+     * @param action sideAction chosen by the client
      */
     public void setSideAction(Action action) {
         this.sideAction = action;
@@ -74,6 +77,42 @@ public class PlayerTurnManager {
         return sideAction;
     }
 
+
+    /**
+     * Adds an atomic production to the main action or creates a new MainAction as ProductionAction
+     *
+     * @param basicProduction basicProduction chosen by the client
+     */
+    public void addBasicProduction(BasicProductionAction basicProduction){
+        if(action==null) {
+            action = new ProductionAction();
+        }
+        action.addBasicProduction(basicProduction,player);
+    }
+
+    /**
+     * Adds an atomic production to the main action or creates a new MainAction as ProductionAction
+     *
+     * @param devCardProduction devCardProduction chosen by the client
+     */
+    public void addDevCardProduction(DevCardProductionAction devCardProduction){
+        if(action==null) {
+            action = new ProductionAction();
+        }
+        action.addDevCardProduction(devCardProduction,player);
+    }
+
+    /**
+     * Adds an atomic production to the main action or creates a new MainAction as ProductionAction
+     *
+     * @param leaderCardProduction leaderCardProduction chosen by the client
+     */
+    public void addLeaderCardProduction(LeaderCardProductionAction leaderCardProduction){
+        if(action==null) {
+            action = new ProductionAction();
+        }
+        action.addLeaderCardProduction(leaderCardProduction,player);
+    }
     public void onUpdate() {
 
     }

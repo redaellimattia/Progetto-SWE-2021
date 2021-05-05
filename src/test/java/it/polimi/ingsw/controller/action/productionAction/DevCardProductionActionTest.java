@@ -72,45 +72,7 @@ class DevCardProductionActionTest {
         assertThrows(CardNotExistsException.class, () -> action.useAction(player));
     }
 
-    @Test
-    void endActionNoFaith() { //DEVCARDPRODUCTION THAT ADDS 3 SERVANTS
-        PlayerDashboard player = createPlayer();
-        ResourceCount chestCount = new ResourceCount(1,2,0,0,0);
-        ResourceCount resultChest = new ResourceCount(4,3,0,0,0);
-        ResourceCount resultBuff = new ResourceCount(0,0,3,0,0);
-        DevelopmentCard card = createDevCard(3);
-        DevCardProductionAction action = new DevCardProductionAction(card, null, chestCount);
-        action.useAction(player);
-        assertEquals(resultChest,player.getChest()); //Paid correctly
-        assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
 
-        //END ACTION THEN CHECK IF PATHPOSITION INCREASED, AND CHEST INCREASED
-        action.endAction(player);
-        assertEquals(new ResourceCount(0,0,0,0,0),player.getBufferProduction()); //Buffer is empty
-        ResourceCount newChest = new ResourceCount(4,3,3,0,0);
-        assertEquals(0,player.getPathPosition());
-        assertEquals(newChest,player.getChest());
-    }
-
-    @Test
-    void endActionFaith() { //DEVCARDPRODUCTION THAT ADDS 2 SERVANTS AND 1 FAITH
-        PlayerDashboard player = createPlayerDevCardFaith();
-        ResourceCount chestCount = new ResourceCount(1,2,0,0,0);
-        ResourceCount resultChest = new ResourceCount(4,3,0,0,0);
-        ResourceCount resultBuff = new ResourceCount(0,0,2,0,1);
-        DevelopmentCard card = createDevCardWithFaith();
-        DevCardProductionAction action = new DevCardProductionAction(card, null, chestCount);
-        action.useAction(player);
-        assertEquals(resultChest,player.getChest()); //Paid correctly
-        assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
-
-        //END ACTION THEN CHECK IF PATHPOSITION INCREASED, AND CHEST INCREASED
-        action.endAction(player);
-        assertEquals(new ResourceCount(0,0,0,0,0),player.getBufferProduction()); //Buffer is empty
-        ResourceCount newChest = new ResourceCount(4,3,2,0,0);
-        assertEquals(1,player.getPathPosition());
-        assertEquals(newChest,player.getChest());
-    }
 
     PlayerDashboard createPlayer(){
         String nickname = "Prova";
