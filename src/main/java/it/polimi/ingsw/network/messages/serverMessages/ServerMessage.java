@@ -8,7 +8,7 @@ import it.polimi.ingsw.network.enumeration.ServerMessageType;
 
 public abstract class ServerMessage {
     static GsonBuilder builder = new GsonBuilder();
-    static Gson gson = builder.setPrettyPrinting().create();
+    static Gson gson = builder.create();
     private final ServerMessageType type;
 
     public ServerMessage(ServerMessageType type) {

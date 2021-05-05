@@ -3,6 +3,7 @@ package it.polimi.ingsw.network.server;
 import java.io.*;
 import java.net.Socket;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 public class SocketConnection implements Runnable{
     private final SocketServer socketServer;
@@ -43,6 +44,7 @@ public class SocketConnection implements Runnable{
 
         socketListener = new Thread(this);
         socketListener.start();
+        send("Ciao");
     }
 
     /**
@@ -53,6 +55,7 @@ public class SocketConnection implements Runnable{
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 String msg = in.readLine();
+                System.out.println(msg);
                 if(msg!=null) socketServer.onMessage(this,msg);
             } catch (IOException e) { Server.LOGGER.log(Level.SEVERE,"Error while reading.\n"+ e.getMessage());}
         }

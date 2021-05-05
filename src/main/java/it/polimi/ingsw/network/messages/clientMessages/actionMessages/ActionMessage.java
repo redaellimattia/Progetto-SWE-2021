@@ -14,7 +14,7 @@ import it.polimi.ingsw.network.server.SocketConnection;
 
 public abstract class ActionMessage extends ClientMessage {
     static GsonBuilder builder = new GsonBuilder();
-    static Gson gson = builder.setPrettyPrinting().create();
+    static Gson gson = builder.create();
     private ActionType actionType;
 
     public ActionMessage(ActionType actionType,String nickname, long serverThreadID) {
