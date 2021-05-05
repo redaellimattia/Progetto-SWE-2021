@@ -18,10 +18,17 @@ public class ClientSocket implements Runnable {
     private Thread socketListener;
 
 
+    /**
+     * Creating ClientSocket
+     *
+     * @param address address chosen
+     * @param socketPort socketPort chosen
+     * @param client client that is trying to connect
+     */
     public ClientSocket(String address, int socketPort, Client client) {
+        this.client = client;
+        this.nickname = client.getNickname();
         try {
-            this.client = client;
-            this.nickname = client.getNickname();
             this.socket = new Socket(address, socketPort);
             this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.out = new PrintWriter(socket.getOutputStream());
@@ -32,11 +39,17 @@ public class ClientSocket implements Runnable {
         } catch (IOException e) { Client.LOGGER.severe("Failed to connect to: "+ address+":" + socketPort + "\n" +e.getMessage()); }
     }
 
+    /**
+     * On connection request the available lobbies
+     */
     public void startConnection() {
-        //on connection request the available lobbies
         send(new AskLobbyMessage(this.nickname, -1).serialize());
     }
 
+    /**
+     * if connected, send the messages
+     * @param msg serialized json message
+     */
     public void send(String msg) {
         if (isConnected) {
             out.println(msg);
@@ -44,6 +57,9 @@ public class ClientSocket implements Runnable {
         }
     }
 
+    /**
+     * While the tread is running, wait for responses from the Server
+     */
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {

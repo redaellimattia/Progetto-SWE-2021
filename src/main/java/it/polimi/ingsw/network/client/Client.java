@@ -20,25 +20,40 @@ public class Client {
     private String nickname;
     private ClientSocket clientSocket;
 
+    /**
+     * Create Client
+     * @param address address chosen
+     * @param socketPort socketPort chosen
+     * @param choice cli or gui
+     */
     private Client(String address, int socketPort, String choice) {
         //qui verrà avviata la view e questa prenderà tutte le informazioni dal client
         initLogger();
         //questo sarà nella view
-        connection("nickname" /* verrà passato da view*/, address,socketPort);
+        connection(address,socketPort);
 
     }
-    public void connection(String nickname,String address, int socketPort ){
+
+    /**
+     * Create a connection to the Server
+     * @param address address chosen
+     * @param socketPort socketPort chosen
+     */
+    public void connection(String address, int socketPort ){
         clientSocket = new ClientSocket(address, socketPort,this);
         clientSocket.startConnection();
-
     }
 
     public String getNickname() {
         return nickname;
     }
 
-    // IP - PORT - CLI/GUI
-    // -ip 127.0.0.1 -p 1337 -gui
+    /**
+     * IP - PORT - CLI/GUI
+     * ex: -ip 127.0.0.1 -p 1337 -gui
+     *
+     * @param args args chosen while launching the .jar
+     */
     public static void main(String args[]){
         String address = DEFAULT_SOCKET_IP;
         int socketPort = DEFAULT_SOCKET_PORT;
@@ -60,11 +75,19 @@ public class Client {
 
     }
 
+    /**
+     * Deserialize json message
+     *
+     * @param msg String sent on the socket
+     */
     public void onMessage(String msg){
         ServerMessage deserializedMessage = ServerMessage.onMessage(msg);
         deserializedMessage.useMessage(clientSocket);
     }
 
+    /**
+     * Creating logger file handler
+     */
     private void initLogger() {
         Date date = GregorianCalendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM_HH.mm.ss");
