@@ -87,6 +87,7 @@ public abstract class ActionMessage extends ClientMessage {
      *
      * @param action the action that needs to be done
      * @param socketConnection the connection from which the message has arrived
+     * @param serverThread serverThread of the game where the player is playing
      */
     public void useActionMessage(Action action, SocketConnection socketConnection, ServerThread serverThread){
         PlayerTurnManager turnManager = getPlayerTurnManager(serverThread);
@@ -96,9 +97,9 @@ public abstract class ActionMessage extends ClientMessage {
 
     /**
      * call the turnManager to set and use the action;
-     * @param action
-     * @param socketConnection
-     * @param serverThread
+     * @param action the action that needs to be done
+     * @param socketConnection the connection from which the message has arrived
+     * @param serverThread serverThread of the game where the player is playing
      */
     public void useSideActionMessage(Action action, SocketConnection socketConnection,ServerThread serverThread){
         PlayerTurnManager turnManager = getPlayerTurnManager(serverThread);
