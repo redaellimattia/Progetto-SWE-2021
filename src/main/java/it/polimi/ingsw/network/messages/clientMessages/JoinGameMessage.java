@@ -12,6 +12,10 @@ public class JoinGameMessage extends ClientMessage {
         super(ClientMessageType.JOINGAME, nickname, serverThreadID);
     }
 
+    /**
+     *
+     * @param socketConnection socketConnection of the client
+     */
     @Override
     public void useMessage(SocketConnection socketConnection){
         ServerThread serverThread = Server.serverThreads.get(getServerThreadID());
