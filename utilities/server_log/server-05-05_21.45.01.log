@@ -1,4 +1,0 @@
-mag 05, 2021 9:45:01 PM it.polimi.ingsw.network.server.Server <init>
-INFO: Server running.
-mag 05, 2021 9:45:01 PM it.polimi.ingsw.network.server.Server startServer
-INFO: Socket ServerThread listening on port: 1337

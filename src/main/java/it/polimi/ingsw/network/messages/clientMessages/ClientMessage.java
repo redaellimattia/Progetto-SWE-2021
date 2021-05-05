@@ -59,8 +59,8 @@ public abstract class ClientMessage {
                 return gson.fromJson(msg,JoinGameMessage.class);
             case DISCONNECTION:
                 return gson.fromJson(msg,DisconnectionMessage.class);
-            /*case ACTION:
-                return ActionMessage.deserializeAction(jsonObj);*/
+            case ACTION:
+                return ActionMessage.deserializeAction(jsonObj);
             default:
                 throw new IllegalArgumentException("ClientMessageType not valid.");
         }
