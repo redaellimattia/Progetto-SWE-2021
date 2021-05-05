@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class Server {
-    private static final int DEFAULT_SOCKET_PORT = 1337;
+    private static final int DEFAULT_SOCKET_PORT = 1338;
     private final int socketPort;
 
     protected static final Logger LOGGER = Logger.getLogger("ServerThread");

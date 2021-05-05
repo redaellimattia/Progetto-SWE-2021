@@ -37,7 +37,7 @@ public class ClientSocket implements Runnable {
 
     public void startConnection() {
         AskLobbyMessage jsonMsg = new AskLobbyMessage(this.nickname, -1);
-        System.out.println(jsonMsg.serialize());
+        //System.out.println(jsonMsg.serialize());
         send(new AskLobbyMessage(this.nickname, -1).serialize());
     }
 
@@ -53,7 +53,7 @@ public class ClientSocket implements Runnable {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 String msg = in.readLine();
-                System.out.println(msg);
+                //System.out.println(msg);
                 //if(msg!=null) socketServer.onMessage(this,msg);
             } catch (IOException e) { //Server.LOGGER.log(Level.SEVERE,"Error while reading.\n"+ e.getMessage());}
             }
