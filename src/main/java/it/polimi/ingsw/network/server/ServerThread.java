@@ -1,23 +1,28 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.GameLobby;
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.exceptions.network.GameAlreadyStartedException;
 import it.polimi.ingsw.exceptions.network.NicknameAlreadyUsedException;
 import it.polimi.ingsw.exceptions.network.NotYourTurnException;
 import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
+import it.polimi.ingsw.network.messages.serverMessages.PingMessage;
 import it.polimi.ingsw.network.messages.serverMessages.YourTurnMessage;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class ServerThread extends Thread{
     private final Object gameLock = new Object();
     private Map<String, SocketConnection> clients;
 
     private GameLobby gameLobby;
-
 
     /**
      * Creating Game Lobby, Clients HashMap and starting the Thread
@@ -27,7 +32,8 @@ public class ServerThread extends Thread{
 
         start(); //Start the thread
         Server.LOGGER.log(Level.INFO, "ServerThread: "+Thread.currentThread().getId()+" Thread created, waiting for clients...");
-        GameLobby gamelobby = new GameLobby(Thread.currentThread().getId(),numberOfPlayers);
+        this.gameLobby = new GameLobby(Thread.currentThread().getId(),numberOfPlayers);
+        //far partire timer per task preGame
         Server.LOGGER.log(Level.INFO, "Server: "+Thread.currentThread().getId()+" Game lobby created with "+numberOfPlayers+" players.");
     }
 
@@ -38,7 +44,7 @@ public class ServerThread extends Thread{
     public GameLobby getGameLobby() {
         return gameLobby;
     }
-
+    public PlayerTurnManager getTurnManager(){return gameLobby.getGameManager().getTurnManager();}
     /**
      * Checks it's actually the player's turn and that the player is actually in this game
      *
@@ -46,7 +52,7 @@ public class ServerThread extends Thread{
      * @param deserializedMessage ClientMessage sent by the client
      */
     public void onMessage(SocketConnection socketConnection, ClientMessage deserializedMessage){
-        String actualPlayer = gameLobby.getGameManager().getTurnManager().getPlayer().getNickname();
+        String actualPlayer = getTurnManager().getPlayer().getNickname();
         String askingPlayer = deserializedMessage.getNickname();
 
         //If there isn't the askingPlayer or the askingPlayer nickname on the clients map doesn't match the socketConnection
@@ -63,10 +69,11 @@ public class ServerThread extends Thread{
      */
     public void endRound(){
         gameLobby.getGameManager().nextRound();
-        String nickname = gameLobby.getGameManager().getTurnManager().getPlayer().getNickname();
+        String nickname = getTurnManager().getPlayer().getNickname();
         SocketConnection clientConnection = clients.get(nickname);
         YourTurnMessage yourTurn = new YourTurnMessage();
         clientConnection.send(yourTurn.serialize());
+        resetTimer(); //Resetto il timer con il task per il game avviato
     }
     /**
      *
@@ -92,9 +99,9 @@ public class ServerThread extends Thread{
                 gameLobby.addPlayer(nickname);
                 clients.put(nickname, clientConnection);
                 if (gameLobby.getNumberOfPlayers() == 1)
-                    gameLobby.startGame(true);
+                    startGame(true);
                 else if (clients.size() == gameLobby.getNumberOfPlayers())
-                    gameLobby.startGame(false);
+                    startGame(false);
             } else
                 throw new NicknameAlreadyUsedException(nickname);
         }
@@ -113,28 +120,71 @@ public class ServerThread extends Thread{
             newPlayerLogin(nickname,clientConnection);
     }
 
+    /**
+     * starting the game initializing the timer and then creating the model
+     * @param singlePlayer true if it's a singlePlayer game
+     */
+    public void startGame(boolean singlePlayer){
+        timer.schedule(task,200); //100 milliseconds
+        Server.LOGGER.log(Level.INFO, "Starting game and initializing timer.");
+        //to be completed
+        gameLobby.startGame(singlePlayer);
+    }
 
     /**
      *
-     * @param sockConnection Client that is disconnecting
+     * @param socketConnection Client that is disconnecting
      */
-    public void onDisconnect(SocketConnection sockConnection){
-        //Gestito per resilienza
+    public void onDisconnect(SocketConnection socketConnection){
+        String currPlayerNickname = getTurnManager().getPlayer().getNickname();
+        getTurnManager().getPlayer().setPlaying(false);
+        socketConnection.disconnect();
+        clients.remove(currPlayerNickname);
+        endRound();
     }
 
+
+    Timer timer = new Timer();
+    /**
+     *  timed task: after sending a ping and not being resetted upon response with a wait of 100 ms, it proceeds
+     *  to disconnect the client and removing the socketConnection from the list of this serverThread
+     */
+    TimerTask task = new TimerTask() {
+        public void run() {
+            System.out.println("AVVIO TIMER");
+            String currPlayerNickname = getTurnManager().getPlayer().getNickname();
+            SocketConnection socketConnection = clients.get(currPlayerNickname);
+            socketConnection.send(new PingMessage().serialize());
+            /*try{
+                task.wait(200);
+                System.out.println("FINITO WAIT");
+                onDisconnect(socketConnection);
+            } catch (InterruptedException e){
+                Server.LOGGER.log(Level.SEVERE, "Non sappiamo cosa succeda " + e.getMessage());
+            }*/
+        }
+    };
+
+    /**
+     * method called upon receiving a PingResponse, it reset the timer because the client is still connected
+     */
+    public void resetTimer(){
+        System.out.println("CANCELLO TIMER");
+        timer.cancel();
+        timer.schedule(task,200);
+        Server.LOGGER.log(Level.INFO, "Reset timer upon response.");
+    }
 
     /**
      * Thread pinging clients to check if they are still playing
      */
     @Override
     public void run(){
-        while (!Thread.currentThread().isInterrupted()) {
-                for(Map.Entry<String, SocketConnection> c: clients.entrySet())
-                    if (c.getValue() == null || !c.getValue().isConnected()){
-                        //Resilienza Disconnessioni
-                    }
+        while (!Thread.currentThread().isInterrupted()){
+
         }
     }
+
 
     /**
      *

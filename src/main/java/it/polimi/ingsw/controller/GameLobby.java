@@ -1,6 +1,12 @@
 package it.polimi.ingsw.controller;
 
 
+import it.polimi.ingsw.model.DeckDashboard;
+import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerDashboard;
+import it.polimi.ingsw.model.card.DevelopmentCard;
+
 import java.util.ArrayList;
 
 public class GameLobby {
@@ -55,10 +61,14 @@ public class GameLobby {
     }
 
     public void startGame(boolean singlePlayer) {
-        /*if(singlePlayer)
-            //createSingleplayer si aggiunge Lorenzo nella lista di player
-        else
-        //games.add(new GameManager(new Game(players,...),null));*/
+        if(singlePlayer){
+            ArrayList<PlayerDashboard> p = new ArrayList<>();
+            p.add(new PlayerDashboard(null,null,new DeckDashboard[3],new ArrayList<>(),0,players.get(0),0,false));
+            Game game = new Game(p,null,null,null);
+            gameManager = new GameManager(game,new PlayerTurnManager(p.get(0)),true);
+        }
+        //else
+            //games.add(new GameManager(new Game(players,...),null));
         this.gameStarted = true;
     }
 }
