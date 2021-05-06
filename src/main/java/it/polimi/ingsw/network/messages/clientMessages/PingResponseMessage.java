@@ -11,7 +11,6 @@ public class PingResponseMessage extends ClientMessage{
 
     @Override
     public void useMessage(SocketConnection socketConnection, ServerThread serverThread){
-        System.out.println("RISPOSTA PING"); //------------DEBUG------------------
         serverThread.resetTimer();
     }
 }

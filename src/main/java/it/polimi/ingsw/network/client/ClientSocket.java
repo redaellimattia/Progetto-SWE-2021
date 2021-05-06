@@ -51,11 +51,7 @@ public class ClientSocket implements Runnable {
      * Sends the first message, ASKLOBBIES to ask available lobbies
      */
     public void startConnection() {
-        //on connection request the available lobbies
-        //send(new AskLobbyMessage(this.nickname, -1).serialize());
-        String msg = new CreateGameMessage(this.nickname,-1,1).serialize(); //------------DEBUG------------------
-        System.out.println(msg); //------------DEBUG------------------
-        send(msg);
+        send(new CreateGameMessage(nickname,18,1).serialize());
     }
 
     /**
@@ -78,7 +74,7 @@ public class ClientSocket implements Runnable {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 String msg = in.readLine();
-                //System.out.println(msg);
+                System.out.println(msg);
                 if(msg!=null) client.onMessage(msg);
             } catch (IOException e) { Client.LOGGER.severe("Failed to read message from server: "+ e.getMessage());}
         }

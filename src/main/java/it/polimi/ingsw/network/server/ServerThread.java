@@ -7,15 +7,11 @@ import it.polimi.ingsw.exceptions.network.NicknameAlreadyUsedException;
 import it.polimi.ingsw.exceptions.network.NotYourTurnException;
 import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
-import it.polimi.ingsw.network.messages.serverMessages.PingMessage;
 import it.polimi.ingsw.network.messages.serverMessages.YourTurnMessage;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class ServerThread extends Thread{
@@ -30,10 +26,11 @@ public class ServerThread extends Thread{
     public ServerThread(int numberOfPlayers){
         this.clients = new HashMap<>();
 
-        start(); //Start the thread
+
         Server.LOGGER.log(Level.INFO, "ServerThread: "+getThreadId()+" Thread created, waiting for clients...");
         this.gameLobby = new GameLobby(Thread.currentThread().getId(),numberOfPlayers);
         //far partire timer per task preGame
+        start(); //Start the thread
         Server.LOGGER.log(Level.INFO, "Server: "+getThreadId()+" Game lobby created with "+numberOfPlayers+" players.");
     }
 
@@ -52,17 +49,21 @@ public class ServerThread extends Thread{
      * @param deserializedMessage ClientMessage sent by the client
      */
     public void onMessage(SocketConnection socketConnection, ClientMessage deserializedMessage){
-        String actualPlayer = getTurnManager().getPlayer().getNickname();
-        String askingPlayer = deserializedMessage.getNickname();
+        if(gameLobby.isGameStarted()) {
+            String actualPlayer = getTurnManager().getPlayer().getNickname();
+            String askingPlayer = deserializedMessage.getNickname();
 
-        //If there isn't the askingPlayer or the askingPlayer nickname on the clients map doesn't match the socketConnection
-        if(!clients.containsKey(askingPlayer) || !clients.get(askingPlayer).equals(socketConnection))
-            throw new UnrecognisedPlayerException();
+            //If there isn't the askingPlayer or the askingPlayer nickname on the clients map doesn't match the socketConnection
+            if (!clients.containsKey(askingPlayer) || !clients.get(askingPlayer).equals(socketConnection))
+                throw new UnrecognisedPlayerException();
 
-        if(actualPlayer.equals(askingPlayer)) //If it's the player's turn
-            deserializedMessage.useMessage(socketConnection,this);
+            if (actualPlayer.equals(askingPlayer)) //If it's the player's turn
+                deserializedMessage.useMessage(socketConnection, this);
+            else
+                throw new NotYourTurnException();
+        }
         else
-            throw new NotYourTurnException();
+            deserializedMessage.useMessage(socketConnection, this);
     }
     /**
      * Forwarding Round then telling the new player that it's his turn to play
@@ -73,7 +74,8 @@ public class ServerThread extends Thread{
         SocketConnection clientConnection = clients.get(nickname);
         YourTurnMessage yourTurn = new YourTurnMessage();
         clientConnection.send(yourTurn.serialize());
-        resetTimer(); //Resetto il timer con il task per il game avviato
+        timer = new PingTimer(this,clientConnection);
+        timer.startPinging();
     }
     /**
      * Login of a player that disconnected before
@@ -126,25 +128,23 @@ public class ServerThread extends Thread{
      * @param singlePlayer true if it's a singlePlayer game
      */
     public void startGame(boolean singlePlayer,SocketConnection socketConnection){
-        timer = new PingTimer(this,socketConnection);
-        Server.LOGGER.log(Level.INFO, "Starting game and initializing timer.");
         //to be completed
         gameLobby.startGame(singlePlayer);
-        timer.send();
     }
 
     /**
      *
      * @param socketConnection Client that is disconnecting
      */
-    public void onDisconnect(SocketConnection socketConnection){
-        String currPlayerNickname = getTurnManager().getPlayer().getNickname();
+    public void onDisconnect(SocketConnection socketConnection){ //DA FIXARE SE DISCONNECT IN LOBBY O DURING GAME
+        /*String currPlayerNickname = getTurnManager().getPlayer().getNickname();
         Server.LOGGER.log(Level.INFO,"Disconnecting client: "+currPlayerNickname);
         getTurnManager().getPlayer().setPlaying(false);
         socketConnection.disconnect();
         clients.remove(currPlayerNickname);
         Server.LOGGER.log(Level.INFO,"Client disconnected, going to next round...");
-        endRound();
+        endRound();*/
+        System.out.println("DA DISCONNETTERE");
     }
 
 
@@ -154,9 +154,7 @@ public class ServerThread extends Thread{
      * method called upon receiving a PingResponse, it reset the timer because the client is still connected
      */
     public void resetTimer(){
-        System.out.println("CANCELLO TIMER"); //------------DEBUG------------------
         timer.cancelTimer();
-        Server.LOGGER.log(Level.INFO, "Cancel timer upon response.");
     }
 
     /**
@@ -165,7 +163,19 @@ public class ServerThread extends Thread{
     @Override
     public void run(){
         while (!Thread.currentThread().isInterrupted()){
-
+            if(!gameLobby.isGameStarted()) {
+                synchronized (this) {
+                    for (String key : clients.keySet()) {
+                        System.out.println("Pinging user");
+                        timer = new PingTimer(this, clients.get(key));
+                        timer.send();
+                        try {wait(500);} catch (InterruptedException e) {Server.LOGGER.log(Level.SEVERE,e.getMessage());}
+                    }
+                }
+            }
+            else{
+                //OBSERVER
+            }
         }
     }
 

@@ -10,17 +10,7 @@ public class PingTimer {
     private ServerThread serverThread;
     private SocketConnection socketConnection;
     private Timer waitResponse;
-
-    /**
-     * TimerTask that ends the connection if the client has not answered in 100ms
-     */
-    private TimerTask waitResponseTask = new TimerTask() {
-        @Override
-        public void run() {
-            Server.LOGGER.log(Level.INFO,"No answer from client, going to disconnect it.");
-            serverThread.onDisconnect(socketConnection);
-        }
-    };
+    private Timer pingDuringGame;
 
     /**
      * Creating PingTimer object that is used to ping clients and check if they are still connected
@@ -30,15 +20,35 @@ public class PingTimer {
     public PingTimer(ServerThread serverThread, SocketConnection socketConnection) {
         this.serverThread = serverThread;
         this.socketConnection = socketConnection;
-        waitResponse = new Timer();
+        pingDuringGame = new Timer();
     }
+
+    /**
+     * Send a message every 200ms
+     */
+    public void startPinging(){
+        pingDuringGame.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                send();
+            }
+        },0,1000);
+    }
+
 
     /**
      * Send a message, then schedule the timer to run in 100ms
      */
     public void send(){
         socketConnection.send(new PingMessage().serialize());
-        waitResponse.schedule(waitResponseTask,100);
+        waitResponse = new Timer();
+        waitResponse.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Server.LOGGER.log(Level.INFO,"No answer from client, going to disconnect it.");
+                serverThread.onDisconnect(socketConnection);
+            }
+        },500);
     }
 
     /**

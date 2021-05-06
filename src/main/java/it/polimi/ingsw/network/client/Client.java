@@ -19,7 +19,7 @@ public class Client {
 
     private String nickname;
     private ClientSocket clientSocket;
-    private long serverThreadID = 18; //------------DEBUG------------------ should be -1
+    private long serverThreadID = -1;
 
     /**
      * Creates client Object, handles client connection and instantiates view
@@ -84,7 +84,7 @@ public class Client {
      */
     public void onMessage(String msg){
         ServerMessage deserializedMessage = ServerMessage.onMessage(msg);
-        //deserializedMessage.useMessage(clientSocket);
+        deserializedMessage.useMessage(clientSocket);
     }
 
     /**
