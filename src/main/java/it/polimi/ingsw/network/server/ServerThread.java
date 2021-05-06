@@ -21,7 +21,7 @@ import java.util.TimerTask;
 public class ServerThread extends Thread{
     private final Object gameLock = new Object();
     private Map<String, SocketConnection> clients;
-
+    private PingTimer timer;
     private GameLobby gameLobby;
 
     /**
@@ -76,6 +76,7 @@ public class ServerThread extends Thread{
         resetTimer(); //Resetto il timer con il task per il game avviato
     }
     /**
+     * Login of a player that disconnected before
      *
      * @param playerPosition position of the player in the arraylist of players in game
      * @param nickname player nickname
@@ -99,9 +100,9 @@ public class ServerThread extends Thread{
                 gameLobby.addPlayer(nickname);
                 clients.put(nickname, clientConnection);
                 if (gameLobby.getNumberOfPlayers() == 1)
-                    startGame(true);
+                    startGame(true,clientConnection);
                 else if (clients.size() == gameLobby.getNumberOfPlayers())
-                    startGame(false);
+                    startGame(false,clientConnection);
             } else
                 throw new NicknameAlreadyUsedException(nickname);
         }
@@ -124,11 +125,12 @@ public class ServerThread extends Thread{
      * starting the game initializing the timer and then creating the model
      * @param singlePlayer true if it's a singlePlayer game
      */
-    public void startGame(boolean singlePlayer){
-        timer.schedule(task,200); //100 milliseconds
+    public void startGame(boolean singlePlayer,SocketConnection socketConnection){
+        timer = new PingTimer(this,socketConnection);
         Server.LOGGER.log(Level.INFO, "Starting game and initializing timer.");
         //to be completed
         gameLobby.startGame(singlePlayer);
+        timer.send();
     }
 
     /**
@@ -144,35 +146,15 @@ public class ServerThread extends Thread{
     }
 
 
-    Timer timer = new Timer();
-    /**
-     *  timed task: after sending a ping and not being resetted upon response with a wait of 100 ms, it proceeds
-     *  to disconnect the client and removing the socketConnection from the list of this serverThread
-     */
-    TimerTask task = new TimerTask() {
-        public void run() {
-            System.out.println("AVVIO TIMER");
-            String currPlayerNickname = getTurnManager().getPlayer().getNickname();
-            SocketConnection socketConnection = clients.get(currPlayerNickname);
-            socketConnection.send(new PingMessage().serialize());
-            /*try{
-                task.wait(200);
-                System.out.println("FINITO WAIT");
-                onDisconnect(socketConnection);
-            } catch (InterruptedException e){
-                Server.LOGGER.log(Level.SEVERE, "Non sappiamo cosa succeda " + e.getMessage());
-            }*/
-        }
-    };
+
 
     /**
      * method called upon receiving a PingResponse, it reset the timer because the client is still connected
      */
     public void resetTimer(){
-        System.out.println("CANCELLO TIMER");
-        timer.cancel();
-        timer.schedule(task,200);
-        Server.LOGGER.log(Level.INFO, "Reset timer upon response.");
+        System.out.println("CANCELLO TIMER"); //------------DEBUG------------------
+        timer.cancelTimer();
+        Server.LOGGER.log(Level.INFO, "Cancel timer upon response.");
     }
 
     /**

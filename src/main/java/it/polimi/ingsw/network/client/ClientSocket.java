@@ -19,13 +19,19 @@ public class ClientSocket implements Runnable {
     private Thread socketListener;
 
 
+    /**
+     * Creates a clientSocket, the connection of the client to the server
+     * @param address address chosen
+     * @param socketPort port chosen
+     * @param client client Object that is trying to connect
+     */
     public ClientSocket(String address, int socketPort, Client client) {
         try {
-            this.client = client;
-            this.nickname = client.getNickname();
             this.socket = new Socket(address, socketPort);
             this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.out = new PrintWriter(socket.getOutputStream());
+            this.client = client;
+            this.nickname = client.getNickname();
             this.isConnected = true;
             socketListener = new Thread(this);
             socketListener.start();
@@ -41,14 +47,21 @@ public class ClientSocket implements Runnable {
         return client;
     }
 
+    /**
+     * Sends the first message, ASKLOBBIES to ask available lobbies
+     */
     public void startConnection() {
         //on connection request the available lobbies
         //send(new AskLobbyMessage(this.nickname, -1).serialize());
-        String msg = new CreateGameMessage(this.nickname,-1,1).serialize();
-        System.out.println(msg);
+        String msg = new CreateGameMessage(this.nickname,-1,1).serialize(); //------------DEBUG------------------
+        System.out.println(msg); //------------DEBUG------------------
         send(msg);
     }
 
+    /**
+     * Send passed String
+     * @param msg serialized Json message
+     */
     public void send(String msg) {
         if (isConnected) {
             out.println(msg);
@@ -56,6 +69,10 @@ public class ClientSocket implements Runnable {
         }
     }
 
+    /**
+     * While running, the thread checks the BufferedReader for available messages
+     * If some message comes up, it will be sent to the onMessage method on the client Object
+     */
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {

@@ -19,14 +19,19 @@ public class Client {
 
     private String nickname;
     private ClientSocket clientSocket;
-    private long serverThreadID = -1;
+    private long serverThreadID = 18; //------------DEBUG------------------ should be -1
 
+    /**
+     * Creates client Object, handles client connection and instantiates view
+     * @param address address chosen
+     * @param socketPort port chosen
+     * @param choice CLI or GUI, CLI is Default
+     */
     private Client(String address, int socketPort, String choice) {
         //qui verrà avviata la view e questa prenderà tutte le informazioni dal client
         initLogger();
-        //questo sarà nella view
-        connection("nickname" /* verrà passato da view*/, address,socketPort);
-
+        this.nickname = "nickname"; //------------DEBUG------------------
+        connection(address,socketPort);
     }
 
     public String getNickname() {
@@ -36,17 +41,23 @@ public class Client {
         return serverThreadID;
     }
 
-    public void connection(String nickname,String address, int socketPort ){
+    /**
+     * Connection to the server
+     * @param address address chosen
+     * @param socketPort port chosen
+     */
+    public void connection(String address, int socketPort ){
         clientSocket = new ClientSocket(address, socketPort,this);
         clientSocket.startConnection();
-
     }
 
 
-
-    // IP - PORT - CLI/GUI
-    // -ip 127.0.0.1 -p 1337 -gui
-    public static void main(String args[]){
+    /**
+     * IP - PORT - CLI/GUI
+     * ex: -ip 127.0.0.1 -p 1337 -gui
+     * @param args args passed when launching the .jar
+     */
+    public static void main(String[] args){
         String address = DEFAULT_SOCKET_IP;
         int socketPort = DEFAULT_SOCKET_PORT;
         String choice = DEFAULT_CHOICE;
@@ -67,11 +78,18 @@ public class Client {
 
     }
 
+    /**
+     * Handle a new message arrived from the server
+     * @param msg serialized Json message
+     */
     public void onMessage(String msg){
         ServerMessage deserializedMessage = ServerMessage.onMessage(msg);
         deserializedMessage.useMessage(clientSocket);
     }
 
+    /**
+     * Creating logger file handler
+     */
     private void initLogger() {
         Date date = GregorianCalendar.getInstance().getTime();
         DateFormat dateFormat = new SimpleDateFormat("dd-MM_HH.mm.ss");
