@@ -11,6 +11,7 @@ public class PingMessage extends ServerMessage{
 
     @Override
     public void useMessage(ClientSocket clientSocket){
+        System.out.println("LETTO PING");
         clientSocket.send(new PingResponseMessage(clientSocket.getNickname(),clientSocket.getClient().getServerThreadID()).serialize());
     }
 }

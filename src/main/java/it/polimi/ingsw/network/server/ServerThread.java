@@ -32,7 +32,8 @@ public class ServerThread extends Thread{
 
         start(); //Start the thread
         Server.LOGGER.log(Level.INFO, "ServerThread: "+Thread.currentThread().getId()+" Thread created, waiting for clients...");
-        GameLobby gamelobby = new GameLobby(Thread.currentThread().getId(),numberOfPlayers);
+        this.gameLobby = new GameLobby(Thread.currentThread().getId(),numberOfPlayers);
+        //far partire timer per task preGame
         Server.LOGGER.log(Level.INFO, "Server: "+Thread.currentThread().getId()+" Game lobby created with "+numberOfPlayers+" players.");
     }
 
@@ -72,7 +73,7 @@ public class ServerThread extends Thread{
         SocketConnection clientConnection = clients.get(nickname);
         YourTurnMessage yourTurn = new YourTurnMessage();
         clientConnection.send(yourTurn.serialize());
-        resetTimer();
+        resetTimer(); //Resetto il timer con il task per il game avviato
     }
     /**
      *
@@ -125,6 +126,7 @@ public class ServerThread extends Thread{
      */
     public void startGame(boolean singlePlayer){
         timer.schedule(task,200); //100 milliseconds
+        Server.LOGGER.log(Level.INFO, "Starting game and initializing timer.");
         //to be completed
         gameLobby.startGame(singlePlayer);
     }
@@ -149,13 +151,17 @@ public class ServerThread extends Thread{
      */
     TimerTask task = new TimerTask() {
         public void run() {
+            System.out.println("AVVIO TIMER");
             String currPlayerNickname = getTurnManager().getPlayer().getNickname();
             SocketConnection socketConnection = clients.get(currPlayerNickname);
             socketConnection.send(new PingMessage().serialize());
-            try{
-                wait(200);
+            /*try{
+                task.wait(200);
+                System.out.println("FINITO WAIT");
                 onDisconnect(socketConnection);
-            } catch (InterruptedException e){}
+            } catch (InterruptedException e){
+                Server.LOGGER.log(Level.SEVERE, "Non sappiamo cosa succeda " + e.getMessage());
+            }*/
         }
     };
 
@@ -163,8 +169,10 @@ public class ServerThread extends Thread{
      * method called upon receiving a PingResponse, it reset the timer because the client is still connected
      */
     public void resetTimer(){
+        System.out.println("CANCELLO TIMER");
         timer.cancel();
         timer.schedule(task,200);
+        Server.LOGGER.log(Level.INFO, "Reset timer upon response.");
     }
 
     /**

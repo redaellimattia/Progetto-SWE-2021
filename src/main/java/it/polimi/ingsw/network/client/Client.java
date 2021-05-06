@@ -19,7 +19,7 @@ public class Client {
 
     private String nickname;
     private ClientSocket clientSocket;
-    private long serverThreadID;
+    private long serverThreadID = -1;
 
     private Client(String address, int socketPort, String choice) {
         //qui verrà avviata la view e questa prenderà tutte le informazioni dal client

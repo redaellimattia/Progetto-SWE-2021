@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.messages.clientMessages.AskLobbyMessage;
+import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -42,7 +43,10 @@ public class ClientSocket implements Runnable {
 
     public void startConnection() {
         //on connection request the available lobbies
-        send(new AskLobbyMessage(this.nickname, -1).serialize());
+        //send(new AskLobbyMessage(this.nickname, -1).serialize());
+        String msg = new CreateGameMessage(this.nickname,-1,1).serialize();
+        System.out.println(msg);
+        send(msg);
     }
 
     public void send(String msg) {
