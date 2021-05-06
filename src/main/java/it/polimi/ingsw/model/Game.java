@@ -25,7 +25,13 @@ public class Game {
         return player.equals(players.get(players.size() - 1));
     }
 
-
+    public PlayerDashboard getLorenzo(){
+        for (PlayerDashboard p: players) {
+            if(p.isLorenzo())
+                return p;
+        }
+        return null;
+    }
     public void setLorenzoWin(){
         this.lorenzoWin = true;
     }

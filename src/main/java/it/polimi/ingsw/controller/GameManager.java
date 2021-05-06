@@ -14,7 +14,6 @@ public class GameManager {
     private VaticanReport[] vReports;
     private boolean isSinglePlayer;
     private boolean gameMustEnd;
-    private PlayerDashboard lorenzo;
 
     public GameManager(Game game, PlayerTurnManager turnManager,boolean isSinglePlayer) {
         this.game = game;
@@ -136,7 +135,7 @@ public class GameManager {
             game.getPlayers().sort(Player::compareTo);
         }
         else{
-            if(lorenzo.getPathPosition() == 24 || game.getShop().emptyColumn())
+            if(game.getLorenzo().getPathPosition() == 24 || game.getShop().emptyColumn())
                 game.setLorenzoWin();
             else
                 //SUM THE TOTAL POINTS OF THE ONLY PLAYER
@@ -158,7 +157,7 @@ public class GameManager {
             else {
                 if(isSinglePlayer) {
                     SoloToken token = game.pickNextToken();
-                    token.useToken(lorenzo, game);
+                    token.useToken(game.getLorenzo(), game);
                     this.turnManager = new PlayerTurnManager(player); //da controllare se serve svuotare tutto
                 }
                 else {
