@@ -84,7 +84,7 @@ public class Client {
      */
     public void onMessage(String msg){
         ServerMessage deserializedMessage = ServerMessage.onMessage(msg);
-        deserializedMessage.useMessage(clientSocket);
+        //deserializedMessage.useMessage(clientSocket);
     }
 
     /**

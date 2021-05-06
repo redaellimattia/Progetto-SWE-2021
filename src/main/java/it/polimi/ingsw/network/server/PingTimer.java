@@ -10,6 +10,7 @@ public class PingTimer {
     private ServerThread serverThread;
     private SocketConnection socketConnection;
     private Timer waitResponse;
+
     /**
      * TimerTask that ends the connection if the client has not answered in 100ms
      */

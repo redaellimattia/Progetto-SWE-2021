@@ -31,10 +31,10 @@ public class ServerThread extends Thread{
         this.clients = new HashMap<>();
 
         start(); //Start the thread
-        Server.LOGGER.log(Level.INFO, "ServerThread: "+Thread.currentThread().getId()+" Thread created, waiting for clients...");
+        Server.LOGGER.log(Level.INFO, "ServerThread: "+getThreadId()+" Thread created, waiting for clients...");
         this.gameLobby = new GameLobby(Thread.currentThread().getId(),numberOfPlayers);
         //far partire timer per task preGame
-        Server.LOGGER.log(Level.INFO, "Server: "+Thread.currentThread().getId()+" Game lobby created with "+numberOfPlayers+" players.");
+        Server.LOGGER.log(Level.INFO, "Server: "+getThreadId()+" Game lobby created with "+numberOfPlayers+" players.");
     }
 
     public Map<String, SocketConnection> getClients() {
@@ -139,9 +139,11 @@ public class ServerThread extends Thread{
      */
     public void onDisconnect(SocketConnection socketConnection){
         String currPlayerNickname = getTurnManager().getPlayer().getNickname();
+        Server.LOGGER.log(Level.INFO,"Disconnecting client: "+currPlayerNickname);
         getTurnManager().getPlayer().setPlaying(false);
         socketConnection.disconnect();
         clients.remove(currPlayerNickname);
+        Server.LOGGER.log(Level.INFO,"Client disconnected, going to next round...");
         endRound();
     }
 
