@@ -2,12 +2,14 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.messages.clientMessages.AskLobbyMessage;
 import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
+import it.polimi.ingsw.network.server.Server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
 
 public class ClientSocket implements Runnable {
     private BufferedReader in;
@@ -51,9 +53,10 @@ public class ClientSocket implements Runnable {
      * Sends the first message, ASKLOBBIES to ask available lobbies
      */
     public void startConnection() {
-        //ASKLOBBIES
-        send(new CreateGameMessage(nickname,18,4).serialize());
+        send(new AskLobbyMessage(nickname, client.getServerThreadID()).serialize());
+        //send(new CreateGameMessage(nickname, client.getServerThreadID(), 4).serialize());
     }
+
 
     /**
      * Send passed String
@@ -75,9 +78,29 @@ public class ClientSocket implements Runnable {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 String msg = in.readLine();
-                //System.out.println(msg);
+                System.out.println(msg);
                 if(msg!=null) client.onMessage(msg);
-            } catch (IOException e) { Client.LOGGER.severe("Failed to read message from server: "+ e.getMessage());}
+                else disconnect();
+            } catch (IOException e) {
+                Client.LOGGER.severe("Failed to read message from server: "+ e.getMessage());
+                disconnect();
+            }
+        }
+    }
+
+    /**
+     * Server disconnected, closing socket
+     */
+    public void disconnect() {
+        if (isConnected) {
+            try {
+                if (!socket.isClosed())
+                    socket.close();
+            } catch (IOException e) {
+                Client.LOGGER.log(Level.SEVERE,"Error while closing the Socket Connection\n"+ e.getMessage());}
+
+            socketListener.interrupt(); // Interrupts the thread
+            isConnected = false;
         }
     }
 }

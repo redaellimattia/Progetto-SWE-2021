@@ -29,7 +29,7 @@ public class ServerThread extends Thread{
         this.clients = new HashMap<>();
 
 
-        Server.LOGGER.log(Level.INFO, "ServerThread: "+getThreadId()+" Thread created, waiting for clients...");
+        //Server.LOGGER.log(Level.INFO, "ServerThread: "+getThreadId()+" Thread created, waiting for clients...");
         this.gameLobby = new GameLobby(Thread.currentThread().getId(),numberOfPlayers);
         //far partire timer per task preGame
         start(); //Start the thread
@@ -95,6 +95,7 @@ public class ServerThread extends Thread{
     public void knownPlayerLogin(int playerPosition,String nickname,SocketConnection clientConnection){
         gameLobby.getGameManager().playerComeback(playerPosition,nickname);
         clients.put(nickname,clientConnection);
+        Server.LOGGER.log(Level.INFO,nickname+" is back in the lobby #"+getThreadId());
         clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
     }
 
@@ -110,13 +111,16 @@ public class ServerThread extends Thread{
             if (Server.checkNickname(nickname)) {
                 gameLobby.addPlayer(nickname);
                 clients.put(nickname, clientConnection);
+                Server.LOGGER.log(Level.INFO,nickname+" joined the lobby #"+getThreadId()+", "+(gameLobby.getNumberOfPlayers()-clients.size())+" players to go!");
                 clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
                 if (gameLobby.getNumberOfPlayers() == 1)
                     createGame(true,clientConnection);
                 else if (clients.size() == gameLobby.getNumberOfPlayers())
                     createGame(false,clientConnection);
-            } else
+            } else {
+                clientConnection.disconnect();
                 throw new NicknameAlreadyUsedException(nickname);
+            }
         }
     }
 
