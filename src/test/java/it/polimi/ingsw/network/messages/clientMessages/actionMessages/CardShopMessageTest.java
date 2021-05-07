@@ -61,10 +61,10 @@ class CardShopMessageTest {
         Gson gson = builder.setPrettyPrinting().create();
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
         //GREEN CARDS
-        DevelopmentCard cardGreen1 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);
-        DevelopmentCard cardGreen2 = new DevelopmentCard(1,new ResourceCount(2,0,0,0,0),prod,3, CardColour.GREEN);
-        DevelopmentCard cardGreen3 = new DevelopmentCard(1,new ResourceCount(3,0,0,0,0),prod,3, CardColour.GREEN);
-        DevelopmentCard cardGreen4 = new DevelopmentCard(1,new ResourceCount(4,0,0,0,0),prod,3, CardColour.GREEN);
+        DevelopmentCard cardGreen1 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);
+        DevelopmentCard cardGreen2 = new DevelopmentCard(0,1,new ResourceCount(2,0,0,0,0),prod,3, CardColour.GREEN);
+        DevelopmentCard cardGreen3 = new DevelopmentCard(0,1,new ResourceCount(3,0,0,0,0),prod,3, CardColour.GREEN);
+        DevelopmentCard cardGreen4 = new DevelopmentCard(0,1,new ResourceCount(4,0,0,0,0),prod,3, CardColour.GREEN);
         ArrayList<DevelopmentCard> testG3 = new ArrayList<>();
         testG3.add(cardGreen1);
         testG3.add(cardGreen2);

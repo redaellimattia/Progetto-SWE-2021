@@ -131,20 +131,20 @@ class DiscardTokenTest {
         Deck[][] testStructure = new DeckShop[3][4];
 
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
-        DevelopmentCard cardGreen = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.GREEN);
-        DevelopmentCard cardBlue = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.BLUE);
-        DevelopmentCard cardYellow = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
-        DevelopmentCard cardPurple = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
+        DevelopmentCard cardGreen = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.GREEN);
+        DevelopmentCard cardBlue = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.BLUE);
+        DevelopmentCard cardYellow = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
+        DevelopmentCard cardPurple = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
 
-        DevelopmentCard cardGreen2 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.GREEN);
-        DevelopmentCard cardBlue2 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.BLUE);
-        DevelopmentCard cardYellow2 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.YELLOW);
-        DevelopmentCard cardPurple2 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.PURPLE);
+        DevelopmentCard cardGreen2 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.GREEN);
+        DevelopmentCard cardBlue2 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.BLUE);
+        DevelopmentCard cardYellow2 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.YELLOW);
+        DevelopmentCard cardPurple2 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.PURPLE);
 
-        DevelopmentCard cardGreen3 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);
-        DevelopmentCard cardBlue3 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.BLUE);
-        DevelopmentCard cardYellow3 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.YELLOW);
-        DevelopmentCard cardPurple3 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
+        DevelopmentCard cardGreen3 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);
+        DevelopmentCard cardBlue3 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.BLUE);
+        DevelopmentCard cardYellow3 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.YELLOW);
+        DevelopmentCard cardPurple3 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
 
         ArrayList<DevelopmentCard> test1 = new ArrayList<DevelopmentCard>();
         test1.add(cardGreen);

@@ -112,11 +112,11 @@ class DevCardProductionActionTest {
 
     DevelopmentCard createDevCard(int level){
         Production prod = new Production(new ResourceCount(1,2,0,0,0),new ResourceCount(0,0,3,0,0));
-        return new DevelopmentCard(5,new ResourceCount(0,0,0,0,0),prod,level, CardColour.BLUE);
+        return new DevelopmentCard(0,5,new ResourceCount(0,0,0,0,0),prod,level, CardColour.BLUE);
     }
 
     DevelopmentCard createDevCardWithFaith(){
         Production prod = new Production(new ResourceCount(1,2,0,0,0),new ResourceCount(0,0,2,0,1));
-        return new DevelopmentCard(5,new ResourceCount(0,0,0,0,0),prod,3, CardColour.BLUE);
+        return new DevelopmentCard(0,5,new ResourceCount(0,0,0,0,0),prod,3, CardColour.BLUE);
     }
 }

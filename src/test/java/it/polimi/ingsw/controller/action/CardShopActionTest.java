@@ -21,7 +21,7 @@ class CardShopActionTest {
         action.useAction(player);
         assertEquals(0,payment.getCoins()); //DiscountAbility works fine
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
-        DevelopmentCard cardPurple12 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
+        DevelopmentCard cardPurple12 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
         assertEquals(player.getDevCards()[0].getFirst(),cardPurple12);
         assertEquals(3,shop.getGrid()[2][3].getDeck().size());
     }
@@ -53,7 +53,7 @@ class CardShopActionTest {
         assertEquals(0,payment.getCoins()); //DiscountAbility works fine
         assertEquals(0,payment.getRocks());
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
-        DevelopmentCard cardYellow12 = new DevelopmentCard(1,new ResourceCount(1,1,0,0,0),prod,1, CardColour.YELLOW);
+        DevelopmentCard cardYellow12 = new DevelopmentCard(0,1,new ResourceCount(1,1,0,0,0),prod,1, CardColour.YELLOW);
         assertEquals(player.getDevCards()[0].getFirst(),cardYellow12);
         assertEquals(3,shop.getGrid()[2][2].getDeck().size());
     }
@@ -93,7 +93,7 @@ class CardShopActionTest {
         ColourCount count = new ColourCount(1,0,0,0);
         TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
         SpecialAbility specialAbility = new DepositAbility(Resource.SERVANT);
-        LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
+        LeaderCard leader = new LeaderCard(0,0,requirement,specialAbility);
         if(inGame)
             leader.setInGame();
         return leader;
@@ -103,7 +103,7 @@ class CardShopActionTest {
         ColourCount count = new ColourCount(1,0,0,0);
         TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
         SpecialAbility specialAbility = new DiscountAbility(Resource.COIN);
-        LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
+        LeaderCard leader = new LeaderCard(0,0,requirement,specialAbility);
         if(inGame)
             leader.setInGame();
         return leader;
@@ -112,71 +112,71 @@ class CardShopActionTest {
         ColourCount count = new ColourCount(1,0,0,0);
         TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
         SpecialAbility specialAbility = new DiscountAbility(Resource.ROCK);
-        LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
+        LeaderCard leader = new LeaderCard(0,0,requirement,specialAbility);
         if(inGame)
             leader.setInGame();
         return leader;
     }
     DevelopmentCard createDevCard(int level){
         Production prod = new Production(new ResourceCount(1,2,0,0,0),new ResourceCount(0,0,3,0,0));
-        return new DevelopmentCard(5,new ResourceCount(0,0,0,0,0),prod,level, CardColour.BLUE);
+        return new DevelopmentCard(0, 5,new ResourceCount(0,0,0,0,0),prod,level, CardColour.BLUE);
     }
     Shop createShop(){
         Deck[][] testStructure = new DeckShop[3][4];
 
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
         //GREEN CARDS
-        DevelopmentCard cardGreen1 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);
-        DevelopmentCard cardGreen2 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);
-        DevelopmentCard cardGreen3 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);
-        DevelopmentCard cardGreen4 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);
-        DevelopmentCard cardGreen5 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.GREEN);
-        DevelopmentCard cardGreen6 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.GREEN);
-        DevelopmentCard cardGreen7 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.GREEN);
-        DevelopmentCard cardGreen8 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.GREEN);
-        DevelopmentCard cardGreen9 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.GREEN);
-        DevelopmentCard cardGreen10 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.GREEN);
-        DevelopmentCard cardGreen11 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.GREEN);
-        DevelopmentCard cardGreen12 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.GREEN);
+        DevelopmentCard cardGreen1 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);
+        DevelopmentCard cardGreen2 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);
+        DevelopmentCard cardGreen3 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);
+        DevelopmentCard cardGreen4 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);
+        DevelopmentCard cardGreen5 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.GREEN);
+        DevelopmentCard cardGreen6 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.GREEN);
+        DevelopmentCard cardGreen7 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.GREEN);
+        DevelopmentCard cardGreen8 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.GREEN);
+        DevelopmentCard cardGreen9 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.GREEN);
+        DevelopmentCard cardGreen10 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.GREEN);
+        DevelopmentCard cardGreen11 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.GREEN);
+        DevelopmentCard cardGreen12 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.GREEN);
         //BLUE CARDS
-        DevelopmentCard cardBlue1 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.BLUE);
-        DevelopmentCard cardBlue2 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.BLUE);
-        DevelopmentCard cardBlue3 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.BLUE);
-        DevelopmentCard cardBlue4 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.BLUE);
-        DevelopmentCard cardBlue5 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.BLUE);
-        DevelopmentCard cardBlue6 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.BLUE);
-        DevelopmentCard cardBlue7 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.BLUE);
-        DevelopmentCard cardBlue8 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.BLUE);
-        DevelopmentCard cardBlue9 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.BLUE);
-        DevelopmentCard cardBlue10 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.BLUE);
-        DevelopmentCard cardBlue11 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.BLUE);
-        DevelopmentCard cardBlue12 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.BLUE);
+        DevelopmentCard cardBlue1 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.BLUE);
+        DevelopmentCard cardBlue2 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.BLUE);
+        DevelopmentCard cardBlue3 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.BLUE);
+        DevelopmentCard cardBlue4 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.BLUE);
+        DevelopmentCard cardBlue5 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.BLUE);
+        DevelopmentCard cardBlue6 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.BLUE);
+        DevelopmentCard cardBlue7 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.BLUE);
+        DevelopmentCard cardBlue8 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.BLUE);
+        DevelopmentCard cardBlue9 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.BLUE);
+        DevelopmentCard cardBlue10 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.BLUE);
+        DevelopmentCard cardBlue11 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.BLUE);
+        DevelopmentCard cardBlue12 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.BLUE);
         //YELLOW CARDS
-        DevelopmentCard cardYellow1 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.YELLOW);
-        DevelopmentCard cardYellow2 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.YELLOW);
-        DevelopmentCard cardYellow3 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.YELLOW);
-        DevelopmentCard cardYellow4 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.YELLOW);
-        DevelopmentCard cardYellow5 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.YELLOW);
-        DevelopmentCard cardYellow6 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.YELLOW);
-        DevelopmentCard cardYellow7 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.YELLOW);
-        DevelopmentCard cardYellow8 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.YELLOW);
-        DevelopmentCard cardYellow9 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
-        DevelopmentCard cardYellow10 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
-        DevelopmentCard cardYellow11 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
-        DevelopmentCard cardYellow12 = new DevelopmentCard(1,new ResourceCount(1,1,0,0,0),prod,1, CardColour.YELLOW);
+        DevelopmentCard cardYellow1 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.YELLOW);
+        DevelopmentCard cardYellow2 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.YELLOW);
+        DevelopmentCard cardYellow3 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.YELLOW);
+        DevelopmentCard cardYellow4 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.YELLOW);
+        DevelopmentCard cardYellow5 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.YELLOW);
+        DevelopmentCard cardYellow6 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.YELLOW);
+        DevelopmentCard cardYellow7 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.YELLOW);
+        DevelopmentCard cardYellow8 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.YELLOW);
+        DevelopmentCard cardYellow9 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
+        DevelopmentCard cardYellow10 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
+        DevelopmentCard cardYellow11 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
+        DevelopmentCard cardYellow12 = new DevelopmentCard(0,1,new ResourceCount(1,1,0,0,0),prod,1, CardColour.YELLOW);
         //PURPLE CARDS
-        DevelopmentCard cardPurple1 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
-        DevelopmentCard cardPurple2 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
-        DevelopmentCard cardPurple3 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
-        DevelopmentCard cardPurple4 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
-        DevelopmentCard cardPurple5 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.PURPLE);
-        DevelopmentCard cardPurple6 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.PURPLE);
-        DevelopmentCard cardPurple7 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.PURPLE);
-        DevelopmentCard cardPurple8 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.PURPLE);
-        DevelopmentCard cardPurple9 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
-        DevelopmentCard cardPurple10 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
-        DevelopmentCard cardPurple11 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
-        DevelopmentCard cardPurple12 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
+        DevelopmentCard cardPurple1 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
+        DevelopmentCard cardPurple2 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
+        DevelopmentCard cardPurple3 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
+        DevelopmentCard cardPurple4 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
+        DevelopmentCard cardPurple5 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.PURPLE);
+        DevelopmentCard cardPurple6 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.PURPLE);
+        DevelopmentCard cardPurple7 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.PURPLE);
+        DevelopmentCard cardPurple8 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,2, CardColour.PURPLE);
+        DevelopmentCard cardPurple9 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
+        DevelopmentCard cardPurple10 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
+        DevelopmentCard cardPurple11 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
+        DevelopmentCard cardPurple12 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
 
         //GREEN DECKS
         ArrayList<DevelopmentCard> testG3 = new ArrayList<>();

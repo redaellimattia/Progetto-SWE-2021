@@ -102,13 +102,13 @@ class MoveFromLeaderToDepositTest {
         ColourCount count = new ColourCount(1,0,0,0);
         TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
         SpecialAbility specialAbility = new DepositAbility(Resource.SERVANT);
-        LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
+        LeaderCard leader = new LeaderCard(0,0,requirement,specialAbility);
         if(inGame)
             leader.setInGame();
         return leader;
     }
     DevelopmentCard createDevCard(int level){
         Production prod = new Production(new ResourceCount(1,2,0,0,0),new ResourceCount(0,0,3,0,0));
-        return new DevelopmentCard(5,new ResourceCount(0,0,0,0,0),prod,level, CardColour.BLUE);
+        return new DevelopmentCard(0,5,new ResourceCount(0,0,0,0,0),prod,level, CardColour.BLUE);
     }
 }

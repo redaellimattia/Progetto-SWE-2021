@@ -11,8 +11,8 @@ public class LeaderCard extends Card {
      * @param requirement requirement of the card as Requirement
      * @param specialAbility specialAbility of the Card as SpecialAbility
      */
-    public LeaderCard(int victoryPoints,Requirement requirement, SpecialAbility specialAbility) {
-        super(victoryPoints);
+    public LeaderCard(int id, int victoryPoints, Requirement requirement, SpecialAbility specialAbility) {
+        super(id, victoryPoints);
         this.requirement = requirement;
         this.specialAbility = specialAbility;
         this.inGame = false;

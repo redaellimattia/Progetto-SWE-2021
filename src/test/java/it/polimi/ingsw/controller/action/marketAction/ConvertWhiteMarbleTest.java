@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ConvertWhiteMarbleTest {
 
     LeaderCard buildLeaderCard(Resource type) {
-        return new LeaderCard(2, new CardLevelRequirement(CardColour.YELLOW, 2), new WhiteChangeAbility(type));
+        return new LeaderCard(0,2, new CardLevelRequirement(CardColour.YELLOW, 2), new WhiteChangeAbility(type));
     }
 
     public PlayerDashboard buildPlayerDashboard(int val1, int val2, int val3) {
@@ -30,7 +30,7 @@ class ConvertWhiteMarbleTest {
         DeckDashboard[] testDevCards = new DeckDashboard[3];
         ArrayList<LeaderCard> testLeaderCards = new ArrayList<>(0);
         testLeaderCards.add(buildLeaderCard(Resource.COIN));
-        testLeaderCards.add(new LeaderCard(3, new CardLevelRequirement(CardColour.YELLOW, 2), new DepositAbility(Resource.ROCK)));
+        testLeaderCards.add(new LeaderCard(0,3, new CardLevelRequirement(CardColour.YELLOW, 2), new DepositAbility(Resource.ROCK)));
         return new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, 0, "Test", 0, false);
     }
 
@@ -50,7 +50,7 @@ class ConvertWhiteMarbleTest {
     void leaderCardNotOwned() throws CounterTopOverloadException {
         boolean ok;
         PlayerDashboard testPlayer = buildPlayerDashboard(0, 2, 3);
-        LeaderCard leaderTest = new LeaderCard(3, new CardLevelRequirement(CardColour.YELLOW, 2), new WhiteChangeAbility(Resource.COIN));
+        LeaderCard leaderTest = new LeaderCard(0,3, new CardLevelRequirement(CardColour.YELLOW, 2), new WhiteChangeAbility(Resource.COIN));
         ConvertWhiteMarble test = new ConvertWhiteMarble(leaderTest, 1);
         assertThrows(CardNotExistsException.class, () -> test.useAction(new MarketMarble(MarbleColour.WHITE), testPlayer));
         assertEquals(Resource.COIN, testPlayer.getStorage().getFirstRow().getResourceType());

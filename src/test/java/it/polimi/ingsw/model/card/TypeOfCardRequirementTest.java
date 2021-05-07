@@ -15,9 +15,9 @@ class TypeOfCardRequirementTest {
     void isPlayable() {
         PlayerDashboard player = createPlayer();
         Production prod = new Production(new ResourceCount(0, 0, 0, 0, 0), new ResourceCount(0, 0, 0, 0, 0));
-        DevelopmentCard card1 = new DevelopmentCard(1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.BLUE);
-        DevelopmentCard card2 = new DevelopmentCard(1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.GREEN);
-        DevelopmentCard card3 = new DevelopmentCard(1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.YELLOW);
+        DevelopmentCard card1 = new DevelopmentCard(0,1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.BLUE);
+        DevelopmentCard card2 = new DevelopmentCard(0,1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.GREEN);
+        DevelopmentCard card3 = new DevelopmentCard(0,1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.YELLOW);
 
         player.getDevCards()[0] = new DeckDashboard();
         player.getDevCards()[1] = new DeckDashboard();
@@ -34,9 +34,9 @@ class TypeOfCardRequirementTest {
     void notPlayable(){
         PlayerDashboard player = createPlayer();
         Production prod = new Production(new ResourceCount(0, 0, 0, 0, 0), new ResourceCount(0, 0, 0, 0, 0));
-        DevelopmentCard card1 = new DevelopmentCard(1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.BLUE);
-        DevelopmentCard card2 = new DevelopmentCard(1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.GREEN);
-        DevelopmentCard card3 = new DevelopmentCard(1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.YELLOW);
+        DevelopmentCard card1 = new DevelopmentCard(0,1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.BLUE);
+        DevelopmentCard card2 = new DevelopmentCard(0,1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.GREEN);
+        DevelopmentCard card3 = new DevelopmentCard(0,1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.YELLOW);
 
         player.getDevCards()[0] = new DeckDashboard();
         player.getDevCards()[1] = new DeckDashboard();
@@ -52,9 +52,9 @@ class TypeOfCardRequirementTest {
     void isPlayableAgain() {
         PlayerDashboard player = createPlayer();
         Production prod = new Production(new ResourceCount(0, 0, 0, 0, 0), new ResourceCount(0, 0, 0, 0, 0));
-        DevelopmentCard card1 = new DevelopmentCard(1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.BLUE);
-        DevelopmentCard card2 = new DevelopmentCard(1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.GREEN);
-        DevelopmentCard card3 = new DevelopmentCard(1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.YELLOW);
+        DevelopmentCard card1 = new DevelopmentCard(0,1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.BLUE);
+        DevelopmentCard card2 = new DevelopmentCard(0,1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.GREEN);
+        DevelopmentCard card3 = new DevelopmentCard(0,1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.YELLOW);
 
         player.getDevCards()[0] = new DeckDashboard();
         player.getDevCards()[1] = new DeckDashboard();

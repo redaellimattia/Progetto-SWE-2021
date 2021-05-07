@@ -31,7 +31,7 @@ class PlayerDashboardTest {
     void addDevCards() {
         PlayerDashboard player = createPlayer();
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
-        DevelopmentCard card1 = new DevelopmentCard(1,new ResourceCount(1,0,0,0,0),prod,1,CardColour.GREEN);
+        DevelopmentCard card1 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1,CardColour.GREEN);
 
         player.getDevCards()[0].addCard(card1);
 
@@ -129,7 +129,7 @@ class PlayerDashboardTest {
         ColourCount count = new ColourCount(1,0,0,0);
         TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
         SpecialAbility specialAbility = new DepositAbility(Resource.COIN);
-        LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
+        LeaderCard leader = new LeaderCard(0,0,requirement,specialAbility);
         if(inGame)
             leader.setInGame();
         return leader;
