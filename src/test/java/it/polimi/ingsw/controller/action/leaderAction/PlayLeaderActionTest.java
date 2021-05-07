@@ -76,6 +76,6 @@ class PlayLeaderActionTest {
     LeaderCard createLeaderCard(ColourCount count){
         TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
         SpecialAbility specialAbility = new ProductionAbility(Resource.COIN);
-        return new LeaderCard(0,requirement,specialAbility);
+        return new LeaderCard(0,0,requirement,specialAbility);
     }
 }

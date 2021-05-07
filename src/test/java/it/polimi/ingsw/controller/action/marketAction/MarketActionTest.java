@@ -43,7 +43,7 @@ class MarketActionTest {
         ResourceCount testChest = new ResourceCount(0, 0, 0, 0, 0);
         DeckDashboard[] testDevCards = new DeckDashboard[3];
         ArrayList<LeaderCard> testLeaderCards = new ArrayList<>(0);
-        testLeaderCards.add(new LeaderCard(2, new CardLevelRequirement(CardColour.YELLOW, 2), new WhiteChangeAbility(Resource.COIN)));
+        testLeaderCards.add(new LeaderCard(0,2, new CardLevelRequirement(CardColour.YELLOW, 2), new WhiteChangeAbility(Resource.COIN)));
         return new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, 0, name, 0, false);
     }
 

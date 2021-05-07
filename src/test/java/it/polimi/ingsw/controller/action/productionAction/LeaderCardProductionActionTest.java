@@ -104,7 +104,7 @@ class LeaderCardProductionActionTest {
         ColourCount count = new ColourCount(1,0,0,0);
         TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
         SpecialAbility specialAbility = new ProductionAbility(Resource.COIN);
-        LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
+        LeaderCard leader = new LeaderCard(0,0,requirement,specialAbility);
         if(inGame)
             leader.setInGame();
         return leader;
@@ -114,7 +114,7 @@ class LeaderCardProductionActionTest {
         ColourCount count = new ColourCount(1,0,0,0);
         TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
         SpecialAbility specialAbility = new DiscountAbility(Resource.COIN);
-        LeaderCard leader = new LeaderCard(0,requirement,specialAbility);
+        LeaderCard leader = new LeaderCard(0,0,requirement,specialAbility);
         leader.setInGame();
         return leader;
     }

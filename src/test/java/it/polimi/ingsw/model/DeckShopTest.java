@@ -16,10 +16,10 @@ class DeckShopTest {
         ResourceCount testInput = new ResourceCount(0, 0, 1, 0, 0);
         ResourceCount testOutput = new ResourceCount(1, 0, 0, 0, 3);
         Production testProductionPower = new Production(testInput, testOutput);
-        DevelopmentCard testCard1 = new DevelopmentCard(2, testResourceCount, testProductionPower, level, colour);
-        DevelopmentCard testCard2 = new DevelopmentCard(2, testResourceCount, testProductionPower, level, colour);
-        DevelopmentCard testCard3 = new DevelopmentCard(2, testResourceCount, testProductionPower, level, colour);
-        DevelopmentCard testCard4 = new DevelopmentCard(2, testResourceCount, testProductionPower, level, colour);
+        DevelopmentCard testCard1 = new DevelopmentCard(0,2, testResourceCount, testProductionPower, level, colour);
+        DevelopmentCard testCard2 = new DevelopmentCard(0,2, testResourceCount, testProductionPower, level, colour);
+        DevelopmentCard testCard3 = new DevelopmentCard(0,2, testResourceCount, testProductionPower, level, colour);
+        DevelopmentCard testCard4 = new DevelopmentCard(0,2, testResourceCount, testProductionPower, level, colour);
         testArray.add(testCard1);
         testArray.add(testCard2);
         testArray.add(testCard3);
@@ -45,10 +45,10 @@ class DeckShopTest {
         ResourceCount testInput = new ResourceCount(0, 0, 1, 0, 0);
         ResourceCount testOutput = new ResourceCount(1, 0, 0, 0, 3);
         Production testProductionPower = new Production(testInput, testOutput);
-        DevelopmentCard testCard1 = new DevelopmentCard(2, testResourceCount, testProductionPower, 3, CardColour.GREEN);
-        DevelopmentCard testCard2 = new DevelopmentCard(2, testResourceCount, testProductionPower, 3, CardColour.GREEN);
-        DevelopmentCard testCard3 = new DevelopmentCard(2, testResourceCount, testProductionPower, 2, CardColour.GREEN);
-        DevelopmentCard testCard4 = new DevelopmentCard(2, testResourceCount, testProductionPower, 3, CardColour.GREEN);
+        DevelopmentCard testCard1 = new DevelopmentCard(0,2, testResourceCount, testProductionPower, 3, CardColour.GREEN);
+        DevelopmentCard testCard2 = new DevelopmentCard(0,2, testResourceCount, testProductionPower, 3, CardColour.GREEN);
+        DevelopmentCard testCard3 = new DevelopmentCard(0,2, testResourceCount, testProductionPower, 2, CardColour.GREEN);
+        DevelopmentCard testCard4 = new DevelopmentCard(0,2, testResourceCount, testProductionPower, 3, CardColour.GREEN);
         testArray.add(testCard1);
         testArray.add(testCard2);
         testArray.add(testCard3);
@@ -57,7 +57,7 @@ class DeckShopTest {
 
         // Adding a card of different colour should fail
         ArrayList<DevelopmentCard> testArray2 = new ArrayList<>();
-        testCard4 = new DevelopmentCard(2, testResourceCount, testProductionPower, 3, CardColour.PURPLE);
+        testCard4 = new DevelopmentCard(0,2, testResourceCount, testProductionPower, 3, CardColour.PURPLE);
         testArray2.add(testCard1);
         testArray2.add(testCard2);
         testArray2.add(testCard3);
@@ -72,7 +72,7 @@ class DeckShopTest {
         ResourceCount testInput = new ResourceCount(0, 0, 1, 0, 0);
         ResourceCount testOutput = new ResourceCount(0, 0, 0, 0, 1);
         Production testProductionPower = new Production(testInput, testOutput);
-        DevelopmentCard testCard = new DevelopmentCard(1, testResourceCount, testProductionPower, 3, CardColour.GREEN);
+        DevelopmentCard testCard = new DevelopmentCard(0,1, testResourceCount, testProductionPower, 3, CardColour.GREEN);
         assertThrows(IllegalStateException.class, () -> testDeck.addCard(testCard));
     }
 
