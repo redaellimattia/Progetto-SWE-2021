@@ -41,6 +41,10 @@ public class Client {
         return serverThreadID;
     }
 
+    public void setServerThreadID(long serverThreadID) {
+        this.serverThreadID = serverThreadID;
+    }
+
     /**
      * Connection to the server
      * @param address address chosen

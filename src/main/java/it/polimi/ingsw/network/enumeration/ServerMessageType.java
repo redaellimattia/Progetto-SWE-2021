@@ -1,5 +1,5 @@
 package it.polimi.ingsw.network.enumeration;
 
 public enum ServerMessageType {
-    ERROR, LOBBIES, YOURTURN,PING, PREGAME;
+    ERROR, LOBBIES, JOINEDLOBBY, YOURTURN,PING, PREGAME;
 }

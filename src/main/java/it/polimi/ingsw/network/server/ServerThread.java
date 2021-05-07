@@ -7,6 +7,7 @@ import it.polimi.ingsw.exceptions.network.NicknameAlreadyUsedException;
 import it.polimi.ingsw.exceptions.network.NotYourTurnException;
 import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
+import it.polimi.ingsw.network.messages.serverMessages.JoinedLobbyMessage;
 import it.polimi.ingsw.network.messages.serverMessages.PreGameMessage;
 import it.polimi.ingsw.network.messages.serverMessages.YourTurnMessage;
 
@@ -94,6 +95,7 @@ public class ServerThread extends Thread{
     public void knownPlayerLogin(int playerPosition,String nickname,SocketConnection clientConnection){
         gameLobby.getGameManager().playerComeback(playerPosition,nickname);
         clients.put(nickname,clientConnection);
+        clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
     }
 
     /**
@@ -108,6 +110,7 @@ public class ServerThread extends Thread{
             if (Server.checkNickname(nickname)) {
                 gameLobby.addPlayer(nickname);
                 clients.put(nickname, clientConnection);
+                clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
                 if (gameLobby.getNumberOfPlayers() == 1)
                     createGame(true,clientConnection);
                 else if (clients.size() == gameLobby.getNumberOfPlayers())

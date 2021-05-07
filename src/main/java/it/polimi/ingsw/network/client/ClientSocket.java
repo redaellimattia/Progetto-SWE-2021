@@ -52,7 +52,7 @@ public class ClientSocket implements Runnable {
      */
     public void startConnection() {
         //ASKLOBBIES
-        //send(new CreateGameMessage(nickname,18,4).serialize());
+        send(new CreateGameMessage(nickname,18,4).serialize());
     }
 
     /**
@@ -75,7 +75,7 @@ public class ClientSocket implements Runnable {
         while (!Thread.currentThread().isInterrupted()) {
             try {
                 String msg = in.readLine();
-                System.out.println(msg);
+                //System.out.println(msg);
                 if(msg!=null) client.onMessage(msg);
             } catch (IOException e) { Client.LOGGER.severe("Failed to read message from server: "+ e.getMessage());}
         }
