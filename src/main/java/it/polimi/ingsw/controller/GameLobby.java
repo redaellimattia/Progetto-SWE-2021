@@ -1,11 +1,10 @@
 package it.polimi.ingsw.controller;
 
 
-import it.polimi.ingsw.model.DeckDashboard;
-import it.polimi.ingsw.model.Game;
-import it.polimi.ingsw.model.Player;
-import it.polimi.ingsw.model.PlayerDashboard;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
+import it.polimi.ingsw.model.card.LeaderCard;
+import it.polimi.ingsw.model.enumeration.Resource;
 
 import java.util.ArrayList;
 
@@ -80,4 +79,50 @@ public class GameLobby {
         return numberOfPlayers == readyPlayers;
     }
     //LETTURA DA FILE JSON
+
+    public ArrayList<LeaderCard> getFourLeaders(){
+        return null;
+    }
+
+    /**
+     * method used in pregame to give a faith point to the 3rd and 4th player, if there are any
+     */
+    public void addInitialFaith(){
+        ArrayList<PlayerDashboard> players = gameManager.getGame().getPlayers();
+        if(numberOfPlayers != 1){
+            if(numberOfPlayers == 3)
+                players.get(2).updatePathPosition();
+            if(numberOfPlayers == 4){
+                players.get(2).updatePathPosition();
+                players.get(3).updatePathPosition();
+            }
+        }
+    }
+
+    public void preGame(String nickname, ArrayList<Resource> chosen, ArrayList<LeaderCard> chosenLeaders){
+        CounterTop chosen1;
+        CounterTop chosen2;
+        for (PlayerDashboard p : gameManager.getGame().getPlayers()) {
+            if(p.getNickname().equals(nickname)) {
+                if (chosen.size() == 1) {
+                    chosen1 = new CounterTop(chosen.get(0),1);
+                    p.getStorage().setFirstRow(chosen1);
+                }
+                if (chosen.size() == 1) {
+                    if(chosen.get(0).equals(chosen.get(1))){
+                        chosen1 = new CounterTop(chosen.get(0), 2);
+                        p.getStorage().setSecondRow(chosen1);
+                    }
+                    else{
+                        chosen1 = new CounterTop(chosen.get(0), 1);
+                        p.getStorage().setFirstRow(chosen1);
+                        chosen2 = new CounterTop(chosen.get(1), 1);
+                        p.getStorage().setSecondRow(chosen2);
+                    }
+                }
+                p.getLeaderCards().add(chosenLeaders.get(0));
+                p.getLeaderCards().add(chosenLeaders.get(1));
+            }
+        }
+    }
 }

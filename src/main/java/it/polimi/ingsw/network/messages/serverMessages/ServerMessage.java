@@ -31,6 +31,9 @@ public abstract class ServerMessage {
                 return gson.fromJson(msg, YourTurnMessage.class);
             case PING:
                 return gson.fromJson(msg,PingMessage.class);
+            case PREGAME:
+                return gson.fromJson(msg,PreGameMessage.class);
+
             default:
                 throw new IllegalArgumentException("ServerMessageType not valid.");
         }

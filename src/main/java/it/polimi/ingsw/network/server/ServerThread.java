@@ -7,6 +7,7 @@ import it.polimi.ingsw.exceptions.network.NicknameAlreadyUsedException;
 import it.polimi.ingsw.exceptions.network.NotYourTurnException;
 import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
+import it.polimi.ingsw.network.messages.serverMessages.PreGameMessage;
 import it.polimi.ingsw.network.messages.serverMessages.YourTurnMessage;
 
 import java.util.HashMap;
@@ -135,17 +136,21 @@ public class ServerThread extends Thread{
      */
     public void createGame(boolean singlePlayer,SocketConnection socketConnection){
         //to be completed
-        //PREGAME
-        //CICLO E CHIEDO SCELTA RISORSE/LEADER
         gameLobby.initGame(singlePlayer);
         /*timer = new PingTimer(this,socketConnection);
         timer.startPinging();*/
         //ASSEGNAZIONE RISORSE E LEADER
-        preGame();
+        if(gameLobby.getNumberOfPlayers() != 1)
+            preGame();
     }
 
     public void preGame(){
-        //MANDO MESSAGGI SCELTA RISORSE E LEADER
+        int c=0;
+        for (String p: gameLobby.getPlayers()) {
+            String message = new PreGameMessage(gameLobby.getFourLeaders(),c).serialize();
+            clients.get(p).send(message);
+        }
+        gameLobby.addInitialFaith();
     }
 
     /**

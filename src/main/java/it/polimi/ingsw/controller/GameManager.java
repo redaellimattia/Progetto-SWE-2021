@@ -191,4 +191,6 @@ public class GameManager {
     public void playerComeback(int playerPosition,String nickname){
         game.getPlayers().get(playerPosition).setPlaying(true);
     }
+
+    public void
 }

@@ -64,6 +64,8 @@ public abstract class ClientMessage {
                 return ActionMessage.deserializeAction(jsonObj);
             case PINGRESPONSE:
                 return gson.fromJson(msg,PingResponseMessage.class);
+            case PREGAMERESPONSE:
+                return gson.fromJson(msg,PreGameResponseMessage.class);
             default:
                 throw new IllegalArgumentException("ClientMessageType not valid.");
         }
