@@ -27,13 +27,14 @@ public abstract class ServerMessage {
         switch(type){
             case LOBBIES:
                 return gson.fromJson(msg, ReturnLobbiesMessage.class);
+            case JOINEDLOBBY:
+                return gson.fromJson(msg,JoinedLobbyMessage.class);
             case YOURTURN:
                 return gson.fromJson(msg, YourTurnMessage.class);
             case PING:
                 return gson.fromJson(msg,PingMessage.class);
             case PREGAME:
                 return gson.fromJson(msg,PreGameMessage.class);
-
             default:
                 throw new IllegalArgumentException("ServerMessageType not valid.");
         }
