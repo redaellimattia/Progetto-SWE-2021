@@ -56,6 +56,10 @@ public class GameLobby {
         return true;
     }
 
+    public void removePlayer(String nickname){
+        players.remove(nickname);
+    }
+
     public GameManager getGameManager() {
         return gameManager;
     }

@@ -51,7 +51,8 @@ public class ClientSocket implements Runnable {
      * Sends the first message, ASKLOBBIES to ask available lobbies
      */
     public void startConnection() {
-        send(new CreateGameMessage(nickname,18,1).serialize());
+        //ASKLOBBIES
+        //send(new CreateGameMessage(nickname,18,4).serialize());
     }
 
     /**

@@ -156,10 +156,11 @@ public class GameManager {
                 endGame();
             else {
                 if(isSinglePlayer) {
-                    SoloToken token = game.pickNextToken();
-                    token.useToken(game.getLorenzo(), game);
-                    if(player.isPlaying())
+                    if(player.isPlaying()) {
+                        SoloToken token = game.pickNextToken();
+                        token.useToken(game.getLorenzo(), game);
                         this.turnManager = new PlayerTurnManager(player); //da controllare se serve svuotare tutto
+                    }
                 }
                 else {
                     PlayerDashboard nextPlayer = player;

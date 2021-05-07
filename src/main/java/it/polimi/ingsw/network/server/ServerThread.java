@@ -69,13 +69,19 @@ public class ServerThread extends Thread{
      * Forwarding Round then telling the new player that it's his turn to play
      */
     public void endRound(){
-        gameLobby.getGameManager().nextRound();
+        //gameLobby.getGameManager().nextRound();
         String nickname = getTurnManager().getPlayer().getNickname();
-        SocketConnection clientConnection = clients.get(nickname);
-        YourTurnMessage yourTurn = new YourTurnMessage();
+        SocketConnection clientConnection;
+        if(gameLobby.getNumberOfPlayers()!=1)
+            clientConnection = clients.get(nickname);
+        else
+            do
+                clientConnection = clients.get(nickname);
+            while(clientConnection==null);
+        /*YourTurnMessage yourTurn = new YourTurnMessage();
         clientConnection.send(yourTurn.serialize());
         timer = new PingTimer(this,clientConnection);
-        timer.startPinging();
+        timer.startPinging();*/
     }
     /**
      * Login of a player that disconnected before
@@ -130,21 +136,33 @@ public class ServerThread extends Thread{
     public void startGame(boolean singlePlayer,SocketConnection socketConnection){
         //to be completed
         gameLobby.startGame(singlePlayer);
+        timer = new PingTimer(this,socketConnection);
+        timer.startPinging();
     }
 
     /**
      *
      * @param socketConnection Client that is disconnecting
      */
-    public void onDisconnect(SocketConnection socketConnection){ //DA FIXARE SE DISCONNECT IN LOBBY O DURING GAME
-        /*String currPlayerNickname = getTurnManager().getPlayer().getNickname();
-        Server.LOGGER.log(Level.INFO,"Disconnecting client: "+currPlayerNickname);
-        getTurnManager().getPlayer().setPlaying(false);
-        socketConnection.disconnect();
-        clients.remove(currPlayerNickname);
-        Server.LOGGER.log(Level.INFO,"Client disconnected, going to next round...");
-        endRound();*/
-        System.out.println("DA DISCONNETTERE");
+    public void onDisconnect(SocketConnection socketConnection){
+        timer.endTimer();
+        if(!gameLobby.isGameStarted()){
+            String disconnectedPlayerNickname = getPlayerNickname(socketConnection);
+            Server.LOGGER.log(Level.INFO,"Disconnecting client: "+disconnectedPlayerNickname);
+            gameLobby.removePlayer(disconnectedPlayerNickname);
+            socketConnection.disconnect();
+            clients.remove(disconnectedPlayerNickname);
+            Server.LOGGER.log(Level.INFO,"Client disconnected, waiting for players to join the lobby...");
+        }
+        else {
+            String currPlayerNickname = getTurnManager().getPlayer().getNickname();
+            Server.LOGGER.log(Level.INFO,"Disconnecting client: "+currPlayerNickname);
+            getTurnManager().getPlayer().setPlaying(false);
+            socketConnection.disconnect();
+            clients.remove(currPlayerNickname);
+            Server.LOGGER.log(Level.INFO,"Client disconnected, going to next round...");
+            endRound();
+        }
     }
 
 
@@ -163,23 +181,36 @@ public class ServerThread extends Thread{
     @Override
     public void run(){
         while (!Thread.currentThread().isInterrupted()){
-            if(!gameLobby.isGameStarted()) {
-                synchronized (this) {
-                    for (String key : clients.keySet()) {
-                        System.out.println("Pinging user");
-                        timer = new PingTimer(this, clients.get(key));
-                        timer.send();
-                        try {wait(500);} catch (InterruptedException e) {Server.LOGGER.log(Level.SEVERE,e.getMessage());}
+            synchronized (gameLock) {
+                if (!gameLobby.isGameStarted()) {
+                    synchronized (this) {
+                        for (String key : clients.keySet()) {
+                            timer = new PingTimer(this, clients.get(key));
+                            timer.send();
+                            try { wait(1000); } catch (InterruptedException e) { Server.LOGGER.log(Level.SEVERE, e.getMessage()); }
+                        }
                     }
                 }
+                else{
+                    //OBSERVER
+                }
             }
-            else{
-                //OBSERVER
-            }
+
         }
     }
 
-
+    /**
+     *
+     * @param clientConnection socketConnection of the client
+     * @return player nickname from socketconnection
+     */
+    public String getPlayerNickname(SocketConnection clientConnection){
+        for (String key : clients.keySet()) {
+            if(clients.get(key).equals(clientConnection))
+                return key;
+        }
+        return null;
+    }
     /**
      *
      * @return this thread ID

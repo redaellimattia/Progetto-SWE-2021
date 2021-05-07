@@ -49,14 +49,6 @@ public class SocketServer extends Thread{
 
     /**
      *
-     * @param clientConnection client that is disconnected, passing it to the ServerThread
-     */
-    public void onDisconnect(SocketConnection clientConnection) {
-        //server.onDisconnect(clientConnection);
-    }
-
-    /**
-     *
      * @param clientConnection SocketConnetion of the client who wrote the msg
      * @param msg String msg wrote by the client
      */

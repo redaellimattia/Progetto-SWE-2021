@@ -57,5 +57,12 @@ public class PingTimer {
     public void cancelTimer(){
         waitResponse.cancel();
     }
+
+    /**
+     * Stop pinging the client
+     */
+    public void endTimer(){
+        pingDuringGame.cancel();
+    }
 }
 

@@ -82,8 +82,6 @@ public class SocketConnection implements Runnable{
 
             socketListener.interrupt(); // Interrupts the thread
             isConnected = false;
-
-            socketServer.onDisconnect(this);
         }
     }
 
