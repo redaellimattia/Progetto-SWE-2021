@@ -125,4 +125,8 @@ public class GameLobby {
             }
         }
     }
+
+    public void addReadyPlayer(){
+        this.readyPlayers++;
+    }
 }

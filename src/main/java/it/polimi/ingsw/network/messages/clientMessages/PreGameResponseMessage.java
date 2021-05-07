@@ -21,5 +21,6 @@ public class PreGameResponseMessage extends ClientMessage{
     @Override
     public void useMessage(SocketConnection socketConnection, ServerThread serverThread){
         serverThread.getGameLobby().preGame(this.getNickname(),chosen,chosenLeaders);
+        serverThread.getGameLobby().addReadyPlayer();
     }
 }
