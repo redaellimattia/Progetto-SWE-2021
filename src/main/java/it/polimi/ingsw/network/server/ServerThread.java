@@ -108,9 +108,9 @@ public class ServerThread extends Thread{
                 gameLobby.addPlayer(nickname);
                 clients.put(nickname, clientConnection);
                 if (gameLobby.getNumberOfPlayers() == 1)
-                    startGame(true,clientConnection);
+                    createGame(true,clientConnection);
                 else if (clients.size() == gameLobby.getNumberOfPlayers())
-                    startGame(false,clientConnection);
+                    createGame(false,clientConnection);
             } else
                 throw new NicknameAlreadyUsedException(nickname);
         }
@@ -133,11 +133,19 @@ public class ServerThread extends Thread{
      * starting the game initializing the timer and then creating the model
      * @param singlePlayer true if it's a singlePlayer game
      */
-    public void startGame(boolean singlePlayer,SocketConnection socketConnection){
+    public void createGame(boolean singlePlayer,SocketConnection socketConnection){
         //to be completed
-        gameLobby.startGame(singlePlayer);
-        timer = new PingTimer(this,socketConnection);
-        timer.startPinging();
+        //PREGAME
+        //CICLO E CHIEDO SCELTA RISORSE/LEADER
+        gameLobby.initGame(singlePlayer);
+        /*timer = new PingTimer(this,socketConnection);
+        timer.startPinging();*/
+        //ASSEGNAZIONE RISORSE E LEADER
+        preGame();
+    }
+
+    public void preGame(){
+        //MANDO MESSAGGI SCELTA RISORSE E LEADER
     }
 
     /**
@@ -179,23 +187,30 @@ public class ServerThread extends Thread{
      * Thread pinging clients to check if they are still playing
      */
     @Override
-    public void run(){
-        while (!Thread.currentThread().isInterrupted()){
+    public void run() {
+        while (!Thread.currentThread().isInterrupted()) {
             synchronized (gameLock) {
-                if (!gameLobby.isGameStarted()) {
+                if (!gameLobby.isGameStarted() && !gameLobby.readyToStartGame()) {
                     synchronized (this) {
                         for (String key : clients.keySet()) {
                             timer = new PingTimer(this, clients.get(key));
                             timer.send();
-                            try { wait(1000); } catch (InterruptedException e) { Server.LOGGER.log(Level.SEVERE, e.getMessage()); }
+                            try {
+                                wait(1000);
+                            } catch (InterruptedException e) {
+                                Server.LOGGER.log(Level.SEVERE, e.getMessage());
+                            }
                         }
                     }
+                } else {
+                    if (!gameLobby.isGameStarted()) {
+                        //startGame()
+                    } else {
+                        //OBSERVER}
+                    }
                 }
-                else{
-                    //OBSERVER
-                }
-            }
 
+            }
         }
     }
 
@@ -219,3 +234,4 @@ public class ServerThread extends Thread{
         return Thread.currentThread().getId();
     }
 }
+

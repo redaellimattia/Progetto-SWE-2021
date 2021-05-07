@@ -10,18 +10,18 @@ import it.polimi.ingsw.model.card.DevelopmentCard;
 import java.util.ArrayList;
 
 public class GameLobby {
-
-
     private ArrayList<String> players;
     private GameManager gameManager;
     private final long serverThreadID;
     private final int numberOfPlayers;
+    private int readyPlayers;
     private boolean gameStarted;
 
     public GameLobby(long serverThreadID,int numberOfPlayers) {
         this.players = new ArrayList<>();
         this.serverThreadID = serverThreadID;
         this.numberOfPlayers = numberOfPlayers;
+        this.readyPlayers = 0;
         this.gameStarted = false;
     }
 
@@ -64,7 +64,7 @@ public class GameLobby {
         return gameManager;
     }
 
-    public void startGame(boolean singlePlayer) {
+    public void initGame(boolean singlePlayer) {
         if(singlePlayer){
             ArrayList<PlayerDashboard> p = new ArrayList<>();
             p.add(new PlayerDashboard(null,null,new DeckDashboard[3],new ArrayList<>(),0,players.get(0),0,false));
@@ -75,4 +75,9 @@ public class GameLobby {
             //games.add(new GameManager(new Game(players,...),null));
         this.gameStarted = true;
     }
+
+    public boolean readyToStartGame(){
+        return numberOfPlayers == readyPlayers;
+    }
+    //LETTURA DA FILE JSON
 }

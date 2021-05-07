@@ -77,10 +77,6 @@ public class GameManager {
         }
     }
 
-    public void initGame() { //Distribuire risorse + creaz shop etc
-
-    }
-
     /**
      *
      * @param p the player we want to calculate the total points scored
