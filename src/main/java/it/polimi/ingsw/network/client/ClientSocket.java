@@ -54,7 +54,7 @@ public class ClientSocket implements Runnable {
      */
     public void startConnection() {
         send(new AskLobbyMessage(nickname, clientManager.getServerThreadID()).serialize());
-        //send(new CreateGameMessage(nickname, client.getServerThreadID(), 4).serialize());
+        //send(new CreateGameMessage(nickname, clientManager.getServerThreadID(), 4).serialize());
     }
 
 

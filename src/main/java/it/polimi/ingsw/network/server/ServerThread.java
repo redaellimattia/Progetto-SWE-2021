@@ -126,8 +126,8 @@ public class ServerThread extends Thread implements Observer {
                     clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
                 }
             } else {
-                clientConnection.disconnect();
-                clientConnection.send(new ErrorMessage("This username: " + nickname +" is already taken!").serialize());
+                //clientConnection.disconnect();
+                clientConnection.send(new ErrorMessage("This username: [" + nickname +"] is already taken!").serialize());
                 throw new NicknameAlreadyUsedException(nickname);
             }
         }
