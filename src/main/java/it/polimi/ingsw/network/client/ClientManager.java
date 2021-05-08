@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
+import it.polimi.ingsw.view.Cli;
 import it.polimi.ingsw.view.View;
 
 
@@ -29,10 +30,13 @@ public class ClientManager {
      * @param address address chosen
      * @param socketPort port chosen
      */
-    public ClientManager(String address, int socketPort, View view) {
+    public ClientManager(String address, int socketPort,String choice) {
         //qui verrà avviata la view e questa prenderà tutte le informazioni dal client
         initLogger();
-        this.view = view;
+        if(choice.equals("-cli"))
+            this.view = new Cli(this);
+        else
+            //this.view = new Gui();
         view.start();
         this.nickname = "nickname"; //------------DEBUG------------------
         connection(address,socketPort);
