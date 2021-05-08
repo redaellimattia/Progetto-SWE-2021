@@ -108,4 +108,9 @@ public class Cli implements View {
     private void clearCli(){
         out.flush();
     }
+
+    @Override
+    public void printError(String msg){
+        out.println(msg);
+    }
 }

@@ -59,6 +59,8 @@ public class ClientManager {
     public void connection(String address, int socketPort ){
         clientSocket = new ClientSocket(address, socketPort,this);
         clientSocket.startConnection();
+        if(!clientSocket.isConnected())
+            view.printError("Failed to connect to: "+ address+":" + socketPort);
     }
 
     /**
