@@ -39,8 +39,7 @@ public class Client {
                 i++;
             }
         }
-        if(choice.equals("-cli"))
-            new ClientManager(address,socketPort,new Cli());
+        new ClientManager(address,socketPort,choice);
     }
 
 }

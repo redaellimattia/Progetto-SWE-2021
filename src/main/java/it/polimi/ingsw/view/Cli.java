@@ -1,12 +1,11 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.model.PlayerDashboard;
+import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 
 
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -14,9 +13,11 @@ public class Cli implements View {
 
     private final PrintStream out;
     private Thread inputThread;
+    private ClientManager clientManager;
 
-    public Cli(){
-        this.out = System.out;
+    public Cli(ClientManager clientManager){
+        this.out = new PrintStream(System.out,true);
+        this.clientManager = clientManager;
     }
     /**
      * Reads a line from the standard input.
@@ -99,13 +100,55 @@ public class Cli implements View {
     @Override
     public void createNewGame(){
         clearCli();
-        out.println("Insert a nickname: ");
+        out.println("Now you can create your own game!");
+        String nickname = askForNickname();
+        clientManager.setNickname(nickname);
+        int numberOfPlayers = askNumberOfPlayers();
+        clientManager.createGame(numberOfPlayers);
+        clearCli();
     }
+
 
     @Override
     public void joinExistingGame(){}
 
+    public int askNumberOfPlayers(){
+        String number;
+        String input;
+        int num;
+        do{
+            do {
+                out.println("Insert the number of players for your game (must be between 1 and 4)");
+                number = readLine();
+                num = Integer.parseInt(number);
+            }while(num <1 || num >4);
+            out.println("The choosen number of player is : " +number + "\n" +
+                    "Do you want to confirm? Press Y (confirm) / N (deny)");
+            input = readLine();
+        }while(!input.equalsIgnoreCase("Y"));
+
+        return num;
+    }
+    public String askForNickname(){
+        String nickname;
+        String input;
+        do{
+            out.println("Insert a nickname:");
+            nickname = readLine();
+            out.println("The choosen nickname is : " + nickname +
+                    "\nDo you want to confirm? Press Y (confirm) / N (deny)");
+            input = readLine();
+        }while(!input.equalsIgnoreCase("Y"));
+
+        return nickname;
+    }
     private void clearCli(){
-        out.flush();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
+    @Override
+    public void printMsg(String msg){
+        out.println(msg);
     }
 }

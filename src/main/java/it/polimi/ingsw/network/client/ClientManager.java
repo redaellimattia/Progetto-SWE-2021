@@ -1,6 +1,8 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
+import it.polimi.ingsw.view.Cli;
 import it.polimi.ingsw.view.View;
 
 
@@ -29,10 +31,13 @@ public class ClientManager {
      * @param address address chosen
      * @param socketPort port chosen
      */
-    public ClientManager(String address, int socketPort, View view) {
+    public ClientManager(String address, int socketPort,String choice) {
         //qui verrà avviata la view e questa prenderà tutte le informazioni dal client
         initLogger();
-        this.view = view;
+        if(choice.equals("-cli"))
+            this.view = new Cli(this);
+        //else
+            //this.view = new Gui();
         view.start();
         this.nickname = "nickname"; //------------DEBUG------------------
         connection(address,socketPort);
@@ -47,9 +52,14 @@ public class ClientManager {
     public View getView(){ return view;}
     public ClientSocket getClientSocket(){return clientSocket;}
 
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
     public void setServerThreadID(long serverThreadID) {
         this.serverThreadID = serverThreadID;
+
     }
+
 
     /**
      * Connection to the server
@@ -59,6 +69,8 @@ public class ClientManager {
     public void connection(String address, int socketPort ){
         clientSocket = new ClientSocket(address, socketPort,this);
         clientSocket.startConnection();
+        if(!clientSocket.isConnected())
+            view.printMsg("Failed to connect to: "+ address+":" + socketPort);
     }
 
     /**
@@ -68,6 +80,10 @@ public class ClientManager {
     public void onMessage(String msg){
         ServerMessage deserializedMessage = ServerMessage.onMessage(msg);
         deserializedMessage.useMessage(this);
+    }
+    public void createGame(int numberOfPlayers){
+        String message = new CreateGameMessage(this.nickname,-1,numberOfPlayers).serialize();
+        clientSocket.send(message);
     }
 
     /**

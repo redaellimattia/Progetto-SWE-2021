@@ -37,23 +37,24 @@ public class ClientSocket implements Runnable {
             socketListener = new Thread(this);
             socketListener.start();
             ClientManager.LOGGER.info("Client successfully connected at: "+ address+":" + socketPort);
-        } catch (IOException e) { ClientManager.LOGGER.severe("Failed to connect to: "+ address+":" + socketPort + "\n" +e.getMessage()); }
+        } catch (IOException e) { ClientManager.LOGGER.severe("Failed to connect to: "+ address+":" + socketPort + "\n" +e.getMessage());}
     }
 
     public String getNickname() {
         return nickname;
     }
 
-    public ClientManager getClientManager() {
-        return clientManager;
+    public boolean isConnected() {
+        return isConnected;
     }
+
 
     /**
      * Sends the first message, ASKLOBBIES to ask available lobbies
      */
     public void startConnection() {
         send(new AskLobbyMessage(nickname, clientManager.getServerThreadID()).serialize());
-        //send(new CreateGameMessage(nickname, client.getServerThreadID(), 4).serialize());
+        //send(new CreateGameMessage(nickname, clientManager.getServerThreadID(), 4).serialize());
     }
 
 
