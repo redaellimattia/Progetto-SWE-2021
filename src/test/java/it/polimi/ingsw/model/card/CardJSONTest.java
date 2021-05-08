@@ -1,13 +1,15 @@
 package it.polimi.ingsw.model.card;
 
+import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import it.polimi.ingsw.controller.GameLobby;
 import it.polimi.ingsw.model.DeckShop;
 import it.polimi.ingsw.model.Production;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.CardColour;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import it.polimi.ingsw.model.token.AdvanceToken;
+import it.polimi.ingsw.model.token.DiscardToken;
+import it.polimi.ingsw.model.token.SoloToken;
 import org.junit.jupiter.api.Test;
 
 import java.io.Reader;
@@ -26,10 +28,11 @@ public class CardJSONTest {
         deck.add(card);
         String message = gson.toJson(deck);
         System.out.println(message);
+
     }
 
     @Test
-    public void importCards() {
+    public void importDevCards() {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.setPrettyPrinting().create();
         JsonReader json = new GameLobby(0, 0).readJsonFile("/DevCards");
@@ -52,5 +55,26 @@ public class CardJSONTest {
             }
         }
         System.out.println("Carte liv 3: " + count);
+    }
+
+    @Test
+    public void importSoloTokens() {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.setPrettyPrinting().create();
+        JsonReader json = new GameLobby(0, 0).readJsonFile("/Tokens");
+        JsonArray array = gson.fromJson(json, JsonElement.class);
+        //JsonArray array = jsonObj.getAsJsonArray();
+        ArrayList<SoloToken> tokensDeck = new ArrayList<SoloToken>();
+        for (JsonElement s: array) {
+            switch(s.getAsJsonObject().get("type").getAsString()) {
+                case "discardToken": tokensDeck.add(gson.fromJson(s, DiscardToken.class)); break;
+                // In this case we need to use the constructor to build the AdvanceToken object
+                // because steps value is not in JSON file (it can be inferred by reRoll value)
+                case "advanceToken": tokensDeck.add(new AdvanceToken(gson.fromJson(s, AdvanceToken.class).isReRoll(), null)); break;
+            }
+        }
+        for (SoloToken s: tokensDeck) {
+            System.out.println(s.getClass());
+        }
     }
 }
