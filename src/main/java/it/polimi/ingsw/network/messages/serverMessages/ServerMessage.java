@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.client.ClientSocket;
 import it.polimi.ingsw.network.enumeration.ServerMessageType;
 
@@ -48,7 +49,7 @@ public abstract class ServerMessage {
         }
     }
 
-    public void useMessage(ClientSocket clientSocket){}
+    public void useMessage(ClientManager clientManager){}
 
     /**
      *

@@ -17,7 +17,7 @@ public class ClientSocket implements Runnable {
     private Socket socket;
     private boolean isConnected;
     private String nickname;
-    private Client client;
+    private ClientManager clientManager;
     private Thread socketListener;
 
 
@@ -25,35 +25,34 @@ public class ClientSocket implements Runnable {
      * Creates a clientSocket, the connection of the client to the server
      * @param address address chosen
      * @param socketPort port chosen
-     * @param client client Object that is trying to connect
      */
-    public ClientSocket(String address, int socketPort, Client client) {
+    public ClientSocket(String address, int socketPort, ClientManager clientManager) {
         try {
+            this.clientManager = clientManager;
             this.socket = new Socket(address, socketPort);
             this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.out = new PrintWriter(socket.getOutputStream());
-            this.client = client;
-            this.nickname = client.getNickname();
+            this.nickname = clientManager.getNickname();
             this.isConnected = true;
             socketListener = new Thread(this);
             socketListener.start();
-            Client.LOGGER.info("Client successfully connected at: "+ address+":" + socketPort);
-        } catch (IOException e) { Client.LOGGER.severe("Failed to connect to: "+ address+":" + socketPort + "\n" +e.getMessage()); }
+            ClientManager.LOGGER.info("Client successfully connected at: "+ address+":" + socketPort);
+        } catch (IOException e) { ClientManager.LOGGER.severe("Failed to connect to: "+ address+":" + socketPort + "\n" +e.getMessage()); }
     }
 
     public String getNickname() {
         return nickname;
     }
 
-    public Client getClient() {
-        return client;
+    public ClientManager getClientManager() {
+        return clientManager;
     }
 
     /**
      * Sends the first message, ASKLOBBIES to ask available lobbies
      */
     public void startConnection() {
-        send(new AskLobbyMessage(nickname, client.getServerThreadID()).serialize());
+        send(new AskLobbyMessage(nickname, clientManager.getServerThreadID()).serialize());
         //send(new CreateGameMessage(nickname, client.getServerThreadID(), 4).serialize());
     }
 
@@ -79,10 +78,10 @@ public class ClientSocket implements Runnable {
             try {
                 String msg = in.readLine();
                 System.out.println(msg);
-                if(msg!=null) client.onMessage(msg);
+                if(msg!=null) clientManager.onMessage(msg);
                 else disconnect();
             } catch (IOException e) {
-                Client.LOGGER.severe("Failed to read message from server: "+ e.getMessage());
+                ClientManager.LOGGER.severe("Failed to read message from server: "+ e.getMessage());
                 disconnect();
             }
         }
@@ -97,7 +96,7 @@ public class ClientSocket implements Runnable {
                 if (!socket.isClosed())
                     socket.close();
             } catch (IOException e) {
-                Client.LOGGER.log(Level.SEVERE,"Error while closing the Socket Connection\n"+ e.getMessage());}
+                ClientManager.LOGGER.log(Level.SEVERE,"Error while closing the Socket Connection\n"+ e.getMessage());}
 
             socketListener.interrupt(); // Interrupts the thread
             isConnected = false;
