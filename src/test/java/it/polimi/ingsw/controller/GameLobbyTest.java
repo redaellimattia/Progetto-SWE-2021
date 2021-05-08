@@ -20,5 +20,12 @@ class GameLobbyTest {
 
     @Test
     void initGame() {
+        GameLobby testLobby = new GameLobby(0, 4);
+        testLobby.addPlayer("Pippo");
+        testLobby.addPlayer("Pluto");
+        testLobby.addPlayer("Paperino");
+        testLobby.addPlayer("Giocatore");
+        testLobby.initGame(false);
+        GameManager gameManager  = testLobby.getGameManager();
     }
 }

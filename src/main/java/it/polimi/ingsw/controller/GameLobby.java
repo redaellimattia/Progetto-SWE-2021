@@ -110,11 +110,13 @@ public class GameLobby {
     }
 
     private Deck[][] initShopGrid() {
-        // Create empty Decks
+        // Create empty grid
         Deck[][] shopGrid = new Deck[3][4];
+        // Create a matrix of lists of DevelopmentCard (each list will be converted to a deck once completed)
+        ArrayList<DevelopmentCard>[][] tempDeckGrid = new ArrayList[3][4];
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 4; j++) {
-                shopGrid[i][j] = new DeckShop(new ArrayList<DevelopmentCard>());
+                tempDeckGrid[i][j] = new ArrayList<>();
             }
         }
         // Insert each card in the correct deck
@@ -131,12 +133,18 @@ public class GameLobby {
                 case YELLOW: col = 2; break;
                 case PURPLE: col = 3; break;
             }
-            shopGrid[row][col].addCard(card);
+            tempDeckGrid[row][col].add(card);
         }
         // Shuffle cards in each deck
         for(int i = 0; i < 3; i++) {
             for(int j = 0; j < 4; j++) {
-                Collections.shuffle(shopGrid[i][j].getDeck());
+                Collections.shuffle(tempDeckGrid[i][j]);
+            }
+        }
+        // Insert decks in shopGrid
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0; j < 4; j++) {
+                shopGrid[i][j] = new DeckShop(tempDeckGrid[i][j]);
             }
         }
         return shopGrid;
