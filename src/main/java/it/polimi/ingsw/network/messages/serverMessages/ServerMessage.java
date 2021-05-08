@@ -36,6 +36,8 @@ public abstract class ServerMessage {
                 return gson.fromJson(msg,PingMessage.class);
             case PREGAME:
                 return gson.fromJson(msg,PreGameMessage.class);
+            case ERROR:
+                return gson.fromJson(msg,ErrorMessage.class);
             /*case STARTGAME:
                 return gson.fromJson(msg,PreGameMessage.class);
             case SHOPUPDATE:

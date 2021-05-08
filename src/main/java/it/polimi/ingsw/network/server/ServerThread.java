@@ -8,6 +8,7 @@ import it.polimi.ingsw.exceptions.network.NotYourTurnException;
 import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
 import it.polimi.ingsw.model.Shop;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
+import it.polimi.ingsw.network.messages.serverMessages.ErrorMessage;
 import it.polimi.ingsw.network.messages.serverMessages.JoinedLobbyMessage;
 import it.polimi.ingsw.network.messages.serverMessages.PreGameMessage;
 import it.polimi.ingsw.network.messages.serverMessages.YourTurnMessage;
@@ -122,6 +123,7 @@ public class ServerThread extends Thread implements Observer {
                     createGame(false,clientConnection);
             } else {
                 clientConnection.disconnect();
+                clientConnection.send(new ErrorMessage("This username: " + nickname +" is already taken!").serialize());
                 throw new NicknameAlreadyUsedException(nickname);
             }
         }
