@@ -2,16 +2,22 @@ package it.polimi.ingsw.controller;
 
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.stream.JsonReader;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
+import it.polimi.ingsw.model.token.DiscardToken;
+import it.polimi.ingsw.model.token.SoloToken;
 import it.polimi.ingsw.network.server.Server;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Level;
 
 public class GameLobby {
@@ -70,15 +76,116 @@ public class GameLobby {
     }
 
     public void initGame(boolean singlePlayer) {
-        if(singlePlayer){
-            ArrayList<PlayerDashboard> p = new ArrayList<>();
-            p.add(new PlayerDashboard(null,null,new DeckDashboard[3],new ArrayList<>(),0,players.get(0),0,false));
-            Game game = new Game(p,null,null,null);
-            gameManager = new GameManager(game,new PlayerTurnManager(p.get(0)),true);
+        ArrayList<PlayerDashboard> playerDashboards = new ArrayList<>();
+        int playerTurnPosition = 0;
+        for (String s: players) {
+            playerDashboards.add(createPlayer(s, playerTurnPosition, false));
+            playerTurnPosition++;
         }
-        //else
-            //games.add(new GameManager(new Game(players,...),null));
+        Shop shop = new Shop(initShopGrid());
+        MarketDashboard market = initMarketDashboard();
+
+        if(singlePlayer){
+            // TO-DO: Check that Lorenzo name is not used by player
+            playerDashboards.add(createPlayer("Lorenzo", 1, true));
+            Game game = new Game(playerDashboards, shop, market, initTokensDeck());
+            gameManager = new GameManager(game, new PlayerTurnManager(playerDashboards.get(0)), true);
+        }
+        else {
+            Game game = new Game(playerDashboards, shop, market, null);
+            gameManager = new GameManager(game, new PlayerTurnManager(playerDashboards.get(0)), false);
+        }
         this.gameStarted = true;
+    }
+
+    private PlayerDashboard createPlayer(String nickname, int playerTurnPosition, boolean isLorenzo) {
+        Storage storage = new Storage(new CounterTop(Resource.COIN, 0), new CounterTop(Resource.COIN, 0), new CounterTop(Resource.COIN, 0));
+        ResourceCount chest = new ResourceCount(0,0,0,0,0);
+        DeckDashboard[] devCards = new DeckDashboard[3];
+        for(int i = 0; i < 3; i++) {
+            devCards[i] = new DeckDashboard();
+        }
+        ArrayList<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
+        return new PlayerDashboard(storage, chest, devCards, leaderCards, playerTurnPosition, nickname, 0, isLorenzo);
+    }
+
+    private Deck[][] initShopGrid() {
+        // Create empty Decks
+        Deck[][] shopGrid = new Deck[3][4];
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0; j < 4; j++) {
+                shopGrid[i][j] = new DeckShop(new ArrayList<DevelopmentCard>());
+            }
+        }
+        // Insert each card in the correct deck
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.setPrettyPrinting().create();
+        JsonReader json = readJsonFile("/DevCards");
+        DeckShop fromJson = gson.fromJson(json, DeckShop.class);
+        int row; int col = 0;
+        for (DevelopmentCard card: fromJson.getDeck()) {
+            row = 3 - card.getLevel();
+            switch(card.getColour()) {
+                case GREEN: col = 0; break;
+                case BLUE: col = 1; break;
+                case YELLOW: col = 2; break;
+                case PURPLE: col = 3; break;
+            }
+            shopGrid[row][col].addCard(card);
+        }
+        // Shuffle cards in each deck
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0; j < 4; j++) {
+                Collections.shuffle(shopGrid[i][j].getDeck());
+            }
+        }
+        return shopGrid;
+    }
+
+    private MarketDashboard initMarketDashboard() {
+        // Create an empty structure
+        MarketMarble[][] structure = new MarketMarble[3][4];
+        // Get marbles from JSON and add them to a list
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.setPrettyPrinting().create();
+        JsonReader json = readJsonFile("/Marbles");
+        JsonArray marblesJsonArray = gson.fromJson(json, JsonElement.class);
+        ArrayList<MarketMarble> marbleList = new ArrayList<>();
+        for (JsonElement j: marblesJsonArray) {
+            marbleList.add(gson.fromJson(j, MarketMarble.class));
+        }
+        // Shuffle marbles
+        Collections.shuffle(marbleList);
+
+        // Convert list to matrix
+        MarketMarble[] marbleArray = new MarketMarble[13];
+        marbleArray = marbleList.toArray(marbleArray);
+
+        // Convert array to matrix
+        int cur = 0;
+        for(int i = 0; i < 3; i++) {
+            for(int j = 0; j < 4; j++) {
+                structure[i][j] = marbleArray[cur];
+                cur++;
+            }
+        }
+        MarketMarble freeMarble = marbleArray[cur];
+        return new MarketDashboard(structure, freeMarble);
+    }
+
+    private ArrayList<SoloToken> initTokensDeck() {
+        // Get tokens from JSON and add them to a list
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.setPrettyPrinting().create();
+        JsonReader json = readJsonFile("/Tokens");
+        JsonArray tokensJsonArray = gson.fromJson(json, JsonElement.class);
+        ArrayList<SoloToken> tokenList = new ArrayList<>();
+        for (JsonElement j: tokensJsonArray) {
+            tokenList.add(gson.fromJson(j, SoloToken.class));
+        }
+        // Shuffle tokens
+        Collections.shuffle(tokenList);
+        return tokenList;
     }
 
     public boolean readyToStartGame(){
