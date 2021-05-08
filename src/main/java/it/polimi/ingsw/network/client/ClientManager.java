@@ -1,5 +1,9 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.model.MarketDashboard;
+import it.polimi.ingsw.model.Player;
+import it.polimi.ingsw.model.PlayerDashboard;
+import it.polimi.ingsw.model.Shop;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
 import it.polimi.ingsw.view.View;
 
@@ -7,6 +11,7 @@ import it.polimi.ingsw.view.View;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.FileHandler;
@@ -20,6 +25,7 @@ public class ClientManager {
     protected static final Logger LOGGER = Logger.getLogger("Client");
 
     private String nickname;
+    private ClientGameStatus gameStatus;
     private ClientSocket clientSocket;
     private long serverThreadID = -1;
     private View view;
@@ -30,7 +36,6 @@ public class ClientManager {
      * @param socketPort port chosen
      */
     public ClientManager(String address, int socketPort, View view) {
-        //qui verrà avviata la view e questa prenderà tutte le informazioni dal client
         initLogger();
         this.view = view;
         view.start();
@@ -51,6 +56,21 @@ public class ClientManager {
         this.serverThreadID = serverThreadID;
     }
 
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public void updateShop(Shop newShop){
+        gameStatus.setShop(newShop);
+    }
+
+    public void updateMarket(MarketDashboard newMarket){
+        gameStatus.setMarket(newMarket);
+    }
+
+    public void updatePlayers(ArrayList<PlayerDashboard> newPlayers){
+        gameStatus.setPlayers(newPlayers);
+    }
     /**
      * Connection to the server
      * @param address address chosen
