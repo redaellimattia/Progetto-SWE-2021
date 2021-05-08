@@ -26,6 +26,18 @@ public class ReturnLobbiesMessage extends ServerMessage {
             this.numberOfPlayers = numberOfPlayers;
             this.players = players;
         }
+
+        public long getServerThreadID() {
+            return serverThreadID;
+        }
+
+        public int getNumberOfPlayers() {
+            return numberOfPlayers;
+        }
+
+        public ArrayList<String> getPlayers() {
+            return players;
+        }
     }
 
     @Override

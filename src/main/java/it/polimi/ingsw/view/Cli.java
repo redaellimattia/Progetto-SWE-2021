@@ -1,9 +1,13 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
+
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 public class Cli implements View {
 
@@ -11,9 +15,31 @@ public class Cli implements View {
     private Thread inputThread;
 
     public Cli(){
-        this.out = new PrintStream(System.out,true);
+        this.out = System.out;
     }
-    public void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies){}
+    /**
+     * Reads a line from the standard input.
+     *
+     * @return the string read from the input.
+     */
+    public String readLine(){
+        FutureTask<String> futureTask = new FutureTask<>(new InputReadTask());
+        inputThread = new Thread(futureTask);
+        inputThread.start();
+
+        String input = null;
+
+        try {
+            try {
+                input = futureTask.get();
+            }catch (ExecutionException e){}
+        } catch (InterruptedException e) {
+            futureTask.cancel(true);
+            Thread.currentThread().interrupt();
+        }
+        return input;
+    }
+    @Override
     public void start(){
         printLogo();
     }
@@ -34,5 +60,51 @@ public class Cli implements View {
                 "Have Fun playing the game! \n";
         out.println(logo);
     }
+    @Override
+    public void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies){
+        String input;
+        if(availableGameLobbies.size()==0){
+            out.println("There are no available lobbies, press C to create a new game: ");
+            do{
+                 input = readLine();
+            }while(!input.equals('C'));
+            createNewGame();
+        }
+        else{
+            out.println("Here are the available Lobbies: \n");
+            for (ReturnLobbiesMessage.availableGameLobbies lobby : availableGameLobbies) {
+                out.println("ServerID: " + lobby.getServerThreadID() + "\n");
+                out.println("Number of Players for this game: " + lobby.getNumberOfPlayers() + "\n");
+                out.println("Players: \n");
+                for (String p : lobby.getPlayers()) {
+                    out.println(p + "\n ");
+                }
+            }
+            out.println("Now choose: \n" +
+                    "J: Join and existing match. \n" +
+                    "C: Create a new Game.");
 
+        }
+        do{
+            input = readLine();
+        }while(!input.equals('J') || !input.equals('C'));
+
+        if(input.equals('C'))
+            createNewGame();
+        if(input.equals('J'))
+            joinExistingGame();
+    }
+
+    @Override
+    public void createNewGame(){
+        clearCli();
+        out.println("Crea un nuovo game: \n");
+    }
+
+    @Override
+    public void joinExistingGame(){}
+
+    private void clearCli(){
+        out.flush();
+    }
 }
