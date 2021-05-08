@@ -21,7 +21,6 @@ public class GameLobby {
     private final int numberOfPlayers;
     private int readyPlayers;
     private boolean gameStarted;
-    private String configFilePath = "src/main/resources/json";
 
     public GameLobby(long serverThreadID,int numberOfPlayers) {
         this.players = new ArrayList<>();
@@ -143,12 +142,12 @@ public class GameLobby {
      * @return JsonReader of the specified file can be null
      */
     public JsonReader readJsonFile(String filename){
-        Gson gson = new Gson();
         JsonReader reader = null;
+        String configFilePath = "src/main/resources/json";
         try {
-             reader = new JsonReader(new FileReader(configFilePath+filename+".json"));
+             reader = new JsonReader(new FileReader(configFilePath +filename+".json"));
         }catch(IOException e){
-            Server.LOGGER.log(Level.SEVERE,"Can't read file: "+configFilePath+filename+".json "+e.getMessage());
+            Server.LOGGER.log(Level.SEVERE,"Can't read file: "+ configFilePath +filename+".json "+e.getMessage());
         }
         return reader;
     }

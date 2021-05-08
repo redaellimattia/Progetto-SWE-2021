@@ -35,6 +35,14 @@ public abstract class ServerMessage {
                 return gson.fromJson(msg,PingMessage.class);
             case PREGAME:
                 return gson.fromJson(msg,PreGameMessage.class);
+            /*case STARTGAME:
+                return gson.fromJson(msg,PreGameMessage.class);
+            case SHOPUPDATE:
+                return gson.fromJson(msg,PreGameMessage.class);
+            case MARKETUPDATE:
+                return gson.fromJson(msg,PreGameMessage.class);
+            case PLAYERUPDATE:
+                return gson.fromJson(msg,PreGameMessage.class);*/
             default:
                 throw new IllegalArgumentException("ServerMessageType not valid.");
         }
