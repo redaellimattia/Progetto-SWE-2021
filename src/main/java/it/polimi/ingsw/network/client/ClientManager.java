@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
 import it.polimi.ingsw.view.Cli;
 import it.polimi.ingsw.view.View;
@@ -35,7 +36,7 @@ public class ClientManager {
         initLogger();
         if(choice.equals("-cli"))
             this.view = new Cli(this);
-        else
+        //else
             //this.view = new Gui();
         view.start();
         this.nickname = "nickname"; //------------DEBUG------------------
@@ -45,18 +46,19 @@ public class ClientManager {
     public String getNickname() {
         return nickname;
     }
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
     public long getServerThreadID() {
         return serverThreadID;
     }
     public View getView(){ return view;}
     public ClientSocket getClientSocket(){return clientSocket;}
 
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
     public void setServerThreadID(long serverThreadID) {
         this.serverThreadID = serverThreadID;
     }
+
 
     /**
      * Connection to the server
@@ -77,6 +79,10 @@ public class ClientManager {
     public void onMessage(String msg){
         ServerMessage deserializedMessage = ServerMessage.onMessage(msg);
         deserializedMessage.useMessage(this);
+    }
+    public void createGame(int numberOfPlayers){
+        String message = new CreateGameMessage(this.nickname,-1,numberOfPlayers).serialize();
+        clientSocket.send(message);
     }
 
     /**
