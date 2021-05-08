@@ -7,4 +7,6 @@ import java.util.ArrayList;
 public interface View {
     void start();
     void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies);
+    void createNewGame();
+    void joinExistingGame();
 }
