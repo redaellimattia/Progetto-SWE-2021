@@ -1,12 +1,11 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.model.PlayerDashboard;
+import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 
 
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -14,9 +13,11 @@ public class Cli implements View {
 
     private final PrintStream out;
     private Thread inputThread;
+    private ClientManager clientManager;
 
-    public Cli(){
-        this.out = System.out;
+    public Cli(ClientManager clientManager){
+        this.out = new PrintStream(System.out,true);
+        this.clientManager = clientManager;
     }
     /**
      * Reads a line from the standard input.
@@ -99,13 +100,31 @@ public class Cli implements View {
     @Override
     public void createNewGame(){
         clearCli();
-        out.println("Insert a nickname: ");
+
+        out.println("Now you can create your own game! \n ");
+        String nickname = askForNickname();
+        clientManager.setNickname(nickname);
     }
+
 
     @Override
     public void joinExistingGame(){}
 
+    public String askForNickname(){
+        String nickname;
+        String input;
+        do{
+            out.println("Insert a nickname: \n");
+            nickname = readLine();
+            out.println("The choosen nickname is : " + nickname + "\n" +
+                    "Do you want to confirm? Press Y (confirm) / N (deny) \n");
+            input = readLine();
+        }while(!input.equalsIgnoreCase("Y"));
+
+        return nickname;
+    }
     private void clearCli(){
+        out.println("\033[H\033[2J");
         out.flush();
     }
 
