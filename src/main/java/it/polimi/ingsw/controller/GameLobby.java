@@ -1,12 +1,18 @@
 package it.polimi.ingsw.controller;
 
 
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
+import it.polimi.ingsw.network.server.Server;
 
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class GameLobby {
     private ArrayList<String> players;
@@ -15,6 +21,7 @@ public class GameLobby {
     private final int numberOfPlayers;
     private int readyPlayers;
     private boolean gameStarted;
+    private String configFilePath = "src/main/resources/json";
 
     public GameLobby(long serverThreadID,int numberOfPlayers) {
         this.players = new ArrayList<>();
@@ -128,5 +135,21 @@ public class GameLobby {
 
     public void addReadyPlayer(){
         this.readyPlayers++;
+    }
+
+    /**
+     *
+     * @param filename DevCards, LeaderCards, Tokens
+     * @return JsonReader of the specified file can be null
+     */
+    public JsonReader readJsonFile(String filename){
+        Gson gson = new Gson();
+        JsonReader reader = null;
+        try {
+             reader = new JsonReader(new FileReader(configFilePath+filename+".json"));
+        }catch(IOException e){
+            Server.LOGGER.log(Level.SEVERE,"Can't read file: "+configFilePath+filename+".json "+e.getMessage());
+        }
+        return reader;
     }
 }

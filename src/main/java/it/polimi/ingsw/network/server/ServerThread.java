@@ -6,6 +6,7 @@ import it.polimi.ingsw.exceptions.network.GameAlreadyStartedException;
 import it.polimi.ingsw.exceptions.network.NicknameAlreadyUsedException;
 import it.polimi.ingsw.exceptions.network.NotYourTurnException;
 import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
+import it.polimi.ingsw.model.Shop;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.JoinedLobbyMessage;
 import it.polimi.ingsw.network.messages.serverMessages.PreGameMessage;
@@ -13,10 +14,12 @@ import it.polimi.ingsw.network.messages.serverMessages.YourTurnMessage;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.logging.Level;
 
 
-public class ServerThread extends Thread{
+public class ServerThread extends Thread implements Observer {
     private final Object gameLock = new Object();
     private Map<String, SocketConnection> clients;
     private PingTimer timer;
@@ -244,6 +247,13 @@ public class ServerThread extends Thread{
      */
     public long getThreadId(){
         return Thread.currentThread().getId();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if(arg instanceof Shop){
+            //shopMessage
+        }
     }
 }
 
