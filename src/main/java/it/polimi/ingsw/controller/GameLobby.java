@@ -108,7 +108,7 @@ public class GameLobby {
                     chosen1 = new CounterTop(chosen.get(0),1);
                     p.getStorage().setFirstRow(chosen1);
                 }
-                if (chosen.size() == 1) {
+                if (chosen.size() == 2) {
                     if(chosen.get(0).equals(chosen.get(1))){
                         chosen1 = new CounterTop(chosen.get(0), 2);
                         p.getStorage().setSecondRow(chosen1);
