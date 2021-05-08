@@ -6,6 +6,7 @@ import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -67,7 +68,7 @@ public class Cli implements View {
             out.println("There are no available lobbies, press C to create a new game: ");
             do{
                  input = readLine();
-            }while(!input.equals('C'));
+            }while(!input.equalsIgnoreCase("C"));
             createNewGame();
         }
         else{
@@ -87,18 +88,18 @@ public class Cli implements View {
         }
         do{
             input = readLine();
-        }while(!input.equals('J') || !input.equals('C'));
+        }while(!input.equalsIgnoreCase("J") || !input.equalsIgnoreCase("C"));
 
-        if(input.equals('C'))
+        if(input.equalsIgnoreCase("C"))
             createNewGame();
-        if(input.equals('J'))
+        if(input.equalsIgnoreCase("J"))
             joinExistingGame();
     }
 
     @Override
     public void createNewGame(){
         clearCli();
-        out.println("Crea un nuovo game: \n");
+        out.println("Insert a nickname: ");
     }
 
     @Override
