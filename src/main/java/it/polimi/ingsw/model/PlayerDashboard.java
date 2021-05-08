@@ -6,8 +6,9 @@ import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
-public class PlayerDashboard extends Player{
+public class PlayerDashboard extends Player {
     private int pathPosition;
     private Storage storage;
     private ResourceCount chest;

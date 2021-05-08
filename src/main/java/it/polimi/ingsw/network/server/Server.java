@@ -15,7 +15,7 @@ public class Server {
     private static final int DEFAULT_SOCKET_PORT = 1338;
     private final int socketPort;
 
-    protected static final Logger LOGGER = Logger.getLogger("Server");
+    public static final Logger LOGGER = Logger.getLogger("Server");
 
     public static Map<Long, ServerThread> serverThreads;
 
