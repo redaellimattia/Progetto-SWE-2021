@@ -12,6 +12,6 @@ public class ErrorMessage extends ServerMessage{
 
     @Override
     public void useMessage(ClientManager clientManager) {
-        clientManager.getView().printError(errorMsg);
+        clientManager.getView().printMsg(errorMsg);
     }
 }

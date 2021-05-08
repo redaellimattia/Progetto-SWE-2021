@@ -100,12 +100,12 @@ public class Cli implements View {
     @Override
     public void createNewGame(){
         clearCli();
-
-        out.println("Now you can create your own game! \n ");
+        out.println("Now you can create your own game!");
         String nickname = askForNickname();
         clientManager.setNickname(nickname);
         int numberOfPlayers = askNumberOfPlayers();
         clientManager.createGame(numberOfPlayers);
+        clearCli();
     }
 
 
@@ -118,12 +118,12 @@ public class Cli implements View {
         int num;
         do{
             do {
-                out.println("Insert the number of players for your game (must be between 1 and 4) \n");
+                out.println("Insert the number of players for your game (must be between 1 and 4)");
                 number = readLine();
                 num = Integer.parseInt(number);
             }while(num <1 || num >4);
             out.println("The choosen number of player is : " +number + "\n" +
-                    "Do you want to confirm? Press Y (confirm) / N (deny) \n");
+                    "Do you want to confirm? Press Y (confirm) / N (deny)");
             input = readLine();
         }while(!input.equalsIgnoreCase("Y"));
 
@@ -133,22 +133,22 @@ public class Cli implements View {
         String nickname;
         String input;
         do{
-            out.println("Insert a nickname: \n");
+            out.println("Insert a nickname:");
             nickname = readLine();
-            out.println("The choosen nickname is : " + nickname + "\n" +
-                    "Do you want to confirm? Press Y (confirm) / N (deny) \n");
+            out.println("The choosen nickname is : " + nickname +
+                    "\nDo you want to confirm? Press Y (confirm) / N (deny)");
             input = readLine();
         }while(!input.equalsIgnoreCase("Y"));
 
         return nickname;
     }
     private void clearCli(){
-        out.println("\033[H\033[2J");
-        out.flush();
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     @Override
-    public void printError(String msg){
+    public void printMsg(String msg){
         out.println(msg);
     }
 }

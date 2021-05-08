@@ -9,5 +9,5 @@ public interface View {
     void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies);
     void createNewGame();
     void joinExistingGame();
-    void printError(String msg);
+    void printMsg(String msg);
 }

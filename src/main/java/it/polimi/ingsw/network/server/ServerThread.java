@@ -117,10 +117,14 @@ public class ServerThread extends Thread implements Observer {
                 clients.put(nickname, clientConnection);
                 Server.LOGGER.log(Level.INFO,nickname+" joined the lobby #"+getThreadId()+", "+(gameLobby.getNumberOfPlayers()-clients.size())+" players to go!");
                 clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
-                if (gameLobby.getNumberOfPlayers() == 1)
-                    createGame(true,clientConnection);
-                else if (clients.size() == gameLobby.getNumberOfPlayers())
-                    createGame(false,clientConnection);
+                if (gameLobby.getNumberOfPlayers() == 1) {
+                    createGame(true, clientConnection);
+                    clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
+                }
+                else if (clients.size() == gameLobby.getNumberOfPlayers()) {
+                    createGame(false, clientConnection);
+                    clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
+                }
             } else {
                 clientConnection.disconnect();
                 clientConnection.send(new ErrorMessage("This username: " + nickname +" is already taken!").serialize());

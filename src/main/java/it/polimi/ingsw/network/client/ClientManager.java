@@ -57,6 +57,7 @@ public class ClientManager {
     }
     public void setServerThreadID(long serverThreadID) {
         this.serverThreadID = serverThreadID;
+
     }
 
 
@@ -69,7 +70,7 @@ public class ClientManager {
         clientSocket = new ClientSocket(address, socketPort,this);
         clientSocket.startConnection();
         if(!clientSocket.isConnected())
-            view.printError("Failed to connect to: "+ address+":" + socketPort);
+            view.printMsg("Failed to connect to: "+ address+":" + socketPort);
     }
 
     /**
