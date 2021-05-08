@@ -869,6 +869,296 @@
       },
       "level": 3,
       "colour": "YELLOW"
+    },
+    {
+      "id": 31,
+      "victoryPoints": 10,
+      "cost": {
+        "coins": 0,
+        "rocks": 0,
+        "servants": 2,
+        "shields": 5,
+        "faith": 0
+      },
+      "productionPower": {
+        "input": {
+          "coins": 1,
+          "rocks": 0,
+          "servants": 1,
+          "shields": 0,
+          "faith": 0
+        },
+        "output": {
+          "coins": 0,
+          "rocks": 2,
+          "servants": 0,
+          "shields": 2,
+          "faith": 1
+        }
+      },
+      "level": 3,
+      "colour": "GREEN"
+    },
+    {
+      "id": 32,
+      "victoryPoints": 10,
+      "cost": {
+        "coins": 2,
+        "rocks": 0,
+        "servants": 5,
+        "shields": 0,
+        "faith": 0
+      },
+      "productionPower": {
+        "input": {
+          "coins": 0,
+          "rocks": 1,
+          "servants": 0,
+          "shields": 1,
+          "faith": 0
+        },
+        "output": {
+          "coins": 2,
+          "rocks": 0,
+          "servants": 2,
+          "shields": 0,
+          "faith": 1
+        }
+      },
+      "level": 3,
+      "colour": "PURPLE"
+    },
+    {
+      "id": 33,
+      "victoryPoints": 10,
+      "cost": {
+        "coins": 5,
+        "rocks": 2,
+        "servants": 0,
+        "shields": 0,
+        "faith": 0
+      },
+      "productionPower": {
+        "input": {
+          "coins": 1,
+          "rocks": 0,
+          "servants": 0,
+          "shields": 1,
+          "faith": 0
+        },
+        "output": {
+          "coins": 0,
+          "rocks": 2,
+          "servants": 2,
+          "shields": 0,
+          "faith": 1
+        }
+      },
+      "level": 3,
+      "colour": "BLUE"
+    },
+    {
+      "id": 34,
+      "victoryPoints": 1,
+      "cost": {
+        "coins": 0,
+        "rocks": 2,
+        "servants": 0,
+        "shields": 0,
+        "faith": 0
+      },
+      "productionPower": {
+        "input": {
+          "coins": 0,
+          "rocks": 0,
+          "servants": 1,
+          "shields": 0,
+          "faith": 0
+        },
+        "output": {
+          "coins": 0,
+          "rocks": 0,
+          "servants": 0,
+          "shields": 0,
+          "faith": 1
+        }
+      },
+      "level": 1,
+      "colour": "YELLOW"
+    },
+    {
+      "id": 35,
+      "victoryPoints": 10,
+      "cost": {
+        "coins": 0,
+        "rocks": 5,
+        "servants": 2,
+        "shields": 0,
+        "faith": 0
+      },
+      "productionPower": {
+        "input": {
+          "coins": 0,
+          "rocks": 1,
+          "servants": 1,
+          "shields": 0,
+          "faith": 0
+        },
+        "output": {
+          "coins": 2,
+          "rocks": 0,
+          "servants": 0,
+          "shields": 2,
+          "faith": 1
+        }
+      },
+      "level": 3,
+      "colour": "YELLOW"
+    },
+    {
+      "id": 36,
+      "victoryPoints": 11,
+      "cost": {
+        "coins": 0,
+        "rocks": 0,
+        "servants": 0,
+        "shields": 7,
+        "faith": 0
+      },
+      "productionPower": {
+        "input": {
+          "coins": 0,
+          "rocks": 0,
+          "servants": 1,
+          "shields": 0,
+          "faith": 0
+        },
+        "output": {
+          "coins": 1,
+          "rocks": 0,
+          "servants": 0,
+          "shields": 0,
+          "faith": 3
+        }
+      },
+      "level": 3,
+      "colour": "GREEN"
+    },
+    {
+      "id": 37,
+      "victoryPoints": 11,
+      "cost": {
+        "coins": 0,
+        "rocks": 0,
+        "servants": 7,
+        "shields": 0,
+        "faith": 0
+      },
+      "productionPower": {
+        "input": {
+          "coins": 1,
+          "rocks": 0,
+          "servants": 0,
+          "shields": 0,
+          "faith": 0
+        },
+        "output": {
+          "coins": 0,
+          "rocks": 1,
+          "servants": 0,
+          "shields": 0,
+          "faith": 3
+        }
+      },
+      "level": 3,
+      "colour": "PURPLE"
+    },
+    {
+      "id": 38,
+      "victoryPoints": 11,
+      "cost": {
+        "coins": 7,
+        "rocks": 0,
+        "servants": 0,
+        "shields": 0,
+        "faith": 0
+      },
+      "productionPower": {
+        "input": {
+          "coins": 0,
+          "rocks": 1,
+          "servants": 0,
+          "shields": 0,
+          "faith": 0
+        },
+        "output": {
+          "coins": 0,
+          "rocks": 0,
+          "servants": 0,
+          "shields": 1,
+          "faith": 3
+        }
+      },
+      "level": 3,
+      "colour": "BLUE"
+    },
+    {
+      "id": 39,
+      "victoryPoints": 11,
+      "cost": {
+        "coins": 0,
+        "rocks": 7,
+        "servants": 0,
+        "shields": 0,
+        "faith": 0
+      },
+      "productionPower": {
+        "input": {
+          "coins": 0,
+          "rocks": 0,
+          "servants": 0,
+          "shields": 1,
+          "faith": 0
+        },
+        "output": {
+          "coins": 0,
+          "rocks": 0,
+          "servants": 1,
+          "shields": 0,
+          "faith": 3
+        }
+      },
+      "level": 3,
+      "colour": "YELLOW"
+    },
+    {
+      "id": 40,
+      "victoryPoints": 12,
+      "cost": {
+        "coins": 4,
+        "rocks": 0,
+        "servants": 0,
+        "shields": 4,
+        "faith": 0
+      },
+      "productionPower": {
+        "input": {
+          "coins": 0,
+          "rocks": 1,
+          "servants": 0,
+          "shields": 0,
+          "faith": 0
+        },
+        "output": {
+          "coins": 3,
+          "rocks": 0,
+          "servants": 0,
+          "shields": 1,
+          "faith": 0
+        }
+      },
+      "level": 3,
+      "colour": "GREEN"
     }
   ]
 }
