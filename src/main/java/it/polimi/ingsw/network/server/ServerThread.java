@@ -122,8 +122,8 @@ public class ServerThread extends Thread implements Observer {
                 else if (clients.size() == gameLobby.getNumberOfPlayers())
                     createGame(false,clientConnection);
             } else {
-                clientConnection.disconnect();
-                clientConnection.send(new ErrorMessage("This username: " + nickname +" is already taken!").serialize());
+                //clientConnection.disconnect();
+                clientConnection.send(new ErrorMessage("This username: [" + nickname +"] is already taken!").serialize());
                 throw new NicknameAlreadyUsedException(nickname);
             }
         }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.messages.clientMessages;
 
 import it.polimi.ingsw.network.enumeration.ClientMessageType;
+import it.polimi.ingsw.network.messages.serverMessages.ErrorMessage;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
@@ -24,8 +25,12 @@ public class CreateGameMessage extends ClientMessage {
      */
     @Override
     public void useMessage(SocketConnection socketConnection){
-        ServerThread serverThread = new ServerThread(numberOfPlayers);
-        serverThread.newPlayerLogin(getNickname(),socketConnection);
-        Server.serverThreads.put(serverThread.getThreadId(),serverThread);
+        if(Server.checkNickname(getNickname())) {
+            ServerThread serverThread = new ServerThread(numberOfPlayers);
+            serverThread.newPlayerLogin(getNickname(), socketConnection);
+            Server.serverThreads.put(serverThread.getThreadId(), serverThread);
+        }
+        else
+            socketConnection.send(new ErrorMessage("This username: [" + getNickname() +"] is already taken!").serialize());
     }
 }
