@@ -104,27 +104,31 @@ public class Cli implements View {
         out.println("Now you can create your own game! \n ");
         String nickname = askForNickname();
         clientManager.setNickname(nickname);
-        //int numberOfPlayers = askNumberOfPlayers();
-        //clientManager.createGame();
+        int numberOfPlayers = askNumberOfPlayers();
+        clientManager.createGame(numberOfPlayers);
     }
 
 
     @Override
     public void joinExistingGame(){}
 
-    /*public int askNumberOfPlayers(){
+    public int askNumberOfPlayers(){
         String number;
         String input;
+        int num;
         do{
-            out.println("Insert the number of players for your game (must be between 1 and 4) \n");
-            number = readLine();
+            do {
+                out.println("Insert the number of players for your game (must be between 1 and 4) \n");
+                number = readLine();
+                num = Integer.parseInt(number);
+            }while(num <1 || num >4);
             out.println("The choosen number of player is : " +number + "\n" +
                     "Do you want to confirm? Press Y (confirm) / N (deny) \n");
             input = readLine();
         }while(!input.equalsIgnoreCase("Y"));
 
-        return nickname;
-    }*/
+        return num;
+    }
     public String askForNickname(){
         String nickname;
         String input;
