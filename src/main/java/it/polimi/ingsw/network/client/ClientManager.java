@@ -35,7 +35,7 @@ public class ClientManager {
         initLogger();
         if(choice.equals("-cli"))
             this.view = new Cli(this);
-        else
+        //else
             //this.view = new Gui();
         view.start();
         this.nickname = "nickname"; //------------DEBUG------------------
@@ -45,18 +45,19 @@ public class ClientManager {
     public String getNickname() {
         return nickname;
     }
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
     public long getServerThreadID() {
         return serverThreadID;
     }
     public View getView(){ return view;}
     public ClientSocket getClientSocket(){return clientSocket;}
 
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
     public void setServerThreadID(long serverThreadID) {
         this.serverThreadID = serverThreadID;
     }
+
 
     /**
      * Connection to the server
@@ -78,7 +79,7 @@ public class ClientManager {
         ServerMessage deserializedMessage = ServerMessage.onMessage(msg);
         deserializedMessage.useMessage(this);
     }
-
+    //public void createGame()
     /**
      * Creating logger file handler
      */
