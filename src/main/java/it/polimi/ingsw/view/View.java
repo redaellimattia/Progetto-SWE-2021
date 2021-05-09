@@ -8,6 +8,6 @@ public interface View {
     void start();
     void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies);
     void createNewGame();
-    void joinExistingGame();
+    void joinExistingGame(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies);
     void printMsg(String msg);
 }

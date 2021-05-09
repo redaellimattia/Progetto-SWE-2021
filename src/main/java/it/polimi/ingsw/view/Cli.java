@@ -6,6 +6,7 @@ import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -94,7 +95,7 @@ public class Cli implements View {
         if(input.equalsIgnoreCase("C"))
             createNewGame();
         if(input.equalsIgnoreCase("J"))
-            joinExistingGame();
+            joinExistingGame(availableGameLobbies);
     }
 
     @Override
@@ -110,8 +111,45 @@ public class Cli implements View {
 
 
     @Override
-    public void joinExistingGame(){}
+    public void joinExistingGame(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies){
+        clearCli();
+        out.println("Now you can choose the game to join!: ");
+        String nickname = askForNickname();
+        clientManager.setNickname(nickname);
+        long serverThreadID = askForServerID(availableGameLobbies);
 
+        clientManager.joinGame(serverThreadID);
+        clearCli();
+    }
+
+    public long askForServerID(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies){
+        String chosen;
+        String input;
+        long[] id = new long[availableGameLobbies.size()];
+        long chosenId;
+        int i=0;
+        boolean legitValue = false;
+
+        for (ReturnLobbiesMessage.availableGameLobbies lobby : availableGameLobbies) {
+            id[i] = lobby.getServerThreadID();
+            i++;
+        }
+        do{
+            do {
+                out.println("Insert the serverID you want to Join!");
+                chosen = readLine();
+                chosenId = Long.parseLong(chosen);
+                for (long l : id)
+                    if (l == chosenId)
+                        legitValue = true;
+            }while(!legitValue);
+            out.println("The choosen serverID is : " + chosenId + "\n" +
+                    "Do you want to confirm? Press Y (confirm) / N (deny)");
+            input = readLine();
+        }while(!input.equalsIgnoreCase("Y"));
+
+        return chosenId;
+    }
     public int askNumberOfPlayers(){
         String number;
         String input;

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
+import it.polimi.ingsw.network.messages.clientMessages.JoinGameMessage;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
 import it.polimi.ingsw.view.Cli;
 import it.polimi.ingsw.view.View;
@@ -81,8 +82,22 @@ public class ClientManager {
         ServerMessage deserializedMessage = ServerMessage.onMessage(msg);
         deserializedMessage.useMessage(this);
     }
+
+    /**
+     *
+     * @param numberOfPlayers for the game the player wants to create
+     */
     public void createGame(int numberOfPlayers){
         String message = new CreateGameMessage(this.nickname,-1,numberOfPlayers).serialize();
+        clientSocket.send(message);
+    }
+
+    /**
+     *
+     * @param serverThreadID chosen serverID for the game to join
+     */
+    public void joinGame(long serverThreadID){
+        String message = new JoinGameMessage(this.nickname,serverThreadID).serialize();
         clientSocket.send(message);
     }
 

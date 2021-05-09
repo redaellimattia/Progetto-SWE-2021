@@ -8,10 +8,7 @@ import it.polimi.ingsw.exceptions.network.NotYourTurnException;
 import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
 import it.polimi.ingsw.model.Shop;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
-import it.polimi.ingsw.network.messages.serverMessages.ErrorMessage;
-import it.polimi.ingsw.network.messages.serverMessages.JoinedLobbyMessage;
-import it.polimi.ingsw.network.messages.serverMessages.PreGameMessage;
-import it.polimi.ingsw.network.messages.serverMessages.YourTurnMessage;
+import it.polimi.ingsw.network.messages.serverMessages.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -117,14 +114,10 @@ public class ServerThread extends Thread implements Observer {
                 clients.put(nickname, clientConnection);
                 Server.LOGGER.log(Level.INFO,nickname+" joined the lobby #"+getThreadId()+", "+(gameLobby.getNumberOfPlayers()-clients.size())+" players to go!");
                 clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
-                if (gameLobby.getNumberOfPlayers() == 1) {
+                if (gameLobby.getNumberOfPlayers() == 1)
                     createGame(true, clientConnection);
-                    clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
-                }
-                else if (clients.size() == gameLobby.getNumberOfPlayers()) {
+                else if (clients.size() == gameLobby.getNumberOfPlayers())
                     createGame(false, clientConnection);
-                    clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
-                }
             } else {
                 //clientConnection.disconnect();
                 clientConnection.send(new ErrorMessage("This username: [" + nickname +"] is already taken!").serialize());
