@@ -67,35 +67,35 @@ public class Cli implements View {
     public void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies){
         String input;
         if(availableGameLobbies.size()==0){
-            out.println("There are no available lobbies, press C to create a new game: ");
             do{
-                 input = readLine();
+                out.println("There are no available lobbies, press C to create a new game: ");
+                input = readLine();
             }while(!input.equalsIgnoreCase("C"));
             createNewGame();
         }
         else{
-            out.println("Here are the available Lobbies: \n");
+            out.println("Here are the available Lobbies:");
             for (ReturnLobbiesMessage.availableGameLobbies lobby : availableGameLobbies) {
-                out.println("ServerID: " + lobby.getServerThreadID() + "\n");
-                out.println("Number of Players for this game: " + lobby.getNumberOfPlayers() + "\n");
-                out.println("Players: \n");
+                out.println("ServerID: " + lobby.getServerThreadID());
+                out.println("Number of Players for this game: " + lobby.getNumberOfPlayers());
+                out.println("Players:");
                 for (String p : lobby.getPlayers()) {
                     out.println(p + "\n ");
                 }
             }
-            out.println("Now choose: \n" +
-                    "J: Join and existing match. \n" +
-                    "C: Create a new Game.");
+            do{
+                out.println("Now choose: \n" +
+                        "J: Join and existing match. \n" +
+                        "C: Create a new Game.");
+                input = readLine();
+                //System.out.println("input: "+input);
+            }while(!input.equalsIgnoreCase("J") && !input.equalsIgnoreCase("C"));
 
+            if(input.equalsIgnoreCase("C"))
+                createNewGame();
+            if(input.equalsIgnoreCase("J"))
+                joinExistingGame(availableGameLobbies);
         }
-        do{
-            input = readLine();
-        }while(!input.equalsIgnoreCase("J") || !input.equalsIgnoreCase("C"));
-
-        if(input.equalsIgnoreCase("C"))
-            createNewGame();
-        if(input.equalsIgnoreCase("J"))
-            joinExistingGame(availableGameLobbies);
     }
 
     @Override

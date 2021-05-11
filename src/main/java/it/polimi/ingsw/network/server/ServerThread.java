@@ -219,8 +219,6 @@ public class ServerThread extends Thread implements Observer {
                 } else {
                     if (!gameLobby.isGameStarted()) {
                         //startGame()
-                    } else {
-                        //OBSERVER}
                     }
                 }
 

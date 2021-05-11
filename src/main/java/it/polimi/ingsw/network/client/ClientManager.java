@@ -35,12 +35,12 @@ public class ClientManager {
     public ClientManager(String address, int socketPort,String choice) {
         //qui verrà avviata la view e questa prenderà tutte le informazioni dal client
         initLogger();
+        this.nickname = "defaultNickname"; //------------DEBUG------------------
         if(choice.equals("-cli"))
             this.view = new Cli(this);
         //else
             //this.view = new Gui();
         view.start();
-        this.nickname = "nickname"; //------------DEBUG------------------
         connection(address,socketPort);
     }
 

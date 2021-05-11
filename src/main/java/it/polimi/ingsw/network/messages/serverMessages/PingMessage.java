@@ -13,6 +13,6 @@ public class PingMessage extends ServerMessage{
     @Override
     public void useMessage(ClientManager clientManager){
         ClientSocket clientSocket = clientManager.getClientSocket();
-        clientSocket.send(new PingResponseMessage(clientSocket.getNickname(),clientManager.getServerThreadID()).serialize());
+        clientSocket.send(new PingResponseMessage(clientManager.getNickname(),clientManager.getServerThreadID()).serialize());
     }
 }

@@ -17,8 +17,7 @@ public class JoinGameMessage extends ClientMessage {
      * @param socketConnection socketConnection of the client
      */
     @Override
-    public void useMessage(SocketConnection socketConnection){
-        ServerThread serverThread = Server.serverThreads.get(getServerThreadID());
+    public void useMessage(SocketConnection socketConnection,ServerThread serverThread){
         serverThread.playerLogin(getNickname(),socketConnection);
     }
 }

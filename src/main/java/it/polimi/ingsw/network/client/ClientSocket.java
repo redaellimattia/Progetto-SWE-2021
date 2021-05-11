@@ -16,7 +16,6 @@ public class ClientSocket implements Runnable {
     private PrintWriter out;
     private Socket socket;
     private boolean isConnected;
-    private String nickname;
     private ClientManager clientManager;
     private Thread socketListener;
 
@@ -32,7 +31,6 @@ public class ClientSocket implements Runnable {
             this.socket = new Socket(address, socketPort);
             this.in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.out = new PrintWriter(socket.getOutputStream());
-            this.nickname = clientManager.getNickname();
             this.isConnected = true;
             socketListener = new Thread(this);
             socketListener.start();
@@ -40,9 +38,6 @@ public class ClientSocket implements Runnable {
         } catch (IOException e) { ClientManager.LOGGER.severe("Failed to connect to: "+ address+":" + socketPort + "\n" +e.getMessage());}
     }
 
-    public String getNickname() {
-        return nickname;
-    }
 
     public boolean isConnected() {
         return isConnected;
@@ -53,7 +48,7 @@ public class ClientSocket implements Runnable {
      * Sends the first message, ASKLOBBIES to ask available lobbies
      */
     public void startConnection() {
-        send(new AskLobbyMessage(nickname, clientManager.getServerThreadID()).serialize());
+        send(new AskLobbyMessage(clientManager.getNickname(), clientManager.getServerThreadID()).serialize());
         //send(new CreateGameMessage(nickname, clientManager.getServerThreadID(), 4).serialize());
     }
 
