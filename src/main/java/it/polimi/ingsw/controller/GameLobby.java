@@ -10,7 +10,6 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
-import it.polimi.ingsw.model.token.DiscardToken;
 import it.polimi.ingsw.model.token.SoloToken;
 import it.polimi.ingsw.network.server.Server;
 
@@ -87,7 +86,7 @@ public class GameLobby {
 
         if(singlePlayer){
             // TO-DO: Check that Lorenzo name is not used by player
-            playerDashboards.add(createPlayer("Lorenzo", 1, true));
+            playerDashboards.add(createPlayer("Lorenzo il Magnifico", 1, true));
             Game game = new Game(playerDashboards, shop, market, initTokensDeck());
             gameManager = new GameManager(game, new PlayerTurnManager(playerDashboards.get(0)), true);
         }
@@ -201,9 +200,7 @@ public class GameLobby {
     }
     //LETTURA DA FILE JSON
 
-    public ArrayList<LeaderCard> getFourLeaders(){
-        return null;
-    }
+    public ArrayList<LeaderCard> getFourLeaders(String nickname){ return null;}
 
     /**
      * method used in pregame to give a faith point to the 3rd and 4th player, if there are any
@@ -219,7 +216,7 @@ public class GameLobby {
             }
         }
     }
-
+    //da aggiungere controllo su posizione del nickname e che le carte che mi ha mandato siano nell'i-esimo gruppo da 4
     public void preGame(String nickname, ArrayList<Resource> chosen, ArrayList<LeaderCard> chosenLeaders){
         CounterTop chosen1;
         CounterTop chosen2;

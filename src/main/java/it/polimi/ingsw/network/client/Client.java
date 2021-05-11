@@ -1,18 +1,5 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
-import it.polimi.ingsw.view.Cli;
-
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
-
 public class Client {
     private static final int DEFAULT_SOCKET_PORT = 1338;
     private static final String DEFAULT_SOCKET_IP = "127.0.0.1";

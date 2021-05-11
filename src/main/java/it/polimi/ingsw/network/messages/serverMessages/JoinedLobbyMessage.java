@@ -10,7 +10,7 @@ public class JoinedLobbyMessage extends ServerMessage{
     public JoinedLobbyMessage(long serverThreadID){
         super(ServerMessageType.JOINEDLOBBY);
         this.serverThreadID = serverThreadID;
-        this.msg = "Joined correctly the game with serverID: " +serverThreadID;
+        this.msg = "Joined correctly the game with serverID: " + serverThreadID;
     }
 
     @Override
