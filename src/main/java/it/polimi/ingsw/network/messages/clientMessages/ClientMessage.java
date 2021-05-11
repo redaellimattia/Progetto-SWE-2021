@@ -4,7 +4,6 @@ import com.google.gson.*;
 
 import it.polimi.ingsw.network.enumeration.ClientMessageType;
 import it.polimi.ingsw.network.messages.clientMessages.actionMessages.ActionMessage;
-import it.polimi.ingsw.network.messages.serverMessages.PingMessage;
 import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
 
@@ -85,7 +84,6 @@ public abstract class ClientMessage {
      * @param serverThread serverThread of the client
      */
     public void useMessage(SocketConnection socketConnection,ServerThread serverThread){};
-
 
     /**
      *

@@ -80,7 +80,7 @@ public class Cli implements View {
                 out.println("Number of Players for this game: " + lobby.getNumberOfPlayers());
                 out.println("Players:");
                 for (String p : lobby.getPlayers()) {
-                    out.println(p + "\n ");
+                    out.println(p);
                 }
             }
             do{
@@ -88,7 +88,6 @@ public class Cli implements View {
                         "J: Join and existing match. \n" +
                         "C: Create a new Game.");
                 input = readLine();
-                //System.out.println("input: "+input);
             }while(!input.equalsIgnoreCase("J") && !input.equalsIgnoreCase("C"));
 
             if(input.equalsIgnoreCase("C"))

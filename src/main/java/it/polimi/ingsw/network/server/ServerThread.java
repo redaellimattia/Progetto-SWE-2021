@@ -22,18 +22,18 @@ public class ServerThread extends Thread implements Observer {
     private Map<String, SocketConnection> clients;
     private PingTimer timer;
     private GameLobby gameLobby;
-
+    private Thread serverThread;
     /**
      * Creating Game Lobby, Clients HashMap and starting the Thread
      */
     public ServerThread(int numberOfPlayers){
         this.clients = new HashMap<>();
 
-
+        serverThread = new Thread(this);
         //Server.LOGGER.log(Level.INFO, "ServerThread: "+getThreadId()+" Thread created, waiting for clients...");
-        this.gameLobby = new GameLobby(Thread.currentThread().getId(),numberOfPlayers);
+        this.gameLobby = new GameLobby(getThreadId(),numberOfPlayers);
         //far partire timer per task preGame
-        start(); //Start the thread
+        serverThread.start();
         Server.LOGGER.log(Level.INFO, "Server: "+getThreadId()+" Game lobby created with "+numberOfPlayers+" players.");
     }
 
@@ -61,12 +61,12 @@ public class ServerThread extends Thread implements Observer {
                 throw new UnrecognisedPlayerException();
 
             if (actualPlayer.equals(askingPlayer)) //If it's the player's turn
-                deserializedMessage.useMessage(socketConnection, this);
+                deserializedMessage.useMessage(socketConnection,this);
             else
                 throw new NotYourTurnException();
         }
         else
-            deserializedMessage.useMessage(socketConnection, this);
+            deserializedMessage.useMessage(socketConnection,this);
     }
     /**
      * Forwarding Round then telling the new player that it's his turn to play
@@ -132,7 +132,9 @@ public class ServerThread extends Thread implements Observer {
      * @param clientConnection socketConnection of the client
      */
     public void playerLogin(String nickname, SocketConnection clientConnection){
-        int playerPosition = gameLobby.getGameManager().wasPlaying(nickname);
+        int playerPosition = -1;
+        if(gameLobby.isGameStarted())
+            playerPosition = gameLobby.getGameManager().wasPlaying(nickname);
         if(playerPosition!=-1)
             knownPlayerLogin(playerPosition,nickname,clientConnection);
         else
@@ -243,7 +245,7 @@ public class ServerThread extends Thread implements Observer {
      * @return this thread ID
      */
     public long getThreadId(){
-        return Thread.currentThread().getId();
+        return serverThread.getId();
     }
 
     @Override
