@@ -163,8 +163,20 @@ public class ServerThread extends Thread implements Observer {
 
     public void preGame(){
         int c=0;
-        for (String p: gameLobby.getPlayers()) {
-            String message = new PreGameMessage(gameLobby.getFourLeaders(p),c).serialize();
+
+        for (int i=0;i<gameLobby.getPlayers().size();i++) {
+            String p = gameLobby.getPlayers().get(i);
+            String message = null;
+            switch(i){
+                case 0: message = new PreGameMessage(gameLobby.getFourLeaders(p),0).serialize();
+                    break;
+                case 1:
+                case 2:
+                    message = new PreGameMessage(gameLobby.getFourLeaders(p),1).serialize();
+                    break;
+                case 3: message = new PreGameMessage(gameLobby.getFourLeaders(p),2).serialize();
+                    break;
+            }
             clients.get(p).send(message);
         }
         gameLobby.addInitialFaith();

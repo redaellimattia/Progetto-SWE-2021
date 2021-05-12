@@ -1,5 +1,7 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.model.card.LeaderCard;
+import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 
@@ -175,11 +177,56 @@ public class Cli implements View {
 
         return nickname;
     }
+    public void preGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources){
+        out.println("The game is about to start, choose your initial setup!");
+        if(numberOfResources != 0){
+            ArrayList<Resource> resources = askResources(numberOfResources);
+        }
+        clearCli();
+        askLeaders(leaders);
+    }
+    private ArrayList<LeaderCard> askLeaders(ArrayList<LeaderCard> leaders){
+        ArrayList<LeaderCard> leadersChosen = new ArrayList<>();
+        out.println("You can choose two leaders between these four.");
 
+        return leadersChosen;
+    }
+    private ArrayList<Resource> askResources(int numberOfResources){
+        String resource;
+        ArrayList<Resource> resources = new ArrayList<>();
+        out.println("You have the right to choose " + numberOfResources + "resources to start the game  with!");
+        int counter = numberOfResources;
+        do{
+            out.println("You still have " +counter +" resources to choose.\n");
+            do{
+                out.println("Choose between 4 types of resources: \n" +
+                        "COINS: digit C;" +
+                        "ROCKS: digit R;" +
+                        "SHIELDS: digit SH" +
+                        "SERVANTS: digit SE");
+                resource = readLine();
+            }while(!resource.equalsIgnoreCase("c") || !resource.equalsIgnoreCase("r") || !resource.equalsIgnoreCase("sh") || !resource.equalsIgnoreCase("se"));
+
+            if(resource.equalsIgnoreCase("c"))
+                resources.add(Resource.COIN);
+            if(resource.equalsIgnoreCase("r"))
+                resources.add(Resource.ROCK);
+            if(resource.equalsIgnoreCase("sh"))
+                resources.add(Resource.SHIELD);
+            if(resource.equalsIgnoreCase("se"))
+                resources.add(Resource.SERVANT);
+
+            counter--;
+        }while(counter != 0);
+
+        return resources;
+    }
     private void clearCli(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+
+
 
     @Override
     public void printMsg(String msg){

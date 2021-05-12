@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.stream.JsonReader;
+import it.polimi.ingsw.exceptions.MalevolentClientException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
@@ -18,6 +19,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 
 public class GameLobby {
@@ -27,6 +29,7 @@ public class GameLobby {
     private final int numberOfPlayers;
     private int readyPlayers;
     private boolean gameStarted;
+    private ArrayList<LeaderCard> leadersDeck;
 
     public GameLobby(long serverThreadID,int numberOfPlayers) {
         this.players = new ArrayList<>();
@@ -244,8 +247,24 @@ public class GameLobby {
                         p.getStorage().setSecondRow(chosen2);
                     }
                 }
-                p.getLeaderCards().add(chosenLeaders.get(0));
-                p.getLeaderCards().add(chosenLeaders.get(1));
+
+                List<LeaderCard> checkLeaders = new ArrayList<>();
+                switch (p.getPosition()){
+                    case 1: checkLeaders = leadersDeck.subList(1,4);
+                        break;
+                    case 2: checkLeaders = leadersDeck.subList(5,8);
+                        break;
+                    case 3: checkLeaders = leadersDeck.subList(9,12);
+                        break;
+                    case 4: checkLeaders = leadersDeck.subList(13,16);
+                        break;
+                }
+                if(checkLeaders.contains(chosenLeaders.get(0)) && checkLeaders.contains(chosenLeaders.get(1))) {
+                    p.getLeaderCards().add(chosenLeaders.get(0));
+                    p.getLeaderCards().add(chosenLeaders.get(1));
+                }
+                else
+                    throw new MalevolentClientException(serverThreadID,nickname);
             }
         }
     }

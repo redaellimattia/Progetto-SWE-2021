@@ -40,7 +40,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
      * @param chest ResourceCount that simulate the player's chest
      * @param devCards Array of DevelopmentCard bought by the player
      * @param leaderCards ArrayList of LeaderCard that are the leader owned by the player
-     * @param position counter for the position on the Faith Path
+     * @param position position of the player in the round
      * @param nickname nickname of the player
      * @param points total of victory Points
      */
