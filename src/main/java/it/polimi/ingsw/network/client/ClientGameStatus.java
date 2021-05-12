@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.model.Deck;
 import it.polimi.ingsw.model.MarketDashboard;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.Shop;
@@ -36,8 +37,8 @@ public class ClientGameStatus {
         this.players = players;
     }
 
-    public void setShop(Shop shop) {
-        this.shop = shop;
+    public void setShop(Deck[][] shopGrid) {
+        this.shop.setShopGrid(shopGrid);
     }
 
     public void setMarket(MarketDashboard market) {

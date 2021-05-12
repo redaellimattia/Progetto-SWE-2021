@@ -35,6 +35,9 @@ public class Shop {
         this.shopGrid = shopGrid;
     }
 
+    public void setShopGrid(Deck[][] shopGrid) {
+        this.shopGrid = shopGrid;
+    }
 
     /**
      *

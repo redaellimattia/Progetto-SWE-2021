@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.model.Deck;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
@@ -29,6 +30,7 @@ public class ClientManager {
     private ClientSocket clientSocket;
     private long serverThreadID = -1;
     private View view;
+    private ClientGameStatus gameStatus;
 
     /**
      * Creates client Object, handles client connection and instantiates view
@@ -107,6 +109,10 @@ public class ClientManager {
     public void preGameChoice(ArrayList<Resource> resources, ArrayList<LeaderCard> leaders){
         String message= new PreGameResponseMessage(this.nickname,serverThreadID,resources,leaders).serialize();
         clientSocket.send(message);
+    }
+
+    public void updateShop(Deck[][] shopGrid){
+        gameStatus.setShop(shopGrid);
     }
     /**
      * Creating logger file handler
