@@ -25,7 +25,7 @@ class GameLobbyTest {
         testLobby.addPlayer("Pluto");
         testLobby.addPlayer("Paperino");
         testLobby.addPlayer("Giocatore");
-        testLobby.initGame(false);
+        testLobby.initGame(false,null);
         GameManager gameManager  = testLobby.getGameManager();
     }
 }

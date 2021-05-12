@@ -13,6 +13,7 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.model.token.DiscardToken;
 import it.polimi.ingsw.model.token.SoloToken;
 import it.polimi.ingsw.network.server.Server;
+import it.polimi.ingsw.network.server.ServerThread;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -75,15 +76,20 @@ public class GameLobby {
         return gameManager;
     }
 
-    public void initGame(boolean singlePlayer) {
+    public void initGame(boolean singlePlayer, ServerThread observer) {
         ArrayList<PlayerDashboard> playerDashboards = new ArrayList<>();
         int playerTurnPosition = 0;
         for (String s: players) {
-            playerDashboards.add(createPlayer(s, playerTurnPosition, false));
+            PlayerDashboard newPlayer = createPlayer(s, playerTurnPosition, false);
+            newPlayer.addObserver(observer);
+            playerDashboards.add(newPlayer);
             playerTurnPosition++;
         }
         Shop shop = new Shop(initShopGrid());
+        shop.addObserver(observer);
+
         MarketDashboard market = initMarketDashboard();
+        market.addObserver(observer);
 
         if(singlePlayer){
             // TO-DO: Check that Lorenzo name is not used by player

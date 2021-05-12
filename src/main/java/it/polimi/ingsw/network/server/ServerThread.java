@@ -150,7 +150,7 @@ public class ServerThread extends Thread implements Observer {
      */
     public void createGame(boolean singlePlayer,SocketConnection socketConnection){
         //to be completed
-        gameLobby.initGame(singlePlayer);
+        gameLobby.initGame(singlePlayer,this);
         /*timer = new PingTimer(this,socketConnection);
         timer.startPinging();*/
         //ASSEGNAZIONE RISORSE E LEADER
@@ -263,7 +263,7 @@ public class ServerThread extends Thread implements Observer {
 
     @Override
     public void updateChest(String nickname, ResourceCount chest) {
-        
+
     }
 
     @Override

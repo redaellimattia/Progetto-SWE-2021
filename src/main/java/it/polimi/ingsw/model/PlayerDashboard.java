@@ -48,6 +48,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
         super(position, nickname, points,isLorenzo);
         this.pathPosition = 0;
         this.storage = storage;
+        this.storage.addObserver(this);
         this.chest = chest;
         this.devCards = devCards;
         this.devCards[0] = new DeckDashboard();
