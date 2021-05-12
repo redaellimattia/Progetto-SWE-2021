@@ -48,7 +48,7 @@ public class ClientManager {
         view.start();
         connection(address,socketPort);
     }
-
+    public ClientGameStatus getGameStatus() { return gameStatus;}
     public String getNickname() {
         return nickname;
     }
