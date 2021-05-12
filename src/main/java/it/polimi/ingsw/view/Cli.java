@@ -300,7 +300,7 @@ public class Cli implements View {
         System.out.flush();
     }
 
-    private void printMarket(){
+    /*private void printMarket(){
         MarketDashboard market = clientManager.getGameStatus().getMarket();
         MarketMarble[][] grid = market.getStructure();
         for(int i=0; i<3; i++){
@@ -329,7 +329,7 @@ public class Cli implements View {
             out.println("\n");
         }
         out.println("Legend: W -> White | R -> Red | Y -> Yellow | G -> Gray | P -> Purple | -> B -> Blue ");
-    }
+    }*/
 
     @Override
     public void printMsg(String msg){

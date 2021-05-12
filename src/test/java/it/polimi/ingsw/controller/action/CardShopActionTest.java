@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.Resource;
+import it.polimi.ingsw.network.server.ServerThread;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -63,13 +64,17 @@ class CardShopActionTest {
         CounterTop secondRow = new CounterTop(Resource.ROCK,2);
         CounterTop thirdRow = new CounterTop(Resource.SERVANT,0);
         Storage storage = new Storage(firstRow,secondRow,thirdRow);
+        ServerThread playerObserver = new ServerThread(2);
         ResourceCount chest = new ResourceCount(5,5,0,0,0);
         DeckDashboard[] devCards = new DeckDashboard[3];
 
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
         leaderCards.add(0,createLeaderCardDiscount(true));
         leaderCards.add(0,createLeaderCardDiscount2(true));
-        return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2,false);
+        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2,false);
+        player.addObserver(playerObserver);
+        player.getStorage().addObserver(player);
+        return player;
     }
     PlayerDashboard createPlayerWithCards(){
         String nickname = "Prova";
@@ -77,6 +82,7 @@ class CardShopActionTest {
         CounterTop secondRow = new CounterTop(Resource.ROCK,2);
         CounterTop thirdRow = new CounterTop(Resource.SERVANT,0);
         Storage storage = new Storage(firstRow,secondRow,thirdRow);
+        ServerThread playerObserver = new ServerThread(2);
         ResourceCount chest = new ResourceCount(5,5,0,0,0);
         DeckDashboard[] devCards = new DeckDashboard[3];
 
@@ -84,6 +90,8 @@ class CardShopActionTest {
         leaderCards.add(0,createLeaderCard(false));
         leaderCards.add(0,createLeaderCard(false));
         PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2,false);
+        player.addObserver(playerObserver);
+        player.getStorage().addObserver(player);
         devCards[0].addCard(createDevCard(1));
         devCards[0].addCard(createDevCard(2));
         devCards[1].addCard(createDevCard(1));
@@ -123,7 +131,7 @@ class CardShopActionTest {
     }
     Shop createShop(){
         Deck[][] testStructure = new DeckShop[3][4];
-
+        ServerThread shopObserver = new ServerThread(2);
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
         //GREEN CARDS
         DevelopmentCard cardGreen1 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);
@@ -271,6 +279,8 @@ class CardShopActionTest {
         testStructure[2][1] = deckBlue1;
         testStructure[2][2] = deckYellow1;
         testStructure[2][3] = deckPurple1;
-        return new Shop(testStructure);
+        Shop shop = new Shop(testStructure);
+        shop.addObserver(shopObserver);
+        return shop;
     }
 }
