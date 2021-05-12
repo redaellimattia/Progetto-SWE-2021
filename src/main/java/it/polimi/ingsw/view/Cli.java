@@ -1,6 +1,8 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.model.card.LeaderCard;
+import it.polimi.ingsw.model.MarketDashboard;
+import it.polimi.ingsw.model.MarketMarble;
+import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
@@ -194,10 +196,9 @@ public class Cli implements View {
         int chosen;
         ArrayList<Integer> id = new ArrayList<>();
         out.println("You can choose two leaders between these four.");
-        for (LeaderCard l: leaders) {
-            out.println();//STAMPA I LEADER E TUTTE LE CARATTERISTICHE /DA SWITCHARE PER REQUIREMENTS E SPECIALABILITy
+        printLeaders(leaders);
+        for (LeaderCard l: leaders)
             id.add(l.getId());
-        }
         do{
             out.println("You still have " +counter +" leaders to choose.\n");
 
@@ -214,6 +215,35 @@ public class Cli implements View {
             counter++;
         }while(counter != 2);
         return leadersChosen;
+    }
+    private void printLeaders(ArrayList<LeaderCard> leaders){
+        for (LeaderCard l: leaders) {
+            out.println("ID: " + l.getId() + "\n" +
+                    "Victory Points: " + l.getVictoryPoints() +"\n");
+            Requirement requirement = l.getRequirement();
+            //TO-DO WHEN GETTERS ARE DONE PROPERLY
+            if(requirement.equals(CardLevelRequirement.class)){
+                out.println("You need a " );
+            }
+            if(requirement.equals(ResourceRequirement.class)){
+                out.println("You need a " );
+            }
+            if(requirement.equals(TypeOfCardRequirement.class)){
+                out.println("You need a " );
+            }
+            //SPECIALABILITY PRINT:
+            SpecialAbility specialAbility = l.getSpecialAbility();
+            if(specialAbility.equals(DepositAbility.class))
+                out.println("Add a deposit that can contain 2 " + specialAbility.getResourceType());
+            if(specialAbility.equals(DiscountAbility.class))
+                out.println("This card grant a discount of 1 " + specialAbility.getResourceType() + " when buying a new card!");
+            if(specialAbility.equals(ProductionAbility.class))
+                out.println("This card will grant you this production power: " +
+                        "COST:" + "" +
+                        "OUTCOME" + "");
+            if(specialAbility.equals(WhiteChangeAbility.class))
+                out.println("This card will permit you to change a white marble to a " + specialAbility.getResourceType());
+        }
     }
     private ArrayList<Resource> askResources(int numberOfResources){
         String resource;
@@ -250,7 +280,35 @@ public class Cli implements View {
         System.out.flush();
     }
 
-
+    /*private void printMarket(){
+        MarketDashboard market = clientManager.getMarket();
+        for(int i=0; i<3; i++){
+            for(int j=0; j<4;j++) {
+                switch (market[i][j].getColour) {
+                    case WHITE:
+                        out.println("[W] \t");
+                        break;
+                    case RED:
+                        out.println("[R] \t");
+                        break;
+                    case YELLOW:
+                        out.println("[Y] \t");
+                        break;
+                    case GREY:
+                        out.println("[G] \t");
+                        break;
+                    case PURPLE:
+                        out.println("[P] \t");
+                        break;
+                    case BLUE:
+                        out.println("[B] \t");
+                        break;
+                }
+            }
+            out.println("\n");
+        }
+        out.println("Legend: W -> White | R -> Red | Y -> Yellow | G -> Gray | P -> Purple | -> B -> Blue ");
+    }*/
 
     @Override
     public void printMsg(String msg){
