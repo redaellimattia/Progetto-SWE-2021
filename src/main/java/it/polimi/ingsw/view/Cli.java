@@ -179,6 +179,7 @@ public class Cli implements View {
 
         return nickname;
     }
+
     public void preGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources){
         out.println("The game is about to start, choose your initial setup!");
         ArrayList<Resource> resources = new ArrayList<>();
@@ -189,6 +190,7 @@ public class Cli implements View {
         ArrayList<LeaderCard> chosenLeaders = askLeaders(leaders);
         clientManager.preGameChoice(resources,chosenLeaders);
     }
+
     private ArrayList<LeaderCard> askLeaders(ArrayList<LeaderCard> leaders){
         ArrayList<LeaderCard> leadersChosen = new ArrayList<>();
         int counter = 0;
@@ -216,6 +218,7 @@ public class Cli implements View {
         }while(counter != 2);
         return leadersChosen;
     }
+
     private void printLeaders(ArrayList<LeaderCard> leaders){
         for (LeaderCard l: leaders) {
             out.println("ID: " + l.getId() + "\n" +
@@ -223,13 +226,31 @@ public class Cli implements View {
             Requirement requirement = l.getRequirement();
             //TO-DO WHEN GETTERS ARE DONE PROPERLY
             if(requirement.equals(CardLevelRequirement.class)){
-                out.println("You need a " );
+                out.println("You need a " + requirement.getColour() + "card of level: " + requirement.getLevel() +" to play this;");
             }
             if(requirement.equals(ResourceRequirement.class)){
-                out.println("You need a " );
+                out.println("You need these resources: ");
+                if(requirement.getResources().getCoins() !=0)
+                    out.println("COINS: " + requirement.getResources().getCoins());
+                if(requirement.getResources().getRocks() !=0)
+                    out.println("ROCKS: " + requirement.getResources().getRocks());
+                if(requirement.getResources().getServants() !=0)
+                    out.println("SERVANTS: " + requirement.getResources().getServants());
+                if(requirement.getResources().getShields() !=0)
+                    out.println("SHIELDS: " + requirement.getResources().getShields());
+                out.println("to play this card.");
             }
             if(requirement.equals(TypeOfCardRequirement.class)){
-                out.println("You need a " );
+                out.println("You need these type of cards: ");
+                if(requirement.getCardColours().getGreen() !=0)
+                    out.println("GREEN: " + requirement.getCardColours().getGreen());
+                if(requirement.getCardColours().getBlue() !=0)
+                    out.println("BLUE: " + requirement.getCardColours().getBlue());
+                if(requirement.getCardColours().getPurple() !=0)
+                    out.println("PURPLE: " + requirement.getCardColours().getPurple());
+                if(requirement.getCardColours().getYellow() !=0)
+                    out.println("YELLOW: " + requirement.getCardColours().getYellow());
+                out.println("to play this card.");
             }
             //SPECIALABILITY PRINT:
             SpecialAbility specialAbility = l.getSpecialAbility();
@@ -238,13 +259,12 @@ public class Cli implements View {
             if(specialAbility.equals(DiscountAbility.class))
                 out.println("This card grant a discount of 1 " + specialAbility.getResourceType() + " when buying a new card!");
             if(specialAbility.equals(ProductionAbility.class))
-                out.println("This card will grant you this production power: " +
-                        "COST:" + "" +
-                        "OUTCOME" + "");
+                out.println("You can use these cart to obtain a chosen resource and a faith point using a: " + specialAbility.getResourceType());
             if(specialAbility.equals(WhiteChangeAbility.class))
                 out.println("This card will permit you to change a white marble to a " + specialAbility.getResourceType());
         }
     }
+
     private ArrayList<Resource> askResources(int numberOfResources){
         String resource;
         ArrayList<Resource> resources = new ArrayList<>();
@@ -280,11 +300,12 @@ public class Cli implements View {
         System.out.flush();
     }
 
-    /*private void printMarket(){
-        MarketDashboard market = clientManager.getMarket();
+    private void printMarket(){
+        MarketDashboard market = clientManager.getGameStatus().getMarket();
+        MarketMarble[][] grid = market.getStructure();
         for(int i=0; i<3; i++){
             for(int j=0; j<4;j++) {
-                switch (market[i][j].getColour) {
+                switch (grid[i][j].getColour()) {
                     case WHITE:
                         out.println("[W] \t");
                         break;
@@ -308,7 +329,7 @@ public class Cli implements View {
             out.println("\n");
         }
         out.println("Legend: W -> White | R -> Red | Y -> Yellow | G -> Gray | P -> Purple | -> B -> Blue ");
-    }*/
+    }
 
     @Override
     public void printMsg(String msg){

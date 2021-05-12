@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.DeckDashboard;
 import it.polimi.ingsw.model.PlayerDashboard;
+import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.CardColour;
 
 import java.util.ArrayList;
@@ -76,5 +77,11 @@ public class CardLevelRequirement implements Requirement {
         //Check if same values
         CardLevelRequirement c = (CardLevelRequirement) o;
         return this.colour.equals(c.getColour()) && this.level == c.getLevel(); //True if same values
+    }
+    public ColourCount getCardColours() {
+        return null;
+    }
+    public ResourceCount getResources() {
+        return null;
     }
 }

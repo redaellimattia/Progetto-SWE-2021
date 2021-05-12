@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
+import it.polimi.ingsw.model.enumeration.CardColour;
 
 public class ResourceRequirement implements Requirement {
     private ResourceCount resources;
@@ -54,5 +55,12 @@ public class ResourceRequirement implements Requirement {
         //Check if same values
         ResourceRequirement c = (ResourceRequirement) o;
         return this.resources.equals(c.getResources()); // true if same resourceCount
+    }
+    public CardColour getColour(){return null;}
+    public int getLevel() {
+        return 0;
+    }
+    public ColourCount getCardColours() {
+        return null;
     }
 }
