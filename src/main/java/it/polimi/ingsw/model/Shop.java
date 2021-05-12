@@ -3,11 +3,29 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.exceptions.EmptyDeckException;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.enumeration.CardColour;
+import it.polimi.ingsw.network.server.Observer;
 
 import java.util.ArrayList;
 
 public class Shop {
     private Deck[][] shopGrid;
+    private Observer observer;
+
+    /**
+     * Adds reference to the observer
+     * @param observer ServerThread that is observing the Shop
+     */
+    public void addObserver(Observer observer) {
+        this.observer = observer;
+    }
+
+    /**
+     * Remove reference to the observer
+     * @param observer ServerThread that is observing the Shop
+     */
+    public void removeObserver(Observer observer) {
+        this.observer = null;
+    }
 
     /**
      *
@@ -48,6 +66,7 @@ public class Shop {
 
         DevelopmentCard bought = shopGrid[row][column].getFirst();
         shopGrid[row][column].removeFirst();
+        observer.updateShop(shopGrid);
         return bought;
     }
 
@@ -70,6 +89,7 @@ public class Shop {
             }
             i--;
         }while(toDelete > 0 && i>=0);
+        observer.updateShop(shopGrid);
     }
 
     public boolean emptyColumn(){

@@ -1,8 +1,27 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.network.server.Observer;
+
 public class MarketDashboard {
     private MarketMarble[][] structure;
     private MarketMarble freeMarble;
+    private Observer observer;
+
+    /**
+     * Adds reference to the observer
+     * @param observer ServerThread that is observing the Market
+     */
+    public void addObserver(Observer observer) {
+        this.observer = observer;
+    }
+
+    /**
+     * Remove reference to the observer
+     * @param observer ServerThread that is observing the Market
+     */
+    public void removeObserver(Observer observer) {
+        this.observer = null;
+    }
 
     /**
      *
@@ -52,6 +71,7 @@ public class MarketDashboard {
             structure[2][pos-1] = freeMarble;
             freeMarble = temp;
         }
+        observer.updateMarket(structure,freeMarble);
     }
 
     /**

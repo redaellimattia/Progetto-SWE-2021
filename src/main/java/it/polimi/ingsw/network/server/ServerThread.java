@@ -6,14 +6,17 @@ import it.polimi.ingsw.exceptions.network.GameAlreadyStartedException;
 import it.polimi.ingsw.exceptions.network.NicknameAlreadyUsedException;
 import it.polimi.ingsw.exceptions.network.NotYourTurnException;
 import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
-import it.polimi.ingsw.model.Shop;
+import it.polimi.ingsw.model.CounterTop;
+import it.polimi.ingsw.model.Deck;
+import it.polimi.ingsw.model.MarketMarble;
+import it.polimi.ingsw.model.ResourceCount;
+import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.logging.Level;
 
 
@@ -249,10 +252,68 @@ public class ServerThread extends Thread implements Observer {
     }
 
     @Override
-    public void update(Observable o, Object arg) {
-        if(arg instanceof Shop){
-            //shopMessage
-        }
+    public void updateShop(Deck[][] shopGrid) {
+        //Send new shop back to all clients
+    }
+
+    @Override
+    public void updateMarket(MarketMarble[][] structure, MarketMarble freeMarble) {
+        //Send new shop back to all clients
+    }
+
+    @Override
+    public void updateChest(String nickname, ResourceCount chest) {
+        
+    }
+
+    @Override
+    public void updateBufferProduction(String nickname, ResourceCount chest) {
+
+    }
+
+    @Override
+    public void updateArrayDeposit(String nickname, ArrayList<CounterTop> arrayDeposit) {
+
+    }
+
+    @Override
+    public void updateInitArrayDeposit(String nickname, CounterTop newCounterTop) {
+
+    }
+
+    @Override
+    public void updateDevCards(String nickname, DevelopmentCard card, int position) {
+
+    }
+
+    @Override
+    public void updateRemoveLeader(String nickname, int position) {
+
+    }
+
+    @Override
+    public void updatePathPosition(String nickname, int position) {
+
+    }
+
+    @Override
+    public void updateInGameLeader(String nickname, int position) {
+
+    }
+
+    @Override
+    public void updateFirstRow(String nickname, CounterTop firstRow) {
+
+    }
+
+    @Override
+    public void updateSecondRow(String nickname, CounterTop secondRow) {
+
+    }
+
+    @Override
+    public void updateThirdRow(String nickname, CounterTop thirdRow) {
+
     }
 }
 

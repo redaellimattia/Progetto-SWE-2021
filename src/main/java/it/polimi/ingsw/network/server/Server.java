@@ -66,7 +66,7 @@ public class Server {
         ClientMessage deserializedMessage = ClientMessage.onMessage(msg);
         long serverThreadID = deserializedMessage.getServerThreadID();
 
-        if(serverThreadID!=-1&&serverThreads.containsKey(serverThreadID)) 
+        if(serverThreadID!=-1&&serverThreads.containsKey(serverThreadID))
             serverThreads.get(serverThreadID).onMessage(sockConnection, deserializedMessage);
         else
             deserializedMessage.useMessage(sockConnection);

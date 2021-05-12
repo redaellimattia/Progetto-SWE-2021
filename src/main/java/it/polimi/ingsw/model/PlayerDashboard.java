@@ -4,11 +4,11 @@ import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
+import it.polimi.ingsw.network.server.Observer;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
-public class PlayerDashboard extends Player {
+public class PlayerDashboard extends Player implements StorageObserver{
     private int pathPosition;
     private Storage storage;
     private ResourceCount chest;
@@ -16,6 +16,23 @@ public class PlayerDashboard extends Player {
     private ArrayList<LeaderCard> leaderCards;
     private ArrayList<CounterTop> arrayDeposit;
     private ResourceCount bufferProduction;
+    private Observer observer;
+
+    /**
+     * Adds reference to the observer
+     * @param observer ServerThread that is observing the Player
+     */
+    public void addObserver(Observer observer) {
+        this.observer = observer;
+    }
+
+    /**
+     * Remove reference to the observer
+     * @param observer ServerThread that is observing the Player
+     */
+    public void removeObserver(Observer observer) {
+        this.observer = null;
+    }
 
     /**
      *
@@ -88,31 +105,16 @@ public class PlayerDashboard extends Player {
     }
 
     /**
+     * INITIALIZE A NEW SHELF WHEN A DEPOSITABILITY LEADER IS PLAYED
      *
      * @param res Resource of a particular DepositAbility
      */
-    //INITIALIZE A NEW SHELF WHEN A DEPOSITABILITY LEADER IS PLAYED;
     public void initArrayDeposit(Resource res){
-        if(arrayDeposit.size()<2)
-            arrayDeposit.add(0,new CounterTop(res,0));
-    }
+        if(arrayDeposit.size()<2) {
+            arrayDeposit.add(0, new CounterTop(res, 0));
+            observer.updateInitArrayDeposit(getNickname(),arrayDeposit.get(0));
+        }
 
-    /**
-     *
-     * @param resources ResourceCount that needs to be added to the chest
-     */
-    //ADD THE RESOURCES PASSED IN A RESOURCECOUNT TO THE CHEST;
-    public void addToChest(ResourceCount resources){
-        chest.addResources(resources.getCoins(),resources.getRocks(),resources.getServants(),resources.getShields(), resources.getFaith());
-    }
-
-    /**
-     *
-     * @param resources ResourceCount that needs to be removed from the chest
-     */
-    //SUBTRACT THE RESOURCES PASSED IN A RESOURCECOUNT TO THE CHEST;
-    public void subtractToChest(ResourceCount resources){
-        chest.removeResources(resources.getCoins(),resources.getRocks(),resources.getServants(),resources.getShields(), resources.getFaith());
     }
 
     /**
@@ -123,6 +125,7 @@ public class PlayerDashboard extends Player {
     //ADD A GIVEN DEVCARD TO A GIVEN DEVCARD DECK ON THE PLAYERDASHBOARD;
     public void addDevCards(DevelopmentCard card, int position){ //the controller checks before buying the card if the player can place it, then checks where to put it;
         devCards[position].addCard(card);
+        observer.updateDevCards(getNickname(),card,position);
     }
 
     /**
@@ -141,24 +144,23 @@ public class PlayerDashboard extends Player {
     //METHOD TO DISCARD A LEADER FROM THE HAND TO GAIN A FAITH POINT;
     public void discardLeader(int position){
         leaderCards.remove(position);
+        observer.updateRemoveLeader(getNickname(),position);
         updatePathPosition();
     }
 
     /**
      * ADVANCE OF 1 ON THE PATH POSITION
      */
-    //
     public void updatePathPosition(){
         pathPosition += 1;
-        //GameManager.checkFaithPath();// to check Papal influence
+        observer.updatePathPosition(getNickname(),pathPosition);
     }
 
     /**
-     *
+     * IF A LEADER WITH A DEPOSITABILITY WITH A CERTAIN RESOURCES IS IN GAME AND IS ALREADY FULL RETURN TRUE; IN EVERY OTHER CASE FALSE
      * @param res specific resource searched
      * @return true if there's a full SpecialDeposit for that resource or if there is none
      */
-    //IF A LEADER WITH A DEPOSITABILITY WITH A CERTAIN RESOURCES IS IN GAME AND IS ALREADY FULL RETURN TRUE; IN EVERY OTHER CASE FALSE;
     public boolean isFull(Resource res){ //True if abilityDeposit with that res is full (Content=2) || there's no deposit for that resource
         boolean notFound = false;
 
@@ -191,6 +193,7 @@ public class PlayerDashboard extends Player {
         }
         else
             throw new CounterTopOverloadException();
+        observer.updateArrayDeposit(getNickname(),arrayDeposit);
     }
 
     /**
@@ -267,6 +270,7 @@ public class PlayerDashboard extends Player {
     //SET THE LEADER AT THE GIVEN POSITION IN GAME (LEADERACTION)
     public void setLeaderInGame(int position){
         this.getLeaderCards().get(position).setInGame();
+        observer.updateInGameLeader(getNickname(),position);
     }
 
     /**
@@ -282,6 +286,7 @@ public class PlayerDashboard extends Player {
         }
         chest.sumCounts(bufferProduction);
         bufferProduction = new ResourceCount(0,0,0,0,0);
+        observer.updateChest(getNickname(),chest);
     }
 
     /**
@@ -298,5 +303,21 @@ public class PlayerDashboard extends Player {
      */
     public void incrementBufferProduction(ResourceCount count){
         bufferProduction.sumCounts(count);
+        observer.updateBufferProduction(getNickname(),bufferProduction);
+    }
+
+    @Override
+    public void updateFirstRow(CounterTop firstRow) {
+        observer.updateFirstRow(getNickname(),firstRow);
+    }
+
+    @Override
+    public void updateSecondRow(CounterTop secondRow) {
+        observer.updateSecondRow(getNickname(),secondRow);
+    }
+
+    @Override
+    public void updateThirdRow(CounterTop thirdRow) {
+        observer.updateThirdRow(getNickname(),thirdRow);
     }
 }

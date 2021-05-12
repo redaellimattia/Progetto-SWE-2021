@@ -10,6 +10,23 @@ public class Storage {
     private CounterTop firstRow;
     private CounterTop secondRow;
     private CounterTop thirdRow;
+    private StorageObserver observer;
+
+    /**
+     * Adds reference to the observer
+     * @param observer ServerThread that is observing the Storage
+     */
+    public void addObserver(StorageObserver observer) {
+        this.observer = observer;
+    }
+
+    /**
+     * Remove reference to the observer
+     * @param observer ServerThread that is observing the Storage
+     */
+    public void removeObserver(StorageObserver observer) {
+        this.observer = null;
+    }
 
     /**
      * Constructor of the object
@@ -56,10 +73,10 @@ public class Storage {
      * @throws IllegalArgumentException if the passed object has o.getContent > 1 i can't put it as firstRow
      */
     public void setFirstRow(CounterTop firstRow) throws CounterTopOverloadException{
-        if(firstRow.getContent() > 1 ){
+        if(firstRow.getContent() > 1 )
             throw new CounterTopOverloadException("1");
-        }
         this.firstRow = firstRow;
+        observer.updateFirstRow(this.firstRow);
     }
 
     /**
@@ -68,10 +85,10 @@ public class Storage {
      * @throws IllegalArgumentException if the passed object has o.getContent > 2 i can't put it as secondRow
      */
     public void setSecondRow(CounterTop secondRow) throws CounterTopOverloadException {
-        if(secondRow.getContent() > 2 ){
+        if(secondRow.getContent() > 2 )
             throw new CounterTopOverloadException("2");
-        }
         this.secondRow = secondRow;
+        observer.updateSecondRow(this.secondRow);
     }
 
     /**
@@ -80,10 +97,10 @@ public class Storage {
      * @throws IllegalArgumentException if the passed object has o.getContent > 3 i can't put it as secondRow
      */
     public void setThirdRow(CounterTop thirdRow) throws CounterTopOverloadException{
-        if(thirdRow.getContent() > 3){
+        if(thirdRow.getContent() > 3)
             throw new CounterTopOverloadException("3");
-        }
         this.thirdRow = thirdRow;
+        observer.updateThirdRow(this.thirdRow);
     }
 
 
@@ -97,6 +114,7 @@ public class Storage {
     public int addToFirstRow(int n){
         if(firstRow.getContent() == 0 && n == 1){
             firstRow.addContent(n);
+            observer.updateFirstRow(this.firstRow);
             return 0;
         }
         return n;
@@ -111,6 +129,8 @@ public class Storage {
         int i = 0;
         for(i = 0; i<n && secondRow.getContent()<2; i++)
                 secondRow.addContent(1);
+        if((n-i)!=n)
+            observer.updateSecondRow(this.secondRow);
         return n-i;
     }
 
@@ -123,7 +143,8 @@ public class Storage {
         int i = 0;
         for(i = 0; i<n && thirdRow.getContent()<3; i++)
                 thirdRow.addContent(1);
-
+        if((n-i)!=n)
+            observer.updateThirdRow(this.thirdRow);
         return n-i;
     }
 
