@@ -31,8 +31,26 @@ public abstract class PlayerUpdateMessage extends ServerMessage {
         PlayerUpdateType type = PlayerUpdateType.valueOf(playerUpdateType);
 
         switch(type){
-            case CHESTUPDATE:
-                return gson.fromJson(jsonObj, ChestUpdateMessage.class);
+            case CHEST:
+            case BUFFERPRODUCTION:
+                return gson.fromJson(jsonObj, ResourceCountUpdateMessage.class);
+
+            case INITARRAYDEPOSIT:
+                return gson.fromJson(jsonObj, InitArrayDepositUpdateMessage.class);
+            case ARRAYDEPOSIT:
+                return gson.fromJson(jsonObj, ArrayDepositUpdateMessage.class);
+            case DEVCARDS:
+                return gson.fromJson(jsonObj, DevCardsUpdateMessage.class);
+
+            case REMOVELEADER:
+            case INGAMELEADER:
+                return gson.fromJson(jsonObj, LeaderUpdateMessage.class);
+            case PATHPOSITION:
+                return gson.fromJson(jsonObj, PathPositionUpdateMessage.class);
+            case FIRSTROW:
+            case SECONDROW:
+            case THIRDROW:
+                return gson.fromJson(jsonObj, StorageUpdateMessage.class);
             default:
                 throw new IllegalArgumentException("playerUpdateType not found.");
         }

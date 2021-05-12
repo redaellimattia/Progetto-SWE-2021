@@ -11,11 +11,10 @@ import it.polimi.ingsw.model.Deck;
 import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;
+import it.polimi.ingsw.network.enumeration.PlayerUpdateType;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.*;
-import it.polimi.ingsw.network.messages.serverMessages.updates.ChestUpdateMessage;
-import it.polimi.ingsw.network.messages.serverMessages.updates.MarketUpdateMessage;
-import it.polimi.ingsw.network.messages.serverMessages.updates.ShopUpdateMessage;
+import it.polimi.ingsw.network.messages.serverMessages.updates.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -285,57 +284,57 @@ public class ServerThread extends Thread implements Observer {
 
     @Override
     public void updateChest(String nickname, ResourceCount chest) {
-        sendToAll(new ChestUpdateMessage(nickname,chest).serialize());
+        sendToAll(new ResourceCountUpdateMessage(PlayerUpdateType.CHEST,nickname,chest).serialize());
     }
 
     @Override
     public void updateBufferProduction(String nickname, ResourceCount chest) {
-
+        sendToAll(new ResourceCountUpdateMessage(PlayerUpdateType.BUFFERPRODUCTION,nickname,chest).serialize());
     }
 
     @Override
     public void updateArrayDeposit(String nickname, ArrayList<CounterTop> arrayDeposit) {
-
+        sendToAll(new ArrayDepositUpdateMessage(nickname,arrayDeposit).serialize());
     }
 
     @Override
     public void updateInitArrayDeposit(String nickname, CounterTop newCounterTop) {
-
+        sendToAll(new InitArrayDepositUpdateMessage(nickname,newCounterTop).serialize());
     }
 
     @Override
     public void updateDevCards(String nickname, DevelopmentCard card, int position) {
-
+        sendToAll(new DevCardsUpdateMessage(nickname,card,position).serialize());
     }
 
     @Override
     public void updateRemoveLeader(String nickname, int position) {
-
+        sendToAll(new LeaderUpdateMessage(PlayerUpdateType.REMOVELEADER,nickname,position).serialize());
     }
 
     @Override
     public void updatePathPosition(String nickname, int position) {
-
+        sendToAll(new PathPositionUpdateMessage(nickname,position).serialize());
     }
 
     @Override
     public void updateInGameLeader(String nickname, int position) {
-
+        sendToAll(new LeaderUpdateMessage(PlayerUpdateType.INGAMELEADER,nickname,position).serialize());
     }
 
     @Override
     public void updateFirstRow(String nickname, CounterTop firstRow) {
-
+        sendToAll(new StorageUpdateMessage(PlayerUpdateType.FIRSTROW,nickname,firstRow).serialize());
     }
 
     @Override
     public void updateSecondRow(String nickname, CounterTop secondRow) {
-
+        sendToAll(new StorageUpdateMessage(PlayerUpdateType.SECONDROW,nickname,secondRow).serialize());
     }
 
     @Override
     public void updateThirdRow(String nickname, CounterTop thirdRow) {
-
+        sendToAll(new StorageUpdateMessage(PlayerUpdateType.THIRDROW,nickname,thirdRow).serialize());
     }
 }
 

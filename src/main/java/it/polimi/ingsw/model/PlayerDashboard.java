@@ -288,6 +288,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
         chest.sumCounts(bufferProduction);
         bufferProduction = new ResourceCount(0,0,0,0,0);
         observer.updateChest(getNickname(),chest);
+        observer.updateBufferProduction(getNickname(),bufferProduction);
     }
 
     /**
