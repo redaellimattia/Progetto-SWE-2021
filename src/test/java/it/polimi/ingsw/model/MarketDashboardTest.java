@@ -2,6 +2,7 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.model.enumeration.MarbleColour;
 //import org.junit.Test;
+import it.polimi.ingsw.network.server.ServerThread;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,6 +11,7 @@ class MarketDashboardTest {
 
     MarketDashboard buildDashboard() {
         MarketMarble[][] testStructure = new MarketMarble[3][4];
+        ServerThread marketObserver = new ServerThread(2);
         testStructure[0][0] = new MarketMarble(MarbleColour.PURPLE);
         testStructure[0][1] = new MarketMarble(MarbleColour.BLUE);
         testStructure[0][2] = new MarketMarble(MarbleColour.PURPLE);
@@ -23,7 +25,9 @@ class MarketDashboardTest {
         testStructure[2][2] = new MarketMarble(MarbleColour.YELLOW);
         testStructure[2][3] = new MarketMarble(MarbleColour.YELLOW);
         MarketMarble testFreeMarble = new MarketMarble(MarbleColour.BLUE);
-        return new MarketDashboard(testStructure, testFreeMarble);
+        MarketDashboard market = new MarketDashboard(testStructure, testFreeMarble);
+        market.addObserver(marketObserver);
+        return market;
     }
 
     @Test

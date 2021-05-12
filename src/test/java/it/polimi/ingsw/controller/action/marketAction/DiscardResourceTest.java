@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.model.token.SoloToken;
+import it.polimi.ingsw.network.server.ServerThread;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -20,10 +21,14 @@ class DiscardResourceTest {
         CounterTop testCounterTop2 = new CounterTop(Resource.ROCK, 2);
         CounterTop testCounterTop3 = new CounterTop(Resource.SHIELD, 3);
         Storage testStorage = new Storage(testCounterTop1, testCounterTop2, testCounterTop3);
+        ServerThread playerObserver = new ServerThread(2);
         ResourceCount testChest = new ResourceCount(0, 0, 0, 0, 0);
         DeckDashboard[] testDevCards = new DeckDashboard[3];
         ArrayList<LeaderCard> testLeaderCards = new ArrayList<>(0);
-        return new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, 0, name, 0, false);
+        PlayerDashboard player =  new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, 0, name, 0, false);
+        player.addObserver(playerObserver);
+        player.getStorage().addObserver(player);
+        return player;
     }
 
     public GameManager buildGameManager() {

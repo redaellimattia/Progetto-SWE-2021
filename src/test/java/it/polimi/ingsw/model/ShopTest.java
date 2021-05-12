@@ -4,6 +4,7 @@ import it.polimi.ingsw.exceptions.EmptyDeckException;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
+import it.polimi.ingsw.network.server.ServerThread;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -72,7 +73,7 @@ class ShopTest {
 
     Shop createShop(){
         Deck[][] testStructure = new DeckShop[3][4];
-
+        ServerThread shopObserver = new ServerThread(2);
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
         //GREEN CARDS
         DevelopmentCard cardGreen1 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);
@@ -112,7 +113,7 @@ class ShopTest {
         DevelopmentCard cardYellow9 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
         DevelopmentCard cardYellow10 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
         DevelopmentCard cardYellow11 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
-        DevelopmentCard cardYellow12 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.YELLOW);
+        DevelopmentCard cardYellow12 = new DevelopmentCard(0,1,new ResourceCount(1,1,0,0,0),prod,1, CardColour.YELLOW);
         //PURPLE CARDS
         DevelopmentCard cardPurple1 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
         DevelopmentCard cardPurple2 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
@@ -184,7 +185,7 @@ class ShopTest {
         testY1.add(cardYellow9);
         testY1.add(cardYellow10);
         testY1.add(cardYellow11);
-        testY1.add(cardYellow12);
+        testY1.add(0,cardYellow12);
         DeckShop deckYellow1 = new DeckShop(testY1);
 
         //PURPLE DECKS
@@ -220,7 +221,9 @@ class ShopTest {
         testStructure[2][1] = deckBlue1;
         testStructure[2][2] = deckYellow1;
         testStructure[2][3] = deckPurple1;
-        return new Shop(testStructure);
+        Shop shop = new Shop(testStructure);
+        shop.addObserver(shopObserver);
+        return shop;
     }
 
 }

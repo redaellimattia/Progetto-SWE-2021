@@ -1,7 +1,9 @@
 package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exceptions.CounterTopOverloadException;
+import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
+import it.polimi.ingsw.network.server.ServerThread;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -147,16 +149,33 @@ class StorageTest {
         assertEquals(rocks,storage.getFirstRow().getResourceType());
         assertEquals(coins,storage.getSecondRow().getResourceType());
     }
+    PlayerDashboard createPlayer(){
+        String nickname = "Prova";
+        CounterTop firstRow = new CounterTop(Resource.COIN,1);
+        CounterTop secondRow = new CounterTop(Resource.ROCK,2);
+        CounterTop thirdRow = new CounterTop(Resource.SERVANT,0);
+        Storage storage = new Storage(firstRow,secondRow,thirdRow);
+        ServerThread playerObserver = new ServerThread(2);
+        ResourceCount chest = new ResourceCount(5,5,0,0,0);
+        DeckDashboard[] devCards = new DeckDashboard[3];
 
+        ArrayList<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
+        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2,false);
+        player.addObserver(playerObserver);
+        player.getStorage().addObserver(player);
+        return player;
+    }
     public Storage createStorage(){
+        PlayerDashboard player = createPlayer();
         Resource coins = Resource.COIN;
         Resource rocks = Resource.ROCK;
         Resource shields = Resource.SHIELD;
         CounterTop firstRow = new CounterTop(coins,0);
         CounterTop secondRow = new CounterTop(rocks,0);
         CounterTop thirdRow = new CounterTop(shields,0);
-
-        return new Storage(firstRow,secondRow,thirdRow);
+        Storage storage = new Storage(firstRow,secondRow,thirdRow);
+        storage.addObserver(player);
+        return storage;
     }
     @Test
     void getShelvesArray(){

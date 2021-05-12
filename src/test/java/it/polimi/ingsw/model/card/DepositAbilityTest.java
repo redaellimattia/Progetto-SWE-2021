@@ -2,6 +2,7 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.Resource;
+import it.polimi.ingsw.network.server.ServerThread;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -31,10 +32,13 @@ class DepositAbilityTest {
         CounterTop secondRow = new CounterTop(coins,0);
         CounterTop thirdRow = new CounterTop(coins,0);
         Storage storage = new Storage(firstRow,secondRow,thirdRow);
+        ServerThread playerObserver = new ServerThread(2);
         ResourceCount chest = new ResourceCount(0,0,0,0,0);
         DeckDashboard[] devCards = new DeckDashboard[3];
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-
-        return new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2,false );
+        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2,false );
+        player.addObserver(playerObserver);
+        player.getStorage().addObserver(player);
+        return player;
     }
 }

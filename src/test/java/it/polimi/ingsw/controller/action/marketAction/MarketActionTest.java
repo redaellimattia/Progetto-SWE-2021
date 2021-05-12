@@ -10,6 +10,7 @@ import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.model.token.SoloToken;
+import it.polimi.ingsw.network.server.ServerThread;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -30,7 +31,10 @@ class MarketActionTest {
         testMarket[0][1] = new MarketMarble(MarbleColour.BLUE);
         testMarket[0][2] = new MarketMarble(MarbleColour.WHITE);
         testMarket[0][3] = new MarketMarble(MarbleColour.RED);
-        Game game = new Game(players, new Shop(emptyGrid), new MarketDashboard(testMarket, new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
+        MarketDashboard market = new MarketDashboard(testMarket, new MarketMarble(MarbleColour.PURPLE));
+        ServerThread marketObserver = new ServerThread(2);
+        market.addObserver(marketObserver);
+        Game game = new Game(players, new Shop(emptyGrid), market, new ArrayList<SoloToken>());
         GameManager gameManager = new GameManager(game, new PlayerTurnManager(player1),true);
         return gameManager;
     }
@@ -40,11 +44,15 @@ class MarketActionTest {
         CounterTop testCounterTop2 = new CounterTop(Resource.ROCK, 2);
         CounterTop testCounterTop3 = new CounterTop(Resource.SHIELD, 3);
         Storage testStorage = new Storage(testCounterTop1, testCounterTop2, testCounterTop3);
+        ServerThread playerObserver = new ServerThread(2);
         ResourceCount testChest = new ResourceCount(0, 0, 0, 0, 0);
         DeckDashboard[] testDevCards = new DeckDashboard[3];
         ArrayList<LeaderCard> testLeaderCards = new ArrayList<>(0);
         testLeaderCards.add(new LeaderCard(0,2, new CardLevelRequirement(CardColour.YELLOW, 2), new WhiteChangeAbility(Resource.COIN)));
-        return new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, 0, name, 0, false);
+        PlayerDashboard player = new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, 0, name, 0, false);
+        player.addObserver(playerObserver);
+        player.getStorage().addObserver(player);
+        return player;
     }
 
     @Test

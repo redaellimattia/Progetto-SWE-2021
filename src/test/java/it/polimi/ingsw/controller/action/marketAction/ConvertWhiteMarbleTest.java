@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
 import it.polimi.ingsw.model.enumeration.Resource;
+import it.polimi.ingsw.network.server.ServerThread;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -26,12 +27,16 @@ class ConvertWhiteMarbleTest {
         CounterTop testCounterTop2 = new CounterTop(Resource.ROCK, val2);
         CounterTop testCounterTop3 = new CounterTop(Resource.SHIELD, val3);
         Storage testStorage = new Storage(testCounterTop1, testCounterTop2, testCounterTop3);
+        ServerThread playerObserver = new ServerThread(2);
         ResourceCount testChest = new ResourceCount(0, 0, 0, 0, 0);
         DeckDashboard[] testDevCards = new DeckDashboard[3];
         ArrayList<LeaderCard> testLeaderCards = new ArrayList<>(0);
         testLeaderCards.add(buildLeaderCard(Resource.COIN));
         testLeaderCards.add(new LeaderCard(0,3, new CardLevelRequirement(CardColour.YELLOW, 2), new DepositAbility(Resource.ROCK)));
-        return new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, 0, "Test", 0, false);
+        PlayerDashboard player = new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, 0, "Test", 0, false);
+        player.addObserver(playerObserver);
+        player.getStorage().addObserver(player);
+        return player;
     }
 
     @Test
