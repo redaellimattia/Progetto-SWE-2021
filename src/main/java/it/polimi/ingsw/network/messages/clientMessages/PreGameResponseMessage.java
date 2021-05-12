@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class PreGameResponseMessage extends ClientMessage{
     ArrayList<Resource> chosen;
     ArrayList<LeaderCard> chosenLeaders;
+
     public PreGameResponseMessage(String nickname, long serverThreadID, ArrayList<Resource> chosen,ArrayList<LeaderCard> chosenLeaders) {
         super(ClientMessageType.PREGAMERESPONSE, nickname, serverThreadID);
         this.chosen = chosen;

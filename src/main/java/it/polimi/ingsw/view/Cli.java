@@ -179,16 +179,40 @@ public class Cli implements View {
     }
     public void preGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources){
         out.println("The game is about to start, choose your initial setup!");
+        ArrayList<Resource> resources = new ArrayList<>();
         if(numberOfResources != 0){
-            ArrayList<Resource> resources = askResources(numberOfResources);
+            resources = askResources(numberOfResources);
         }
         clearCli();
-        askLeaders(leaders);
+        ArrayList<LeaderCard> chosenLeaders = askLeaders(leaders);
+        clientManager.preGameChoice(resources,chosenLeaders);
     }
     private ArrayList<LeaderCard> askLeaders(ArrayList<LeaderCard> leaders){
         ArrayList<LeaderCard> leadersChosen = new ArrayList<>();
+        int counter = 0;
+        String chosenID;
+        int chosen;
+        ArrayList<Integer> id = new ArrayList<>();
         out.println("You can choose two leaders between these four.");
+        for (LeaderCard l: leaders) {
+            out.println();//STAMPA I LEADER E TUTTE LE CARATTERISTICHE /DA SWITCHARE PER REQUIREMENTS E SPECIALABILITy
+            id.add(l.getId());
+        }
+        do{
+            out.println("You still have " +counter +" leaders to choose.\n");
 
+            do{
+                out.println("Insert the ID of the choosen leader: ");
+                chosenID = readLine();
+                chosen = Integer.parseInt(chosenID);
+            }while(!id.contains(chosen));
+
+            for(int i=0; i<leaders.size();i++)
+                if(leaders.get(i).getId() == chosen)
+                    leadersChosen.add(leaders.get(i));
+
+            counter++;
+        }while(counter != 2);
         return leadersChosen;
     }
     private ArrayList<Resource> askResources(int numberOfResources){

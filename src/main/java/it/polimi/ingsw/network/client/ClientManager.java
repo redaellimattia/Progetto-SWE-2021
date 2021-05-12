@@ -1,7 +1,10 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.model.card.LeaderCard;
+import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
 import it.polimi.ingsw.network.messages.clientMessages.JoinGameMessage;
+import it.polimi.ingsw.network.messages.clientMessages.PreGameResponseMessage;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
 import it.polimi.ingsw.view.Cli;
 import it.polimi.ingsw.view.View;
@@ -9,6 +12,7 @@ import it.polimi.ingsw.view.View;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.FileHandler;
@@ -100,6 +104,10 @@ public class ClientManager {
         clientSocket.send(message);
     }
 
+    public void preGameChoice(ArrayList<Resource> resources, ArrayList<LeaderCard> leaders){
+        String message= new PreGameResponseMessage(this.nickname,serverThreadID,resources,leaders).serialize();
+        clientSocket.send(message);
+    }
     /**
      * Creating logger file handler
      */
