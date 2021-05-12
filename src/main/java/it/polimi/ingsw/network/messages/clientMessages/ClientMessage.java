@@ -42,7 +42,7 @@ public abstract class ClientMessage {
      * @param msg message that needs to be deserialized
      * @return deserialized message
      */
-    public static ClientMessage onMessage(String msg){
+    public static ClientMessage deserializeMessage(String msg){
         JsonObject jsonObj = gson.fromJson(msg,JsonElement.class).getAsJsonObject();
         String msgType = jsonObj.get("type").getAsString();
 

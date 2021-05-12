@@ -2,7 +2,6 @@ package it.polimi.ingsw.network.messages.clientMessages.actionMessages;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import it.polimi.ingsw.model.Deck;
 import it.polimi.ingsw.model.DeckShop;
 import it.polimi.ingsw.model.Production;
 import it.polimi.ingsw.model.ResourceCount;
@@ -11,9 +10,7 @@ import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -49,7 +46,7 @@ class CardShopMessageTest {
         //System.out.println(json);
         ResourceCount check = new ResourceCount(1,1,1,1,0);
 
-        ClientMessage deserializedMessage = ClientMessage.onMessage(json);
+        ClientMessage deserializedMessage = ClientMessage.deserializeMessage(json);
         assertTrue(deserializedMessage instanceof CardShopMessage);
         assertEquals("giann1",deserializedMessage.getNickname());
         assertEquals(check,((CardShopMessage) deserializedMessage).getChestCount());

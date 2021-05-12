@@ -63,7 +63,7 @@ public class Server {
      */
     public void onMessage(SocketConnection sockConnection,String msg){
         //if the player sending the message has not the turn active, i don't do it and i send him a message.
-        ClientMessage deserializedMessage = ClientMessage.onMessage(msg);
+        ClientMessage deserializedMessage = ClientMessage.deserializeMessage(msg);
         long serverThreadID = deserializedMessage.getServerThreadID();
 
         if(serverThreadID!=-1&&serverThreads.containsKey(serverThreadID))

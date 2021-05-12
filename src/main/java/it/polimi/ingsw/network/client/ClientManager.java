@@ -78,7 +78,7 @@ public class ClientManager {
      * @param msg serialized Json message
      */
     public void onMessage(String msg){
-        ServerMessage deserializedMessage = ServerMessage.onMessage(msg);
+        ServerMessage deserializedMessage = ServerMessage.deserializeMessage(msg);
         deserializedMessage.useMessage(this);
     }
 

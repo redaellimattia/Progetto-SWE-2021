@@ -49,7 +49,6 @@ public class ClientSocket implements Runnable {
      */
     public void startConnection() {
         send(new AskLobbyMessage(clientManager.getNickname(), clientManager.getServerThreadID()).serialize());
-        //send(new CreateGameMessage(nickname, clientManager.getServerThreadID(), 4).serialize());
     }
 
 
@@ -66,7 +65,7 @@ public class ClientSocket implements Runnable {
 
     /**
      * While running, the thread checks the BufferedReader for available messages
-     * If some message comes up, it will be sent to the onMessage method on the client Object
+     * If some message comes up, it will be sent to the deserializeMessage method on the client Object
      */
     @Override
     public void run() {

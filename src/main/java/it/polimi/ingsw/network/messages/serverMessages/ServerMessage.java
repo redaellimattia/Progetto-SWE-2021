@@ -7,6 +7,10 @@ import com.google.gson.JsonObject;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.client.ClientSocket;
 import it.polimi.ingsw.network.enumeration.ServerMessageType;
+import it.polimi.ingsw.network.messages.clientMessages.actionMessages.ActionMessage;
+import it.polimi.ingsw.network.messages.serverMessages.updates.MarketUpdateMessage;
+import it.polimi.ingsw.network.messages.serverMessages.updates.PlayerUpdateMessage;
+import it.polimi.ingsw.network.messages.serverMessages.updates.ShopUpdateMessage;
 
 public abstract class ServerMessage {
     static GsonBuilder builder = new GsonBuilder();
@@ -17,7 +21,7 @@ public abstract class ServerMessage {
         this.type = type;
     }
 
-    public static ServerMessage onMessage(String msg){
+    public static ServerMessage deserializeMessage(String msg){
         JsonObject jsonObj = gson.fromJson(msg, JsonElement.class).getAsJsonObject();
         String msgType = jsonObj.get("type").getAsString();
 
@@ -38,14 +42,14 @@ public abstract class ServerMessage {
                 return gson.fromJson(msg,PreGameMessage.class);
             case ERROR:
                 return gson.fromJson(msg,ErrorMessage.class);
-            /*case STARTGAME:
-                return gson.fromJson(msg,PreGameMessage.class);
+            case STARTGAME:
+                return gson.fromJson(msg,StartGameMessage.class);
             case SHOPUPDATE:
-                return gson.fromJson(msg,PreGameMessage.class);
+                return gson.fromJson(msg, ShopUpdateMessage.class);
             case MARKETUPDATE:
-                return gson.fromJson(msg,PreGameMessage.class);
+                return gson.fromJson(msg, MarketUpdateMessage.class);
             case PLAYERUPDATE:
-                return gson.fromJson(msg,PreGameMessage.class);*/
+                return PlayerUpdateMessage.deserializePlayerUpdate(jsonObj);
             default:
                 throw new IllegalArgumentException("ServerMessageType not valid.");
         }

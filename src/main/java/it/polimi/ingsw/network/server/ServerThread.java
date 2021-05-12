@@ -13,6 +13,9 @@ import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.*;
+import it.polimi.ingsw.network.messages.serverMessages.updates.ChestUpdateMessage;
+import it.polimi.ingsw.network.messages.serverMessages.updates.MarketUpdateMessage;
+import it.polimi.ingsw.network.messages.serverMessages.updates.ShopUpdateMessage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -251,19 +254,26 @@ public class ServerThread extends Thread implements Observer {
         return serverThread.getId();
     }
 
+    private void sendToAll(String msg){
+        synchronized (gameLock) {
+            for (String key : clients.keySet())
+                clients.get(key).send(msg);
+        }
+    }
+
     @Override
     public void updateShop(Deck[][] shopGrid) {
-        //Send new shop back to all clients
+        sendToAll(new ShopUpdateMessage(shopGrid).serialize());
     }
 
     @Override
     public void updateMarket(MarketMarble[][] structure, MarketMarble freeMarble) {
-        //Send new shop back to all clients
+        sendToAll(new MarketUpdateMessage(structure,freeMarble).serialize());
     }
 
     @Override
     public void updateChest(String nickname, ResourceCount chest) {
-
+        sendToAll(new ChestUpdateMessage(nickname,chest).serialize());
     }
 
     @Override
