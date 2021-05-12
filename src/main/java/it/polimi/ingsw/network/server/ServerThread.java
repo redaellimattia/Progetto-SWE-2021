@@ -154,14 +154,14 @@ public class ServerThread extends Thread implements Observer {
         /*timer = new PingTimer(this,socketConnection);
         timer.startPinging();*/
         //ASSEGNAZIONE RISORSE E LEADER
-        if(gameLobby.getNumberOfPlayers() != 1)
+        if(!singlePlayer)
             preGame();
     }
 
     public void preGame(){
         int c=0;
         for (String p: gameLobby.getPlayers()) {
-            String message = new PreGameMessage(gameLobby.getFourLeaders(),c).serialize();
+            String message = new PreGameMessage(gameLobby.getFourLeaders(p),c).serialize();
             clients.get(p).send(message);
         }
         gameLobby.addInitialFaith();

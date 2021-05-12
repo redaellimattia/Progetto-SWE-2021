@@ -3,10 +3,8 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 
-
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -42,6 +40,7 @@ public class Cli implements View {
         }
         return input;
     }
+
     @Override
     public void start(){
         printLogo();
@@ -63,6 +62,7 @@ public class Cli implements View {
                 "Have Fun playing the game! \n";
         out.println(logo);
     }
+
     @Override
     public void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies){
         String input;
@@ -112,7 +112,7 @@ public class Cli implements View {
     @Override
     public void joinExistingGame(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies){
         clearCli();
-        out.println("Now you can choose the game to join!: ");
+        out.println("Now you can choose the game to join! ");
         String nickname = askForNickname();
         clientManager.setNickname(nickname);
         long serverThreadID = askForServerID(availableGameLobbies);
@@ -124,24 +124,18 @@ public class Cli implements View {
     public long askForServerID(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies){
         String chosen;
         String input;
-        long[] id = new long[availableGameLobbies.size()];
+        ArrayList<Long> id = new ArrayList<>();
         long chosenId;
-        int i=0;
-        boolean legitValue = false;
 
-        for (ReturnLobbiesMessage.availableGameLobbies lobby : availableGameLobbies) {
-            id[i] = lobby.getServerThreadID();
-            i++;
-        }
+        for (ReturnLobbiesMessage.availableGameLobbies lobby : availableGameLobbies)
+            id.add(lobby.getServerThreadID());
+
         do{
             do {
                 out.println("Insert the serverID you want to Join!");
                 chosen = readLine();
                 chosenId = Long.parseLong(chosen);
-                for (long l : id)
-                    if (l == chosenId)
-                        legitValue = true;
-            }while(!legitValue);
+            }while(!id.contains(chosenId));
             out.println("The choosen serverID is : " + chosenId + "\n" +
                     "Do you want to confirm? Press Y (confirm) / N (deny)");
             input = readLine();
@@ -149,6 +143,7 @@ public class Cli implements View {
 
         return chosenId;
     }
+
     public int askNumberOfPlayers(){
         String number;
         String input;
@@ -166,6 +161,7 @@ public class Cli implements View {
 
         return num;
     }
+
     public String askForNickname(){
         String nickname;
         String input;
@@ -179,6 +175,7 @@ public class Cli implements View {
 
         return nickname;
     }
+
     private void clearCli(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
