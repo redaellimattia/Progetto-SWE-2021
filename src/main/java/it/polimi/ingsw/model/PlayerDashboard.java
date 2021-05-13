@@ -106,6 +106,38 @@ public class PlayerDashboard extends Player implements StorageObserver{
     }
 
     /**
+     * Sets new PathPosition
+     * @param pathPosition updated PathPosition
+     */
+    public void setPathPosition(int pathPosition) {
+        this.pathPosition = pathPosition;
+    }
+
+    /**
+     * Sets new ArrayDeposit
+     * @param arrayDeposit updated ArrayDeposit
+     */
+    public void setArrayDeposit(ArrayList<CounterTop> arrayDeposit) {
+        this.arrayDeposit = arrayDeposit;
+    }
+
+    /**
+     * Sets new Chest
+     * @param chest updated Chest
+     */
+    public void setChest(ResourceCount chest) {
+        this.chest = chest;
+    }
+
+    /**
+     * Sets new BufferProduction
+     * @param bufferProduction updated bufferProduction
+     */
+    public void setBufferProduction(ResourceCount bufferProduction) {
+        this.bufferProduction = bufferProduction;
+    }
+
+    /**
      * INITIALIZE A NEW SHELF WHEN A DEPOSITABILITY LEADER IS PLAYED
      *
      * @param res Resource of a particular DepositAbility
@@ -113,7 +145,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
     public void initArrayDeposit(Resource res){
         if(arrayDeposit.size()<2) {
             arrayDeposit.add(0, new CounterTop(res, 0));
-            observer.updateInitArrayDeposit(getNickname(),arrayDeposit.get(0));
+            observer.updateInitArrayDeposit(getNickname(),res);
         }
 
     }

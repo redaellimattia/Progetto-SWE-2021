@@ -13,6 +13,11 @@ public class LeaderUpdateMessage extends PlayerUpdateMessage{
 
     @Override
     public void useMessage(ClientManager clientManager){
-
+        switch(getPlayerUpdateType()){
+            case INGAMELEADER:  clientManager.getGameStatus().updateLeaderInGame(getNickname(),position);
+                                break;
+            case DISCARDLEADER: clientManager.getGameStatus().updateDiscardLeader(getNickname(),position);
+                                break;
+        }
     }
 }

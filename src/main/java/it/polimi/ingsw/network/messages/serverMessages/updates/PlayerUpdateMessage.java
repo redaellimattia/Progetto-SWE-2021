@@ -42,7 +42,7 @@ public abstract class PlayerUpdateMessage extends ServerMessage {
             case DEVCARDS:
                 return gson.fromJson(jsonObj, DevCardsUpdateMessage.class);
 
-            case REMOVELEADER:
+            case DISCARDLEADER:
             case INGAMELEADER:
                 return gson.fromJson(jsonObj, LeaderUpdateMessage.class);
             case PATHPOSITION:
@@ -54,5 +54,12 @@ public abstract class PlayerUpdateMessage extends ServerMessage {
             default:
                 throw new IllegalArgumentException("playerUpdateType not found.");
         }
+    }
+    public String getNickname(){
+        return this.nickname;
+    }
+
+    public PlayerUpdateType getPlayerUpdateType() {
+        return playerUpdateType;
     }
 }

@@ -11,6 +11,7 @@ import it.polimi.ingsw.model.Deck;
 import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;
+import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.enumeration.PlayerUpdateType;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.*;
@@ -298,8 +299,8 @@ public class ServerThread extends Thread implements Observer {
     }
 
     @Override
-    public void updateInitArrayDeposit(String nickname, CounterTop newCounterTop) {
-        sendToAll(new InitArrayDepositUpdateMessage(nickname,newCounterTop).serialize());
+    public void updateInitArrayDeposit(String nickname, Resource res) {
+        sendToAll(new InitArrayDepositUpdateMessage(nickname, res).serialize());
     }
 
     @Override
@@ -309,7 +310,7 @@ public class ServerThread extends Thread implements Observer {
 
     @Override
     public void updateRemoveLeader(String nickname, int position) {
-        sendToAll(new LeaderUpdateMessage(PlayerUpdateType.REMOVELEADER,nickname,position).serialize());
+        sendToAll(new LeaderUpdateMessage(PlayerUpdateType.DISCARDLEADER,nickname,position).serialize());
     }
 
     @Override
