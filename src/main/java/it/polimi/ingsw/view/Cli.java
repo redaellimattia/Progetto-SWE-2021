@@ -1,8 +1,8 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.model.MarketDashboard;
-import it.polimi.ingsw.model.MarketMarble;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
+import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
@@ -224,32 +224,22 @@ public class Cli implements View {
             out.println("ID: " + l.getId() + "\n" +
                     "Victory Points: " + l.getVictoryPoints() +"\n");
             Requirement requirement = l.getRequirement();
-            //TO-DO WHEN GETTERS ARE DONE PROPERLY
+            //REQUIREMENT PRINT
             if(requirement.equals(CardLevelRequirement.class)){
                 out.println("You need a " + requirement.getColour() + "card of level: " + requirement.getLevel() +" to play this;");
             }
             if(requirement.equals(ResourceRequirement.class)){
                 out.println("You need these resources: ");
-                if(requirement.getResources().getCoins() !=0)
-                    out.println("COINS: " + requirement.getResources().getCoins());
-                if(requirement.getResources().getRocks() !=0)
-                    out.println("ROCKS: " + requirement.getResources().getRocks());
-                if(requirement.getResources().getServants() !=0)
-                    out.println("SERVANTS: " + requirement.getResources().getServants());
-                if(requirement.getResources().getShields() !=0)
-                    out.println("SHIELDS: " + requirement.getResources().getShields());
+                ResourceCount resources = requirement.getResources();
+                printResourceCount(resources);
+                out.print("\n");
                 out.println("to play this card.");
             }
             if(requirement.equals(TypeOfCardRequirement.class)){
                 out.println("You need these type of cards: ");
-                if(requirement.getCardColours().getGreen() !=0)
-                    out.println("GREEN: " + requirement.getCardColours().getGreen());
-                if(requirement.getCardColours().getBlue() !=0)
-                    out.println("BLUE: " + requirement.getCardColours().getBlue());
-                if(requirement.getCardColours().getPurple() !=0)
-                    out.println("PURPLE: " + requirement.getCardColours().getPurple());
-                if(requirement.getCardColours().getYellow() !=0)
-                    out.println("YELLOW: " + requirement.getCardColours().getYellow());
+                ColourCount colourCount = requirement.getCardColours();
+                printColourCount(colourCount);
+                out.print("\n");
                 out.println("to play this card.");
             }
             //SPECIALABILITY PRINT:
@@ -276,8 +266,8 @@ public class Cli implements View {
                 out.println("Choose between 4 types of resources: \n" +
                         "COINS: digit C;" +
                         "ROCKS: digit R;" +
-                        "SHIELDS: digit SH" +
-                        "SERVANTS: digit SE");
+                        "SHIELDS: digit SH;" +
+                        "SERVANTS: digit SE;");
                 resource = readLine();
             }while(!resource.equalsIgnoreCase("c") || !resource.equalsIgnoreCase("r") || !resource.equalsIgnoreCase("sh") || !resource.equalsIgnoreCase("se"));
 
@@ -331,6 +321,72 @@ public class Cli implements View {
         out.println("Legend: W -> White | R -> Red | Y -> Yellow | G -> Gray | P -> Purple | -> B -> Blue ");
     }
 
+    private void printShop(){
+        Deck[][] shop = clientManager.getGameStatus().getShop().getGrid();
+        ArrayList<Integer> idLine = new ArrayList<>();
+        ArrayList<Integer> vPointsLine = new ArrayList<>();
+        ArrayList<Integer> levelLine = new ArrayList<>();
+        ArrayList<CardColour> colourLine = new ArrayList<>();
+        ArrayList<ResourceCount> costLine = new ArrayList<>();
+        ArrayList<Production> productionLine = new ArrayList<>();
+
+        for(int i=0; i<3; i++){
+            for(int j=0; j<4; j++){
+                idLine.add(shop[i][j].getFirst().getId());
+                vPointsLine.add(shop[i][j].getFirst().getVictoryPoints());
+                levelLine.add(shop[i][j].getFirst().getLevel());
+                colourLine.add(shop[i][j].getFirst().getColour());
+                costLine.add(shop[i][j].getFirst().getCost());
+                productionLine.add(shop[i][j].getFirst().getProductionPower());
+            }
+            for(int j=0; j<4; j++)
+                out.println("|ID: "+ idLine.get(j) + " \t|");
+            for(int j=0; j<4; j++)
+                out.println("|Victory Points: "+ vPointsLine.get(j) + "\t|");
+            for(int j=0; j<4; j++)
+                out.println("|Level: "+ levelLine.get(j) + "\t|");
+            for(int j=0; j<4; j++)
+                out.println("|Colour: "+ colourLine.get(j) + "\t|");
+            for(int j=0; j<4; j++) {
+                out.print("|Cost: ");
+                printResourceCount(costLine.get(j));
+                out.print("\t|");
+                out.print("\n");
+            }
+            for(int j=0; j<4; j++) {
+                out.print("|Production: ");
+                out.print("Cost ->");
+                printResourceCount(productionLine.get(j).getInput());
+                out.print("Outcome -> ");
+                printResourceCount(productionLine.get(j).getOutput());
+                out.print("\t|");
+                out.print("\n");
+            }
+            out.print("\n\n");
+        }
+    }
+
+    private void printResourceCount(ResourceCount resourceCount){
+        if(resourceCount.getCoins() !=0)
+            out.print("COINS: " + resourceCount.getCoins());
+        if(resourceCount.getRocks() !=0)
+            out.print(" ROCKS: " + resourceCount.getRocks());
+        if(resourceCount.getServants() !=0)
+            out.print(" SERVANTS: " + resourceCount.getServants());
+        if(resourceCount.getShields() !=0)
+            out.print(" SHIELDS: " + resourceCount.getShields());
+    }
+
+    private void printColourCount(ColourCount colourCount){
+        if(colourCount.getGreen() !=0)
+            out.print(" GREEN: " + colourCount.getGreen());
+        if(colourCount.getBlue() !=0)
+            out.print(" BLUE: " + colourCount.getBlue());
+        if(colourCount.getPurple() !=0)
+            out.print(" PURPLE: " + colourCount.getPurple());
+        if(colourCount.getYellow() !=0)
+            out.print (" YELLOW: " + colourCount.getYellow());
+    }
     @Override
     public void printMsg(String msg){
         out.println(msg);
