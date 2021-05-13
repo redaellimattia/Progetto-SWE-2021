@@ -10,6 +10,8 @@ import it.polimi.ingsw.exceptions.MalevolentClientException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.Resource;
+import it.polimi.ingsw.model.token.AdvanceToken;
+import it.polimi.ingsw.model.token.DiscardToken;
 import it.polimi.ingsw.model.token.SoloToken;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerThread;
@@ -102,7 +104,7 @@ public class GameLobby {
         MarketDashboard market = initMarketDashboard();
         market.addObserver(observer);
 
-        // Load and shuffle LeaderCards
+        /*// Load and shuffle LeaderCards
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.setPrettyPrinting().create();
         JsonReader json = readJsonFile("/LeaderCards");
@@ -110,13 +112,14 @@ public class GameLobby {
         for (JsonElement j: leaderCardsArray) {
             leadersDeck.add(gson.fromJson(j, LeaderCard.class));
         }
-        Collections.shuffle(leadersDeck);
+        Collections.shuffle(leadersDeck); */
 
         if(singlePlayer){
             // TO-DO: Check that Lorenzo name is not used by player
             playerDashboards.add(createPlayer("Lorenzo il Magnifico", 1, true));
             Game game = new Game(playerDashboards, shop, market, initTokensDeck());
             gameManager = new GameManager(game, new PlayerTurnManager(playerDashboards.get(0)), true);
+            // TO-DO: Set gameManager in every token
         }
         else {
             Game game = new Game(playerDashboards, shop, market, null);
@@ -215,8 +218,16 @@ public class GameLobby {
         JsonReader json = readJsonFile("/Tokens");
         JsonArray tokensJsonArray = gson.fromJson(json, JsonElement.class);
         ArrayList<SoloToken> tokenList = new ArrayList<>();
-        for (JsonElement j: tokensJsonArray) {
+        /* for (JsonElement j: tokensJsonArray) {
             tokenList.add(gson.fromJson(j, SoloToken.class));
+        } */
+        for (JsonElement j: tokensJsonArray) {
+            switch(j.getAsJsonObject().get("type").getAsString()) {
+                case "discardToken": tokenList.add(gson.fromJson(j, DiscardToken.class)); break;
+                // In this case we need to use the constructor to build the AdvanceToken object
+                // because steps value is not in JSON file (it can be inferred by reRoll value)
+                case "advanceToken": tokenList.add(new AdvanceToken(gson.fromJson(j, AdvanceToken.class).isReRoll(), null)); break;
+            }
         }
         // Shuffle tokens
         Collections.shuffle(tokenList);

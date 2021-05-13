@@ -28,4 +28,12 @@ class GameLobbyTest {
         testLobby.initGame(false,null);
         GameManager gameManager  = testLobby.getGameManager();
     }
+
+    @Test
+    void initSingleGame() {
+        GameLobby testLobby = new GameLobby(0, 4);
+        testLobby.addPlayer("Giocatore");
+        testLobby.initGame(true,null);
+        GameManager gameManager  = testLobby.getGameManager();
+    }
 }
