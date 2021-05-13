@@ -17,6 +17,6 @@ public class MarketUpdateMessage extends ServerMessage {
 
     @Override
     public void useMessage(ClientManager clientManager){
-
+        clientManager.getGameStatus().updateMarket(structure,freeMarble);
     }
 }

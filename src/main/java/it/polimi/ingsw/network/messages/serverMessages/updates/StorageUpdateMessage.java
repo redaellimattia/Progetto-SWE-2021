@@ -14,6 +14,13 @@ public class StorageUpdateMessage extends PlayerUpdateMessage{
 
     @Override
     public void useMessage(ClientManager clientManager){
-
+        switch(getPlayerUpdateType()){
+            case FIRSTROW: clientManager.getGameStatus().updateFirstRow(getNickname(),row);
+                            break;
+            case SECONDROW: clientManager.getGameStatus().updateSecondRow(getNickname(),row);
+                            break;
+            case THIRDROW:  clientManager.getGameStatus().updateThirdRow(getNickname(),row);
+                            break;
+        }
     }
 }

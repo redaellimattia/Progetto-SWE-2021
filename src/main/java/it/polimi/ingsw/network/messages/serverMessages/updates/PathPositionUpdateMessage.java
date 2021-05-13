@@ -13,6 +13,6 @@ public class PathPositionUpdateMessage extends PlayerUpdateMessage{
 
     @Override
     public void useMessage(ClientManager clientManager){
-
+        clientManager.getGameStatus().updatePathPosition(getNickname(),position);
     }
 }

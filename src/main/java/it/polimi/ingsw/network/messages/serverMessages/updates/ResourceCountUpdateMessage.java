@@ -14,6 +14,11 @@ public class ResourceCountUpdateMessage extends PlayerUpdateMessage{
 
     @Override
     public void useMessage(ClientManager clientManager){
-
+        switch(getPlayerUpdateType()){
+            case CHEST: clientManager.getGameStatus().updateChest(getNickname(),resourceCount);
+                        break;
+            case BUFFERPRODUCTION: clientManager.getGameStatus().updateBufferProduction(getNickname(),resourceCount);
+                                   break;
+        }
     }
 }

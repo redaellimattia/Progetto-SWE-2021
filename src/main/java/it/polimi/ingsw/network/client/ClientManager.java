@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.model.Deck;
+import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
@@ -111,9 +112,6 @@ public class ClientManager {
         clientSocket.send(message);
     }
 
-    public void updateShop(Deck[][] shopGrid){
-        gameStatus.setShop(shopGrid);
-    }
     /**
      * Creating logger file handler
      */

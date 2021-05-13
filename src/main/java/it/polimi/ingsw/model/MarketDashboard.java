@@ -33,6 +33,14 @@ public class MarketDashboard {
         this.freeMarble = freeMarble;
     }
 
+    public void setStructure(MarketMarble[][] structure) {
+        this.structure = structure;
+    }
+
+    public void setFreeMarble(MarketMarble freeMarble) {
+        this.freeMarble = freeMarble;
+    }
+
     /**
      *
      * @return the marble that is not in the matrix

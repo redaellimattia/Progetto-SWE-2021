@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.Deck;
 import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;
+import it.polimi.ingsw.model.enumeration.Resource;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public interface Observer {
     void updateChest(String nickname,ResourceCount chest); //Chest update
     void updateBufferProduction(String nickname,ResourceCount chest); //BufferProduction update
     void updateArrayDeposit(String nickname, ArrayList<CounterTop> arrayDeposit);
-    void updateInitArrayDeposit(String nickname, CounterTop newCounterTop);
+    void updateInitArrayDeposit(String nickname, Resource res);
     void updateDevCards(String nickname, DevelopmentCard card, int position);
     void updateRemoveLeader(String nickname, int position);
     void updatePathPosition(String nickname,int position);
