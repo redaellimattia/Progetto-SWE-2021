@@ -1,3 +1,32 @@
 [
-
+  {
+    "id": 1,
+    "victoryPoints": 0,
+    "requirementType": "resource",
+    "resources": {
+      "coins": 0,
+      "rocks": 0,
+      "servants": 0,
+      "shields": 0,
+      "faith": 0
+    }
+  },
+  {
+    "id": 2,
+    "victoryPoints": 0,
+    "requirementType": "cardLevel",
+    "colour": "BLUE",
+    "level": 1
+  },
+  {
+    "id": 3,
+    "victoryPoints": 0,
+    "requirementType": "typeOfCard",
+    "cardColours": {
+      "green": 0,
+      "yellow": 0,
+      "blue": 0,
+      "purple": 0
+    }
+  }
 ]

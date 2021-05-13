@@ -77,4 +77,27 @@ public class CardJSONTest {
             System.out.println(s.getClass());
         }
     }
+
+    /*
+    @Test
+    public void importLeaders() {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.setPrettyPrinting().create();
+        JsonReader json = new GameLobby(0, 0).readJsonFile("/LeaderCards");
+        JsonArray array = gson.fromJson(json, JsonElement.class);
+        //JsonArray array = jsonObj.getAsJsonArray();
+        ArrayList<LeaderCard> leadersList = new ArrayList<LeaderCard>();
+        for (JsonElement s: array) {
+            switch(s.getAsJsonObject().get("requirementType").getAsString()) {
+                case "resource": leadersList.add(new LeaderCard(0, )); break;
+                // In this case we need to use the constructor to build the AdvanceToken object
+                // because steps value is not in JSON file (it can be inferred by reRoll value)
+                case "advanceToken": tokensDeck.add(new AdvanceToken(gson.fromJson(s, AdvanceToken.class).isReRoll(), null)); break;
+            }
+        }
+        for (SoloToken s: tokensDeck) {
+            System.out.println(s.getClass());
+        }
+    }
+     */
 }
