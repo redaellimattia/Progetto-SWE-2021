@@ -142,7 +142,7 @@ public class GameManager {
     /**
      * upon being called, switch the PlayerTurnManager to the next player on the list of players
      */
-    public void nextRound() {
+    public void nextRound(boolean singlePlayerFirstRound) {
             PlayerDashboard player = this.turnManager.getPlayer();
             if (game.getShop().emptyColumn() || player.hasSevenDevCards())//If this player has 7 devCards or a shop column is empty, game must end
                 setGameMustEnd();
@@ -152,7 +152,7 @@ public class GameManager {
                 endGame();
             else {
                 if(isSinglePlayer) {
-                    if(player.isPlaying()) {
+                    if(player.isPlaying()&&!singlePlayerFirstRound) {
                         SoloToken token = game.pickNextToken();
                         token.useToken(game.getLorenzo(), game);
                         this.turnManager = new PlayerTurnManager(player); //da controllare se serve svuotare tutto

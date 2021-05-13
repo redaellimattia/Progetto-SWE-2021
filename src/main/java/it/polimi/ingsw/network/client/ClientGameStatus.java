@@ -59,8 +59,7 @@ public class ClientGameStatus {
      * @param position new PathPosition coming from server
      */
     public void updatePathPosition(String nickname,int position){
-        PlayerDashboard p = getClientDashboard(nickname);
-        p.setPathPosition(position);
+        getClientDashboard(nickname).setPathPosition(position);
     }
 
     /**

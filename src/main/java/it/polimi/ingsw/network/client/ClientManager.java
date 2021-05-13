@@ -1,7 +1,9 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.model.Deck;
+import it.polimi.ingsw.model.MarketDashboard;
 import it.polimi.ingsw.model.PlayerDashboard;
+import it.polimi.ingsw.model.Shop;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
@@ -66,6 +68,9 @@ public class ClientManager {
 
     }
 
+    public void initGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market){
+        gameStatus = new ClientGameStatus(players,shop,market);
+    }
 
     /**
      * Connection to the server

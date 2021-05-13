@@ -32,7 +32,7 @@ public class PingTimer {
             public void run() {
                 send();
             }
-        },0,1000);
+        },0,2000);
     }
 
 

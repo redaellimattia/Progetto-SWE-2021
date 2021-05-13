@@ -28,6 +28,7 @@ public class GameLobby {
     private final int numberOfPlayers;
     private int readyPlayers;
     private boolean gameStarted;
+    private boolean gameCreated;
     private ArrayList<LeaderCard> leadersDeck;
 
     public GameLobby(long serverThreadID,int numberOfPlayers) {
@@ -36,6 +37,10 @@ public class GameLobby {
         this.numberOfPlayers = numberOfPlayers;
         this.readyPlayers = 0;
         this.gameStarted = false;
+    }
+
+    public boolean isGameCreated() {
+        return gameCreated;
     }
 
     public boolean isGameStarted() {
@@ -67,6 +72,10 @@ public class GameLobby {
             if(chosenNickname.equals(nickname))
                 return false;
         return true;
+    }
+
+    public void setGameStarted(boolean gameStarted) {
+        this.gameStarted = gameStarted;
     }
 
     public void removePlayer(String nickname){
@@ -102,7 +111,7 @@ public class GameLobby {
             Game game = new Game(playerDashboards, shop, market, null);
             gameManager = new GameManager(game, new PlayerTurnManager(playerDashboards.get(0)), false);
         }
-        this.gameStarted = true;
+        this.gameCreated = true;
     }
 
     private PlayerDashboard createPlayer(String nickname, int playerTurnPosition, boolean isLorenzo) {
@@ -206,8 +215,9 @@ public class GameLobby {
     public boolean readyToStartGame(){
         return numberOfPlayers == readyPlayers;
     }
-    //LETTURA DA FILE JSON
-
+    public boolean readyToCreateGame(){
+        return numberOfPlayers == players.size();
+    }
     public ArrayList<LeaderCard> getFourLeaders(String nickname){ return null;}
 
     /**

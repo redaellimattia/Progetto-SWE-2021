@@ -347,6 +347,10 @@ public class Cli implements View {
         }
     }
 
+    @Override
+    public void yourTurn(){
+
+    }
 
     @Override
     public void printMsg(String msg){

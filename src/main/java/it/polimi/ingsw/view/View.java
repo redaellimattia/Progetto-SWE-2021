@@ -13,4 +13,5 @@ public interface View {
     void printMsg(String msg);
     void preGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources);
     void waitingForTurn();
+    void yourTurn();
 }

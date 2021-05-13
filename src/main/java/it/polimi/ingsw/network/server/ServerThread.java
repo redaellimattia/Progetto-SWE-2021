@@ -6,10 +6,7 @@ import it.polimi.ingsw.exceptions.network.GameAlreadyStartedException;
 import it.polimi.ingsw.exceptions.network.NicknameAlreadyUsedException;
 import it.polimi.ingsw.exceptions.network.NotYourTurnException;
 import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
-import it.polimi.ingsw.model.CounterTop;
-import it.polimi.ingsw.model.Deck;
-import it.polimi.ingsw.model.MarketMarble;
-import it.polimi.ingsw.model.ResourceCount;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.enumeration.PlayerUpdateType;
@@ -29,16 +26,15 @@ public class ServerThread extends Thread implements Observer {
     private PingTimer timer;
     private GameLobby gameLobby;
     private Thread serverThread;
+
     /**
      * Creating Game Lobby, Clients HashMap and starting the Thread
      */
     public ServerThread(int numberOfPlayers){
         this.clients = new HashMap<>();
-
         serverThread = new Thread(this);
-        //Server.LOGGER.log(Level.INFO, "ServerThread: "+getThreadId()+" Thread created, waiting for clients...");
         this.gameLobby = new GameLobby(getThreadId(),numberOfPlayers);
-        //far partire timer per task preGame
+
         serverThread.start();
         Server.LOGGER.log(Level.INFO, "Server: "+getThreadId()+" Game lobby created with "+numberOfPlayers+" players.");
     }
@@ -74,23 +70,27 @@ public class ServerThread extends Thread implements Observer {
         else
             deserializedMessage.useMessage(socketConnection,this);
     }
+
+    /**
+     * Init Timer, then startPinging
+     * @param socketConnection socketConnection of the client
+     */
+    public void startPinging(SocketConnection socketConnection){
+        timer = new PingTimer(this,socketConnection);
+        timer.startPinging();
+    }
+
+
     /**
      * Forwarding Round then telling the new player that it's his turn to play
      */
     public void endRound(){
-        //gameLobby.getGameManager().nextRound();
-        String nickname = getTurnManager().getPlayer().getNickname();
-        SocketConnection clientConnection;
-        if(gameLobby.getNumberOfPlayers()!=1)
-            clientConnection = clients.get(nickname);
-        else
-            do
-                clientConnection = clients.get(nickname);
-            while(clientConnection==null);
-        /*YourTurnMessage yourTurn = new YourTurnMessage();
-        clientConnection.send(yourTurn.serialize());
-        timer = new PingTimer(this,clientConnection);
-        timer.startPinging();*/
+        timer = null;
+        gameLobby.getGameManager().nextRound(false);
+        String nextPlayerNickname = getTurnManager().getPlayer().getNickname();
+        SocketConnection socketConnection = clients.get(nextPlayerNickname);
+        socketConnection.send(new YourTurnMessage().serialize());
+        startPinging(socketConnection);
     }
     /**
      * Login of a player that disconnected before
@@ -121,9 +121,9 @@ public class ServerThread extends Thread implements Observer {
                 Server.LOGGER.log(Level.INFO,nickname+" joined the lobby #"+getThreadId()+", "+(gameLobby.getNumberOfPlayers()-clients.size())+" players to go!");
                 clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
                 if (gameLobby.getNumberOfPlayers() == 1)
-                    createGame(true, clientConnection);
+                    createGame(true);
                 else if (clients.size() == gameLobby.getNumberOfPlayers())
-                    createGame(false, clientConnection);
+                    createGame(false);
             } else {
                 //clientConnection.disconnect();
                 clientConnection.send(new ErrorMessage("This username: [" + nickname +"] is already taken!").serialize());
@@ -151,35 +151,37 @@ public class ServerThread extends Thread implements Observer {
      * starting the game initializing the timer and then creating the model
      * @param singlePlayer true if it's a singlePlayer game
      */
-    public void createGame(boolean singlePlayer,SocketConnection socketConnection){
-        //to be completed
+    public void createGame(boolean singlePlayer){
         gameLobby.initGame(singlePlayer,this);
+        //Init gameStatus on clients.
+        sendToAll(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(), gameLobby.getGameManager().getGame().getMarket()).serialize());
         /*timer = new PingTimer(this,socketConnection);
         timer.startPinging();*/
-        //ASSEGNAZIONE RISORSE E LEADER
         if(!singlePlayer)
             preGame();
     }
 
     public void preGame(){
-        int c=0;
-
-        for (int i=0;i<gameLobby.getPlayers().size();i++) {
-            String p = gameLobby.getPlayers().get(i);
-            String message = null;
-            switch(i){
-                case 0: message = new PreGameMessage(gameLobby.getFourLeaders(p),0).serialize();
-                    break;
-                case 1:
-                case 2:
-                    message = new PreGameMessage(gameLobby.getFourLeaders(p),1).serialize();
-                    break;
-                case 3: message = new PreGameMessage(gameLobby.getFourLeaders(p),2).serialize();
-                    break;
+        synchronized (gameLock) {
+            for (int i = 0; i < gameLobby.getPlayers().size(); i++) {
+                String p = gameLobby.getPlayers().get(i);
+                String message = null;
+                switch (i) {
+                    case 0:
+                        message = new PreGameMessage(gameLobby.getFourLeaders(p), 0).serialize();
+                        break;
+                    case 1:
+                    case 2:
+                        message = new PreGameMessage(gameLobby.getFourLeaders(p), 1).serialize();
+                        break;
+                    case 3:
+                        message = new PreGameMessage(gameLobby.getFourLeaders(p), 2).serialize();
+                        break;
+                }
+                clients.get(p).send(message);
             }
-            clients.get(p).send(message);
+            gameLobby.addInitialFaith();
         }
-        gameLobby.addInitialFaith();
     }
 
     /**
@@ -208,7 +210,15 @@ public class ServerThread extends Thread implements Observer {
     }
 
 
-
+    public void startGame(){
+        gameLobby.setGameStarted(true);
+        sendToAll(new WaitYourTurnMessage().serialize());
+        gameLobby.getGameManager().nextRound(clients.size()==1);
+        String firstPlayerNickname = gameLobby.getGameManager().getTurnManager().getPlayer().getNickname();
+        SocketConnection socketConnection = clients.get(firstPlayerNickname);
+        socketConnection.send(new YourTurnMessage().serialize());
+        startPinging(socketConnection);
+    }
 
     /**
      * method called upon receiving a PingResponse, it reset the timer because the client is still connected
@@ -222,24 +232,26 @@ public class ServerThread extends Thread implements Observer {
      */
     @Override
     public void run() {
-        while (!Thread.currentThread().isInterrupted()) {
+        while (!this.serverThread.isInterrupted()) {
             synchronized (gameLock) {
-                if (!gameLobby.isGameStarted() && !gameLobby.readyToStartGame()) {
+                if (!gameLobby.isGameCreated() && !gameLobby.readyToCreateGame()) {
                     synchronized (this) {
                         for (String key : clients.keySet()) {
                             timer = new PingTimer(this, clients.get(key));
                             timer.send();
                             try {
-                                wait(1000);
+                                wait(2000);
                             } catch (InterruptedException e) {
                                 Server.LOGGER.log(Level.SEVERE, e.getMessage());
                             }
                         }
                     }
                 } else {
-                    if (!gameLobby.isGameStarted()) {
-                        //startGame()
-                    }
+                    if (!gameLobby.isGameCreated())
+                        createGame(clients.size()==1);
+                    else
+                        if(!gameLobby.isGameStarted()&&gameLobby.readyToStartGame())
+                            startGame();
                 }
 
             }
@@ -266,6 +278,11 @@ public class ServerThread extends Thread implements Observer {
         return serverThread.getId();
     }
 
+    /**
+     * Broadcasting a message
+     *
+     * @param msg serialized message
+     */
     private void sendToAll(String msg){
         synchronized (gameLock) {
             for (String key : clients.keySet())

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.messages.clientMessages;
 
 import it.polimi.ingsw.network.enumeration.ClientMessageType;
+import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public class EndTurnMessage extends ClientMessage{
@@ -9,7 +10,7 @@ public class EndTurnMessage extends ClientMessage{
     }
 
     @Override
-    public void useMessage(SocketConnection socketConnection){
-
+    public void useMessage(SocketConnection socketConnection, ServerThread serverThread){
+        serverThread.endRound();
     }
 }
