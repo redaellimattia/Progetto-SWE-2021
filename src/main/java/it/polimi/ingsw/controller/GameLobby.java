@@ -95,11 +95,22 @@ public class GameLobby {
             playerDashboards.add(newPlayer);
             playerTurnPosition++;
         }
+
         Shop shop = new Shop(initShopGrid());
         shop.addObserver(observer);
 
         MarketDashboard market = initMarketDashboard();
         market.addObserver(observer);
+
+        // Load and shuffle LeaderCards
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.setPrettyPrinting().create();
+        JsonReader json = readJsonFile("/LeaderCards");
+        JsonArray leaderCardsArray = gson.fromJson(json, JsonElement.class);
+        for (JsonElement j: leaderCardsArray) {
+            leadersDeck.add(gson.fromJson(j, LeaderCard.class));
+        }
+        Collections.shuffle(leadersDeck);
 
         if(singlePlayer){
             // TO-DO: Check that Lorenzo name is not used by player
