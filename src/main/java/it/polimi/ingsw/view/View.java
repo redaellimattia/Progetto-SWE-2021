@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.card.LeaderCard;
+import it.polimi.ingsw.network.client.PlayerPoints;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 
 import java.util.ArrayList;
@@ -14,4 +15,6 @@ public interface View {
     void preGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources);
     void waitingForTurn();
     void yourTurn();
+    void endGame(ArrayList<PlayerPoints> scoreboard);
+    void endGame(boolean lorenzoWin,PlayerPoints playerPoints);
 }

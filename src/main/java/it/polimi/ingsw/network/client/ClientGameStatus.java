@@ -8,9 +8,6 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import java.util.ArrayList;
 
 public class ClientGameStatus {
-    /**
-     * Ordered as on Server
-     */
     private ArrayList<PlayerDashboard> players;
     private Shop shop;
     private MarketDashboard market;

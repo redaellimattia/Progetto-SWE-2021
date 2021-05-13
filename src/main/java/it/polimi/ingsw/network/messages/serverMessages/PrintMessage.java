@@ -3,15 +3,15 @@ package it.polimi.ingsw.network.messages.serverMessages;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.enumeration.ServerMessageType;
 
-public class ErrorMessage extends ServerMessage{
-    private final String errorMsg;
-    public ErrorMessage(String msg){
-        super(ServerMessageType.ERROR);
-        errorMsg = msg;
+public class PrintMessage extends ServerMessage{
+    private final String msg;
+    public PrintMessage(String msg){
+        super(ServerMessageType.PRINTMESSAGE);
+        this.msg = msg;
     }
 
     @Override
     public void useMessage(ClientManager clientManager) {
-        clientManager.getView().printMsg(errorMsg);
+        clientManager.getView().printMsg(this.msg);
     }
 }

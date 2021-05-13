@@ -120,13 +120,17 @@ public class ServerThread extends Thread implements Observer {
                 clients.put(nickname, clientConnection);
                 Server.LOGGER.log(Level.INFO,nickname+" joined the lobby #"+getThreadId()+", "+(gameLobby.getNumberOfPlayers()-clients.size())+" players to go!");
                 clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
+                //Send message to the clients that are waiting
+                for(String key : clients.keySet())
+                    if(!key.equals(nickname))
+                        clients.get(key).send(new PrintMessage(nickname+" joined the lobby, "+(gameLobby.getNumberOfPlayers()-clients.size())+" players to go!").serialize());
                 if (gameLobby.getNumberOfPlayers() == 1)
                     createGame(true);
                 else if (clients.size() == gameLobby.getNumberOfPlayers())
                     createGame(false);
             } else {
                 //clientConnection.disconnect();
-                clientConnection.send(new ErrorMessage("This username: [" + nickname +"] is already taken!").serialize());
+                clientConnection.send(new PrintMessage("This username: [" + nickname +"] is already taken!").serialize());
                 throw new NicknameAlreadyUsedException(nickname);
             }
         }
@@ -153,10 +157,7 @@ public class ServerThread extends Thread implements Observer {
      */
     public void createGame(boolean singlePlayer){
         gameLobby.initGame(singlePlayer,this);
-        //Init gameStatus on clients.
         sendToAll(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(), gameLobby.getGameManager().getGame().getMarket()).serialize());
-        /*timer = new PingTimer(this,socketConnection);
-        timer.startPinging();*/
         if(!singlePlayer)
             preGame();
     }
@@ -255,7 +256,7 @@ public class ServerThread extends Thread implements Observer {
                         else
                             if(gameLobby.isGameStarted()&&gameLobby.getGameManager().isGameEnded()) {
                                 if(gameLobby.getNumberOfPlayers()==1)
-                                    sendToAll(new EndSinglePlayerGameMessage(gameLobby.getGameManager().getGame().isLorenzoWin(),gameLobby.getGameManager().getGame().getPlayers()).serialize());
+                                    sendToAll(new EndSinglePlayerGameMessage(gameLobby.getGameManager().getGame().isLorenzoWin(),gameLobby.getGameManager().getTurnManager().getPlayer()).serialize());
                                 else
                                     sendToAll(new EndMultiPlayerGameMessage(gameLobby.getGameManager().getGame().getPlayers()).serialize());
                             }
