@@ -79,8 +79,7 @@ public class ClientGameStatus {
      * @param position position of the leaderCard
      */
     public void updateLeaderInGame(String nickname,int position){
-        PlayerDashboard p = getClientDashboard(nickname);
-        p.setLeaderInGame(position);
+        getClientDashboard(nickname).setLeaderInGame(position);
     }
 
     /**
@@ -89,8 +88,7 @@ public class ClientGameStatus {
      * @param position position of the leaderCard
      */
     public void updateDiscardLeader(String nickname,int position){
-        PlayerDashboard p = getClientDashboard(nickname);
-        p.discardLeader(position);
+        getClientDashboard(nickname).discardLeader(position);
     }
 
     /**
@@ -99,8 +97,7 @@ public class ClientGameStatus {
      * @param res Resource of the new deposit
      */
     public void initArrayDeposit(String nickname, Resource res){
-        PlayerDashboard p = getClientDashboard(nickname);
-        p.initArrayDeposit(res);
+        getClientDashboard(nickname).initArrayDeposit(res);
     }
 
     /**
@@ -109,8 +106,7 @@ public class ClientGameStatus {
      * @param arrayDeposit new arrayDeposit from the server
      */
     public void updateArrayDeposit(String nickname,ArrayList<CounterTop> arrayDeposit){
-        PlayerDashboard p = getClientDashboard(nickname);
-        p.setArrayDeposit(arrayDeposit);
+        getClientDashboard(nickname).setArrayDeposit(arrayDeposit);
     }
 
     /**
@@ -119,8 +115,7 @@ public class ClientGameStatus {
      * @param chest new chest from the server
      */
     public void updateChest(String nickname,ResourceCount chest){
-        PlayerDashboard p = getClientDashboard(nickname);
-        p.setChest(chest);
+        getClientDashboard(nickname).setChest(chest);
     }
 
     /**
@@ -130,8 +125,7 @@ public class ClientGameStatus {
      * @param position position of the card
      */
     public void updateDevCards(String nickname, DevelopmentCard card,int position){
-        PlayerDashboard p = getClientDashboard(nickname);
-        p.addDevCards(card,position);
+        getClientDashboard(nickname).addDevCards(card,position);
     }
 
     /**
@@ -140,8 +134,7 @@ public class ClientGameStatus {
      * @param firstRow new firstRow
      */
     public void updateFirstRow(String nickname,CounterTop firstRow){
-        PlayerDashboard p = getClientDashboard(nickname);
-        p.getStorage().setFirstRow(firstRow);
+        getClientDashboard(nickname).getStorage().setFirstRow(firstRow);
     }
 
     /**
@@ -150,8 +143,7 @@ public class ClientGameStatus {
      * @param secondRow new secondRow
      */
     public void updateSecondRow(String nickname,CounterTop secondRow){
-        PlayerDashboard p = getClientDashboard(nickname);
-        p.getStorage().setSecondRow(secondRow);
+        getClientDashboard(nickname).getStorage().setSecondRow(secondRow);
     }
 
     /**
@@ -160,8 +152,7 @@ public class ClientGameStatus {
      * @param thirdRow new thirdRow
      */
     public void updateThirdRow(String nickname,CounterTop thirdRow){
-        PlayerDashboard p = getClientDashboard(nickname);
-        p.getStorage().setThirdRow(thirdRow);
+        getClientDashboard(nickname).getStorage().setThirdRow(thirdRow);
     }
 
     /**
@@ -170,8 +161,7 @@ public class ClientGameStatus {
      * @param bufferProduction new BufferProduction
      */
     public void updateBufferProduction(String nickname,ResourceCount bufferProduction){
-        PlayerDashboard p = getClientDashboard(nickname);
-        p.setBufferProduction(bufferProduction);
+        getClientDashboard(nickname).setBufferProduction(bufferProduction);
     }
 
     /**

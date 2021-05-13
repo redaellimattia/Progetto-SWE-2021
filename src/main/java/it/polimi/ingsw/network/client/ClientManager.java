@@ -39,9 +39,8 @@ public class ClientManager {
      * @param socketPort port chosen
      */
     public ClientManager(String address, int socketPort,String choice) {
-        //qui verrà avviata la view e questa prenderà tutte le informazioni dal client
         initLogger();
-        this.nickname = "defaultNickname"; //------------DEBUG------------------
+        this.nickname = "defaultNickname";
         if(choice.equals("-cli"))
             this.view = new Cli(this);
         //else
@@ -99,6 +98,7 @@ public class ClientManager {
     }
 
     /**
+     * Creates and sends a JoinGameMessage
      *
      * @param serverThreadID chosen serverID for the game to join
      */
