@@ -5,9 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import it.polimi.ingsw.network.client.ClientManager;
-import it.polimi.ingsw.network.client.ClientSocket;
 import it.polimi.ingsw.network.enumeration.ServerMessageType;
-import it.polimi.ingsw.network.messages.clientMessages.actionMessages.ActionMessage;
 import it.polimi.ingsw.network.messages.serverMessages.updates.MarketUpdateMessage;
 import it.polimi.ingsw.network.messages.serverMessages.updates.PlayerUpdateMessage;
 import it.polimi.ingsw.network.messages.serverMessages.updates.ShopUpdateMessage;
@@ -40,14 +38,24 @@ public abstract class ServerMessage {
                 return gson.fromJson(msg,PingMessage.class);
             case PREGAME:
                 return gson.fromJson(msg,PreGameMessage.class);
-            case ERROR:
-                return gson.fromJson(msg,ErrorMessage.class);
+            case PRINTMESSAGE:
+                return gson.fromJson(msg,PrintMessage.class);
             case SHOPUPDATE:
                 return gson.fromJson(msg, ShopUpdateMessage.class);
             case MARKETUPDATE:
                 return gson.fromJson(msg, MarketUpdateMessage.class);
             case PLAYERUPDATE:
                 return PlayerUpdateMessage.deserializePlayerUpdate(jsonObj);
+            case INITGAMESTATUS:
+                return gson.fromJson(msg, InitGameStatusMessage.class);
+            case WAITYOURTURN:
+                return gson.fromJson(msg, WaitYourTurnMessage.class);
+            case ENDSINGLEPLAYERGAME:
+                return gson.fromJson(msg, EndSinglePlayerGameMessage.class);
+            case ENDMULTIPLAYERGAME:
+                return gson.fromJson(msg, EndMultiPlayerGameMessage.class);
+            case INITKNOWNPLAYER:
+                return gson.fromJson(msg, InitKnownPlayerMessage.class);
             default:
                 throw new IllegalArgumentException("ServerMessageType not valid.");
         }
@@ -61,23 +69,6 @@ public abstract class ServerMessage {
      */
     public String serialize(){
         return gson.toJson(this);
-    }
-    public class PlayerPoints {
-        private final String player;
-        private final int victoryPoints;
-
-        public PlayerPoints(String player, int victoryPoints) {
-            this.player = player;
-            this.victoryPoints = victoryPoints;
-        }
-
-        public String getPlayer() {
-            return player;
-        }
-
-        public int getVictoryPoints() {
-            return victoryPoints;
-        }
     }
 }
 

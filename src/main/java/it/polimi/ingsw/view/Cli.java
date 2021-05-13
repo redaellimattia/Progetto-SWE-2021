@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.ClientManager;
+import it.polimi.ingsw.network.client.PlayerPoints;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 
 import java.io.PrintStream;
@@ -352,6 +353,15 @@ public class Cli implements View {
 
     }
 
+    @Override
+    public void endGame(boolean lorenzoWin, PlayerPoints playerPoints){
+
+    }
+
+    @Override
+    public void endGame(ArrayList<PlayerPoints> scoreboard){
+
+    }
     @Override
     public void printMsg(String msg){
         out.println(msg);

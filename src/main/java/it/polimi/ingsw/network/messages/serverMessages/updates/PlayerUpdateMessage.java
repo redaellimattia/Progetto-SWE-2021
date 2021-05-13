@@ -41,7 +41,6 @@ public abstract class PlayerUpdateMessage extends ServerMessage {
                 return gson.fromJson(jsonObj, ArrayDepositUpdateMessage.class);
             case DEVCARDS:
                 return gson.fromJson(jsonObj, DevCardsUpdateMessage.class);
-
             case DISCARDLEADER:
             case INGAMELEADER:
                 return gson.fromJson(jsonObj, LeaderUpdateMessage.class);
@@ -51,6 +50,8 @@ public abstract class PlayerUpdateMessage extends ServerMessage {
             case SECONDROW:
             case THIRDROW:
                 return gson.fromJson(jsonObj, StorageUpdateMessage.class);
+            case VICTORYPOINTS:
+                return gson.fromJson(jsonObj, VictoryPointsUpdateMessage.class);
             default:
                 throw new IllegalArgumentException("playerUpdateType not found.");
         }
