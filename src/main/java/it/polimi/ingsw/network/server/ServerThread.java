@@ -80,7 +80,6 @@ public class ServerThread extends Thread implements Observer {
         timer.startPinging();
     }
 
-
     /**
      * Forwarding Round then telling the new player that it's his turn to play
      */
@@ -92,6 +91,7 @@ public class ServerThread extends Thread implements Observer {
         socketConnection.send(new YourTurnMessage().serialize());
         startPinging(socketConnection);
     }
+
     /**
      * Login of a player that disconnected before
      *
