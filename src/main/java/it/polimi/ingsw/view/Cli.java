@@ -307,26 +307,26 @@ public class Cli implements View {
             for(int j=0; j<4;j++) {
                 switch (grid[i][j].getColour()) {
                     case WHITE:
-                        out.println("[W] \t");
+                        out.print("[W] \t");
                         break;
                     case RED:
-                        out.println("[R] \t");
+                        out.print("[R] \t");
                         break;
                     case YELLOW:
-                        out.println("[Y] \t");
+                        out.print("[Y] \t");
                         break;
                     case GREY:
-                        out.println("[G] \t");
+                        out.print("[G] \t");
                         break;
                     case PURPLE:
-                        out.println("[P] \t");
+                        out.print("[P] \t");
                         break;
                     case BLUE:
-                        out.println("[B] \t");
+                        out.print("[B] \t");
                         break;
                 }
             }
-            out.println("\n");
+            out.print("\n");
         }
         out.println("Legend: W -> White | R -> Red | Y -> Yellow | G -> Gray | P -> Purple | -> B -> Blue ");
     }
