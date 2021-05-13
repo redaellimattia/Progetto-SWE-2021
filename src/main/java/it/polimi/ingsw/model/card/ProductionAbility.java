@@ -45,4 +45,9 @@ public class ProductionAbility extends SpecialAbility {
         ProductionAbility c = (ProductionAbility) o;
         return this.getResourceType().equals(c.getResourceType()); //True if same values
     }
+
+    @Override
+    public String toString(){
+        return "You can use these cart to obtain a chosen resource and a faith point using a: " + getResourceType();
+    }
 }

@@ -41,4 +41,9 @@ public class DiscountAbility extends SpecialAbility {
         DiscountAbility c = (DiscountAbility) o;
         return this.getResourceType().equals(c.getResourceType()); //True if same values
     }
+
+    @Override
+    public String toString(){
+        return "This card grant a discount of 1 " + getResourceType() + " when buying a new card!";
+    }
 }

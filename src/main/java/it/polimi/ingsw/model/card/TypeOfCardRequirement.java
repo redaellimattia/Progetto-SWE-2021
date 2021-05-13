@@ -74,11 +74,8 @@ public class TypeOfCardRequirement implements Requirement {
         TypeOfCardRequirement c = (TypeOfCardRequirement) o;
         return this.cardColours.equals(c.getCardColours()); // true if same colourCount
     }
-    public CardColour getColour(){return null;}
-    public int getLevel() {
-        return 0;
-    }
-    public ResourceCount getResources() {
-        return null;
+    @Override
+    public String toString(){
+        return "You need these type of cards: " + cardColours.toString() + "to play this card;";
     }
 }

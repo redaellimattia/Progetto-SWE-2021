@@ -56,11 +56,9 @@ public class ResourceRequirement implements Requirement {
         ResourceRequirement c = (ResourceRequirement) o;
         return this.resources.equals(c.getResources()); // true if same resourceCount
     }
-    public CardColour getColour(){return null;}
-    public int getLevel() {
-        return 0;
-    }
-    public ColourCount getCardColours() {
-        return null;
+
+    @Override
+    public String toString(){
+        return "You need these resources: " + resources.toString() + "to play this card;";
     }
 }

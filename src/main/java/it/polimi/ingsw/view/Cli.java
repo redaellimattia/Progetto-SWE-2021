@@ -1,8 +1,8 @@
 package it.polimi.ingsw.view;
 
-import it.polimi.ingsw.model.MarketDashboard;
-import it.polimi.ingsw.model.MarketMarble;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
+import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
@@ -15,8 +15,8 @@ import java.util.concurrent.FutureTask;
 public class Cli implements View {
 
     private final PrintStream out;
-    private Thread inputThread;
-    private ClientManager clientManager;
+
+    private final ClientManager clientManager;
 
     public Cli(ClientManager clientManager){
         this.out = new PrintStream(System.out,true);
@@ -29,7 +29,7 @@ public class Cli implements View {
      */
     public String readLine(){
         FutureTask<String> futureTask = new FutureTask<>(new InputReadTask());
-        inputThread = new Thread(futureTask);
+        Thread inputThread = new Thread(futureTask);
         inputThread.start();
 
         String input = null;
@@ -210,9 +210,9 @@ public class Cli implements View {
                 chosen = Integer.parseInt(chosenID);
             }while(!id.contains(chosen));
 
-            for(int i=0; i<leaders.size();i++)
-                if(leaders.get(i).getId() == chosen)
-                    leadersChosen.add(leaders.get(i));
+            for (LeaderCard leader : leaders)
+                if (leader.getId() == chosen)
+                    leadersChosen.add(leader);
 
             counter++;
         }while(counter != 2);
@@ -223,45 +223,12 @@ public class Cli implements View {
         for (LeaderCard l: leaders) {
             out.println("ID: " + l.getId() + "\n" +
                     "Victory Points: " + l.getVictoryPoints() +"\n");
+            //REQUIREMENT PRINT
             Requirement requirement = l.getRequirement();
-            //TO-DO WHEN GETTERS ARE DONE PROPERLY
-            if(requirement.equals(CardLevelRequirement.class)){
-                out.println("You need a " + requirement.getColour() + "card of level: " + requirement.getLevel() +" to play this;");
-            }
-            if(requirement.equals(ResourceRequirement.class)){
-                out.println("You need these resources: ");
-                if(requirement.getResources().getCoins() !=0)
-                    out.println("COINS: " + requirement.getResources().getCoins());
-                if(requirement.getResources().getRocks() !=0)
-                    out.println("ROCKS: " + requirement.getResources().getRocks());
-                if(requirement.getResources().getServants() !=0)
-                    out.println("SERVANTS: " + requirement.getResources().getServants());
-                if(requirement.getResources().getShields() !=0)
-                    out.println("SHIELDS: " + requirement.getResources().getShields());
-                out.println("to play this card.");
-            }
-            if(requirement.equals(TypeOfCardRequirement.class)){
-                out.println("You need these type of cards: ");
-                if(requirement.getCardColours().getGreen() !=0)
-                    out.println("GREEN: " + requirement.getCardColours().getGreen());
-                if(requirement.getCardColours().getBlue() !=0)
-                    out.println("BLUE: " + requirement.getCardColours().getBlue());
-                if(requirement.getCardColours().getPurple() !=0)
-                    out.println("PURPLE: " + requirement.getCardColours().getPurple());
-                if(requirement.getCardColours().getYellow() !=0)
-                    out.println("YELLOW: " + requirement.getCardColours().getYellow());
-                out.println("to play this card.");
-            }
+            out.println(requirement.toString());
             //SPECIALABILITY PRINT:
             SpecialAbility specialAbility = l.getSpecialAbility();
-            if(specialAbility.equals(DepositAbility.class))
-                out.println("Add a deposit that can contain 2 " + specialAbility.getResourceType());
-            if(specialAbility.equals(DiscountAbility.class))
-                out.println("This card grant a discount of 1 " + specialAbility.getResourceType() + " when buying a new card!");
-            if(specialAbility.equals(ProductionAbility.class))
-                out.println("You can use these cart to obtain a chosen resource and a faith point using a: " + specialAbility.getResourceType());
-            if(specialAbility.equals(WhiteChangeAbility.class))
-                out.println("This card will permit you to change a white marble to a " + specialAbility.getResourceType());
+            out.println(specialAbility.toString());
         }
     }
 
@@ -276,8 +243,8 @@ public class Cli implements View {
                 out.println("Choose between 4 types of resources: \n" +
                         "COINS: digit C;" +
                         "ROCKS: digit R;" +
-                        "SHIELDS: digit SH" +
-                        "SERVANTS: digit SE");
+                        "SHIELDS: digit SH;" +
+                        "SERVANTS: digit SE;");
                 resource = readLine();
             }while(!resource.equalsIgnoreCase("c") || !resource.equalsIgnoreCase("r") || !resource.equalsIgnoreCase("sh") || !resource.equalsIgnoreCase("se"));
 
@@ -295,6 +262,10 @@ public class Cli implements View {
 
         return resources;
     }
+    public void waitingForTurn(){
+
+
+    }
     private void clearCli(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -307,29 +278,75 @@ public class Cli implements View {
             for(int j=0; j<4;j++) {
                 switch (grid[i][j].getColour()) {
                     case WHITE:
-                        out.println("[W] \t");
+                        out.print("[W] \t");
                         break;
                     case RED:
-                        out.println("[R] \t");
+                        out.print("[R] \t");
                         break;
                     case YELLOW:
-                        out.println("[Y] \t");
+                        out.print("[Y] \t");
                         break;
                     case GREY:
-                        out.println("[G] \t");
+                        out.print("[G] \t");
                         break;
                     case PURPLE:
-                        out.println("[P] \t");
+                        out.print("[P] \t");
                         break;
                     case BLUE:
-                        out.println("[B] \t");
+                        out.print("[B] \t");
                         break;
                 }
             }
-            out.println("\n");
+            out.print("\n");
         }
         out.println("Legend: W -> White | R -> Red | Y -> Yellow | G -> Gray | P -> Purple | -> B -> Blue ");
     }
+
+    private void printShop(){
+        Deck[][] shop = clientManager.getGameStatus().getShop().getGrid();
+        ArrayList<Integer> idLine = new ArrayList<>();
+        ArrayList<Integer> vPointsLine = new ArrayList<>();
+        ArrayList<Integer> levelLine = new ArrayList<>();
+        ArrayList<CardColour> colourLine = new ArrayList<>();
+        ArrayList<ResourceCount> costLine = new ArrayList<>();
+        ArrayList<Production> productionLine = new ArrayList<>();
+
+        for(int i=0; i<3; i++){
+            for(int j=0; j<4; j++){
+                idLine.add(shop[i][j].getFirst().getId());
+                vPointsLine.add(shop[i][j].getFirst().getVictoryPoints());
+                levelLine.add(shop[i][j].getFirst().getLevel());
+                colourLine.add(shop[i][j].getFirst().getColour());
+                costLine.add(shop[i][j].getFirst().getCost());
+                productionLine.add(shop[i][j].getFirst().getProductionPower());
+            }
+            for(int j=0; j<4; j++)
+                out.println("|ID: "+ idLine.get(j) + " \t|");
+            for(int j=0; j<4; j++)
+                out.println("|Victory Points: "+ vPointsLine.get(j) + "\t|");
+            for(int j=0; j<4; j++)
+                out.println("|Level: "+ levelLine.get(j) + "\t|");
+            for(int j=0; j<4; j++)
+                out.println("|Colour: "+ colourLine.get(j) + "\t|");
+            for(int j=0; j<4; j++) {
+                out.print("|Cost: ");
+                costLine.get(j).toString();
+                out.print("\t|");
+                out.print("\n");
+            }
+            for(int j=0; j<4; j++) {
+                out.print("|Production: ");
+                out.print("Cost ->");
+                productionLine.get(j).getInput().toString();
+                out.print("Outcome -> ");
+                productionLine.get(j).getOutput().toString();
+                out.print("\t|");
+                out.print("\n");
+            }
+            out.print("\n\n");
+        }
+    }
+
 
     @Override
     public void printMsg(String msg){

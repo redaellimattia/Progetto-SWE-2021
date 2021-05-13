@@ -12,4 +12,5 @@ public interface View {
     void joinExistingGame(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies);
     void printMsg(String msg);
     void preGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources);
+    void waitingForTurn();
 }

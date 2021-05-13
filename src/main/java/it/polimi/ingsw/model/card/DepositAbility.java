@@ -42,4 +42,9 @@ public class  DepositAbility extends SpecialAbility {
         DepositAbility c = (DepositAbility) o;
         return this.getResourceType().equals(c.getResourceType()); //True if same values
     }
+
+    @Override
+    public String toString(){
+        return "Add a deposit that can contain 2"  + getResourceType();
+    }
 }

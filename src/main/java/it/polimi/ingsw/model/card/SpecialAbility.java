@@ -45,4 +45,6 @@ public abstract class SpecialAbility {
      * @return Resource of the Card
      */
     public Resource useWhiteChangeAbility(){return null;}  //Used in WhiteChangeAbility
+
+    public String toString(){return null;}
 }
