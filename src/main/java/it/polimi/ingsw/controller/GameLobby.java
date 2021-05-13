@@ -218,7 +218,16 @@ public class GameLobby {
     public boolean readyToCreateGame(){
         return numberOfPlayers == players.size();
     }
-    public ArrayList<LeaderCard> getFourLeaders(String nickname){ return null;}
+    public ArrayList<LeaderCard> getFourLeaders(String nickname){
+        int startPos;
+        ArrayList<LeaderCard> output = new ArrayList<LeaderCard>();
+        // Each player gets 4 cards, so cards 0-3 are for the player with pos=0, cards 4-7 for player with pos = 1 and so on
+        startPos = players.indexOf(nickname) * 4;
+        for(int i = 0; i < 4; i++) {
+            output.add(leadersDeck.get(startPos + i));
+        }
+        return null;
+    }
 
     /**
      * method used in pregame to give a faith point to the 3rd and 4th player, if there are any
