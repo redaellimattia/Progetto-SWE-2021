@@ -15,8 +15,8 @@ import java.util.concurrent.FutureTask;
 public class Cli implements View {
 
     private final PrintStream out;
-    private Thread inputThread;
-    private ClientManager clientManager;
+
+    private final ClientManager clientManager;
 
     public Cli(ClientManager clientManager){
         this.out = new PrintStream(System.out,true);
@@ -29,7 +29,7 @@ public class Cli implements View {
      */
     public String readLine(){
         FutureTask<String> futureTask = new FutureTask<>(new InputReadTask());
-        inputThread = new Thread(futureTask);
+        Thread inputThread = new Thread(futureTask);
         inputThread.start();
 
         String input = null;
@@ -210,9 +210,9 @@ public class Cli implements View {
                 chosen = Integer.parseInt(chosenID);
             }while(!id.contains(chosen));
 
-            for(int i=0; i<leaders.size();i++)
-                if(leaders.get(i).getId() == chosen)
-                    leadersChosen.add(leaders.get(i));
+            for (LeaderCard leader : leaders)
+                if (leader.getId() == chosen)
+                    leadersChosen.add(leader);
 
             counter++;
         }while(counter != 2);
@@ -223,35 +223,12 @@ public class Cli implements View {
         for (LeaderCard l: leaders) {
             out.println("ID: " + l.getId() + "\n" +
                     "Victory Points: " + l.getVictoryPoints() +"\n");
-            Requirement requirement = l.getRequirement();
             //REQUIREMENT PRINT
-            if(requirement.equals(CardLevelRequirement.class)){
-                out.println("You need a " + requirement.getColour() + "card of level: " + requirement.getLevel() +" to play this;");
-            }
-            if(requirement.equals(ResourceRequirement.class)){
-                out.println("You need these resources: ");
-                ResourceCount resources = requirement.getResources();
-                printResourceCount(resources);
-                out.print("\n");
-                out.println("to play this card.");
-            }
-            if(requirement.equals(TypeOfCardRequirement.class)){
-                out.println("You need these type of cards: ");
-                ColourCount colourCount = requirement.getCardColours();
-                printColourCount(colourCount);
-                out.print("\n");
-                out.println("to play this card.");
-            }
+            Requirement requirement = l.getRequirement();
+            out.println(requirement.toString());
             //SPECIALABILITY PRINT:
             SpecialAbility specialAbility = l.getSpecialAbility();
-            if(specialAbility.equals(DepositAbility.class))
-                out.println("Add a deposit that can contain 2 " + specialAbility.getResourceType());
-            if(specialAbility.equals(DiscountAbility.class))
-                out.println("This card grant a discount of 1 " + specialAbility.getResourceType() + " when buying a new card!");
-            if(specialAbility.equals(ProductionAbility.class))
-                out.println("You can use these cart to obtain a chosen resource and a faith point using a: " + specialAbility.getResourceType());
-            if(specialAbility.equals(WhiteChangeAbility.class))
-                out.println("This card will permit you to change a white marble to a " + specialAbility.getResourceType());
+            out.println(specialAbility.toString());
         }
     }
 
@@ -284,6 +261,10 @@ public class Cli implements View {
         }while(counter != 0);
 
         return resources;
+    }
+    public void waitingForTurn(){
+
+
     }
     private void clearCli(){
         System.out.print("\033[H\033[2J");
@@ -349,16 +330,16 @@ public class Cli implements View {
                 out.println("|Colour: "+ colourLine.get(j) + "\t|");
             for(int j=0; j<4; j++) {
                 out.print("|Cost: ");
-                printResourceCount(costLine.get(j));
+                costLine.get(j).toString();
                 out.print("\t|");
                 out.print("\n");
             }
             for(int j=0; j<4; j++) {
                 out.print("|Production: ");
                 out.print("Cost ->");
-                printResourceCount(productionLine.get(j).getInput());
+                productionLine.get(j).getInput().toString();
                 out.print("Outcome -> ");
-                printResourceCount(productionLine.get(j).getOutput());
+                productionLine.get(j).getOutput().toString();
                 out.print("\t|");
                 out.print("\n");
             }
@@ -366,27 +347,7 @@ public class Cli implements View {
         }
     }
 
-    private void printResourceCount(ResourceCount resourceCount){
-        if(resourceCount.getCoins() !=0)
-            out.print("COINS: " + resourceCount.getCoins());
-        if(resourceCount.getRocks() !=0)
-            out.print(" ROCKS: " + resourceCount.getRocks());
-        if(resourceCount.getServants() !=0)
-            out.print(" SERVANTS: " + resourceCount.getServants());
-        if(resourceCount.getShields() !=0)
-            out.print(" SHIELDS: " + resourceCount.getShields());
-    }
 
-    private void printColourCount(ColourCount colourCount){
-        if(colourCount.getGreen() !=0)
-            out.print(" GREEN: " + colourCount.getGreen());
-        if(colourCount.getBlue() !=0)
-            out.print(" BLUE: " + colourCount.getBlue());
-        if(colourCount.getPurple() !=0)
-            out.print(" PURPLE: " + colourCount.getPurple());
-        if(colourCount.getYellow() !=0)
-            out.print (" YELLOW: " + colourCount.getYellow());
-    }
     @Override
     public void printMsg(String msg){
         out.println(msg);

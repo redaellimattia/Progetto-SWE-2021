@@ -262,4 +262,18 @@ public class ResourceCount {
         return this.getCoins() == c.getCoins() && this.getRocks() == c.getRocks() &&
                 this.getServants() == c.getServants() && this.getShields() == c.getShields() && this.getFaith() == c.getFaith();
     }
+
+    public String toString(){
+        String count = "";
+        if(this.getCoins() !=0)
+            count += ("COINS: " + this.getCoins());
+        if(this.getRocks() !=0)
+            count +=(" ROCKS: " + this.getRocks());
+        if(this.getServants() !=0)
+            count += (" SERVANTS: " + this.getServants());
+        if(this.getShields() !=0)
+            count += (" SHIELDS: " + this.getShields());
+
+        return count;
+    }
 }

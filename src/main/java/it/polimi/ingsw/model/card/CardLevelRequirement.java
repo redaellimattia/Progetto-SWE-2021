@@ -78,10 +78,9 @@ public class CardLevelRequirement implements Requirement {
         CardLevelRequirement c = (CardLevelRequirement) o;
         return this.colour.equals(c.getColour()) && this.level == c.getLevel(); //True if same values
     }
-    public ColourCount getCardColours() {
-        return null;
-    }
-    public ResourceCount getResources() {
-        return null;
+
+    @Override
+    public String toString(){
+        return "You need a " + colour + "card of level: " + level +" to play this";
     }
 }

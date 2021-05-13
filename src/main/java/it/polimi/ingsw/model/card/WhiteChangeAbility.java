@@ -39,4 +39,9 @@ public class WhiteChangeAbility extends SpecialAbility {
         WhiteChangeAbility c = (WhiteChangeAbility) o;
         return this.getResourceType().equals(c.getResourceType()); //True if same values
     }
+
+    @Override
+    public String toString(){
+        return "This card will permit you to change a white marble to a " + getResourceType();
+    }
 }

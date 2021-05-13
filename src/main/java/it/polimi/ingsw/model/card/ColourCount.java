@@ -184,4 +184,18 @@ public class ColourCount {
         return this.getGreen() == c.getGreen() && this.getYellow() == c.getYellow() &&
                 this.getBlue() == c.getBlue() && this.getPurple() == c.getPurple();
     }
+
+    public String toString(){
+        String count = "";
+        if(this.getGreen() !=0)
+           count +=(" GREEN: " + this.getGreen());
+        if(this.getBlue() !=0)
+            count +=(" BLUE: " + this.getBlue());
+        if(this.getPurple() !=0)
+            count +=(" PURPLE: " + this.getPurple());
+        if(this.getYellow() !=0)
+            count += (" YELLOW: " + this.getYellow());
+
+        return count;
+    }
 }
