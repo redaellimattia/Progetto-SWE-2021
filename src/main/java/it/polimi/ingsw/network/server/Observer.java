@@ -26,4 +26,5 @@ public interface Observer {
     void updateFirstRow(String nickname,CounterTop firstRow);
     void updateSecondRow(String nickname,CounterTop secondRow);
     void updateThirdRow(String nickname,CounterTop thirdRow);
+    void updateVictoryPoints(String nickname,int points);
 }

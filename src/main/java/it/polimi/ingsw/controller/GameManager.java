@@ -14,6 +14,7 @@ public class GameManager {
     private VaticanReport[] vReports;
     private boolean isSinglePlayer;
     private boolean gameMustEnd;
+    private boolean gameEnded;
 
     public GameManager(Game game, PlayerTurnManager turnManager,boolean isSinglePlayer) {
         this.game = game;
@@ -49,6 +50,10 @@ public class GameManager {
         this.gameMustEnd = true;
     }
 
+    public boolean isGameEnded() {
+        return gameEnded;
+    }
+
     /**
      *  check whether the  VaticanReports need to be activated || the game must end
      * @param player the player whom we need to check the FaithPath position
@@ -82,41 +87,11 @@ public class GameManager {
      * @param p the player we want to calculate the total points scored
      */
     public void calculatePoints(PlayerDashboard p){
-        //ADD POINT GIVEN BY DEVELOPMENTCARDS HE HAS IN GAME
-        for (int i = 0; i < 3; i++) {
-            ArrayList<DevelopmentCard> deck = p.getDevCards()[i].getDeck();
-            for (int j = 0; j < deck.size(); j++)
-                p.addPoints(deck.get(j).getVictoryPoints());
-        }
-        //POINTS GIVEN FROM THE FAITHPATH
-        int pos = p.getPathPosition();
-        if (pos >= 3 && pos <= 5)
-            p.addPoints(1);
-        if (pos >= 6 && pos <= 8)
-            p.addPoints(2);
-        if (pos >= 9 && pos <= 11)
-            p.addPoints(4);
-        if (pos >= 12 && pos <= 14)
-            p.addPoints(6);
-        if (pos >= 15 && pos <= 17)
-            p.addPoints(9);
-        if (pos >= 18 && pos <= 20)
-            p.addPoints(12);
-        if (pos >= 21 && pos <= 23)
-            p.addPoints(16);
-        if (pos == 24)
-            p.addPoints(20);
-
-        //POINTS GIVEN FROM LEADERCARDS IN GAME
-        for (int i = 0; i < p.getLeaderCards().size(); i++) {
-            if (p.getLeaderCards().get(i).isInGame())
-                p.addPoints(p.getLeaderCards().get(i).getVictoryPoints());
-        }
         //POINTS GIVEN FROM THE LEFT OVER RESOURCES
         int total = 0;
         total += ResourceCount.resCountToInt(p.getTotalResources());
         total += ResourceCount.resCountToInt(p.getAbilityDepositResources());
-        p.addPoints(total % 5);
+        p.addVictoryPoints(total % 5);
     }
 
     /**
@@ -137,6 +112,7 @@ public class GameManager {
                 //SUM THE TOTAL POINTS OF THE ONLY PLAYER
                 calculatePoints(game.getPlayers().get(0));
         }
+        gameEnded = true;
     }
 
     /**

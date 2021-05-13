@@ -252,6 +252,11 @@ public class ServerThread extends Thread implements Observer {
                     else
                         if(!gameLobby.isGameStarted()&&gameLobby.readyToStartGame())
                             startGame();
+                        /*else
+                            if(gameLobby.isGameStarted()&&gameLobby.getGameManager().isGameEnded()) {
+                                if(gameLobby.getNumberOfPlayers()==1)
+                                    sendToAll(new EndGameMessage(gameLobby.getGameManager().getGame().isLorenzoWin(),gameLobby.get).serialize());
+                            }*/
                 }
 
             }
@@ -353,6 +358,11 @@ public class ServerThread extends Thread implements Observer {
     @Override
     public void updateThirdRow(String nickname, CounterTop thirdRow) {
         sendToAll(new StorageUpdateMessage(PlayerUpdateType.THIRDROW,nickname,thirdRow).serialize());
+    }
+
+    @Override
+    public void updateVictoryPoints(String nickname, int points) {
+        sendToAll(new VictoryPointsUpdateMessage(nickname,points).serialize());
     }
 }
 

@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.server.Observer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PlayerDashboard extends Player implements StorageObserver{
     private int pathPosition;
@@ -17,6 +18,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
     private ArrayList<CounterTop> arrayDeposit;
     private ResourceCount bufferProduction;
     private Observer observer;
+    private boolean pointsFaithPath[];
 
     /**
      * Adds reference to the observer
@@ -57,6 +59,8 @@ public class PlayerDashboard extends Player implements StorageObserver{
         this.leaderCards = leaderCards;
         this.arrayDeposit = new ArrayList<>();
         bufferProduction = new ResourceCount(0,0,0,0,0);
+        this.pointsFaithPath = new boolean[8];
+        Arrays.fill(pointsFaithPath, Boolean.FALSE);
     }
 
     //GETTERS
@@ -158,6 +162,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
     //ADD A GIVEN DEVCARD TO A GIVEN DEVCARD DECK ON THE PLAYERDASHBOARD;
     public void addDevCards(DevelopmentCard card, int position){ //the controller checks before buying the card if the player can place it, then checks where to put it;
         devCards[position].addCard(card);
+        addPoints(card.getVictoryPoints());
         observer.updateDevCards(getNickname(),card,position);
     }
 
@@ -186,6 +191,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
      */
     public void updatePathPosition(){
         pathPosition += 1;
+        addPathPositionPoints();
         observer.updatePathPosition(getNickname(),pathPosition);
     }
 
@@ -296,13 +302,53 @@ public class PlayerDashboard extends Player implements StorageObserver{
         return -1;
     }
 
+    public void addPathPositionPoints(){
+        //POINTS GIVEN FROM THE FAITHPATH
+        int pos = getPathPosition();
+        if (pos >= 3 && pos <= 5 && !pointsFaithPath[0]) {
+            addVictoryPoints(1);
+            pointsFaithPath[0] = true;
+        }
+        if (pos >= 6 && pos <= 8 && !pointsFaithPath[1]) {
+            addVictoryPoints(2);
+            pointsFaithPath[1] = true;
+        }
+        if (pos >= 9 && pos <= 11 && !pointsFaithPath[2]) {
+            addVictoryPoints(4);
+            pointsFaithPath[2] = true;
+        }
+        if (pos >= 12 && pos <= 14 && !pointsFaithPath[3]) {
+            addVictoryPoints(6);
+            pointsFaithPath[3] = true;
+        }
+        if (pos >= 15 && pos <= 17 && !pointsFaithPath[4]) {
+            addVictoryPoints(9);
+            pointsFaithPath[4] = true;
+        }
+        if (pos >= 18 && pos <= 20 && !pointsFaithPath[5]) {
+            addVictoryPoints(12);
+            pointsFaithPath[5] = true;
+        }
+        if (pos >= 21 && pos <= 23 && !pointsFaithPath[6]) {
+            addVictoryPoints(16);
+            pointsFaithPath[6] = true;
+        }
+        if (pos == 24 && !pointsFaithPath[7]) {
+            addVictoryPoints(20);
+            pointsFaithPath[7] = true;
+        }
+    }
+
+
     /**
      *
      * @param position specific position of the leader the player wants to play
      */
     //SET THE LEADER AT THE GIVEN POSITION IN GAME (LEADERACTION)
     public void setLeaderInGame(int position){
-        this.getLeaderCards().get(position).setInGame();
+        LeaderCard leaderCard = this.getLeaderCards().get(position);
+        leaderCard.setInGame();
+        addVictoryPoints(leaderCard.getVictoryPoints());
         observer.updateInGameLeader(getNickname(),position);
     }
 
@@ -340,6 +386,10 @@ public class PlayerDashboard extends Player implements StorageObserver{
         observer.updateBufferProduction(getNickname(),bufferProduction);
     }
 
+    public void addVictoryPoints(int points){
+        addPoints(points);
+        observer.updateVictoryPoints(getNickname(),getPoints());
+    }
     @Override
     public void updateFirstRow(CounterTop firstRow) {
         observer.updateFirstRow(getNickname(),firstRow);

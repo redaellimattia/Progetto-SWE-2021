@@ -163,6 +163,16 @@ public class ClientGameStatus {
         getClientDashboard(nickname).setBufferProduction(bufferProduction);
     }
 
+
+    /**
+     * Updates player's victoryPoints
+     * @param nickname nickname of the player
+     * @param victoryPoints updated victoryPoints
+     */
+    public void updateVictoryPoints(String nickname,int victoryPoints){
+        getClientDashboard(nickname).setPoints(victoryPoints);
+    }
+
     /**
      *
      * @param nickname nickname of the player we want the dashboard

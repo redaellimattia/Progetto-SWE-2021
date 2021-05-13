@@ -19,6 +19,10 @@ public abstract class Player implements Comparable<Player>{
         isPlaying = playing;
     }
 
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
     public String getNickname() {
         return nickname;
     }

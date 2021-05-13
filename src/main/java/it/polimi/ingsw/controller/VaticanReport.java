@@ -23,7 +23,7 @@ public class VaticanReport {
         for (PlayerDashboard p: players) {
             int pos = p.getPathPosition();
             if(pos >= start && pos <= finish)
-                p.addPoints(victoryPoints);
+                p.addVictoryPoints(victoryPoints);
         }
         isUsed = true;
     }
