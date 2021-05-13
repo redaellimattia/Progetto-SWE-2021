@@ -7,11 +7,11 @@ import it.polimi.ingsw.network.enumeration.ServerMessageType;
 import java.util.ArrayList;
 
 public class ReturnLobbiesMessage extends ServerMessage {
-    private ArrayList<availableGameLobbies> availableGameLobbies = new ArrayList<>();
+    private ArrayList<availableGameLobbies> availableGameLobbies;
 
     public ReturnLobbiesMessage(ArrayList<GameLobby> gameLobbies) {
         super(ServerMessageType.LOBBIES);
-
+        availableGameLobbies = new ArrayList<>();
         for(GameLobby g:gameLobbies)
             availableGameLobbies.add(new availableGameLobbies(g.getServerThreadID(),g.getNumberOfPlayers(),g.getPlayers()));
     }

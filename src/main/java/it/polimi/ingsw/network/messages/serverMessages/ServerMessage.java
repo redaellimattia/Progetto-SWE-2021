@@ -42,8 +42,6 @@ public abstract class ServerMessage {
                 return gson.fromJson(msg,PreGameMessage.class);
             case ERROR:
                 return gson.fromJson(msg,ErrorMessage.class);
-            case STARTGAME:
-                return gson.fromJson(msg,StartGameMessage.class);
             case SHOPUPDATE:
                 return gson.fromJson(msg, ShopUpdateMessage.class);
             case MARKETUPDATE:
@@ -64,4 +62,22 @@ public abstract class ServerMessage {
     public String serialize(){
         return gson.toJson(this);
     }
+    public class PlayerPoints {
+        private final String player;
+        private final int victoryPoints;
+
+        public PlayerPoints(String player, int victoryPoints) {
+            this.player = player;
+            this.victoryPoints = victoryPoints;
+        }
+
+        public String getPlayer() {
+            return player;
+        }
+
+        public int getVictoryPoints() {
+            return victoryPoints;
+        }
+    }
 }
+

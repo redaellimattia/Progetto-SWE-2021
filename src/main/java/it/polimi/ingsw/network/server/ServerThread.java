@@ -252,11 +252,13 @@ public class ServerThread extends Thread implements Observer {
                     else
                         if(!gameLobby.isGameStarted()&&gameLobby.readyToStartGame())
                             startGame();
-                        /*else
+                        else
                             if(gameLobby.isGameStarted()&&gameLobby.getGameManager().isGameEnded()) {
                                 if(gameLobby.getNumberOfPlayers()==1)
-                                    sendToAll(new EndGameMessage(gameLobby.getGameManager().getGame().isLorenzoWin(),gameLobby.get).serialize());
-                            }*/
+                                    sendToAll(new EndSinglePlayerGameMessage(gameLobby.getGameManager().getGame().isLorenzoWin(),gameLobby.getGameManager().getGame().getPlayers()).serialize());
+                                else
+                                    sendToAll(new EndMultiPlayerGameMessage(gameLobby.getGameManager().getGame().getPlayers()).serialize());
+                            }
                 }
 
             }
