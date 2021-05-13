@@ -330,16 +330,16 @@ public class Cli implements View {
                 out.println("|Colour: "+ colourLine.get(j) + "\t|");
             for(int j=0; j<4; j++) {
                 out.print("|Cost: ");
-                costLine.get(j).toString();
+                out.print(costLine.get(j).toString());
                 out.print("\t|");
                 out.print("\n");
             }
             for(int j=0; j<4; j++) {
                 out.print("|Production: ");
                 out.print("Cost ->");
-                productionLine.get(j).getInput().toString();
+                out.print(productionLine.get(j).getInput().toString());
                 out.print("Outcome -> ");
-                productionLine.get(j).getOutput().toString();
+                out.print(productionLine.get(j).getOutput().toString());
                 out.print("\t|");
                 out.print("\n");
             }
