@@ -244,7 +244,7 @@ public class GameLobby {
 
     public ArrayList<LeaderCard> getFourLeaders(String nickname){
         int startPos;
-        ArrayList<LeaderCard> output = new ArrayList<LeaderCard>();
+        ArrayList<LeaderCard> output = new ArrayList<>();
         // Each player gets 4 cards, so cards 0-3 are for the player with pos=0, cards 4-7 for player with pos = 1 and so on
         startPos = players.indexOf(nickname) * 4;
         for(int i = 0; i < 4; i++) {

@@ -38,7 +38,7 @@ public class Cli implements View {
         try {
             try {
                 input = futureTask.get();
-            }catch (ExecutionException e){}
+            }catch (ExecutionException e){out.println(e.getMessage());}
         } catch (InterruptedException e) {
             futureTask.cancel(true);
             Thread.currentThread().interrupt();
@@ -116,7 +116,6 @@ public class Cli implements View {
 
     @Override
     public void joinExistingGame(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies){
-        clearCli();
         out.println("Now you can choose the game to join! ");
         String nickname = askForNickname();
         clientManager.setNickname(nickname);
@@ -247,7 +246,7 @@ public class Cli implements View {
                         "SHIELDS: digit SH;" +
                         "SERVANTS: digit SE;");
                 resource = readLine();
-            }while(!resource.equalsIgnoreCase("c") || !resource.equalsIgnoreCase("r") || !resource.equalsIgnoreCase("sh") || !resource.equalsIgnoreCase("se"));
+            }while(!resource.equalsIgnoreCase("c") && !resource.equalsIgnoreCase("r") && !resource.equalsIgnoreCase("sh") && !resource.equalsIgnoreCase("se"));
 
             if(resource.equalsIgnoreCase("c"))
                 resources.add(Resource.COIN);
@@ -267,9 +266,9 @@ public class Cli implements View {
 
 
     }
-    private void clearCli(){
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+    private void clearCli() {
+        out.print("\033[H\033[2J");
+        out.flush();
     }
 
     private void printMarket(){
