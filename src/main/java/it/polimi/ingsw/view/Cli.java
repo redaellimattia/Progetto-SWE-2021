@@ -262,15 +262,61 @@ public class Cli implements View {
 
         return resources;
     }
+    @Override
     public void waitingForTurn(){
-
-
+        String input;
+        clearCli();
+        out.println("Wait for the other players to play their turn, in the meantime you can peek around the board to keep updated.");
+            do{
+                out.println("Choose what you want to see:" +
+                        "Market: digit M;" +
+                        "Shop: digit S;" +
+                        "Players: digit P;");
+                input = readLine();
+            }while(!input.equalsIgnoreCase("m") && !input.equalsIgnoreCase("s") && !input.equalsIgnoreCase("p"));
+            if(input.equalsIgnoreCase("m")){
+                clearCli();
+                printMarket();
+                do{
+                    out.println("Digit \"esc\" to go back.");
+                    input = readLine();
+                }while(!input.equalsIgnoreCase("esc"));
+                waitingForTurn();
+            }
+            if(input.equalsIgnoreCase("s")){
+                clearCli();
+                printShop();
+                do{
+                    out.println("Digit \"esc\" to go back.");
+                    input = readLine();
+                }while(!input.equalsIgnoreCase("esc"));
+                waitingForTurn();
+            }
+            if(input.equalsIgnoreCase("p")){
+                clearCli();
+                ArrayList<String> nicknames = new ArrayList<>();
+                for (PlayerDashboard p :clientManager.getGameStatus().getPlayers()) {
+                    nicknames.add(p.getNickname());
+                }
+                do{
+                    out.println("Choose which player you want to see: ");
+                    for (String s: nicknames) {
+                        out.print("|" + s + "|\t");
+                    }
+                    input = readLine();
+                }while(!nicknames.contains(input));
+                printPlayer(input);
+                do{
+                    out.println("Digit \"esc\" to go back.");
+                    input = readLine();
+                }while(!input.equalsIgnoreCase("esc"));
+                waitingForTurn();
+            }
     }
-    private void clearCli() {
-        out.print("\033[H\033[2J");
-        out.flush();
-    }
 
+    private void printPlayer(String nickname){
+        clearCli();
+    }
     private void printMarket(){
         MarketDashboard market = clientManager.getGameStatus().getMarket();
         MarketMarble[][] grid = market.getStructure();
@@ -385,5 +431,10 @@ public class Cli implements View {
     @Override
     public void printMsg(String msg){
         out.println(msg);
+    }
+
+    private void clearCli() {
+        out.print("\033[H\033[2J");
+        out.flush();
     }
 }
