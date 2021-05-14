@@ -23,6 +23,8 @@ class GameManagerTest {
         assertThrows(NullPointerException.class, () -> gameManager.checkFaithPath(players.get(0)));
         assertEquals(3,players.get(0).getPoints());
         assertEquals(1,players.get(1).getPoints());
+
+        //AlreadyUsed
         for(int i=0;i<8;i++)
             players.get(1).updatePathPosition();
         assertEquals(8,players.get(1).getPathPosition());
@@ -41,6 +43,8 @@ class GameManagerTest {
         assertThrows(NullPointerException.class, () -> gameManager.checkFaithPath(players.get(0)));
         assertEquals(4,players.get(0).getPoints());
         assertEquals(1,players.get(1).getPoints());
+
+        //AlreadyUsed
         for(int i=0;i<16;i++)
             players.get(1).updatePathPosition();
         assertEquals(16,players.get(1).getPathPosition());
@@ -59,6 +63,8 @@ class GameManagerTest {
         assertThrows(NullPointerException.class, () -> gameManager.checkFaithPath(players.get(0)));
         assertEquals(5,players.get(0).getPoints());
         assertEquals(1,players.get(1).getPoints());
+
+        //AlreadyUsed
         for(int i=0;i<24;i++)
             players.get(1).updatePathPosition();
         assertEquals(24,players.get(1).getPathPosition());
@@ -68,6 +74,14 @@ class GameManagerTest {
 
     @Test
     void updateOpponentsPathPosition() {
+        ArrayList<PlayerDashboard> players = playerList();
+        Game game = new Game(players,null,null,null);
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false,new ServerThread(2));
+        gameManager.updateOpponentsPathPosition(players.get(0));
+        //Other players get 1 position increment
+        assertEquals(1,players.get(1).getPathPosition());
+        assertEquals(1,players.get(2).getPathPosition());
+        assertEquals(1,players.get(3).getPathPosition());
     }
 
     @Test
@@ -93,11 +107,10 @@ class GameManagerTest {
     ArrayList<PlayerDashboard> playerList(){
         ArrayList<PlayerDashboard> players = new ArrayList<>();
         for(int i=0;i<4;i++)
-            players.add(createPlayer(i+1));
+            players.add(createPlayer(""+i,i+1));
         return players;
     }
-    PlayerDashboard createPlayer(int position){
-        String nickname = "Prova";
+    PlayerDashboard createPlayer(String nickname,int position){
         CounterTop firstRow = new CounterTop(Resource.COIN,1);
         CounterTop secondRow = new CounterTop(Resource.ROCK,2);
         CounterTop thirdRow = new CounterTop(Resource.SERVANT,0);
