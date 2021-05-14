@@ -101,7 +101,7 @@ public class ServerThread extends Thread implements Observer {
      */
     public void knownPlayerLogin(int playerPosition,String nickname,SocketConnection clientConnection){
         synchronized (gameLock) {
-            gameLobby.getGameManager().playerComeback(playerPosition, nickname);
+            gameLobby.getGameManager().playerComeback(playerPosition);
             clients.put(nickname, clientConnection);
             Server.LOGGER.log(Level.INFO, nickname + " is back in the lobby #" + getThreadId());
             clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());

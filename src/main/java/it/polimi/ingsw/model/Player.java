@@ -47,8 +47,8 @@ public abstract class Player implements Comparable<Player>{
 
     @Override
     public int compareTo(Player p){
-        if (this.getPoints() < p.getPoints()) return -1;
-        else if (this.getPoints() > p.getPoints()) return 1;
+        if (this.getPoints() > p.getPoints()) return -1;
+        else if (this.getPoints() < p.getPoints()) return 1;
         return 0;
     }
 

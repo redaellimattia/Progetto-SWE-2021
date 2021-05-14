@@ -92,37 +92,33 @@ public class GameManager {
      * @param p the player we want to calculate the total points scored
      */
     public void calculatePoints(PlayerDashboard p){
+        int points = 0;
         //POINTS GIVEN FROM THE FAITHPATH
         int pos = p.getPathPosition();
-        if (pos >= 3 && pos <= 5) {
-            p.addVictoryPoints(1);
-        }
-        if (pos >= 6 && pos <= 8) {
-            p.addVictoryPoints(2);
-        }
-        if (pos >= 9 && pos <= 11) {
-            p.addVictoryPoints(4);
-        }
-        if (pos >= 12 && pos <= 14) {
-            p.addVictoryPoints(6);
-        }
-        if (pos >= 15 && pos <= 17) {
-            p.addVictoryPoints(9);
-        }
-        if (pos >= 18 && pos <= 20) {
-            p.addVictoryPoints(12);
-        }
-        if (pos >= 21 && pos <= 23) {
-            p.addVictoryPoints(16);
-        }
-        if (pos == 24) {
-            p.addVictoryPoints(20);
-        }
+        if (pos >= 3 && pos <= 5)
+            points += 1;
+        if (pos >= 6 && pos <= 8)
+            points += 2;
+        if (pos >= 9 && pos <= 11)
+            points += 4;
+        if (pos >= 12 && pos <= 14)
+            points += 6;
+        if (pos >= 15 && pos <= 17)
+            points += 9;
+        if (pos >= 18 && pos <= 20)
+            points += 12;
+        if (pos >= 21 && pos <= 23)
+            points += 16;
+        if (pos == 24)
+            points += 20;
+
         //POINTS GIVEN FROM THE LEFT OVER RESOURCES
         int total = 0;
         total += ResourceCount.resCountToInt(p.getTotalResources());
         total += ResourceCount.resCountToInt(p.getAbilityDepositResources());
-        p.addVictoryPoints(total % 5);
+        points += total % 5;
+
+        p.addVictoryPoints(points);
     }
 
     /**
@@ -191,11 +187,11 @@ public class GameManager {
     }
 
     /**
+     * Sets knowPlayer as playing
      *
      * @param playerPosition position of the player in the arraylist
-     * @param nickname nickname of the player
      */
-    public void playerComeback(int playerPosition,String nickname){
+    public void playerComeback(int playerPosition){
         game.getPlayers().get(playerPosition).setPlaying(true);
     }
 }
