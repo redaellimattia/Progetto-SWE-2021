@@ -299,6 +299,27 @@ public class Cli implements View {
             }
             out.print("\n");
         }
+        out.println("The marble left out: ");
+            switch (market.getFreeMarble().getColour()){
+                case WHITE:
+                    out.println("[W] \t");
+                    break;
+                case RED:
+                    out.println("[R] \t");
+                    break;
+                case YELLOW:
+                    out.println("[Y] \t");
+                    break;
+                case GREY:
+                    out.println("[G] \t");
+                    break;
+                case PURPLE:
+                    out.println("[P] \t");
+                    break;
+                case BLUE:
+                    out.println("[B] \t");
+                    break;
+            }
         out.println("Legend: W -> White | R -> Red | Y -> Yellow | G -> Gray | P -> Purple | -> B -> Blue ");
     }
 

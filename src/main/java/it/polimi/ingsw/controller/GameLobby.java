@@ -292,13 +292,13 @@ public class GameLobby {
 
                 List<LeaderCard> checkLeaders = new ArrayList<>();
                 switch (p.getPosition()){
-                    case 1: checkLeaders = leadersDeck.subList(1,4);
+                    case 1: checkLeaders = leadersDeck.subList(0,3);
                         break;
-                    case 2: checkLeaders = leadersDeck.subList(5,8);
+                    case 2: checkLeaders = leadersDeck.subList(4,7);
                         break;
-                    case 3: checkLeaders = leadersDeck.subList(9,12);
+                    case 3: checkLeaders = leadersDeck.subList(8,11);
                         break;
-                    case 4: checkLeaders = leadersDeck.subList(13,16);
+                    case 4: checkLeaders = leadersDeck.subList(12,15);
                         break;
                 }
                 if(checkLeaders.contains(chosenLeaders.get(0)) && checkLeaders.contains(chosenLeaders.get(1))) {
