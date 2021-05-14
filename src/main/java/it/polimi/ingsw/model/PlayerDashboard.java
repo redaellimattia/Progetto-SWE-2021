@@ -191,8 +191,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
      */
     public void updatePathPosition(){
         pathPosition += 1;
-        addPathPositionPoints();
-        observer.updatePathPosition(getNickname(),pathPosition);
+        observer.updatePathPosition(this,pathPosition);
     }
 
     /**
@@ -303,40 +302,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
     }
 
     public void addPathPositionPoints(){
-        //POINTS GIVEN FROM THE FAITHPATH
-        int pos = getPathPosition();
-        if (pos >= 3 && pos <= 5 && !pointsFaithPath[0]) {
-            addVictoryPoints(1);
-            pointsFaithPath[0] = true;
-        }
-        if (pos >= 6 && pos <= 8 && !pointsFaithPath[1]) {
-            addVictoryPoints(2);
-            pointsFaithPath[1] = true;
-        }
-        if (pos >= 9 && pos <= 11 && !pointsFaithPath[2]) {
-            addVictoryPoints(4);
-            pointsFaithPath[2] = true;
-        }
-        if (pos >= 12 && pos <= 14 && !pointsFaithPath[3]) {
-            addVictoryPoints(6);
-            pointsFaithPath[3] = true;
-        }
-        if (pos >= 15 && pos <= 17 && !pointsFaithPath[4]) {
-            addVictoryPoints(9);
-            pointsFaithPath[4] = true;
-        }
-        if (pos >= 18 && pos <= 20 && !pointsFaithPath[5]) {
-            addVictoryPoints(12);
-            pointsFaithPath[5] = true;
-        }
-        if (pos >= 21 && pos <= 23 && !pointsFaithPath[6]) {
-            addVictoryPoints(16);
-            pointsFaithPath[6] = true;
-        }
-        if (pos == 24 && !pointsFaithPath[7]) {
-            addVictoryPoints(20);
-            pointsFaithPath[7] = true;
-        }
+
     }
 
 

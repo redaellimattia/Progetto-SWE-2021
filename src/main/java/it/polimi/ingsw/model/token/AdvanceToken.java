@@ -30,7 +30,6 @@ public class AdvanceToken implements SoloToken {
         int countSteps = steps;
         while(countSteps!=0) {
             lorenzo.updatePathPosition();
-            gameManager.checkFaithPath(lorenzo);
             countSteps--;
         }
         if(this.reRoll) {

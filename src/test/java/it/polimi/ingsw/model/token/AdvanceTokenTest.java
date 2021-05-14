@@ -8,6 +8,7 @@ import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.server.ServerThread;
+import it.polimi.ingsw.network.server.SocketConnection;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

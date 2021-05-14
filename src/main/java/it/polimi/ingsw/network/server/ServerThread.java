@@ -105,7 +105,7 @@ public class ServerThread extends Thread implements Observer {
             clients.put(nickname, clientConnection);
             Server.LOGGER.log(Level.INFO, nickname + " is back in the lobby #" + getThreadId());
             clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
-            clientConnection.send(new InitKnownPlayerMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop().getGrid(),gameLobby.getGameManager().getGame().getMarket()).serialize());
+            clientConnection.send(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(),gameLobby.getGameManager().getGame().getMarket()).serialize());
         }
     }
 
@@ -342,8 +342,10 @@ public class ServerThread extends Thread implements Observer {
     }
 
     @Override
-    public void updatePathPosition(String nickname, int position) {
-        sendToAll(new PathPositionUpdateMessage(nickname,position).serialize());
+    public void updatePathPosition(PlayerDashboard player, int position) {
+        if(gameLobby.getGameManager()!=null)
+            gameLobby.getGameManager().checkFaithPath(player);
+        sendToAll(new PathPositionUpdateMessage(player.getNickname(),position).serialize());
     }
 
     @Override

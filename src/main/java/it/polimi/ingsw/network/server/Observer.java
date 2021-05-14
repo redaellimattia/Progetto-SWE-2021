@@ -1,9 +1,6 @@
 package it.polimi.ingsw.network.server;
 
-import it.polimi.ingsw.model.CounterTop;
-import it.polimi.ingsw.model.Deck;
-import it.polimi.ingsw.model.MarketMarble;
-import it.polimi.ingsw.model.ResourceCount;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 
@@ -21,7 +18,7 @@ public interface Observer {
     void updateInitArrayDeposit(String nickname, Resource res);
     void updateDevCards(String nickname, DevelopmentCard card, int position);
     void updateRemoveLeader(String nickname, int position);
-    void updatePathPosition(String nickname,int position);
+    void updatePathPosition(PlayerDashboard player, int position);
     void updateInGameLeader(String nickname, int position);
     void updateFirstRow(String nickname,CounterTop firstRow);
     void updateSecondRow(String nickname,CounterTop secondRow);

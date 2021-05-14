@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.MarketDashboard;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.Shop;
 import it.polimi.ingsw.model.card.LeaderCard;
+import it.polimi.ingsw.model.card.Requirement;
+import it.polimi.ingsw.model.card.SpecialAbility;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
 import it.polimi.ingsw.network.messages.clientMessages.JoinGameMessage;
@@ -124,16 +126,18 @@ public class ClientManager {
         clientSocket.send(message);
     }
 
+    //Validating choices
+
     /**
-     * Creates a gameStatus instance as of the game is when the player comes back
+     * Checking if the requirement is covered by the player
      *
-     * @param players players actually connected
-     * @param shopGrid shopGrid
-     * @param market market
+     * @param req req affected
+     * @return true if playable
      */
-    public void initKnownPlayer(ArrayList<PlayerDashboard> players,Deck[][] shopGrid,MarketDashboard market){
-        gameStatus = new ClientGameStatus(players,new Shop(shopGrid),market);
+    public boolean isRequirementPossible(Requirement req){
+        return req.isPlayable(gameStatus.getClientDashboard(nickname));
     }
+
 
     /**
      * Creating logger file handler
