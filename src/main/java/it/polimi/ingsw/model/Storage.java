@@ -10,7 +10,7 @@ public class Storage {
     private CounterTop firstRow;
     private CounterTop secondRow;
     private CounterTop thirdRow;
-    private StorageObserver observer;
+    private transient StorageObserver observer;
 
     /**
      * Adds reference to the observer

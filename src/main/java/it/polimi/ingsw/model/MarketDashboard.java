@@ -5,7 +5,7 @@ import it.polimi.ingsw.network.server.Observer;
 public class MarketDashboard {
     private MarketMarble[][] structure;
     private MarketMarble freeMarble;
-    private Observer observer;
+    private transient Observer observer;
 
     /**
      * Adds reference to the observer

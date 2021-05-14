@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class Shop {
     private Deck[][] shopGrid;
-    private Observer observer;
+    private transient Observer observer;
 
     /**
      * Adds reference to the observer
