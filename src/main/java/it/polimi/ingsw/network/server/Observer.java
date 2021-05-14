@@ -27,4 +27,5 @@ public interface Observer {
     void updateSecondRow(String nickname,CounterTop secondRow);
     void updateThirdRow(String nickname,CounterTop thirdRow);
     void updateVictoryPoints(String nickname,int points);
+    void updateVaticanReport(String nickname,int victoryPoints,boolean gotIt);
 }

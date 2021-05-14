@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.token.SoloToken;
+import it.polimi.ingsw.network.server.ServerThread;
 
 import java.util.ArrayList;
 
@@ -16,13 +17,16 @@ public class GameManager {
     private boolean gameMustEnd;
     private boolean gameEnded;
 
-    public GameManager(Game game, PlayerTurnManager turnManager,boolean isSinglePlayer) {
+    public GameManager(Game game, PlayerTurnManager turnManager, boolean isSinglePlayer, ServerThread observer) {
         this.game = game;
         this.turnManager = turnManager;
         vReports = new VaticanReport[3];
         vReports[0] = new VaticanReport(2,5,8);
+        vReports[0].addObserver(observer);
         vReports[1] = new VaticanReport(3,12,16);
+        vReports[1].addObserver(observer);
         vReports[2] = new VaticanReport(4,19,24);
+        vReports[2].addObserver(observer);
         gameMustEnd = false;
         this.isSinglePlayer = isSinglePlayer;
     }

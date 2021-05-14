@@ -37,8 +37,9 @@ class AdvanceTokenTest {
         ArrayList<PlayerDashboard> players = new ArrayList<PlayerDashboard>();
         players.add(player1);
         players.add(lorenzo);
+        ServerThread observer = new ServerThread(2);
         Game game = new Game(players, new Shop(new Deck[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
-        GameManager gameManager = new GameManager(game, new PlayerTurnManager(player1),true);
+        GameManager gameManager = new GameManager(game, new PlayerTurnManager(player1),true,observer);
         return gameManager;
     }
 

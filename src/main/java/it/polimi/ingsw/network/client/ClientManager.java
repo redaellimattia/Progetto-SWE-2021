@@ -68,6 +68,13 @@ public class ClientManager {
 
     }
 
+    /**
+     * Creates a first gameStatus instance
+     *
+     * @param players players connected
+     * @param shop shop
+     * @param market market
+     */
     public void initGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market){
         gameStatus = new ClientGameStatus(players,shop,market);
     }
@@ -115,6 +122,17 @@ public class ClientManager {
     public void preGameChoice(ArrayList<Resource> resources, ArrayList<LeaderCard> leaders){
         String message= new PreGameResponseMessage(this.nickname,serverThreadID,resources,leaders).serialize();
         clientSocket.send(message);
+    }
+
+    /**
+     * Creates a gameStatus instance as of the game is when the player comes back
+     *
+     * @param players players actually connected
+     * @param shopGrid shopGrid
+     * @param market market
+     */
+    public void initKnownPlayer(ArrayList<PlayerDashboard> players,Deck[][] shopGrid,MarketDashboard market){
+        gameStatus = new ClientGameStatus(players,new Shop(shopGrid),market);
     }
 
     /**

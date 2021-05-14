@@ -100,10 +100,13 @@ public class ServerThread extends Thread implements Observer {
      * @param clientConnection socketConnection of the client
      */
     public void knownPlayerLogin(int playerPosition,String nickname,SocketConnection clientConnection){
-        gameLobby.getGameManager().playerComeback(playerPosition,nickname);
-        clients.put(nickname,clientConnection);
-        Server.LOGGER.log(Level.INFO,nickname+" is back in the lobby #"+getThreadId());
-        clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
+        synchronized (gameLock) {
+            gameLobby.getGameManager().playerComeback(playerPosition, nickname);
+            clients.put(nickname, clientConnection);
+            Server.LOGGER.log(Level.INFO, nickname + " is back in the lobby #" + getThreadId());
+            clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
+            clientConnection.send(new InitKnownPlayerMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop().getGrid(),gameLobby.getGameManager().getGame().getMarket()).serialize());
+        }
     }
 
     /**
@@ -366,6 +369,14 @@ public class ServerThread extends Thread implements Observer {
     @Override
     public void updateVictoryPoints(String nickname, int points) {
         sendToAll(new VictoryPointsUpdateMessage(nickname,points).serialize());
+    }
+
+    @Override
+    public void updateVaticanReport(String nickname, int victoryPoints, boolean gotIt){
+        if(gotIt)
+            clients.get(nickname).send(new PrintMessage("A vatican report has been activated, you earned: "+victoryPoints+" points!").serialize());
+        else
+            clients.get(nickname).send(new PrintMessage("A vatican report has been activated, unfortunately you didn't benefit from that!").serialize());
     }
 }
 

@@ -32,10 +32,10 @@ class MarketActionTest {
         testMarket[0][2] = new MarketMarble(MarbleColour.WHITE);
         testMarket[0][3] = new MarketMarble(MarbleColour.RED);
         MarketDashboard market = new MarketDashboard(testMarket, new MarketMarble(MarbleColour.PURPLE));
-        ServerThread marketObserver = new ServerThread(2);
-        market.addObserver(marketObserver);
+        ServerThread observer = new ServerThread(2);
+        market.addObserver(observer);
         Game game = new Game(players, new Shop(emptyGrid), market, new ArrayList<SoloToken>());
-        GameManager gameManager = new GameManager(game, new PlayerTurnManager(player1),true);
+        GameManager gameManager = new GameManager(game, new PlayerTurnManager(player1),true,observer);
         return gameManager;
     }
 

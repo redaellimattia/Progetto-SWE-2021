@@ -118,12 +118,12 @@ public class GameLobby {
             // TO-DO: Check that Lorenzo name is not used by player
             playerDashboards.add(createPlayer("Lorenzo il Magnifico", 1, true));
             Game game = new Game(playerDashboards, shop, market, initTokensDeck());
-            gameManager = new GameManager(game, new PlayerTurnManager(playerDashboards.get(0)), true);
+            gameManager = new GameManager(game, new PlayerTurnManager(playerDashboards.get(0)), true,observer);
             // TO-DO: Set gameManager in every token
         }
         else {
             Game game = new Game(playerDashboards, shop, market, null);
-            gameManager = new GameManager(game, new PlayerTurnManager(playerDashboards.get(0)), false);
+            gameManager = new GameManager(game, new PlayerTurnManager(playerDashboards.get(0)), false,observer);
         }
         this.gameCreated = true;
     }
@@ -240,6 +240,8 @@ public class GameLobby {
     public boolean readyToCreateGame(){
         return numberOfPlayers == players.size();
     }
+
+
     public ArrayList<LeaderCard> getFourLeaders(String nickname){
         int startPos;
         ArrayList<LeaderCard> output = new ArrayList<LeaderCard>();

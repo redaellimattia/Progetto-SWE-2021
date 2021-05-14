@@ -22,6 +22,6 @@ public class InitKnownPlayerMessage extends ServerMessage{
 
     @Override
     public void useMessage(ClientManager clientManager){
-
+        clientManager.initKnownPlayer(players,shopGrid,market);
     }
 }
