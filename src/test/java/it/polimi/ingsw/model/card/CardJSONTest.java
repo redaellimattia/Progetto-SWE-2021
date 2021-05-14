@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.DeckShop;
 import it.polimi.ingsw.model.Production;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.CardColour;
+import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.model.token.AdvanceToken;
 import it.polimi.ingsw.model.token.DiscardToken;
 import it.polimi.ingsw.model.token.SoloToken;
@@ -78,7 +79,7 @@ public class CardJSONTest {
         }
     }
 
-    /*
+
     @Test
     public void importLeaders() {
         GsonBuilder builder = new GsonBuilder();
@@ -88,16 +89,44 @@ public class CardJSONTest {
         //JsonArray array = jsonObj.getAsJsonArray();
         ArrayList<LeaderCard> leadersList = new ArrayList<LeaderCard>();
         for (JsonElement s: array) {
+            int id = s.getAsJsonObject().get("id").getAsInt();
+            int victoryPoints = s.getAsJsonObject().get("victoryPoints").getAsInt();
+            Requirement requirement;
+            SpecialAbility specialAbility = null;
             switch(s.getAsJsonObject().get("requirementType").getAsString()) {
-                case "resource": leadersList.add(new LeaderCard(0, )); break;
-                // In this case we need to use the constructor to build the AdvanceToken object
-                // because steps value is not in JSON file (it can be inferred by reRoll value)
-                case "advanceToken": tokensDeck.add(new AdvanceToken(gson.fromJson(s, AdvanceToken.class).isReRoll(), null)); break;
+                case "resource": {
+                    ResourceCount resource = gson.fromJson(s.getAsJsonObject().get("resources"), ResourceCount.class);
+                    requirement = new ResourceRequirement(resource);
+                } break;
+                case "cardLevel": {
+                    CardColour cardColour = gson.fromJson(s.getAsJsonObject().get("colour"), CardColour.class);
+                    int level = s.getAsJsonObject().get("level").getAsInt();
+                    requirement = new CardLevelRequirement(cardColour, level);
+                } break;
+                case "typeOfCard": {
+                    ColourCount colourCount = gson.fromJson(s.getAsJsonObject().get("cardColours"), ColourCount.class);
+                    requirement = new TypeOfCardRequirement(colourCount);
+                } break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + s.getAsJsonObject().get("requirementType").getAsString());
             }
+            Resource resource = gson.fromJson(s.getAsJsonObject().get("resourceType"), Resource.class);
+            switch(s.getAsJsonObject().get("abilityType").getAsString()) {
+                case "whiteChange": {
+                    specialAbility = new WhiteChangeAbility(resource);
+                } break;
+                case "production": {
+                    specialAbility = new ProductionAbility(resource);
+                } break;
+                case "discount": {
+                    specialAbility = new DiscountAbility(resource);
+                } break;
+                case "deposit": {
+                    specialAbility = new DepositAbility(resource);
+                } break;
+            }
+            leadersList.add(new LeaderCard(id, victoryPoints, requirement, specialAbility));
         }
-        for (SoloToken s: tokensDeck) {
-            System.out.println(s.getClass());
-        }
+        leadersList.size();
     }
-     */
 }

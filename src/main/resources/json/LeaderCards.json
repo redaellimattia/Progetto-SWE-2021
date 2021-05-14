@@ -9,14 +9,18 @@
       "servants": 0,
       "shields": 0,
       "faith": 0
-    }
+    },
+    "abilityType": "whiteChange",
+    "resourceType": "SERVANT"
   },
   {
     "id": 2,
     "victoryPoints": 0,
     "requirementType": "cardLevel",
     "colour": "BLUE",
-    "level": 1
+    "level": 1,
+    "abilityType": "production",
+    "resourceType": "SHIELD"
   },
   {
     "id": 3,
@@ -27,6 +31,21 @@
       "yellow": 0,
       "blue": 0,
       "purple": 0
-    }
+    },
+    "abilityType": "discount",
+    "resourceType": "COIN"
+  },
+  {
+    "id": 4,
+    "victoryPoints": 0,
+    "requirementType": "typeOfCard",
+    "cardColours": {
+      "green": 0,
+      "yellow": 0,
+      "blue": 0,
+      "purple": 0
+    },
+    "abilityType": "deposit",
+    "resourceType": "ROCK"
   }
 ]
