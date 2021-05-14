@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.token.SoloToken;
+import it.polimi.ingsw.network.server.Observer;
 import it.polimi.ingsw.network.server.ServerThread;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class GameManager {
     private boolean gameMustEnd;
     private boolean gameEnded;
 
-    public GameManager(Game game, PlayerTurnManager turnManager, boolean isSinglePlayer, ServerThread observer) {
+    public GameManager(Game game, PlayerTurnManager turnManager, boolean isSinglePlayer, Observer observer) {
         this.game = game;
         this.turnManager = turnManager;
         vReports = new VaticanReport[3];
@@ -74,14 +75,14 @@ public class GameManager {
     }
 
     /**
-     *  Add a faith point to each player when a player discard resources from the market
+     * Add a faith point to each player when a player discard resources from the market
+     *
      * @param player the player that will be excluded from the path position update
      */
     public void updateOpponentsPathPosition(PlayerDashboard player) {
-        for(PlayerDashboard i: game.getPlayers()) {
-            if(!i.getNickname().equals(player.getNickname())) {
-                i.updatePathPosition();
-                checkFaithPath(i);
+        for(PlayerDashboard p: game.getPlayers()) {
+            if(!p.getNickname().equals(player.getNickname())) {
+                p.updatePathPosition();
             }
         }
     }
@@ -91,6 +92,32 @@ public class GameManager {
      * @param p the player we want to calculate the total points scored
      */
     public void calculatePoints(PlayerDashboard p){
+        //POINTS GIVEN FROM THE FAITHPATH
+        int pos = p.getPathPosition();
+        if (pos >= 3 && pos <= 5) {
+            p.addVictoryPoints(1);
+        }
+        if (pos >= 6 && pos <= 8) {
+            p.addVictoryPoints(2);
+        }
+        if (pos >= 9 && pos <= 11) {
+            p.addVictoryPoints(4);
+        }
+        if (pos >= 12 && pos <= 14) {
+            p.addVictoryPoints(6);
+        }
+        if (pos >= 15 && pos <= 17) {
+            p.addVictoryPoints(9);
+        }
+        if (pos >= 18 && pos <= 20) {
+            p.addVictoryPoints(12);
+        }
+        if (pos >= 21 && pos <= 23) {
+            p.addVictoryPoints(16);
+        }
+        if (pos == 24) {
+            p.addVictoryPoints(20);
+        }
         //POINTS GIVEN FROM THE LEFT OVER RESOURCES
         int total = 0;
         total += ResourceCount.resCountToInt(p.getTotalResources());

@@ -23,7 +23,7 @@ public class MarketActionMessage extends ActionMessage{
      */
     @Override
     public void useMessage(SocketConnection socketConnection, ServerThread serverThread) {
-        MarketAction action = new MarketAction(type, pos, choices, serverThread.getGameLobby().getGameManager());
+        MarketAction action = new MarketAction(type, pos, choices, serverThread.getGameLobby().getGameManager().getGame().getMarket());
         useActionMessage(action, socketConnection,serverThread);
     }
 }

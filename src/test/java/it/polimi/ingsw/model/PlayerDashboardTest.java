@@ -49,7 +49,6 @@ class PlayerDashboardTest {
     @Test
     void discardLeader() {
         PlayerDashboard player = createPlayer();
-
         player.discardLeader(1);
         assertTrue(player.getLeaderCards().size() == 1 && !player.getLeaderCards().get(0).isInGame());
     }

@@ -12,20 +12,20 @@ public class MarketAction extends Action {
     private int type;
     private int pos;
     private ArrayList<AtomicMarketAction> choices;
-    private GameManager gameManager;
+    private MarketDashboard market;
 
     /**
      *
      * @param type 0: user selected a row; 1: user selected a column
      * @param pos number of the row/column (starting from 1)
      * @param choices the choices made by the user for each marble (excluding red marbles)
-     * @param gameManager the gameManager associated with the current game
+     * @param market the market of the current game
      */
-    public MarketAction(int type, int pos, ArrayList<AtomicMarketAction> choices, GameManager gameManager) {
+    public MarketAction(int type, int pos, ArrayList<AtomicMarketAction> choices, MarketDashboard market) {
         this.type = type;
         this.pos = pos;
         this.choices = choices;
-        this.gameManager = gameManager;
+        this.market = market;
     }
 
     /**
@@ -39,7 +39,7 @@ public class MarketAction extends Action {
         // Getting marbles from the market
         if (type == 0) { // A row is selected
             try {
-                marbles = gameManager.getGame().getMarket().getRow(pos);
+                marbles = market.getRow(pos);
             }
             catch(IndexOutOfBoundsException e) {
                 throw new IllegalMarketPositionException();
@@ -47,7 +47,7 @@ public class MarketAction extends Action {
         }
         if (type == 1) { // A column is selected
             try {
-                marbles = gameManager.getGame().getMarket().getColumn(pos);
+                marbles = market.getColumn(pos);
             }
             catch(IndexOutOfBoundsException e) {
                 throw new IllegalMarketPositionException();
@@ -60,7 +60,6 @@ public class MarketAction extends Action {
         for (MarketMarble marble : marbles) {
             if (marble.getColour() == MarbleColour.RED) {
                 player.updatePathPosition();
-                gameManager.checkFaithPath(player);
             } else {
                 try {
                     choices.get(j).useAction(marble, player);
@@ -72,7 +71,7 @@ public class MarketAction extends Action {
         }
 
         // Fixing grid
-        gameManager.getGame().getMarket().fixGrid(type, pos);
+        market.fixGrid(type, pos);
     }
 
 }
