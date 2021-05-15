@@ -82,8 +82,8 @@ public class Cli implements View {
                 "██║ ╚═╝ ██║██║  ██║███████║   ██║   ███████╗██║  ██║    ╚██████╔╝██║         ██║  ██║███████╗██║ ╚████║██║  ██║██║███████║███████║██║  ██║██║ ╚████║╚██████╗███████╗    \n" +
                 "╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝     ╚═════╝ ╚═╝         ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚══════╝    \n" +
                 "                                                                                                                                                                        \n" +
-                "          Welcome to Masters Of Renaissance Board Game Digital Version (patent pending) created by Mattia Redaelli, Luca Rondini, Gabriele Rivi. \n" +
-                "                                                      Have Fun playing the game! \n";
+                "               Welcome to Masters Of Renaissance Board Game Digital Version (patent pending) created by Mattia Redaelli, Luca Rondini, Gabriele Rivi. \n" +
+                "                                                        Have Fun playing the game! \n";
         out.println(logo2);
     }
 
@@ -99,6 +99,7 @@ public class Cli implements View {
         }
         else{
             out.println("Here are the available Lobbies:");
+            out.println("-----------------");
             for (ReturnLobbiesMessage.availableGameLobbies lobby : availableGameLobbies) {
                 out.println("Lobby ID: " + lobby.getServerThreadID());
                 out.println("Number of Players for this game: " + lobby.getNumberOfPlayers());
@@ -109,7 +110,7 @@ public class Cli implements View {
                 out.println("-----------------");
             }
             do{
-                out.println("\nNow choose: \n" +
+                out.println("Now choose: \n" +
                         "J: Join and existing match. \n" +
                         "C: Create a new Game.");
                 input = readLine();
@@ -192,8 +193,10 @@ public class Cli implements View {
         String nickname;
         String input;
         do{
-            out.println("Insert a nickname (\"Lorenzo il Magnifico\" is not available as nickname) :");
-            nickname = readLine();
+            do{
+                out.println("Insert a nickname (\"Lorenzo il Magnifico\" is not available as nickname) :");
+                nickname = readLine();
+            }while(nickname.equals("Lorenzo il Magnifico"));
             out.println("The choosen nickname is : " + nickname +
                     "\nDo you want to confirm? Press Y (confirm) / N (deny)");
             input = readLine();
