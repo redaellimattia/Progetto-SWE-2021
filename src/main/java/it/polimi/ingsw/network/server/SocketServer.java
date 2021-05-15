@@ -22,7 +22,7 @@ public class SocketServer extends Thread{
     }
 
     /**
-     * Starting the Socket ServerThread-Side
+     * Starting the Socket ServerLobby-Side
      */
     void startSocketServer(){
         try {
@@ -33,7 +33,7 @@ public class SocketServer extends Thread{
     }
 
     /**
-     * Running the ServerThread
+     * Running the ServerLobby
      */
     @Override
     public void run() {

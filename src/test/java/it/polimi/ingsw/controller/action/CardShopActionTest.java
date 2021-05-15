@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.Resource;
-import it.polimi.ingsw.network.server.ServerThread;
+import it.polimi.ingsw.network.server.ServerLobby;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ class CardShopActionTest {
         CounterTop secondRow = new CounterTop(Resource.ROCK,2);
         CounterTop thirdRow = new CounterTop(Resource.SERVANT,0);
         Storage storage = new Storage(firstRow,secondRow,thirdRow);
-        ServerThread playerObserver = new ServerThread(2);
+        ServerLobby playerObserver = new ServerLobby(2,1);
         ResourceCount chest = new ResourceCount(5,5,0,0,0);
         DeckDashboard[] devCards = new DeckDashboard[3];
 
@@ -82,7 +82,7 @@ class CardShopActionTest {
         CounterTop secondRow = new CounterTop(Resource.ROCK,2);
         CounterTop thirdRow = new CounterTop(Resource.SERVANT,0);
         Storage storage = new Storage(firstRow,secondRow,thirdRow);
-        ServerThread playerObserver = new ServerThread(2);
+        ServerLobby playerObserver = new ServerLobby(2,1);
         ResourceCount chest = new ResourceCount(5,5,0,0,0);
         DeckDashboard[] devCards = new DeckDashboard[3];
 
@@ -131,7 +131,7 @@ class CardShopActionTest {
     }
     Shop createShop(){
         DeckShop[][] testStructure = new DeckShop[3][4];
-        ServerThread shopObserver = new ServerThread(2);
+        ServerLobby shopObserver = new ServerLobby(2,1);
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
         //GREEN CARDS
         DevelopmentCard cardGreen1 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);

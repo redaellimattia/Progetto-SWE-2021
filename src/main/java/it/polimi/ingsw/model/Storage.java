@@ -14,7 +14,7 @@ public class Storage {
 
     /**
      * Adds reference to the observer
-     * @param observer ServerThread that is observing the Storage
+     * @param observer ServerLobby that is observing the Storage
      */
     public void addObserver(StorageObserver observer) {
         this.observer = observer;
@@ -22,7 +22,7 @@ public class Storage {
 
     /**
      * Remove reference to the observer
-     * @param observer ServerThread that is observing the Storage
+     * @param observer ServerLobby that is observing the Storage
      */
     public void removeObserver(StorageObserver observer) {
         this.observer = null;

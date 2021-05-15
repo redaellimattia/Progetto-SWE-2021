@@ -8,8 +8,7 @@ import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.network.enumeration.ActionType;
 import it.polimi.ingsw.network.enumeration.ClientMessageType;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
-import it.polimi.ingsw.network.server.Server;
-import it.polimi.ingsw.network.server.ServerThread;
+import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public abstract class ActionMessage extends ClientMessage {
@@ -73,13 +72,13 @@ public abstract class ActionMessage extends ClientMessage {
      * Method that will be overridden
      *
      * @param socketConnection the connection from which the message has arrived
-     * @param serverThread serverThread of the client
+     * @param serverLobby serverLobby of the client
      */
     @Override
-    public void useMessage(SocketConnection socketConnection,ServerThread serverThread){}
+    public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){}
 
-    public PlayerTurnManager getPlayerTurnManager(ServerThread serverThread){
-        return serverThread.getGameLobby().getGameManager().getTurnManager();
+    public PlayerTurnManager getPlayerTurnManager(ServerLobby serverLobby){
+        return serverLobby.getGameLobby().getGameManager().getTurnManager();
     }
 
     /**
@@ -87,10 +86,10 @@ public abstract class ActionMessage extends ClientMessage {
      *
      * @param action the action that needs to be done
      * @param socketConnection the connection from which the message has arrived
-     * @param serverThread serverThread of the game where the player is playing
+     * @param serverLobby serverLobby of the game where the player is playing
      */
-    public void useActionMessage(Action action, SocketConnection socketConnection, ServerThread serverThread){
-        PlayerTurnManager turnManager = getPlayerTurnManager(serverThread);
+    public void useActionMessage(Action action, SocketConnection socketConnection, ServerLobby serverLobby){
+        PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
         turnManager.setAction(action);
         turnManager.useAction();
     }
@@ -99,10 +98,10 @@ public abstract class ActionMessage extends ClientMessage {
      * call the turnManager to set and use the action;
      * @param action the action that needs to be done
      * @param socketConnection the connection from which the message has arrived
-     * @param serverThread serverThread of the game where the player is playing
+     * @param serverLobby serverLobby of the game where the player is playing
      */
-    public void useSideActionMessage(Action action, SocketConnection socketConnection,ServerThread serverThread){
-        PlayerTurnManager turnManager = getPlayerTurnManager(serverThread);
+    public void useSideActionMessage(Action action, SocketConnection socketConnection, ServerLobby serverLobby){
+        PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
         turnManager.setSideAction(action);
         turnManager.useSideAction();
     }

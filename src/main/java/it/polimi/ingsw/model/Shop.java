@@ -13,7 +13,7 @@ public class Shop {
 
     /**
      * Adds reference to the observer
-     * @param observer ServerThread that is observing the Shop
+     * @param observer ServerLobby that is observing the Shop
      */
     public void addObserver(Observer observer) {
         this.observer = observer;
@@ -21,7 +21,7 @@ public class Shop {
 
     /**
      * Remove reference to the observer
-     * @param observer ServerThread that is observing the Shop
+     * @param observer ServerLobby that is observing the Shop
      */
     public void removeObserver(Observer observer) {
         this.observer = null;

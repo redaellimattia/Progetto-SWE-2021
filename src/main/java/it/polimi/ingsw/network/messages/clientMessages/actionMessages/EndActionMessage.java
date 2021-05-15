@@ -1,11 +1,8 @@
 package it.polimi.ingsw.network.messages.clientMessages.actionMessages;
 
 import it.polimi.ingsw.controller.PlayerTurnManager;
-import it.polimi.ingsw.controller.action.Action;
-import it.polimi.ingsw.controller.action.productionAction.BasicProductionAction;
-import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.network.enumeration.ActionType;
-import it.polimi.ingsw.network.server.ServerThread;
+import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public class EndActionMessage extends ActionMessage{
@@ -20,8 +17,8 @@ public class EndActionMessage extends ActionMessage{
      * @param socketConnection socketConnection of the client
      */
     @Override
-    public void useMessage(SocketConnection socketConnection,ServerThread serverThread){
-        PlayerTurnManager turnManager = getPlayerTurnManager(serverThread);
+    public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
+        PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
         turnManager.endAction(turnManager.getPlayer());
     }
 }
