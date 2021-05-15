@@ -20,15 +20,6 @@ public class AskLobbyMessage extends ClientMessage {
      */
     @Override
     public void useMessage(SocketConnection socketConnection){
-        ReturnLobbiesMessage returnLobbiesMessage;
-        if(Server.serverThreads.size()!=0) {
-            ArrayList<GameLobby> gameLobbies = new ArrayList<>();
-            for (Long key : Server.serverThreads.keySet())
-                gameLobbies.add(Server.serverThreads.get(key).getGameLobby());
-            returnLobbiesMessage = new ReturnLobbiesMessage(gameLobbies);
-        }
-        else
-            returnLobbiesMessage = new ReturnLobbiesMessage(new ArrayList<>());
-        socketConnection.send(returnLobbiesMessage.serialize());
+        socketConnection.send(createReturnLobbiesMessage().serialize());
     }
 }

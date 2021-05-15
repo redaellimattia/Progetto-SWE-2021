@@ -89,6 +89,8 @@ public class Server {
      */
     public static synchronized boolean checkNickname(String nickname){
         boolean checkNickname = true;
+        if(nickname.equals("Lorenzo il Magnifico"))
+            return false;
         for(Long key: serverThreads.keySet())
             checkNickname = serverThreads.get(key).getGameLobby().checkNickname(nickname);
         return checkNickname;
