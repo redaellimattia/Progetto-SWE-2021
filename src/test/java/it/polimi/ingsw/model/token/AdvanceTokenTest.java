@@ -39,7 +39,7 @@ class AdvanceTokenTest {
         players.add(player1);
         players.add(lorenzo);
         ServerThread observer = new ServerThread(2);
-        Game game = new Game(players, new Shop(new Deck[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
+        Game game = new Game(players, new Shop(new DeckShop[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
         GameManager gameManager = new GameManager(game, new PlayerTurnManager(player1),true,observer);
         return gameManager;
     }
@@ -53,7 +53,7 @@ class AdvanceTokenTest {
         ArrayList<PlayerDashboard> players = new ArrayList<PlayerDashboard>();
         players.add(player1);
         players.add(lorenzo);
-        Game game = new Game(players, new Shop(new Deck[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
+        Game game = new Game(players, new Shop(new DeckShop[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
         AdvanceToken testToken = new AdvanceToken(false, buildGameManager());
         testToken.useToken(testDashboard, game);
         assertEquals(oldPos + 2, testDashboard.getPathPosition());
@@ -68,7 +68,7 @@ class AdvanceTokenTest {
         ArrayList<PlayerDashboard> players = new ArrayList<PlayerDashboard>();
         players.add(player1);
         players.add(lorenzo);
-        Game game = new Game(players, new Shop(new Deck[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
+        Game game = new Game(players, new Shop(new DeckShop[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
         AdvanceToken testToken = new AdvanceToken(true, buildGameManager());
         testToken.useToken(testDashboard, game);
         assertEquals(oldPos + 1, testDashboard.getPathPosition());

@@ -302,7 +302,7 @@ public class ServerThread extends Thread implements Observer {
     }
 
     @Override
-    public void updateShop(Deck[][] shopGrid) {
+    public void updateShop(DeckShop[][] shopGrid) {
         sendToAll(new ShopUpdateMessage(shopGrid).serialize());
     }
 

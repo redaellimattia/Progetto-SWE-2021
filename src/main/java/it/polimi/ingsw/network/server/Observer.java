@@ -7,7 +7,7 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import java.util.ArrayList;
 
 public interface Observer {
-    void updateShop(Deck[][] shopGrid); //Shop update
+    void updateShop(DeckShop[][] shopGrid); //Shop update
     void updateMarket(MarketMarble[][] structure,MarketMarble freeMarble); //Market update
 
 

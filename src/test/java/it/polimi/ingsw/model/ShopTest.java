@@ -72,7 +72,7 @@ class ShopTest {
     }
 
     Shop createShop(){
-        Deck[][] testStructure = new DeckShop[3][4];
+        DeckShop[][] testStructure = new DeckShop[3][4];
         ServerThread shopObserver = new ServerThread(2);
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
         //GREEN CARDS
