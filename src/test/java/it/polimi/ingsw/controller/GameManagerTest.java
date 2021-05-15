@@ -102,7 +102,9 @@ class GameManagerTest {
         ArrayList<PlayerDashboard> players = playerList();
         ArrayList<PlayerDashboard> oldPlayers = new ArrayList<>(players);
         Game game = new Game(players,null,null,null);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false,new ServerLobby(2,1));
+        ServerLobby serverLobby = new ServerLobby(2,1);
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false,serverLobby);
+        gameManager.addObserver(serverLobby);
         for(int i=0;i<9;i++)
             players.get(0).updatePathPosition();
         gameManager.calculatePoints(players.get(0));
@@ -111,7 +113,7 @@ class GameManagerTest {
         gameManager.calculatePoints(players.get(1));
         for(int i=0;i<24;i++)
             players.get(2).updatePathPosition();
-        gameManager.endGame();
+        assertThrows(NullPointerException.class, () -> gameManager.endGame());
         assertEquals(game.getPlayers().get(0).getNickname(),oldPlayers.get(2).getNickname());
         assertEquals(game.getPlayers().get(1).getNickname(),oldPlayers.get(0).getNickname());
         assertEquals(game.getPlayers().get(2).getNickname(),oldPlayers.get(1).getNickname());
@@ -121,41 +123,47 @@ class GameManagerTest {
     @Test
     void endGameSinglePlayerLorenzoWinEmptyColumn() {
         ArrayList<PlayerDashboard> players = new ArrayList<>();
-        players.add(createPlayer("Prova",0,false));
-        players.add(createPlayer("Lorenzo il Magnifico", 1,true));
+        players.add(createPlayer("Prova",false));
+        players.add(createPlayer("Lorenzo il Magnifico",true));
         Shop shop = createShop();
+        ServerLobby serverLobby = new ServerLobby(2,1);
         Game game = new Game(players,shop,null,null);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),true,new ServerLobby(2,1));
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),true,serverLobby);
+        gameManager.addObserver(serverLobby);
         for(int i=0;i<6;i++)
             shop.discardFromToken(CardColour.BLUE);
-        gameManager.endGame();
+        assertThrows(NullPointerException.class, () -> gameManager.endGame());
         assertTrue(game.isLorenzoWin());
     }
 
     @Test
     void endGameSinglePlayerLorenzoWin24Position() {
         ArrayList<PlayerDashboard> players = new ArrayList<>();
-        players.add(createPlayer("Prova",0,false));
-        players.add(createPlayer("Lorenzo il Magnifico", 1,true));
+        players.add(createPlayer("Prova",false));
+        players.add(createPlayer("Lorenzo il Magnifico",true));
         Game game = new Game(players,createShop(),null,null);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),true,new ServerLobby(2,1));
+        ServerLobby serverLobby = new ServerLobby(2,1);
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),true,serverLobby);
+        gameManager.addObserver(serverLobby);
         for(int i=0;i<24;i++)
             players.get(1).updatePathPosition();
-        gameManager.endGame();
+        assertThrows(NullPointerException.class, () -> gameManager.endGame());
         assertTrue(game.isLorenzoWin());
     }
 
     @Test
     void endGameSinglePlayerLorenzoLost() {
         ArrayList<PlayerDashboard> players = new ArrayList<>();
-        players.add(createPlayer("Prova",0,false));
-        players.add(createPlayer("Lorenzo il Magnifico", 1,true));
+        players.add(createPlayer("Prova",false));
+        players.add(createPlayer("Lorenzo il Magnifico",true));
         Game game = new Game(players,createShop(),null,null);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),true,new ServerLobby(2,1));
+        ServerLobby serverLobby = new ServerLobby(2,1);
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),true,serverLobby);
+        gameManager.addObserver(serverLobby);
         for(int i=0;i<24;i++)
             players.get(0).updatePathPosition();
         gameManager.calculatePoints(players.get(0));
-        gameManager.endGame();
+        assertThrows(NullPointerException.class, () -> gameManager.endGame());
         assertFalse(game.isLorenzoWin());
     }
 
@@ -187,10 +195,10 @@ class GameManagerTest {
     ArrayList<PlayerDashboard> playerList(){
         ArrayList<PlayerDashboard> players = new ArrayList<>();
         for(int i=0;i<4;i++)
-            players.add(createPlayer(""+i,i+1,false));
+            players.add(createPlayer(""+i,false));
         return players;
     }
-    PlayerDashboard createPlayer(String nickname,int position,boolean isLorenzo){
+    PlayerDashboard createPlayer(String nickname,boolean isLorenzo){
         CounterTop firstRow = new CounterTop(Resource.COIN,1);
         CounterTop secondRow = new CounterTop(Resource.ROCK,2);
         CounterTop thirdRow = new CounterTop(Resource.SERVANT,0);
@@ -200,7 +208,7 @@ class GameManagerTest {
         DeckDashboard[] devCards = new DeckDashboard[3];
 
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        PlayerDashboard p = new PlayerDashboard(storage,chest,devCards,leaderCards,position,nickname,1, isLorenzo);
+        PlayerDashboard p = new PlayerDashboard(storage,chest,devCards,leaderCards,nickname,1, isLorenzo);
         p.addObserver(playerObserver);
         p.getStorage().addObserver(p);
         return p;

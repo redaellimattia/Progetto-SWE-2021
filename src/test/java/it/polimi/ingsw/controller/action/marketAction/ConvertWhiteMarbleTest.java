@@ -33,7 +33,7 @@ class ConvertWhiteMarbleTest {
         ArrayList<LeaderCard> testLeaderCards = new ArrayList<>(0);
         testLeaderCards.add(buildLeaderCard(Resource.COIN));
         testLeaderCards.add(new LeaderCard(0,3, new CardLevelRequirement(CardColour.YELLOW, 2), new DepositAbility(Resource.ROCK)));
-        PlayerDashboard player = new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, 0, "Test", 0, false);
+        PlayerDashboard player = new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, "Test", 0, false);
         player.addObserver(playerObserver);
         player.getStorage().addObserver(player);
         return player;

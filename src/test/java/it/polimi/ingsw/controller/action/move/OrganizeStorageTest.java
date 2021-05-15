@@ -57,7 +57,7 @@ class OrganizeStorageTest {
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
         leaderCards.add(0,createLeaderCard(false));
         leaderCards.add(0,createLeaderCard(false));
-        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2,false);
+        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,nickname,2,false);
         player.addObserver(playerObserver);
         player.getStorage().addObserver(player);
         devCards[0].addCard(createDevCard(1));
