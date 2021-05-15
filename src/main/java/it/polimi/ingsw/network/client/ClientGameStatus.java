@@ -46,7 +46,7 @@ public class ClientGameStatus {
      * Updates the shop
      * @param shopGrid new shopGrid coming from the Server
      */
-    public void updateShop(Deck[][] shopGrid){
+    public void updateShop(DeckShop[][] shopGrid){
         this.shop.setShopGrid(shopGrid);
     }
 

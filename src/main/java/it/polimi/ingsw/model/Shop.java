@@ -8,7 +8,7 @@ import it.polimi.ingsw.network.server.Observer;
 import java.util.ArrayList;
 
 public class Shop {
-    private Deck[][] shopGrid;
+    private DeckShop[][] shopGrid;
     private transient Observer observer;
 
     /**
@@ -31,11 +31,11 @@ public class Shop {
      *
      * @param shopGrid the matrix used to initialize the shop
      */
-    public Shop(Deck[][] shopGrid) {
+    public Shop(DeckShop[][] shopGrid) {
         this.shopGrid = shopGrid;
     }
 
-    public void setShopGrid(Deck[][] shopGrid) {
+    public void setShopGrid(DeckShop[][] shopGrid) {
         this.shopGrid = shopGrid;
     }
 

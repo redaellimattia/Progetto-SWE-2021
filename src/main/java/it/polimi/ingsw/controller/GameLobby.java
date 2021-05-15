@@ -139,9 +139,9 @@ public class GameLobby {
         return new PlayerDashboard(storage, chest, devCards, leaderCards, playerTurnPosition, nickname, 0, isLorenzo);
     }
 
-    private Deck[][] initShopGrid() {
+    private DeckShop[][] initShopGrid() {
         // Create empty grid
-        Deck[][] shopGrid = new Deck[3][4];
+        DeckShop[][] shopGrid = new DeckShop[3][4];
         // Create a matrix of lists of DevelopmentCard (each list will be converted to a deck once completed)
         ArrayList<DevelopmentCard>[][] tempDeckGrid = new ArrayList[3][4];
         for(int i = 0; i < 3; i++) {
