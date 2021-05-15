@@ -69,7 +69,7 @@ public class ServerLobby extends Thread implements Observer {
             String askingPlayer = deserializedMessage.getNickname();
             //Player trying to reconnect
             if(gameLobby.getPlayers().contains(deserializedMessage.getNickname())&&deserializedMessage.getType().equals(ClientMessageType.JOINGAME))
-                deserializedMessage.useMessage(socketConnection,this,true);
+                deserializedMessage.useMessage(socketConnection,this);
             else {
                 if(!(gameLobby.getPlayers().contains(deserializedMessage.getNickname()))&&deserializedMessage.getType().equals(ClientMessageType.JOINGAME)) {
                     socketConnection.send(new PrintMessage("You can't join this lobby, it's already started without you").serialize());
@@ -208,12 +208,15 @@ public class ServerLobby extends Thread implements Observer {
                 clients.remove(disconnectedPlayerNickname);
                 Server.LOGGER.log(Level.INFO, "Client disconnected, waiting for players to join the lobby...");
             } else {
-                String currPlayerNickname = getTurnManager().getPlayer().getNickname();
-                Server.LOGGER.log(Level.INFO, "Disconnecting client: " + currPlayerNickname);
-                getTurnManager().getPlayer().setPlaying(false);
-                clients.remove(currPlayerNickname);
+                String disconnectedPlayerNickname = getPlayerNickname(socketConnection);
+                Server.LOGGER.log(Level.INFO, "Disconnecting client: " + disconnectedPlayerNickname);
+                for(PlayerDashboard p: gameLobby.getGameManager().getGame().getPlayers())
+                    if(p.getNickname().equals(disconnectedPlayerNickname))
+                        p.setPlaying(false);
+                clients.remove(disconnectedPlayerNickname);
                 Server.LOGGER.log(Level.INFO, "Client disconnected, going to next round...");
-                endRound();
+                if(disconnectedPlayerNickname.equals(getTurnManager().getPlayer().getNickname()))
+                    endRound();
             }
         }
     }
