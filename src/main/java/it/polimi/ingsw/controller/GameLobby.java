@@ -313,7 +313,9 @@ public class GameLobby {
     public void preGame(String nickname, ArrayList<Resource> chosen, ArrayList<LeaderCard> chosenLeaders){
         CounterTop chosen1;
         CounterTop chosen2;
-        for (PlayerDashboard p : gameManager.getGame().getPlayers()) {
+        List<LeaderCard> checkLeaders = new ArrayList<>();
+        for (int i=0;i<gameManager.getGame().getPlayers().size();i++) {
+            PlayerDashboard p = gameManager.getGame().getPlayers().get(i);
             if(p.getNickname().equals(nickname)) {
                 if (chosen.size() == 1) {
                     chosen1 = new CounterTop(chosen.get(0),1);
@@ -332,15 +334,14 @@ public class GameLobby {
                     }
                 }
 
-                List<LeaderCard> checkLeaders = new ArrayList<>();
-                switch (p.getPosition()){
-                    case 1: checkLeaders = leadersDeck.subList(0,3);
+                switch (i){
+                    case 0: checkLeaders = leadersDeck.subList(0,4);
                         break;
-                    case 2: checkLeaders = leadersDeck.subList(4,7);
+                    case 1: checkLeaders = leadersDeck.subList(4,8);
                         break;
-                    case 3: checkLeaders = leadersDeck.subList(8,11);
+                    case 2: checkLeaders = leadersDeck.subList(8,12);
                         break;
-                    case 4: checkLeaders = leadersDeck.subList(12,15);
+                    case 3: checkLeaders = leadersDeck.subList(12,16);
                         break;
                 }
                 if(checkLeaders.contains(chosenLeaders.get(0)) && checkLeaders.contains(chosenLeaders.get(1))) {
