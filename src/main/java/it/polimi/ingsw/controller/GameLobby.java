@@ -9,6 +9,7 @@ import com.google.gson.stream.JsonReader;
 import it.polimi.ingsw.exceptions.MalevolentClientException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
+import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.model.token.AdvanceToken;
 import it.polimi.ingsw.model.token.DiscardToken;
@@ -104,15 +105,7 @@ public class GameLobby {
         MarketDashboard market = initMarketDashboard();
         market.addObserver(observer);
 
-        /*// Load and shuffle LeaderCards
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.setPrettyPrinting().create();
-        JsonReader json = readJsonFile("/LeaderCards");
-        JsonArray leaderCardsArray = gson.fromJson(json, JsonElement.class);
-        for (JsonElement j: leaderCardsArray) {
-            leadersDeck.add(gson.fromJson(j, LeaderCard.class));
-        }
-        Collections.shuffle(leadersDeck); */
+        leadersDeck = initLeadersDeck();
 
         if(singlePlayer){
             // TO-DO: Check that Lorenzo name is not used by player
@@ -234,6 +227,55 @@ public class GameLobby {
         return tokenList;
     }
 
+    private ArrayList<LeaderCard> initLeadersDeck() {
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.setPrettyPrinting().create();
+        JsonReader json = new GameLobby(0, 0).readJsonFile("/LeaderCards");
+        JsonArray array = gson.fromJson(json, JsonElement.class);
+        ArrayList<LeaderCard> leadersList = new ArrayList<LeaderCard>();
+        for (JsonElement s: array) {
+            int id = s.getAsJsonObject().get("id").getAsInt();
+            int victoryPoints = s.getAsJsonObject().get("victoryPoints").getAsInt();
+            Requirement requirement;
+            SpecialAbility specialAbility = null;
+            switch(s.getAsJsonObject().get("requirementType").getAsString()) {
+                case "resource": {
+                    ResourceCount resource = gson.fromJson(s.getAsJsonObject().get("resources"), ResourceCount.class);
+                    requirement = new ResourceRequirement(resource);
+                } break;
+                case "cardLevel": {
+                    CardColour cardColour = gson.fromJson(s.getAsJsonObject().get("colour"), CardColour.class);
+                    int level = s.getAsJsonObject().get("level").getAsInt();
+                    requirement = new CardLevelRequirement(cardColour, level);
+                } break;
+                case "typeOfCard": {
+                    ColourCount colourCount = gson.fromJson(s.getAsJsonObject().get("cardColours"), ColourCount.class);
+                    requirement = new TypeOfCardRequirement(colourCount);
+                } break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + s.getAsJsonObject().get("requirementType").getAsString());
+            }
+            Resource resource = gson.fromJson(s.getAsJsonObject().get("resourceType"), Resource.class);
+            switch(s.getAsJsonObject().get("abilityType").getAsString()) {
+                case "whiteChange": {
+                    specialAbility = new WhiteChangeAbility(resource);
+                } break;
+                case "production": {
+                    specialAbility = new ProductionAbility(resource);
+                } break;
+                case "discount": {
+                    specialAbility = new DiscountAbility(resource);
+                } break;
+                case "deposit": {
+                    specialAbility = new DepositAbility(resource);
+                } break;
+            }
+            leadersList.add(new LeaderCard(id, victoryPoints, requirement, specialAbility));
+        }
+        Collections.shuffle(leadersList);
+        return leadersList;
+    }
+
     public boolean readyToStartGame(){
         return numberOfPlayers == readyPlayers;
     }
@@ -250,7 +292,7 @@ public class GameLobby {
         for(int i = 0; i < 4; i++) {
             output.add(leadersDeck.get(startPos + i));
         }
-        return null;
+        return output;
     }
 
     /**
