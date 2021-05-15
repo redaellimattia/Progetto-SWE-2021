@@ -14,6 +14,15 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
 public class Cli implements View {
+    public static final String RESET = "\u001B[0m";
+    public static final String BLACK = "\u001B[30m";
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String YELLOW = "\u001B[33m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String PURPLE = "\u001B[35m";
+    public static final String CYAN = "\u001B[36m";
+    public static final String WHITE = "\u001B[37m";
 
     private final PrintStream out;
 
@@ -67,23 +76,23 @@ public class Cli implements View {
                 "Have Fun playing the game! \n";*/
         //SITO PER GENERARE ASCII ART
         //https://patorjk.com/software/taag/#p=testall&f=Elite&t=Master%20of%20Renaissance%20
-        String logo1 = "\n" +
+        String logo1 = PURPLE  + "\n" +
                 "• ▌ ▄ ·.  ▄▄▄· .▄▄ · ▄▄▄▄▄▄▄▄ .▄▄▄            ·▄▄▄    ▄▄▄  ▄▄▄ . ▐ ▄  ▄▄▄· ▪  .▄▄ · .▄▄ ·  ▄▄▄·  ▐ ▄  ▄▄· ▄▄▄ .    \n" +
                 "·██ ▐███▪▐█ ▀█ ▐█ ▀. •██  ▀▄.▀·▀▄ █·    ▪     ▐▄▄·    ▀▄ █·▀▄.▀·•█▌▐█▐█ ▀█ ██ ▐█ ▀. ▐█ ▀. ▐█ ▀█ •█▌▐█▐█ ▌▪▀▄.▀·    \n" +
                 "▐█ ▌▐▌▐█·▄█▀▀█ ▄▀▀▀█▄ ▐█.▪▐▀▀▪▄▐▀▀▄      ▄█▀▄ ██▪     ▐▀▀▄ ▐▀▀▪▄▐█▐▐▌▄█▀▀█ ▐█·▄▀▀▀█▄▄▀▀▀█▄▄█▀▀█ ▐█▐▐▌██ ▄▄▐▀▀▪▄    \n" +
                 "██ ██▌▐█▌▐█ ▪▐▌▐█▄▪▐█ ▐█▌·▐█▄▄▌▐█•█▌    ▐█▌.▐▌██▌.    ▐█•█▌▐█▄▄▌██▐█▌▐█ ▪▐▌▐█▌▐█▄▪▐█▐█▄▪▐█▐█ ▪▐▌██▐█▌▐███▌▐█▄▄▌    \n" +
                 "▀▀  █▪▀▀▀ ▀  ▀  ▀▀▀▀  ▀▀▀  ▀▀▀ .▀  ▀     ▀█▄▀▪▀▀▀     .▀  ▀ ▀▀▀ ▀▀ █▪ ▀  ▀ ▀▀▀ ▀▀▀▀  ▀▀▀▀  ▀  ▀ ▀▀ █▪·▀▀▀  ▀▀▀     \n";
         //ANSI SHADOWS
-        String logo2 = "\n" +
+        String logo2 = CYAN + "\n" +
                 "███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗      ██████╗ ███████╗    ██████╗ ███████╗███╗   ██╗ █████╗ ██╗███████╗███████╗ █████╗ ███╗   ██╗ ██████╗███████╗    \n" +
                 "████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗    ██╔═══██╗██╔════╝    ██╔══██╗██╔════╝████╗  ██║██╔══██╗██║██╔════╝██╔════╝██╔══██╗████╗  ██║██╔════╝██╔════╝    \n" +
                 "██╔████╔██║███████║███████╗   ██║   █████╗  ██████╔╝    ██║   ██║█████╗      ██████╔╝█████╗  ██╔██╗ ██║███████║██║███████╗███████╗███████║██╔██╗ ██║██║     █████╗      \n" +
                 "██║╚██╔╝██║██╔══██║╚════██║   ██║   ██╔══╝  ██╔══██╗    ██║   ██║██╔══╝      ██╔══██╗██╔══╝  ██║╚██╗██║██╔══██║██║╚════██║╚════██║██╔══██║██║╚██╗██║██║     ██╔══╝      \n" +
                 "██║ ╚═╝ ██║██║  ██║███████║   ██║   ███████╗██║  ██║    ╚██████╔╝██║         ██║  ██║███████╗██║ ╚████║██║  ██║██║███████║███████║██║  ██║██║ ╚████║╚██████╗███████╗    \n" +
                 "╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝     ╚═════╝ ╚═╝         ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚══════╝    \n" +
-                "                                                                                                                                                                        \n" +
-                "               Welcome to Masters Of Renaissance Board Game Digital Version (patent pending) created by Mattia Redaelli, Luca Rondini, Gabriele Rivi. \n" +
-                "                                                        Have Fun playing the game! \n";
+                "                                                                                                                                                                        \n"
+                + RESET + "               Welcome to Masters Of Renaissance Board Game Digital Version (patent pending) created by Mattia Redaelli, Luca Rondini, Gabriele Rivi. \n" +
+                "                                                        Have Fun playing the game! \n" ;
         out.println(logo2);
     }
 
@@ -457,7 +466,7 @@ public class Cli implements View {
     }
     @Override
     public void printMsg(String msg){
-        out.println(msg);
+        out.println(YELLOW + msg + RESET);
     }
 
     private void clearCli() {
