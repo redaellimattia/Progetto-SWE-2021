@@ -14,7 +14,7 @@ public class VaticanReport {
 
     /**
      * Adds reference to the observer
-     * @param observer ServerThread that is observing the Player
+     * @param observer ServerLobby that is observing the Player
      */
     public void addObserver(Observer observer) {
         this.observer = observer;
@@ -22,7 +22,7 @@ public class VaticanReport {
 
     /**
      * Remove reference to the observer
-     * @param observer ServerThread that is observing the Player
+     * @param observer ServerLobby that is observing the Player
      */
     public void removeObserver(Observer observer) {
         this.observer = null;

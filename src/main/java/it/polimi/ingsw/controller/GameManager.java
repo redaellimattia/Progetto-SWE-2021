@@ -1,11 +1,8 @@
 package it.polimi.ingsw.controller;
 
-import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.token.SoloToken;
 import it.polimi.ingsw.network.server.Observer;
-import it.polimi.ingsw.network.server.ServerThread;
 
 import java.util.ArrayList;
 
@@ -17,6 +14,22 @@ public class GameManager {
     private boolean isSinglePlayer;
     private boolean gameMustEnd;
     private boolean gameEnded;
+    private Observer observer;
+    /**
+     * Adds reference to the observer
+     * @param observer ServerLobby that is observing the Player
+     */
+    public void addObserver(Observer observer) {
+        this.observer = observer;
+    }
+
+    /**
+     * Remove reference to the observer
+     * @param observer ServerLobby that is observing the Player
+     */
+    public void removeObserver(Observer observer) {
+        this.observer = null;
+    }
 
     public GameManager(Game game, PlayerTurnManager turnManager, boolean isSinglePlayer, Observer observer) {
         this.game = game;
@@ -140,6 +153,7 @@ public class GameManager {
                 calculatePoints(game.getPlayers().get(0));
         }
         gameEnded = true;
+        observer.updateEndGame();
     }
 
     /**

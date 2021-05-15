@@ -14,8 +14,9 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.model.token.AdvanceToken;
 import it.polimi.ingsw.model.token.DiscardToken;
 import it.polimi.ingsw.model.token.SoloToken;
+import it.polimi.ingsw.network.server.Observer;
 import it.polimi.ingsw.network.server.Server;
-import it.polimi.ingsw.network.server.ServerThread;
+import it.polimi.ingsw.network.server.ServerLobby;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -33,6 +34,23 @@ public class GameLobby {
     private boolean gameStarted;
     private boolean gameCreated;
     private ArrayList<LeaderCard> leadersDeck;
+    private Observer observer;
+
+    /**
+     * Adds reference to the observer
+     * @param observer ServerLobby that is observing the Player
+     */
+    public void addObserver(Observer observer) {
+        this.observer = observer;
+    }
+
+    /**
+     * Remove reference to the observer
+     * @param observer ServerLobby that is observing the Player
+     */
+    public void removeObserver(Observer observer) {
+        this.observer = null;
+    }
 
     public GameLobby(long serverThreadID,int numberOfPlayers) {
         this.players = new ArrayList<>();
@@ -89,7 +107,7 @@ public class GameLobby {
         return gameManager;
     }
 
-    public void initGame(boolean singlePlayer, ServerThread observer) {
+    public void initGame(boolean singlePlayer, ServerLobby observer) {
         ArrayList<PlayerDashboard> playerDashboards = new ArrayList<>();
         int playerTurnPosition = 0;
         for (String s: players) {
@@ -118,6 +136,7 @@ public class GameLobby {
             Game game = new Game(playerDashboards, shop, market, null);
             gameManager = new GameManager(game, new PlayerTurnManager(playerDashboards.get(0)), false,observer);
         }
+        gameManager.addObserver(observer);
         this.gameCreated = true;
     }
 
@@ -356,6 +375,8 @@ public class GameLobby {
 
     public void addReadyPlayer(){
         this.readyPlayers++;
+        if(readyToStartGame())
+            observer.updateStartGame();
     }
 
     /**

@@ -9,7 +9,7 @@ public class MarketDashboard {
 
     /**
      * Adds reference to the observer
-     * @param observer ServerThread that is observing the Market
+     * @param observer ServerLobby that is observing the Market
      */
     public void addObserver(Observer observer) {
         this.observer = observer;
@@ -17,7 +17,7 @@ public class MarketDashboard {
 
     /**
      * Remove reference to the observer
-     * @param observer ServerThread that is observing the Market
+     * @param observer ServerLobby that is observing the Market
      */
     public void removeObserver(Observer observer) {
         this.observer = null;

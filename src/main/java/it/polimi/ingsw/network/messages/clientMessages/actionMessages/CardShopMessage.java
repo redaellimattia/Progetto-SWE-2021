@@ -4,7 +4,7 @@ import it.polimi.ingsw.controller.action.CardShopAction;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.network.enumeration.ActionType;
-import it.polimi.ingsw.network.server.ServerThread;
+import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public class CardShopMessage extends ActionMessage {
@@ -29,10 +29,10 @@ public class CardShopMessage extends ActionMessage {
      * @param socketConnection the connection from which the message has arrived
      */
     @Override
-    public void useMessage(SocketConnection socketConnection,ServerThread serverThread){
-        Game game = serverThread.getGameLobby().getGameManager().getGame();
+    public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
+        Game game = serverLobby.getGameLobby().getGameManager().getGame();
         CardShopAction action = new CardShopAction(game.getShop(),row,column,deckPosition,storageCount,chestCount);
-        useActionMessage(action,socketConnection,serverThread);
+        useActionMessage(action,socketConnection, serverLobby);
     }
 
     public int getRow() {

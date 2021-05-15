@@ -1,6 +1,8 @@
 package it.polimi.ingsw.network.server;
 
+import it.polimi.ingsw.controller.GameLobby;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
+import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -14,10 +16,10 @@ import java.util.logging.SimpleFormatter;
 public class Server {
     private static final int DEFAULT_SOCKET_PORT = 1338;
     private final int socketPort;
-
+    public static long newServerID;
     public static final Logger LOGGER = Logger.getLogger("Server");
 
-    public static Map<Long, ServerThread> serverThreads;
+    public static Map<Long, ServerLobby> serverThreads;
 
     /**
      *
@@ -25,7 +27,7 @@ public class Server {
      */
     private Server(int socketPort){
         initLogger();
-
+        newServerID = 0;
         this.socketPort = socketPort;
 
         serverThreads = new HashMap<>();
@@ -55,8 +57,8 @@ public class Server {
     }
 
     /**
-     * If serverThread = -1 means that the client it's not in a game yet, so it must be a Connection or AskLobby
-     * If serverThread != -1 the correct serverThread will be called, and it will handle the request
+     * If serverLobby = -1 means that the client it's not in a game yet, so it must be a Connection or AskLobby
+     * If serverLobby != -1 the correct serverLobby will be called, and it will handle the request
      *
      * @param sockConnection Client that is sending the message
      * @param msg String msg wrote by the client
@@ -79,7 +81,7 @@ public class Server {
         SocketServer serverSocket = new SocketServer(this, socketPort);
         serverSocket.startSocketServer();
 
-        LOGGER.info("Socket ServerThread listening on port: "+socketPort);
+        LOGGER.info("Socket ServerLobby listening on port: "+socketPort);
     }
 
     /**
@@ -96,6 +98,26 @@ public class Server {
         return checkNickname;
     }
 
+    public static synchronized ServerLobby getServerThread(SocketConnection socketConnection){
+        for(Long key: serverThreads.keySet()) {
+            ServerLobby serverLobby = serverThreads.get(key);
+            for (String nickname : serverLobby.getClients().keySet())
+                if(serverLobby.getClients().get(nickname).equals(socketConnection))
+                    return serverLobby;
+        }
+        return null;
+    }
+    public static synchronized ReturnLobbiesMessage createReturnLobbiesMessage(){
+        if(serverThreads.size()!=0) {
+            ArrayList<GameLobby> gameLobbies = new ArrayList<>();
+            for (Long key : serverThreads.keySet())
+                gameLobbies.add(serverThreads.get(key).getGameLobby());
+            return new ReturnLobbiesMessage(gameLobbies);
+        }
+        else
+            return new ReturnLobbiesMessage(new ArrayList<>());
+    }
+
     /**
      * Creating logger file handler
      */
@@ -110,6 +132,4 @@ public class Server {
             LOGGER.addHandler(fh);
         } catch (IOException e) { LOGGER.severe(e.getMessage()); }
     }
-
-
 }

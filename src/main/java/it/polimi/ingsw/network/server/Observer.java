@@ -25,4 +25,6 @@ public interface Observer {
     void updateThirdRow(String nickname,CounterTop thirdRow);
     void updateVictoryPoints(String nickname,int points);
     void updateVaticanReport(String nickname,int victoryPoints,boolean gotIt);
+    void updateStartGame();
+    void updateEndGame();
 }

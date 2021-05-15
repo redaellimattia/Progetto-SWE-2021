@@ -4,7 +4,7 @@ import it.polimi.ingsw.exceptions.action.CardNotExistsException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.Resource;
-import it.polimi.ingsw.network.server.ServerThread;
+import it.polimi.ingsw.network.server.ServerLobby;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -65,7 +65,7 @@ class PlayLeaderActionTest {
         CounterTop secondRow = new CounterTop(Resource.ROCK,2);
         CounterTop thirdRow = new CounterTop(Resource.SERVANT,0);
         Storage storage = new Storage(firstRow,secondRow,thirdRow);
-        ServerThread playerObserver = new ServerThread(2);
+        ServerLobby playerObserver = new ServerLobby(2,1);
         ResourceCount chest = new ResourceCount(5,5,0,0,0);
         DeckDashboard[] devCards = new DeckDashboard[3];
 

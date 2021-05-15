@@ -8,10 +8,12 @@ import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.enumeration.Resource;
+import it.polimi.ingsw.network.enumeration.ClientMessageType;
 import it.polimi.ingsw.network.enumeration.PlayerUpdateType;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.*;
 import it.polimi.ingsw.network.messages.serverMessages.updates.*;
+import it.polimi.ingsw.view.Cli;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,22 +21,20 @@ import java.util.Map;
 import java.util.logging.Level;
 
 
-public class ServerThread extends Thread implements Observer {
+public class ServerLobby extends Thread implements Observer {
     private final Object gameLock = new Object();
     private Map<String, SocketConnection> clients;
-    private PingTimer timer;
     private GameLobby gameLobby;
-    private Thread serverThread;
+    private final long serverID;
 
     /**
      * Creating Game Lobby, Clients HashMap and starting the Thread
      */
-    public ServerThread(int numberOfPlayers){
+    public ServerLobby(int numberOfPlayers, long serverID){
         this.clients = new HashMap<>();
-        serverThread = new Thread(this);
+        this.serverID = serverID;
         this.gameLobby = new GameLobby(getThreadId(),numberOfPlayers);
-
-        serverThread.start();
+        this.gameLobby.addObserver(this);
         Server.LOGGER.log(Level.INFO, "Server: "+getThreadId()+" Game lobby created with "+numberOfPlayers+" players.");
     }
 
@@ -67,39 +67,38 @@ public class ServerThread extends Thread implements Observer {
         if(gameLobby.isGameStarted()) {
             String actualPlayer = getTurnManager().getPlayer().getNickname();
             String askingPlayer = deserializedMessage.getNickname();
+            //Player trying to reconnect
+            if(gameLobby.getPlayers().contains(deserializedMessage.getNickname())&&deserializedMessage.getType().equals(ClientMessageType.JOINGAME))
+                deserializedMessage.useMessage(socketConnection,this,true);
+            else {
+                if(!(gameLobby.getPlayers().contains(deserializedMessage.getNickname()))&&deserializedMessage.getType().equals(ClientMessageType.JOINGAME)) {
+                    socketConnection.send(new PrintMessage("You can't join this lobby, it's already started without you").serialize());
+                    socketConnection.send(Server.createReturnLobbiesMessage().serialize());
+                }
+                //If there isn't the askingPlayer or the askingPlayer nickname on the clients map doesn't match the socketConnection
+                if (!clients.containsKey(askingPlayer) || !clients.get(askingPlayer).equals(socketConnection))
+                    throw new UnrecognisedPlayerException();
 
-            //If there isn't the askingPlayer or the askingPlayer nickname on the clients map doesn't match the socketConnection
-            if (!clients.containsKey(askingPlayer) || !clients.get(askingPlayer).equals(socketConnection))
-                throw new UnrecognisedPlayerException();
-
-            if (actualPlayer.equals(askingPlayer)) //If it's the player's turn
-                deserializedMessage.useMessage(socketConnection,this);
-            else
-                throw new NotYourTurnException();
+                if (actualPlayer.equals(askingPlayer)) //If it's the player's turn
+                    deserializedMessage.useMessage(socketConnection, this);
+                else
+                    throw new NotYourTurnException();
+            }
         }
         else
             deserializedMessage.useMessage(socketConnection,this);
     }
 
-    /**
-     * Init Timer, then startPinging
-     * @param socketConnection socketConnection of the client
-     */
-    public void startPinging(SocketConnection socketConnection){
-        timer = new PingTimer(this,socketConnection);
-        timer.startPinging();
-    }
 
     /**
      * Forwarding Round then telling the new player that it's his turn to play
      */
     public void endRound(){
-        timer = null;
         gameLobby.getGameManager().nextRound(false);
         String nextPlayerNickname = getTurnManager().getPlayer().getNickname();
         SocketConnection socketConnection = clients.get(nextPlayerNickname);
-        socketConnection.send(new YourTurnMessage().serialize());
-        startPinging(socketConnection);
+        if(socketConnection!=null)
+            socketConnection.send(new YourTurnMessage().serialize());
     }
 
     /**
@@ -199,20 +198,19 @@ public class ServerThread extends Thread implements Observer {
      * @param socketConnection Client that is disconnecting
      */
     public void onDisconnect(SocketConnection socketConnection){
-        timer.endTimer();
+        //timer.endTimer();
+        Server.LOGGER.log(Level.INFO,"No answer from client, going to disconnect it.");
         synchronized (gameLock) {
             if (!gameLobby.isGameStarted()) {
                 String disconnectedPlayerNickname = getPlayerNickname(socketConnection);
                 Server.LOGGER.log(Level.INFO, "Disconnecting client: " + disconnectedPlayerNickname);
                 gameLobby.removePlayer(disconnectedPlayerNickname);
-                socketConnection.disconnect();
                 clients.remove(disconnectedPlayerNickname);
                 Server.LOGGER.log(Level.INFO, "Client disconnected, waiting for players to join the lobby...");
             } else {
                 String currPlayerNickname = getTurnManager().getPlayer().getNickname();
                 Server.LOGGER.log(Level.INFO, "Disconnecting client: " + currPlayerNickname);
                 getTurnManager().getPlayer().setPlaying(false);
-                socketConnection.disconnect();
                 clients.remove(currPlayerNickname);
                 Server.LOGGER.log(Level.INFO, "Client disconnected, going to next round...");
                 endRound();
@@ -230,51 +228,8 @@ public class ServerThread extends Thread implements Observer {
         String firstPlayerNickname = gameLobby.getGameManager().getTurnManager().getPlayer().getNickname();
         SocketConnection socketConnection = clients.get(firstPlayerNickname);
         socketConnection.send(new YourTurnMessage().serialize());
-        startPinging(socketConnection);
     }
 
-    /**
-     * method called upon receiving a PingResponse, it reset the timer because the client is still connected
-     */
-    public void resetTimer(){
-        timer.cancelTimer();
-    }
-
-    /**
-     * Thread pinging clients to check if they are still playing
-     */
-    @Override
-    public void run() {
-        while (!this.serverThread.isInterrupted()) {
-            synchronized (gameLock) {
-                if (!gameLobby.isGameCreated() && !gameLobby.readyToCreateGame()) {
-                        for (String key : clients.keySet()) {
-                            timer = new PingTimer(this, clients.get(key));
-                            timer.send();
-                            try {
-                                wait(2000);
-                            } catch (InterruptedException e) {
-                                Server.LOGGER.log(Level.SEVERE, e.getMessage());
-                            }
-                        }
-                } else {
-                    if (!gameLobby.isGameCreated())
-                        createGame(clients.size()==1);
-                    else
-                        if(!gameLobby.isGameStarted()&&gameLobby.readyToStartGame())
-                            startGame();
-                        else
-                            if(gameLobby.isGameStarted()&&gameLobby.getGameManager().isGameEnded()) {
-                                if(gameLobby.getNumberOfPlayers()==1)
-                                    sendToAll(new EndSinglePlayerGameMessage(gameLobby.getGameManager().getGame().isLorenzoWin(),gameLobby.getGameManager().getTurnManager().getPlayer()).serialize());
-                                else
-                                    sendToAll(new EndMultiPlayerGameMessage(gameLobby.getGameManager().getGame().getPlayers()).serialize());
-                            }
-                }
-
-            }
-        }
-    }
 
     /**
      *
@@ -291,10 +246,10 @@ public class ServerThread extends Thread implements Observer {
 
     /**
      *
-     * @return this thread ID
+     * @return this Server ID
      */
     public long getThreadId(){
-        return serverThread.getId();
+        return this.serverID;
     }
 
     /**
@@ -388,5 +343,19 @@ public class ServerThread extends Thread implements Observer {
         else
             clients.get(nickname).send(new PrintMessage("A vatican report has been activated, unfortunately you didn't benefit from that!").serialize());
     }
+
+    @Override
+    public void updateStartGame(){
+        startGame();
+    }
+
+    @Override
+    public void updateEndGame(){
+        if(gameLobby.getNumberOfPlayers()==1)
+            sendToAll(new EndSinglePlayerGameMessage(gameLobby.getGameManager().getGame().isLorenzoWin(),gameLobby.getGameManager().getTurnManager().getPlayer()).serialize());
+        else
+            sendToAll(new EndMultiPlayerGameMessage(gameLobby.getGameManager().getGame().getPlayers()).serialize());
+    }
+
 }
 

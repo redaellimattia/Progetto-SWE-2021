@@ -3,8 +3,7 @@ package it.polimi.ingsw.model;
 import it.polimi.ingsw.exceptions.EmptyDeckException;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.enumeration.CardColour;
-import it.polimi.ingsw.model.enumeration.MarbleColour;
-import it.polimi.ingsw.network.server.ServerThread;
+import it.polimi.ingsw.network.server.ServerLobby;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -73,7 +72,7 @@ class ShopTest {
 
     Shop createShop(){
         DeckShop[][] testStructure = new DeckShop[3][4];
-        ServerThread shopObserver = new ServerThread(2);
+        ServerLobby shopObserver = new ServerLobby(2,1);
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
         //GREEN CARDS
         DevelopmentCard cardGreen1 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.GREEN);

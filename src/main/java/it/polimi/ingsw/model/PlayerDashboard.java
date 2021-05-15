@@ -20,7 +20,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
 
     /**
      * Adds reference to the observer
-     * @param observer ServerThread that is observing the Player
+     * @param observer ServerLobby that is observing the Player
      */
     public void addObserver(Observer observer) {
         this.observer = observer;
@@ -28,7 +28,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
 
     /**
      * Remove reference to the observer
-     * @param observer ServerThread that is observing the Player
+     * @param observer ServerLobby that is observing the Player
      */
     public void removeObserver(Observer observer) {
         this.observer = null;

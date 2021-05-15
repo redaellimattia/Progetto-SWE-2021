@@ -10,7 +10,7 @@ import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.model.token.SoloToken;
-import it.polimi.ingsw.network.server.ServerThread;
+import it.polimi.ingsw.network.server.ServerLobby;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ class MarketActionTest {
         testMarket[0][2] = new MarketMarble(MarbleColour.WHITE);
         testMarket[0][3] = new MarketMarble(MarbleColour.RED);
         MarketDashboard market = new MarketDashboard(testMarket, new MarketMarble(MarbleColour.PURPLE));
-        ServerThread observer = new ServerThread(2);
+        ServerLobby observer = new ServerLobby(2,1);
         market.addObserver(observer);
         Game game = new Game(players, new Shop(emptyGrid), market, new ArrayList<SoloToken>());
         GameManager gameManager = new GameManager(game, new PlayerTurnManager(player1),true,observer);
@@ -44,7 +44,7 @@ class MarketActionTest {
         CounterTop testCounterTop2 = new CounterTop(Resource.ROCK, 2);
         CounterTop testCounterTop3 = new CounterTop(Resource.SHIELD, 3);
         Storage testStorage = new Storage(testCounterTop1, testCounterTop2, testCounterTop3);
-        ServerThread playerObserver = new ServerThread(2);
+        ServerLobby playerObserver = new ServerLobby(2,1);
         ResourceCount testChest = new ResourceCount(0, 0, 0, 0, 0);
         DeckDashboard[] testDevCards = new DeckDashboard[3];
         ArrayList<LeaderCard> testLeaderCards = new ArrayList<>(0);

@@ -3,7 +3,7 @@ package it.polimi.ingsw.model.card;
 import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.Resource;
-import it.polimi.ingsw.network.server.ServerThread;
+import it.polimi.ingsw.network.server.ServerLobby;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -87,7 +87,7 @@ class ResourceRequirementTest {
         Storage storage = new Storage(firstRow,secondRow,thirdRow);
         DeckDashboard[] devCards = new DeckDashboard[3];
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        ServerThread playerObserver = new ServerThread(2);
+        ServerLobby playerObserver = new ServerLobby(2,1);
         PlayerDashboard player = new PlayerDashboard(storage,resCount,devCards,leaderCards,1,nickname,2,false);
         player.addObserver(playerObserver);
         player.getStorage().addObserver(player);

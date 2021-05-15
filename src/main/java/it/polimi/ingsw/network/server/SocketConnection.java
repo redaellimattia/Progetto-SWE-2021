@@ -26,7 +26,7 @@ public class SocketConnection implements Runnable{
     /**
      * Creating socketConnection
      *
-     * @param socketServer ServerSocket Object ServerThread-Side
+     * @param socketServer ServerSocket Object ServerLobby-Side
      * @param socket Socket Object Client-Side
      */
     public SocketConnection(SocketServer socketServer, Socket socket) {
@@ -78,8 +78,12 @@ public class SocketConnection implements Runnable{
     public void disconnect() {
         if (isConnected) {
             try {
-                if (!socket.isClosed())
+                if (!socket.isClosed()) {
+                    ServerLobby serverLobby = Server.getServerThread(this);
+                    if(serverLobby !=null)
+                        serverLobby.onDisconnect(this);
                     socket.close();
+                }
             } catch (IOException e) {
                 Server.LOGGER.log(Level.SEVERE,"Error while closing the Socket Connection\n"+ e.getMessage());}
 

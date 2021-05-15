@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.enumeration.ActionType;
-import it.polimi.ingsw.network.server.ServerThread;
+import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public class LeaderProductionMessage extends ActionMessage{
@@ -24,9 +24,9 @@ public class LeaderProductionMessage extends ActionMessage{
      * @param socketConnection the connection from which the message has arrived
      */
     @Override
-    public void useMessage(SocketConnection socketConnection, ServerThread serverThread) {
+    public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby) {
         LeaderCardProductionAction action = new LeaderCardProductionAction(card, storageCount, chestCount, res);
-        PlayerTurnManager turnManager = getPlayerTurnManager(serverThread);
+        PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
         turnManager.addLeaderCardProduction(action);
     }
 }

@@ -1,13 +1,13 @@
 package it.polimi.ingsw.exceptions;
 
 import it.polimi.ingsw.network.server.Server;
-import it.polimi.ingsw.network.server.ServerThread;
+import it.polimi.ingsw.network.server.ServerLobby;
 
 public class MalevolentClientException extends MasterOfRenaissanceRuntimeException{
     public MalevolentClientException(long serverThreadID, String nickname) {
 
         super("Malevolent client, going to disconnect him.");
-        ServerThread serverThread = Server.serverThreads.get(serverThreadID);
-        serverThread.onDisconnect(serverThread.getClients().get(nickname));
+        ServerLobby serverLobby = Server.serverThreads.get(serverThreadID);
+        serverLobby.onDisconnect(serverLobby.getClients().get(nickname));
     }
 }
