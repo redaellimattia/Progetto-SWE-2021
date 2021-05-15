@@ -7,7 +7,6 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.server.Observer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PlayerDashboard extends Player implements StorageObserver{
     private int pathPosition;

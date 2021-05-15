@@ -126,8 +126,6 @@ public class ClientManager {
         clientSocket.send(message);
     }
 
-    //Validating choices
-
     /**
      * Checking if the requirement is covered by the player
      *
