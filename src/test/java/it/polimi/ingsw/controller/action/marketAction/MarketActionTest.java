@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MarketActionTest {
 
     GameManager buildGameManager() {
-        Deck[][] emptyGrid = new Deck[3][4];
+        DeckShop[][] emptyGrid = new DeckShop[3][4];
         PlayerDashboard player1 = buildPlayerDashboard("Test1");
         PlayerDashboard player2 = buildPlayerDashboard("Test2");
         ArrayList<PlayerDashboard> players = new ArrayList<PlayerDashboard>();

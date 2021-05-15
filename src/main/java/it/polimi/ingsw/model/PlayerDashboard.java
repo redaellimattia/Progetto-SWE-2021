@@ -7,7 +7,6 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.server.Observer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PlayerDashboard extends Player implements StorageObserver{
     private int pathPosition;
@@ -17,8 +16,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
     private ArrayList<LeaderCard> leaderCards;
     private ArrayList<CounterTop> arrayDeposit;
     private ResourceCount bufferProduction;
-    private Observer observer;
-    private boolean pointsFaithPath[];
+    private transient Observer observer;
 
     /**
      * Adds reference to the observer
@@ -59,8 +57,6 @@ public class PlayerDashboard extends Player implements StorageObserver{
         this.leaderCards = leaderCards;
         this.arrayDeposit = new ArrayList<>();
         bufferProduction = new ResourceCount(0,0,0,0,0);
-        this.pointsFaithPath = new boolean[8];
-        Arrays.fill(pointsFaithPath, Boolean.FALSE);
     }
 
     //GETTERS

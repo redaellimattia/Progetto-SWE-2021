@@ -139,9 +139,9 @@ public class GameLobby {
         return new PlayerDashboard(storage, chest, devCards, leaderCards, playerTurnPosition, nickname, 0, isLorenzo);
     }
 
-    private Deck[][] initShopGrid() {
+    private DeckShop[][] initShopGrid() {
         // Create empty grid
-        Deck[][] shopGrid = new Deck[3][4];
+        DeckShop[][] shopGrid = new DeckShop[3][4];
         // Create a matrix of lists of DevelopmentCard (each list will be converted to a deck once completed)
         ArrayList<DevelopmentCard>[][] tempDeckGrid = new ArrayList[3][4];
         for(int i = 0; i < 3; i++) {
@@ -292,13 +292,13 @@ public class GameLobby {
 
                 List<LeaderCard> checkLeaders = new ArrayList<>();
                 switch (p.getPosition()){
-                    case 1: checkLeaders = leadersDeck.subList(1,4);
+                    case 1: checkLeaders = leadersDeck.subList(0,3);
                         break;
-                    case 2: checkLeaders = leadersDeck.subList(5,8);
+                    case 2: checkLeaders = leadersDeck.subList(4,7);
                         break;
-                    case 3: checkLeaders = leadersDeck.subList(9,12);
+                    case 3: checkLeaders = leadersDeck.subList(8,11);
                         break;
-                    case 4: checkLeaders = leadersDeck.subList(13,16);
+                    case 4: checkLeaders = leadersDeck.subList(12,15);
                         break;
                 }
                 if(checkLeaders.contains(chosenLeaders.get(0)) && checkLeaders.contains(chosenLeaders.get(1))) {

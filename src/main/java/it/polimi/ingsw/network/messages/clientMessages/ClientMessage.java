@@ -2,10 +2,15 @@ package it.polimi.ingsw.network.messages.clientMessages;
 
 import com.google.gson.*;
 
+import it.polimi.ingsw.controller.GameLobby;
 import it.polimi.ingsw.network.enumeration.ClientMessageType;
 import it.polimi.ingsw.network.messages.clientMessages.actionMessages.ActionMessage;
+import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
+import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
+
+import java.util.ArrayList;
 
 public abstract class ClientMessage {
 
@@ -87,6 +92,16 @@ public abstract class ClientMessage {
      */
     public void useMessage(SocketConnection socketConnection,ServerThread serverThread){};
 
+    public ReturnLobbiesMessage createReturnLobbiesMessage(){
+        if(Server.serverThreads.size()!=0) {
+            ArrayList<GameLobby> gameLobbies = new ArrayList<>();
+            for (Long key : Server.serverThreads.keySet())
+                gameLobbies.add(Server.serverThreads.get(key).getGameLobby());
+            return new ReturnLobbiesMessage(gameLobbies);
+        }
+        else
+            return new ReturnLobbiesMessage(new ArrayList<>());
+    }
     /**
      *
      * @return this message as a String (ready to be sent via network)

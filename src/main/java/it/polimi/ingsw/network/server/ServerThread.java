@@ -43,10 +43,21 @@ public class ServerThread extends Thread implements Observer {
         return new HashMap<>(clients);
     }
 
+    /**
+     *
+     * @return this gameLobby
+     */
     public GameLobby getGameLobby() {
         return gameLobby;
     }
+
+    /**
+     *
+     * @return this game's turnManager
+     */
     public PlayerTurnManager getTurnManager(){return gameLobby.getGameManager().getTurnManager();}
+
+
     /**
      * Checks it's actually the player's turn and that the player is actually in this game
      *
@@ -118,24 +129,18 @@ public class ServerThread extends Thread implements Observer {
         synchronized (gameLock) {
             if (gameLobby.isGameStarted())
                 throw new GameAlreadyStartedException();
-            if (Server.checkNickname(nickname)) {
-                gameLobby.addPlayer(nickname);
-                clients.put(nickname, clientConnection);
-                Server.LOGGER.log(Level.INFO,nickname+" joined the lobby #"+getThreadId()+", "+(gameLobby.getNumberOfPlayers()-clients.size())+" players to go!");
-                clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
-                //Send message to the clients that are waiting
-                for(String key : clients.keySet())
-                    if(!key.equals(nickname))
-                        clients.get(key).send(new PrintMessage(nickname+" joined the lobby, "+(gameLobby.getNumberOfPlayers()-clients.size())+" players to go!").serialize());
-                if (gameLobby.getNumberOfPlayers() == 1)
-                    createGame(true);
-                else if (clients.size() == gameLobby.getNumberOfPlayers())
-                    createGame(false);
-            } else {
-                //clientConnection.disconnect();
-                clientConnection.send(new PrintMessage("This username: [" + nickname +"] is already taken!").serialize());
-                throw new NicknameAlreadyUsedException(nickname);
-            }
+            gameLobby.addPlayer(nickname);
+            clients.put(nickname, clientConnection);
+            Server.LOGGER.log(Level.INFO,nickname+" joined the lobby #"+getThreadId()+", "+(gameLobby.getNumberOfPlayers()-clients.size())+" players to go!");
+            clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
+            //Send message to the clients that are waiting
+            for(String key : clients.keySet())
+                if(!key.equals(nickname))
+                    clients.get(key).send(new PrintMessage(nickname+" joined the lobby, "+(gameLobby.getNumberOfPlayers()-clients.size())+" players to go!").serialize());
+            if (gameLobby.getNumberOfPlayers() == 1)
+                createGame(true);
+            else if (clients.size() == gameLobby.getNumberOfPlayers())
+                createGame(false);
         }
     }
 
@@ -161,10 +166,12 @@ public class ServerThread extends Thread implements Observer {
     public void createGame(boolean singlePlayer){
         gameLobby.initGame(singlePlayer,this);
         sendToAll(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(), gameLobby.getGameManager().getGame().getMarket()).serialize());
-        if(!singlePlayer)
-            preGame();
+        preGame();
     }
 
+    /**
+     * PreGame Set-Up choose 2 LeaderCards, and resources
+     */
     public void preGame(){
         synchronized (gameLock) {
             for (int i = 0; i < gameLobby.getPlayers().size(); i++) {
@@ -213,7 +220,9 @@ public class ServerThread extends Thread implements Observer {
         }
     }
 
-
+    /**
+     * Starts the game
+     */
     public void startGame(){
         gameLobby.setGameStarted(true);
         sendToAll(new WaitYourTurnMessage().serialize());
@@ -281,6 +290,7 @@ public class ServerThread extends Thread implements Observer {
         }
         return null;
     }
+
     /**
      *
      * @return this thread ID
@@ -302,7 +312,7 @@ public class ServerThread extends Thread implements Observer {
     }
 
     @Override
-    public void updateShop(Deck[][] shopGrid) {
+    public void updateShop(DeckShop[][] shopGrid) {
         sendToAll(new ShopUpdateMessage(shopGrid).serialize());
     }
 
