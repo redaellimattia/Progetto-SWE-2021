@@ -1,51 +1,198 @@
 [
   {
     "id": 1,
-    "victoryPoints": 0,
-    "requirementType": "resource",
-    "resources": {
-      "coins": 0,
-      "rocks": 0,
-      "servants": 0,
-      "shields": 0,
-      "faith": 0
+    "victoryPoints": 2,
+    "requirementType": "typeOfCard",
+    "cardColours": {
+      "green": 1,
+      "yellow": 1,
+      "blue": 0,
+      "purple": 0
     },
-    "abilityType": "whiteChange",
+    "abilityType": "discount",
     "resourceType": "SERVANT"
   },
   {
     "id": 2,
-    "victoryPoints": 0,
-    "requirementType": "cardLevel",
-    "colour": "BLUE",
-    "level": 1,
-    "abilityType": "production",
-    "resourceType": "SHIELD"
-  },
-  {
-    "id": 3,
-    "victoryPoints": 0,
+    "victoryPoints": 2,
     "requirementType": "typeOfCard",
     "cardColours": {
       "green": 0,
       "yellow": 0,
-      "blue": 0,
+      "blue": 1,
+      "purple": 1
+    },
+    "abilityType": "discount",
+    "resourceType": "SHIELD"
+  },
+  {
+    "id": 3,
+    "victoryPoints": 2,
+    "requirementType": "typeOfCard",
+    "cardColours": {
+      "green": 1,
+      "yellow": 0,
+      "blue": 1,
       "purple": 0
+    },
+    "abilityType": "discount",
+    "resourceType": "ROCK"
+  },
+  {
+    "id": 4,
+    "victoryPoints": 2,
+    "requirementType": "typeOfCard",
+    "cardColours": {
+      "green": 0,
+      "yellow": 1,
+      "blue": 0,
+      "purple": 1
     },
     "abilityType": "discount",
     "resourceType": "COIN"
   },
   {
-    "id": 4,
-    "victoryPoints": 0,
-    "requirementType": "typeOfCard",
-    "cardColours": {
-      "green": 0,
-      "yellow": 0,
-      "blue": 0,
-      "purple": 0
+    "id": 5,
+    "victoryPoints": 3,
+    "requirementType": "resource",
+    "resources": {
+      "coins": 5,
+      "rocks": 0,
+      "servants": 0,
+      "shields": 0,
+      "faith": 0
     },
     "abilityType": "deposit",
     "resourceType": "ROCK"
+  },
+  {
+    "id": 6,
+    "victoryPoints": 3,
+    "requirementType": "resource",
+    "resources": {
+      "coins": 0,
+      "rocks": 5,
+      "servants": 0,
+      "shields": 0,
+      "faith": 0
+    },
+    "abilityType": "deposit",
+    "resourceType": "SERVANT"
+  },
+  {
+    "id": 7,
+    "victoryPoints": 3,
+    "requirementType": "resource",
+    "resources": {
+      "coins": 0,
+      "rocks": 0,
+      "servants": 5,
+      "shields": 0,
+      "faith": 0
+    },
+    "abilityType": "deposit",
+    "resourceType": "SHIELD"
+  },
+  {
+    "id": 8,
+    "victoryPoints": 3,
+    "requirementType": "resource",
+    "resources": {
+      "coins": 0,
+      "rocks": 0,
+      "servants": 0,
+      "shields": 5,
+      "faith": 0
+    },
+    "abilityType": "deposit",
+    "resourceType": "COIN"
+  },
+  {
+    "id": 9,
+    "victoryPoints": 5,
+    "requirementType": "typeOfCard",
+    "cardColours": {
+      "green": 0,
+      "yellow": 2,
+      "blue": 1,
+      "purple": 0
+    },
+    "abilityType": "whiteChange",
+    "resourceType": "SERVANT"
+  },
+  {
+    "id": 10,
+    "victoryPoints": 5,
+    "requirementType": "typeOfCard",
+    "cardColours": {
+      "green": 2,
+      "yellow": 0,
+      "blue": 0,
+      "purple": 1
+    },
+    "abilityType": "whiteChange",
+    "resourceType": "SHIELD"
+  },
+  {
+    "id": 11,
+    "victoryPoints": 5,
+    "requirementType": "typeOfCard",
+    "cardColours": {
+      "green": 0,
+      "yellow": 1,
+      "blue": 2,
+      "purple": 0
+    },
+    "abilityType": "whiteChange",
+    "resourceType": "ROCK"
+  },
+  {
+    "id": 12,
+    "victoryPoints": 5,
+    "requirementType": "typeOfCard",
+    "cardColours": {
+      "green": 1,
+      "yellow": 0,
+      "blue": 2,
+      "purple": 0
+    },
+    "abilityType": "whiteChange",
+    "resourceType": "COIN"
+  },
+  {
+    "id": 13,
+    "victoryPoints": 4,
+    "requirementType": "cardLevel",
+    "colour": "YELLOW",
+    "level": 2,
+    "abilityType": "production",
+    "resourceType": "SHIELD"
+  },
+  {
+    "id": 14,
+    "victoryPoints": 4,
+    "requirementType": "cardLevel",
+    "colour": "BLUE",
+    "level": 2,
+    "abilityType": "production",
+    "resourceType": "SERVANT"
+  },
+  {
+    "id": 15,
+    "victoryPoints": 4,
+    "requirementType": "cardLevel",
+    "colour": "PURPLE",
+    "level": 2,
+    "abilityType": "production",
+    "resourceType": "ROCK"
+  },
+  {
+    "id": 16,
+    "victoryPoints": 4,
+    "requirementType": "cardLevel",
+    "colour": "GREEN",
+    "level": 2,
+    "abilityType": "production",
+    "resourceType": "COIN"
   }
 ]
