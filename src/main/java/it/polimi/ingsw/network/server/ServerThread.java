@@ -3,7 +3,6 @@ package it.polimi.ingsw.network.server;
 import it.polimi.ingsw.controller.GameLobby;
 import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.exceptions.network.GameAlreadyStartedException;
-import it.polimi.ingsw.exceptions.network.NicknameAlreadyUsedException;
 import it.polimi.ingsw.exceptions.network.NotYourTurnException;
 import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
 import it.polimi.ingsw.model.*;
@@ -201,22 +200,23 @@ public class ServerThread extends Thread implements Observer {
      */
     public void onDisconnect(SocketConnection socketConnection){
         timer.endTimer();
-        if(!gameLobby.isGameStarted()){
-            String disconnectedPlayerNickname = getPlayerNickname(socketConnection);
-            Server.LOGGER.log(Level.INFO,"Disconnecting client: "+disconnectedPlayerNickname);
-            gameLobby.removePlayer(disconnectedPlayerNickname);
-            socketConnection.disconnect();
-            clients.remove(disconnectedPlayerNickname);
-            Server.LOGGER.log(Level.INFO,"Client disconnected, waiting for players to join the lobby...");
-        }
-        else {
-            String currPlayerNickname = getTurnManager().getPlayer().getNickname();
-            Server.LOGGER.log(Level.INFO,"Disconnecting client: "+currPlayerNickname);
-            getTurnManager().getPlayer().setPlaying(false);
-            socketConnection.disconnect();
-            clients.remove(currPlayerNickname);
-            Server.LOGGER.log(Level.INFO,"Client disconnected, going to next round...");
-            endRound();
+        synchronized (gameLock) {
+            if (!gameLobby.isGameStarted()) {
+                String disconnectedPlayerNickname = getPlayerNickname(socketConnection);
+                Server.LOGGER.log(Level.INFO, "Disconnecting client: " + disconnectedPlayerNickname);
+                gameLobby.removePlayer(disconnectedPlayerNickname);
+                socketConnection.disconnect();
+                clients.remove(disconnectedPlayerNickname);
+                Server.LOGGER.log(Level.INFO, "Client disconnected, waiting for players to join the lobby...");
+            } else {
+                String currPlayerNickname = getTurnManager().getPlayer().getNickname();
+                Server.LOGGER.log(Level.INFO, "Disconnecting client: " + currPlayerNickname);
+                getTurnManager().getPlayer().setPlaying(false);
+                socketConnection.disconnect();
+                clients.remove(currPlayerNickname);
+                Server.LOGGER.log(Level.INFO, "Client disconnected, going to next round...");
+                endRound();
+            }
         }
     }
 
@@ -248,7 +248,6 @@ public class ServerThread extends Thread implements Observer {
         while (!this.serverThread.isInterrupted()) {
             synchronized (gameLock) {
                 if (!gameLobby.isGameCreated() && !gameLobby.readyToCreateGame()) {
-                    synchronized (this) {
                         for (String key : clients.keySet()) {
                             timer = new PingTimer(this, clients.get(key));
                             timer.send();
@@ -258,7 +257,6 @@ public class ServerThread extends Thread implements Observer {
                                 Server.LOGGER.log(Level.SEVERE, e.getMessage());
                             }
                         }
-                    }
                 } else {
                     if (!gameLobby.isGameCreated())
                         createGame(clients.size()==1);

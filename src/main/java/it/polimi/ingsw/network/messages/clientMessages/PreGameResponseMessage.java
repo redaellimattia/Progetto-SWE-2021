@@ -4,6 +4,7 @@ package it.polimi.ingsw.network.messages.clientMessages;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.enumeration.ClientMessageType;
+import it.polimi.ingsw.network.messages.serverMessages.PrintMessage;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerThread;
 import it.polimi.ingsw.network.server.SocketConnection;
@@ -25,6 +26,7 @@ public class PreGameResponseMessage extends ClientMessage{
     public void useMessage(SocketConnection socketConnection, ServerThread serverThread){
         serverThread.getGameLobby().preGame(this.getNickname(),chosen,chosenLeaders);
         serverThread.getGameLobby().addReadyPlayer();
-        Server.LOGGER.log( Level.INFO,"Player: "+ getNickname() + "is now ready to play, he finished PreGame.");
+        Server.LOGGER.log( Level.INFO,"Player: "+ getNickname() + " is now ready to play, he finished PreGame.");
+        socketConnection.send(new PrintMessage("Waiting other player's choices...").serialize());
     }
 }
