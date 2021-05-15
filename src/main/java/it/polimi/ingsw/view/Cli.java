@@ -311,12 +311,12 @@ public class Cli implements View {
     public void waitingForTurn(){
         String input;
         clearCli();
-        out.println("Wait for the other players to play their turn, in the meantime you can peek around the board to keep updated.");
+        out.println("\nWait for the other players to play their turn, in the meantime you can peek around the board to keep updated.");
             do{
-                out.println("Choose what you want to see:" +
-                        "Market: digit M;" +
-                        "Shop: digit S;" +
-                        "Players: digit P;");
+                out.println("Choose what you want to see: \n" +
+                        "Market: digit M \n" +
+                        "Shop: digit S \n" +
+                        "Players: digit P \n");
                 input = readLine();
             }while(!input.equalsIgnoreCase("m") && !input.equalsIgnoreCase("s") && !input.equalsIgnoreCase("p"));
             if(input.equalsIgnoreCase("m")){
