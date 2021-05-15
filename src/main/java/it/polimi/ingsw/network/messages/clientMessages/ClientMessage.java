@@ -3,7 +3,10 @@ package it.polimi.ingsw.network.messages.clientMessages;
 import com.google.gson.*;
 
 import it.polimi.ingsw.controller.GameLobby;
+import it.polimi.ingsw.model.card.Requirement;
+import it.polimi.ingsw.model.card.SpecialAbility;
 import it.polimi.ingsw.network.enumeration.ClientMessageType;
+import it.polimi.ingsw.network.messages.InterfaceAdapter;
 import it.polimi.ingsw.network.messages.clientMessages.actionMessages.ActionMessage;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 import it.polimi.ingsw.network.server.Server;
@@ -14,11 +17,12 @@ import java.util.ArrayList;
 
 public abstract class ClientMessage {
 
-    static GsonBuilder builder = new GsonBuilder();
+    static GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Requirement.class, new InterfaceAdapter()).registerTypeAdapter(SpecialAbility.class, new InterfaceAdapter());
     static Gson gson = builder.create();
     private ClientMessageType type;
     private String nickname;
     private long serverThreadID;
+
 
     /**
      *

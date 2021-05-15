@@ -4,14 +4,17 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import it.polimi.ingsw.model.card.Requirement;
+import it.polimi.ingsw.model.card.SpecialAbility;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.enumeration.ServerMessageType;
+import it.polimi.ingsw.network.messages.InterfaceAdapter;
 import it.polimi.ingsw.network.messages.serverMessages.updates.MarketUpdateMessage;
 import it.polimi.ingsw.network.messages.serverMessages.updates.PlayerUpdateMessage;
 import it.polimi.ingsw.network.messages.serverMessages.updates.ShopUpdateMessage;
 
 public abstract class ServerMessage {
-    static GsonBuilder builder = new GsonBuilder();
+    static GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Requirement.class, new InterfaceAdapter()).registerTypeAdapter(SpecialAbility.class, new InterfaceAdapter());
     static Gson gson = builder.create();
     private final ServerMessageType type;
 

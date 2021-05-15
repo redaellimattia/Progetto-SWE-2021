@@ -59,6 +59,6 @@ public class ResourceRequirement implements Requirement {
 
     @Override
     public String toString(){
-        return "You need these resources: " + resources.toString() + "to play this card;";
+        return "You need these resources: " + resources.toString() + " to play this card;";
     }
 }

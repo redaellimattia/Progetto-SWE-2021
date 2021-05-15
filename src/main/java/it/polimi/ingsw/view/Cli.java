@@ -166,11 +166,11 @@ public class Cli implements View {
 
         do{
             do {
-                out.println("Insert the serverID you want to Join!");
+                out.println("Insert the Lobby ID you want to Join!");
                 chosen = readLine();
                 chosenId = Long.parseLong(chosen);
             }while(!id.contains(chosenId));
-            out.println("The choosen serverID is : " + chosenId + "\n" +
+            out.println("The choosen Lobby ID is : " + chosenId + "\n" +
                     "Do you want to confirm? Press Y (confirm) / N (deny)");
             input = readLine();
         }while(!input.equalsIgnoreCase("Y"));
@@ -215,7 +215,7 @@ public class Cli implements View {
     }
 
     public void preGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources){
-        out.println("The game is about to start, choose your initial setup!");
+        out.println("The game is about to start, choose your initial setup!\n");
         ArrayList<Resource> resources = new ArrayList<>();
         if(numberOfResources != 0){
             resources = askResources(numberOfResources);
@@ -227,11 +227,12 @@ public class Cli implements View {
 
     private ArrayList<LeaderCard> askLeaders(ArrayList<LeaderCard> leaders){
         ArrayList<LeaderCard> leadersChosen = new ArrayList<>();
-        int counter = 0;
+        int counter = 2;
         String chosenID;
         int chosen;
         ArrayList<Integer> id = new ArrayList<>();
-        out.println("You can choose two leaders between these four.");
+        out.println("You can choose two leaders between these four:");
+        out.println("-----------------");
         printLeaders(leaders);
         for (LeaderCard l: leaders)
             id.add(l.getId());
@@ -248,51 +249,61 @@ public class Cli implements View {
                 if (leader.getId() == chosen)
                     leadersChosen.add(leader);
 
-            counter++;
-        }while(counter != 2);
+            counter--;
+        }while(counter != 0);
         return leadersChosen;
     }
 
     private void printLeaders(ArrayList<LeaderCard> leaders){
         for (LeaderCard l: leaders) {
             out.println("ID: " + l.getId() + "\n" +
-                    "Victory Points: " + l.getVictoryPoints() +"\n");
+                    "Victory Points: " + l.getVictoryPoints());
             //REQUIREMENT PRINT
             Requirement requirement = l.getRequirement();
             out.println(requirement.toString());
             //SPECIALABILITY PRINT:
             SpecialAbility specialAbility = l.getSpecialAbility();
             out.println(specialAbility.toString());
+            out.println("-----------------");
         }
     }
 
     private ArrayList<Resource> askResources(int numberOfResources){
         String resource;
         ArrayList<Resource> resources = new ArrayList<>();
-        out.println("You have the right to choose " + numberOfResources + "resources to start the game  with!");
+        out.println("You have the right to choose " + numberOfResources + " resource to start the game with!");
         int counter = numberOfResources;
         do{
             out.println("You still have " +counter +" resources to choose.\n");
             do{
                 out.println("Choose between 4 types of resources: \n" +
-                        "COINS: digit C;" +
-                        "ROCKS: digit R;" +
-                        "SHIELDS: digit SH;" +
-                        "SERVANTS: digit SE;");
+                        "COINS: digit C \n" +
+                        "ROCKS: digit R \n" +
+                        "SHIELDS: digit SH \n" +
+                        "SERVANTS: digit SE \n");
                 resource = readLine();
             }while(!resource.equalsIgnoreCase("c") && !resource.equalsIgnoreCase("r") && !resource.equalsIgnoreCase("sh") && !resource.equalsIgnoreCase("se"));
 
-            if(resource.equalsIgnoreCase("c"))
+            if(resource.equalsIgnoreCase("c")) {
                 resources.add(Resource.COIN);
-            if(resource.equalsIgnoreCase("r"))
+                out.println(YELLOW + "COIN ADDED\n" + RESET);
+            }
+            if(resource.equalsIgnoreCase("r")) {
                 resources.add(Resource.ROCK);
-            if(resource.equalsIgnoreCase("sh"))
+                out.println(YELLOW + "ROCK ADDED\n" + RESET);
+            }
+            if(resource.equalsIgnoreCase("sh")) {
                 resources.add(Resource.SHIELD);
-            if(resource.equalsIgnoreCase("se"))
+                out.println(YELLOW + "SHIELD ADDED\n" + RESET);
+            }
+            if(resource.equalsIgnoreCase("se")) {
                 resources.add(Resource.SERVANT);
+                out.println(YELLOW + "SERVANT ADDED\n" + RESET);
+            }
 
             counter--;
         }while(counter != 0);
+        out.println("-----------------");
 
         return resources;
     }
