@@ -237,7 +237,7 @@ public class Cli implements View {
         for (LeaderCard l: leaders)
             id.add(l.getId());
         do{
-            out.println("You still have " +counter +" leaders to choose.\n");
+            out.print("You still have " +counter +" leaders to choose.\n");
 
             do{
                 out.println("Insert the ID of the choosen leader: ");
@@ -368,6 +368,7 @@ public class Cli implements View {
         MarketDashboard market = clientManager.getGameStatus().getMarket();
         MarketMarble[][] grid = market.getStructure();
         for(int i=0; i<3; i++){
+            out.print("\t\t");
             for(int j=0; j<4;j++) {
                 switch (grid[i][j].getColour()) {
                     case WHITE:
@@ -392,7 +393,7 @@ public class Cli implements View {
             }
             out.print("\n");
         }
-        out.println("The marble left out: ");
+        out.print("The marble left out: ");
             switch (market.getFreeMarble().getColour()){
                 case WHITE:
                     out.print("[W] \t" + RESET);
