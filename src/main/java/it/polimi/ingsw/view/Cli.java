@@ -52,7 +52,7 @@ public class Cli implements View {
     }
 
     public void printLogo(){
-        String logo = " __    __     ______     ______     ______   ______     ______     ______        ______     ______                    \n" +
+        /*String logo = " __    __     ______     ______     ______   ______     ______     ______        ______     ______                    \n" +
                 "/\\ \"-./  \\   /\\  __ \\   /\\  ___\\   /\\__  _\\ /\\  ___\\   /\\  == \\   /\\  ___\\      /\\  __ \\   /\\  ___\\                   \n" +
                 "\\ \\ \\-./\\ \\  \\ \\  __ \\  \\ \\___  \\  \\/_/\\ \\/ \\ \\  __\\   \\ \\  __<   \\ \\___  \\     \\ \\ \\/\\ \\  \\ \\  __\\                   \n" +
                 " \\ \\_\\ \\ \\_\\  \\ \\_\\ \\_\\  \\/\\_____\\    \\ \\_\\  \\ \\_____\\  \\ \\_\\ \\_\\  \\/\\_____\\     \\ \\_____\\  \\ \\_\\                     \n" +
@@ -64,8 +64,27 @@ public class Cli implements View {
                 " \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_\\\\\"\\_\\  \\ \\_\\ \\_\\  \\ \\_\\  \\/\\_____\\  \\/\\_____\\  \\ \\_\\ \\_\\  \\ \\_\\\\\"\\_\\  \\ \\_____\\  \\ \\_____\\\n" +
                 "  \\/_/ /_/   \\/_____/   \\/_/ \\/_/   \\/_/\\/_/   \\/_/   \\/_____/   \\/_____/   \\/_/\\/_/   \\/_/ \\/_/   \\/_____/   \\/_____/ \n"+
                 "Welcome to Masters Of Renaissance Board Game Digital Version (patent pending) created by Mattia Redaelli, Luca Rondini, Gabriele Rivi. \n"+
-                "Have Fun playing the game! \n";
-        out.println(logo);
+                "Have Fun playing the game! \n";*/
+        //SITO PER GENERARE ASCII ART
+        //https://patorjk.com/software/taag/#p=testall&f=Elite&t=Master%20of%20Renaissance%20
+        String logo1 = "\n" +
+                "• ▌ ▄ ·.  ▄▄▄· .▄▄ · ▄▄▄▄▄▄▄▄ .▄▄▄            ·▄▄▄    ▄▄▄  ▄▄▄ . ▐ ▄  ▄▄▄· ▪  .▄▄ · .▄▄ ·  ▄▄▄·  ▐ ▄  ▄▄· ▄▄▄ .    \n" +
+                "·██ ▐███▪▐█ ▀█ ▐█ ▀. •██  ▀▄.▀·▀▄ █·    ▪     ▐▄▄·    ▀▄ █·▀▄.▀·•█▌▐█▐█ ▀█ ██ ▐█ ▀. ▐█ ▀. ▐█ ▀█ •█▌▐█▐█ ▌▪▀▄.▀·    \n" +
+                "▐█ ▌▐▌▐█·▄█▀▀█ ▄▀▀▀█▄ ▐█.▪▐▀▀▪▄▐▀▀▄      ▄█▀▄ ██▪     ▐▀▀▄ ▐▀▀▪▄▐█▐▐▌▄█▀▀█ ▐█·▄▀▀▀█▄▄▀▀▀█▄▄█▀▀█ ▐█▐▐▌██ ▄▄▐▀▀▪▄    \n" +
+                "██ ██▌▐█▌▐█ ▪▐▌▐█▄▪▐█ ▐█▌·▐█▄▄▌▐█•█▌    ▐█▌.▐▌██▌.    ▐█•█▌▐█▄▄▌██▐█▌▐█ ▪▐▌▐█▌▐█▄▪▐█▐█▄▪▐█▐█ ▪▐▌██▐█▌▐███▌▐█▄▄▌    \n" +
+                "▀▀  █▪▀▀▀ ▀  ▀  ▀▀▀▀  ▀▀▀  ▀▀▀ .▀  ▀     ▀█▄▀▪▀▀▀     .▀  ▀ ▀▀▀ ▀▀ █▪ ▀  ▀ ▀▀▀ ▀▀▀▀  ▀▀▀▀  ▀  ▀ ▀▀ █▪·▀▀▀  ▀▀▀     \n";
+        //ANSI SHADOWS
+        String logo2 = "\n" +
+                "███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗      ██████╗ ███████╗    ██████╗ ███████╗███╗   ██╗ █████╗ ██╗███████╗███████╗ █████╗ ███╗   ██╗ ██████╗███████╗    \n" +
+                "████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗    ██╔═══██╗██╔════╝    ██╔══██╗██╔════╝████╗  ██║██╔══██╗██║██╔════╝██╔════╝██╔══██╗████╗  ██║██╔════╝██╔════╝    \n" +
+                "██╔████╔██║███████║███████╗   ██║   █████╗  ██████╔╝    ██║   ██║█████╗      ██████╔╝█████╗  ██╔██╗ ██║███████║██║███████╗███████╗███████║██╔██╗ ██║██║     █████╗      \n" +
+                "██║╚██╔╝██║██╔══██║╚════██║   ██║   ██╔══╝  ██╔══██╗    ██║   ██║██╔══╝      ██╔══██╗██╔══╝  ██║╚██╗██║██╔══██║██║╚════██║╚════██║██╔══██║██║╚██╗██║██║     ██╔══╝      \n" +
+                "██║ ╚═╝ ██║██║  ██║███████║   ██║   ███████╗██║  ██║    ╚██████╔╝██║         ██║  ██║███████╗██║ ╚████║██║  ██║██║███████║███████║██║  ██║██║ ╚████║╚██████╗███████╗    \n" +
+                "╚═╝     ╚═╝╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝     ╚═════╝ ╚═╝         ╚═╝  ╚═╝╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═════╝╚══════╝    \n" +
+                "                                                                                                                                                                        \n" +
+                "          Welcome to Masters Of Renaissance Board Game Digital Version (patent pending) created by Mattia Redaelli, Luca Rondini, Gabriele Rivi. \n" +
+                "                                                      Have Fun playing the game! \n";
+        out.println(logo2);
     }
 
     @Override
@@ -81,15 +100,16 @@ public class Cli implements View {
         else{
             out.println("Here are the available Lobbies:");
             for (ReturnLobbiesMessage.availableGameLobbies lobby : availableGameLobbies) {
-                out.println("ServerID: " + lobby.getServerThreadID());
+                out.println("Lobby ID: " + lobby.getServerThreadID());
                 out.println("Number of Players for this game: " + lobby.getNumberOfPlayers());
                 out.println("Players:");
                 for (String p : lobby.getPlayers()) {
                     out.println(p);
                 }
+                out.println("-----------------");
             }
             do{
-                out.println("Now choose: \n" +
+                out.println("\nNow choose: \n" +
                         "J: Join and existing match. \n" +
                         "C: Create a new Game.");
                 input = readLine();
@@ -155,7 +175,9 @@ public class Cli implements View {
         do{
             do {
                 out.println("Insert the number of players for your game (must be between 1 and 4)");
-                number = readLine();
+                do {
+                    number = readLine();
+                }while(number.equals(""));
                 num = Integer.parseInt(number);
             }while(num <1 || num >4);
             out.println("The choosen number of player is : " +number + "\n" +
@@ -170,7 +192,7 @@ public class Cli implements View {
         String nickname;
         String input;
         do{
-            out.println("Insert a nickname:");
+            out.println("Insert a nickname (\"Lorenzo il Magnifico\" is not available as nickname) :");
             nickname = readLine();
             out.println("The choosen nickname is : " + nickname +
                     "\nDo you want to confirm? Press Y (confirm) / N (deny)");
