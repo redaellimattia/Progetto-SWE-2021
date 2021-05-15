@@ -371,22 +371,22 @@ public class Cli implements View {
             for(int j=0; j<4;j++) {
                 switch (grid[i][j].getColour()) {
                     case WHITE:
-                        out.print("[W] \t");
+                        out.print("[W] \t" + RESET);
                         break;
                     case RED:
-                        out.print("[R] \t");
+                        out.print(RED + "[R] \t"+ RESET);
                         break;
                     case YELLOW:
-                        out.print("[Y] \t");
+                        out.print(YELLOW + "[Y] \t"+ RESET);
                         break;
                     case GREY:
-                        out.print("[G] \t");
+                        out.print(WHITE + "[G] \t"+ RESET);
                         break;
                     case PURPLE:
-                        out.print("[P] \t");
+                        out.print(PURPLE + "[P] \t"+ RESET);
                         break;
                     case BLUE:
-                        out.print("[B] \t");
+                        out.print(BLUE + "[B] \t"+ RESET);
                         break;
                 }
             }
@@ -395,25 +395,25 @@ public class Cli implements View {
         out.println("The marble left out: ");
             switch (market.getFreeMarble().getColour()){
                 case WHITE:
-                    out.println("[W] \t");
+                    out.print("[W] \t" + RESET);
                     break;
                 case RED:
-                    out.println("[R] \t");
+                    out.print(RED + "[R] \t"+ RESET);
                     break;
                 case YELLOW:
-                    out.println("[Y] \t");
+                    out.print(YELLOW + "[Y] \t"+ RESET);
                     break;
                 case GREY:
-                    out.println("[G] \t");
+                    out.print(WHITE + "[G] \t"+ RESET);
                     break;
                 case PURPLE:
-                    out.println("[P] \t");
+                    out.print(PURPLE + "[P] \t"+ RESET);
                     break;
                 case BLUE:
-                    out.println("[B] \t");
+                    out.print(BLUE + "[B] \t"+ RESET);
                     break;
             }
-        out.println("Legend: W -> White | R -> Red | Y -> Yellow | G -> Gray | P -> Purple | -> B -> Blue ");
+        out.println("Legend: W -> White |"+RED+" R -> Red |"+RESET + YELLOW+ " Y -> Yellow |"+RESET + WHITE+" G -> Gray |"+RESET + PURPLE+" P -> Purple |"+RESET + BLUE+" B -> Blue ");
     }
 
     private void printShop(){
