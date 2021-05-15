@@ -96,14 +96,6 @@ public abstract class ClientMessage {
 
     /**
      *
-     * @param socketConnection the connection from which the message has arrived
-     * @param serverLobby serverLobby of the client
-     * @param reconnection true if the player is reconnecting
-     */
-    public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby,boolean reconnection){};
-
-    /**
-     *
      * @return this message as a String (ready to be sent via network)
      */
     public String serialize(){
