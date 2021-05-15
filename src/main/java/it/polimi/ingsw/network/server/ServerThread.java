@@ -161,8 +161,7 @@ public class ServerThread extends Thread implements Observer {
     public void createGame(boolean singlePlayer){
         gameLobby.initGame(singlePlayer,this);
         sendToAll(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(), gameLobby.getGameManager().getGame().getMarket()).serialize());
-        if(!singlePlayer)
-            preGame();
+        preGame();
     }
 
     public void preGame(){

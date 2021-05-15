@@ -316,6 +316,8 @@ public class Cli implements View {
 
     private void printPlayer(String nickname){
         clearCli();
+        PlayerDashboard player = clientManager.getGameStatus().getClientDashboard(nickname);
+        
     }
     private void printMarket(){
         MarketDashboard market = clientManager.getGameStatus().getMarket();
