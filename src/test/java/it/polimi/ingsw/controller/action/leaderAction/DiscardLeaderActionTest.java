@@ -80,7 +80,7 @@ class DiscardLeaderActionTest {
 
         leaderCards.add(0,createLeaderCard(new ColourCount(1,0,0,0)));
         leaderCards.add(0,createLeaderCard(new ColourCount(0,2,1,0)));
-        PlayerDashboard p = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2,false);
+        PlayerDashboard p = new PlayerDashboard(storage,chest,devCards,leaderCards,nickname,2,false);
         p.addObserver(playerObserver);
         p.getStorage().addObserver(p);
         return p;

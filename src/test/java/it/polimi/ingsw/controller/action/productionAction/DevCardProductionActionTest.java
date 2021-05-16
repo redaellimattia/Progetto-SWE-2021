@@ -86,7 +86,7 @@ class DevCardProductionActionTest {
         DeckDashboard[] devCards = new DeckDashboard[3];
 
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2,false);
+        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,nickname,2,false);
         player.addObserver(playerObserver);
         player.getStorage().addObserver(player);
         devCards[0].addCard(createDevCard(1));
@@ -106,7 +106,7 @@ class DevCardProductionActionTest {
         DeckDashboard[] devCards = new DeckDashboard[3];
 
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2,false);
+        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,nickname,2,false);
         devCards[0].addCard(createDevCard(1));
         devCards[0].addCard(createDevCard(2));
         devCards[0].addCard(createDevCardWithFaith());

@@ -1,14 +1,12 @@
 package it.polimi.ingsw.model;
 
 public abstract class Player implements Comparable<Player>{
-    private int position;
     private String nickname;
     private int points;
     private boolean isLorenzo;
     private boolean isPlaying;
 
-    public Player(int position, String nickname, int points, boolean isLorenzo) {
-        this.position = position;
+    public Player(String nickname, int points, boolean isLorenzo) {
         this.nickname = nickname;
         this.points = points;
         this.isLorenzo = isLorenzo;
@@ -33,10 +31,6 @@ public abstract class Player implements Comparable<Player>{
 
     public boolean isPlaying() {
         return isPlaying;
-    }
-
-    public int getPosition() {
-        return position;
     }
 
     public int getPoints() {

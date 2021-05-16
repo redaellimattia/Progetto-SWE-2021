@@ -44,8 +44,8 @@ public class PlayerDashboard extends Player implements StorageObserver{
      * @param nickname nickname of the player
      * @param points total of victory Points
      */
-    public PlayerDashboard(Storage storage, ResourceCount chest, DeckDashboard[] devCards, ArrayList<LeaderCard> leaderCards, int position, String nickname, int points, boolean isLorenzo) {
-        super(position, nickname, points,isLorenzo);
+    public PlayerDashboard(Storage storage, ResourceCount chest, DeckDashboard[] devCards, ArrayList<LeaderCard> leaderCards, String nickname, int points, boolean isLorenzo) {
+        super( nickname, points,isLorenzo);
         this.pathPosition = 0;
         this.storage = storage;
         this.storage.addObserver(this);

@@ -99,7 +99,7 @@ class LeaderCardProductionActionTest {
 
         leaderCards.add(0,createLeaderCard(inGame));
         leaderCards.add(0,createLeaderCard(false));
-        PlayerDashboard p = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2,false);
+        PlayerDashboard p = new PlayerDashboard(storage,chest,devCards,leaderCards,nickname,2,false);
         p.addObserver(serverLobby);
         p.getStorage().addObserver(p);
         return p;

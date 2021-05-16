@@ -160,7 +160,7 @@ class StorageTest {
         DeckDashboard[] devCards = new DeckDashboard[3];
 
         ArrayList<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
-        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2,false);
+        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,nickname,2,false);
         player.addObserver(playerObserver);
         player.getStorage().addObserver(player);
         return player;

@@ -42,7 +42,7 @@ class CardLevelRequirementTest {
         DeckDashboard[] devCards = new DeckDashboard[3];
         ArrayList <LeaderCard> leaderCards = new ArrayList<>();
 
-        PlayerDashboard player =  new PlayerDashboard(storage,chest,devCards,leaderCards,1,nickname,2,false );
+        PlayerDashboard player =  new PlayerDashboard(storage,chest,devCards,leaderCards,nickname,2,false );
 
         Production prod = new Production(new ResourceCount(0, 0, 0, 0, 0), new ResourceCount(0, 0, 0, 0, 0));
         DevelopmentCard card1 = new DevelopmentCard(0,1, new ResourceCount(1, 0, 0, 0, 0), prod, 1, CardColour.BLUE);

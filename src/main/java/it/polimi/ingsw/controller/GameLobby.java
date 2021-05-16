@@ -109,12 +109,10 @@ public class GameLobby {
 
     public void initGame(boolean singlePlayer, ServerLobby observer) {
         ArrayList<PlayerDashboard> playerDashboards = new ArrayList<>();
-        int playerTurnPosition = 0;
         for (String s: players) {
-            PlayerDashboard newPlayer = createPlayer(s, playerTurnPosition, false);
+            PlayerDashboard newPlayer = createPlayer(s,false);
             newPlayer.addObserver(observer);
             playerDashboards.add(newPlayer);
-            playerTurnPosition++;
         }
 
         Shop shop = new Shop(initShopGrid());
@@ -127,7 +125,7 @@ public class GameLobby {
 
         if(singlePlayer){
             // TO-DO: Check that Lorenzo name is not used by player
-            playerDashboards.add(createPlayer("Lorenzo il Magnifico", 1, true));
+            playerDashboards.add(createPlayer("Lorenzo il Magnifico", true));
             Game game = new Game(playerDashboards, shop, market, initTokensDeck());
             gameManager = new GameManager(game, new PlayerTurnManager(playerDashboards.get(0)), true,observer);
             // TO-DO: Set gameManager in every token
@@ -140,7 +138,7 @@ public class GameLobby {
         this.gameCreated = true;
     }
 
-    private PlayerDashboard createPlayer(String nickname, int playerTurnPosition, boolean isLorenzo) {
+    private PlayerDashboard createPlayer(String nickname, boolean isLorenzo) {
         Storage storage = new Storage(new CounterTop(Resource.COIN, 0), new CounterTop(Resource.COIN, 0), new CounterTop(Resource.COIN, 0));
         ResourceCount chest = new ResourceCount(0,0,0,0,0);
         DeckDashboard[] devCards = new DeckDashboard[3];
@@ -148,7 +146,7 @@ public class GameLobby {
             devCards[i] = new DeckDashboard();
         }
         ArrayList<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
-        return new PlayerDashboard(storage, chest, devCards, leaderCards, playerTurnPosition, nickname, 0, isLorenzo);
+        return new PlayerDashboard(storage, chest, devCards, leaderCards, nickname, 0, isLorenzo);
     }
 
     private DeckShop[][] initShopGrid() {

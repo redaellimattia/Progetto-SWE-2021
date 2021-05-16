@@ -49,7 +49,7 @@ class MarketActionTest {
         DeckDashboard[] testDevCards = new DeckDashboard[3];
         ArrayList<LeaderCard> testLeaderCards = new ArrayList<>(0);
         testLeaderCards.add(new LeaderCard(0,2, new CardLevelRequirement(CardColour.YELLOW, 2), new WhiteChangeAbility(Resource.COIN)));
-        PlayerDashboard player = new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, 0, name, 0, false);
+        PlayerDashboard player = new PlayerDashboard(testStorage, testChest, testDevCards, testLeaderCards, name, 0, false);
         player.addObserver(playerObserver);
         player.getStorage().addObserver(player);
         return player;

@@ -88,7 +88,7 @@ class ResourceRequirementTest {
         DeckDashboard[] devCards = new DeckDashboard[3];
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
         ServerLobby playerObserver = new ServerLobby(2,1);
-        PlayerDashboard player = new PlayerDashboard(storage,resCount,devCards,leaderCards,1,nickname,2,false);
+        PlayerDashboard player = new PlayerDashboard(storage,resCount,devCards,leaderCards,nickname,2,false);
         player.addObserver(playerObserver);
         player.getStorage().addObserver(player);
         return player;
