@@ -226,10 +226,17 @@ public class ServerLobby extends Thread implements Observer {
      */
     public void startGame(){
         gameLobby.setGameStarted(true);
-        sendToAll(new WaitYourTurnMessage().serialize());
-        gameLobby.getGameManager().nextRound(clients.size()==1);
+        SocketConnection socketConnection;
         String firstPlayerNickname = gameLobby.getGameManager().getTurnManager().getPlayer().getNickname();
-        SocketConnection socketConnection = clients.get(firstPlayerNickname);
+        for (String p: gameLobby.getPlayers()) {
+            if(!p.equals(firstPlayerNickname)) {
+                socketConnection = clients.get(p);
+                socketConnection.send(new WaitYourTurnMessage().serialize());
+            }
+        }
+        //gameLobby.getGameManager().nextRound(clients.size()==1);
+
+        socketConnection = clients.get(firstPlayerNickname);
         socketConnection.send(new YourTurnMessage().serialize());
     }
 

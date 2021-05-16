@@ -293,12 +293,7 @@ public class GameLobby {
         return leadersList;
     }
 
-    public boolean readyToStartGame(){
-        return numberOfPlayers == readyPlayers;
-    }
-    public boolean readyToCreateGame(){
-        return numberOfPlayers == players.size();
-    }
+
 
 
     public ArrayList<LeaderCard> getFourLeaders(String nickname){
@@ -369,6 +364,9 @@ public class GameLobby {
                     throw new MalevolentClientException(serverThreadID,nickname);
             }
         }
+    }
+    public boolean readyToStartGame(){
+        return numberOfPlayers == readyPlayers;
     }
 
     public void addReadyPlayer(){
