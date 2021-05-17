@@ -1,9 +1,7 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.model.MarketDashboard;
-import it.polimi.ingsw.model.PlayerDashboard;
-import it.polimi.ingsw.model.ResourceCount;
-import it.polimi.ingsw.model.Shop;
+import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.card.Requirement;

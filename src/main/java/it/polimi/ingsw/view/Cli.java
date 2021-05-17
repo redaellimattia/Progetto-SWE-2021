@@ -496,6 +496,15 @@ public class Cli implements View {
                 "Output: " + card.getProductionPower().getOutput().toString());
     }
 
+    // TO-DO: Add method to interface and add @Override
+    public void marketAction() {
+        String input = "";
+        do {
+            out.println("Type \"row\" if you want to select a row; \"col\" if you want to select a column");
+            input = readLine();
+        } while(input != "row" || input != "col");
+    }
+
     @Override
     public void yourTurn() {
         clearCli();
