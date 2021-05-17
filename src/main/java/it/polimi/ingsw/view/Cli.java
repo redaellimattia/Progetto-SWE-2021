@@ -429,7 +429,13 @@ public class Cli implements View {
     @Override
     public void buyCard(){}
     @Override
-    public void takeResourcesFromMarket(){}
+    public void takeResourcesFromMarket(){
+        String input = "";
+        do {
+            out.println("Type \"row\" if you want to select a row; \"col\" if you want to select a column");
+            input = readLine();
+        } while(input != "row" || input != "col");
+    }
     @Override
     public void startProduction(){}
     @Override
