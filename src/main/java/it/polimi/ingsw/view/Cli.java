@@ -310,6 +310,59 @@ public class Cli implements View {
 
         return resources;
     }
+
+
+    @Override
+    public void waitingForTurn() {
+        String input;
+        clearCli();
+        out.println("\nWait for the other players to play their turn, in the meantime you can peek around the board to keep updated.");
+        do {
+            out.println("Choose what you want to see: \n" +
+                    "Market: digit M \n" +
+                    "Shop: digit S \n" +
+                    "Players: digit P \n");
+            input = readLine();
+        } while (!input.equalsIgnoreCase("m") && !input.equalsIgnoreCase("s") && !input.equalsIgnoreCase("p"));
+        if (input.equalsIgnoreCase("m")) {
+            clearCli();
+            printMarket();
+            do {
+                out.println("Digit \"esc\" to go back.");
+                input = readLine();
+            } while (!input.equalsIgnoreCase("esc"));
+            waitingForTurn();
+        }
+        if (input.equalsIgnoreCase("s")) {
+            clearCli();
+            printShop();
+            do {
+                out.println("Digit \"esc\" to go back.");
+                input = readLine();
+            } while (!input.equalsIgnoreCase("esc"));
+            waitingForTurn();
+        }
+        if (input.equalsIgnoreCase("p")) {
+            clearCli();
+            ArrayList<String> nicknames = new ArrayList<>();
+            for (PlayerDashboard p : clientManager.getGameStatus().getPlayers()) {
+                nicknames.add(p.getNickname());
+            }
+            do {
+                out.println("Choose which player you want to see: ");
+                for (String s : nicknames) {
+                    out.print("|" + s + "|\t");
+                }
+                input = readLine();
+            } while (!nicknames.contains(input));
+            printPlayer(input);
+            do {
+                out.println("Digit \"esc\" to go back.");
+                input = readLine();
+            } while (!input.equalsIgnoreCase("esc"));
+            waitingForTurn();
+        }
+    }
     @Override
     public void yourTurn() {
         clearCli();
@@ -371,59 +424,6 @@ public class Cli implements View {
         if(input.equalsIgnoreCase("o"))
             organizeResources();
     }
-
-    @Override
-    public void waitingForTurn() {
-        String input;
-        clearCli();
-        out.println("\nWait for the other players to play their turn, in the meantime you can peek around the board to keep updated.");
-        do {
-            out.println("Choose what you want to see: \n" +
-                    "Market: digit M \n" +
-                    "Shop: digit S \n" +
-                    "Players: digit P \n");
-            input = readLine();
-        } while (!input.equalsIgnoreCase("m") && !input.equalsIgnoreCase("s") && !input.equalsIgnoreCase("p"));
-        if (input.equalsIgnoreCase("m")) {
-            clearCli();
-            printMarket();
-            do {
-                out.println("Digit \"esc\" to go back.");
-                input = readLine();
-            } while (!input.equalsIgnoreCase("esc"));
-            waitingForTurn();
-        }
-        if (input.equalsIgnoreCase("s")) {
-            clearCli();
-            printShop();
-            do {
-                out.println("Digit \"esc\" to go back.");
-                input = readLine();
-            } while (!input.equalsIgnoreCase("esc"));
-            waitingForTurn();
-        }
-        if (input.equalsIgnoreCase("p")) {
-            clearCli();
-            ArrayList<String> nicknames = new ArrayList<>();
-            for (PlayerDashboard p : clientManager.getGameStatus().getPlayers()) {
-                nicknames.add(p.getNickname());
-            }
-            do {
-                out.println("Choose which player you want to see: ");
-                for (String s : nicknames) {
-                    out.print("|" + s + "|\t");
-                }
-                input = readLine();
-            } while (!nicknames.contains(input));
-            printPlayer(input);
-            do {
-                out.println("Digit \"esc\" to go back.");
-                input = readLine();
-            } while (!input.equalsIgnoreCase("esc"));
-            waitingForTurn();
-        }
-    }
-
     @Override
     public void endTurn(){}
     @Override
