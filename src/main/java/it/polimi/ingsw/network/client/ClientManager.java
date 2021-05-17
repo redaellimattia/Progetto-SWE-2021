@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
@@ -30,6 +31,7 @@ public class ClientManager {
     private long serverThreadID = -1;
     private View view;
     private ClientGameStatus gameStatus;
+    private boolean mainActionDone;
 
     /**
      * Creates client Object, handles client connection and instantiates view
@@ -45,6 +47,7 @@ public class ClientManager {
             //this.view = new Gui();
         view.start();
         connection(address,socketPort);
+        this.mainActionDone = false;
     }
     public ClientGameStatus getGameStatus() { return gameStatus;}
     public String getNickname() {
@@ -61,7 +64,6 @@ public class ClientManager {
     }
     public void setServerThreadID(long serverThreadID) {
         this.serverThreadID = serverThreadID;
-
     }
 
     /**
@@ -71,8 +73,8 @@ public class ClientManager {
      * @param shop shop
      * @param market market
      */
-    public void initGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market, VaticanReport[] vReports){
-        gameStatus = new ClientGameStatus(players,shop,market,vReports);
+    public void initGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market){
+        gameStatus = new ClientGameStatus(players,shop,market);
     }
 
     /**
@@ -166,6 +168,14 @@ public class ClientManager {
      */
     public DevelopmentCard getShopCardByID(int ID){
         return gameStatus.getShop().getCardByID(ID);
+    }
+
+    public boolean isMainActionDone() {
+        return mainActionDone;
+    }
+
+    public void setMainActionDone(boolean mainActionDone) {
+        this.mainActionDone = mainActionDone;
     }
 
     /**
