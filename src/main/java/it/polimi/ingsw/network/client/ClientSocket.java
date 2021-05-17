@@ -1,9 +1,6 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.network.messages.clientMessages.AskLobbyMessage;
-import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
-import it.polimi.ingsw.network.server.Server;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -77,6 +74,7 @@ public class ClientSocket implements Runnable {
                 else disconnect();
             } catch (IOException e) {
                 ClientManager.LOGGER.severe("Failed to read message from server: "+ e.getMessage());
+                clientManager.getView().printMsg("Can't reach the Server");
                 disconnect();
             }
         }
