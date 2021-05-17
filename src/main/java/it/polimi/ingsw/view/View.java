@@ -24,4 +24,5 @@ public interface View {
     void playLeader();
     void discardLeader();
     void organizeResources();
+    void vaticanReportActivated(int victoryPoints,ArrayList<String> nicknames);
 }

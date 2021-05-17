@@ -73,8 +73,8 @@ public class ClientManager {
      * @param shop shop
      * @param market market
      */
-    public void initGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market){
-        gameStatus = new ClientGameStatus(players,shop,market);
+    public void initGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market,VaticanReport[] vReports){
+        gameStatus = new ClientGameStatus(players,shop,market,vReports);
     }
 
     /**
