@@ -423,50 +423,25 @@ public class Cli implements View {
 
     private void printShop() {
         Deck[][] shop = clientManager.getGameStatus().getShop().getGrid();
-        ArrayList<Integer> idLine = new ArrayList<>();
-        ArrayList<Integer> vPointsLine = new ArrayList<>();
-        ArrayList<Integer> levelLine = new ArrayList<>();
-        ArrayList<CardColour> colourLine = new ArrayList<>();
-        ArrayList<ResourceCount> costLine = new ArrayList<>();
-        ArrayList<Production> productionLine = new ArrayList<>();
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 4; j++) {
-            idLine.add(shop[i][j].getFirst().getId());
-            vPointsLine.add(shop[i][j].getFirst().getVictoryPoints());
-            levelLine.add(shop[i][j].getFirst().getLevel());
-            colourLine.add(shop[i][j].getFirst().getColour());
-            costLine.add(shop[i][j].getFirst().getCost());
-            productionLine.add(shop[i][j].getFirst().getProductionPower());
-            }
-            for (int j = 0; j < 4; j++)
-                out.print("|ID: " + idLine.get(j) + "|");
-            out.print("\n");
-            for (int j = 0; j < 4; j++)
-                out.print("|Victory Points: " + vPointsLine.get(j) + "\t\t|");
-            out.print("\n");
-            for (int j = 0; j < 4; j++)
-                out.print("|Level: " + levelLine.get(j) + "\t\t\t\t|");
-            out.print("\n");
-            for (int j = 0; j < 4; j++)
-                out.print("|Colour: " + colourLine.get(j) + "\t\t\t|");
-            out.print("\n");
-            for (int j = 0; j < 4; j++) {
-                out.print("|Cost: ");
-                out.print(costLine.get(j).toString());
-                out.print("\t\t\t|");
+        ArrayList<Integer> firstCardID = new ArrayList<>();
+        for(int i=0; i<3;i++){
+            out.print("Level: " + shop[i][0].getFirst().getLevel() + "\t");
+            for(int j=0;j<4;j++){
+                firstCardID.add(shop[i][j].getFirst().getId());
+                switch (shop[i][j].getFirst().getColour()){
+                    case GREEN: out.print(GREEN+ "["+ shop[i][j].getFirst().getId() +"]\t"+RESET);
+                    break;
+                    case YELLOW: out.print(YELLOW+ "["+ shop[i][j].getFirst().getId() +"]\t"+RESET);
+                        break;
+                    case BLUE: out.print(BLUE+ "["+ shop[i][j].getFirst().getId() +"]\t"+RESET);
+                        break;
+                    case PURPLE: out.print(PURPLE+ "["+ shop[i][j].getFirst().getId() +"]\t"+RESET);
+                        break;
+                }
             }
             out.print("\n");
-            for (int j = 0; j < 4; j++) {
-                out.print("|Prod: ");
-                out.print("Cost->");
-                out.print(productionLine.get(j).getInput().toString());
-                out.print(" Out-> ");
-                out.print(productionLine.get(j).getOutput().toString());
-                out.print("\t|");
-            }
-            out.print("\n\n");
         }
+        out.println("Insert the ID of the card you want to see");
 
     }
 
