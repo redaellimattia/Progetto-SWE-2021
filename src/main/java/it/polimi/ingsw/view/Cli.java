@@ -615,19 +615,78 @@ public class Cli implements View {
     }
 
     private void printPlayerDevCards(DeckDashboard[] devCards){
-
+        out.println(PURPLE+"--DEVELOPMENT CARDS--"+RESET);
+        boolean printed = false;
+        for(DeckDashboard d:devCards){
+            if(d.getDeck().size()>0) {
+                out.println(d.getFirst().toString());
+                printed = true;
+            }
+        }
+        if(!printed)
+            out.println("No development cards yet!");
     }
 
     private void printPathPosition(int position,String nickname){
         out.println(PURPLE+"--FAITH PATH--"+RESET);
-        out.println(BLUE+nickname+RESET+" is here: *, vatican report and points: [V R2], victory points in that cell: [20 VR2]");
-        for(int i=0;i<24;i++){
-            if((position-1)==i)
-                out.print("[ * ]");
-            else
-                out.print("[   ]");
+        out.println(BLUE+nickname+RESET+" is here:"+BLUE+" *"+RESET+", vatican report and points: ex:[VR2], victory points in that cell: ex:[20VR2]");
+        for(int i=0;i<25;i++){
+            switch(i){
+                case 3: printFaithPathCell(position==i,1, false,0);
+                    break;
+                case 6: printFaithPathCell(position==i,2, false,0);
+                    break;
+                case 8:
+                case 16:
+                    printFaithPathCell(position==i,0, true,2);
+                    break;
+                case 9: printFaithPathCell(position==i,4, false,0);
+                    break;
+                case 12: printFaithPathCell(position==i,6, false,0);
+                    break;
+                case 15: printFaithPathCell(position==i,9, false,0);
+                    break;
+                case 18: printFaithPathCell(position==i,12, false,0);
+                    break;
+                case 21: printFaithPathCell(position==i,16, false,0);
+                    break;
+                case 24: printFaithPathCell(position==i,20, true,4);
+                    break;
+                default: printFaithPathCell(position==i,0, false,0);
+
+            }
         }
         out.println();
+    }
+
+    private void printFaithPathCell(boolean playerIsHere,int victoryPoints,boolean isVaticanReport,int vaticanReportPoints){
+        if(playerIsHere&&victoryPoints!=0&&isVaticanReport)
+            out.print("["+victoryPoints+BLUE+"*"+RESET+"VR"+vaticanReportPoints+"]");
+        else {
+            if (!playerIsHere && victoryPoints != 0 && isVaticanReport)
+                out.print("[" + victoryPoints + "VR" + vaticanReportPoints + "]");
+            else {
+                if (playerIsHere && victoryPoints == 0 && isVaticanReport)
+                    out.print("[" + BLUE + "*" + RESET + "VR" + vaticanReportPoints + "]");
+                else {
+                    if (!playerIsHere && victoryPoints == 0 && isVaticanReport)
+                        out.print("[VR" + vaticanReportPoints + "]");
+                    else {
+                        if (playerIsHere && victoryPoints != 0)
+                            out.print("[" + victoryPoints + BLUE + "*" + RESET + "]");
+                        else
+                            if (!playerIsHere && victoryPoints != 0)
+                                out.print("[" + victoryPoints + "]");
+                            else
+                                if(playerIsHere)
+                                    out.print("[" + BLUE + "*" + RESET + "]");
+                                else
+                                    out.print("[]");
+                    }
+                }
+            }
+        }
+
     }
 
     private void printChest(ResourceCount chest){
@@ -643,7 +702,6 @@ public class Cli implements View {
         printCounterTop(storage.getFirstRow());
         printCounterTop(storage.getSecondRow());
         printCounterTop(storage.getThirdRow());
-        out.println();
     }
 
     private void printCounterTop(CounterTop counterTop){
