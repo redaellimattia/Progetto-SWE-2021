@@ -168,8 +168,54 @@ class GameManagerTest {
     }
 
     @Test
-    void nextRound() {
+    void nextRoundMultiPlayerEveryoneConnected() {
+        ArrayList<PlayerDashboard> players = playerList();
+        Game game = new Game(players,createShop(),null,null);
+        ServerLobby serverLobby = new ServerLobby(2,1);
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false,serverLobby);
+        gameManager.addObserver(serverLobby);
+        assertEquals("0",gameManager.getTurnManager().getPlayer().getNickname());
+        gameManager.nextRound(false);
+        assertEquals("1",gameManager.getTurnManager().getPlayer().getNickname());
+        gameManager.nextRound(false);
+        assertEquals("2",gameManager.getTurnManager().getPlayer().getNickname());
+        gameManager.nextRound(false);
+        assertEquals("3",gameManager.getTurnManager().getPlayer().getNickname());
+        gameManager.nextRound(false);
+        assertEquals("0",gameManager.getTurnManager().getPlayer().getNickname());
+    }
 
+    @Test
+    void nextRoundMultiPlayerOneDisconnected() {
+        ArrayList<PlayerDashboard> players = playerList();
+        Game game = new Game(players,createShop(),null,null);
+        ServerLobby serverLobby = new ServerLobby(2,1);
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false,serverLobby);
+        gameManager.addObserver(serverLobby);
+        assertEquals("0",gameManager.getTurnManager().getPlayer().getNickname());
+        gameManager.nextRound(false);
+        assertEquals("1",gameManager.getTurnManager().getPlayer().getNickname());
+        gameManager.nextRound(false);
+        players.get(3).setPlaying(false);
+        assertEquals("2",gameManager.getTurnManager().getPlayer().getNickname());
+        gameManager.nextRound(false);
+        assertEquals("0",gameManager.getTurnManager().getPlayer().getNickname());
+        gameManager.nextRound(false);
+        assertEquals("1",gameManager.getTurnManager().getPlayer().getNickname());
+    }
+
+    @Test
+    void nextRoundSinglePlayerConnected() {
+        ArrayList<PlayerDashboard> players = new ArrayList<>();
+        players.add(createPlayer("Prova",false));
+        players.add(createPlayer("Lorenzo il Magnifico",true));
+        Game game = new Game(players,createShop(),null,null);
+        ServerLobby serverLobby = new ServerLobby(1,1);
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),true,serverLobby);
+        gameManager.addObserver(serverLobby);
+        assertEquals("Prova",gameManager.getTurnManager().getPlayer().getNickname());
+        assertThrows(NullPointerException.class, () -> gameManager.nextRound(false));
+        assertEquals("Prova",gameManager.getTurnManager().getPlayer().getNickname());
     }
 
     @Test

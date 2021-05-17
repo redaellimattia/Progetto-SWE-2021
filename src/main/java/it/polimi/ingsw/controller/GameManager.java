@@ -179,7 +179,7 @@ public class GameManager {
                     PlayerDashboard nextPlayer = player;
                     do { //Searching nextPlayer that is playing
                         nextPlayer = game.getNextPlayer(nextPlayer);
-                    }while(nextPlayer != null&&nextPlayer.isPlaying());
+                    }while(nextPlayer == null || !nextPlayer.isPlaying());
                     this.turnManager = new PlayerTurnManager(nextPlayer);
                 }
             }

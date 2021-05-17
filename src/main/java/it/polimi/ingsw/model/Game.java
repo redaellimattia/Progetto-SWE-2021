@@ -73,4 +73,12 @@ public class Game {
         discardedTokens.add(tokensDeck.remove(0));
         return picked;
     }
+
+    public ArrayList<SoloToken> getTokensDeck() {
+        return tokensDeck;
+    }
+
+    public ArrayList<SoloToken> getDiscardedTokens() {
+        return discardedTokens;
+    }
 }
