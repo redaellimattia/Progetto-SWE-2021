@@ -143,6 +143,12 @@ public class GameLobby {
         this.gameCreated = true;
     }
 
+    /**
+     * Creates a new player, initializing attributes with default initial values
+     * @param nickname the nickname of the player
+     * @param isLorenzo true if this player represents "Lorenzo il Magnifico" (the player controlled by the server in single player mode)
+     * @return the PlayerDashboard of the new player
+     */
     private PlayerDashboard createPlayer(String nickname, boolean isLorenzo) {
         Storage storage = new Storage(new CounterTop(Resource.COIN, 0), new CounterTop(Resource.COIN, 0), new CounterTop(Resource.COIN, 0));
         ResourceCount chest = new ResourceCount(0,0,0,0,0);
@@ -154,6 +160,10 @@ public class GameLobby {
         return new PlayerDashboard(storage, chest, devCards, leaderCards, nickname, 0, isLorenzo);
     }
 
+    /**
+     * Creates the Shop
+     * @return the Shop grid matrix
+     */
     private DeckShop[][] initShopGrid() {
         // Create empty grid
         DeckShop[][] shopGrid = new DeckShop[3][4];
@@ -195,6 +205,10 @@ public class GameLobby {
         return shopGrid;
     }
 
+    /**
+     * Creates the Market, initializing attributes with default initial values (shuffled)
+     * @return the Market dashboard
+     */
     private MarketDashboard initMarketDashboard() {
         // Create an empty structure
         MarketMarble[][] structure = new MarketMarble[3][4];
@@ -226,6 +240,10 @@ public class GameLobby {
         return new MarketDashboard(structure, freeMarble);
     }
 
+    /**
+     * Creates the Tokens Deck (for a single player game)
+     * @return the shuffled list of Tokens
+     */
     private ArrayList<SoloToken> initTokensDeck() {
         // Get tokens from JSON and add them to a list
         GsonBuilder builder = new GsonBuilder();
@@ -249,6 +267,10 @@ public class GameLobby {
         return tokenList;
     }
 
+    /**
+     * Creates the list of Leader Cards
+     * @return the shuffled list of Leader Cards
+     */
     private ArrayList<LeaderCard> initLeadersDeck() {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.setPrettyPrinting().create();
@@ -298,9 +320,11 @@ public class GameLobby {
         return leadersList;
     }
 
-
-
-
+    /**
+     *
+     * @param nickname the nickname of the player that should choose Leader Cards
+     * @return a random list of four Leader Cards (completely different for each player)
+     */
     public ArrayList<LeaderCard> getFourLeaders(String nickname){
         int startPos;
         ArrayList<LeaderCard> output = new ArrayList<>();
