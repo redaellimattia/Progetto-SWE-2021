@@ -35,7 +35,7 @@ class MarketActionTest {
         ServerLobby observer = new ServerLobby(2,1);
         market.addObserver(observer);
         Game game = new Game(players, new Shop(emptyGrid), market, new ArrayList<SoloToken>());
-        GameManager gameManager = new GameManager(game, new PlayerTurnManager(player1),true,observer);
+        GameManager gameManager = new GameManager(game, new PlayerTurnManager(player1),true);
         return gameManager;
     }
 

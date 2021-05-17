@@ -366,8 +366,16 @@ public class Cli implements View {
     private void printPlayer(String nickname) {
         clearCli();
         PlayerDashboard player = clientManager.getGameStatus().getClientDashboard(nickname);
-
+        out.println(YELLOW+nickname+"'S DASHBOARD"+RESET);
+        out.println("POINTS: "+player.getPoints()+"\n");
+        printPathPosition(player.getPathPosition());
+        printStorage(player.getStorage());
+        printChest(player.getChest());
+        printPlayerDevCards(player.getDevCards());
+        printLeaderCards(player.getLeaderCards());
     }
+
+
 
     private void printMarket() {
         MarketDashboard market = clientManager.getGameStatus().getMarket();
@@ -501,6 +509,59 @@ public class Cli implements View {
         clearCli();
         out.println("Now it's your turn.");
         printShop();
+    }
+
+    public void vaticanReportActivated(int victoryPoints,ArrayList<String> nicknames){
+        String playerNickname = clientManager.getNickname();
+        printMsg("A vatican report has been activated!");
+        if(!nicknames.contains(playerNickname))
+            out.println(RED+"Unfortunately, you weren't affected."+RESET);
+        else
+            out.println(GREEN+"Well done, you have been affected by the vatican report!"+RESET);
+        printMsg("Other players affected by the vatican report: \n");
+        for(String nick:nicknames){
+            if(!nick.equals(playerNickname))
+                out.print(YELLOW+nick+" - ");
+        }
+        out.println(RESET);
+    }
+
+    private void printLeaderCards(ArrayList<LeaderCard> leaderCards){
+
+    }
+
+    private void printPlayerDevCards(DeckDashboard[] devCards){
+
+    }
+
+    private void printPathPosition(int position){
+        out.println(YELLOW+"--FAITH PATH--"+RESET);
+        out.println("You are here: *, vatican report and points: [V R2], victory points in that cell: [20 VR2]");
+        for(int i=0;i<24;i++){
+            if((position-1)==i)
+                out.print("[ * ]");
+            else
+                out.print("[   ]");
+        }
+    }
+
+    private void printChest(ResourceCount chest){
+        out.println("--CHEST--\n");
+        out.println(chest.toString());
+    }
+
+    private void printStorage(Storage storage){
+        out.println("--STORAGE--\n");
+        printCounterTop(storage.getFirstRow());
+        printCounterTop(storage.getSecondRow());
+        printCounterTop(storage.getThirdRow());
+        out.println();
+    }
+
+    private void printCounterTop(CounterTop counterTop){
+        out.println("Resource: "+counterTop.getResourceType()+" ");
+        for(int i=0;i<counterTop.getContent();i++)
+            out.print("*");
     }
 
     @Override

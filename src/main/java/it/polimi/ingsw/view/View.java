@@ -17,4 +17,5 @@ public interface View {
     void yourTurn();
     void endGame(ArrayList<PlayerPoints> scoreboard);
     void endGame(boolean lorenzoWin,PlayerPoints playerPoints);
+    void vaticanReportActivated(int victoryPoints,ArrayList<String> nicknames);
 }

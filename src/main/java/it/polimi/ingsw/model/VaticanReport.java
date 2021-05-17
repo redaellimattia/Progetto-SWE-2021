@@ -1,6 +1,5 @@
-package it.polimi.ingsw.controller;
+package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.network.server.Observer;
 
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ public class VaticanReport {
     private final int victoryPoints;
     private final int start;
     private final int finish;
-    private Observer observer;
+    private transient Observer observer;
 
     /**
      * Adds reference to the observer
@@ -22,9 +21,8 @@ public class VaticanReport {
 
     /**
      * Remove reference to the observer
-     * @param observer ServerLobby that is observing the Player
      */
-    public void removeObserver(Observer observer) {
+    public void removeObserver() {
         this.observer = null;
     }
 
@@ -36,18 +34,26 @@ public class VaticanReport {
         this.finish = finish;
     }
 
+    public void setUsed() {
+        isUsed = true;
+    }
+
+    public int getVictoryPoints() {
+        return victoryPoints;
+    }
+
     public boolean isUsed() { return isUsed; }
 
     public void activateReport(ArrayList<PlayerDashboard> players){
+        ArrayList<String> nicknames = new ArrayList<>();
         for (PlayerDashboard p: players) {
             int pos = p.getPathPosition();
             if(pos >= start && pos <= finish) {
                 p.addVictoryPoints(victoryPoints);
-                observer.updateVaticanReport(p.getNickname(),victoryPoints,true);
+                nicknames.add(p.getNickname());
             }
-            else
-                observer.updateVaticanReport(p.getNickname(),victoryPoints,false);
         }
         isUsed = true;
+        observer.updateVaticanReport(victoryPoints,nicknames);
     }
 }

@@ -1,9 +1,6 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.model.MarketDashboard;
-import it.polimi.ingsw.model.PlayerDashboard;
-import it.polimi.ingsw.model.ResourceCount;
-import it.polimi.ingsw.model.Shop;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.card.Requirement;
@@ -74,8 +71,8 @@ public class ClientManager {
      * @param shop shop
      * @param market market
      */
-    public void initGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market){
-        gameStatus = new ClientGameStatus(players,shop,market);
+    public void initGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market, VaticanReport[] vReports){
+        gameStatus = new ClientGameStatus(players,shop,market,vReports);
     }
 
     /**

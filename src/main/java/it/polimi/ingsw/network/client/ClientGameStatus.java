@@ -6,16 +6,19 @@ import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ClientGameStatus {
     private ArrayList<PlayerDashboard> players;
     private Shop shop;
     private MarketDashboard market;
+    private VaticanReport[] vReports;
 
-    public ClientGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market) {
+    public ClientGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market, VaticanReport[] vReports) {
         this.players = players;
         this.shop = shop;
         this.market = market;
+        this.vReports = vReports;
     }
 
     public ArrayList<PlayerDashboard> getPlayers() {
@@ -168,6 +171,13 @@ public class ClientGameStatus {
      */
     public void updateVictoryPoints(String nickname,int victoryPoints){
         getClientDashboard(nickname).setPoints(victoryPoints);
+    }
+
+    public void updateVaticanReport(int victoryPoints){
+        for(int i=0;i<3;i++){
+            if(vReports[i].getVictoryPoints()==victoryPoints)
+                vReports[i].setUsed();
+        }
     }
 
     /**

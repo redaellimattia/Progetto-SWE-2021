@@ -10,7 +10,6 @@ import java.util.ArrayList;
 public class GameManager {
     private Game game;
     private PlayerTurnManager turnManager;
-    private VaticanReport[] vReports;
     private boolean isSinglePlayer;
     private boolean gameMustEnd;
     private boolean gameEnded;
@@ -31,16 +30,9 @@ public class GameManager {
         this.observer = null;
     }
 
-    public GameManager(Game game, PlayerTurnManager turnManager, boolean isSinglePlayer, Observer observer) {
+    public GameManager(Game game, PlayerTurnManager turnManager, boolean isSinglePlayer) {
         this.game = game;
         this.turnManager = turnManager;
-        vReports = new VaticanReport[3];
-        vReports[0] = new VaticanReport(2,5,8);
-        vReports[0].addObserver(observer);
-        vReports[1] = new VaticanReport(3,12,16);
-        vReports[1].addObserver(observer);
-        vReports[2] = new VaticanReport(4,19,24);
-        vReports[2].addObserver(observer);
         gameMustEnd = false;
         this.isSinglePlayer = isSinglePlayer;
     }
@@ -72,20 +64,7 @@ public class GameManager {
         return gameEnded;
     }
 
-    /**
-     *  check whether the  VaticanReports need to be activated || the game must end
-     * @param player the player whom we need to check the FaithPath position
-     */
-    public void checkFaithPath(PlayerDashboard player){
-        if(player.getPathPosition() == 8 && !vReports[0].isUsed())
-            vReports[0].activateReport(game.getPlayers());
-        if(player.getPathPosition() == 16 && !vReports[1].isUsed())
-            vReports[1].activateReport(game.getPlayers());
-        if(player.getPathPosition() == 24 && !vReports[2].isUsed()) {
-            vReports[2].activateReport(game.getPlayers()); //Game must end
-            setGameMustEnd();
-        }
-    }
+
 
     /**
      * Add a faith point to each player when a player discard resources from the market

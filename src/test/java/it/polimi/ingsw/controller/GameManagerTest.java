@@ -18,11 +18,11 @@ class GameManagerTest {
     void checkFaithPathFirstVaticanReport() {
         ArrayList<PlayerDashboard> players = playerList();
         Game game = new Game(players,null,null,null);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false,new ServerLobby(2,1));
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false);
         for(int i=0;i<8;i++)
             players.get(0).updatePathPosition();
         assertEquals(8,players.get(0).getPathPosition());
-        assertThrows(NullPointerException.class, () -> gameManager.checkFaithPath(players.get(0)));
+        assertThrows(NullPointerException.class, () -> gameManager.getGame().checkFaithPath(players.get(0)));
         assertEquals(3,players.get(0).getPoints());
         assertEquals(1,players.get(1).getPoints());
 
@@ -30,7 +30,7 @@ class GameManagerTest {
         for(int i=0;i<8;i++)
             players.get(1).updatePathPosition();
         assertEquals(8,players.get(1).getPathPosition());
-        assertThrows(NullPointerException.class, () -> gameManager.checkFaithPath(players.get(1)));
+        gameManager.getGame().checkFaithPath(players.get(1));
         assertEquals(1,players.get(1).getPoints());
     }
 
@@ -38,11 +38,11 @@ class GameManagerTest {
     void checkFaithPathSecondVaticanReport(){
         ArrayList<PlayerDashboard> players = playerList();
         Game game = new Game(players,null,null,null);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false,new ServerLobby(2,1));
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false);
         for(int i=0;i<16;i++)
             players.get(0).updatePathPosition();
         assertEquals(16,players.get(0).getPathPosition());
-        assertThrows(NullPointerException.class, () -> gameManager.checkFaithPath(players.get(0)));
+        assertThrows(NullPointerException.class, () -> gameManager.getGame().checkFaithPath(players.get(0)));
         assertEquals(4,players.get(0).getPoints());
         assertEquals(1,players.get(1).getPoints());
 
@@ -50,7 +50,7 @@ class GameManagerTest {
         for(int i=0;i<16;i++)
             players.get(1).updatePathPosition();
         assertEquals(16,players.get(1).getPathPosition());
-        assertThrows(NullPointerException.class, () -> gameManager.checkFaithPath(players.get(1)));
+        gameManager.getGame().checkFaithPath(players.get(1));
         assertEquals(1,players.get(1).getPoints());
     }
 
@@ -58,11 +58,11 @@ class GameManagerTest {
     void checkFaithPathThirdVaticanReport(){
         ArrayList<PlayerDashboard> players = playerList();
         Game game = new Game(players,null,null,null);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false,new ServerLobby(2,1));
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false);
         for(int i=0;i<24;i++)
             players.get(0).updatePathPosition();
         assertEquals(24,players.get(0).getPathPosition());
-        assertThrows(NullPointerException.class, () -> gameManager.checkFaithPath(players.get(0)));
+        assertThrows(NullPointerException.class, () -> gameManager.getGame().checkFaithPath(players.get(0)));
         assertEquals(5,players.get(0).getPoints());
         assertEquals(1,players.get(1).getPoints());
 
@@ -70,7 +70,7 @@ class GameManagerTest {
         for(int i=0;i<24;i++)
             players.get(1).updatePathPosition();
         assertEquals(24,players.get(1).getPathPosition());
-        assertThrows(NullPointerException.class, () -> gameManager.checkFaithPath(players.get(1)));
+        gameManager.getGame().checkFaithPath(players.get(1));
         assertEquals(1,players.get(1).getPoints());
     }
 
@@ -78,7 +78,7 @@ class GameManagerTest {
     void updateOpponentsPathPosition() {
         ArrayList<PlayerDashboard> players = playerList();
         Game game = new Game(players,null,null,null);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false,new ServerLobby(2,1));
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false);
         gameManager.updateOpponentsPathPosition(players.get(0));
         //Other players get 1 position increment
         assertEquals(1,players.get(1).getPathPosition());
@@ -90,7 +90,7 @@ class GameManagerTest {
     void calculatePoints() {
         ArrayList<PlayerDashboard> players = playerList();
         Game game = new Game(players,null,null,null);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false,new ServerLobby(2,1));
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false);
         for(int i=0;i<9;i++)
             players.get(0).updatePathPosition();
         gameManager.calculatePoints(players.get(0));
@@ -103,7 +103,7 @@ class GameManagerTest {
         ArrayList<PlayerDashboard> oldPlayers = new ArrayList<>(players);
         Game game = new Game(players,null,null,null);
         ServerLobby serverLobby = new ServerLobby(2,1);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false,serverLobby);
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false);
         gameManager.addObserver(serverLobby);
         for(int i=0;i<9;i++)
             players.get(0).updatePathPosition();
@@ -128,7 +128,7 @@ class GameManagerTest {
         Shop shop = createShop();
         ServerLobby serverLobby = new ServerLobby(2,1);
         Game game = new Game(players,shop,null,null);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),true,serverLobby);
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),true);
         gameManager.addObserver(serverLobby);
         for(int i=0;i<6;i++)
             shop.discardFromToken(CardColour.BLUE);
@@ -143,7 +143,7 @@ class GameManagerTest {
         players.add(createPlayer("Lorenzo il Magnifico",true));
         Game game = new Game(players,createShop(),null,null);
         ServerLobby serverLobby = new ServerLobby(2,1);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),true,serverLobby);
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),true);
         gameManager.addObserver(serverLobby);
         for(int i=0;i<24;i++)
             players.get(1).updatePathPosition();
@@ -158,7 +158,7 @@ class GameManagerTest {
         players.add(createPlayer("Lorenzo il Magnifico",true));
         Game game = new Game(players,createShop(),null,null);
         ServerLobby serverLobby = new ServerLobby(2,1);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),true,serverLobby);
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),true);
         gameManager.addObserver(serverLobby);
         for(int i=0;i<24;i++)
             players.get(0).updatePathPosition();
@@ -172,7 +172,7 @@ class GameManagerTest {
         ArrayList<PlayerDashboard> players = playerList();
         Game game = new Game(players,createShop(),null,null);
         ServerLobby serverLobby = new ServerLobby(2,1);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false,serverLobby);
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false);
         gameManager.addObserver(serverLobby);
         assertEquals("0",gameManager.getTurnManager().getPlayer().getNickname());
         gameManager.nextRound(false);
@@ -190,7 +190,7 @@ class GameManagerTest {
         ArrayList<PlayerDashboard> players = playerList();
         Game game = new Game(players,createShop(),null,null);
         ServerLobby serverLobby = new ServerLobby(2,1);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false,serverLobby);
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false);
         gameManager.addObserver(serverLobby);
         assertEquals("0",gameManager.getTurnManager().getPlayer().getNickname());
         gameManager.nextRound(false);
@@ -211,7 +211,7 @@ class GameManagerTest {
         players.add(createPlayer("Lorenzo il Magnifico",true));
         Game game = new Game(players,createShop(),null,null);
         ServerLobby serverLobby = new ServerLobby(1,1);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),true,serverLobby);
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),true);
         gameManager.addObserver(serverLobby);
         assertEquals("Prova",gameManager.getTurnManager().getPlayer().getNickname());
         assertThrows(NullPointerException.class, () -> gameManager.nextRound(false));
@@ -222,7 +222,7 @@ class GameManagerTest {
     void wasPlaying() {
         ArrayList<PlayerDashboard> players = playerList();
         Game game = new Game(players,null,null,null);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false,new ServerLobby(2,1));
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false);
         players.get(0).setPlaying(false);
         assertEquals(0,gameManager.wasPlaying(players.get(0).getNickname()));
         assertEquals(-1,gameManager.wasPlaying(players.get(1).getNickname()));
@@ -232,7 +232,7 @@ class GameManagerTest {
     void playerComeback() {
         ArrayList<PlayerDashboard> players = playerList();
         Game game = new Game(players,null,null,null);
-        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false,new ServerLobby(2,1));
+        GameManager gameManager = new GameManager(game,new PlayerTurnManager(players.get(0)),false);
         players.get(0).setPlaying(false);
         gameManager.playerComeback(0);
         assertTrue(players.get(0).isPlaying());

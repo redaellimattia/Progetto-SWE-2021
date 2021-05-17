@@ -13,7 +13,6 @@ import it.polimi.ingsw.network.enumeration.PlayerUpdateType;
 import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.*;
 import it.polimi.ingsw.network.messages.serverMessages.updates.*;
-import it.polimi.ingsw.view.Cli;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -114,7 +113,7 @@ public class ServerLobby extends Thread implements Observer {
             clients.put(nickname, clientConnection);
             Server.LOGGER.log(Level.INFO, nickname + " is back in the lobby #" + getThreadId());
             clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
-            clientConnection.send(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(),gameLobby.getGameManager().getGame().getMarket()).serialize());
+            clientConnection.send(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(),gameLobby.getGameManager().getGame().getMarket(),gameLobby.getGameManager().getGame().getvReports()).serialize());
         }
     }
 
@@ -163,7 +162,7 @@ public class ServerLobby extends Thread implements Observer {
      */
     public void createGame(boolean singlePlayer){
         gameLobby.initGame(singlePlayer,this);
-        sendToAll(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(), gameLobby.getGameManager().getGame().getMarket()).serialize());
+        sendToAll(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(), gameLobby.getGameManager().getGame().getMarket(),gameLobby.getGameManager().getGame().getvReports()).serialize());
         preGame();
     }
 
@@ -317,7 +316,7 @@ public class ServerLobby extends Thread implements Observer {
     @Override
     public void updatePathPosition(PlayerDashboard player, int position) {
         if(gameLobby.getGameManager()!=null)
-            gameLobby.getGameManager().checkFaithPath(player);
+            gameLobby.getGameManager().getGame().checkFaithPath(player);
         sendToAll(new PathPositionUpdateMessage(player.getNickname(),position).serialize());
     }
 
@@ -347,11 +346,8 @@ public class ServerLobby extends Thread implements Observer {
     }
 
     @Override
-    public void updateVaticanReport(String nickname, int victoryPoints, boolean gotIt){
-        if(gotIt)
-            clients.get(nickname).send(new PrintMessage("A vatican report has been activated, you earned: "+victoryPoints+" points!").serialize());
-        else
-            clients.get(nickname).send(new PrintMessage("A vatican report has been activated, unfortunately you didn't benefit from that!").serialize());
+    public void updateVaticanReport(int victoryPoints,ArrayList<String> nicknames){
+        sendToAll(new VaticanReportActivatedMessage(victoryPoints,nicknames).serialize());
     }
 
     @Override
@@ -367,5 +363,9 @@ public class ServerLobby extends Thread implements Observer {
             sendToAll(new EndMultiPlayerGameMessage(gameLobby.getGameManager().getGame().getPlayers()).serialize());
     }
 
+    @Override
+    public void setGameMustEnd(){
+        gameLobby.getGameManager().setGameMustEnd();
+    }
 }
 
