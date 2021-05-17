@@ -40,7 +40,6 @@ public class PlayerDashboard extends Player implements StorageObserver{
      * @param chest ResourceCount that simulate the player's chest
      * @param devCards Array of DevelopmentCard bought by the player
      * @param leaderCards ArrayList of LeaderCard that are the leader owned by the player
-     * @param position position of the player in the round
      * @param nickname nickname of the player
      * @param points total of victory Points
      */
@@ -135,6 +134,12 @@ public class PlayerDashboard extends Player implements StorageObserver{
      */
     public void setBufferProduction(ResourceCount bufferProduction) {
         this.bufferProduction = bufferProduction;
+    }
+
+    public void setLeaderCards(ArrayList<LeaderCard> leaderCards) {
+        this.leaderCards = leaderCards;
+        if(observer!=null)
+            observer.updateLeaders(getNickname(),leaderCards);
     }
 
     /**

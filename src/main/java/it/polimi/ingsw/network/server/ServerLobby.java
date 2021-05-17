@@ -7,6 +7,7 @@ import it.polimi.ingsw.exceptions.network.NotYourTurnException;
 import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
+import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.enumeration.ClientMessageType;
 import it.polimi.ingsw.network.enumeration.PlayerUpdateType;
@@ -363,6 +364,11 @@ public class ServerLobby extends Thread implements Observer {
             sendToAll(new EndMultiPlayerGameMessage(gameLobby.getGameManager().getGame().getPlayers()).serialize());
     }
 
+    @Override
+    public void updateLeaders(String nickname, ArrayList<LeaderCard> leaderCards){
+        sendToAll(new LeaderChoiceMessage(nickname,leaderCards).serialize());
+
+    }
     @Override
     public void setGameMustEnd(){
         gameLobby.getGameManager().setGameMustEnd();

@@ -452,7 +452,7 @@ public class Cli implements View {
         PlayerDashboard player = clientManager.getGameStatus().getClientDashboard(nickname);
         out.println(YELLOW+nickname+"'S DASHBOARD"+RESET);
         out.println(PURPLE+"VICTORY POINTS: "+player.getPoints()+RESET);
-        printPathPosition(player.getPathPosition());
+        printPathPosition(player.getPathPosition(),nickname);
         printStorage(player.getStorage());
         printChest(player.getChest());
         printPlayerDevCards(player.getDevCards());
@@ -590,7 +590,7 @@ public class Cli implements View {
                 "Output: " + card.getProductionPower().getOutput().toString());
     }
 
-
+    @Override
     public void vaticanReportActivated(int victoryPoints,ArrayList<String> nicknames){
         String playerNickname = clientManager.getNickname();
         printMsg("A vatican report has been activated!");
@@ -615,9 +615,9 @@ public class Cli implements View {
 
     }
 
-    private void printPathPosition(int position){
+    private void printPathPosition(int position,String nickname){
         out.println(PURPLE+"--FAITH PATH--"+RESET);
-        out.println("You are here: *, vatican report and points: [V R2], victory points in that cell: [20 VR2]");
+        out.println(BLUE+nickname+RESET+" is here: *, vatican report and points: [V R2], victory points in that cell: [20 VR2]");
         for(int i=0;i<24;i++){
             if((position-1)==i)
                 out.print("[ * ]");

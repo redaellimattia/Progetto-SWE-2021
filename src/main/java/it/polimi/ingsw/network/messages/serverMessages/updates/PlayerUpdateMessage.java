@@ -3,12 +3,15 @@ package it.polimi.ingsw.network.messages.serverMessages.updates;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import it.polimi.ingsw.model.card.Requirement;
+import it.polimi.ingsw.model.card.SpecialAbility;
 import it.polimi.ingsw.network.enumeration.PlayerUpdateType;
 import it.polimi.ingsw.network.enumeration.ServerMessageType;
+import it.polimi.ingsw.network.messages.InterfaceAdapter;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
 
 public abstract class PlayerUpdateMessage extends ServerMessage {
-    static GsonBuilder builder = new GsonBuilder();
+    static GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Requirement.class, new InterfaceAdapter()).registerTypeAdapter(SpecialAbility.class, new InterfaceAdapter());
     static Gson gson = builder.create();
     private PlayerUpdateType playerUpdateType;
     private String nickname;
@@ -52,6 +55,8 @@ public abstract class PlayerUpdateMessage extends ServerMessage {
                 return gson.fromJson(jsonObj, StorageUpdateMessage.class);
             case VICTORYPOINTS:
                 return gson.fromJson(jsonObj, VictoryPointsUpdateMessage.class);
+            case LEADERCHOICE:
+                return gson.fromJson(jsonObj, LeaderChoiceMessage.class);
             default:
                 throw new IllegalArgumentException("playerUpdateType not found.");
         }

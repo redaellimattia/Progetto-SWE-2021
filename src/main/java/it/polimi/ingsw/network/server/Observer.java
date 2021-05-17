@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
+import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public interface Observer {
     void updateDevCards(String nickname, DevelopmentCard card, int position);
     void updateRemoveLeader(String nickname, int position);
     void updatePathPosition(PlayerDashboard player, int position);
+    void updateLeaders(String nickname,ArrayList<LeaderCard> leaderCards);
     void updateInGameLeader(String nickname, int position);
     void updateFirstRow(String nickname,CounterTop firstRow);
     void updateSecondRow(String nickname,CounterTop secondRow);

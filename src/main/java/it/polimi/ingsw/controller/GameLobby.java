@@ -355,8 +355,9 @@ public class GameLobby {
         CounterTop chosen1;
         CounterTop chosen2;
         List<LeaderCard> checkLeaders = new ArrayList<>();
-        for (int i=0;i<gameManager.getGame().getPlayers().size();i++) {
-            PlayerDashboard p = gameManager.getGame().getPlayers().get(i);
+        ArrayList<PlayerDashboard> players = gameManager.getGame().getPlayers();
+        for (int i=0;i<numberOfPlayers;i++) {
+            PlayerDashboard p = players.get(i);
             if(p.getNickname().equals(nickname)) {
                 if (chosen.size() == 1) {
                     chosen1 = new CounterTop(chosen.get(0),1);
@@ -386,8 +387,7 @@ public class GameLobby {
                         break;
                 }
                 if(checkLeaders.contains(chosenLeaders.get(0)) && checkLeaders.contains(chosenLeaders.get(1))) {
-                    p.getLeaderCards().add(chosenLeaders.get(0));
-                    p.getLeaderCards().add(chosenLeaders.get(1));
+                    p.setLeaderCards(chosenLeaders);
                 }
                 else
                     throw new MalevolentClientException(serverThreadID,nickname);
