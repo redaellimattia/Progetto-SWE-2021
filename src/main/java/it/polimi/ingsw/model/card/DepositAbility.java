@@ -45,6 +45,6 @@ public class  DepositAbility extends SpecialAbility {
 
     @Override
     public String toString(){
-        return "Add a deposit that can contain 2 "  + getResourceType();
+        return "This card adds a deposit that can contain 2 "  + getResourceType();
     }
 }

@@ -81,6 +81,6 @@ public class CardLevelRequirement implements Requirement {
 
     @Override
     public String toString(){
-        return "You need a " + colour + " card of level: " + level +" to play this";
+        return "You need a " + colour + " card of level: " + level +" to play this.";
     }
 }

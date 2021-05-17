@@ -76,6 +76,6 @@ public class TypeOfCardRequirement implements Requirement {
     }
     @Override
     public String toString(){
-        return "You need these type of cards: " + cardColours.toString() + " to play this card;";
+        return "You need these type of cards: " + cardColours.toString() + " to play this card.";
     }
 }

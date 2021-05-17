@@ -44,6 +44,6 @@ public class DiscountAbility extends SpecialAbility {
 
     @Override
     public String toString(){
-        return "This card grant a discount of 1 " + getResourceType() + " when buying a new card!";
+        return "This card grants a discount of 1 " + getResourceType() + " when buying a new card!";
     }
 }

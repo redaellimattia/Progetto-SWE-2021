@@ -48,6 +48,6 @@ public class ProductionAbility extends SpecialAbility {
 
     @Override
     public String toString(){
-        return "You can use these cart to obtain a chosen resource and a faith point using a: " + getResourceType();
+        return "You can use these card to obtain a chosen resource and a faith point using a: " + getResourceType();
     }
 }
