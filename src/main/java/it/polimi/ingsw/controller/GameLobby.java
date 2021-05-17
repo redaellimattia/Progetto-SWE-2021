@@ -107,6 +107,11 @@ public class GameLobby {
         return gameManager;
     }
 
+    /**
+     * Initializes all objects for a new game, loading default initial configuration
+     * @param singlePlayer true if the game is in single player mode
+     * @param observer the observer that will listen for changes in the game status
+     */
     public void initGame(boolean singlePlayer, ServerLobby observer) {
         ArrayList<PlayerDashboard> playerDashboards = new ArrayList<>();
         for (String s: players) {
