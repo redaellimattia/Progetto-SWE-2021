@@ -40,15 +40,6 @@ public class ClientSocket implements Runnable {
         return isConnected;
     }
 
-
-    /**
-     * Sends the first message, ASKLOBBIES to ask available lobbies
-     */
-    public void startConnection() {
-        send(new AskLobbyMessage(clientManager.getNickname(), clientManager.getServerThreadID()).serialize());
-    }
-
-
     /**
      * Send passed String
      * @param msg serialized Json message

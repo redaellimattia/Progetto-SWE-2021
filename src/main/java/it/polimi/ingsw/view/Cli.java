@@ -123,14 +123,17 @@ public class Cli implements View {
             do {
                 out.println("Now choose: \n" +
                         "J: Join and existing match. \n" +
-                        "C: Create a new Game.");
+                        "C: Create a new Game. \n" +
+                        "A: Ask the lobbies again: ");
                 input = readLine();
-            } while (!input.equalsIgnoreCase("J") && !input.equalsIgnoreCase("C"));
+            } while (!input.equalsIgnoreCase("J") && !input.equalsIgnoreCase("C") && !input.equalsIgnoreCase("A"));
 
             if (input.equalsIgnoreCase("C"))
                 createNewGame();
             if (input.equalsIgnoreCase("J"))
                 joinExistingGame(availableGameLobbies);
+            if (input.equalsIgnoreCase("A"))
+                clientManager.askLobbies();
         }
     }
 
@@ -319,9 +322,9 @@ public class Cli implements View {
         out.println("\nWait for the other players to play their turn, in the meantime you can peek around the board to keep updated.");
         do {
             out.println("Choose what you want to see: \n" +
-                    "Market: digit M \n" +
-                    "Shop: digit S \n" +
-                    "Players: digit P \n");
+                    "Market: press M \n" +
+                    "Shop: press S \n" +
+                    "Players: press P \n");
             input = readLine();
         } while (!input.equalsIgnoreCase("m") && !input.equalsIgnoreCase("s") && !input.equalsIgnoreCase("p"));
         if (input.equalsIgnoreCase("m")) {

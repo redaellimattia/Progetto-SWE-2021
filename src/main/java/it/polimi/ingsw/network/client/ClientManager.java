@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.card.Requirement;
 import it.polimi.ingsw.model.enumeration.Resource;
+import it.polimi.ingsw.network.messages.clientMessages.AskLobbyMessage;
 import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
 import it.polimi.ingsw.network.messages.clientMessages.JoinGameMessage;
 import it.polimi.ingsw.network.messages.clientMessages.PreGameResponseMessage;
@@ -84,7 +85,7 @@ public class ClientManager {
      */
     public void connection(String address, int socketPort ){
         clientSocket = new ClientSocket(address, socketPort,this);
-        clientSocket.startConnection();
+        askLobbies();
         if(!clientSocket.isConnected())
             view.printMsg("Failed to connect to: "+ address+":" + socketPort);
     }
@@ -103,8 +104,14 @@ public class ClientManager {
      * @param numberOfPlayers for the game the player wants to create
      */
     public void createGame(int numberOfPlayers){
-        String message = new CreateGameMessage(this.nickname,-1,numberOfPlayers).serialize();
-        clientSocket.send(message);
+        clientSocket.send(new CreateGameMessage(this.nickname,-1,numberOfPlayers).serialize());
+    }
+
+    /**
+     * Sends a message to ask available lobbies
+     */
+    public void askLobbies(){
+        clientSocket.send(new AskLobbyMessage(nickname, serverThreadID).serialize());
     }
 
     /**
@@ -113,13 +120,17 @@ public class ClientManager {
      * @param serverThreadID chosen serverID for the game to join
      */
     public void joinGame(long serverThreadID){
-        String message = new JoinGameMessage(this.nickname,serverThreadID).serialize();
-        clientSocket.send(message);
+        clientSocket.send(new JoinGameMessage(this.nickname,serverThreadID).serialize());
     }
 
+    /**
+     * Sends preChoice Message with the chosen resources and leaders
+     *
+     * @param resources amount of chosen resources
+     * @param leaders leaderCards chosen
+     */
     public void preGameChoice(ArrayList<Resource> resources, ArrayList<LeaderCard> leaders){
-        String message= new PreGameResponseMessage(this.nickname,serverThreadID,resources,leaders).serialize();
-        clientSocket.send(message);
+        clientSocket.send(new PreGameResponseMessage(this.nickname,serverThreadID,resources,leaders).serialize());
     }
 
     /**
