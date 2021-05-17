@@ -396,7 +396,7 @@ public class Cli implements View {
                 out.println("PLAY A LEADER: press L\n" +
                         "DISCARD A LEADER: press D \n");
             }
-            out.println("REORGANIZE RESOURCES: press O");
+            out.println("REORGANIZE RESOURCES: press R");
 
             if (clientManager.isMainActionDone())
                 out.println(RED + "PRESS Q TO PASS YOUR TURN" + RESET);
@@ -451,7 +451,7 @@ public class Cli implements View {
         clearCli();
         PlayerDashboard player = clientManager.getGameStatus().getClientDashboard(nickname);
         out.println(YELLOW+nickname+"'S DASHBOARD"+RESET);
-        out.println("POINTS: "+player.getPoints()+"\n");
+        out.println(PURPLE+"VICTORY POINTS: "+player.getPoints()+RESET);
         printPathPosition(player.getPathPosition());
         printStorage(player.getStorage());
         printChest(player.getChest());
@@ -607,7 +607,8 @@ public class Cli implements View {
     }
 
     private void printLeaderCards(ArrayList<LeaderCard> leaderCards){
-
+        out.println(PURPLE+"--LEADER CARDS--"+RESET);
+        printLeaders(leaderCards);
     }
 
     private void printPlayerDevCards(DeckDashboard[] devCards){
@@ -615,7 +616,7 @@ public class Cli implements View {
     }
 
     private void printPathPosition(int position){
-        out.println(YELLOW+"--FAITH PATH--"+RESET);
+        out.println(PURPLE+"--FAITH PATH--"+RESET);
         out.println("You are here: *, vatican report and points: [V R2], victory points in that cell: [20 VR2]");
         for(int i=0;i<24;i++){
             if((position-1)==i)
@@ -623,15 +624,19 @@ public class Cli implements View {
             else
                 out.print("[   ]");
         }
+        out.println();
     }
 
     private void printChest(ResourceCount chest){
-        out.println("--CHEST--\n");
-        out.println(chest.toString());
+        out.println(PURPLE+"--CHEST--"+RESET);
+        if(ResourceCount.resCountToInt(chest)>0)
+            out.println(chest.toString());
+        else
+            out.println("EMPTY");
     }
 
     private void printStorage(Storage storage){
-        out.println("--STORAGE--\n");
+        out.println(PURPLE+"--STORAGE--"+RESET);
         printCounterTop(storage.getFirstRow());
         printCounterTop(storage.getSecondRow());
         printCounterTop(storage.getThirdRow());
@@ -639,9 +644,14 @@ public class Cli implements View {
     }
 
     private void printCounterTop(CounterTop counterTop){
-        out.println("Resource: "+counterTop.getResourceType()+" ");
+        if(counterTop.getContent()>0)
+            out.println("Resource: "+counterTop.getResourceType()+" ");
+        else
+            out.println("EMPTY");
         for(int i=0;i<counterTop.getContent();i++)
             out.print("*");
+        if(counterTop.getContent()>0)
+            out.println();
     }
 
     @Override
