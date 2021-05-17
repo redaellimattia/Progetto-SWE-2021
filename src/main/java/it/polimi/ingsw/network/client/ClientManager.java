@@ -1,12 +1,11 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.model.Deck;
 import it.polimi.ingsw.model.MarketDashboard;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.Shop;
+import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.card.Requirement;
-import it.polimi.ingsw.model.card.SpecialAbility;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
 import it.polimi.ingsw.network.messages.clientMessages.JoinGameMessage;
@@ -26,9 +25,6 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class ClientManager {
-    private static final int DEFAULT_SOCKET_PORT = 1338;
-    private static final String DEFAULT_SOCKET_IP = "127.0.0.1";
-    private static final String DEFAULT_CHOICE = "cli";
     protected static final Logger LOGGER = Logger.getLogger("Client");
 
     private String nickname;
@@ -136,6 +132,9 @@ public class ClientManager {
         return req.isPlayable(gameStatus.getClientDashboard(nickname));
     }
 
+    public DevelopmentCard getShopCardByID(int ID){
+        return gameStatus.getShop().getCardByID(ID);
+    }
 
     /**
      * Creating logger file handler
