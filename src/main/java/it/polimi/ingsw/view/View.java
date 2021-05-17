@@ -17,4 +17,11 @@ public interface View {
     void yourTurn();
     void endGame(ArrayList<PlayerPoints> scoreboard);
     void endGame(boolean lorenzoWin,PlayerPoints playerPoints);
+    void endTurn();
+    void buyCard();
+    void takeResourcesFromMarket();
+    void startProduction();
+    void playLeader();
+    void discardLeader();
+    void organizeResources();
 }

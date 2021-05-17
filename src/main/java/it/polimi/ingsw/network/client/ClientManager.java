@@ -33,6 +33,7 @@ public class ClientManager {
     private long serverThreadID = -1;
     private View view;
     private ClientGameStatus gameStatus;
+    private boolean mainActionDone;
 
     /**
      * Creates client Object, handles client connection and instantiates view
@@ -48,6 +49,7 @@ public class ClientManager {
             //this.view = new Gui();
         view.start();
         connection(address,socketPort);
+        this.mainActionDone = false;
     }
     public ClientGameStatus getGameStatus() { return gameStatus;}
     public String getNickname() {
@@ -64,7 +66,6 @@ public class ClientManager {
     }
     public void setServerThreadID(long serverThreadID) {
         this.serverThreadID = serverThreadID;
-
     }
 
     /**
@@ -169,6 +170,14 @@ public class ClientManager {
      */
     public DevelopmentCard getShopCardByID(int ID){
         return gameStatus.getShop().getCardByID(ID);
+    }
+
+    public boolean isMainActionDone() {
+        return mainActionDone;
+    }
+
+    public void setMainActionDone(boolean mainActionDone) {
+        this.mainActionDone = mainActionDone;
     }
 
     /**

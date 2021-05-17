@@ -310,6 +310,67 @@ public class Cli implements View {
 
         return resources;
     }
+    @Override
+    public void yourTurn() {
+        clearCli();
+        out.println(RED + "|||Now it's your turn|||" + RESET);
+        out.println("This is the actual state of your board: ");
+        printPlayer(clientManager.getNickname());
+        chooseAction();
+    }
+
+    public void chooseAction(){
+        String input;
+        boolean canDoProduction = (ResourceCount.resCountToInt(clientManager.getGameStatus().getClientDashboard(clientManager.getNickname()).getStorage().readStorage()) >= 2
+                || ResourceCount.resCountToInt(clientManager.getGameStatus().getClientDashboard(clientManager.getNickname()).getChest()) >= 2);
+        do {
+            if (!clientManager.isMainActionDone()) {
+                out.println(YELLOW + "You still have to do one of these before ending your turn: " + RESET);
+                out.println("BUY A CARD : press B\n" +
+                        "TAKE RESOURCES FROM MARKET: press M\n");
+
+                if (canDoProduction)
+                    out.println("USE THE PRODUCTION POWERS ON YOUR BOARD: press P");
+
+            }
+            out.println(YELLOW + "Secondary actions: " + RESET);
+            int leadersInHand = 0;
+            for (LeaderCard l: clientManager.getGameStatus().getClientDashboard(clientManager.getNickname()).getLeaderCards()) {
+                if(!l.isInGame())
+                    leadersInHand++;
+            }
+            if(leadersInHand >= 1) {
+                out.println("PLAY A LEADER: press L\n" +
+                        "DISCARD A LEADER: press D \n");
+            }
+            out.println("REORGANIZE RESOURCES: press O");
+
+            if (clientManager.isMainActionDone())
+                out.println(RED + "PRESS Q TO PASS YOUR TURN" + RESET);
+            out.println("Choose one of the above to continue the game: ");
+            input = readLine();
+        }while(!input.equalsIgnoreCase("b")&& !input.equalsIgnoreCase("m")&&!input.equalsIgnoreCase("p")
+                &&!input.equalsIgnoreCase("l")&&!input.equalsIgnoreCase("d")&&!input.equalsIgnoreCase("o") &&
+                !input.equalsIgnoreCase("q"));
+
+        //CASE WHEN I PRESS Q BUT I HAVE NOT THE POSSIBILITY TO PASS THE TURN
+        if(input.equalsIgnoreCase("q") && !clientManager.isMainActionDone())
+            chooseAction();
+        if(input.equalsIgnoreCase("q") && clientManager.isMainActionDone())
+            endTurn();
+        if(input.equalsIgnoreCase("b") && !clientManager.isMainActionDone())
+            buyCard();
+        if(input.equalsIgnoreCase("m") && !clientManager.isMainActionDone())
+            takeResourcesFromMarket();
+        if(input.equalsIgnoreCase("p") && !clientManager.isMainActionDone() && canDoProduction)
+            startProduction();
+        if(input.equalsIgnoreCase("l"))
+            playLeader();
+        if(input.equalsIgnoreCase("d"))
+            discardLeader();
+        if(input.equalsIgnoreCase("o"))
+            organizeResources();
+    }
 
     @Override
     public void waitingForTurn() {
@@ -363,6 +424,23 @@ public class Cli implements View {
         }
     }
 
+    @Override
+    public void endTurn(){}
+    @Override
+    public void buyCard(){}
+    @Override
+    public void takeResourcesFromMarket(){}
+    @Override
+    public void startProduction(){}
+    @Override
+    public void playLeader(){}
+    @Override
+    public void discardLeader(){}
+    @Override
+    public void organizeResources(){}
+
+
+
     private void printPlayer(String nickname) {
         clearCli();
         PlayerDashboard player = clientManager.getGameStatus().getClientDashboard(nickname);
@@ -372,6 +450,7 @@ public class Cli implements View {
     private void printMarket() {
         MarketDashboard market = clientManager.getGameStatus().getMarket();
         MarketMarble[][] grid = market.getStructure();
+        out.println(YELLOW + "MARKET DASHBOARD " + RESET);
         for (int i = 0; i < 3; i++) {
             out.print("\t\t");
             for (int j = 0; j < 4; j++) {
@@ -425,6 +504,7 @@ public class Cli implements View {
     private void printShop() {
         Deck[][] shop = clientManager.getGameStatus().getShop().getGrid();
         ArrayList<Integer> firstCardID = new ArrayList<>();
+        out.println(YELLOW + "SHOP GRID" + RESET);
         for (int i = 0; i < 3; i++) {
             out.print("Level: " + shop[i][0].getFirst().getLevel() + "\t");
             for (int j = 0; j < 4; j++) {
@@ -496,12 +576,6 @@ public class Cli implements View {
                 "Output: " + card.getProductionPower().getOutput().toString());
     }
 
-    @Override
-    public void yourTurn() {
-        clearCli();
-        out.println("Now it's your turn.");
-        printShop();
-    }
 
     @Override
     public void endGame(boolean lorenzoWin, PlayerPoints playerPoints) {
