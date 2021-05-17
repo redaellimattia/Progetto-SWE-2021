@@ -190,8 +190,9 @@ public class Cli implements View {
                 do {
                     number = readLine();
                 } while (number.equals(""));
-                num = Integer.parseInt(number);
-            } while (num < 1 || num > 4);
+
+                try{num = Integer.parseInt(number);}catch(NumberFormatException e) { num = 0;}
+                } while (num < 1 || num > 4);
             out.println("The choosen number of player is : " + number + "\n" +
                     "Do you want to confirm? Press Y (confirm) / N (deny)");
             input = readLine();
@@ -429,26 +430,51 @@ public class Cli implements View {
             for(int j=0;j<4;j++){
                 firstCardID.add(shop[i][j].getFirst().getId());
                 switch (shop[i][j].getFirst().getColour()){
-                    case GREEN: out.print(GREEN+ "["+ shop[i][j].getFirst().getId() +"]\t"+RESET);
+                    case GREEN: out.print(GREEN);
                     break;
-                    case YELLOW: out.print(YELLOW+ "["+ shop[i][j].getFirst().getId() +"]\t"+RESET);
+                    case YELLOW: out.print(YELLOW);
                         break;
-                    case BLUE: out.print(BLUE+ "["+ shop[i][j].getFirst().getId() +"]\t"+RESET);
+                    case BLUE: out.print(BLUE);
                         break;
-                    case PURPLE: out.print(PURPLE+ "["+ shop[i][j].getFirst().getId() +"]\t"+RESET);
+                    case PURPLE: out.print(PURPLE);
                         break;
                 }
+                if(shop[i][j].getFirst() == null)
+                    out.print("****");
+                if(shop[i][j].getFirst().getId()>=10)
+                    out.print("["+ shop[i][j].getFirst().getId() +"]");
+                else
+                    out.print("[ "+ shop[i][j].getFirst().getId() +"]");
+
+                for(int k=0; k<shop[i][j].getDeck().size()-1;k++)
+                    out.print("]");
+                out.print("\t" + RESET);
             }
             out.print("\n");
         }
-        out.println("Insert the ID of the card you want to see");
+        String id;
+        int chosen;
+        do {
+            out.println("Insert the ID of the card you want to see");
+            id=readLine();
+            try{chosen = Integer.parseInt(id);}catch (NumberFormatException e){chosen = 100};
+        }while(!firstCardID.contains(chosen));
+        DevelopmentCard card = clientManager.getShopCardByID(chosen);
+        printDevCard(card);
+    }
+
+    void printDevCard(DevelopmentCard card){
+        out.println("ID:" + card.getId() +"\n" +
+                "Level:" + card.getLevel() +"\n" +
+                "");
 
     }
 
     @Override
     public void yourTurn() {
         clearCli();
-        out.println("E' il tuo turno.");
+        out.println("Now it's your turn.");
+        printShop();
     }
 
     @Override
