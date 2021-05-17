@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.model.MarketDashboard;
 import it.polimi.ingsw.model.PlayerDashboard;
+import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.Shop;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
@@ -132,6 +133,40 @@ public class ClientManager {
         return req.isPlayable(gameStatus.getClientDashboard(nickname));
     }
 
+    /**
+     * Checks if the player has more or equals resources than the cost
+     * @param cost passed amount of resources that are needed to pay
+     * @return true if the payment is possible somewhere
+     */
+    public boolean hasEnoughResources(ResourceCount cost){
+        return gameStatus.getClientDashboard(nickname).getTotalResources().hasMoreOrEqualsResources(cost);
+    }
+
+    /**
+     * Check if the chosen amount of resources is actually available in the storage
+     *
+     * @param storage passed amount of resources from the storage
+     * @return true if the chest has enough or more resources that the passed storage ResourceCount
+     */
+    public boolean storageCheck(ResourceCount storage){
+        return gameStatus.getClientDashboard(nickname).getStorage().readStorage().hasMoreOrEqualsResources(storage);
+    }
+
+    /**
+     * Check if the chosen amount of resources is actually available in the chest
+     *
+     * @param chest passed amount of resources from the chest
+     * @return true if the chest has enough or more resources that the passed chest ResourceCount
+     */
+    public boolean chestCheck(ResourceCount chest){
+        return gameStatus.getClientDashboard(nickname).getChest().hasMoreOrEqualsResources(chest);
+    }
+
+    /**
+     *
+     * @param ID
+     * @return
+     */
     public DevelopmentCard getShopCardByID(int ID){
         return gameStatus.getShop().getCardByID(ID);
     }
