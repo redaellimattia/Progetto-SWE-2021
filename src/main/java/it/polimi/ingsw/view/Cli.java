@@ -425,49 +425,75 @@ public class Cli implements View {
     private void printShop() {
         Deck[][] shop = clientManager.getGameStatus().getShop().getGrid();
         ArrayList<Integer> firstCardID = new ArrayList<>();
-        for(int i=0; i<3;i++){
+        for (int i = 0; i < 3; i++) {
             out.print("Level: " + shop[i][0].getFirst().getLevel() + "\t");
-            for(int j=0;j<4;j++){
+            for (int j = 0; j < 4; j++) {
                 firstCardID.add(shop[i][j].getFirst().getId());
-                switch (shop[i][j].getFirst().getColour()){
-                    case GREEN: out.print(GREEN);
-                    break;
-                    case YELLOW: out.print(YELLOW);
+                switch (shop[i][j].getFirst().getColour()) {
+                    case GREEN:
+                        out.print(GREEN);
                         break;
-                    case BLUE: out.print(BLUE);
+                    case YELLOW:
+                        out.print(YELLOW);
                         break;
-                    case PURPLE: out.print(PURPLE);
+                    case BLUE:
+                        out.print(BLUE);
+                        break;
+                    case PURPLE:
+                        out.print(PURPLE);
                         break;
                 }
-                if(shop[i][j].getFirst() == null)
+                if (shop[i][j].getFirst() == null)
                     out.print("****");
-                if(shop[i][j].getFirst().getId()>=10)
-                    out.print("["+ shop[i][j].getFirst().getId() +"]");
+                if (shop[i][j].getFirst().getId() >= 10)
+                    out.print("[" + shop[i][j].getFirst().getId() + "]");
                 else
-                    out.print("[ "+ shop[i][j].getFirst().getId() +"]");
+                    out.print("[ " + shop[i][j].getFirst().getId() + "]");
 
-                for(int k=0; k<shop[i][j].getDeck().size()-1;k++)
+                for (int k = 0; k < shop[i][j].getDeck().size() - 1; k++)
                     out.print("]");
                 out.print("\t" + RESET);
             }
             out.print("\n");
         }
-        String id;
-        int chosen;
+        String input;
+        int id;
         do {
-            out.println("Insert the ID of the card you want to see");
-            id=readLine();
-            try{chosen = Integer.parseInt(id);}catch (NumberFormatException e){chosen = 100};
-        }while(!firstCardID.contains(chosen));
-        DevelopmentCard card = clientManager.getShopCardByID(chosen);
-        printDevCard(card);
+            do {
+                out.println("Insert the ID of the card you want to see");
+                input = readLine();
+                try {
+                    id = Integer.parseInt(input);
+                } catch (NumberFormatException e) {
+                    id = -1;
+                }
+            } while (!firstCardID.contains(id));
+            DevelopmentCard card = clientManager.getShopCardByID(id);
+            printDevCard(card);
+            out.println("\nPress esc to exit Development Card details lookup, another key to continue looking at Cards: ");
+            input = readLine();
+        }while(!input.equals("esc"));
     }
 
     void printDevCard(DevelopmentCard card){
-        out.println("ID:" + card.getId() +"\n" +
-                "Level:" + card.getLevel() +"\n" +
-                "");
-
+        out.print("ID: " + card.getId() +"\n" +
+                "Level: " + card.getLevel() +"\n" +
+                "Victory Points: " + card.getVictoryPoints() + "\n");
+        out.print("Colour: ");
+        switch (card.getColour()){
+            case GREEN: out.print(GREEN);
+                break;
+            case YELLOW: out.print(YELLOW);
+                break;
+            case BLUE: out.print(BLUE);
+                break;
+            case PURPLE: out.print(PURPLE);
+                break;
+        }
+        out.print(card.getColour()+ RESET + "\n" +
+                "Production Power: " + "\n" +
+                "Cost: " + card.getProductionPower().getInput().toString() + "\n" +
+                "Output: " + card.getProductionPower().getOutput().toString());
     }
 
     @Override
