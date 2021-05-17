@@ -100,9 +100,16 @@ public class Shop {
             return true;
         if(shopGrid[0][1].getDeck().size() == 0 && shopGrid[1][1].getDeck().size() == 0 && shopGrid[2][1].getDeck().size() == 0 )
             return true;
-        if(shopGrid[0][2].getDeck().size() == 0 && shopGrid[1][2].getDeck().size() == 0 && shopGrid[2][2].getDeck().size() == 0 )
-            return true;
+        return shopGrid[0][2].getDeck().size() == 0 && shopGrid[1][2].getDeck().size() == 0 && shopGrid[2][2].getDeck().size() == 0;
+    }
 
-        return false;
+    public DevelopmentCard getCardByID(int ID){
+        for(int i=0;i<3;i++)
+            for(int j=0;j<4;j++) {
+                DevelopmentCard card = shopGrid[i][j].getFirst();
+                if (card.getId() == ID)
+                    return card;
+            }
+        return null;
     }
 }
