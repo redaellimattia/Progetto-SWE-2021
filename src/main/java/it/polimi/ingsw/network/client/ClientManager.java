@@ -147,6 +147,14 @@ public class ClientManager {
         return req.isPlayable(getThisClientDashboard());
     }
 
+    public boolean leadersInHand(){
+        for (LeaderCard l: getThisClientDashboard().getLeaderCards()) {
+            if(!l.isInGame())
+                return true;
+        }
+        return false;
+    }
+
     /**
      *
      * @return true if there is a playable leader
@@ -154,7 +162,7 @@ public class ClientManager {
     public boolean canPlayLeader(){
         ArrayList<LeaderCard> leaderCards = getThisClientDashboard().getLeaderCards();
         for(LeaderCard l:leaderCards)
-            if(isRequirementPossible(l.getRequirement()))
+            if(!l.isInGame()&&isRequirementPossible(l.getRequirement()))
                 return true;
         return false;
     }

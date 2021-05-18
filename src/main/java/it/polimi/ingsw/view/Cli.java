@@ -408,20 +408,20 @@ public class Cli implements View {
 
             }
             out.println(YELLOW + "Secondary actions: " + RESET);
-            int leadersInHand = 0;
-            for (LeaderCard l: thisPlayerDashboard.getLeaderCards()) {
-                if(!l.isInGame())
-                    leadersInHand++;
-            }
-            if(leadersInHand >= 1 ) {
+
+            //PlayLeader || DiscardLeader
+            if(clientManager.leadersInHand()) {
                 out.println("DISCARD A LEADER: press D \n");
                 if(clientManager.canPlayLeader())
                     out.println("PLAY A LEADER: press L\n");
             }
+
+            //Reorganize
             out.println("REORGANIZE RESOURCES: press R");
 
             if (clientManager.isMainActionDone())
                 out.println(RED + "PRESS Q TO PASS YOUR TURN" + RESET);
+            
             out.println("Choose one of the above to continue the game: ");
             input = readLine();
         }while(!input.equalsIgnoreCase("b")&& !input.equalsIgnoreCase("m")&&!input.equalsIgnoreCase("p")
