@@ -622,15 +622,19 @@ public class Cli implements View {
     @Override
     public void vaticanReportActivated(int victoryPoints,ArrayList<String> nicknames){
         String playerNickname = clientManager.getNickname();
-        printMsg("A vatican report has been activated!");
+        printMsg("A vatican report worth "+victoryPoints+" victory points has been activated!");
         if(!nicknames.contains(playerNickname))
             out.println(RED+"Unfortunately, you weren't affected."+RESET);
         else
             out.println(GREEN+"Well done, you have been affected by the vatican report!"+RESET);
-        printMsg("Other players affected by the vatican report: \n");
-        for(String nick:nicknames){
-            if(!nick.equals(playerNickname))
-                out.print(YELLOW+nick+" - ");
+        printMsg("Other players affected by the vatican report: ");
+        for(int i=0;i<nicknames.size();i++){
+            String nick = nicknames.get(i);
+            if(!nick.equals(playerNickname)) {
+                out.print(YELLOW + nick);
+                if(i!=nicknames.size()-1&&(i==nicknames.size()-2&&!nicknames.get(i+1).equals(playerNickname)))
+                    out.print(" - ");
+            }
         }
         out.println(RESET);
     }
