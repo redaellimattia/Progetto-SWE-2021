@@ -183,7 +183,8 @@ public class PlayerDashboard extends Player implements StorageObserver{
     //METHOD TO DISCARD A LEADER FROM THE HAND TO GAIN A FAITH POINT;
     public void discardLeader(int position){
         leaderCards.remove(position);
-        observer.updateRemoveLeader(getNickname(),position);
+        if(observer!=null)
+            observer.updateRemoveLeader(getNickname(),position);
         updatePathPosition();
     }
 
@@ -192,7 +193,8 @@ public class PlayerDashboard extends Player implements StorageObserver{
      */
     public void updatePathPosition(){
         pathPosition += 1;
-        observer.updatePathPosition(this,pathPosition);
+        if(observer!=null)
+            observer.updatePathPosition(this,pathPosition);
     }
 
     /**

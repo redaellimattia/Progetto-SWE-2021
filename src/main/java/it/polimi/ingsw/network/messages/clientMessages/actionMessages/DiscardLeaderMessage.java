@@ -9,8 +9,9 @@ import it.polimi.ingsw.network.server.SocketConnection;
 public class DiscardLeaderMessage extends ActionMessage{
     private LeaderCard card;
 
-    public DiscardLeaderMessage(String nickname, long serverThreadID) {
+    public DiscardLeaderMessage(String nickname, long serverThreadID,LeaderCard card) {
         super(ActionType.DISCARDLEADER, nickname, serverThreadID);
+        this.card = card;
     }
 
     /**

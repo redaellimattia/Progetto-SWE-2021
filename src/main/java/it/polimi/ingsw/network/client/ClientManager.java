@@ -9,6 +9,7 @@ import it.polimi.ingsw.network.messages.clientMessages.AskLobbyMessage;
 import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
 import it.polimi.ingsw.network.messages.clientMessages.JoinGameMessage;
 import it.polimi.ingsw.network.messages.clientMessages.PreGameResponseMessage;
+import it.polimi.ingsw.network.messages.clientMessages.actionMessages.DiscardLeaderMessage;
 import it.polimi.ingsw.network.messages.clientMessages.actionMessages.PlayLeaderMessage;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
 import it.polimi.ingsw.view.Cli;
@@ -137,6 +138,9 @@ public class ClientManager {
         clientSocket.send(new PlayLeaderMessage(nickname, serverLobbyID,leaderCard).serialize());
     }
 
+    public void discardLeader(LeaderCard leaderCard){
+        clientSocket.send(new DiscardLeaderMessage(nickname,serverLobbyID,leaderCard).serialize());
+    }
     /**
      * Checking if the requirement is covered by the player
      *
@@ -145,6 +149,15 @@ public class ClientManager {
      */
     public boolean isRequirementPossible(Requirement req){
         return req.isPlayable(getThisClientDashboard());
+    }
+
+    public ArrayList<LeaderCard> getNotPlayedLeaders(){
+        ArrayList<LeaderCard> inHandLeaders = new ArrayList<>();
+        for (LeaderCard l: getThisClientDashboard().getLeaderCards()) {
+            if(!l.isInGame())
+                inHandLeaders.add(l);
+        }
+        return inHandLeaders;
     }
 
     public boolean leadersInHand(){

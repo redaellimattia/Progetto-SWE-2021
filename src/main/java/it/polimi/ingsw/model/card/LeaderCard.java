@@ -67,7 +67,7 @@ public class LeaderCard extends Card {
 
         //Check if same values
         LeaderCard c = (LeaderCard) o;
-        return this.getVictoryPoints() == c.getVictoryPoints() && this.getRequirement().equals(c.getRequirement()) &&
+        return this.getId() == c.getId()  && this.getVictoryPoints() == c.getVictoryPoints() && this.getRequirement().equals(c.getRequirement()) &&
                 this.getSpecialAbility().equals(c.getSpecialAbility()) && this.inGame == c.inGame;
     }
 }

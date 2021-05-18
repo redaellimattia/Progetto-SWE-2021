@@ -421,14 +421,14 @@ public class Cli implements View {
 
             if (clientManager.isMainActionDone())
                 out.println(RED + "PRESS Q TO PASS YOUR TURN" + RESET);
-            
+
             out.println("Choose one of the above to continue the game: ");
             input = readLine();
         }while(!input.equalsIgnoreCase("b")&& !input.equalsIgnoreCase("m")&&!input.equalsIgnoreCase("p")
                 &&!input.equalsIgnoreCase("l")&&!input.equalsIgnoreCase("d")&&!input.equalsIgnoreCase("o") &&
                 !input.equalsIgnoreCase("q"));
 
-        //CASE WHEN I PRESS Q BUT I HAVE NOT THE POSSIBILITY TO PASS THE TURN
+
         if (input.equalsIgnoreCase("q") && clientManager.isMainActionDone())
             endTurn();
         else {
@@ -442,10 +442,10 @@ public class Cli implements View {
                         startProduction();
                     else {
                         if (input.equalsIgnoreCase("l") && clientManager.canPlayLeader())
-                            playLeader(thisPlayerDashboard.getLeaderCards());
+                            playLeader(clientManager.getNotPlayedLeaders());
                         else {
                             if (input.equalsIgnoreCase("d"))
-                                discardLeader();
+                                discardLeader(clientManager.getNotPlayedLeaders());
                             else {
                                 if (input.equalsIgnoreCase("o"))
                                     organizeResources();
@@ -474,22 +474,19 @@ public class Cli implements View {
     public void startProduction(){}
 
     @Override
-    public void playLeader(ArrayList<LeaderCard> leaderCards){
-        ArrayList<LeaderCard> leadersChosen = new ArrayList<>();
-        ArrayList<LeaderCard> playableLeaders = new ArrayList<>();
+    public void playLeader(ArrayList<LeaderCard> playableLeaders){
         ArrayList<Integer> id = new ArrayList<>();
         int ID;
         String input;
-        for (LeaderCard l : leaderCards)
+        for (LeaderCard l : playableLeaders)
             if(!l.isInGame()&& clientManager.isRequirementPossible(l.getRequirement())) {
-                playableLeaders.add(l);
                 id.add(l.getId());
             }
 
         out.println("Choose the ID of the leader that you want to play: ");
-        out.println("-----------------");
-        printLeaders(leaderCards);
         do{
+            out.println("-----------------");
+            printLeaders(playableLeaders);
             do {
                 out.println("Insert the ID of the chosen leader: ");
                 input = readLine();
@@ -499,6 +496,7 @@ public class Cli implements View {
                 if(l.getId()==ID) {
                     clientManager.playLeader(l);
                     playableLeaders.remove(l);
+                    break;
                 }
 
             if(playableLeaders.size()>0) {
@@ -511,8 +509,44 @@ public class Cli implements View {
         }while(!input.equals("esc"));
         chooseAction();
     }
+
+
     @Override
-    public void discardLeader(){}
+    public void discardLeader(ArrayList<LeaderCard> discardableLeaders){
+        ArrayList<Integer> id = new ArrayList<>();
+        int ID;
+        String input;
+        for (LeaderCard l : discardableLeaders)
+            if(!l.isInGame()) {
+                id.add(l.getId());
+            }
+
+        out.println("Choose the ID of the leader that you want to discard: ");
+        do{
+            out.println("-----------------");
+            printLeaders(discardableLeaders);
+            do {
+                out.println("Insert the ID of the chosen leader: ");
+                input = readLine();
+                ID = Integer.parseInt(input);
+            } while (!id.contains(ID));
+            for(LeaderCard l:discardableLeaders)
+                if(l.getId()==ID) {
+                    clientManager.discardLeader(l);
+                    discardableLeaders.remove(l);
+                    break;
+                }
+
+            if(discardableLeaders.size()>0) {
+                out.println("You still have "+discardableLeaders.size()+" leader card in your hand!");
+                out.println("\nPress esc to exit, another key to discard another leader: ");
+                input = readLine();
+            }
+            else
+                input = "esc";
+        }while(!input.equals("esc"));
+        //chooseAction();
+    }
     @Override
     public void organizeResources(){}
 
