@@ -16,7 +16,7 @@ public interface View {
     void waitingForTurn();
     void yourTurn();
     void endGame(ArrayList<PlayerPoints> scoreboard);
-    void endGame(boolean lorenzoWin,PlayerPoints playerPoints);
+    void endGame(boolean lorenzoWin,int playerPoints);
     void endTurn();
     void buyCard();
     void takeResourcesFromMarket();

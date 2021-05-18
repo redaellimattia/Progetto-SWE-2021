@@ -23,6 +23,18 @@ public class Cli implements View {
     public static final String PURPLE = CliColours.PURPLE.toString();
     public static final String CYAN = CliColours.CYAN.toString();
     public static final String WHITE = CliColours.WHITE.toString();
+    private final String lostLogo = "██╗   ██╗ ██████╗ ██╗   ██╗    ██╗      ██████╗ ███████╗████████╗\n" +
+            "╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║     ██╔═══██╗██╔════╝╚══██╔══╝\n" +
+            " ╚████╔╝ ██║   ██║██║   ██║    ██║     ██║   ██║███████╗   ██║   \n" +
+            "  ╚██╔╝  ██║   ██║██║   ██║    ██║     ██║   ██║╚════██║   ██║   \n" +
+            "   ██║   ╚██████╔╝╚██████╔╝    ███████╗╚██████╔╝███████║   ██║   \n" +
+            "   ╚═╝    ╚═════╝  ╚═════╝     ╚══════╝ ╚═════╝ ╚══════╝   ╚═╝";
+    private final String winLogo = "██╗   ██╗ ██████╗ ██╗   ██╗    ██╗    ██╗ ██████╗ ███╗   ██╗██╗\n" +
+            "╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║    ██║██╔═══██╗████╗  ██║██║\n" +
+            " ╚████╔╝ ██║   ██║██║   ██║    ██║ █╗ ██║██║   ██║██╔██╗ ██║██║\n" +
+            "  ╚██╔╝  ██║   ██║██║   ██║    ██║███╗██║██║   ██║██║╚██╗██║╚═╝\n" +
+            "   ██║   ╚██████╔╝╚██████╔╝    ╚███╔███╔╝╚██████╔╝██║ ╚████║██╗\n" +
+            "   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═══╝╚═╝";
 
     private final PrintStream out;
 
@@ -702,7 +714,6 @@ public class Cli implements View {
                 }
             }
         }
-
     }
 
     private void printChest(ResourceCount chest){
@@ -722,7 +733,7 @@ public class Cli implements View {
 
     private void printCounterTop(CounterTop counterTop){
         if(counterTop.getContent()>0)
-            out.println("Resource: "+counterTop.getResourceType()+" ");
+            out.print("Resource: "+counterTop.getResourceType()+" ");
         else
             out.println("EMPTY");
         for(int i=0;i<counterTop.getContent();i++)
@@ -732,13 +743,36 @@ public class Cli implements View {
     }
 
     @Override
-    public void endGame(boolean lorenzoWin, PlayerPoints playerPoints) {
-
+    public void endGame(boolean lorenzoWin, int playerPoints) {
+        if(lorenzoWin)
+            out.println(RED+lostLogo+RESET+"\n                 You had: "+playerPoints+" victory points.");
+        else
+            out.println(GREEN+winLogo+RESET+"\n                You had: "+playerPoints+" victory points.");
     }
 
     @Override
     public void endGame(ArrayList<PlayerPoints> scoreboard) {
-
+        PlayerPoints winner = scoreboard.get(0);
+        if(winner.getPlayer().equals(clientManager.getNickname()))
+            out.println(GREEN+winLogo+RESET+"\n                You had: "+winner.getVictoryPoints()+" victory points.");
+        else {
+            for(PlayerPoints p:scoreboard)
+                if(p.getPlayer().equals(clientManager.getNickname()))
+                    out.println(RED + lostLogo + RESET + "\n                 You had: " + p.getVictoryPoints() + " victory points.");
+        }
+        out.println(PURPLE+"                      --SCOREBOARD--"+RESET);
+        out.println("               \tNickname\t\tVictory Points");
+        for(int i=0;i<scoreboard.size();i++)
+            switch(i) {
+                case 0: out.println(YELLOW+"             "+(i+1)+"\t"+scoreboard.get(i).getPlayer()+"\t\t\t"+scoreboard.get(i).getVictoryPoints()+RESET);
+                    break;
+                case 1: out.println(WHITE+"             "+(i+1)+"\t"+scoreboard.get(i).getPlayer()+"\t\t\t"+scoreboard.get(i).getVictoryPoints()+RESET);
+                    break;
+                case 2: out.println(RED+"             "+(i+1)+"\t"+scoreboard.get(i).getPlayer()+"\t\t\t"+scoreboard.get(i).getVictoryPoints()+RESET);
+                    break;
+                default: out.println("             "+(i+1)+"\t"+scoreboard.get(i).getPlayer()+"\t\t\t"+scoreboard.get(i).getVictoryPoints());
+            }
+        out.println();
     }
 
     @Override

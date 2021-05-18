@@ -9,16 +9,16 @@ import java.util.ArrayList;
 
 public class EndSinglePlayerGameMessage extends ServerMessage {
     private boolean lorenzoWin;
-    private PlayerPoints scoreboard;
+    private int playerVictoryPoints;
 
-    public EndSinglePlayerGameMessage(boolean lorenzoWin,PlayerDashboard player) {
+    public EndSinglePlayerGameMessage(boolean lorenzoWin, int playerVictoryPoints) {
         super(ServerMessageType.ENDSINGLEPLAYERGAME);
         this.lorenzoWin = lorenzoWin;
-        scoreboard = new PlayerPoints(player.getNickname(),player.getPoints());
+        this.playerVictoryPoints = playerVictoryPoints;
     }
 
     @Override
     public void useMessage(ClientManager clientManager){
-        clientManager.getView().endGame(lorenzoWin,scoreboard);
+        clientManager.getView().endGame(lorenzoWin,playerVictoryPoints);
     }
 }
