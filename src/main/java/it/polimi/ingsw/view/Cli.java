@@ -507,15 +507,28 @@ public class Cli implements View {
             out.println(BLUE+"~~YOUR DASHBOARD"+"~~"+RESET);
         else
             out.println(BLUE+"~~"+nickname+"'S DASHBOARD"+"~~"+RESET);
+        //VictoryPoints
         out.println(PURPLE+"VICTORY POINTS: "+player.getPoints()+RESET);
+
+        //PathPosition
         printPathPosition(player.getPathPosition(),nickname);
+
+        //BufferProduction
         if(ResourceCount.resCountToInt(player.getBufferProduction())>0)
             printBufferProduction(player.getBufferProduction());
         printStorage(player.getStorage());
+
+        //ArrayDeposit
         if(player.getArrayDeposit().size()>0)
             printArrayDeposits(player.getArrayDeposit());
+
+        //Chest
         printChest(player.getChest());
+
+        //DevCards
         printPlayerDevCards(player.getDevCards());
+
+        //LeaderCards
         if(nickname.equals(clientManager.getNickname()))
             printPlayerLeaderCards(player.getLeaderCards());
         else{
