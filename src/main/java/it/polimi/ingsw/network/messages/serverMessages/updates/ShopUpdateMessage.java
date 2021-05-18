@@ -16,5 +16,6 @@ public class ShopUpdateMessage extends ServerMessage {
     @Override
     public void useMessage(ClientManager clientManager){
         clientManager.getGameStatus().updateShop(shopGrid);
+        clientManager.updateViewWithClear();
     }
 }

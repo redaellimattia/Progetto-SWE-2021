@@ -243,17 +243,22 @@ public class ClientManager {
         view.yourTurn();
     }
 
-    public void updateDiscardLeader(String nickname,int position){
-        gameStatus.updateDiscardLeader(nickname,position);
-        view.printMsg(nickname+" discarded a leader!");
-        updateView(false,true,false);
+    public void updateViewWithMessage(String msg){
+        view.clearView();
+        view.printMsg(msg);
+        updateView();
     }
 
-    public void updateView(boolean market,boolean players,boolean shop){
+    public void updateViewWithClear(){
+        view.clearView();
+        updateView();
+    }
+
+    public void updateView(){
         if(isMyTurn)
             view.yourTurn();
         else
-            view.waitingForTurn(market,players,shop);
+            view.waitingForTurn();
     }
 
     /**

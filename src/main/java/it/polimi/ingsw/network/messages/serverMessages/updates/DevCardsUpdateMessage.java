@@ -17,5 +17,6 @@ public class DevCardsUpdateMessage extends PlayerUpdateMessage{
     @Override
     public void useMessage(ClientManager clientManager){
         clientManager.getGameStatus().updateDevCards(getNickname(),card,position);
+        clientManager.updateViewWithClear();
     }
 }

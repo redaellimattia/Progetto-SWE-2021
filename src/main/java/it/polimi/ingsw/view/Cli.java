@@ -141,13 +141,13 @@ public class Cli implements View {
 
     @Override
     public void createNewGame() {
-        clearCli();
+        clearView();
         out.println("Now you can create your own game!");
         String nickname = askForNickname();
         clientManager.setNickname(nickname);
         int numberOfPlayers = askNumberOfPlayers();
         clientManager.createGame(numberOfPlayers);
-        clearCli();
+        clearView();
     }
 
 
@@ -159,7 +159,7 @@ public class Cli implements View {
         long serverThreadID = askForServerID(availableGameLobbies);
 
         clientManager.joinGame(serverThreadID);
-        clearCli();
+        clearView();
     }
 
     public long askForServerID(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies) {
@@ -228,7 +228,7 @@ public class Cli implements View {
         if (numberOfResources != 0) {
             resources = askResources(numberOfResources);
         }
-        clearCli();
+        clearView();
         ArrayList<LeaderCard> chosenLeaders = askLeaders(leaders);
         clientManager.preGameChoice(resources, chosenLeaders);
     }
@@ -322,27 +322,20 @@ public class Cli implements View {
 
 
     @Override
-    public void waitingForTurn(boolean market,boolean players,boolean shop) {
-        clearCli();
+    public void waitingForTurn() {
         out.println("\nWait for the other players to play their turn, in the meantime you can peek around the board to keep updated.");
-        if(market) {
-            printMarket();
+        printMarket();
+        out.println();
+        for (PlayerDashboard p : clientManager.getGameStatus().getPlayers()) {
+            printPlayer(p.getNickname());
             out.println();
         }
-        if(players) {
-            for (PlayerDashboard p : clientManager.getGameStatus().getPlayers()) {
-                printPlayer(p.getNickname());
-                out.println();
-            }
-        }
-        if(shop) {
-            printShop(false);
-            out.println();
-        }
+        printShop(false);
+        out.println();
     }
     @Override
     public void yourTurn() {
-        clearCli();
+        clearView();
         out.println(RED + "|||It's your turn|||" + RESET);
         out.println("This is the actual state of your board: ");
         printPlayer(clientManager.getNickname());
@@ -509,7 +502,6 @@ public class Cli implements View {
 
 
     private void printPlayer(String nickname) {
-        clearCli();
         PlayerDashboard player = clientManager.getGameStatus().getClientDashboard(nickname);
         if(nickname.equals(clientManager.getNickname()))
             out.println(BLUE+"~~YOUR DASHBOARD"+"~~"+RESET);
@@ -833,7 +825,8 @@ public class Cli implements View {
         out.println(YELLOW + msg + RESET);
     }
 
-    private void clearCli() {
+    @Override
+    public void clearView() {
         out.print("\033[H\033[2J");
         out.flush();
     }

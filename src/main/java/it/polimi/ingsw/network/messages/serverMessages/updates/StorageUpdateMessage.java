@@ -22,5 +22,6 @@ public class StorageUpdateMessage extends PlayerUpdateMessage{
             case THIRDROW:  clientManager.getGameStatus().updateThirdRow(getNickname(),row);
                             break;
         }
+        clientManager.updateViewWithClear();
     }
 }

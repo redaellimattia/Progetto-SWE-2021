@@ -13,7 +13,7 @@ public interface View {
     void joinExistingGame(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies);
     void printMsg(String msg);
     void preGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources);
-    void waitingForTurn(boolean market,boolean players,boolean shop);
+    void waitingForTurn();
     void yourTurn();
     void endGame(ArrayList<PlayerPoints> scoreboard);
     void endGame(boolean lorenzoWin,int playerPoints);
@@ -25,4 +25,5 @@ public interface View {
     void discardLeader(ArrayList<LeaderCard> discardableLeaders);
     void organizeResources();
     void vaticanReportActivated(int victoryPoints,ArrayList<String> nicknames);
+    void clearView();
 }

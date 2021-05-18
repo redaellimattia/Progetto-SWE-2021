@@ -16,5 +16,6 @@ public class InitArrayDepositUpdateMessage extends PlayerUpdateMessage{
     @Override
     public void useMessage(ClientManager clientManager){
         clientManager.getGameStatus().initArrayDeposit(getNickname(),res);
+        clientManager.updateViewWithMessage(getNickname()+" has played a leader card with a deposit ability!");
     }
 }
