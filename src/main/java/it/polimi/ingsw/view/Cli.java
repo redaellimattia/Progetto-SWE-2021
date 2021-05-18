@@ -10,6 +10,7 @@ import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
@@ -37,10 +38,11 @@ public class Cli implements View {
                                     "   ╚═╝    ╚═════╝  ╚═════╝      ╚══╝╚══╝  ╚═════╝ ╚═╝  ╚═══╝╚═╝";
 
     private final PrintStream out;
-
+    private final Scanner in;
     private final ClientManager clientManager;
 
     public Cli(ClientManager clientManager) {
+        this.in = new Scanner(System.in);
         this.out = new PrintStream(System.out, true);
         this.clientManager = clientManager;
     }
@@ -50,7 +52,7 @@ public class Cli implements View {
      *
      * @return the string read from the input.
      */
-    public String readLine() {
+    /*public String readLine() {
         FutureTask<String> futureTask = new FutureTask<>(new InputReadTask());
         Thread inputThread = new Thread(futureTask);
         inputThread.start();
@@ -68,6 +70,10 @@ public class Cli implements View {
             Thread.currentThread().interrupt();
         }
         return input;
+    }*/
+
+    public String readLine(){
+        return in.nextLine();
     }
 
     @Override

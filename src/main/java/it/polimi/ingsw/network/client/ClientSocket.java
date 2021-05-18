@@ -57,7 +57,7 @@ public class ClientSocket implements Runnable {
      */
     @Override
     public void run() {
-        while (!Thread.currentThread().isInterrupted()) {
+        while (!socketListener.isInterrupted()) {
             try {
                 String msg = in.readLine();
                 //System.out.println(msg);
