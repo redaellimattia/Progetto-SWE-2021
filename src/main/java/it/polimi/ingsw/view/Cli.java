@@ -422,8 +422,8 @@ public class Cli implements View {
                 out.println(RED + "PRESS Q TO PASS YOUR TURN" + RESET);
             out.println("Choose one of the above to continue the game: ");
             input = readLine();
-        }while(!input.equalsIgnoreCase("b")&& !input.equalsIgnoreCase("m")&&!input.equalsIgnoreCase("p")
-                &&!input.equalsIgnoreCase("l")&&!input.equalsIgnoreCase("d")&&!input.equalsIgnoreCase("o") &&
+        }while(!input.equalsIgnoreCase("b")&&!input.equalsIgnoreCase("m")&&!input.equalsIgnoreCase("p")
+                &&!input.equalsIgnoreCase("l")&&!input.equalsIgnoreCase("d")&&!input.equalsIgnoreCase("o")&&
                 !input.equalsIgnoreCase("q"));
 
         //CASE WHEN I PRESS Q BUT I HAVE NOT THE POSSIBILITY TO PASS THE TURN
@@ -431,6 +431,8 @@ public class Cli implements View {
             chooseAction();
         if(input.equalsIgnoreCase("q") && clientManager.isMainActionDone())
             endTurn();
+        if((input.equalsIgnoreCase("b")||input.equalsIgnoreCase("m")||input.equalsIgnoreCase("p")) && clientManager.isMainActionDone())
+            chooseAction();
         if(input.equalsIgnoreCase("b") && !clientManager.isMainActionDone())
             buyCard();
         if(input.equalsIgnoreCase("m") && !clientManager.isMainActionDone())
