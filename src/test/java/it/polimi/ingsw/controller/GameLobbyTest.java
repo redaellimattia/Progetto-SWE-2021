@@ -30,6 +30,7 @@ class GameLobbyTest {
         testLobby.addPlayer("Giocatore");
         testLobby.initGame(false,null);
         GameManager gameManager  = testLobby.getGameManager();
+        assertEquals(4, gameManager.getGame().getPlayers().size());
     }
 
     @Test
@@ -51,5 +52,12 @@ class GameLobbyTest {
         GameManager gameManager  = testLobby.getGameManager();
         ArrayList<LeaderCard> leadersTest1 = testLobby.getFourLeaders("Pippo");
         ArrayList<LeaderCard> leadersTest2 = testLobby.getFourLeaders("Pluto");
+        assertEquals(4, leadersTest1.size());
+        assertEquals(4, leadersTest2.size());
+        for (LeaderCard c1: leadersTest1) {
+            for(LeaderCard c2: leadersTest2) {
+                assertFalse(c1.equals(c2));
+            }
+        }
     }
 }
