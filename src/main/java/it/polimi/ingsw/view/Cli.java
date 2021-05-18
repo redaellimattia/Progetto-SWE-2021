@@ -14,15 +14,15 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
 public class Cli implements View {
-    public static final String RESET = "\u001B[0m";
-    public static final String BLACK = "\u001B[30m";
-    public static final String RED = "\u001B[31m";
-    public static final String GREEN = "\u001B[32m";
-    public static final String YELLOW = "\u001B[33m";
-    public static final String BLUE = "\u001B[34m";
-    public static final String PURPLE = "\u001B[35m";
-    public static final String CYAN = "\u001B[36m";
-    public static final String WHITE = "\u001B[37m";
+    public static final String RESET = CliColours.RESET.toString();
+    public static final String BLACK = CliColours.BLACK.toString();
+    public static final String RED = CliColours.RED.toString();
+    public static final String GREEN = CliColours.GREEN.toString();
+    public static final String YELLOW = CliColours.YELLOW.toString();
+    public static final String BLUE = CliColours.BLUE.toString();
+    public static final String PURPLE = CliColours.PURPLE.toString();
+    public static final String CYAN = CliColours.CYAN.toString();
+    public static final String WHITE = CliColours.WHITE.toString();
 
     private final PrintStream out;
 
