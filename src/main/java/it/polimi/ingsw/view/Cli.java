@@ -265,8 +265,12 @@ public class Cli implements View {
             out.println("ID: " + l.getId() + "\n" +
                     "Victory Points: " + l.getVictoryPoints());
             //REQUIREMENT PRINT
-            Requirement requirement = l.getRequirement();
-            out.println(requirement.toString());
+            if(!l.isInGame()) {
+                Requirement requirement = l.getRequirement();
+                out.println(requirement.toString());
+            }
+            else
+                out.println("This card is in game!");
             //SPECIALABILITY PRINT:
             SpecialAbility specialAbility = l.getSpecialAbility();
             out.println(specialAbility.toString());
@@ -283,10 +287,10 @@ public class Cli implements View {
             out.println("You still have " + counter + " resources to choose.\n");
             do {
                 out.println("Choose between 4 types of resources: \n" +
-                        "COINS: digit C \n" +
-                        "ROCKS: digit R \n" +
-                        "SHIELDS: digit SH \n" +
-                        "SERVANTS: digit SE \n");
+                        "COINS: press C \n" +
+                        "ROCKS: press R \n" +
+                        "SHIELDS: press SH \n" +
+                        "SERVANTS: press SE \n");
                 resource = readLine();
             } while (!resource.equalsIgnoreCase("c") && !resource.equalsIgnoreCase("r") && !resource.equalsIgnoreCase("sh") && !resource.equalsIgnoreCase("se"));
 
@@ -356,6 +360,7 @@ public class Cli implements View {
                 for (String s : nicknames) {
                     out.print("|" + s + "|\t");
                 }
+                out.println();
                 input = readLine();
             } while (!nicknames.contains(input));
             printPlayer(input);
@@ -437,7 +442,7 @@ public class Cli implements View {
         do {
             out.println("Type \"row\" if you want to select a row; \"col\" if you want to select a column");
             input = readLine();
-        } while(input != "row" || input != "col");
+        } while(!input.equalsIgnoreCase("row")  && !input.equalsIgnoreCase("col"));
     }
     @Override
     public void startProduction(){}
@@ -459,7 +464,16 @@ public class Cli implements View {
         printStorage(player.getStorage());
         printChest(player.getChest());
         printPlayerDevCards(player.getDevCards());
-        printLeaderCards(player.getLeaderCards());
+        if(nickname.equals(clientManager.getNickname()))
+            printPlayerLeaderCards(player.getLeaderCards());
+        else{
+            ArrayList<LeaderCard> leadersInGame = new ArrayList<>();
+            for(LeaderCard l:player.getLeaderCards()) {
+                if (l.isInGame())
+                    leadersInGame.add(l);
+            }
+            printPlayerLeaderCards(leadersInGame);
+        }
     }
 
 
@@ -609,9 +623,12 @@ public class Cli implements View {
         out.println(RESET);
     }
 
-    private void printLeaderCards(ArrayList<LeaderCard> leaderCards){
+    private void printPlayerLeaderCards(ArrayList<LeaderCard> leaderCards){
         out.println(PURPLE+"--LEADER CARDS--"+RESET);
-        printLeaders(leaderCards);
+        if(leaderCards.size()!=0)
+            printLeaders(leaderCards);
+        else
+            out.println("No leader cards in game!");
     }
 
     private void printPlayerDevCards(DeckDashboard[] devCards){
@@ -629,7 +646,7 @@ public class Cli implements View {
 
     private void printPathPosition(int position,String nickname){
         out.println(PURPLE+"--FAITH PATH--"+RESET);
-        out.println(BLUE+nickname+RESET+" is here:"+BLUE+" *"+RESET+", vatican report and points: ex:[VR2], victory points in that cell: ex:[20VR2]");
+        out.println(BLUE+nickname+RESET+" is here:"+BLUE+" *"+RESET+", vatican report and points: ex:["+YELLOW+"VR2"+RESET+"], victory points in that cell: ex:["+GREEN+"20"+YELLOW+"VR2"+RESET+"]");
         for(int i=0;i<25;i++){
             switch(i){
                 case 3: printFaithPathCell(position==i,1, false,0);
@@ -653,7 +670,6 @@ public class Cli implements View {
                 case 24: printFaithPathCell(position==i,20, true,4);
                     break;
                 default: printFaithPathCell(position==i,0, false,0);
-
             }
         }
         out.println();
@@ -661,22 +677,22 @@ public class Cli implements View {
 
     private void printFaithPathCell(boolean playerIsHere,int victoryPoints,boolean isVaticanReport,int vaticanReportPoints){
         if(playerIsHere&&victoryPoints!=0&&isVaticanReport)
-            out.print("["+victoryPoints+BLUE+"*"+RESET+"VR"+vaticanReportPoints+"]");
+            out.print("["+GREEN+victoryPoints+BLUE+"*"+YELLOW+"VR"+vaticanReportPoints+RESET+"]");
         else {
             if (!playerIsHere && victoryPoints != 0 && isVaticanReport)
-                out.print("[" + victoryPoints + "VR" + vaticanReportPoints + "]");
+                out.print("[" + GREEN + victoryPoints + YELLOW + "VR" + vaticanReportPoints + RESET +"]");
             else {
                 if (playerIsHere && victoryPoints == 0 && isVaticanReport)
-                    out.print("[" + BLUE + "*" + RESET + "VR" + vaticanReportPoints + "]");
+                    out.print("[" + BLUE + "*" + YELLOW + "VR" + vaticanReportPoints + RESET +"]");
                 else {
                     if (!playerIsHere && victoryPoints == 0 && isVaticanReport)
-                        out.print("[VR" + vaticanReportPoints + "]");
+                        out.print("["+YELLOW+"VR" + vaticanReportPoints + RESET+"]");
                     else {
                         if (playerIsHere && victoryPoints != 0)
-                            out.print("[" + victoryPoints + BLUE + "*" + RESET + "]");
+                            out.print("["+GREEN + victoryPoints + BLUE + "*" + RESET + "]");
                         else
                             if (!playerIsHere && victoryPoints != 0)
-                                out.print("[" + victoryPoints + "]");
+                                out.print("[" +GREEN+ victoryPoints +RESET+ "]");
                             else
                                 if(playerIsHere)
                                     out.print("[" + BLUE + "*" + RESET + "]");
