@@ -1,5 +1,7 @@
 package it.polimi.ingsw.model.card;
 
+import it.polimi.ingsw.view.CliColours;
+
 public class ColourCount {
     private int green;
     private int yellow;
@@ -188,13 +190,13 @@ public class ColourCount {
     public String toString(){
         String count = "";
         if(this.getGreen() !=0)
-           count +=(" GREEN: " + this.getGreen());
+           count +=(CliColours.GREEN+ " GREEN: " + this.getGreen()+" "+CliColours.RESET);
         if(this.getBlue() !=0)
-            count +=(" BLUE: " + this.getBlue());
+            count +=(CliColours.BLUE+" BLUE: " + this.getBlue()+" "+CliColours.RESET);
         if(this.getPurple() !=0)
-            count +=(" PURPLE: " + this.getPurple());
+            count +=(CliColours.PURPLE+" PURPLE: " + this.getPurple()+" "+CliColours.RESET);
         if(this.getYellow() !=0)
-            count += (" YELLOW: " + this.getYellow());
+            count += (CliColours.YELLOW+" YELLOW: " + this.getYellow()+" "+CliColours.RESET);
 
         return count;
     }

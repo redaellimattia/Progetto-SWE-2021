@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.DeckDashboard;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.CardColour;
+import it.polimi.ingsw.view.CliColours;
 
 import java.util.ArrayList;
 
@@ -81,6 +82,12 @@ public class CardLevelRequirement implements Requirement {
 
     @Override
     public String toString(){
-        return "You need a " + colour + " card of level: " + level +" to play this.";
+        switch (colour){
+            case BLUE: return "You need a " + CliColours.BLUE + colour + CliColours.RESET+ " card of level: " + level +" to play this.";
+            case GREEN: return "You need a " + CliColours.GREEN + colour + CliColours.RESET+ " card of level: " + level +" to play this.";
+            case YELLOW: return "You need a " + CliColours.YELLOW + colour + CliColours.RESET+ " card of level: " + level +" to play this.";
+            case PURPLE: return "You need a " + CliColours.PURPLE + colour + CliColours.RESET+ " card of level: " + level +" to play this.";
+            default: return null;
+        }
     }
 }
