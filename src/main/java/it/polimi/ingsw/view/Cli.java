@@ -509,7 +509,11 @@ public class Cli implements View {
             out.println(BLUE+"~~"+nickname+"'S DASHBOARD"+"~~"+RESET);
         out.println(PURPLE+"VICTORY POINTS: "+player.getPoints()+RESET);
         printPathPosition(player.getPathPosition(),nickname);
+        if(ResourceCount.resCountToInt(player.getBufferProduction())>0)
+            printBufferProduction(player.getBufferProduction());
         printStorage(player.getStorage());
+        if(player.getArrayDeposit().size()>0)
+            printArrayDeposits(player.getArrayDeposit());
         printChest(player.getChest());
         printPlayerDevCards(player.getDevCards());
         if(nickname.equals(clientManager.getNickname()))
@@ -523,8 +527,6 @@ public class Cli implements View {
             printPlayerLeaderCards(leadersInGame);
         }
     }
-
-
 
     private void printMarket() {
         MarketDashboard market = clientManager.getGameStatus().getMarket();
@@ -759,6 +761,17 @@ public class Cli implements View {
                 }
             }
         }
+    }
+
+    private void printArrayDeposits(ArrayList<CounterTop> arrayDeposits){
+        out.println(PURPLE+"--SPECIAL ABILITY DEPOSITS--"+RESET);
+        for(CounterTop counterTop:arrayDeposits)
+            printCounterTop(counterTop);
+    }
+
+    private void printBufferProduction(ResourceCount bufferProduction){
+        out.println(PURPLE+"--PRODUCTION RESOURCES--"+RESET);
+        out.println(bufferProduction);
     }
 
     private void printChest(ResourceCount chest){
