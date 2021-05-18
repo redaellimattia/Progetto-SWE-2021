@@ -13,7 +13,7 @@ public interface View {
     void joinExistingGame(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies);
     void printMsg(String msg);
     void preGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources);
-    void waitingForTurn();
+    void waitingForTurn(boolean market,boolean players,boolean shop);
     void yourTurn();
     void endGame(ArrayList<PlayerPoints> scoreboard);
     void endGame(boolean lorenzoWin,int playerPoints);

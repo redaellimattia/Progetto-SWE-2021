@@ -10,6 +10,6 @@ public class WaitYourTurnMessage extends ServerMessage{
 
     @Override
     public void useMessage(ClientManager clientManager){
-        clientManager.getView().waitingForTurn();
+        clientManager.getView().waitingForTurn(true,true,true);
     }
 }

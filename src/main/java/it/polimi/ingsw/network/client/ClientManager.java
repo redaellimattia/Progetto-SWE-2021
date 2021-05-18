@@ -5,10 +5,7 @@ import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.card.Requirement;
 import it.polimi.ingsw.model.enumeration.Resource;
-import it.polimi.ingsw.network.messages.clientMessages.AskLobbyMessage;
-import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
-import it.polimi.ingsw.network.messages.clientMessages.JoinGameMessage;
-import it.polimi.ingsw.network.messages.clientMessages.PreGameResponseMessage;
+import it.polimi.ingsw.network.messages.clientMessages.*;
 import it.polimi.ingsw.network.messages.clientMessages.actionMessages.DiscardLeaderMessage;
 import it.polimi.ingsw.network.messages.clientMessages.actionMessages.PlayLeaderMessage;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
@@ -34,6 +31,7 @@ public class ClientManager {
     private View view;
     private ClientGameStatus gameStatus;
     private boolean mainActionDone;
+    private boolean isMyTurn;
 
     /**
      * Creates client Object, handles client connection and instantiates view
@@ -141,6 +139,12 @@ public class ClientManager {
     public void discardLeader(LeaderCard leaderCard){
         clientSocket.send(new DiscardLeaderMessage(nickname,serverLobbyID,leaderCard).serialize());
     }
+
+    public void endTurn(){
+        isMyTurn = false;
+        clientSocket.send(new EndTurnMessage(nickname,serverLobbyID).serialize());
+    }
+
     /**
      * Checking if the requirement is covered by the player
      *
@@ -232,6 +236,24 @@ public class ClientManager {
      */
     public PlayerDashboard getThisClientDashboard(){
         return gameStatus.getClientDashboard(nickname);
+    }
+
+    public void yourTurn(){
+        isMyTurn = true;
+        view.yourTurn();
+    }
+
+    public void updateDiscardLeader(String nickname,int position){
+        gameStatus.updateDiscardLeader(nickname,position);
+        view.printMsg(nickname+" discarded a leader!");
+        updateView(false,true,false);
+    }
+
+    public void updateView(boolean market,boolean players,boolean shop){
+        if(isMyTurn)
+            view.yourTurn();
+        else
+            view.waitingForTurn(market,players,shop);
     }
 
     /**

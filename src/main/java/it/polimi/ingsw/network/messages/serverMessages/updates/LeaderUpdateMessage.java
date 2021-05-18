@@ -16,9 +16,8 @@ public class LeaderUpdateMessage extends PlayerUpdateMessage{
         switch(getPlayerUpdateType()){
             case INGAMELEADER:  clientManager.getGameStatus().updateLeaderInGame(getNickname(),position);
                                 break;
-            case DISCARDLEADER: clientManager.getGameStatus().updateDiscardLeader(getNickname(),position);
+            case DISCARDLEADER: clientManager.updateDiscardLeader(getNickname(),position);
                                 break;
         }
-        clientManager.getView().yourTurn();
     }
 }

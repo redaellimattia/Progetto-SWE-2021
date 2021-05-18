@@ -2,7 +2,6 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
-import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.client.PlayerPoints;
@@ -11,8 +10,6 @@ import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
 
 public class Cli implements View {
     public static final String RESET = CliColours.RESET.toString();
@@ -24,6 +21,7 @@ public class Cli implements View {
     public static final String PURPLE = CliColours.PURPLE.toString();
     public static final String CYAN = CliColours.CYAN.toString();
     public static final String WHITE = CliColours.WHITE.toString();
+
     private final String lostLogo =     "██╗   ██╗ ██████╗ ██╗   ██╗    ██╗      ██████╗ ███████╗████████╗\n" +
                                         "╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║     ██╔═══██╗██╔════╝╚══██╔══╝\n" +
                                         " ╚████╔╝ ██║   ██║██║   ██║    ██║     ██║   ██║███████╗   ██║   \n" +
@@ -40,6 +38,8 @@ public class Cli implements View {
     private final PrintStream out;
     private final Scanner in;
     private final ClientManager clientManager;
+    private final Scanner in;
+
 
     public Cli(ClientManager clientManager) {
         this.in = new Scanner(System.in);
@@ -82,29 +82,10 @@ public class Cli implements View {
     }
 
     public void printLogo() {
-        String logo = " __    __     ______     ______     ______   ______     ______     ______        ______     ______                    \n" +
-                "/\\ \"-./  \\   /\\  __ \\   /\\  ___\\   /\\__  _\\ /\\  ___\\   /\\  == \\   /\\  ___\\      /\\  __ \\   /\\  ___\\                   \n" +
-                "\\ \\ \\-./\\ \\  \\ \\  __ \\  \\ \\___  \\  \\/_/\\ \\/ \\ \\  __\\   \\ \\  __<   \\ \\___  \\     \\ \\ \\/\\ \\  \\ \\  __\\                   \n" +
-                " \\ \\_\\ \\ \\_\\  \\ \\_\\ \\_\\  \\/\\_____\\    \\ \\_\\  \\ \\_____\\  \\ \\_\\ \\_\\  \\/\\_____\\     \\ \\_____\\  \\ \\_\\                     \n" +
-                "  \\/_/  \\/_/   \\/_/\\/_/   \\/_____/     \\/_/   \\/_____/   \\/_/ /_/   \\/_____/      \\/_____/   \\/_/                     \n" +
-                "                                                                                                                      \n" +
-                " ______     ______     __   __     ______     __     ______     ______     ______     __   __     ______     ______   \n" +
-                "/\\  == \\   /\\  ___\\   /\\ \"-.\\ \\   /\\  __ \\   /\\ \\   /\\  ___\\   /\\  ___\\   /\\  __ \\   /\\ \"-.\\ \\   /\\  ___\\   /\\  ___\\  \n" +
-                "\\ \\  __<   \\ \\  __\\   \\ \\ \\-.  \\  \\ \\  __ \\  \\ \\ \\  \\ \\___  \\  \\ \\___  \\  \\ \\  __ \\  \\ \\ \\-.  \\  \\ \\ \\____  \\ \\  __\\  \n" +
-                " \\ \\_\\ \\_\\  \\ \\_____\\  \\ \\_\\\\\"\\_\\  \\ \\_\\ \\_\\  \\ \\_\\  \\/\\_____\\  \\/\\_____\\  \\ \\_\\ \\_\\  \\ \\_\\\\\"\\_\\  \\ \\_____\\  \\ \\_____\\\n" +
-                "  \\/_/ /_/   \\/_____/   \\/_/ \\/_/   \\/_/\\/_/   \\/_/   \\/_____/   \\/_____/   \\/_/\\/_/   \\/_/ \\/_/   \\/_____/   \\/_____/ \n" +
-                "Welcome to Masters Of Renaissance Board Game Digital Version (patent pending) created by Mattia Redaelli, Luca Rondini, Gabriele Rivi. \n" +
-                "Have Fun playing the game! \n";
         //SITO PER GENERARE ASCII ART
         //https://patorjk.com/software/taag/#p=testall&f=Elite&t=Master%20of%20Renaissance%20
-        String logo1 = PURPLE + "\n" +
-                "• ▌ ▄ ·.  ▄▄▄· .▄▄ · ▄▄▄▄▄▄▄▄ .▄▄▄            ·▄▄▄    ▄▄▄  ▄▄▄ . ▐ ▄  ▄▄▄· ▪  .▄▄ · .▄▄ ·  ▄▄▄·  ▐ ▄  ▄▄· ▄▄▄ .    \n" +
-                "·██ ▐███▪▐█ ▀█ ▐█ ▀. •██  ▀▄.▀·▀▄ █·    ▪     ▐▄▄·    ▀▄ █·▀▄.▀·•█▌▐█▐█ ▀█ ██ ▐█ ▀. ▐█ ▀. ▐█ ▀█ •█▌▐█▐█ ▌▪▀▄.▀·    \n" +
-                "▐█ ▌▐▌▐█·▄█▀▀█ ▄▀▀▀█▄ ▐█.▪▐▀▀▪▄▐▀▀▄      ▄█▀▄ ██▪     ▐▀▀▄ ▐▀▀▪▄▐█▐▐▌▄█▀▀█ ▐█·▄▀▀▀█▄▄▀▀▀█▄▄█▀▀█ ▐█▐▐▌██ ▄▄▐▀▀▪▄    \n" +
-                "██ ██▌▐█▌▐█ ▪▐▌▐█▄▪▐█ ▐█▌·▐█▄▄▌▐█•█▌    ▐█▌.▐▌██▌.    ▐█•█▌▐█▄▄▌██▐█▌▐█ ▪▐▌▐█▌▐█▄▪▐█▐█▄▪▐█▐█ ▪▐▌██▐█▌▐███▌▐█▄▄▌    \n" +
-                "▀▀  █▪▀▀▀ ▀  ▀  ▀▀▀▀  ▀▀▀  ▀▀▀ .▀  ▀     ▀█▄▀▪▀▀▀     .▀  ▀ ▀▀▀ ▀▀ █▪ ▀  ▀ ▀▀▀ ▀▀▀▀  ▀▀▀▀  ▀  ▀ ▀▀ █▪·▀▀▀  ▀▀▀     \n";
         //ANSI SHADOWS
-        String logo2 = CYAN + "\n" +
+        String logo = CYAN + "\n" +
                 "███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗      ██████╗ ███████╗    ██████╗ ███████╗███╗   ██╗ █████╗ ██╗███████╗███████╗ █████╗ ███╗   ██╗ ██████╗███████╗    \n" +
                 "████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗    ██╔═══██╗██╔════╝    ██╔══██╗██╔════╝████╗  ██║██╔══██╗██║██╔════╝██╔════╝██╔══██╗████╗  ██║██╔════╝██╔════╝    \n" +
                 "██╔████╔██║███████║███████╗   ██║   █████╗  ██████╔╝    ██║   ██║█████╗      ██████╔╝█████╗  ██╔██╗ ██║███████║██║███████╗███████╗███████║██╔██╗ ██║██║     █████╗      \n" +
@@ -114,7 +95,7 @@ public class Cli implements View {
                 "                                                                                                                                                                        \n"
                 + RESET + "               Welcome to Masters Of Renaissance Board Game Digital Version (patent pending) created by Mattia Redaelli, Luca Rondini, Gabriele Rivi. \n" +
                 "                                                        Have Fun playing the game! \n";
-        out.println(logo2);
+        out.println(logo);
     }
 
     @Override
@@ -122,10 +103,13 @@ public class Cli implements View {
         String input;
         if (availableGameLobbies.size() == 0) {
             do {
-                out.println("There are no available lobbies, press C to create a new game: ");
+                out.println("There are no available lobbies, press: \n" +
+                            "C: Create a new game: \n" +
+                            "A: Ask the lobbies again:");
                 input = readLine();
-            } while (!input.equalsIgnoreCase("C"));
-            createNewGame();
+            } while (!input.equalsIgnoreCase("C")&&!input.equalsIgnoreCase("A"));
+            if (input.equalsIgnoreCase("C"))
+                createNewGame();
         } else {
             out.println("Here are the available Lobbies:");
             out.println("-----------------");
@@ -150,9 +134,9 @@ public class Cli implements View {
                 createNewGame();
             if (input.equalsIgnoreCase("J"))
                 joinExistingGame(availableGameLobbies);
-            if (input.equalsIgnoreCase("A"))
-                clientManager.askLobbies();
         }
+        if (input.equalsIgnoreCase("A"))
+            clientManager.askLobbies();
     }
 
     @Override
@@ -204,7 +188,7 @@ public class Cli implements View {
     public int askNumberOfPlayers() {
         String number;
         String input;
-        int num = 0;
+        int num;
         do {
             do {
                 out.println("Insert the number of players for your game (must be between 1 and 4)");
@@ -338,61 +322,28 @@ public class Cli implements View {
 
 
     @Override
-    public void waitingForTurn() {
-        String input;
+    public void waitingForTurn(boolean market,boolean players,boolean shop) {
         clearCli();
         out.println("\nWait for the other players to play their turn, in the meantime you can peek around the board to keep updated.");
-        do {
-            out.println("Choose what you want to see: \n" +
-                    "Market: press M \n" +
-                    "Shop: press S \n" +
-                    "Players: press P \n");
-            input = readLine();
-        } while (!input.equalsIgnoreCase("m") && !input.equalsIgnoreCase("s") && !input.equalsIgnoreCase("p"));
-        if (input.equalsIgnoreCase("m")) {
-            clearCli();
+        if(market) {
             printMarket();
-            do {
-                out.println("Digit \"esc\" to go back.");
-                input = readLine();
-            } while (!input.equalsIgnoreCase("esc"));
-            waitingForTurn();
+            out.println();
         }
-        if (input.equalsIgnoreCase("s")) {
-            clearCli();
-            printShop();
-            do {
-                out.println("Digit \"esc\" to go back.");
-                input = readLine();
-            } while (!input.equalsIgnoreCase("esc"));
-            waitingForTurn();
-        }
-        if (input.equalsIgnoreCase("p")) {
-            clearCli();
-            ArrayList<String> nicknames = new ArrayList<>();
+        if(players) {
             for (PlayerDashboard p : clientManager.getGameStatus().getPlayers()) {
-                nicknames.add(p.getNickname());
-            }
-            do {
-                out.println("Choose which player you want to see: ");
-                for (String s : nicknames) {
-                    out.print("|" + s + "|\t");
-                }
+                printPlayer(p.getNickname());
                 out.println();
-                input = readLine();
-            } while (!nicknames.contains(input));
-            printPlayer(input);
-            do {
-                out.println("Digit \"esc\" to go back.");
-                input = readLine();
-            } while (!input.equalsIgnoreCase("esc"));
-            waitingForTurn();
+            }
+        }
+        if(shop) {
+            printShop(false);
+            out.println();
         }
     }
     @Override
     public void yourTurn() {
         clearCli();
-        out.println(RED + "|||Now it's your turn|||" + RESET);
+        out.println(RED + "|||It's your turn|||" + RESET);
         out.println("This is the actual state of your board: ");
         printPlayer(clientManager.getNickname());
         chooseAction();
@@ -470,7 +421,7 @@ public class Cli implements View {
     public void buyCard(){}
     @Override
     public void takeResourcesFromMarket(){
-        String input = "";
+        String input;
         do {
             out.println("Type \"row\" if you want to select a row; \"col\" if you want to select a column");
             input = readLine();
@@ -551,7 +502,6 @@ public class Cli implements View {
             else
                 input = "esc";
         }while(!input.equals("esc"));
-        //chooseAction();
     }
     @Override
     public void organizeResources(){}
@@ -561,7 +511,10 @@ public class Cli implements View {
     private void printPlayer(String nickname) {
         clearCli();
         PlayerDashboard player = clientManager.getGameStatus().getClientDashboard(nickname);
-        out.println(YELLOW+nickname+"'S DASHBOARD"+RESET);
+        if(nickname.equals(clientManager.getNickname()))
+            out.println(BLUE+"~~YOUR DASHBOARD"+"~~"+RESET);
+        else
+            out.println(BLUE+"~~"+nickname+"'S DASHBOARD"+"~~"+RESET);
         out.println(PURPLE+"VICTORY POINTS: "+player.getPoints()+RESET);
         printPathPosition(player.getPathPosition(),nickname);
         printStorage(player.getStorage());
@@ -584,7 +537,7 @@ public class Cli implements View {
     private void printMarket() {
         MarketDashboard market = clientManager.getGameStatus().getMarket();
         MarketMarble[][] grid = market.getStructure();
-        out.println(YELLOW + "MARKET DASHBOARD " + RESET);
+        out.println(BLUE + "~~MARKET DASHBOARD~~" + RESET);
         for (int i = 0; i < 3; i++) {
             out.print("\t\t");
             for (int j = 0; j < 4; j++) {
@@ -635,10 +588,10 @@ public class Cli implements View {
         out.println("Legend: W -> White |" + RED + " R -> Red |" + RESET + YELLOW + " Y -> Yellow |" + RESET + WHITE + " G -> Gray |" + RESET + PURPLE + " P -> Purple |" + RESET + BLUE + " B -> Blue " + RESET);
     }
 
-    private void printShop() {
+    private void printShop(boolean isMyTurn) {
         Deck[][] shop = clientManager.getGameStatus().getShop().getGrid();
         ArrayList<Integer> firstCardID = new ArrayList<>();
-        out.println(YELLOW + "SHOP GRID" + RESET);
+        out.println(BLUE + "~~SHOP GRID~~" + RESET);
         for (int i = 0; i < 3; i++) {
             out.print("Level: " + shop[i][0].getFirst().getLevel() + "\t");
             for (int j = 0; j < 4; j++) {
@@ -670,23 +623,25 @@ public class Cli implements View {
             }
             out.print("\n");
         }
-        String input;
-        int id;
-        do {
+        if(isMyTurn) {
+            String input;
+            int id;
             do {
-                out.println("Insert the ID of the card you want to see");
+                do {
+                    out.println("Insert the ID of the card you want to see");
+                    input = readLine();
+                    try {
+                        id = Integer.parseInt(input);
+                    } catch (NumberFormatException e) {
+                        id = -1;
+                    }
+                } while (!firstCardID.contains(id));
+                DevelopmentCard card = clientManager.getShopCardByID(id);
+                printDevCard(card);
+                out.println("\nPress esc to exit Development Card details lookup, another key to continue looking at Cards: ");
                 input = readLine();
-                try {
-                    id = Integer.parseInt(input);
-                } catch (NumberFormatException e) {
-                    id = -1;
-                }
-            } while (!firstCardID.contains(id));
-            DevelopmentCard card = clientManager.getShopCardByID(id);
-            printDevCard(card);
-            out.println("\nPress esc to exit Development Card details lookup, another key to continue looking at Cards: ");
-            input = readLine();
-        }while(!input.equals("esc"));
+            } while (!input.equals("esc"));
+        }
     }
 
     void printDevCard(DevelopmentCard card){
@@ -753,7 +708,10 @@ public class Cli implements View {
 
     private void printPathPosition(int position,String nickname){
         out.println(PURPLE+"--FAITH PATH--"+RESET);
-        out.println(BLUE+nickname+RESET+" is here:"+BLUE+" *"+RESET+", vatican report and points: ex:["+YELLOW+"VR2"+RESET+"], victory points in that cell: ex:["+GREEN+"20"+YELLOW+"VR2"+RESET+"]");
+        if(nickname.equals(clientManager.getNickname()))
+            out.println(BLUE+"YOU"+RESET+" are here:"+BLUE+" *"+RESET+", vatican report and points: ex:["+YELLOW+"VR2"+RESET+"], victory points in that cell: ex:["+GREEN+"20"+YELLOW+"VR2"+RESET+"]");
+        else
+            out.println(BLUE+nickname+RESET+" is here:"+BLUE+" *"+RESET+", vatican report and points: ex:["+YELLOW+"VR2"+RESET+"], victory points in that cell: ex:["+GREEN+"20"+YELLOW+"VR2"+RESET+"]");
         for(int i=0;i<25;i++){
             switch(i){
                 case 3: printFaithPathCell(position==i,1, false,0);
@@ -814,7 +772,7 @@ public class Cli implements View {
     private void printChest(ResourceCount chest){
         out.println(PURPLE+"--CHEST--"+RESET);
         if(ResourceCount.resCountToInt(chest)>0)
-            out.println(chest.toString());
+            out.println(chest);
         else
             out.println("EMPTY");
     }

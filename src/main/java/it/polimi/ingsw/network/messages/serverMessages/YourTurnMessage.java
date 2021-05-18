@@ -11,6 +11,6 @@ public class YourTurnMessage extends ServerMessage{
 
     @Override
     public void useMessage(ClientManager clientManager){
-        clientManager.getView().yourTurn();
+        clientManager.yourTurn();
     }
 }
