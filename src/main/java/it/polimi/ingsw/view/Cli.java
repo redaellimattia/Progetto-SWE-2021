@@ -413,9 +413,10 @@ public class Cli implements View {
                 if(!l.isInGame())
                     leadersInHand++;
             }
-            if(leadersInHand >= 1 && clientManager.canPlayLeader()) {
-                out.println("PLAY A LEADER: press L\n" +
-                        "DISCARD A LEADER: press D \n");
+            if(leadersInHand >= 1 ) {
+                out.println("DISCARD A LEADER: press D \n");
+                if(clientManager.canPlayLeader())
+                    out.println("PLAY A LEADER: press L\n");
             }
             out.println("REORGANIZE RESOURCES: press R");
 
@@ -428,32 +429,28 @@ public class Cli implements View {
                 !input.equalsIgnoreCase("q"));
 
         //CASE WHEN I PRESS Q BUT I HAVE NOT THE POSSIBILITY TO PASS THE TURN
-        if(input.equalsIgnoreCase("q") && !clientManager.isMainActionDone())
-            chooseAction();
+        if (input.equalsIgnoreCase("q") && clientManager.isMainActionDone())
+            endTurn();
         else {
-            if (input.equalsIgnoreCase("q") && clientManager.isMainActionDone())
-                endTurn();
+            if (input.equalsIgnoreCase("b") && !clientManager.isMainActionDone())
+                buyCard();
             else {
-                if (input.equalsIgnoreCase("b") && !clientManager.isMainActionDone())
-                    buyCard();
+                if (input.equalsIgnoreCase("m") && !clientManager.isMainActionDone())
+                    takeResourcesFromMarket();
                 else {
-                    if (input.equalsIgnoreCase("m") && !clientManager.isMainActionDone())
-                        takeResourcesFromMarket();
+                    if (input.equalsIgnoreCase("p") && !clientManager.isMainActionDone() && canDoProduction)
+                        startProduction();
                     else {
-                        if (input.equalsIgnoreCase("p") && !clientManager.isMainActionDone() && canDoProduction)
-                            startProduction();
+                        if (input.equalsIgnoreCase("l") && clientManager.canPlayLeader())
+                            playLeader(thisPlayerDashboard.getLeaderCards());
                         else {
-                            if (input.equalsIgnoreCase("l") && clientManager.canPlayLeader())
-                                playLeader(thisPlayerDashboard.getLeaderCards());
+                            if (input.equalsIgnoreCase("d"))
+                                discardLeader();
                             else {
-                                if (input.equalsIgnoreCase("d"))
-                                    discardLeader();
-                                else {
-                                    if (input.equalsIgnoreCase("o"))
-                                        organizeResources();
-                                    else
-                                        chooseAction();
-                                }
+                                if (input.equalsIgnoreCase("o"))
+                                    organizeResources();
+                                else
+                                    chooseAction();
                             }
                         }
                     }
