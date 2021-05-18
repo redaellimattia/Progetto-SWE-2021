@@ -393,9 +393,10 @@ public class Cli implements View {
     }
 
     public void chooseAction(){
+        PlayerDashboard thisPlayerDashboard = clientManager.getThisClientDashboard();
         String input;
-        boolean canDoProduction = (ResourceCount.resCountToInt(clientManager.getGameStatus().getClientDashboard(clientManager.getNickname()).getStorage().readStorage()) >= 2
-                || ResourceCount.resCountToInt(clientManager.getGameStatus().getClientDashboard(clientManager.getNickname()).getChest()) >= 2);
+        boolean canDoProduction = (ResourceCount.resCountToInt(thisPlayerDashboard.getStorage().readStorage()) >= 2
+                || ResourceCount.resCountToInt(thisPlayerDashboard.getChest()) >= 2);
         do {
             if (!clientManager.isMainActionDone()) {
                 out.println(YELLOW + "You still have to do one of these before ending your turn: " + RESET);
@@ -408,11 +409,11 @@ public class Cli implements View {
             }
             out.println(YELLOW + "Secondary actions: " + RESET);
             int leadersInHand = 0;
-            for (LeaderCard l: clientManager.getGameStatus().getClientDashboard(clientManager.getNickname()).getLeaderCards()) {
+            for (LeaderCard l: thisPlayerDashboard.getLeaderCards()) {
                 if(!l.isInGame())
                     leadersInHand++;
             }
-            if(leadersInHand >= 1) {
+            if(leadersInHand >= 1 && clientManager.canPlayLeader()) {
                 out.println("PLAY A LEADER: press L\n" +
                         "DISCARD A LEADER: press D \n");
             }
@@ -429,20 +430,36 @@ public class Cli implements View {
         //CASE WHEN I PRESS Q BUT I HAVE NOT THE POSSIBILITY TO PASS THE TURN
         if(input.equalsIgnoreCase("q") && !clientManager.isMainActionDone())
             chooseAction();
-        if(input.equalsIgnoreCase("q") && clientManager.isMainActionDone())
-            endTurn();
-        if(input.equalsIgnoreCase("b") && !clientManager.isMainActionDone())
-            buyCard();
-        if(input.equalsIgnoreCase("m") && !clientManager.isMainActionDone())
-            takeResourcesFromMarket();
-        if(input.equalsIgnoreCase("p") && !clientManager.isMainActionDone() && canDoProduction)
-            startProduction();
-        if(input.equalsIgnoreCase("l"))
-            playLeader();
-        if(input.equalsIgnoreCase("d"))
-            discardLeader();
-        if(input.equalsIgnoreCase("o"))
-            organizeResources();
+        else {
+            if (input.equalsIgnoreCase("q") && clientManager.isMainActionDone())
+                endTurn();
+            else {
+                if (input.equalsIgnoreCase("b") && !clientManager.isMainActionDone())
+                    buyCard();
+                else {
+                    if (input.equalsIgnoreCase("m") && !clientManager.isMainActionDone())
+                        takeResourcesFromMarket();
+                    else {
+                        if (input.equalsIgnoreCase("p") && !clientManager.isMainActionDone() && canDoProduction)
+                            startProduction();
+                        else {
+                            if (input.equalsIgnoreCase("l") && clientManager.canPlayLeader())
+                                playLeader(thisPlayerDashboard.getLeaderCards());
+                            else {
+                                if (input.equalsIgnoreCase("d"))
+                                    discardLeader();
+                                else {
+                                    if (input.equalsIgnoreCase("o"))
+                                        organizeResources();
+                                    else
+                                        chooseAction();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     @Override
     public void endTurn(){}
@@ -458,8 +475,45 @@ public class Cli implements View {
     }
     @Override
     public void startProduction(){}
+
     @Override
-    public void playLeader(){}
+    public void playLeader(ArrayList<LeaderCard> leaderCards){
+        ArrayList<LeaderCard> leadersChosen = new ArrayList<>();
+        ArrayList<LeaderCard> playableLeaders = new ArrayList<>();
+        ArrayList<Integer> id = new ArrayList<>();
+        int ID;
+        String input;
+        for (LeaderCard l : leaderCards)
+            if(!l.isInGame()&& clientManager.isRequirementPossible(l.getRequirement())) {
+                playableLeaders.add(l);
+                id.add(l.getId());
+            }
+
+        out.println("Choose the ID of the leader that you want to play: ");
+        out.println("-----------------");
+        printLeaders(leaderCards);
+        do{
+            do {
+                out.println("Insert the ID of the chosen leader: ");
+                input = readLine();
+                ID = Integer.parseInt(input);
+            } while (!id.contains(ID));
+            for(LeaderCard l:playableLeaders)
+                if(l.getId()==ID) {
+                    clientManager.playLeader(l);
+                    playableLeaders.remove(l);
+                }
+
+            if(playableLeaders.size()>0) {
+                out.println("You still have "+playableLeaders.size()+" leader card in your hand!");
+                out.println("\nPress esc to exit, another key to play another leader: ");
+                input = readLine();
+            }
+            else
+                input = "esc";
+        }while(!input.equals("esc"));
+        chooseAction();
+    }
     @Override
     public void discardLeader(){}
     @Override

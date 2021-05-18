@@ -15,7 +15,7 @@ public class JoinedLobbyMessage extends ServerMessage{
 
     @Override
     public void useMessage(ClientManager clientManager) {
-        clientManager.setServerThreadID(serverThreadID);
+        clientManager.setServerLobbyID(serverThreadID);
 
         clientManager.getView().printMsg(msg);
     }

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
@@ -10,6 +9,7 @@ import it.polimi.ingsw.network.messages.clientMessages.AskLobbyMessage;
 import it.polimi.ingsw.network.messages.clientMessages.CreateGameMessage;
 import it.polimi.ingsw.network.messages.clientMessages.JoinGameMessage;
 import it.polimi.ingsw.network.messages.clientMessages.PreGameResponseMessage;
+import it.polimi.ingsw.network.messages.clientMessages.actionMessages.PlayLeaderMessage;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
 import it.polimi.ingsw.view.Cli;
 import it.polimi.ingsw.view.View;
@@ -29,7 +29,7 @@ public class ClientManager {
 
     private String nickname;
     private ClientSocket clientSocket;
-    private long serverThreadID = -1;
+    private long serverLobbyID = -1;
     private View view;
     private ClientGameStatus gameStatus;
     private boolean mainActionDone;
@@ -54,8 +54,8 @@ public class ClientManager {
     public String getNickname() {
         return nickname;
     }
-    public long getServerThreadID() {
-        return serverThreadID;
+    public long getServerLobbyID() {
+        return serverLobbyID;
     }
     public View getView(){ return view;}
     public ClientSocket getClientSocket(){return clientSocket;}
@@ -63,8 +63,8 @@ public class ClientManager {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
-    public void setServerThreadID(long serverThreadID) {
-        this.serverThreadID = serverThreadID;
+    public void setServerLobbyID(long serverLobbyID) {
+        this.serverLobbyID = serverLobbyID;
     }
 
     /**
@@ -111,7 +111,7 @@ public class ClientManager {
      * Sends a message to ask available lobbies
      */
     public void askLobbies(){
-        clientSocket.send(new AskLobbyMessage(nickname, serverThreadID).serialize());
+        clientSocket.send(new AskLobbyMessage(nickname, serverLobbyID).serialize());
     }
 
     /**
@@ -130,7 +130,11 @@ public class ClientManager {
      * @param leaders leaderCards chosen
      */
     public void preGameChoice(ArrayList<Resource> resources, ArrayList<LeaderCard> leaders){
-        clientSocket.send(new PreGameResponseMessage(this.nickname,serverThreadID,resources,leaders).serialize());
+        clientSocket.send(new PreGameResponseMessage(this.nickname, serverLobbyID,resources,leaders).serialize());
+    }
+
+    public void playLeader(LeaderCard leaderCard){
+        clientSocket.send(new PlayLeaderMessage(nickname, serverLobbyID,leaderCard).serialize());
     }
 
     /**
@@ -140,7 +144,19 @@ public class ClientManager {
      * @return true if playable
      */
     public boolean isRequirementPossible(Requirement req){
-        return req.isPlayable(gameStatus.getClientDashboard(nickname));
+        return req.isPlayable(getThisClientDashboard());
+    }
+
+    /**
+     *
+     * @return true if there is a playable leader
+     */
+    public boolean canPlayLeader(){
+        ArrayList<LeaderCard> leaderCards = getThisClientDashboard().getLeaderCards();
+        for(LeaderCard l:leaderCards)
+            if(isRequirementPossible(l.getRequirement()))
+                return true;
+        return false;
     }
 
     /**
@@ -149,7 +165,7 @@ public class ClientManager {
      * @return true if the payment is possible somewhere
      */
     public boolean hasEnoughResources(ResourceCount cost){
-        return gameStatus.getClientDashboard(nickname).getTotalResources().hasMoreOrEqualsResources(cost);
+        return getThisClientDashboard().getTotalResources().hasMoreOrEqualsResources(cost);
     }
 
     /**
@@ -187,6 +203,14 @@ public class ClientManager {
 
     public void setMainActionDone(boolean mainActionDone) {
         this.mainActionDone = mainActionDone;
+    }
+
+    /**
+     *
+     * @return this client dashboard
+     */
+    public PlayerDashboard getThisClientDashboard(){
+        return gameStatus.getClientDashboard(nickname);
     }
 
     /**
