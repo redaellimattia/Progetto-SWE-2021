@@ -519,10 +519,25 @@ public class Cli implements View {
     @Override
     public void takeResourcesFromMarket(){
         String input;
+        int pos;
         do {
             out.println("Type \"row\" if you want to select a row; \"col\" if you want to select a column");
             input = readLine();
         } while(!input.equalsIgnoreCase("row")  && !input.equalsIgnoreCase("col"));
+        if(input.equalsIgnoreCase("row")) {
+            do {
+                out.println("Chosen row: ");
+                input = readLine();
+                try {pos = Integer.parseInt(input);} catch(NumberFormatException e) {pos = -1;}
+            } while(pos < 1 || pos > 3);
+        }
+        else {
+            do {
+                out.println("Chosen column: ");
+                input = readLine();
+                try {pos = Integer.parseInt(input);} catch(NumberFormatException e) {pos = -1;}
+            } while(pos < 1 || pos > 4);
+        }
     }
 
     @Override
