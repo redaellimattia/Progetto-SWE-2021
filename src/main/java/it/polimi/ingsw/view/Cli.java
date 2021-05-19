@@ -409,16 +409,15 @@ public class Cli implements View {
         ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
         cost.sumCounts(card.getCost());
         askPayment(cost,storagePayment,chestPayment);
-        int position=-1;
+        int position;
         do{
             out.println("Now insert the position of the deck of which you want to put the card on top: ");
             input = readLine();
             try{position = Integer.parseInt(input);}catch(NumberFormatException e) {position = -1;}
         }while((position <1 || position >3) || clientManager.positionPossible(position,card.getLevel()));
-
-
         clientManager.buyCard(storagePayment,chestPayment,id,position);
     }
+
     private void askPayment(ResourceCount cost, ResourceCount storage, ResourceCount chest){
         String input;
         do{
@@ -437,8 +436,8 @@ public class Cli implements View {
                 storage = askStoragePayment(cost,true);
         }
     }
+    
     private ResourceCount askStoragePayment(ResourceCount cost,boolean needToCover){
-        String input;
         out.println("To buy this card you need to pay: " + cost);
         out.println("Now insert the resources you want to pay with FROM THE STORAGE: ");
         ResourceCount temporaryStorage = clientManager.getThisClientDashboard().getStorage().readStorage();
