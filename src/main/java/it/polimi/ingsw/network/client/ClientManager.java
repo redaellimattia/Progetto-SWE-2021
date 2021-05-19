@@ -243,10 +243,12 @@ public class ClientManager {
                     canPlace = true;
         return p.getTotalResources().hasMoreOrEqualsResources(cost) && canPlace;
     }
+
     public boolean positionPossible(int position, int level){
         PlayerDashboard p = getThisClientDashboard();
         return p.getDevCards()[position].getFirst().getLevel() == level-1;
     }
+
     public ArrayList<Integer> getAllShopID(){
         ArrayList<Integer> firstCardID = new ArrayList<>();
         Deck[][] shop = gameStatus.getShop().getGrid();

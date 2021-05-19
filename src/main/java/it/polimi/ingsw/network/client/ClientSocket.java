@@ -58,10 +58,10 @@ public class ClientSocket implements Runnable {
     public void run() {
         while (!socketListener.isInterrupted()) {
             try {
-                String msg = in.readLine();
-                //System.out.println(msg);
-                if(msg!=null) clientManager.onMessage(msg);
-                else disconnect();
+                    String msg = in.readLine();
+                    //System.out.println(msg);
+                    if (msg != null) clientManager.onMessage(msg);
+                    else disconnect();
             } catch (IOException e) {
                 ClientManager.LOGGER.severe("Failed to read message from server: "+ e.getMessage());
                 clientManager.getView().printMsg("Can't reach the Server");

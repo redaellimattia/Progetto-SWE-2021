@@ -18,10 +18,8 @@ public class LeaderUpdateMessage extends PlayerUpdateMessage{
     public void useMessage(ClientManager clientManager){
         switch(getPlayerUpdateType()){
             case INGAMELEADER:  clientManager.getGameStatus().updateLeaderCards(getNickname(),updatedLeaderCards);
-                                clientManager.updateViewWithMessage(getNickname()+" played a leader!");
                                 break;
             case DISCARDLEADER: clientManager.getGameStatus().updateLeaderCards(getNickname(),updatedLeaderCards);
-                                clientManager.updateViewWithMessage(getNickname()+" discarded a leader!");
                                 break;
         }
     }
