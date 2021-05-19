@@ -409,7 +409,10 @@ public class Cli implements View {
         }
     }
     @Override
-    public void endTurn(){}
+    public void endTurn(){
+        clientManager.endTurn();
+    }
+
     @Override
     public void buyCard(){}
     @Override
