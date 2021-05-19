@@ -21,8 +21,7 @@ public interface View {
     void buyCard();
     void takeResourcesFromMarket();
     void startProduction();
-    void playLeader(ArrayList<LeaderCard> playableLeaders);
-    void discardLeader(ArrayList<LeaderCard> discardableLeaders);
+    void leaderAction(ArrayList<LeaderCard> passedLeader,boolean isDiscard);
     void organizeResources();
     void vaticanReportActivated(int victoryPoints,ArrayList<String> nicknames);
     void clearView();

@@ -369,10 +369,10 @@ public class Cli implements View {
                         startProduction();
                     else {
                         if (input.equalsIgnoreCase("l") && clientManager.canPlayLeader())
-                            playLeader(clientManager.getNotPlayedLeaders());
+                            leaderAction(clientManager.getNotPlayedLeaders(),false);
                         else {
                             if (input.equalsIgnoreCase("d") && clientManager.leadersInHand())
-                                discardLeader(clientManager.getNotPlayedLeaders());
+                                leaderAction(clientManager.getNotPlayedLeaders(),true);
                             else {
                                 if (input.equalsIgnoreCase("o"))
                                     organizeResources();
@@ -573,54 +573,32 @@ public class Cli implements View {
     public void startProduction(){}
 
     @Override
-    public void playLeader(ArrayList<LeaderCard> playableLeaders){
+    public void leaderAction(ArrayList<LeaderCard> passedLeaders,boolean isDiscard){
         ArrayList<Integer> id = new ArrayList<>();
         int ID;
         String input;
-        for (LeaderCard l : playableLeaders)
-            if(!l.isInGame()&& clientManager.isRequirementPossible(l.getRequirement())) {
+        for (LeaderCard l : passedLeaders)
+            if(!l.isInGame())
                 id.add(l.getId());
-            }
 
-        out.println("Choose the ID of the leader that you want to play: ");
+        if(isDiscard)
+            out.println("Choose the ID of the leader that you want to discard: ");
+        else
+            out.println("Choose the ID of the leader that you want to play: ");
         out.println("-----------------");
-        printLeaders(playableLeaders);
+        printLeaders(passedLeaders);
         do {
             out.println("Insert the ID of the chosen leader: ");
             input = readLine();
             ID = Integer.parseInt(input);
         } while (!id.contains(ID));
-        for(LeaderCard l:playableLeaders)
+        for(LeaderCard l:passedLeaders)
             if(l.getId()==ID) {
-                clientManager.playLeader(l);
-                playableLeaders.remove(l);
-                break;
-            }
-    }
-
-
-    @Override
-    public void discardLeader(ArrayList<LeaderCard> discardableLeaders){
-        ArrayList<Integer> id = new ArrayList<>();
-        int ID;
-        String input;
-        for (LeaderCard l : discardableLeaders)
-            if(!l.isInGame()) {
-                id.add(l.getId());
-            }
-
-        out.println("Choose the ID of the leader that you want to discard: ");
-        out.println("-----------------");
-        printLeaders(discardableLeaders);
-        do {
-            out.println("Insert the ID of the chosen leader: ");
-            input = readLine();
-            ID = Integer.parseInt(input);
-        } while (!id.contains(ID));
-        for(LeaderCard l:discardableLeaders)
-            if(l.getId()==ID) {
-                clientManager.discardLeader(l);
-                discardableLeaders.remove(l);
+                if(isDiscard)
+                    clientManager.discardLeader(l);
+                else
+                    clientManager.playLeader(l);
+                passedLeaders.remove(l);
                 break;
             }
     }
