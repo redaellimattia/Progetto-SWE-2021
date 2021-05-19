@@ -557,7 +557,13 @@ public class Cli implements View {
                     input = readLine();
                     try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
                 } while(row < 1 || row > 3);
-
+                if(clientManager.addToStorage(row, m.getColour().convertToResource())) {
+                    out.println("Resource stored successfully!");
+                }
+                else {
+                    out.println("Cannot add this resource to this storage row");
+                    // TO-DO: Print the specific reason (storage full or of another type)
+                }
             }
         }
     }
