@@ -20,7 +20,7 @@ public class JoinGameMessage extends ClientMessage {
     @Override
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
         if(Server.checkNickname(getNickname())||serverLobby.getGameLobby().getPlayers().contains(getNickname()))
-            serverLobby.playerLogin(getNickname(),socketConnection);
+            serverLobby.playerLogin(getNickname(), socketConnection);
         else{
             socketConnection.send(new PrintMessage("This username: [" + getNickname() + "] is already taken!").serialize());
             socketConnection.send(Server.createReturnLobbiesMessage().serialize());

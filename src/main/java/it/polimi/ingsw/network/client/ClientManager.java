@@ -3,6 +3,7 @@ package it.polimi.ingsw.network.client;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
+import it.polimi.ingsw.model.card.ProductionAbility;
 import it.polimi.ingsw.model.card.Requirement;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.messages.clientMessages.*;
@@ -216,6 +217,27 @@ public class ClientManager {
      */
     public boolean chestCheck(ResourceCount chest){
         return gameStatus.getClientDashboard(nickname).getChest().hasMoreOrEqualsResources(chest);
+    }
+
+    public boolean canDoProduction(){
+        PlayerDashboard p = getThisClientDashboard();
+        ResourceCount resource = new ResourceCount(0,0,0,0,0);
+        //can do devCardProduction
+        for (DeckDashboard d: p.getDevCards()) {
+            ResourceCount cost = d.getFirst().getCost();
+            if(p.getTotalResources().hasMoreOrEqualsResources(cost))
+                return true;
+        }
+        //can do leaderCardProduction
+        for (LeaderCard l: p.getLeaderCards()) {
+            if(l.getSpecialAbility() instanceof ProductionAbility) {
+                l.getSpecialAbility().getResourceType().add(resource, 1);
+                if (p.getTotalResources().hasMoreOrEqualsResources(resource))
+                    return true;
+            }
+        }
+        //can do at least basicProduction
+        return (ResourceCount.resCountToInt(p.getTotalResources()) >=2);
     }
 
     /**

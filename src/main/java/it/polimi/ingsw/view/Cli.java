@@ -38,7 +38,6 @@ public class Cli implements View {
     private final PrintStream out;
     private final Scanner in;
     private final ClientManager clientManager;
-    private final Scanner in;
 
 
     public Cli(ClientManager clientManager) {
@@ -47,34 +46,10 @@ public class Cli implements View {
         this.clientManager = clientManager;
     }
 
-    /**
-     * Reads a line from the standard input.
-     *
-     * @return the string read from the input.
-     */
-    /*public String readLine() {
-        FutureTask<String> futureTask = new FutureTask<>(new InputReadTask());
-        Thread inputThread = new Thread(futureTask);
-        inputThread.start();
-
-        String input = null;
-
-        try {
-            try {
-                input = futureTask.get();
-            } catch (ExecutionException e) {
-                out.println(e.getMessage());
-            }
-        } catch (InterruptedException e) {
-            futureTask.cancel(true);
-            Thread.currentThread().interrupt();
-        }
-        return input;
-    }*/
-
     public String readLine(){
-        return in.nextLine();
+        return in.next();
     }
+
 
     @Override
     public void start() {
@@ -333,6 +308,7 @@ public class Cli implements View {
         printShop(false);
         printMsg("Waiting updates...");
     }
+
     @Override
     public void yourTurn() {
         clearView();
@@ -344,18 +320,16 @@ public class Cli implements View {
 
     public void chooseAction(){
         PlayerDashboard thisPlayerDashboard = clientManager.getThisClientDashboard();
+        printPlayer(thisPlayerDashboard.getNickname());
         String input;
-        boolean canDoProduction = (ResourceCount.resCountToInt(thisPlayerDashboard.getStorage().readStorage()) >= 2
-                || ResourceCount.resCountToInt(thisPlayerDashboard.getChest()) >= 2);
         do {
             if (!clientManager.isMainActionDone()) {
                 out.println(YELLOW + "You still have to do one of these before ending your turn: " + RESET);
                 out.println("BUY A CARD : press B\n" +
                         "TAKE RESOURCES FROM MARKET: press M\n");
 
-                if (canDoProduction)
+                if (clientManager.canDoProduction())
                     out.println("USE THE PRODUCTION POWERS ON YOUR BOARD: press P");
-
             }
             out.println(YELLOW + "Secondary actions: " + RESET);
 
@@ -388,7 +362,7 @@ public class Cli implements View {
                 if (input.equalsIgnoreCase("m") && !clientManager.isMainActionDone())
                     takeResourcesFromMarket();
                 else {
-                    if (input.equalsIgnoreCase("p") && !clientManager.isMainActionDone() && canDoProduction)
+                    if (input.equalsIgnoreCase("p") && !clientManager.isMainActionDone() && clientManager.canDoProduction())
                         startProduction();
                     else {
                         if (input.equalsIgnoreCase("l") && clientManager.canPlayLeader())
