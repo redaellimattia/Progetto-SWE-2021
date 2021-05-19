@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.card.ProductionAbility;
 import it.polimi.ingsw.model.card.Requirement;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.messages.clientMessages.*;
+import it.polimi.ingsw.network.messages.clientMessages.actionMessages.CardShopMessage;
 import it.polimi.ingsw.network.messages.clientMessages.actionMessages.DiscardLeaderMessage;
 import it.polimi.ingsw.network.messages.clientMessages.actionMessages.PlayLeaderMessage;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
@@ -217,6 +218,54 @@ public class ClientManager {
      */
     public boolean chestCheck(ResourceCount chest){
         return gameStatus.getClientDashboard(nickname).getChest().hasMoreOrEqualsResources(chest);
+    }
+
+    public boolean canBuyCardFromShop(){
+        PlayerDashboard p = getThisClientDashboard();
+        Deck[][] shop = gameStatus.getShop().getGrid();
+        for(int i=0;i<3;i++){
+            for(int j=0;j<4;j++){
+                if(canBuySpecificCard(shop[i][j].getFirst().getId()))
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean canBuySpecificCard(int ID){
+        PlayerDashboard p = getThisClientDashboard();
+        DevelopmentCard c = getShopCardByID(ID);
+        ResourceCount cost = c.getCost();
+        boolean canPlace = false;
+        for(int i=0;i<3;i++)
+            if(p.getDevCards()[i].getFirst().getLevel() == c.getLevel()-1)
+                canPlace = true;
+        return p.getTotalResources().hasMoreOrEqualsResources(cost) && canPlace;
+    }
+    public boolean positionPossible(int position, int level){
+        PlayerDashboard p = getThisClientDashboard();
+        return p.getDevCards()[position].getFirst().getLevel() == level-1;
+    }
+    public ArrayList<Integer> getAllShopID(){
+        ArrayList<Integer> firstCardID = new ArrayList<>();
+        Deck[][] shop = gameStatus.getShop().getGrid();
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 4; j++)
+                firstCardID.add(shop[i][j].getFirst().getId());
+        return firstCardID;
+    }
+
+    public void buyCard(ResourceCount storage, ResourceCount chest, int id,int position){
+        Deck[][] shop = gameStatus.getShop().getGrid();
+        int row = 0,column = 0;
+        for (int i = 0; i < 3; i++)
+            for (int j = 0; j < 4; j++)
+                if(shop[i][j].getFirst().getId() == id){
+                    row = i;
+                    column = j;
+                    break;
+                }
+        clientSocket.send(new CardShopMessage(nickname,serverLobbyID,row,column,position,storage,chest).serialize());
     }
 
     public boolean canDoProduction(){

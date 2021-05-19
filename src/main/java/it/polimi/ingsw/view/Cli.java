@@ -46,7 +46,7 @@ public class Cli implements View {
         this.clientManager = clientManager;
     }
 
-    public String readLine(){
+    private String readLine(){
         return in.next();
     }
 
@@ -325,9 +325,9 @@ public class Cli implements View {
         do {
             if (!clientManager.isMainActionDone()) {
                 out.println(YELLOW + "You still have to do one of these before ending your turn: " + RESET);
-                out.println("BUY A CARD : press B\n" +
-                        "TAKE RESOURCES FROM MARKET: press M\n");
-
+                out.println("TAKE RESOURCES FROM MARKET: press M");
+                if(clientManager.canBuyCardFromShop())
+                    out.println("BUY A CARD : press B");
                 if (clientManager.canDoProduction())
                     out.println("USE THE PRODUCTION POWERS ON YOUR BOARD: press P");
             }
@@ -356,7 +356,7 @@ public class Cli implements View {
         if (input.equalsIgnoreCase("q") && clientManager.isMainActionDone())
             endTurn();
         else {
-            if (input.equalsIgnoreCase("b") && !clientManager.isMainActionDone())
+            if (input.equalsIgnoreCase("b") && !clientManager.isMainActionDone() && clientManager.canBuyCardFromShop())
                 buyCard();
             else {
                 if (input.equalsIgnoreCase("m") && !clientManager.isMainActionDone())
@@ -388,7 +388,132 @@ public class Cli implements View {
     }
 
     @Override
-    public void buyCard(){}
+    public void buyCard(){
+        String input;
+        ArrayList<Integer> cardID = clientManager.getAllShopID();
+        int id;
+        out.println(PURPLE + "Take a look at the shop first, choose the card, and when you're ready buy it!" + RESET);
+        printShop(true);
+        do{
+            out.println("Now insert the id of the card you want to buy (make sure you can afford it): ");
+            input = readLine();
+            try{id = Integer.parseInt(input);}catch(NumberFormatException e) {id = -1;}
+        }while(!cardID.contains(id) || (cardID.contains(id) && !clientManager.canBuySpecificCard(id)));
+
+        DevelopmentCard card = clientManager.getShopCardByID(id);
+        ResourceCount cost = new ResourceCount(0,0,0,0,0);
+        ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
+        ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
+        cost.sumCounts(card.getCost());
+        askPayment(cost,storagePayment,chestPayment);
+        int position=-1;
+        do{
+            out.println("Now insert the position of the deck of which you want to put the card on top: ");
+            input = readLine();
+            try{position = Integer.parseInt(input);}catch(NumberFormatException e) {position = -1;}
+        }while((position <1 || position >3) || clientManager.positionPossible(position,card.getLevel()));
+
+
+        clientManager.buyCard(storagePayment,chestPayment,id,position);
+    }
+    private void askPayment(ResourceCount cost, ResourceCount storage, ResourceCount chest){
+        String input;
+        do{
+            out.println("Press S to start payment from the storage, C from the chest: ");
+            input = readLine();
+        }while(!input.equalsIgnoreCase("s")&&!input.equalsIgnoreCase("C"));
+
+        if(input.equalsIgnoreCase("s")){
+            storage= askStoragePayment(cost,false);
+            if(ResourceCount.resCountToInt(cost) !=0)
+                chest = askChestPayment(cost,true);
+        }
+        else{
+            chest = askChestPayment(cost,false);
+            if(ResourceCount.resCountToInt(cost) !=0)
+                storage = askStoragePayment(cost,true);
+        }
+    }
+    private ResourceCount askStoragePayment(ResourceCount cost,boolean needToCover){
+        String input;
+        out.println("To buy this card you need to pay: " + cost);
+        out.println("Now insert the resources you want to pay with FROM THE STORAGE: ");
+        ResourceCount temporaryStorage = clientManager.getThisClientDashboard().getStorage().readStorage();
+        ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
+        addResourceToPayment(temporaryStorage,storagePayment,cost,needToCover);
+        return storagePayment;
+    }
+
+    private ResourceCount askChestPayment(ResourceCount cost,boolean needToCover){
+        out.println("To buy this card you need to pay: " + cost);
+        out.println("Now insert the resources you want to pay with FROM THE CHEST: ");
+        ResourceCount temporaryChest = clientManager.getThisClientDashboard().getChest();
+        ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
+        addResourceToPayment(temporaryChest,chestPayment,cost,needToCover);
+        return chestPayment;
+    }
+
+    private void addResourceToPayment(ResourceCount temporary, ResourceCount payment, ResourceCount cost, boolean needToCover){
+        String input;
+        do {
+            do {
+                out.println("Remaining cost to cover: " + cost);
+                out.println("Chosen Resources: " + payment);
+                out.println("Resources in the stock: " + temporary);
+                out.println("Choose between 4 types of resources: \n" +
+                        "COINS: press C \n" +
+                        "ROCKS: press R \n" +
+                        "SHIELDS: press SH \n" +
+                        "SERVANTS: press SE");
+                input = readLine();
+            } while (!input.equalsIgnoreCase("c")&&!input.equalsIgnoreCase("r")&&!input.equalsIgnoreCase("sh")&&!input.equalsIgnoreCase("se"));
+            input= input.toUpperCase();
+            boolean choiceOk = false;
+            switch(input){
+                case "C": if(temporary.getCoins()>=1 && cost.getCoins()>=1){
+                    temporary.removeCoins(1);
+                    cost.removeCoins(1);
+                    payment.addCoins(1);
+                    choiceOk = true;
+                }
+                    break;
+                case "R": if(temporary.getRocks()>=1 && cost.getRocks()>=1){
+                    temporary.removeRocks(1);
+                    payment.addRocks(1);
+                    cost.removeRocks(1);
+                    choiceOk = true;
+                }
+                    break;
+                case "SH": if(temporary.getShields()>=1 && cost.getShields()>=1){
+                    temporary.removeShields(1);
+                    payment.addShields(1);
+                    cost.removeShields(1);
+                    choiceOk = true;
+                }
+                    break;
+                case "SE": if(temporary.getServants()>=1 && cost.getServants()>=1){
+                    temporary.removeServants(1);
+                    payment.addServants(1);
+                    cost.removeServants(1);
+                    choiceOk = true;
+                }
+                    break;
+            }
+            if(choiceOk) {
+                do {
+                    out.println("Choice registered, press C to continue adding resources from the storage, N to exit:");
+                    input = readLine();
+                } while (!input.equalsIgnoreCase("c") && !input.equalsIgnoreCase("N"));
+            }
+            else {
+                out.println("Invalid choice, you don't have this resource in the storage.");
+                input = "c";
+            }
+            if(needToCover && ResourceCount.resCountToInt(cost) != 0)
+                input = "c";
+        }while(input.equalsIgnoreCase("c"));
+    }
+
     @Override
     public void takeResourcesFromMarket(){
         String input;
@@ -397,6 +522,7 @@ public class Cli implements View {
             input = readLine();
         } while(!input.equalsIgnoreCase("row")  && !input.equalsIgnoreCase("col"));
     }
+
     @Override
     public void startProduction(){}
 
@@ -574,12 +700,10 @@ public class Cli implements View {
 
     private void printShop(boolean isMyTurn) {
         Deck[][] shop = clientManager.getGameStatus().getShop().getGrid();
-        ArrayList<Integer> firstCardID = new ArrayList<>();
         out.println(BLUE + "~~SHOP GRID~~" + RESET);
         for (int i = 0; i < 3; i++) {
             out.print("Level: " + shop[i][0].getFirst().getLevel() + "\t");
             for (int j = 0; j < 4; j++) {
-                firstCardID.add(shop[i][j].getFirst().getId());
                 switch (shop[i][j].getFirst().getColour()) {
                     case GREEN:
                         out.print(GREEN);
@@ -609,6 +733,7 @@ public class Cli implements View {
         }
         if(isMyTurn) {
             String input;
+            ArrayList<Integer> cardID = clientManager.getAllShopID();
             int id;
             do {
                 do {
@@ -619,10 +744,10 @@ public class Cli implements View {
                     } catch (NumberFormatException e) {
                         id = -1;
                     }
-                } while (!firstCardID.contains(id));
+                } while (!cardID.contains(id));
                 DevelopmentCard card = clientManager.getShopCardByID(id);
                 printDevCard(card);
-                out.println("\nPress esc to exit Development Card details lookup, another key to continue looking at Cards: ");
+                out.println("\nPress \"esc\" if you have decided which card to buy, another key to continue looking at Cards: ");
                 input = readLine();
             } while (!input.equals("esc"));
         }
