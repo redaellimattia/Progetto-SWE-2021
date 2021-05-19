@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view;
 
+import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -520,6 +521,9 @@ public class Cli implements View {
     public void takeResourcesFromMarket(){
         String input;
         int pos;
+        int maxCount;
+        MarketMarble[] marbles;
+        ArrayList<AtomicMarketAction> choices;
         do {
             out.println("Type \"row\" if you want to select a row; \"col\" if you want to select a column");
             input = readLine();
@@ -530,6 +534,7 @@ public class Cli implements View {
                 input = readLine();
                 try {pos = Integer.parseInt(input);} catch(NumberFormatException e) {pos = -1;}
             } while(pos < 1 || pos > 3);
+            maxCount = 4;
         }
         else {
             do {
@@ -537,6 +542,11 @@ public class Cli implements View {
                 input = readLine();
                 try {pos = Integer.parseInt(input);} catch(NumberFormatException e) {pos = -1;}
             } while(pos < 1 || pos > 4);
+            maxCount = 3;
+        }
+        //marbles = getMarbles
+        for (int i = 1; i < maxCount + 1 ; i++) {
+
         }
     }
 
