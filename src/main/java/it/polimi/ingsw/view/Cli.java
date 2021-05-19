@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
+import it.polimi.ingsw.controller.action.marketAction.GetResource;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
@@ -558,6 +559,7 @@ public class Cli implements View {
                     try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
                 } while(row < 1 || row > 3);
                 if(clientManager.addToStorage(row, m.getColour().convertToResource())) {
+                    choices.add(new GetResource(row));
                     out.println("Resource stored successfully!");
                 }
                 else {
