@@ -57,6 +57,8 @@ public abstract class ServerMessage {
                 return gson.fromJson(msg, EndMultiPlayerGameMessage.class);
             case VATICANREPORT:
                 return gson.fromJson(msg, VaticanReportActivatedMessage.class);
+            case STARTGAME:
+                return gson.fromJson(msg, GameStartedMessage.class);
             default:
                 throw new IllegalArgumentException("ServerMessageType not valid.");
         }

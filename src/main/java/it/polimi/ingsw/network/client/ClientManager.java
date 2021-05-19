@@ -32,6 +32,7 @@ public class ClientManager {
     private ClientGameStatus gameStatus;
     private boolean mainActionDone;
     private boolean isMyTurn;
+    private boolean gameStarted;
 
     /**
      * Creates client Object, handles client connection and instantiates view
@@ -48,6 +49,7 @@ public class ClientManager {
         view.start();
         connection(address,socketPort);
         this.mainActionDone = false;
+        this.gameStarted = false;
     }
     public ClientGameStatus getGameStatus() { return gameStatus;}
     public String getNickname() {
@@ -59,6 +61,9 @@ public class ClientManager {
     public View getView(){ return view;}
     public ClientSocket getClientSocket(){return clientSocket;}
 
+    public void setGameStarted(boolean gameStarted) {
+        this.gameStarted = gameStarted;
+    }
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
@@ -255,10 +260,12 @@ public class ClientManager {
     }
 
     public void updateView(){
-        if(isMyTurn)
-            view.yourTurn();
-        else
-            view.waitingForTurn();
+        if(gameStarted) {
+            if (isMyTurn)
+                view.yourTurn();
+            else
+                view.waitingForTurn();
+        }
     }
 
     /**

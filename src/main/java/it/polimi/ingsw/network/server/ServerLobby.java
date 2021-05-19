@@ -228,6 +228,7 @@ public class ServerLobby extends Thread implements Observer {
         gameLobby.setGameStarted(true);
         SocketConnection socketConnection;
         String firstPlayerNickname = gameLobby.getGameManager().getTurnManager().getPlayer().getNickname();
+        sendToAll(new GameStartedMessage().serialize());
         for (String p: gameLobby.getPlayers()) {
             if(!p.equals(firstPlayerNickname)) {
                 socketConnection = clients.get(p);
