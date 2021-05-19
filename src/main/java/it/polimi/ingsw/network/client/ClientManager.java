@@ -293,6 +293,15 @@ public class ClientManager {
         return (ResourceCount.resCountToInt(p.getTotalResources()) >=2);
     }
 
+    public MarketMarble[] getMarketMarbles(int type, int pos) {
+        if(type == 0) {
+            return gameStatus.getMarket().getRow(pos);
+        }
+        else {
+            return gameStatus.getMarket().getColumn(pos);
+        }
+    }
+
     /**
      *
      * @param ID

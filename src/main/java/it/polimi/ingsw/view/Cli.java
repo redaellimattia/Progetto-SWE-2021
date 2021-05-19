@@ -3,6 +3,7 @@ package it.polimi.ingsw.view;
 import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
+import it.polimi.ingsw.model.enumeration.MarbleColour;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.client.PlayerPoints;
@@ -520,10 +521,12 @@ public class Cli implements View {
     @Override
     public void takeResourcesFromMarket(){
         String input;
+        int type;
         int pos;
         int maxCount;
+        int row;
         MarketMarble[] marbles;
-        ArrayList<AtomicMarketAction> choices;
+        ArrayList<AtomicMarketAction> choices = new ArrayList<AtomicMarketAction>();
         do {
             out.println("Type \"row\" if you want to select a row; \"col\" if you want to select a column");
             input = readLine();
@@ -534,6 +537,7 @@ public class Cli implements View {
                 input = readLine();
                 try {pos = Integer.parseInt(input);} catch(NumberFormatException e) {pos = -1;}
             } while(pos < 1 || pos > 3);
+            type = 0;
             maxCount = 4;
         }
         else {
@@ -542,11 +546,19 @@ public class Cli implements View {
                 input = readLine();
                 try {pos = Integer.parseInt(input);} catch(NumberFormatException e) {pos = -1;}
             } while(pos < 1 || pos > 4);
+            type = 1;
             maxCount = 3;
         }
-        //marbles = getMarbles
-        for (int i = 1; i < maxCount + 1 ; i++) {
+        marbles = clientManager.getMarketMarbles(type, pos);
+        for (MarketMarble m: marbles) {
+            if(m.getColour() != MarbleColour.RED && m.getColour() != MarbleColour.WHITE) {
+                do {
+                    out.println("In witch deposit do you want to store the " + m.getColour().convertToResource() + "?\n1-3: regular storage; 4: additional storage");
+                    input = readLine();
+                    try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
+                } while(row < 1 || row > 3);
 
+            }
         }
     }
 
