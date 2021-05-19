@@ -20,6 +20,5 @@ public class ResourceCountUpdateMessage extends PlayerUpdateMessage{
             case BUFFERPRODUCTION: clientManager.getGameStatus().updateBufferProduction(getNickname(),resourceCount);
                                    break;
         }
-        clientManager.updateViewWithClear();
     }
 }

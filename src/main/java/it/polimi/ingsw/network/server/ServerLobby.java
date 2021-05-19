@@ -79,8 +79,10 @@ public class ServerLobby extends Thread implements Observer {
                 if (!clients.containsKey(askingPlayer) || !clients.get(askingPlayer).equals(socketConnection))
                     throw new UnrecognisedPlayerException();
 
-                if (actualPlayer.equals(askingPlayer)) //If it's the player's turn
+                if (actualPlayer.equals(askingPlayer)) { //If it's the player's turn
                     deserializedMessage.useMessage(socketConnection, this);
+                    sendToAll(new DoneMessage().serialize());
+                }
                 else
                     throw new NotYourTurnException();
             }

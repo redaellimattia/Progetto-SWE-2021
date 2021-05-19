@@ -17,6 +17,5 @@ public class ArrayDepositUpdateMessage extends PlayerUpdateMessage{
     @Override
     public void useMessage(ClientManager clientManager){
         clientManager.getGameStatus().updateArrayDeposit(getNickname(),arrayDeposit);
-        clientManager.updateViewWithClear();
     }
 }
