@@ -591,7 +591,6 @@ public class Cli implements View {
                     discardableLeaders.remove(l);
                     break;
                 }
-
             if(discardableLeaders.size()>0) {
                 out.println("You still have "+discardableLeaders.size()+" leader card in your hand!");
                 out.println("\nPress esc to exit, another key to discard another leader: ");

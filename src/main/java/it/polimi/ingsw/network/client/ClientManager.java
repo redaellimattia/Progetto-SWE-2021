@@ -238,8 +238,9 @@ public class ClientManager {
         ResourceCount cost = c.getCost();
         boolean canPlace = false;
         for(int i=0;i<3;i++)
-            if(p.getDevCards()[i].getFirst().getLevel() == c.getLevel()-1)
-                canPlace = true;
+            if(p.getDevCards()[i].getDeck().size()>0)
+                if(p.getDevCards()[i].getFirst().getLevel() == c.getLevel()-1)
+                    canPlace = true;
         return p.getTotalResources().hasMoreOrEqualsResources(cost) && canPlace;
     }
     public boolean positionPossible(int position, int level){
@@ -273,9 +274,10 @@ public class ClientManager {
         ResourceCount resource = new ResourceCount(0,0,0,0,0);
         //can do devCardProduction
         for (DeckDashboard d: p.getDevCards()) {
-            ResourceCount cost = d.getFirst().getCost();
-            if(p.getTotalResources().hasMoreOrEqualsResources(cost))
-                return true;
+            if(d.getDeck().size()>0) {
+                if (p.getTotalResources().hasMoreOrEqualsResources(d.getFirst().getCost()))
+                    return true;
+            }
         }
         //can do leaderCardProduction
         for (LeaderCard l: p.getLeaderCards()) {
