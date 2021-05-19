@@ -46,7 +46,7 @@ public class Cli implements View {
         this.clientManager = clientManager;
     }
 
-    public String readLine(){
+    private String readLine(){
         return in.next();
     }
 
