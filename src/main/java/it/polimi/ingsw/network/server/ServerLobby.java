@@ -68,8 +68,16 @@ public class ServerLobby extends Thread implements Observer {
             String actualPlayer = getTurnManager().getPlayer().getNickname();
             String askingPlayer = deserializedMessage.getNickname();
             //Player trying to reconnect
-            if(gameLobby.getPlayers().contains(deserializedMessage.getNickname())&&deserializedMessage.getType().equals(ClientMessageType.JOINGAME))
-                deserializedMessage.useMessage(socketConnection,this);
+            if(gameLobby.getPlayers().contains(deserializedMessage.getNickname())&&deserializedMessage.getType().equals(ClientMessageType.JOINGAME)) {
+                for(PlayerDashboard p:gameLobby.getGameManager().getGame().getPlayers())
+                    if(p.getNickname().equals(askingPlayer)&&!p.isPlaying())
+                        deserializedMessage.useMessage(socketConnection, this);
+                    else
+                        if(p.getNickname().equals(askingPlayer)) {
+                            socketConnection.send(new PrintMessage("You can't join this lobby, " + askingPlayer + " is already in it!").serialize());
+                            socketConnection.send(Server.createReturnLobbiesMessage().serialize());
+                        }
+            }
             else {
                 if(!(gameLobby.getPlayers().contains(deserializedMessage.getNickname()))&&deserializedMessage.getType().equals(ClientMessageType.JOINGAME)) {
                     socketConnection.send(new PrintMessage("You can't join this lobby, it's already started without you").serialize());
@@ -112,11 +120,18 @@ public class ServerLobby extends Thread implements Observer {
      */
     public void knownPlayerLogin(int playerPosition,String nickname,SocketConnection clientConnection){
         synchronized (gameLock) {
-            gameLobby.getGameManager().playerComeback(playerPosition);
-            clients.put(nickname, clientConnection);
-            Server.LOGGER.log(Level.INFO, nickname + " is back in the lobby #" + getThreadId());
-            clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
-            clientConnection.send(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(),gameLobby.getGameManager().getGame().getMarket(),gameLobby.getGameManager().getGame().getvReports()).serialize());
+            if(gameLobby.isGameStarted()) {
+                gameLobby.getGameManager().playerComeback(playerPosition);
+                clients.put(nickname, clientConnection);
+                Server.LOGGER.log(Level.INFO, nickname + " is back in the lobby #" + getThreadId());
+                clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
+                clientConnection.send(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(), gameLobby.getGameManager().getGame().getMarket(), gameLobby.getGameManager().getGame().getvReports()).serialize());
+                clientConnection.send(new GameStartedMessage().serialize());
+                if (gameLobby.getNumberOfPlayers() == 1)
+                    clientConnection.send(new YourTurnMessage().serialize());
+                else
+                    clientConnection.send(new WaitYourTurnMessage().serialize());
+            }
         }
     }
 
@@ -156,7 +171,12 @@ public class ServerLobby extends Thread implements Observer {
         if(playerPosition!=-1)
             knownPlayerLogin(playerPosition,nickname,clientConnection);
         else
-            newPlayerLogin(nickname,clientConnection);
+            if(Server.checkNickname(nickname))
+                newPlayerLogin(nickname,clientConnection);
+            else {
+                clientConnection.send(new PrintMessage("You can't join this lobby, " + nickname + " is already in it!").serialize());
+                clientConnection.send(Server.createReturnLobbiesMessage().serialize());
+            }
     }
 
     /**
@@ -200,7 +220,6 @@ public class ServerLobby extends Thread implements Observer {
      * @param socketConnection Client that is disconnecting
      */
     public void onDisconnect(SocketConnection socketConnection){
-        //timer.endTimer();
         Server.LOGGER.log(Level.INFO,"No answer from client, going to disconnect it.");
         synchronized (gameLock) {
             if (!gameLobby.isGameStarted()) {
@@ -237,8 +256,6 @@ public class ServerLobby extends Thread implements Observer {
                 socketConnection.send(new WaitYourTurnMessage().serialize());
             }
         }
-        //gameLobby.getGameManager().nextRound(clients.size()==1);
-
         socketConnection = clients.get(firstPlayerNickname);
         socketConnection.send(new YourTurnMessage().serialize());
     }
