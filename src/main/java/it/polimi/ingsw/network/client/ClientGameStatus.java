@@ -3,6 +3,7 @@ package it.polimi.ingsw.network.client;
 import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
+import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 import java.util.ArrayList;
@@ -73,21 +74,12 @@ public class ClientGameStatus {
     }
 
     /**
-     * Puth the leader in Position, in Game
+     * Puth the leader in Game
      * @param nickname nickname of the player
-     * @param position position of the leaderCard
+     * @param updatedLeaderCards updated leader cards
      */
-    public void updateLeaderInGame(String nickname,int position){
-        getClientDashboard(nickname).setLeaderInGame(position);
-    }
-
-    /**
-     * Discards the leader in position
-     * @param nickname nickname of the player
-     * @param position position of the leaderCard
-     */
-    public void updateDiscardLeader(String nickname,int position){
-        getClientDashboard(nickname).discardLeader(position);
+    public void updateLeaderCards(String nickname, ArrayList<LeaderCard> updatedLeaderCards){
+        getClientDashboard(nickname).setLeaderCards(updatedLeaderCards);
     }
 
     /**

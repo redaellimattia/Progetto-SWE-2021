@@ -331,7 +331,7 @@ public class Cli implements View {
             out.println();
         }
         printShop(false);
-        out.println();
+        printMsg("Waiting updates...");
     }
     @Override
     public void yourTurn() {

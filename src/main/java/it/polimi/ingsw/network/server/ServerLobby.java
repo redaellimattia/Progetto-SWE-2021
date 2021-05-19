@@ -310,8 +310,8 @@ public class ServerLobby extends Thread implements Observer {
     }
 
     @Override
-    public void updateRemoveLeader(String nickname, int position) {
-        sendToAll(new LeaderUpdateMessage(PlayerUpdateType.DISCARDLEADER,nickname,position).serialize());
+    public void updateRemoveLeader(String nickname, ArrayList<LeaderCard> leaderCards) {
+        sendToAll(new LeaderUpdateMessage(PlayerUpdateType.DISCARDLEADER,nickname,leaderCards).serialize());
     }
 
     @Override
@@ -322,8 +322,8 @@ public class ServerLobby extends Thread implements Observer {
     }
 
     @Override
-    public void updateInGameLeader(String nickname, int position) {
-        sendToAll(new LeaderUpdateMessage(PlayerUpdateType.INGAMELEADER,nickname,position).serialize());
+    public void updateInGameLeader(String nickname, ArrayList<LeaderCard> leaderCards) {
+        sendToAll(new LeaderUpdateMessage(PlayerUpdateType.INGAMELEADER,nickname,leaderCards).serialize());
     }
 
     @Override

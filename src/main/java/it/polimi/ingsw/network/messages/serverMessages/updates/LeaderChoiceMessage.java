@@ -16,6 +16,6 @@ public class LeaderChoiceMessage extends PlayerUpdateMessage{
 
     @Override
     public void useMessage(ClientManager clientManager){
-        clientManager.getGameStatus().getClientDashboard(getNickname()).setLeaderCards(leaderCards);
+        clientManager.getGameStatus().updateLeaderCards(getNickname(),leaderCards);
     }
 }

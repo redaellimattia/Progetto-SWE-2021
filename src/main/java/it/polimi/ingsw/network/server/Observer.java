@@ -18,10 +18,10 @@ public interface Observer {
     void updateArrayDeposit(String nickname, ArrayList<CounterTop> arrayDeposit);
     void updateInitArrayDeposit(String nickname, Resource res);
     void updateDevCards(String nickname, DevelopmentCard card, int position);
-    void updateRemoveLeader(String nickname, int position);
+    void updateRemoveLeader(String nickname, ArrayList<LeaderCard> leaderCards);
     void updatePathPosition(PlayerDashboard player, int position);
     void updateLeaders(String nickname,ArrayList<LeaderCard> leaderCards);
-    void updateInGameLeader(String nickname, int position);
+    void updateInGameLeader(String nickname, ArrayList<LeaderCard> leaderCards);
     void updateFirstRow(String nickname,CounterTop firstRow);
     void updateSecondRow(String nickname,CounterTop secondRow);
     void updateThirdRow(String nickname,CounterTop thirdRow);
