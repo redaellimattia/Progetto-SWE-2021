@@ -371,7 +371,7 @@ public class Cli implements View {
                         if (input.equalsIgnoreCase("l") && clientManager.canPlayLeader())
                             playLeader(clientManager.getNotPlayedLeaders());
                         else {
-                            if (input.equalsIgnoreCase("d"))
+                            if (input.equalsIgnoreCase("d") && clientManager.leadersInHand())
                                 discardLeader(clientManager.getNotPlayedLeaders());
                             else {
                                 if (input.equalsIgnoreCase("o"))
@@ -436,7 +436,7 @@ public class Cli implements View {
                 storage = askStoragePayment(cost,true);
         }
     }
-    
+
     private ResourceCount askStoragePayment(ResourceCount cost,boolean needToCover){
         out.println("To buy this card you need to pay: " + cost);
         out.println("Now insert the resources you want to pay with FROM THE STORAGE: ");
@@ -583,30 +583,19 @@ public class Cli implements View {
             }
 
         out.println("Choose the ID of the leader that you want to play: ");
-        do{
-            out.println("-----------------");
-            printLeaders(playableLeaders);
-            do {
-                out.println("Insert the ID of the chosen leader: ");
-                input = readLine();
-                ID = Integer.parseInt(input);
-            } while (!id.contains(ID));
-            for(LeaderCard l:playableLeaders)
-                if(l.getId()==ID) {
-                    clientManager.playLeader(l);
-                    playableLeaders.remove(l);
-                    break;
-                }
-
-            if(playableLeaders.size()>0) {
-                out.println("You still have "+playableLeaders.size()+" leader card in your hand!");
-                out.println("\nPress esc to exit, another key to play another leader: ");
-                input = readLine();
+        out.println("-----------------");
+        printLeaders(playableLeaders);
+        do {
+            out.println("Insert the ID of the chosen leader: ");
+            input = readLine();
+            ID = Integer.parseInt(input);
+        } while (!id.contains(ID));
+        for(LeaderCard l:playableLeaders)
+            if(l.getId()==ID) {
+                clientManager.playLeader(l);
+                playableLeaders.remove(l);
+                break;
             }
-            else
-                input = "esc";
-        }while(!input.equals("esc"));
-        chooseAction();
     }
 
 
@@ -621,28 +610,19 @@ public class Cli implements View {
             }
 
         out.println("Choose the ID of the leader that you want to discard: ");
-        do{
-            out.println("-----------------");
-            printLeaders(discardableLeaders);
-            do {
-                out.println("Insert the ID of the chosen leader: ");
-                input = readLine();
-                ID = Integer.parseInt(input);
-            } while (!id.contains(ID));
-            for(LeaderCard l:discardableLeaders)
-                if(l.getId()==ID) {
-                    clientManager.discardLeader(l);
-                    discardableLeaders.remove(l);
-                    break;
-                }
-            if(discardableLeaders.size()>0) {
-                out.println("You still have "+discardableLeaders.size()+" leader card in your hand!");
-                out.println("\nPress esc to exit, another key to discard another leader: ");
-                input = readLine();
+        out.println("-----------------");
+        printLeaders(discardableLeaders);
+        do {
+            out.println("Insert the ID of the chosen leader: ");
+            input = readLine();
+            ID = Integer.parseInt(input);
+        } while (!id.contains(ID));
+        for(LeaderCard l:discardableLeaders)
+            if(l.getId()==ID) {
+                clientManager.discardLeader(l);
+                discardableLeaders.remove(l);
+                break;
             }
-            else
-                input = "esc";
-        }while(!input.equals("esc"));
     }
     @Override
     public void organizeResources(){}
