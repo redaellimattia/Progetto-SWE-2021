@@ -511,6 +511,8 @@ public class Cli implements View {
             }
             if(needToCover && ResourceCount.resCountToInt(cost) != 0)
                 input = "c";
+            if(ResourceCount.resCountToInt(cost) == 0)
+                input = "n";
         }while(input.equalsIgnoreCase("c"));
     }
 
