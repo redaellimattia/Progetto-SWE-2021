@@ -13,8 +13,11 @@ public class BasicProductionMessage extends ActionMessage{
     private ResourceCount storageCount;
     private ResourceCount chestCount;
 
-    public BasicProductionMessage(String nickname, long serverThreadID) {
+    public BasicProductionMessage(String nickname, long serverThreadID,Resource res,ResourceCount storageCount,ResourceCount chestCount) {
         super(ActionType.BASICPRODUCTION,nickname, serverThreadID);
+        this.res = res;
+        this.storageCount = storageCount;
+        this.chestCount = chestCount;
     }
 
     /**

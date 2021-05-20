@@ -1,8 +1,6 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.exceptions.CounterTopOverloadException;
-import it.polimi.ingsw.exceptions.action.NoAdditionalDepositException;
-import it.polimi.ingsw.exceptions.action.WrongCounterTopException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
@@ -10,9 +8,7 @@ import it.polimi.ingsw.model.card.ProductionAbility;
 import it.polimi.ingsw.model.card.Requirement;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.messages.clientMessages.*;
-import it.polimi.ingsw.network.messages.clientMessages.actionMessages.CardShopMessage;
-import it.polimi.ingsw.network.messages.clientMessages.actionMessages.DiscardLeaderMessage;
-import it.polimi.ingsw.network.messages.clientMessages.actionMessages.PlayLeaderMessage;
+import it.polimi.ingsw.network.messages.clientMessages.actionMessages.*;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
 import it.polimi.ingsw.view.Cli;
 import it.polimi.ingsw.view.View;
@@ -21,6 +17,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.logging.FileHandler;
@@ -38,6 +35,10 @@ public class ClientManager {
     private boolean mainActionDone;
     private boolean isMyTurn;
     private boolean gameStarted;
+    private boolean productionActionOnGoing;
+    private boolean basicProductionDone;
+    private boolean[] leaderCardProductionDone;
+    private boolean[] devCardProductionDone;
 
     /**
      * Creates client Object, handles client connection and instantiates view
@@ -53,7 +54,6 @@ public class ClientManager {
             //this.view = new Gui();
         view.start();
         connection(address,socketPort);
-        this.mainActionDone = false;
         this.gameStarted = false;
     }
     public ClientGameStatus getGameStatus() { return gameStatus;}
@@ -66,6 +66,21 @@ public class ClientManager {
     public View getView(){ return view;}
     public ClientSocket getClientSocket(){return clientSocket;}
 
+    public void setBasicProductionDone(boolean basicProductionDone) {
+        this.basicProductionDone = basicProductionDone;
+    }
+    public void setLeaderCardProductionDone(boolean[] leaderCardProductionDone) {
+        this.leaderCardProductionDone = leaderCardProductionDone;
+    }
+    public void setDevCardProductionDone(boolean[] devCardProductionDone) {
+        this.devCardProductionDone = devCardProductionDone;
+    }
+    public boolean isProductionActionOnGoing() {
+        return productionActionOnGoing;
+    }
+    public void setProductionActionOnGoing(boolean productionActionOnGoing) {
+        this.productionActionOnGoing = productionActionOnGoing;
+    }
     public void setGameStarted(boolean gameStarted) {
         this.gameStarted = gameStarted;
     }
@@ -150,8 +165,20 @@ public class ClientManager {
         clientSocket.send(new DiscardLeaderMessage(nickname,serverLobbyID,leaderCard).serialize());
     }
 
+    public void endAction(){
+        clientSocket.send(new EndActionMessage(nickname,serverLobbyID).serialize());
+    }
+
+    public void basicProduction(ResourceCount storagePayment,ResourceCount chestPayment, Resource outputResource){
+        clientSocket.send(new BasicProductionMessage(nickname,serverLobbyID,outputResource,storagePayment,chestPayment).serialize());
+    }
+
     public void endTurn(){
         isMyTurn = false;
+        mainActionDone = false;
+        basicProductionDone = false;
+        Arrays.fill(leaderCardProductionDone,false);
+        Arrays.fill(devCardProductionDone,false);
         clientSocket.send(new EndTurnMessage(nickname,serverLobbyID).serialize());
     }
 
@@ -309,6 +336,8 @@ public class ClientManager {
      * @return true if the basic production is available
      */
     public boolean canDoBasicProduction(PlayerDashboard p){
+        if(basicProductionDone)
+            return false;
         return (ResourceCount.resCountToInt(p.getTotalResources()) >=2);
     }
 
@@ -413,6 +442,11 @@ public class ClientManager {
 
     public void yourTurn(){
         isMyTurn = true;
+        isMyTurn = false;
+        mainActionDone = false;
+        basicProductionDone = false;
+        Arrays.fill(leaderCardProductionDone,false);
+        Arrays.fill(devCardProductionDone,false);
         view.yourTurn();
     }
 

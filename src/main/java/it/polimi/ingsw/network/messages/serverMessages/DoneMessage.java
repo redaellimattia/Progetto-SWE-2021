@@ -9,6 +9,9 @@ public class DoneMessage extends ServerMessage{
     }
     @Override
     public void useMessage(ClientManager clientManager){
-        clientManager.updateViewWithClear();
+        if(clientManager.isProductionActionOnGoing())
+            clientManager.getView().startProduction();
+        else
+            clientManager.updateViewWithClear();
     }
 }

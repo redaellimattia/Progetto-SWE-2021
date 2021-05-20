@@ -204,6 +204,7 @@ public class Cli implements View {
         out.println("The game is about to start, choose your initial setup!\n");
         ArrayList<Resource> resources = new ArrayList<>();
         if (numberOfResources != 0) {
+            out.println("You have the right to choose " + numberOfResources + " resource to start the game with!");
             resources = askResources(numberOfResources);
         }
         clearView();
@@ -261,7 +262,6 @@ public class Cli implements View {
     private ArrayList<Resource> askResources(int numberOfResources) {
         String resource;
         ArrayList<Resource> resources = new ArrayList<>();
-        out.println("You have the right to choose " + numberOfResources + " resource to start the game with!");
         int counter = numberOfResources;
         do {
             out.println("You still have " + counter + " resources to choose.\n");
@@ -581,25 +581,44 @@ public class Cli implements View {
                 out.println("A Leader card production is available, press L to start it: ");
             if (clientManager.canDoDevCardProduction(thisPlayer))
                 out.println("A Development card production is available, press D to start it: ");
+            if (clientManager.isProductionActionOnGoing())
+                out.println("press Q to quit the production action: ");
             input = readLine();
-        }while(!input.equalsIgnoreCase("B")&&!input.equalsIgnoreCase("L")&&!input.equalsIgnoreCase("D"));
+        }while(!input.equalsIgnoreCase("B")&&!input.equalsIgnoreCase("L")&&!input.equalsIgnoreCase("D")&&!input.equalsIgnoreCase("Q"));
         if(input.equalsIgnoreCase("B"))
-            doBasicProduction();
+            doBasicProduction(thisPlayer);
         if(input.equalsIgnoreCase("L"))
-            doLeaderCardProduction();
+            doLeaderCardProduction(thisPlayer);
         if(input.equalsIgnoreCase("D"))
-            doDevCardProduction();
+            doDevCardProduction(thisPlayer);
+        //if(input.equalsIgnoreCase("Q")&&clientManager.isProductionActionOnGoing())
+        if(!clientManager.isMainActionDone())
+            clientManager.setMainActionDone(true);
     }
 
-    public void doBasicProduction(){
+    public void doBasicProduction(PlayerDashboard p){
+        out.println(PURPLE+"--BASIC PRODUCTION--"+RESET);
+        ResourceCount chosenInput = new ResourceCount(0,0,0,0,0);
+        do {
+            out.println("Choose 2 resources that you have as input of the production: ");
+            ArrayList<Resource> inputResources = askResources(2);
+            inputResources.get(0).add(chosenInput,1);
+            inputResources.get(1).add(chosenInput,1);
+        }while(p.getTotalResources().hasMoreOrEqualsResources(chosenInput));
+        ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
+        ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
+        askPayment(chosenInput,storagePayment,chestPayment);
+        out.println("Choose the resource that will be the output of the production: ");
+        ArrayList<Resource> outputResource = askResources(1);
+        clientManager.basicProduction(storagePayment,chestPayment,outputResource.get(0));
+        clientManager.setBasicProductionDone(true);
+    }
+
+    public void doLeaderCardProduction(PlayerDashboard p){
 
     }
 
-    public void doLeaderCardProduction(){
-
-    }
-
-    public void doDevCardProduction(){
+    public void doDevCardProduction(PlayerDashboard p){
 
     }
 
