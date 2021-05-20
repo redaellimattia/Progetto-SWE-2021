@@ -179,6 +179,8 @@ public class ClientManager {
     }
 
     public void endAction(){
+        if(isProductionActionOnGoing())
+            productionActionOnGoing = false;
         clientSocket.send(new EndActionMessage(nickname,serverLobbyID).serialize());
     }
 

@@ -585,13 +585,24 @@ public class Cli implements View {
                 out.println("press Q to quit the production action: ");
             input = readLine();
         }while(!input.equalsIgnoreCase("B")&&!input.equalsIgnoreCase("L")&&!input.equalsIgnoreCase("D")&&!input.equalsIgnoreCase("Q"));
-        if(input.equalsIgnoreCase("B"))
+        if(input.equalsIgnoreCase("B")) {
             doBasicProduction(thisPlayer);
-        if(input.equalsIgnoreCase("L"))
+            if(!clientManager.isProductionActionOnGoing())
+                clientManager.setProductionActionOnGoing(true);
+        }
+        if(input.equalsIgnoreCase("L")) {
             doLeaderCardProduction(clientManager.getProductionLeaders());
-        if(input.equalsIgnoreCase("D"))
+            if(!clientManager.isProductionActionOnGoing())
+                clientManager.setProductionActionOnGoing(true);
+        }
+        if(input.equalsIgnoreCase("D")) {
             doDevCardProduction(thisPlayer);
-        //if(input.equalsIgnoreCase("Q")&&clientManager.isProductionActionOnGoing())
+            if(!clientManager.isProductionActionOnGoing())
+                clientManager.setProductionActionOnGoing(true);
+        }
+        if(input.equalsIgnoreCase("Q")&&clientManager.isProductionActionOnGoing())
+            clientManager.endAction();
+
         if(!clientManager.isMainActionDone())
             clientManager.setMainActionDone(true);
     }
@@ -633,8 +644,10 @@ public class Cli implements View {
         do {
             out.println("Insert the ID of the chosen leader: ");
             input = readLine();
-            ID = Integer.parseInt(input);
-        } while (!id.contains(ID));
+            try {
+                ID = Integer.parseInt(input);
+            }catch(NumberFormatException e){ID=-1;}
+        } while (ID==-1||!id.contains(ID));
         int index;
         LeaderCard chosenCard = null;
         for(index=0;index<passedLeaders.size();index++) {
