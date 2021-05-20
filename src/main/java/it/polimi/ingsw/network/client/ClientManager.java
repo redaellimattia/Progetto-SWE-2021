@@ -448,6 +448,15 @@ public class ClientManager {
         }
     }
 
+    public boolean hasWhiteChangeAbility() {
+        for (LeaderCard c: getThisClientDashboard().getLeaderCards()) {
+            if(c.getSpecialAbility().useWhiteChangeAbility() != null) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      *
      * @param ID

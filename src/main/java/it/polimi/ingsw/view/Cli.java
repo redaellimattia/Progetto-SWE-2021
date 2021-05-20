@@ -575,7 +575,12 @@ public class Cli implements View {
                 } while(!validChoice);
             }
             if(m.getColour() == MarbleColour.WHITE) {
+                if(clientManager.hasWhiteChangeAbility()) {
 
+                }
+                else {
+                    choices.add(new GetResource(0)); // Storage row is not important (a white marble doesn't produce a resource)
+                }
             }
         }
     }
