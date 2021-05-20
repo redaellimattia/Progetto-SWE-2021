@@ -607,11 +607,16 @@ public class Cli implements View {
         }while(p.getTotalResources().hasMoreOrEqualsResources(chosenInput));
         ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
         ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
-        askPayment(chosenInput,storagePayment,chestPayment);
-        out.println("Choose the resource that will be the output of the production: ");
-        ArrayList<Resource> outputResource = askResources(1);
+        ArrayList<Resource> outputResource = new ArrayList<>();
+        askPaymentAndChosenResourceOutput(chosenInput,storagePayment,chestPayment,outputResource);
         clientManager.basicProduction(storagePayment,chestPayment,outputResource.get(0));
         clientManager.setBasicProductionDone(true);
+    }
+
+    public void askPaymentAndChosenResourceOutput(ResourceCount chosenInput,ResourceCount storagePayment,ResourceCount chestPayment,ArrayList<Resource> outputResource){
+        askPayment(chosenInput,storagePayment,chestPayment);
+        out.println("Choose the resource that will be the output of the production: ");
+        outputResource = askResources(1);
     }
 
     public void doLeaderCardProduction(ArrayList<LeaderCard> passedLeaders){
@@ -641,9 +646,8 @@ public class Cli implements View {
         }
         ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
         ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
-        askPayment(cost,storagePayment,chestPayment);
-        out.println("Choose the resource that will be the output of the production: ");
-        ArrayList<Resource> outputResource = askResources(1);
+        ArrayList<Resource> outputResource = new ArrayList<>();
+        askPaymentAndChosenResourceOutput(cost,storagePayment,chestPayment,outputResource);
         clientManager.leaderProduction(chosenCard,storagePayment,chestPayment,outputResource.get(0));
         clientManager.getLeaderCardProductionDone().add(index,true);
     }
