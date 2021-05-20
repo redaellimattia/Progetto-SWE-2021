@@ -574,6 +574,9 @@ public class Cli implements View {
                     }
                 } while(!validChoice);
             }
+            if(m.getColour() == MarbleColour.WHITE) {
+
+            }
         }
     }
 
