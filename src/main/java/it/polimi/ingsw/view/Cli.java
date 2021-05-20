@@ -415,6 +415,7 @@ public class Cli implements View {
             input = readLine();
             try{position = Integer.parseInt(input);}catch(NumberFormatException e) {position = -1;}
         }while((position <1 || position >3) || clientManager.positionPossible(position,card.getLevel()));
+        clientManager.setMainActionDone(true);
         clientManager.buyCard(storagePayment,chestPayment,id,position);
     }
 
@@ -426,7 +427,7 @@ public class Cli implements View {
         }while(!input.equalsIgnoreCase("s")&&!input.equalsIgnoreCase("C"));
 
         if(input.equalsIgnoreCase("s")){
-            storage= askStoragePayment(cost,false);
+            storage = askStoragePayment(cost,false);
             if(ResourceCount.resCountToInt(cost) !=0)
                 chest = askChestPayment(cost,true);
         }
