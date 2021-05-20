@@ -631,15 +631,20 @@ public class Cli implements View {
             ID = Integer.parseInt(input);
         } while (!id.contains(ID));
         int index;
+        LeaderCard chosenCard = null;
         for(index=0;index<passedLeaders.size();index++) {
             LeaderCard l = passedLeaders.get(index);
-            if (l.getId() == ID)
+            if (l.getId() == ID) {
                 l.getSpecialAbility().getResourceType().add(cost, 1);
+                chosenCard = l;
+            }
         }
         ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
         ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
         askPayment(cost,storagePayment,chestPayment);
-        //clientManager.leaderProduction();
+        out.println("Choose the resource that will be the output of the production: ");
+        ArrayList<Resource> outputResource = askResources(1);
+        clientManager.leaderProduction(chosenCard,storagePayment,chestPayment,outputResource.get(0));
         clientManager.getLeaderCardProductionDone().add(index,true);
     }
 

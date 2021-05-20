@@ -15,8 +15,12 @@ public class LeaderProductionMessage extends ActionMessage{
     ResourceCount chestCount;
     Resource res;
 
-    public LeaderProductionMessage(String nickname, long serverThreadID) {
+    public LeaderProductionMessage(String nickname, long serverThreadID,LeaderCard card,ResourceCount storageCount, ResourceCount chestCount, Resource res) {
         super(ActionType.LEADERPRODUCTION, nickname, serverThreadID);
+        this.card = card;
+        this.storageCount = storageCount;
+        this.chestCount = chestCount;
+        this.res = res;
     }
 
     /**

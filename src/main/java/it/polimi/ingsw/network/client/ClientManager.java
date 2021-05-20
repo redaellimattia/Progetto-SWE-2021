@@ -186,6 +186,10 @@ public class ClientManager {
         clientSocket.send(new BasicProductionMessage(nickname,serverLobbyID,outputResource,storagePayment,chestPayment).serialize());
     }
 
+    public void leaderProduction(LeaderCard card,ResourceCount storageCount, ResourceCount chestCount, Resource res){
+        clientSocket.send(new LeaderProductionMessage(nickname,serverLobbyID,card,storageCount,chestCount,res).serialize());
+    }
+
     public void endTurn(){
         isMyTurn = false;
         mainActionDone = false;
