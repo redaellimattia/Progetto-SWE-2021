@@ -2,6 +2,8 @@ package it.polimi.ingsw.view;
 
 import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
 import it.polimi.ingsw.controller.action.marketAction.GetResource;
+import it.polimi.ingsw.exceptions.MasterOfRenaissanceException;
+import it.polimi.ingsw.exceptions.MasterOfRenaissanceRuntimeException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
@@ -526,6 +528,7 @@ public class Cli implements View {
         int pos;
         int maxCount;
         int row;
+        boolean validChoice;
         MarketMarble[] marbles;
         ArrayList<AtomicMarketAction> choices = new ArrayList<AtomicMarketAction>();
         do {
@@ -558,14 +561,18 @@ public class Cli implements View {
                     input = readLine();
                     try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
                 } while(row < 1 || row > 3);
-                if(clientManager.addToStorage(row, m.getColour().convertToResource())) {
-                    choices.add(new GetResource(row));
-                    out.println("Resource stored successfully!");
-                }
-                else {
-                    out.println("Cannot add this resource to this storage row");
-                    // TO-DO: Print the specific reason (storage full or of another type)
-                }
+                validChoice = false;
+                do {
+                    try {
+                        clientManager.addToStorage(row, m.getColour().convertToResource());
+                        choices.add(new GetResource(row));
+                        out.println("Resource stored successfully!");
+                        validChoice = true;
+                    }
+                    catch (MasterOfRenaissanceRuntimeException e) {
+                        out.println(e.getMessage());
+                    }
+                } while(!validChoice);
             }
         }
     }

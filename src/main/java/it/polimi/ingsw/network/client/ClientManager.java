@@ -1,6 +1,8 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.exceptions.CounterTopOverloadException;
+import it.polimi.ingsw.exceptions.action.NoAdditionalDepositException;
+import it.polimi.ingsw.exceptions.action.WrongCounterTopException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
@@ -399,12 +401,12 @@ public class ClientManager {
                     return true;
                 }
                 if(getThisClientDashboard().getStorage().getFirstRow().getResourceType() != res) {
-                    return false;
-                    //throw new WrongCounterTopException(res); // User cannot add a resource of a different type
+                    //return false;
+                    throw new WrongCounterTopException(res); // User cannot add a resource of a different type
                 }
                 if(getThisClientDashboard().getStorage().getFirstRow().getContent() > 0) {
-                    return false;
-                    //throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
+                    //return false;
+                    throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
                 }
                 return true;
             case 2:
@@ -412,12 +414,12 @@ public class ClientManager {
                     return true;
                 }
                 if(getThisClientDashboard().getStorage().getSecondRow().getResourceType() != res) {
-                    return false;
-                    //throw new WrongCounterTopException(res); // User cannot add a resource of a different type
+                    //return false;
+                    throw new WrongCounterTopException(res); // User cannot add a resource of a different type
                 }
                 if(getThisClientDashboard().getStorage().getSecondRow().getContent() > 1) {
-                    return false;
-                    //throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
+                    //return false;
+                    throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
                 }
                 return true;
             case 3:
@@ -425,17 +427,17 @@ public class ClientManager {
                     return true;
                 }
                 if(getThisClientDashboard().getStorage().getThirdRow().getResourceType() != res) {
-                    return false;
-                    //throw new WrongCounterTopException(res); // User cannot add a resource of a different type
+                    //return false;
+                    throw new WrongCounterTopException(res); // User cannot add a resource of a different type
                 }
                 if(getThisClientDashboard().getStorage().getThirdRow().getContent() > 2) {
-                    return false;
-                    //throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
+                    //return false;
+                    throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
                 }
                 return true;
             case 4:
                 if(getThisClientDashboard().isFull(res)) {
-                    return false;
+                    throw new NoAdditionalDepositException(res);
                 }
                 else {
                     return true;
