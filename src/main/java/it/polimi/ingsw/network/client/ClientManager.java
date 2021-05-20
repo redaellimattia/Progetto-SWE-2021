@@ -274,26 +274,51 @@ public class ClientManager {
         clientSocket.send(new CardShopMessage(nickname,serverLobbyID,row,column,position,storage,chest).serialize());
     }
 
-    public boolean canDoProduction(){
-        PlayerDashboard p = getThisClientDashboard();
-        ResourceCount resource = new ResourceCount(0,0,0,0,0);
-        //can do devCardProduction
-        for (DeckDashboard d: p.getDevCards()) {
-            if(d.getDeck().size()>0) {
+    /**
+     *
+     * @param p this player
+     * @return true if a devCard production is available
+     */
+    public boolean canDoDevCardProduction(PlayerDashboard p){
+        for (DeckDashboard d: p.getDevCards())
+            if(d.getDeck().size()>0)
                 if (p.getTotalResources().hasMoreOrEqualsResources(d.getFirst().getCost()))
                     return true;
-            }
-        }
-        //can do leaderCardProduction
-        for (LeaderCard l: p.getLeaderCards()) {
+        return false;
+    }
+
+    /**
+     *
+     * @param p this player
+     * @return true if a leaderCard production is available
+     */
+    public boolean canDoLeaderCardProduction(PlayerDashboard p){
+        ResourceCount resource = new ResourceCount(0,0,0,0,0);
+        for (LeaderCard l: p.getLeaderCards())
             if(l.getSpecialAbility() instanceof ProductionAbility) {
                 l.getSpecialAbility().getResourceType().add(resource, 1);
                 if (p.getTotalResources().hasMoreOrEqualsResources(resource))
                     return true;
             }
-        }
-        //can do at least basicProduction
+        return false;
+    }
+
+    /**
+     *
+     * @param p this player
+     * @return true if the basic production is available
+     */
+    public boolean canDoBasicProduction(PlayerDashboard p){
         return (ResourceCount.resCountToInt(p.getTotalResources()) >=2);
+    }
+
+    /**
+     *
+     * @return true if atleast 1 production is available.
+     */
+    public boolean canDoProduction(){
+        PlayerDashboard p = getThisClientDashboard();
+        return (canDoDevCardProduction(p) || canDoLeaderCardProduction(p) || canDoBasicProduction(p));
     }
 
     public MarketMarble[] getMarketMarbles(int type, int pos) {

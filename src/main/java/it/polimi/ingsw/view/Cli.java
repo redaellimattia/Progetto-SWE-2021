@@ -570,7 +570,38 @@ public class Cli implements View {
     }
 
     @Override
-    public void startProduction(){}
+    public void startProduction(){
+        PlayerDashboard thisPlayer = clientManager.getThisClientDashboard();
+        String input;
+        out.println("Here are the available productions: ");
+        do {
+            if (clientManager.canDoBasicProduction(thisPlayer))
+                out.println("The basic production is available, press B to start it: ");
+            if (clientManager.canDoLeaderCardProduction(thisPlayer))
+                out.println("A Leader card production is available, press L to start it: ");
+            if (clientManager.canDoDevCardProduction(thisPlayer))
+                out.println("A Development card production is available, press D to start it: ");
+            input = readLine();
+        }while(!input.equalsIgnoreCase("B")&&!input.equalsIgnoreCase("L")&&!input.equalsIgnoreCase("D"));
+        if(input.equalsIgnoreCase("B"))
+            doBasicProduction();
+        if(input.equalsIgnoreCase("L"))
+            doLeaderCardProduction();
+        if(input.equalsIgnoreCase("D"))
+            doDevCardProduction();
+    }
+
+    public void doBasicProduction(){
+
+    }
+
+    public void doLeaderCardProduction(){
+
+    }
+
+    public void doDevCardProduction(){
+
+    }
 
     @Override
     public void leaderAction(ArrayList<LeaderCard> passedLeaders,boolean isDiscard){
