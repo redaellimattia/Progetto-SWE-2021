@@ -434,13 +434,11 @@ public class ClientManager {
                 }
                 return true;
             case 4:
-                try {
-                    getThisClientDashboard().addToDeposit(res); //TO-DO: This method modify the client model, maybe this can cause problems!!!
-                    return true;
+                if(getThisClientDashboard().isFull(res)) {
+                    return false;
                 }
-                catch (CounterTopOverloadException e) {
-                    return  false;
-                    //throw new NoAdditionalDepositException(res); // User cannot add a resource in an additional deposit if it is full or not present
+                else {
+                    return true;
                 }
             default:
                 return false;
