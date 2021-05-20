@@ -588,7 +588,7 @@ public class Cli implements View {
         if(input.equalsIgnoreCase("B"))
             doBasicProduction(thisPlayer);
         if(input.equalsIgnoreCase("L"))
-            doLeaderCardProduction(thisPlayer);
+            doLeaderCardProduction(clientManager.getProductionLeaders());
         if(input.equalsIgnoreCase("D"))
             doDevCardProduction(thisPlayer);
         //if(input.equalsIgnoreCase("Q")&&clientManager.isProductionActionOnGoing())
@@ -614,8 +614,33 @@ public class Cli implements View {
         clientManager.setBasicProductionDone(true);
     }
 
-    public void doLeaderCardProduction(PlayerDashboard p){
-
+    public void doLeaderCardProduction(ArrayList<LeaderCard> passedLeaders){
+        out.println(PURPLE+"--LEADER CARD PRODUCTION--"+RESET);
+        ResourceCount cost = new ResourceCount(0,0,0,0,0);
+        ArrayList<Integer> id = new ArrayList<>();
+        int ID;
+        String input;
+        for (LeaderCard l : passedLeaders)
+            if(!l.isInGame())
+                id.add(l.getId());
+        printLeaders(passedLeaders);
+        out.println("Choose the leaderCard ID of the card you want to use the production: ");
+        do {
+            out.println("Insert the ID of the chosen leader: ");
+            input = readLine();
+            ID = Integer.parseInt(input);
+        } while (!id.contains(ID));
+        int index;
+        for(index=0;index<passedLeaders.size();index++) {
+            LeaderCard l = passedLeaders.get(index);
+            if (l.getId() == ID)
+                l.getSpecialAbility().getResourceType().add(cost, 1);
+        }
+        ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
+        ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
+        askPayment(cost,storagePayment,chestPayment);
+        //clientManager.leaderProduction();
+        clientManager.getLeaderCardProductionDone().add(index,true);
     }
 
     public void doDevCardProduction(PlayerDashboard p){

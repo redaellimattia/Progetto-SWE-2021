@@ -37,8 +37,8 @@ public class ClientManager {
     private boolean gameStarted;
     private boolean productionActionOnGoing;
     private boolean basicProductionDone;
-    private boolean[] leaderCardProductionDone;
-    private boolean[] devCardProductionDone;
+    private ArrayList<Boolean> leaderCardProductionDone;
+    private ArrayList<Boolean> devCardProductionDone;
 
     /**
      * Creates client Object, handles client connection and instantiates view
@@ -66,13 +66,25 @@ public class ClientManager {
     public View getView(){ return view;}
     public ClientSocket getClientSocket(){return clientSocket;}
 
+    public boolean isBasicProductionDone() {
+        return basicProductionDone;
+    }
+
+    public ArrayList<Boolean> getLeaderCardProductionDone() {
+        return leaderCardProductionDone;
+    }
+
+    public ArrayList<Boolean> getDevCardProductionDone() {
+        return devCardProductionDone;
+    }
+
     public void setBasicProductionDone(boolean basicProductionDone) {
         this.basicProductionDone = basicProductionDone;
     }
-    public void setLeaderCardProductionDone(boolean[] leaderCardProductionDone) {
+    public void setLeaderCardProductionDone(ArrayList<Boolean> leaderCardProductionDone) {
         this.leaderCardProductionDone = leaderCardProductionDone;
     }
-    public void setDevCardProductionDone(boolean[] devCardProductionDone) {
+    public void setDevCardProductionDone(ArrayList<Boolean> devCardProductionDone) {
         this.devCardProductionDone = devCardProductionDone;
     }
     public boolean isProductionActionOnGoing() {
@@ -158,6 +170,7 @@ public class ClientManager {
     }
 
     public void playLeader(LeaderCard leaderCard){
+        leaderCardProductionDone.add(false);
         clientSocket.send(new PlayLeaderMessage(nickname, serverLobbyID,leaderCard).serialize());
     }
 
@@ -177,8 +190,12 @@ public class ClientManager {
         isMyTurn = false;
         mainActionDone = false;
         basicProductionDone = false;
-        Arrays.fill(leaderCardProductionDone,false);
-        Arrays.fill(devCardProductionDone,false);
+        for(Boolean b:leaderCardProductionDone)
+            if(!b)
+                b = false;
+        for(Boolean b:devCardProductionDone)
+            if(!b)
+                b = false;
         clientSocket.send(new EndTurnMessage(nickname,serverLobbyID).serialize());
     }
 
@@ -207,6 +224,15 @@ public class ClientManager {
                 return true;
         }
         return false;
+    }
+
+    public ArrayList<LeaderCard> getProductionLeaders(){
+        PlayerDashboard thisPlayer = getThisClientDashboard();
+        ArrayList<LeaderCard> productionLeaders = new ArrayList<>();
+        for(LeaderCard l:thisPlayer.getLeaderCards())
+            if(l.getSpecialAbility() instanceof ProductionAbility)
+                productionLeaders.add(l);
+        return productionLeaders;
     }
 
     /**
@@ -321,12 +347,13 @@ public class ClientManager {
      */
     public boolean canDoLeaderCardProduction(PlayerDashboard p){
         ResourceCount resource = new ResourceCount(0,0,0,0,0);
-        for (LeaderCard l: p.getLeaderCards())
-            if(l.getSpecialAbility() instanceof ProductionAbility) {
-                l.getSpecialAbility().getResourceType().add(resource, 1);
-                if (p.getTotalResources().hasMoreOrEqualsResources(resource))
-                    return true;
-            }
+        ArrayList<LeaderCard> productionLeaders = getProductionLeaders();
+        for(int i=0;i<productionLeaders.size();i++){
+            LeaderCard l = productionLeaders.get(i);
+            l.getSpecialAbility().getResourceType().add(resource, 1);
+            if (p.getTotalResources().hasMoreOrEqualsResources(resource)&&!leaderCardProductionDone.get(i))
+                return true;
+        }
         return false;
     }
 
@@ -445,8 +472,6 @@ public class ClientManager {
         isMyTurn = false;
         mainActionDone = false;
         basicProductionDone = false;
-        Arrays.fill(leaderCardProductionDone,false);
-        Arrays.fill(devCardProductionDone,false);
         view.yourTurn();
     }
 
