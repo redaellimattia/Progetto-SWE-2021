@@ -29,16 +29,7 @@ public class GetResource extends AtomicMarketAction {
     @Override
     public boolean useAction(MarketMarble marble, PlayerDashboard player) {
         if(marble.getColour() == MarbleColour.WHITE) {
-            // If the player owns at least one Leader Card with WhiteChangeAbility, that card must be used when getting a white marble
-            // (so the choice made by the user cannot be GetResource, it should be ConvertWhiteMarble)
-            for (LeaderCard c: player.getLeaderCards()) {
-                if (c.getSpecialAbility().useWhiteChangeAbility() != null) {
-                    throw new WrongMarbleException(marble);
-                    // TO-DO: Maybe is better to create a more specific exception
-                }
-            }
             return true; // GetResource on a white marble does nothing
-
         }
         if (marble.getColour() == MarbleColour.RED) {
             throw new WrongMarbleException(marble); // User cannot obtain a resource from red or white marble (without using the WhiteChangeAbility)
