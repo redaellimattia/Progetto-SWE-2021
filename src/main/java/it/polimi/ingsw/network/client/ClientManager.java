@@ -18,10 +18,7 @@ import it.polimi.ingsw.view.View;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -57,6 +54,8 @@ public class ClientManager {
         view.start();
         connection(address,socketPort);
         this.gameStarted = false;
+        this.leaderCardProductionDone = new ArrayList<>();
+        this.devCardProductionDone = new ArrayList<>();
     }
     public ClientGameStatus getGameStatus() { return gameStatus;}
     public String getNickname() {
@@ -484,9 +483,10 @@ public class ClientManager {
 
     public void yourTurn(){
         isMyTurn = true;
-        isMyTurn = false;
         mainActionDone = false;
         basicProductionDone = false;
+        if(leaderCardProductionDone.size()>0)
+            Collections.fill(leaderCardProductionDone, Boolean.TRUE);
         view.yourTurn();
     }
 
