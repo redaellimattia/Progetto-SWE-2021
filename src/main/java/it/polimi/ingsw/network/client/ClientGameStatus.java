@@ -112,11 +112,10 @@ public class ClientGameStatus {
     /**
      * Updates the DevCards
      * @param nickname nickname of the player
-     * @param card bought card
-     * @param position position of the card
+     * @param devCards new devCards
      */
-    public void updateDevCards(String nickname, DevelopmentCard card,int position){
-        getClientDashboard(nickname).addDevCards(card,position);
+    public void updateDevCards(String nickname, DeckDashboard[] devCards){
+        getClientDashboard(nickname).setDevCards(devCards);
     }
 
     /**

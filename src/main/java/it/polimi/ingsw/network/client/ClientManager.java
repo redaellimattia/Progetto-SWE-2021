@@ -193,6 +193,10 @@ public class ClientManager {
         clientSocket.send(new LeaderProductionMessage(nickname,serverLobbyID,card,storageCount,chestCount,res).serialize());
     }
 
+    public void devCardProduction(DevelopmentCard card,ResourceCount storageCount, ResourceCount chestCount){
+        clientSocket.send(new DevCardProductionMessage(nickname,serverLobbyID,card,storageCount,chestCount).serialize());
+    }
+
     public void endTurn(){
         isMyTurn = false;
         mainActionDone = false;
@@ -283,6 +287,19 @@ public class ClientManager {
         return gameStatus.getClientDashboard(nickname).getChest().hasMoreOrEqualsResources(chest);
     }
 
+    public void updateDevCards(String nickname,DeckDashboard[] devCards){
+        int contDeck = 0;
+        if(nickname.equals(this.nickname)&&devCardProductionDone.size()!=3) {
+            for (DeckDashboard d : devCards)
+                if (d.getDeck().size() > 0)
+                    contDeck++;
+            do{
+                devCardProductionDone.add(false);
+            }while(devCardProductionDone.size()!=contDeck);
+        }
+       gameStatus.updateDevCards(nickname,devCards);
+    }
+
     public boolean canBuyCardFromShop(){
         PlayerDashboard p = getThisClientDashboard();
         Deck[][] shop = gameStatus.getShop().getGrid();
@@ -340,10 +357,12 @@ public class ClientManager {
      * @return true if a devCard production is available
      */
     public boolean canDoDevCardProduction(PlayerDashboard p){
-        for (DeckDashboard d: p.getDevCards())
-            if(d.getDeck().size()>0)
-                if (p.getTotalResources().hasMoreOrEqualsResources(d.getFirst().getCost()))
+        for (int i=0;i<devCardProductionDone.size();i++) {
+            DeckDashboard d = p.getDevCards()[i];
+            if (d.getDeck().size() > 0)
+                if (p.getTotalResources().hasMoreOrEqualsResources(d.getFirst().getCost()) && !devCardProductionDone.get(i))
                     return true;
+        }
         return false;
     }
 
@@ -487,6 +506,8 @@ public class ClientManager {
         basicProductionDone = false;
         if(leaderCardProductionDone.size()>0)
             Collections.fill(leaderCardProductionDone, Boolean.TRUE);
+        if(devCardProductionDone.size()>0)
+            Collections.fill(devCardProductionDone, Boolean.TRUE);
         view.yourTurn();
     }
 

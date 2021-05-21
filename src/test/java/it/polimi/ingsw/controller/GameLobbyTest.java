@@ -9,16 +9,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GameLobbyTest {
 
+
     @Test
-    void addPlayer() {
+    void checkNicknamePossiblePlayer() {
+        GameLobby testLobby = new GameLobby(0, 4);
+        testLobby.addPlayer("Piero");
+        testLobby.addPlayer("Mario");
+        assertTrue(testLobby.checkNickname("Luca"));
     }
 
     @Test
-    void removePlayer() {
-    }
-
-    @Test
-    void checkNickname() {
+    void checkNicknameImpossiblePlayer() {
+        GameLobby testLobby = new GameLobby(0, 4);
+        testLobby.addPlayer("Piero");
+        testLobby.addPlayer("Mario");
+        assertFalse(testLobby.checkNickname("Piero"));
     }
 
     @Test

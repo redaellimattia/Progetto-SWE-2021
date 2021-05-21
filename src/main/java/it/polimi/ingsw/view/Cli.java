@@ -320,7 +320,6 @@ public class Cli implements View {
         clearView();
         out.println(RED + "|||It's your turn|||" + RESET);
         out.println("This is the actual state of your board: ");
-        printPlayer(clientManager.getNickname());
         chooseAction();
     }
 
@@ -613,7 +612,12 @@ public class Cli implements View {
                 clientManager.setProductionActionOnGoing(true);
         }
         if(input.equalsIgnoreCase("D")) {
-            doDevCardProduction(thisPlayer);
+            ArrayList<DevelopmentCard> devCards = new ArrayList<>();
+            for(DeckDashboard d:thisPlayer.getDevCards()){
+                if(d.getDeck().size()>0)
+                    devCards.add(d.getFirst());
+            }
+            doDevCardProduction(devCards);
             if(!clientManager.isProductionActionOnGoing())
                 clientManager.setProductionActionOnGoing(true);
         }
@@ -652,19 +656,12 @@ public class Cli implements View {
         ResourceCount cost = new ResourceCount(0,0,0,0,0);
         ArrayList<Integer> id = new ArrayList<>();
         int ID;
-        String input;
         for (LeaderCard l : passedLeaders)
             if(!l.isInGame())
                 id.add(l.getId());
         printLeaders(passedLeaders);
         out.println("Choose the leaderCard ID of the card you want to use the production: ");
-        do {
-            out.println("Insert the ID of the chosen leader: ");
-            input = readLine();
-            try {
-                ID = Integer.parseInt(input);
-            }catch(NumberFormatException e){ID=-1;}
-        } while (ID==-1||!id.contains(ID));
+        ID = askCardID(id,"Insert the ID of the chosen leader: " );
         int index;
         LeaderCard chosenCard = null;
         for(index=0;index<passedLeaders.size();index++) {
@@ -682,8 +679,45 @@ public class Cli implements View {
         clientManager.getLeaderCardProductionDone().add(index,true);
     }
 
-    public void doDevCardProduction(PlayerDashboard p){
+    public void doDevCardProduction(ArrayList<DevelopmentCard> devCards){
+        out.println(PURPLE+"--LEADER CARD PRODUCTION--"+RESET);
+        ResourceCount cost = new ResourceCount(0,0,0,0,0);
+        ArrayList<Integer> id = new ArrayList<>();
+        int ID;
+        for (DevelopmentCard d : devCards) {
+            id.add(d.getId());
+            printDevCard(d);
+        }
+        out.println("Choose the development card ID of the card you want to use the production: ");
+        ID = askCardID(id,"Insert the ID of the chosen development card: " );
+        int index;
+        DevelopmentCard chosenCard = null;
+        for(index=0;index<devCards.size();index++) {
+            DevelopmentCard d = devCards.get(index);
+            if (d.getId() == ID) {
+                cost.sumCounts(d.getCost());
+                chosenCard = d;
+            }
+        }
+        ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
+        ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
+        ArrayList<Resource> outputResource = new ArrayList<>();
+        askPaymentAndChosenResourceOutput(cost,storagePayment,chestPayment,outputResource);
+        clientManager.devCardProduction(chosenCard,storagePayment,chestPayment);
+        clientManager.getDevCardProductionDone().add(index,true);
+    }
 
+    public int askCardID(ArrayList<Integer> id,String msg){
+        String input;
+        int ID;
+        do {
+            out.println(msg);
+            input = readLine();
+            try {
+                ID = Integer.parseInt(input);
+            }catch(NumberFormatException e){ID=-1;}
+        } while (ID==-1||!id.contains(ID));
+        return ID;
     }
 
     @Override

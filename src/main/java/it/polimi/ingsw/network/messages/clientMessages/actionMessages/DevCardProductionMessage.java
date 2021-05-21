@@ -13,8 +13,11 @@ public class DevCardProductionMessage extends ActionMessage{
     ResourceCount storageCount;
     ResourceCount chestCount;
 
-    public DevCardProductionMessage(String nickname, long serverThreadID) {
+    public DevCardProductionMessage(String nickname, long serverThreadID,DevelopmentCard card,ResourceCount storageCount,ResourceCount chestCount) {
         super(ActionType.DEVCARDPRODUCTION, nickname, serverThreadID);
+        this.card = card;
+        this.storageCount = storageCount;
+        this.chestCount = chestCount;
     }
 
     /**

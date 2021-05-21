@@ -17,7 +17,7 @@ public interface Observer {
     void updateBufferProduction(String nickname,ResourceCount chest); //BufferProduction update
     void updateArrayDeposit(String nickname, ArrayList<CounterTop> arrayDeposit);
     void updateInitArrayDeposit(String nickname, Resource res);
-    void updateDevCards(String nickname, DevelopmentCard card, int position);
+    void updateDevCards(String nickname, DeckDashboard[] devCards);
     void updateRemoveLeader(String nickname, ArrayList<LeaderCard> leaderCards);
     void updatePathPosition(PlayerDashboard player, int position);
     void updateLeaders(String nickname,ArrayList<LeaderCard> leaderCards);

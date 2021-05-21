@@ -325,8 +325,8 @@ public class ServerLobby extends Thread implements Observer {
     }
 
     @Override
-    public void updateDevCards(String nickname, DevelopmentCard card, int position) {
-        sendToAll(new DevCardsUpdateMessage(nickname,card,position).serialize());
+    public void updateDevCards(String nickname, DeckDashboard[] devCards) {
+        sendToAll(new DevCardsUpdateMessage(nickname,devCards).serialize());
     }
 
     @Override

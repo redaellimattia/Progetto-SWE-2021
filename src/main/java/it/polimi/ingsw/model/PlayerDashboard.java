@@ -128,6 +128,10 @@ public class PlayerDashboard extends Player implements StorageObserver{
         this.chest = chest;
     }
 
+    public void setDevCards(DeckDashboard[] devCards) {
+        this.devCards = devCards;
+    }
+
     /**
      * Sets new BufferProduction
      * @param bufferProduction updated bufferProduction
@@ -164,7 +168,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
     public void addDevCards(DevelopmentCard card, int position){ //the controller checks before buying the card if the player can place it, then checks where to put it;
         devCards[position].addCard(card);
         addPoints(card.getVictoryPoints());
-        observer.updateDevCards(getNickname(),card,position);
+        observer.updateDevCards(getNickname(),devCards);
     }
 
     /**
