@@ -155,7 +155,8 @@ public class Cli implements View {
             do {
                 out.println("Insert the Lobby ID you want to Join!");
                 chosen = readLine();
-                chosenId = Long.parseLong(chosen);
+                try{
+                chosenId = Long.parseLong(chosen);}catch(NumberFormatException e){chosenId = -1;}
             } while (!id.contains(chosenId));
             out.println("The choosen Lobby ID is : " + chosenId + "\n" +
                     "Do you want to confirm? Press Y (confirm) / N (deny)");
@@ -231,7 +232,7 @@ public class Cli implements View {
             do {
                 out.println("Insert the ID of the choosen leader: ");
                 chosenID = readLine();
-                chosen = Integer.parseInt(chosenID);
+                try{chosen = Integer.parseInt(chosenID);}catch(NumberFormatException e) { chosen = 0;}
             } while (!id.contains(chosen));
 
             for (LeaderCard leader : leaders)
@@ -703,7 +704,7 @@ public class Cli implements View {
         do {
             out.println("Insert the ID of the chosen leader: ");
             input = readLine();
-            ID = Integer.parseInt(input);
+            try{ID = Integer.parseInt(input);}catch(NumberFormatException e) { ID = 0;}
         } while (!id.contains(ID));
         for(LeaderCard l:passedLeaders)
             if(l.getId()==ID) {
