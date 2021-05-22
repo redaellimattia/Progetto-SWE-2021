@@ -47,10 +47,20 @@ class GetResourceTest {
     }
 
     @Test
+    void getWhiteMarble() {
+        boolean ok;
+        PlayerDashboard testDashboard = buildPlayerDashboard(1, 1, 3);
+        GetResource test = new GetResource(0);
+        ok = test.useAction(new MarketMarble(MarbleColour.WHITE), testDashboard);
+        assertTrue(ok);
+        assertEquals(1, testDashboard.getStorage().getFirstRow().getContent());
+        assertEquals(1, testDashboard.getStorage().getSecondRow().getContent());
+        assertEquals(3, testDashboard.getStorage().getThirdRow().getContent());
+    }
+
+    @Test
     void IllegalGet() {
         GetResource test1 = new GetResource(2);
         assertThrows(WrongMarbleException.class, () -> test1.useAction(new MarketMarble(MarbleColour.RED), buildPlayerDashboard(1, 0, 3)));
-        GetResource test2 = new GetResource(3);
-        assertThrows(WrongMarbleException.class, () -> test2.useAction(new MarketMarble(MarbleColour.WHITE), buildPlayerDashboard(1, 1, 0)));
     }
 }
