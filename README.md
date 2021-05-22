@@ -3,5 +3,5 @@ Gruppo GC47
 ## Coverage
 Aggiornata al 22 Maggio
 <p align="center">
-  <img width="635" height="295" src="/Doc/img/esempio.png">
+  <img width="635" height="295" src="/utilities/coverage/coverage 22-05.png">
 </p>
