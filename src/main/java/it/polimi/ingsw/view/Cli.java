@@ -218,7 +218,6 @@ public class Cli implements View {
     private ArrayList<LeaderCard> askLeaders(ArrayList<LeaderCard> leaders) {
         ArrayList<LeaderCard> leadersChosen = new ArrayList<>();
         int counter = 2;
-        String chosenID;
         int chosen;
         ArrayList<Integer> id = new ArrayList<>();
         out.println("You can choose two leaders between these four:");
@@ -227,14 +226,9 @@ public class Cli implements View {
         for (LeaderCard l : leaders)
             id.add(l.getId());
         do {
+
             out.print("You still have " + counter + " leaders to choose.\n");
-
-            do {
-                out.println("Insert the ID of the choosen leader: ");
-                chosenID = readLine();
-                try{chosen = Integer.parseInt(chosenID);}catch(NumberFormatException e) { chosen = 0;}
-            } while (!id.contains(chosen));
-
+            chosen = askCardID(id,"Insert the ID of the choosen leader: ");
             for (LeaderCard leader : leaders)
                 if (leader.getId() == chosen)
                     leadersChosen.add(leader);
@@ -254,7 +248,7 @@ public class Cli implements View {
                 out.println(requirement.toString());
             }
             else
-                out.println("This card is in game!");
+                out.println(GREEN+"This card is in game!"+RESET);
             //SPECIALABILITY PRINT:
             SpecialAbility specialAbility = l.getSpecialAbility();
             out.println(specialAbility.toString());
