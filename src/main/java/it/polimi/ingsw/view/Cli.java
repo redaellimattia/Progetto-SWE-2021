@@ -522,6 +522,8 @@ public class Cli implements View {
         int pos;
         int maxCount;
         int row;
+        int action;
+        int count;
         boolean validChoice;
         MarketMarble[] marbles;
         ArrayList<AtomicMarketAction> choices = new ArrayList<AtomicMarketAction>();
@@ -570,7 +572,24 @@ public class Cli implements View {
             }
             if(m.getColour() == MarbleColour.WHITE) {
                 if(clientManager.hasWhiteChangeAbility()) {
-
+                    do {
+                        out.println("What do you want to do with this leader card?\n0: Take nothing");
+                        count = 1;
+                        for(LeaderCard c: clientManager.getThisClientDashboard().getLeaderCards()) {
+                            if(c.getSpecialAbility().useWhiteChangeAbility() != null) {
+                                out.println(count + ": Convert to " + c.getSpecialAbility().useWhiteChangeAbility().name() + " with Leader Card");
+                                count++;
+                            }
+                        }
+                        input = readLine();
+                        try {action = Integer.parseInt(input);} catch(NumberFormatException e) {action = -1;}
+                    } while(action < 0 && action >= count);
+                    if(action == 0) {
+                        choices.add(new GetResource(0));
+                    }
+                    else {
+                        // Add to storage
+                    }
                 }
                 else {
                     choices.add(new GetResource(0)); // Storage row is not important (a white marble doesn't produce a resource)
