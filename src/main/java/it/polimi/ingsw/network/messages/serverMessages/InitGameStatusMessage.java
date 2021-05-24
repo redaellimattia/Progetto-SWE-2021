@@ -10,10 +10,10 @@ import it.polimi.ingsw.network.enumeration.ServerMessageType;
 import java.util.ArrayList;
 
 public class InitGameStatusMessage extends ServerMessage{
-    private ArrayList<PlayerDashboard> players;
-    private Shop shop;
-    private MarketDashboard market;
-    private VaticanReport[] vReports;
+    private final ArrayList<PlayerDashboard> players;
+    private final Shop shop;
+    private final MarketDashboard market;
+    private final VaticanReport[] vReports;
 
     public InitGameStatusMessage(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market,VaticanReport[] vReports) {
         super(ServerMessageType.INITGAMESTATUS);
@@ -23,6 +23,11 @@ public class InitGameStatusMessage extends ServerMessage{
         this.vReports = vReports;
     }
 
+    /**
+     * Inits the gameStatus (Simplified model of the client)
+     *
+     * @param clientManager clientManager of the player
+     */
     @Override
     public void useMessage(ClientManager clientManager){
         clientManager.initGameStatus(players,shop,market,vReports);

@@ -13,8 +13,8 @@ import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
 public abstract class PlayerUpdateMessage extends ServerMessage {
     static GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Requirement.class, new InterfaceAdapter()).registerTypeAdapter(SpecialAbility.class, new InterfaceAdapter());
     static Gson gson = builder.create();
-    private PlayerUpdateType playerUpdateType;
-    private String nickname;
+    private final PlayerUpdateType playerUpdateType;
+    private final String nickname;
 
     public PlayerUpdateMessage(PlayerUpdateType playerUpdateType, String nickname) {
         super(ServerMessageType.PLAYERUPDATE);

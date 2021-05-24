@@ -66,6 +66,11 @@ public abstract class ServerMessage {
         }
     }
 
+    /**
+     * Will be overridden
+     *
+     * @param clientManager clientManager of the player
+     */
     public void useMessage(ClientManager clientManager){}
 
     /**

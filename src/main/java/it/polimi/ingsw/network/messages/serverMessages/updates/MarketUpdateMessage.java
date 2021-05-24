@@ -6,8 +6,8 @@ import it.polimi.ingsw.network.enumeration.ServerMessageType;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
 
 public class MarketUpdateMessage extends ServerMessage {
-    private MarketMarble[][] structure;
-    private MarketMarble freeMarble;
+    private final MarketMarble[][] structure;
+    private final MarketMarble freeMarble;
 
     public MarketUpdateMessage(MarketMarble[][] structure, MarketMarble freeMarble) {
         super(ServerMessageType.MARKETUPDATE);
@@ -15,6 +15,11 @@ public class MarketUpdateMessage extends ServerMessage {
         this.freeMarble = freeMarble;
     }
 
+    /**
+     * Updates the market in the gameStatus
+     *
+     * @param clientManager clientManager of the player
+     */
     @Override
     public void useMessage(ClientManager clientManager){
         clientManager.getGameStatus().updateMarket(structure,freeMarble);

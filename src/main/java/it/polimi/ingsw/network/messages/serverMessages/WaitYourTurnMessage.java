@@ -8,6 +8,11 @@ public class WaitYourTurnMessage extends ServerMessage{
         super(ServerMessageType.WAITYOURTURN);
     }
 
+    /**
+     * Puts the player in waiting for turn mode
+     *
+     * @param clientManager clientManager of the player
+     */
     @Override
     public void useMessage(ClientManager clientManager){
         clientManager.getView().waitingForTurn();

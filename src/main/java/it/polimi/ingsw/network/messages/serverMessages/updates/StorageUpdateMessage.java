@@ -5,13 +5,18 @@ import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.enumeration.PlayerUpdateType;
 
 public class StorageUpdateMessage extends PlayerUpdateMessage{
-    private CounterTop row;
+    private final CounterTop row;
 
     public StorageUpdateMessage(PlayerUpdateType type,String nickname, CounterTop row) {
         super(type, nickname);
         this.row = row;
     }
 
+    /**
+     * Updates a given row of the storage
+     *
+     * @param clientManager clientManager of the player
+     */
     @Override
     public void useMessage(ClientManager clientManager){
         switch(getPlayerUpdateType()){

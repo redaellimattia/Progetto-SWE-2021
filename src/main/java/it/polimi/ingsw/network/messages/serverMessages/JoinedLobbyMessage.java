@@ -4,19 +4,20 @@ import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.enumeration.ServerMessageType;
 
 public class JoinedLobbyMessage extends ServerMessage{
-    private long serverThreadID;
-    private String msg;
+    private final long lobbyID;
 
-    public JoinedLobbyMessage(long serverThreadID){
+    public JoinedLobbyMessage(long lobbyID){
         super(ServerMessageType.JOINEDLOBBY);
-        this.serverThreadID = serverThreadID;
-        this.msg = "Joined correctly the game with Lobby ID: " + serverThreadID;
+        this.lobbyID = lobbyID;
     }
 
+    /**
+     * Updates the client's lobbyID
+     *
+     * @param clientManager clientManager of the player
+     */
     @Override
     public void useMessage(ClientManager clientManager) {
-        clientManager.setServerLobbyID(serverThreadID);
-
-        clientManager.getView().printMsg(msg);
+        clientManager.setServerLobbyID(lobbyID);
     }
 }

@@ -10,6 +10,11 @@ public class PrintMessage extends ServerMessage{
         this.msg = msg;
     }
 
+    /**
+     * Prints a message
+     *
+     * @param clientManager clientManager of the player
+     */
     @Override
     public void useMessage(ClientManager clientManager) {
         clientManager.getView().printMsg(this.msg);

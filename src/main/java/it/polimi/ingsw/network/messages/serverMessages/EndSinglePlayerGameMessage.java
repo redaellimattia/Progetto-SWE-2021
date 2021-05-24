@@ -1,15 +1,11 @@
 package it.polimi.ingsw.network.messages.serverMessages;
 
-import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.network.client.ClientManager;
-import it.polimi.ingsw.network.client.PlayerPoints;
 import it.polimi.ingsw.network.enumeration.ServerMessageType;
 
-import java.util.ArrayList;
-
 public class EndSinglePlayerGameMessage extends ServerMessage {
-    private boolean lorenzoWin;
-    private int playerVictoryPoints;
+    private final boolean lorenzoWin;
+    private final int playerVictoryPoints;
 
     public EndSinglePlayerGameMessage(boolean lorenzoWin, int playerVictoryPoints) {
         super(ServerMessageType.ENDSINGLEPLAYERGAME);
@@ -17,6 +13,11 @@ public class EndSinglePlayerGameMessage extends ServerMessage {
         this.playerVictoryPoints = playerVictoryPoints;
     }
 
+    /**
+     * Ends the singlePlayer game
+     *
+     * @param clientManager clientManager of the client
+     */
     @Override
     public void useMessage(ClientManager clientManager){
         clientManager.getView().endGame(lorenzoWin,playerVictoryPoints);
