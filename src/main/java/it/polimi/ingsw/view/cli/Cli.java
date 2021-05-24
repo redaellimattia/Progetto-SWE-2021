@@ -636,6 +636,8 @@ public class Cli implements View {
         boolean hasValidAdditionalDeposit;
         MarketMarble[] marbles;
         ArrayList<AtomicMarketAction> choices = new ArrayList<AtomicMarketAction>();
+
+        // Choose the row/column
         do {
             out.println("Type \"row\" if you want to select a row; \"col\" if you want to select a column");
             input = readLine();
@@ -656,25 +658,29 @@ public class Cli implements View {
             } while(pos < 1 || pos > 4);
             type = 1;
         }
+
+        // Get marbles
         marbles = clientManager.getMarketMarbles(type, pos);
+
+        // Action choice
         for (MarketMarble m: marbles) {
             if(m.getColour() != MarbleColour.RED && m.getColour() != MarbleColour.WHITE) {
                 do {
-                    if(clientManager.hasAdditionalDeposit(m.getColour().convertToResource())) {
-                        out.println("In witch deposit do you want to store the " + m.getColour().convertToResource() + "?\n1-3: regular storage; 4: additional storage");
-                        max = 3;
-                    }
-                    else {
-                        out.println("In witch deposit do you want to store the " + m.getColour().convertToResource() + "?\n1-3: regular storage");
-                        max = 4;
-                    }
-                    input = readLine();
-                    try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
-                } while(row < 1 || row > max);
-                validChoice = false;
-                do {
+                    do {
+                        if(clientManager.hasAdditionalDeposit(m.getColour().convertToResource())) {
+                            out.println("In witch deposit do you want to store the " + m.getColour().convertToResource() + "?\n1-3: regular storage; 4: additional storage");
+                            max = 4;
+                        }
+                        else {
+                            out.println("In witch deposit do you want to store the " + m.getColour().convertToResource() + "?\n1-3: regular storage");
+                            max = 3;
+                        }
+                        input = readLine();
+                        try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
+                    } while(row < 1 || row > max);
+                    validChoice = false;
                     try {
-                        clientManager.addToStorage(row, m.getColour().convertToResource());
+                        clientManager.checkAddToStorage(row, m.getColour().convertToResource());
                         choices.add(new GetResource(row));
                         out.println("Resource stored successfully!");
                         validChoice = true;
@@ -687,23 +693,48 @@ public class Cli implements View {
             if(m.getColour() == MarbleColour.WHITE) {
                 if(clientManager.hasWhiteChangeAbility()) {
                     do {
-                        out.println("What do you want to do with this leader card?\n0: Take nothing");
-                        count = 1;
-                        for(LeaderCard c: clientManager.getThisClientDashboard().getLeaderCards()) {
-                            if(c.getSpecialAbility().useWhiteChangeAbility() != null) {
-                                out.println(count + ": Convert to " + c.getSpecialAbility().useWhiteChangeAbility().name() + " with Leader Card");
-                                count++;
+                        do {
+                            out.println("What do you want to do with this leader card?\n0: Take nothing;");
+                            count = 1;
+                            for(LeaderCard c: clientManager.getThisClientDashboard().getLeaderCards()) {
+                                if(c.getSpecialAbility().useWhiteChangeAbility() != null) {
+                                    out.println(count + ": Convert to " + c.getSpecialAbility().useWhiteChangeAbility().name() + " with Leader Card");
+                                    count++;
+                                }
+                            }
+                            input = readLine();
+                            try {action = Integer.parseInt(input);} catch(NumberFormatException e) {action = -1;}
+                        } while(action < 0 && action >= count);
+                        validChoice = false;
+                        if(action == 0) {
+                            choices.add(new GetResource(0));
+                            validChoice = true;
+                        }
+                        else {
+                            Resource convertedResource = clientManager.getWhiteChangeResource(action);
+                            do {
+                                if(clientManager.hasAdditionalDeposit(convertedResource)) {
+                                    out.println("In witch deposit do you want to store the " + convertedResource + "?\n1-3: regular storage; 4: additional storage");
+                                    max = 3;
+                                }
+                                else {
+                                    out.println("In witch deposit do you want to store the " + convertedResource + "?\n1-3: regular storage");
+                                    max = 4;
+                                }
+                                input = readLine();
+                                try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
+                            } while(row < 1 || row > max);
+                            try {
+                                clientManager.checkAddToStorage(row, convertedResource);
+                                choices.add(new GetResource(row));
+                                out.println("Resource stored successfully!");
+                                validChoice = true;
+                            }
+                            catch (MasterOfRenaissanceRuntimeException e) {
+                                out.println(e.getMessage());
                             }
                         }
-                        input = readLine();
-                        try {action = Integer.parseInt(input);} catch(NumberFormatException e) {action = -1;}
-                    } while(action < 0 && action >= count);
-                    if(action == 0) {
-                        choices.add(new GetResource(0));
-                    }
-                    else {
-                        // Add to storage
-                    }
+                    } while(!validChoice);
                 }
                 else {
                     choices.add(new GetResource(0)); // Storage row is not important (a white marble doesn't produce a resource)

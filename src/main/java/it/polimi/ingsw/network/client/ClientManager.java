@@ -552,7 +552,7 @@ public class ClientManager {
         }
     }
 
-    public boolean addToStorage(int row, Resource res) {
+    public boolean checkAddToStorage(int row, Resource res) {
         switch(row) {
             case 1:
                 if(getThisClientDashboard().getStorage().getFirstRow().getContent() == 0) {
@@ -625,6 +625,20 @@ public class ClientManager {
             }
         }
         return false;
+    }
+
+    public Resource getWhiteChangeResource(int card) {
+        int count;
+        count = 0;
+        for (LeaderCard c: getThisClientDashboard().getLeaderCards()) {
+            if(c.getSpecialAbility().useWhiteChangeAbility() != null) {
+                count++;
+                if(card == count) {
+                    return c.getSpecialAbility().getResourceType();
+                }
+            }
+        }
+        return null;
     }
 
     /**
