@@ -38,7 +38,7 @@ public class Server {
 
     /**
      * Reading parameters
-     *
+     * ex: -p 38 [port 38]
      * @param args args passed when launching the .jar
      */
     public static void main(String[] args){
@@ -46,10 +46,8 @@ public class Server {
         if(args.length > 0 && args.length < 3) { //1 Parameter
             int i=0;
             while (i < args.length) {
-                if (args[i].charAt(0) == '-' && args[i].length() == 2) {
-                    if (args[i].charAt(1)=='p')
-                        socketPort = Integer.parseInt(args[++i]);
-                }
+                if(args[i].equals("-p"))
+                    socketPort= Integer.parseInt(args[++i]);
                 i++;
             }
         }

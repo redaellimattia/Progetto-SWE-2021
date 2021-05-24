@@ -14,6 +14,7 @@ import it.polimi.ingsw.network.messages.clientMessages.actionMessages.*;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
 import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.gui.Gui;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -29,7 +30,7 @@ public class ClientManager {
     private String nickname;
     private ClientSocket clientSocket;
     private long serverLobbyID = -1;
-    private View view;
+    private final View view;
     private ClientGameStatus gameStatus;
     private boolean mainActionDone;
     private boolean isMyTurn;
@@ -49,8 +50,8 @@ public class ClientManager {
         this.nickname = "defaultNickname";
         if(choice.equals("-cli"))
             this.view = new Cli(this);
-        //else
-            //this.view = new Gui();
+        else
+            this.view = new Gui();
         view.start();
         connection(address,socketPort);
         this.gameStarted = false;
