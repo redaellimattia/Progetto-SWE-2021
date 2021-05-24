@@ -287,12 +287,7 @@ public class ClientManager {
         return gameStatus.getClientDashboard(nickname).getChest().hasMoreOrEqualsResources(chest);
     }
 
-    public boolean canMoveResources(){
-        PlayerDashboard p = getThisClientDashboard();
-        ResourceCount total = p.getTotalResources();
-        total.sumCounts(p.getAbilityDepositResources());
-        return ResourceCount.resCountToInt(total) > 0;
-    }
+
     public void updateDevCards(String nickname,DeckDashboard[] devCards){
         int contDeck = 0;
         if(nickname.equals(this.nickname)&&devCardProductionDone.size()!=3) {
@@ -333,8 +328,36 @@ public class ClientManager {
         return supportShelves.get(to - 1).getContent() <= from;
     }
     public void organizeStorage(int from, int to){
-        clientSocket.send(new OrganizeStorageMessage(getThisClientDashboard().getNickname(), serverLobbyID,from,to).serialize());
+        clientSocket.send(new OrganizeStorageMessage(nickname, serverLobbyID,from,to).serialize());
     }
+    public boolean canMoveResources(){
+        PlayerDashboard p = getThisClientDashboard();
+        ResourceCount total = p.getTotalResources();
+        total.sumCounts(p.getAbilityDepositResources());
+        return ResourceCount.resCountToInt(total) > 0;
+    }
+    public void moveLeaderResources(Resource resource, int num, boolean fromLeader){
+        PlayerDashboard p = getThisClientDashboard();
+        ArrayList<CounterTop> shelves = p.getStorage().getShelvesArray();
+        int from= 0,to = 0;
+        for(int i=0; i<shelves.size();i++) {
+            if (shelves.get(i).getResourceType().equals(resource)) {
+                to = i;
+                break;
+            }
+        }
+        for (int i=0;i<p.getArrayDeposit().size();i++){
+            if(p.getArrayDeposit().get(i).getResourceType().equals(resource)) {
+                from = i;
+                break;
+            }
+        }
+        if(fromLeader)
+            clientSocket.send(new MoveFromLeaderToDepositMessage(nickname,serverLobbyID,from,to,num).serialize());
+        else
+            clientSocket.send(new MoveFromDepositToLeaderMessage(nickname,serverLobbyID,to,from,num).serialize());
+    }
+
     public boolean canBuyCardFromShop(){
         PlayerDashboard p = getThisClientDashboard();
         Deck[][] shop = gameStatus.getShop().getGrid();

@@ -11,8 +11,11 @@ public class MoveFromLeaderToDepositMessage extends ActionMessage{
     private int to_deposit;
     private int number;
 
-    public MoveFromLeaderToDepositMessage(String nickname, long serverThreadID) {
+    public MoveFromLeaderToDepositMessage(String nickname, long serverThreadID, int from_leader, int to_deposit, int number) {
         super(ActionType.MOVEFROMLEADERTODEPOSIT, nickname, serverThreadID);
+        this.from_leader = from_leader;
+        this.to_deposit = to_deposit;
+        this.number = number;
     }
 
     /**

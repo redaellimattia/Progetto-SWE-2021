@@ -816,8 +816,25 @@ public class Cli implements View {
             chooseAction();
     }
 
-    private void moveFromLeader(CounterTop leaderDeposit){}
-    private void moveToLeader(CounterTop leaderDeposit){}
+    private void moveFromLeader(CounterTop leaderDeposit){
+        int num = askNumberResourcesToMove(leaderDeposit);
+        clientManager.moveLeaderResources(leaderDeposit.getResourceType(), num,true);
+    }
+    private int askNumberResourcesToMove(CounterTop counterTop){
+        String input;
+        int num = -1;
+        do{
+            out.println("How many resources do you want to move?");
+            input = readLine();
+            try{num = Integer.parseInt(input);}catch(NumberFormatException e) { num = -1;}
+        }while(num <= counterTop.getContent());
+        return num;
+    }
+
+    private void moveToLeader(CounterTop leaderDeposit){
+        int num = askNumberResourcesToMove(leaderDeposit);
+        clientManager.moveLeaderResources(leaderDeposit.getResourceType(), num,false);
+    }
     private void organizeStorage(){
         String input;
         int num = -1;
