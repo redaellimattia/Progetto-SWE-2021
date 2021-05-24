@@ -374,7 +374,7 @@ public class ClientManager {
     public boolean canDoLeaderCardProduction(PlayerDashboard p){
         ResourceCount resource = new ResourceCount(0,0,0,0,0);
         ArrayList<LeaderCard> productionLeaders = getProductionLeaders();
-        for(int i=0;i<productionLeaders.size();i++){
+        for(int i=0;i<leaderCardProductionDone.size();i++){
             LeaderCard l = productionLeaders.get(i);
             l.getSpecialAbility().getResourceType().add(resource, 1);
             if (p.getTotalResources().hasMoreOrEqualsResources(resource)&&!leaderCardProductionDone.get(i))

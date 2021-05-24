@@ -55,6 +55,8 @@ public class SocketConnection implements Runnable{
                 String msg = in.readLine();
                 //System.out.println(msg); //------------DEBUG------------------
                 if(msg!=null) socketServer.onMessage(this,msg);
+                else
+                    disconnect();
             } catch (IOException e) {
                 Server.LOGGER.log(Level.SEVERE,"Error while reading.\n"+ e.getMessage());
                 disconnect();

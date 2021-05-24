@@ -30,6 +30,10 @@ public class PlayerTurnManager {
         return player;
     }
 
+    public void setPlayer(PlayerDashboard player) {
+        this.player = player;
+    }
+
     /**
      *
      * @param action main action that the player want to execute
