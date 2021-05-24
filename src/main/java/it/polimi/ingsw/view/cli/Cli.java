@@ -612,7 +612,7 @@ public class Cli implements View {
         String input;
         int type;
         int pos;
-        int maxCount;
+        int max;
         int row;
         int action;
         int count;
@@ -631,7 +631,6 @@ public class Cli implements View {
                 try {pos = Integer.parseInt(input);} catch(NumberFormatException e) {pos = -1;}
             } while(pos < 1 || pos > 3);
             type = 0;
-            maxCount = 4;
         }
         else {
             do {
@@ -640,16 +639,22 @@ public class Cli implements View {
                 try {pos = Integer.parseInt(input);} catch(NumberFormatException e) {pos = -1;}
             } while(pos < 1 || pos > 4);
             type = 1;
-            maxCount = 3;
         }
         marbles = clientManager.getMarketMarbles(type, pos);
         for (MarketMarble m: marbles) {
             if(m.getColour() != MarbleColour.RED && m.getColour() != MarbleColour.WHITE) {
                 do {
-                    out.println("In witch deposit do you want to store the " + m.getColour().convertToResource() + "?\n1-3: regular storage; 4: additional storage");
+                    if(clientManager.hasAdditionalDeposit(m.getColour().convertToResource())) {
+                        out.println("In witch deposit do you want to store the " + m.getColour().convertToResource() + "?\n1-3: regular storage; 4: additional storage");
+                        max = 3;
+                    }
+                    else {
+                        out.println("In witch deposit do you want to store the " + m.getColour().convertToResource() + "?\n1-3: regular storage");
+                        max = 4;
+                    }
                     input = readLine();
                     try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
-                } while(row < 1 || row > 3);
+                } while(row < 1 || row > max);
                 validChoice = false;
                 do {
                     try {
