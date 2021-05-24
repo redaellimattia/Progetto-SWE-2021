@@ -9,8 +9,10 @@ public class OrganizeStorageMessage extends ActionMessage{
     private int from;
     private int to;
 
-    public OrganizeStorageMessage(String nickname, long serverThreadID) {
+    public OrganizeStorageMessage(String nickname, long serverThreadID, int from, int to) {
         super(ActionType.ORGANIZESTORAGE, nickname, serverThreadID);
+        this.from = from;
+        this.to= to;
     }
 
     /**
