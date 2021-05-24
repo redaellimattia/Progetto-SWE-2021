@@ -61,15 +61,9 @@ public class ClientManager {
     public String getNickname() {
         return nickname;
     }
-    public long getServerLobbyID() {
-        return serverLobbyID;
-    }
     public View getView(){ return view;}
     public ClientSocket getClientSocket(){return clientSocket;}
 
-    public boolean isBasicProductionDone() {
-        return basicProductionDone;
-    }
 
     public ArrayList<Boolean> getLeaderCardProductionDone() {
         return leaderCardProductionDone;
@@ -81,12 +75,6 @@ public class ClientManager {
 
     public void setBasicProductionDone(boolean basicProductionDone) {
         this.basicProductionDone = basicProductionDone;
-    }
-    public void setLeaderCardProductionDone(ArrayList<Boolean> leaderCardProductionDone) {
-        this.leaderCardProductionDone = leaderCardProductionDone;
-    }
-    public void setDevCardProductionDone(ArrayList<Boolean> devCardProductionDone) {
-        this.devCardProductionDone = devCardProductionDone;
     }
     public boolean isProductionActionOnGoing() {
         return productionActionOnGoing;
@@ -199,14 +187,6 @@ public class ClientManager {
 
     public void endTurn(){
         isMyTurn = false;
-        mainActionDone = false;
-        basicProductionDone = false;
-        for(Boolean b:leaderCardProductionDone)
-            if(!b)
-                b = false;
-        for(Boolean b:devCardProductionDone)
-            if(!b)
-                b = false;
         clientSocket.send(new EndTurnMessage(nickname,serverLobbyID).serialize());
     }
 
@@ -258,36 +238,6 @@ public class ClientManager {
         return false;
     }
 
-    /**
-     * Checks if the player has more or equals resources than the cost
-     * @param cost passed amount of resources that are needed to pay
-     * @return true if the payment is possible somewhere
-     */
-    public boolean hasEnoughResources(ResourceCount cost){
-        return getThisClientDashboard().getTotalResources().hasMoreOrEqualsResources(cost);
-    }
-
-    /**
-     * Check if the chosen amount of resources is actually available in the storage
-     *
-     * @param storage passed amount of resources from the storage
-     * @return true if the chest has enough or more resources that the passed storage ResourceCount
-     */
-    public boolean storageCheck(ResourceCount storage){
-        return gameStatus.getClientDashboard(nickname).getStorage().readStorage().hasMoreOrEqualsResources(storage);
-    }
-
-    /**
-     * Check if the chosen amount of resources is actually available in the chest
-     *
-     * @param chest passed amount of resources from the chest
-     * @return true if the chest has enough or more resources that the passed chest ResourceCount
-     */
-    public boolean chestCheck(ResourceCount chest){
-        return gameStatus.getClientDashboard(nickname).getChest().hasMoreOrEqualsResources(chest);
-    }
-
-
     public void updateDevCards(String nickname,DeckDashboard[] devCards){
         int contDeck = 0;
         if(nickname.equals(this.nickname)&&devCardProductionDone.size()!=3) {
@@ -317,9 +267,7 @@ public class ClientManager {
             return true;
         if(storage.getSecondRow().getContent() == 0 || (storage.getSecondRow().getContent() == 1 && storage.getSecondRow().getResourceType().equals(resource)))
             return true;
-        if(storage.getThirdRow().getContent() == 0 || (storage.getThirdRow().getContent() <= 2 && storage.getThirdRow().getResourceType().equals(resource)))
-            return true;
-        return false;
+        return storage.getThirdRow().getContent() == 0 || (storage.getThirdRow().getContent() <= 2 && storage.getThirdRow().getResourceType().equals(resource));
     }
 
     public boolean swapOk(int from, int to){
@@ -359,7 +307,6 @@ public class ClientManager {
     }
 
     public boolean canBuyCardFromShop(){
-        PlayerDashboard p = getThisClientDashboard();
         Deck[][] shop = gameStatus.getShop().getGrid();
         for(int i=0;i<3;i++){
             for(int j=0;j<4;j++){
@@ -535,8 +482,8 @@ public class ClientManager {
 
     /**
      *
-     * @param ID
-     * @return
+     * @param ID ID of the card
+     * @return the Development card associated to the passed ID
      */
     public DevelopmentCard getShopCardByID(int ID){
         return gameStatus.getShop().getCardByID(ID);
@@ -563,16 +510,10 @@ public class ClientManager {
         mainActionDone = false;
         basicProductionDone = false;
         if(leaderCardProductionDone.size()>0)
-            Collections.fill(leaderCardProductionDone, Boolean.TRUE);
+            Collections.fill(leaderCardProductionDone, Boolean.FALSE);
         if(devCardProductionDone.size()>0)
-            Collections.fill(devCardProductionDone, Boolean.TRUE);
+            Collections.fill(devCardProductionDone, Boolean.FALSE);
         view.yourTurn();
-    }
-
-    public void updateViewWithMessage(String msg){
-        view.clearView();
-        view.printMsg(msg);
-        updateView();
     }
 
     public void updateViewWithClear(){
