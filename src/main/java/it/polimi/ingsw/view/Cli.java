@@ -690,6 +690,10 @@ public class Cli implements View {
         }
     }
 
+    /**
+     * Start the production action asking what type of production the player wants to do
+     * B: Basic, L: Leader Card, D: Development Card
+     */
     @Override
     public void startProduction(){
         PlayerDashboard thisPlayer = clientManager.getThisClientDashboard();
@@ -733,6 +737,11 @@ public class Cli implements View {
             clientManager.setMainActionDone(true);
     }
 
+    /**
+     * Starts the Basic Production
+     *
+     * @param p PlayerDashboard of the player
+     */
     public void doBasicProduction(PlayerDashboard p){
         out.println(PURPLE+"--BASIC PRODUCTION--"+RESET);
         ResourceCount chosenInput = new ResourceCount(0,0,0,0,0);
@@ -747,15 +756,26 @@ public class Cli implements View {
         ArrayList<Resource> outputResource = new ArrayList<>();
         askPaymentAndChosenResourceOutput(chosenInput,storagePayment,chestPayment,outputResource);
         clientManager.basicProduction(storagePayment,chestPayment,outputResource.get(0));
-        clientManager.setBasicProductionDone(true);
     }
 
+    /**
+     * Asks type of payment and the chosen resource as output
+     * @param chosenInput chosenInput
+     * @param storagePayment amount of resource from the storage
+     * @param chestPayment amount of resource from the chest
+     * @param outputResource chosen Resource as Output
+     */
     public void askPaymentAndChosenResourceOutput(ResourceCount chosenInput,ResourceCount storagePayment,ResourceCount chestPayment,ArrayList<Resource> outputResource){
         askPayment(chosenInput,storagePayment,chestPayment);
         out.println("Choose the resource that will be the output of the production: ");
         outputResource = askResources(1);
     }
 
+    /**
+     * Starts the Leader Card production
+     *
+     * @param passedLeaders Leader Cards that have a production ability
+     */
     public void doLeaderCardProduction(ArrayList<LeaderCard> passedLeaders){
         out.println(PURPLE+"--LEADER CARD PRODUCTION--"+RESET);
         ResourceCount cost = new ResourceCount(0,0,0,0,0);
@@ -780,10 +800,14 @@ public class Cli implements View {
         ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
         ArrayList<Resource> outputResource = new ArrayList<>();
         askPaymentAndChosenResourceOutput(cost,storagePayment,chestPayment,outputResource);
-        clientManager.leaderProduction(chosenCard,storagePayment,chestPayment,outputResource.get(0));
-        clientManager.getLeaderCardProductionDone().add(index,true);
+        clientManager.leaderProduction(index,chosenCard,storagePayment,chestPayment,outputResource.get(0));
     }
 
+    /**
+     * Starts the Development Card production
+     *
+     * @param devCards Development Card on the dashboard
+     */
     public void doDevCardProduction(ArrayList<DevelopmentCard> devCards){
         out.println(PURPLE+"--LEADER CARD PRODUCTION--"+RESET);
         ResourceCount cost = new ResourceCount(0,0,0,0,0);
@@ -808,8 +832,7 @@ public class Cli implements View {
         ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
         ArrayList<Resource> outputResource = new ArrayList<>();
         askPaymentAndChosenResourceOutput(cost,storagePayment,chestPayment,outputResource);
-        clientManager.devCardProduction(chosenCard,storagePayment,chestPayment);
-        clientManager.getDevCardProductionDone().add(index,true);
+        clientManager.devCardProduction(index,chosenCard,storagePayment,chestPayment);
     }
 
     /**
@@ -831,6 +854,11 @@ public class Cli implements View {
         return ID;
     }
 
+    /**
+     * Starts a leader action, play or discard a leader
+     * @param passedLeaders available leader cards
+     * @param isDiscard true if the action is a discard a leader action
+     */
     @Override
     public void leaderAction(ArrayList<LeaderCard> passedLeaders,boolean isDiscard){
         ArrayList<Integer> id = new ArrayList<>();

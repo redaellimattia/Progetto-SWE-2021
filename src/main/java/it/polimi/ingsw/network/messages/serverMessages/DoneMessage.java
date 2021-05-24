@@ -7,6 +7,12 @@ public class DoneMessage extends ServerMessage{
     public DoneMessage() {
         super(ServerMessageType.DONE);
     }
+
+    /**
+     * If the production is still going, continue it
+     * Otherwise update the view
+     * @param clientManager clientManager of the player
+     */
     @Override
     public void useMessage(ClientManager clientManager){
         if(clientManager.isProductionActionOnGoing())
