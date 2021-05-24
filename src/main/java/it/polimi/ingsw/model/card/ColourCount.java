@@ -1,6 +1,6 @@
 package it.polimi.ingsw.model.card;
 
-import it.polimi.ingsw.view.CliColours;
+import it.polimi.ingsw.view.cli.CliColours;
 
 public class ColourCount {
     private int green;

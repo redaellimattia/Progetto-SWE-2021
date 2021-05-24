@@ -2,9 +2,8 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.DeckDashboard;
 import it.polimi.ingsw.model.PlayerDashboard;
-import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.CardColour;
-import it.polimi.ingsw.view.CliColours;
+import it.polimi.ingsw.view.cli.CliColours;
 
 import java.util.ArrayList;
 
