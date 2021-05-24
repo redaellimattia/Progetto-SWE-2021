@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller;
 
 import it.polimi.ingsw.controller.action.Action;
+import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
 import it.polimi.ingsw.controller.action.productionAction.BasicProductionAction;
 import it.polimi.ingsw.controller.action.productionAction.DevCardProductionAction;
 import it.polimi.ingsw.controller.action.productionAction.LeaderCardProductionAction;
@@ -8,10 +9,13 @@ import it.polimi.ingsw.controller.action.productionAction.ProductionAction;
 import it.polimi.ingsw.exceptions.action.IllegalActionException;
 import it.polimi.ingsw.model.PlayerDashboard;
 
+import java.util.ArrayList;
+
 public class PlayerTurnManager {
     private PlayerDashboard player;
     private Action action;
     private Action sideAction;
+    private ArrayList<AtomicMarketAction> marketChoices;
 
     /**
      *
@@ -20,6 +24,7 @@ public class PlayerTurnManager {
     public PlayerTurnManager(PlayerDashboard player) {
         this.player = player;
         this.action = null;
+        this.marketChoices = new ArrayList<AtomicMarketAction>();
     }
 
     /**
@@ -116,5 +121,13 @@ public class PlayerTurnManager {
             action = new ProductionAction();
         }
         action.addLeaderCardProduction(leaderCardProduction,player);
+    }
+
+    /**
+     * Adds an atomicMarketAction to the marketChoices buffer
+     * @param atomicMarketAction the atomicMarketAction chosen by the client
+     */
+    public void addMarketChoice(AtomicMarketAction atomicMarketAction) {
+        marketChoices.add(atomicMarketAction);
     }
 }

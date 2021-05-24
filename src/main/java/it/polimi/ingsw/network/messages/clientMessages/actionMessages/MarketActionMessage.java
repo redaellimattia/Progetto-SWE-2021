@@ -42,10 +42,11 @@ public abstract class MarketActionMessage extends ActionMessage{
             case GETRESOURCE:
                 return gson.fromJson(jsonObj, GetResourceMessage.class);
             case DISCARDRESOURCE:
-                //return gson.fromJson(jsonObj, CardShopMessage.class);
+                return gson.fromJson(jsonObj, DiscardResourceMessage.class);
             case CONVERTMARBLE:
+                return gson.fromJson(jsonObj, ConvertMarbleMessage.class);
             case ENDMARKETACTION:
-
+                return gson.fromJson(jsonObj, EndMarketActionMessage.class);
             default:
                 throw new IllegalArgumentException("actionType not found.");
         }
