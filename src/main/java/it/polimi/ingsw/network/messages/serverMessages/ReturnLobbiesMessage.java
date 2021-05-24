@@ -7,16 +7,16 @@ import it.polimi.ingsw.network.enumeration.ServerMessageType;
 import java.util.ArrayList;
 
 public class ReturnLobbiesMessage extends ServerMessage {
-    private ArrayList<availableGameLobbies> availableGameLobbies;
+    private final ArrayList<availableGameLobbies> availableGameLobbies;
 
     public ReturnLobbiesMessage(ArrayList<GameLobby> gameLobbies) {
         super(ServerMessageType.LOBBIES);
         availableGameLobbies = new ArrayList<>();
         for(GameLobby g:gameLobbies)
-            availableGameLobbies.add(new availableGameLobbies(g.getServerThreadID(),g.getNumberOfPlayers(),g.getPlayers()));
+            availableGameLobbies.add(new availableGameLobbies(g.getServerThreadID(), g.getNumberOfPlayers(), g.getPlayers()));
     }
 
-    public class availableGameLobbies {
+    public static class availableGameLobbies {
         private final long serverThreadID;
         private final int numberOfPlayers;
         private final ArrayList<String> players;
@@ -40,6 +40,11 @@ public class ReturnLobbiesMessage extends ServerMessage {
         }
     }
 
+    /**
+     * Prints the available lobbies
+     *
+     * @param clientManager clientManager of the player
+     */
     @Override
     public void useMessage(ClientManager clientManager){
         clientManager.getView().printLobbies(availableGameLobbies);

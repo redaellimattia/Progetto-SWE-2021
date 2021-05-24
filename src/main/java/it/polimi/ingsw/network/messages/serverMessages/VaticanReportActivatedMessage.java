@@ -6,8 +6,8 @@ import it.polimi.ingsw.network.enumeration.ServerMessageType;
 import java.util.ArrayList;
 
 public class VaticanReportActivatedMessage extends ServerMessage {
-    private int victoryPoints;
-    private ArrayList<String> nicknames;
+    private final int victoryPoints;
+    private final ArrayList<String> nicknames;
 
     public VaticanReportActivatedMessage(int victoryPoints, ArrayList<String> nicknames) {
         super(ServerMessageType.VATICANREPORT);
@@ -15,6 +15,11 @@ public class VaticanReportActivatedMessage extends ServerMessage {
         this.nicknames = nicknames;
     }
 
+    /**
+     * Updates the vatican report then prints the message
+     *
+     * @param clientManager clientManager of the player
+     */
     @Override
     public void useMessage(ClientManager clientManager){
         clientManager.getGameStatus().updateVaticanReport(victoryPoints);

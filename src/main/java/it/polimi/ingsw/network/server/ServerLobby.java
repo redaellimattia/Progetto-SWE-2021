@@ -25,17 +25,17 @@ public class ServerLobby extends Thread implements Observer {
     private final Object gameLock = new Object();
     private final Map<String, SocketConnection> clients;
     private final GameLobby gameLobby;
-    private final long serverID;
+    private final long lobbyID;
 
     /**
      * Creating Game Lobby, Clients HashMap and starting the Thread
      */
-    public ServerLobby(int numberOfPlayers, long serverID){
+    public ServerLobby(int numberOfPlayers, long lobbyID){
         this.clients = new HashMap<>();
-        this.serverID = serverID;
-        this.gameLobby = new GameLobby(this.serverID,numberOfPlayers);
+        this.lobbyID = lobbyID;
+        this.gameLobby = new GameLobby(this.lobbyID,numberOfPlayers);
         this.gameLobby.addObserver(this);
-        Server.LOGGER.log(Level.INFO, "Server: "+ this.serverID+" Game lobby created with "+numberOfPlayers+" players.");
+        Server.LOGGER.log(Level.INFO, "Server: "+ this.lobbyID +" Game lobby created with "+numberOfPlayers+" players.");
     }
 
     //GETTERS
@@ -44,7 +44,7 @@ public class ServerLobby extends Thread implements Observer {
      * @return this Server ID
      */
     public long getLobbyId(){
-        return this.serverID;
+        return this.lobbyID;
     }
     public Map<String, SocketConnection> getClients() {
         return new HashMap<>(clients);
@@ -129,8 +129,9 @@ public class ServerLobby extends Thread implements Observer {
         synchronized (gameLock) {
             if(gameLobby.isGameCreated()) {
                 clients.put(nickname, clientConnection);
-                Server.LOGGER.log(Level.INFO, nickname + " is back in the lobby #" + this.serverID);
-                clientConnection.send(new JoinedLobbyMessage(this.serverID).serialize());
+                Server.LOGGER.log(Level.INFO, nickname + " is back in the lobby #" + this.lobbyID);
+                clientConnection.send(new JoinedLobbyMessage(this.lobbyID).serialize());
+                clientConnection.send(new PrintMessage("Joined correctly the game with Lobby ID: " + this.lobbyID).serialize());
                 clientConnection.send(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(), gameLobby.getGameManager().getGame().getMarket(), gameLobby.getGameManager().getGame().getvReports()).serialize());
                 if(gameLobby.isGameStarted())
                     clientConnection.send(new GameStartedMessage().serialize());
@@ -167,8 +168,9 @@ public class ServerLobby extends Thread implements Observer {
                 throw new GameAlreadyStartedException();
             gameLobby.addPlayer(nickname);
             clients.put(nickname, clientConnection);
-            Server.LOGGER.log(Level.INFO,nickname+" joined the lobby #"+ this.serverID+", "+(gameLobby.getNumberOfPlayers()-clients.size())+" players to go!");
-            clientConnection.send(new JoinedLobbyMessage(this.serverID).serialize());
+            Server.LOGGER.log(Level.INFO,nickname+" joined the lobby #"+ this.lobbyID +", "+(gameLobby.getNumberOfPlayers()-clients.size())+" players to go!");
+            clientConnection.send(new JoinedLobbyMessage(this.lobbyID).serialize());
+            clientConnection.send(new PrintMessage("Joined correctly the game with Lobby ID: " + this.lobbyID).serialize());
             //Send message to the clients that are waiting
             for(String key : clients.keySet())
                 if(!key.equals(nickname))
@@ -363,7 +365,7 @@ public class ServerLobby extends Thread implements Observer {
             clients.get(key).disconnect();
             clients.remove(key);
         }
-        Server.closeLobby(this.serverID);
+        Server.closeLobby(this.lobbyID);
     }
 
     @Override

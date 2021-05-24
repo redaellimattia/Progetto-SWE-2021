@@ -7,8 +7,8 @@ import it.polimi.ingsw.network.enumeration.ServerMessageType;
 import java.util.ArrayList;
 
 public class PreGameMessage extends ServerMessage{
-    ArrayList<LeaderCard> leaders;
-    int numberOfResources;
+    private final ArrayList<LeaderCard> leaders;
+    private final int numberOfResources;
 
     public PreGameMessage(ArrayList<LeaderCard> leaders,int numberOfResources) {
         super(ServerMessageType.PREGAME);
@@ -16,6 +16,11 @@ public class PreGameMessage extends ServerMessage{
         this.numberOfResources = numberOfResources;
     }
 
+    /**
+     * Starts the preGameChoice of the client
+     *
+     * @param clientManager clientManager of the player
+     */
     @Override
     public void useMessage(ClientManager clientManager){
         clientManager.getView().preGameChoice(this.leaders,this.numberOfResources);

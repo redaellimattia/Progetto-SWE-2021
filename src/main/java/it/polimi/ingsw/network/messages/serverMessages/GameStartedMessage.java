@@ -8,6 +8,11 @@ public class GameStartedMessage extends ServerMessage{
         super(ServerMessageType.STARTGAME);
     }
 
+    /**
+     * Sets the game as started
+     *
+     * @param clientManager clientManager of the player
+     */
     @Override
     public void useMessage(ClientManager clientManager){
         clientManager.setGameStarted(true);

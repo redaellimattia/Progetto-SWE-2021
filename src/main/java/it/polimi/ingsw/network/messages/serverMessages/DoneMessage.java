@@ -11,6 +11,7 @@ public class DoneMessage extends ServerMessage{
     /**
      * If the production is still going, continue it
      * Otherwise update the view
+     *
      * @param clientManager clientManager of the player
      */
     @Override
