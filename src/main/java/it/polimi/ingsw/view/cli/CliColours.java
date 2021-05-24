@@ -11,6 +11,7 @@ public enum CliColours {
     PURPLE  ("\u001B[35m"),
     CYAN  ("\u001B[36m"),
     WHITE ("\u001B[37m"),
+
     // Bold
     BLACK_BOLD ("\033[1;30m"),
     RED_BOLD ("\033[1;31m"),
