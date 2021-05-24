@@ -123,20 +123,30 @@ public class ServerLobby extends Thread implements Observer {
     public void knownPlayerLogin(int playerPosition,String nickname,SocketConnection clientConnection){
         synchronized (gameLock) {
             if(gameLobby.isGameCreated()) {
-                gameLobby.getGameManager().playerComeback(playerPosition);
                 clients.put(nickname, clientConnection);
                 Server.LOGGER.log(Level.INFO, nickname + " is back in the lobby #" + getThreadId());
                 clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
                 clientConnection.send(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(), gameLobby.getGameManager().getGame().getMarket(), gameLobby.getGameManager().getGame().getvReports()).serialize());
                 if(gameLobby.isGameStarted())
                     clientConnection.send(new GameStartedMessage().serialize());
-                if (gameLobby.getNumberOfPlayers() == 1 && gameLobby.isGameStarted())
-                    clientConnection.send(new YourTurnMessage().serialize());
-                else
-                    if(gameLobby.getNumberOfPlayers() == 1 && !gameLobby.isGameStarted())
+
+                if(gameLobby.isGameStarted()&&!gameLobby.getGameManager().isAnyoneConnected()) {
+                    for(PlayerDashboard p:gameLobby.getGameManager().getGame().getPlayers()){
+                        if(p.getNickname().equals(nickname)) {
+                            gameLobby.getGameManager().getTurnManager().setPlayer(p);
+                            clientConnection.send(new YourTurnMessage().serialize());
+                        }
+                    }
+                }
+                else {
+                    if (gameLobby.getNumberOfPlayers() == 1 && gameLobby.isGameStarted())
+                        clientConnection.send(new YourTurnMessage().serialize());
+                    else if (gameLobby.getNumberOfPlayers() == 1 && !gameLobby.isGameStarted())
                         gameLobby.addReadyPlayer();
                     else
                         clientConnection.send(new WaitYourTurnMessage().serialize());
+                }
+                gameLobby.getGameManager().playerComeback(playerPosition);
             }
         }
     }
