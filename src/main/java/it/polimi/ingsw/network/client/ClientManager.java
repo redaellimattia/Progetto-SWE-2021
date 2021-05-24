@@ -352,6 +352,12 @@ public class ClientManager {
         return storage.getThirdRow().getContent() == 0 || (storage.getThirdRow().getContent() <= 2 && storage.getThirdRow().getResourceType().equals(resource));
     }
 
+    /**
+     * Check if it's is possible to swap two selected countertops
+     * @param from the starting position
+     * @param to the arriving position
+     * @return true if it's doable
+     */
     public boolean swapOk(int from, int to){
         PlayerDashboard p = getThisClientDashboard();
         ArrayList<CounterTop> supportShelves = p.getStorage().getShelvesArray();
