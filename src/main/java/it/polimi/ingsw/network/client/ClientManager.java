@@ -205,6 +205,7 @@ public class ClientManager {
      * @param outputResource Resource chosen by the user as output
      */
     public void basicProduction(ResourceCount storagePayment,ResourceCount chestPayment, Resource outputResource){
+        basicProductionDone = true;
         clientSocket.send(new BasicProductionMessage(nickname,serverLobbyID,outputResource,storagePayment,chestPayment).serialize());
     }
 
@@ -217,7 +218,8 @@ public class ClientManager {
      * @param chestCount amount of resources from the chest that the user wants to use in order to pay
      * @param res Resource chosen by the user as output
      */
-    public void leaderProduction(LeaderCard card,ResourceCount storageCount, ResourceCount chestCount, Resource res){
+    public void leaderProduction(int index,LeaderCard card,ResourceCount storageCount, ResourceCount chestCount, Resource res){
+        leaderCardProductionDone.add(index,true);
         clientSocket.send(new LeaderProductionMessage(nickname,serverLobbyID,card,storageCount,chestCount,res).serialize());
     }
 
@@ -229,7 +231,8 @@ public class ClientManager {
      * @param storageCount amount of resources from the storage that the user wants to use in order to pay
      * @param chestCount amount of resources from the chest that the user wants to use in order to pay
      */
-    public void devCardProduction(DevelopmentCard card,ResourceCount storageCount, ResourceCount chestCount){
+    public void devCardProduction(int index,DevelopmentCard card,ResourceCount storageCount, ResourceCount chestCount){
+        devCardProductionDone.add(index,true);
         clientSocket.send(new DevCardProductionMessage(nickname,serverLobbyID,card,storageCount,chestCount).serialize());
     }
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class EndMultiPlayerGameMessage extends ServerMessage{
     private ArrayList<PlayerPoints> scoreboard;
-
+    
     public EndMultiPlayerGameMessage(ArrayList<PlayerDashboard> players) {
         super(ServerMessageType.ENDMULTIPLAYERGAME);
         scoreboard = new ArrayList<>();
