@@ -17,15 +17,31 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Cli implements View {
-    public static final String RESET = CliColours.RESET.toString();
-    public static final String BLACK = CliColours.BLACK.toString();
-    public static final String RED = CliColours.RED.toString();
-    public static final String GREEN = CliColours.GREEN.toString();
-    public static final String YELLOW = CliColours.YELLOW.toString();
-    public static final String BLUE = CliColours.BLUE.toString();
-    public static final String PURPLE = CliColours.PURPLE.toString();
-    public static final String CYAN = CliColours.CYAN.toString();
-    public static final String WHITE = CliColours.WHITE.toString();
+    private static final String RESET = CliColours.RESET.toString();
+    private static final String BLACK = CliColours.BLACK.toString();
+    private static final String RED = CliColours.RED.toString();
+    private static final String GREEN = CliColours.GREEN.toString();
+    private static final String YELLOW = CliColours.YELLOW.toString();
+    private static final String BLUE = CliColours.BLUE.toString();
+    private static final String PURPLE = CliColours.PURPLE.toString();
+    private static final String CYAN = CliColours.CYAN.toString();
+    private static final String WHITE = CliColours.WHITE.toString();
+    private static final String BLACK_BOLD = CliColours.BLACK_BOLD.toString();
+    private static final String RED_BOLD = CliColours.RED_BOLD.toString();
+    private static final String GREEN_BOLD = CliColours.GREEN_BOLD.toString();
+    private static final String YELLOW_BOLD = CliColours.YELLOW_BOLD.toString();
+    private static final String BLUE_BOLD = CliColours.BLUE_BOLD.toString();
+    private static final String PURPLE_BOLD = CliColours.PURPLE_BOLD.toString();
+    private static final String CYAN_BOLD = CliColours.CYAN_BOLD.toString();
+    private static final String WHITE_BOLD = CliColours.WHITE_BOLD.toString();
+    private static final String BLACK_UNDERLINE = CliColours.BLACK_UNDERLINED.toString();
+    private static final String RED_UNDERLINED = CliColours.RED_UNDERLINED.toString();
+    private static final String GREEN_UNDERLINED = CliColours.GREEN_UNDERLINED.toString();
+    private static final String YELLOW_UNDERLINED = CliColours.YELLOW_UNDERLINED.toString();
+    private static final String BLUE_UNDERLINED = CliColours.BLUE_UNDERLINED.toString();
+    private static final String PURPLE_UNDERLINED = CliColours.PURPLE_UNDERLINED.toString();
+    private static final String CYAN_UNDERLINED = CliColours.CYAN_UNDERLINED.toString();
+    private static final String WHITE_UNDERLINED = CliColours.WHITE_UNDERLINED.toString();
 
     private final String lostLogo =     "██╗   ██╗ ██████╗ ██╗   ██╗    ██╗      ██████╗ ███████╗████████╗\n" +
                                         "╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║     ██╔═══██╗██╔════╝╚══██╔══╝\n" +
@@ -368,7 +384,7 @@ public class Cli implements View {
     @Override
     public void yourTurn() {
         clearView();
-        out.println(RED + "|||It's your turn|||" + RESET);
+        out.println(RED_BOLD + "|||It's your turn|||" + RESET);
         out.println("This is the actual state of your board: ");
         chooseAction();
     }
@@ -1025,9 +1041,9 @@ public class Cli implements View {
     private void printPlayer(String nickname) {
         PlayerDashboard player = clientManager.getGameStatus().getClientDashboard(nickname);
         if(nickname.equals(clientManager.getNickname()))
-            out.println(BLUE+"~~YOUR DASHBOARD"+"~~"+RESET);
+            out.println(BLUE_BOLD+"~~YOUR DASHBOARD"+"~~"+RESET);
         else
-            out.println(BLUE+"~~"+nickname+"'S DASHBOARD"+"~~"+RESET);
+            out.println(BLUE_BOLD+"~~"+nickname+"'S DASHBOARD"+"~~"+RESET);
         //VictoryPoints
         out.println(PURPLE+"VICTORY POINTS: "+player.getPoints()+RESET);
 
