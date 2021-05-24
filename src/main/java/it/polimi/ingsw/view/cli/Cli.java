@@ -1,8 +1,7 @@
-package it.polimi.ingsw.view;
+package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
 import it.polimi.ingsw.controller.action.marketAction.GetResource;
-import it.polimi.ingsw.exceptions.MasterOfRenaissanceException;
 import it.polimi.ingsw.exceptions.MasterOfRenaissanceRuntimeException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
@@ -11,6 +10,7 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.client.PlayerPoints;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
+import it.polimi.ingsw.view.View;
 
 import java.io.PrintStream;
 import java.util.ArrayList;

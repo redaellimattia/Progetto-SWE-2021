@@ -12,7 +12,7 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.messages.clientMessages.*;
 import it.polimi.ingsw.network.messages.clientMessages.actionMessages.*;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
-import it.polimi.ingsw.view.Cli;
+import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.View;
 
 import java.io.IOException;
