@@ -51,16 +51,25 @@ public class Cli implements View {
         this.clientManager = clientManager;
     }
 
+    /**
+     *  method to get an input from keyboard
+     * @return a String containing the input of the user
+     */
     private String readLine(){
         return in.next();
     }
 
-
+    /**
+     * method called upon the creation of a new Client
+     */
     @Override
     public void start() {
         printLogo();
     }
 
+    /**
+     * prints the logo of the game
+     */
     public void printLogo() {
         //SITO PER GENERARE ASCII ART
         //https://patorjk.com/software/taag/#p=testall&f=Elite&t=Master%20of%20Renaissance%20
@@ -78,6 +87,10 @@ public class Cli implements View {
         out.println(logo);
     }
 
+    /**
+     * shows to the player all the lobby already created and display choice on how to proceed
+     * @param availableGameLobbies arraylist of lobbies provided by the server upon connection
+     */
     @Override
     public void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies) {
         String input;
@@ -119,6 +132,9 @@ public class Cli implements View {
             clientManager.askLobbies();
     }
 
+    /**
+     * method called when the player wants to create a new game
+     */
     @Override
     public void createNewGame() {
         clearView();
@@ -130,7 +146,10 @@ public class Cli implements View {
         clearView();
     }
 
-
+    /**
+     * method called when the player wants to join an already existing game
+     * @param availableGameLobbies arraylist used to do proper controls on the choice of the player
+     */
     @Override
     public void joinExistingGame(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies) {
         out.println("Now you can choose the game to join! ");
@@ -142,6 +161,11 @@ public class Cli implements View {
         clearView();
     }
 
+    /**
+     *
+     * @param availableGameLobbies arraylist used to do proper controls on the choice of the player
+     * @return the serverID chosen by the user for the game to join
+     */
     public long askForServerID(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies) {
         String chosen;
         String input;
@@ -166,6 +190,10 @@ public class Cli implements View {
         return chosenId;
     }
 
+    /**
+     *
+     * @return number of players chosen by the player when creating a new game
+     */
     public int askNumberOfPlayers() {
         String number;
         String input;
@@ -187,6 +215,10 @@ public class Cli implements View {
         return num;
     }
 
+    /**
+     *
+     * @return nickname chosen by the user to represent him in the game
+     */
     public String askForNickname() {
         String nickname;
         String input;
@@ -203,6 +235,11 @@ public class Cli implements View {
         return nickname;
     }
 
+    /**
+     * initialization of game, with leaders and resources
+     * @param leaders four leaders provided by the server, of which the player needs to choose two
+     * @param numberOfResources (optional) choice of resources by the player to start the game with
+     */
     public void preGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources) {
         out.println("The game is about to start, choose your initial setup!\n");
         ArrayList<Resource> resources = new ArrayList<>();
@@ -215,6 +252,11 @@ public class Cli implements View {
         clientManager.preGameChoice(resources, chosenLeaders);
     }
 
+    /**
+     *
+     * @param leaders four leaders provided by the server
+     * @return an arraylist of two leaders, chosen by the player
+     */
     private ArrayList<LeaderCard> askLeaders(ArrayList<LeaderCard> leaders) {
         ArrayList<LeaderCard> leadersChosen = new ArrayList<>();
         int counter = 2;
@@ -238,6 +280,10 @@ public class Cli implements View {
         return leadersChosen;
     }
 
+    /**
+     * method used to print on screen leader cards
+     * @param leaders the arraylist of leaders to print
+     */
     private void printLeaders(ArrayList<LeaderCard> leaders) {
         for (LeaderCard l : leaders) {
             out.println("ID: " + l.getId() + "\n" +
@@ -256,6 +302,11 @@ public class Cli implements View {
         }
     }
 
+    /**
+     * method used in the pregame settings to give the 2nd, 3rd and 4th player 1,1 and 2 resources each respectively
+     * @param numberOfResources counter of resources the player need to choose
+     * @return an arraylist containing the chosen resources
+     */
     private ArrayList<Resource> askResources(int numberOfResources) {
         String resource;
         ArrayList<Resource> resources = new ArrayList<>();
@@ -295,7 +346,9 @@ public class Cli implements View {
         return resources;
     }
 
-
+    /**
+     * displays the current situation of the game to a waiting player, upon update from the server
+     */
     @Override
     public void waitingForTurn() {
         out.println("\nWait for the other players to play their turn, in the meantime you can peek around the board to keep updated.");
@@ -309,6 +362,9 @@ public class Cli implements View {
         printMsg("Waiting updates...");
     }
 
+    /**
+     * shows current situation of the board of a player who has the turn
+     */
     @Override
     public void yourTurn() {
         clearView();
@@ -317,6 +373,9 @@ public class Cli implements View {
         chooseAction();
     }
 
+    /**
+     * used to ask the player how he wants to go on with his turn, the choice for the action to make
+     */
     public void chooseAction(){
         PlayerDashboard thisPlayerDashboard = clientManager.getThisClientDashboard();
         printPlayer(thisPlayerDashboard.getNickname());
@@ -382,11 +441,18 @@ public class Cli implements View {
             }
         }
     }
+
+    /**
+     * upon choice to end the turn, call the clientManager method who handles the choice
+     */
     @Override
     public void endTurn(){
         clientManager.endTurn();
     }
 
+    /**
+     * upon choice to buy a card, shows the market and calls the method to continue the purchase
+     */
     @Override
     public void buyCard(){
         String input;
@@ -416,6 +482,12 @@ public class Cli implements View {
         clientManager.buyCard(storagePayment,chestPayment,id,position);
     }
 
+    /**
+     * ask the player how he prefers to pay (where to take resources first) and calls proper methods
+     * @param cost cost that needs to be covered to complete the purchase
+     * @param storage amount of resources taken by the storage to pay
+     * @param chest amount of resources taken by the chest to pay
+     */
     private void askPayment(ResourceCount cost, ResourceCount storage, ResourceCount chest){
         String input;
         do{
@@ -435,6 +507,12 @@ public class Cli implements View {
         }
     }
 
+    /**
+     *  ask for the resources from the Storage to pay with
+     * @param cost cost that still needs to be covered
+     * @param needToCover boolean (the cost may not have already been covered entirely if coming from the chest payment)
+     * @return a ResourceCount containing the resources chosen from the storage
+     */
     private ResourceCount askStoragePayment(ResourceCount cost,boolean needToCover){
         out.println("To buy this card you need to pay: " + cost);
         out.println("Now insert the resources you want to pay with FROM THE STORAGE: ");
@@ -444,6 +522,12 @@ public class Cli implements View {
         return storagePayment;
     }
 
+    /**
+     *  ask for the resources from the Chest to pay with
+     * @param cost cost that still needs to be covered
+     * @param needToCover boolean (the cost may not have already been covered entirely if coming from the storage payment)
+     * @return a ResourceCount containing the resources chosen from the chest
+     */
     private ResourceCount askChestPayment(ResourceCount cost,boolean needToCover){
         out.println("To buy this card you need to pay: " + cost);
         out.println("Now insert the resources you want to pay with FROM THE CHEST: ");
@@ -453,6 +537,13 @@ public class Cli implements View {
         return chestPayment;
     }
 
+    /**
+     *
+     * @param temporary ResourceCount that keeps track of the choices of the player (representing storage or chest)
+     * @param payment ResourceCount that will contain the chosen resources to pay
+     * @param cost amount of resources that need to be covered
+     * @param needToCover boolean representing if the cost still needs to be covered completely
+     */
     private void addResourceToPayment(ResourceCount temporary, ResourceCount payment, ResourceCount cost, boolean needToCover){
         String input;
         do {
@@ -721,6 +812,12 @@ public class Cli implements View {
         clientManager.getDevCardProductionDone().add(index,true);
     }
 
+    /**
+     * method used to ask the player for a card ID
+     * @param id arraylist containing possible ids to chose within
+     * @param msg message to print before the choice
+     * @return chosen id
+     */
     public int askCardID(ArrayList<Integer> id,String msg){
         String input;
         int ID;
@@ -765,6 +862,9 @@ public class Cli implements View {
             }
     }
 
+    /**
+     * called upon player's choice to organize resources, display possible choices
+     */
     @Override
     public void organizeResources(){
         int count = 1;
@@ -797,6 +897,11 @@ public class Cli implements View {
                 else
                     organizeResources();
     }
+
+    /**
+     * organizing resources concerning a special ability's deposit
+     * @param leaderDeposit the chosen special ability's deposit
+     */
     private void leaderMoveResources(CounterTop leaderDeposit){
         String input;
         do{
@@ -816,10 +921,20 @@ public class Cli implements View {
             chooseAction();
     }
 
+    /**
+     * moving resources from a leader's deposit to the storage
+     * @param leaderDeposit chosen leader's deposit
+     */
     private void moveFromLeader(CounterTop leaderDeposit){
         int num = askNumberResourcesToMove(leaderDeposit);
         clientManager.moveLeaderResources(leaderDeposit.getResourceType(), num,true);
     }
+
+    /**
+     * asking how many resources the player wants to include in the move
+     * @param counterTop shelf from which the resources will be removed
+     * @return chosen number of resources
+     */
     private int askNumberResourcesToMove(CounterTop counterTop){
         String input;
         int num = -1;
@@ -831,10 +946,18 @@ public class Cli implements View {
         return num;
     }
 
+    /**
+     * moving resources from the storage to a leader's deposit
+     * @param leaderDeposit chosen leader's deposit
+     */
     private void moveToLeader(CounterTop leaderDeposit){
         int num = askNumberResourcesToMove(leaderDeposit);
         clientManager.moveLeaderResources(leaderDeposit.getResourceType(), num,false);
     }
+
+    /**
+     * swap of two shelves on the storage
+     */
     private void organizeStorage(){
         String input;
         int num = -1;
@@ -861,6 +984,10 @@ public class Cli implements View {
         }
     }
 
+    /**
+     * printing the board of a specific player
+     * @param nickname of the player we want to print the board
+     */
     private void printPlayer(String nickname) {
         PlayerDashboard player = clientManager.getGameStatus().getClientDashboard(nickname);
         if(nickname.equals(clientManager.getNickname()))
@@ -901,6 +1028,9 @@ public class Cli implements View {
         }
     }
 
+    /**
+     * print the current situation of the Market Dashboard
+     */
     private void printMarket() {
         MarketDashboard market = clientManager.getGameStatus().getMarket();
         MarketMarble[][] grid = market.getStructure();
@@ -955,6 +1085,10 @@ public class Cli implements View {
         out.println("Legend: W -> White |" + RED + " R -> Red |" + RESET + YELLOW + " Y -> Yellow |" + RESET + WHITE + " G -> Gray |" + RESET + PURPLE + " P -> Purple |" + RESET + BLUE + " B -> Blue " + RESET);
     }
 
+    /**
+     * print the current situation of the Shop
+     * @param isMyTurn if it's my turn, the Id-lookup functionality is activated in case of a card shop action
+     */
     private void printShop(boolean isMyTurn) {
         Deck[][] shop = clientManager.getGameStatus().getShop().getGrid();
         out.println(BLUE + "~~SHOP GRID~~" + RESET);
@@ -1010,6 +1144,10 @@ public class Cli implements View {
         }
     }
 
+    /**
+     * method to print a specific Development Card
+     * @param card that needs to be printed
+     */
     void printDevCard(DevelopmentCard card){
         out.print("ID: " + card.getId() +"\n" +
                 "Level: " + card.getLevel() +"\n" +
@@ -1031,6 +1169,11 @@ public class Cli implements View {
                 "Output: " + card.getProductionPower().getOutput().toString());
     }
 
+    /**
+     * called upon Vatican Report activation, show the player if they benefits from it or not
+     * @param victoryPoints points gained from the vatican report
+     * @param nicknames arraylist containing all the names of the players affected by the vatican report
+     */
     @Override
     public void vaticanReportActivated(int victoryPoints,ArrayList<String> nicknames){
         String playerNickname = clientManager.getNickname();
@@ -1051,6 +1194,10 @@ public class Cli implements View {
         out.println(RESET);
     }
 
+    /**
+     * print the player's leader cards
+     * @param leaderCards arraylist of the leader cards in his possess
+     */
     private void printPlayerLeaderCards(ArrayList<LeaderCard> leaderCards){
         out.println(PURPLE+"--LEADER CARDS--"+RESET);
         if(leaderCards.size()!=0)
@@ -1059,6 +1206,10 @@ public class Cli implements View {
             out.println("No leader cards in game!");
     }
 
+    /**
+     * print the development cards in possess of a player
+     * @param devCards decks of cards to print
+     */
     private void printPlayerDevCards(DeckDashboard[] devCards){
         out.println(PURPLE+"--DEVELOPMENT CARDS--"+RESET);
         boolean printed = false;
@@ -1072,6 +1223,11 @@ public class Cli implements View {
             out.println("No development cards yet!");
     }
 
+    /**
+     * print the position of a player on the faith path
+     * @param position the specific position
+     * @param nickname of the player
+     */
     private void printPathPosition(int position,String nickname){
         out.println(PURPLE+"--FAITH PATH--"+RESET);
         if(nickname.equals(clientManager.getNickname()))
@@ -1106,6 +1262,13 @@ public class Cli implements View {
         out.println();
     }
 
+    /**
+     * used to model the faith path
+     * @param playerIsHere indicates the player is on the specific cell
+     * @param victoryPoints granted by surpassing the cell on the faith path
+     * @param isVaticanReport is a Pope's dialogue cell that activates a vatican report
+     * @param vaticanReportPoints points granted by the vatican report
+     */
     private void printFaithPathCell(boolean playerIsHere,int victoryPoints,boolean isVaticanReport,int vaticanReportPoints){
         if(playerIsHere&&victoryPoints!=0&&isVaticanReport)
             out.print("["+GREEN+victoryPoints+BLUE+"*"+YELLOW+"VR"+vaticanReportPoints+RESET+"]");
@@ -1135,17 +1298,29 @@ public class Cli implements View {
         }
     }
 
+    /**
+     * print the player's special ability deposits
+     * @param arrayDeposits arraylist of the special ability deposits
+     */
     private void printArrayDeposits(ArrayList<CounterTop> arrayDeposits){
         out.println(PURPLE+"--SPECIAL ABILITY DEPOSITS--"+RESET);
         for(CounterTop counterTop:arrayDeposits)
             printCounterTop(counterTop);
     }
 
+    /**
+     * print the temporary situation of the buffer during a production action
+     * @param bufferProduction temporary buffer
+     */
     private void printBufferProduction(ResourceCount bufferProduction){
         out.println(PURPLE+"--PRODUCTION RESOURCES--"+RESET);
         out.println(bufferProduction);
     }
 
+    /**
+     * print the resources contained in the chest
+     * @param chest player's chest
+     */
     private void printChest(ResourceCount chest){
         out.println(PURPLE+"--CHEST--"+RESET);
         if(ResourceCount.resCountToInt(chest)>0)
@@ -1154,6 +1329,10 @@ public class Cli implements View {
             out.println("EMPTY");
     }
 
+    /**
+     * print the situation of the countertops in the storage
+     * @param storage player's storage
+     */
     private void printStorage(Storage storage){
         out.println(PURPLE+"--STORAGE--"+RESET);
         printCounterTop(storage.getFirstRow());
@@ -1161,6 +1340,10 @@ public class Cli implements View {
         printCounterTop(storage.getThirdRow());
     }
 
+    /**
+     * print a specific countertop (resource,content)
+     * @param counterTop specific countertop
+     */
     private void printCounterTop(CounterTop counterTop){
         if(counterTop.getContent()>0)
             out.print("Resource: "+counterTop.getResourceType()+" ");
@@ -1172,6 +1355,11 @@ public class Cli implements View {
             out.println();
     }
 
+    /**
+     * endgame method for a single player game, displays final points and whether is a win or a lose
+     * @param lorenzoWin true if Lorenzo won the game
+     * @param playerPoints final points of the player
+     */
     @Override
     public void endGame(boolean lorenzoWin, int playerPoints) {
         if(lorenzoWin)
@@ -1180,6 +1368,10 @@ public class Cli implements View {
             out.println(GREEN+winLogo+RESET+"\n                You had: "+playerPoints+" victory points.");
     }
 
+    /**
+     * endgame method for a multiplayer game, displays the scoreboard and a logo
+     * @param scoreboard final scoreboard sorted by the number of victory points
+     */
     @Override
     public void endGame(ArrayList<PlayerPoints> scoreboard) {
         PlayerPoints winner = scoreboard.get(0);
@@ -1205,11 +1397,18 @@ public class Cli implements View {
         out.println();
     }
 
+    /**
+     * generic method used to print a message
+     * @param msg String that needs to be printed
+     */
     @Override
     public void printMsg(String msg) {
         out.println(YELLOW + msg + RESET);
     }
 
+    /**
+     * used to clear the cli window.
+     */
     @Override
     public void clearView() {
         out.print("\033[H\033[2J");
