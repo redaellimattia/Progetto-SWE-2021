@@ -1,7 +1,6 @@
 package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 
