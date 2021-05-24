@@ -557,6 +557,9 @@ public class ClientManager {
         switch(row) {
             case 1:
                 if(getThisClientDashboard().getStorage().getFirstRow().getContent() == 0) {
+                    if(!canCreateNewRow(res)){
+                        throw new WrongCounterTopException(res); // User cannot have two counterTops with the same Resource type
+                    }
                     return true;
                 }
                 if(getThisClientDashboard().getStorage().getFirstRow().getResourceType() != res) {
@@ -570,6 +573,9 @@ public class ClientManager {
                 return true;
             case 2:
                 if(getThisClientDashboard().getStorage().getSecondRow().getContent() == 0) {
+                    if(!canCreateNewRow(res)){
+                        throw new WrongCounterTopException(res); // User cannot have two counterTops with the same Resource type
+                    }
                     return true;
                 }
                 if(getThisClientDashboard().getStorage().getSecondRow().getResourceType() != res) {
@@ -583,6 +589,9 @@ public class ClientManager {
                 return true;
             case 3:
                 if(getThisClientDashboard().getStorage().getThirdRow().getContent() == 0) {
+                    if(!canCreateNewRow(res)){
+                        throw new WrongCounterTopException(res); // User cannot have two counterTops with the same Resource type
+                    }
                     return true;
                 }
                 if(getThisClientDashboard().getStorage().getThirdRow().getResourceType() != res) {
@@ -605,6 +614,20 @@ public class ClientManager {
                 return false;
                 //throw new IllegalArgumentException();
         }
+    }
+
+    /**
+     * Check if the user already has a non-empty counterTop for this resource type
+     * @param res the resource type
+     * @return true if there is NOT another counterTop of the same type
+     */
+    public boolean canCreateNewRow(Resource res) {
+        for(CounterTop c: getThisClientDashboard().getStorage().getShelvesArray()) {
+            if(c.getContent() != 0 && c.getResourceType().equals(res)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public boolean hasWhiteChangeAbility() {
