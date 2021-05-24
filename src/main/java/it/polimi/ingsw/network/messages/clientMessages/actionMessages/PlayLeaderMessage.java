@@ -8,7 +8,7 @@ import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public class PlayLeaderMessage extends ActionMessage {
-    private LeaderCard card;
+    private final LeaderCard card;
 
     public PlayLeaderMessage(String nickname, long serverThreadID,LeaderCard card) {
         super(ActionType.PLAYLEADER, nickname, serverThreadID);

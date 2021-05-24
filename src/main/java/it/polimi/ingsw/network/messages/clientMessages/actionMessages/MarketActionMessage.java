@@ -9,12 +9,15 @@ import it.polimi.ingsw.network.server.SocketConnection;
 import java.util.ArrayList;
 
 public class MarketActionMessage extends ActionMessage{
-    private int type;
-    private int pos;
-    private ArrayList<AtomicMarketAction> choices;
+    private final int type;
+    private final int pos;
+    private final ArrayList<AtomicMarketAction> choices;
 
-    public MarketActionMessage(String nickname, long serverThreadID) {
+    public MarketActionMessage(String nickname, long serverThreadID,int type, int pos, ArrayList<AtomicMarketAction> choices) {
         super(ActionType.MARKETACTION, nickname, serverThreadID);
+        this.type = type;
+        this.pos = pos;
+        this.choices = choices;
     }
 
     /**

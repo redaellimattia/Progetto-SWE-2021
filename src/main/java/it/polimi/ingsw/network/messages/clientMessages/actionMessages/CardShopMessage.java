@@ -9,11 +9,11 @@ import it.polimi.ingsw.network.server.SocketConnection;
 
 public class CardShopMessage extends ActionMessage {
 
-    private int row;
-    private int column;
-    private int deckPosition;
-    private ResourceCount storageCount;
-    private ResourceCount chestCount;
+    private final int row;
+    private final int column;
+    private final int deckPosition;
+    private final ResourceCount storageCount;
+    private final ResourceCount chestCount;
 
     public CardShopMessage(String nickname, long serverThreadID, int row, int column, int deckPosition, ResourceCount storageCount, ResourceCount chestCount) {
         super(ActionType.CARDSHOP, nickname, serverThreadID);
@@ -41,10 +41,6 @@ public class CardShopMessage extends ActionMessage {
 
     public int getColumn() {
         return column;
-    }
-
-    public int getDeckPosition() {
-        return deckPosition;
     }
 
     public ResourceCount getStorageCount() {

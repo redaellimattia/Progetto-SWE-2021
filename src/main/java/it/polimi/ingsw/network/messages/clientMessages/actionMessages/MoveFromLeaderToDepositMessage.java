@@ -7,9 +7,9 @@ import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public class MoveFromLeaderToDepositMessage extends ActionMessage{
-    private int from_leader;
-    private int to_deposit;
-    private int number;
+    private final int from_leader;
+    private final int to_deposit;
+    private final int number;
 
     public MoveFromLeaderToDepositMessage(String nickname, long serverThreadID, int from_leader, int to_deposit, int number) {
         super(ActionType.MOVEFROMLEADERTODEPOSIT, nickname, serverThreadID);

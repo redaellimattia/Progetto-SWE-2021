@@ -9,9 +9,9 @@ import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public class DevCardProductionMessage extends ActionMessage{
-    DevelopmentCard card;
-    ResourceCount storageCount;
-    ResourceCount chestCount;
+    private final DevelopmentCard card;
+    private final ResourceCount storageCount;
+    private final ResourceCount chestCount;
 
     public DevCardProductionMessage(String nickname, long serverThreadID,DevelopmentCard card,ResourceCount storageCount,ResourceCount chestCount) {
         super(ActionType.DEVCARDPRODUCTION, nickname, serverThreadID);

@@ -9,9 +9,9 @@ import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public class BasicProductionMessage extends ActionMessage{
-    private Resource res;
-    private ResourceCount storageCount;
-    private ResourceCount chestCount;
+    private final Resource res;
+    private final ResourceCount storageCount;
+    private final ResourceCount chestCount;
 
     public BasicProductionMessage(String nickname, long serverThreadID,Resource res,ResourceCount storageCount,ResourceCount chestCount) {
         super(ActionType.BASICPRODUCTION,nickname, serverThreadID);

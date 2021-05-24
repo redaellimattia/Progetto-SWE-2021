@@ -6,8 +6,8 @@ import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public class OrganizeStorageMessage extends ActionMessage{
-    private int from;
-    private int to;
+    private final int from;
+    private final int to;
 
     public OrganizeStorageMessage(String nickname, long serverThreadID, int from, int to) {
         super(ActionType.ORGANIZESTORAGE, nickname, serverThreadID);

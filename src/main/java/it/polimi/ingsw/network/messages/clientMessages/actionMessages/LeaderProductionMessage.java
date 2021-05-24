@@ -10,10 +10,10 @@ import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
 
 public class LeaderProductionMessage extends ActionMessage{
-    LeaderCard card;
-    ResourceCount storageCount;
-    ResourceCount chestCount;
-    Resource res;
+    private final LeaderCard card;
+    private final ResourceCount storageCount;
+    private final ResourceCount chestCount;
+    private final Resource res;
 
     public LeaderProductionMessage(String nickname, long serverThreadID,LeaderCard card,ResourceCount storageCount, ResourceCount chestCount, Resource res) {
         super(ActionType.LEADERPRODUCTION, nickname, serverThreadID);
