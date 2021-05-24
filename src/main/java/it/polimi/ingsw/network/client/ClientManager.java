@@ -300,6 +300,35 @@ public class ClientManager {
        gameStatus.updateDevCards(nickname,devCards);
     }
 
+    public boolean canMoveToLeader(Resource resource){
+        PlayerDashboard p = getThisClientDashboard();
+        Storage storage = p.getStorage();
+        for (CounterTop c : storage.getShelvesArray()) {
+            if(c.getResourceType().equals(resource) && !p.isFull(resource))
+                return true;
+        }
+        return false;
+    }
+    public boolean canMoveFromLeader(Resource resource){
+        PlayerDashboard p = getThisClientDashboard();
+        Storage storage = p.getStorage();
+        if(storage.getFirstRow().getContent() == 0)
+            return true;
+        if(storage.getSecondRow().getContent() == 0 || (storage.getSecondRow().getContent() == 1 && storage.getSecondRow().getResourceType().equals(resource)))
+            return true;
+        if(storage.getThirdRow().getContent() == 0 || (storage.getThirdRow().getContent() <= 2 && storage.getThirdRow().getResourceType().equals(resource)))
+            return true;
+        return false;
+    }
+
+    public boolean swapOk(int from, int to){
+        PlayerDashboard p = getThisClientDashboard();
+        ArrayList<CounterTop> supportShelves = p.getStorage().getShelvesArray();
+        return supportShelves.get(to - 1).getContent() <= from;
+    }
+    public void organizeStorage(int from, int to){
+        clientSocket.send(new OrganizeStorageMessage(getThisClientDashboard().getNickname(), serverLobbyID,from,to).serialize());
+    }
     public boolean canBuyCardFromShop(){
         PlayerDashboard p = getThisClientDashboard();
         Deck[][] shop = gameStatus.getShop().getGrid();

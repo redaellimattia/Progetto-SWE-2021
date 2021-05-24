@@ -149,6 +149,18 @@ class StorageTest {
         assertEquals(rocks,storage.getFirstRow().getResourceType());
         assertEquals(coins,storage.getSecondRow().getResourceType());
     }
+    @Test
+    void swapSecondCase(){
+        Storage storage= createStorage();
+        Resource shields = Resource.SHIELD;
+        Resource rocks = Resource.ROCK;
+        storage.addToFirstRow(1);
+        storage.addToSecondRow(2);
+        storage.addToThirdRow(1);
+        storage.swapRows(2,3);
+        assertEquals(rocks,storage.getThirdRow().getResourceType());
+        assertEquals(shields,storage.getSecondRow().getResourceType());
+    }
     PlayerDashboard createPlayer(){
         String nickname = "Prova";
         CounterTop firstRow = new CounterTop(Resource.COIN,1);

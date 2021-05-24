@@ -763,10 +763,81 @@ public class Cli implements View {
                 break;
             }
     }
+
     @Override
-    public void organizeResources(){}
+    public void organizeResources(){
+        int count = 1;
+        String input;
+        PlayerDashboard player = clientManager.getThisClientDashboard();
+        //Storage print
+        printStorage(player.getStorage());
+        //Leader deposit print, if there are any;
+        if(player.getArrayDeposit().size()>0)
+            printArrayDeposits(player.getArrayDeposit());
+        do{
+            out.println("You can select which resources you want to move:");
+            out.println("Press \""+count+"\" to move two shelves on the storage;");
+            count++;
+            if(player.getArrayDeposit().size()>0)
+                for (CounterTop c: player.getArrayDeposit()) {
+                    out.println("Press \""+count+"\" to move resources with the Special deposit containing: " + c.getResourceType());
+                }
+            input = readLine();
+        }while(!input.equals("1") && !input.equals("2") && !input.equals("3"));
 
+        if(input.equals("1"))
+            organizeStorage();
+        if(input.equals("2") && player.getArrayDeposit().size()>=1)
+            leaderMoveResources(player.getArrayDeposit().get(0));
+        if(input.equals("3") && player.getArrayDeposit().size()==2)
+            leaderMoveResources(player.getArrayDeposit().get(1));
+    }
+    private void leaderMoveResources(CounterTop leaderDeposit){
+        String input;
+        do{
+            if(clientManager.canMoveToLeader(leaderDeposit.getResourceType()) && leaderDeposit.getContent()<2)
+                out.println("Press \"from\" if you want to move resources from the chosen special deposit;");
+            if(clientManager.canMoveFromLeader(leaderDeposit.getResourceType()) && leaderDeposit.getContent()>0)
+                out.println("Press \"to\" if you want to move resources to the chosen special deposit;");
+            out.println("Press \"Q\" to quit this action.");
+            input = readLine();
+        }while(!input.equalsIgnoreCase("from") && !input.equalsIgnoreCase("to") && !input.equalsIgnoreCase("q"));
 
+        if(input.equalsIgnoreCase("from"))
+            moveFromLeader(leaderDeposit);
+        if(input.equalsIgnoreCase("to"))
+            moveToLeader(leaderDeposit);
+        if(input.equalsIgnoreCase("q"))
+            chooseAction();
+    }
+
+    private void moveFromLeader(CounterTop leaderDeposit){}
+    private void moveToLeader(CounterTop leaderDeposit){}
+    private void organizeStorage(){
+        String input;
+        int num = -1;
+        do{
+            out.println("Insert the number of the shelf you want to start the swap FROM (1,2 or 3): ");
+            input = readLine();
+            try{num = Integer.parseInt(input);}catch(NumberFormatException e) { num = -1;}
+        }while(num <1 || num>3);
+        int from = num;
+        num = -1;
+        do{
+            out.println("Insert the number of the shelf you want to move TO (1,2 or 3): ");
+            input = readLine();
+            try{num = Integer.parseInt(input);}catch(NumberFormatException e) { num = -1;}
+        }while(num <1 || num>3);
+        int to = num;
+        if(to == from)
+            chooseAction();
+        if(clientManager.swapOk(from,to))
+            clientManager.organizeStorage(from,to);
+        else {
+            printMsg("Action not possible!");
+            chooseAction();
+        }
+    }
 
     private void printPlayer(String nickname) {
         PlayerDashboard player = clientManager.getGameStatus().getClientDashboard(nickname);
