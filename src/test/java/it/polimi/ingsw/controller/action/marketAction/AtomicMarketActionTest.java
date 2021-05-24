@@ -33,7 +33,7 @@ class AtomicMarketActionTest {
     @Test
     void storeInFirstRow() throws CounterTopOverloadException {
         boolean ok;
-        PlayerDashboard testPlayer = buildPlayerDashboard(0, 2, 3);
+        PlayerDashboard testPlayer = buildPlayerDashboard(0, 2, 0);
         AtomicMarketAction testAction = new AtomicMarketAction() {};
         ok = testAction.storeResource(testPlayer, Resource.SHIELD, 1);
         assertTrue(ok);
@@ -71,6 +71,13 @@ class AtomicMarketActionTest {
         PlayerDashboard testPlayer = buildPlayerDashboard(1, 1, 3);
         AtomicMarketAction testAction = new AtomicMarketAction() {};
         assertThrows(NoAdditionalDepositException.class, () -> testAction.storeResource(testPlayer, Resource.SHIELD, 4));
+    }
+
+    @Test
+    void duplicateDeposit() {
+        PlayerDashboard testPlayer = buildPlayerDashboard(0, 2, 2);
+        AtomicMarketAction testAction = new AtomicMarketAction() {};
+        assertThrows(WrongCounterTopException.class, () -> testAction.storeResource(testPlayer, Resource.SHIELD, 1));
     }
 
 }
