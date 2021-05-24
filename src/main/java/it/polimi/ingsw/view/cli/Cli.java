@@ -636,7 +636,6 @@ public class Cli implements View {
         int count;
         boolean validChoice;
         MarketMarble[] marbles;
-        ArrayList<AtomicMarketAction> choices = new ArrayList<AtomicMarketAction>();
 
         // Choose the row/column
         do {
@@ -681,11 +680,11 @@ public class Cli implements View {
                     } while(row < 0 || row > max);
                     validChoice = false;
                     if(row == 0) {
-                        choices.add(new DiscardResource());
+                        clientManager.discardResource();
                     }
                     try {
                         clientManager.checkAddToStorage(row, m.getColour().convertToResource());
-                        choices.add(new GetResource(row));
+                        clientManager.getResource(row);
                         out.println("Resource stored successfully!");
                         validChoice = true;
                     }
@@ -711,7 +710,7 @@ public class Cli implements View {
                         } while(action < 0 && action >= count);
                         validChoice = false;
                         if(action == 0) {
-                            choices.add(new GetResource(0));
+                            clientManager.getResource(0);
                             validChoice = true;
                         }
                         else {
@@ -731,7 +730,7 @@ public class Cli implements View {
                             } while(row < 1 || row > max);
                             try {
                                 clientManager.checkAddToStorage(row, convertedResource);
-                                choices.add(new ConvertWhiteMarble(chosenLeaderCard, row));
+                                clientManager.convertMarble(chosenLeaderCard, row);
                                 out.println("Resource stored successfully!");
                                 validChoice = true;
                             }
@@ -742,11 +741,11 @@ public class Cli implements View {
                     } while(!validChoice);
                 }
                 else {
-                    choices.add(new GetResource(0)); // Storage row is not important (a white marble doesn't produce a resource)
+                    clientManager.getResource(0); // Storage row is not important (a white marble doesn't produce a resource)
                 }
             }
         }
-        clientManager.takeResourcesFromMarket(type, pos, choices);
+        clientManager.endMarketAction(type, pos);
     }
 
     /**

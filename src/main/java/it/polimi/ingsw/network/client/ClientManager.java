@@ -1,6 +1,7 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
+import it.polimi.ingsw.controller.action.marketAction.GetResource;
 import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.exceptions.action.NoAdditionalDepositException;
 import it.polimi.ingsw.exceptions.action.WrongCounterTopException;
@@ -669,6 +670,23 @@ public class ClientManager {
     public void takeResourcesFromMarket(int type, int pos, ArrayList<AtomicMarketAction> choices) {
         // System.out.println(new MarketActionMessage(nickname, serverLobbyID, type, pos, choices).serialize());
         // clientSocket.send(new MarketActionMessage(nickname, serverLobbyID, type, pos, choices).serialize());
+    }
+
+    public void getResource(int row) {
+        clientSocket.send(new GetResourceMessage(nickname, serverLobbyID, row).serialize());
+    }
+
+    public void discardResource() {
+        clientSocket.send(new DiscardResourceMessage(nickname, serverLobbyID).serialize());
+    }
+
+    public void convertMarble(LeaderCard leaderCard, int row) {
+        int cardId = leaderCard.getId();
+        clientSocket.send(new ConvertMarbleMessage(nickname, serverLobbyID, cardId, row).serialize());
+    }
+
+    public void endMarketAction(int type, int pos) {
+        clientSocket.send(new EndMarketActionMessage(nickname, serverLobbyID, type, pos).serialize());
     }
 
     /**
