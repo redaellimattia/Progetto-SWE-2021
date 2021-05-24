@@ -36,6 +36,9 @@ public abstract class AtomicMarketAction {
                 if(player.getStorage().getFirstRow().getContent() == 0) {
                     // If a counterTop is empty, we need to set the new resource type
                     player.getStorage().getFirstRow().setResourceType(resource);
+                    if(!player.getStorage().checkShelves()) {
+                        throw new WrongCounterTopException(resource); // User cannot create a "new" counterTop if another counterTop of the same type is already present
+                    }
                 }
                 if(player.getStorage().getFirstRow().getResourceType() != resource) {
                     throw new WrongCounterTopException(resource); // User cannot add a resource of a different type
