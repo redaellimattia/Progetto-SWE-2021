@@ -3,6 +3,7 @@ package it.polimi.ingsw.controller.action.marketAction;
 import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.exceptions.action.NoAdditionalDepositException;
 import it.polimi.ingsw.exceptions.action.WrongCounterTopException;
+import it.polimi.ingsw.model.CounterTop;
 import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -34,11 +35,12 @@ public abstract class AtomicMarketAction {
         switch(storageRow) {
             case 1:
                 if(player.getStorage().getFirstRow().getContent() == 0) {
+                    // We need to check if there isn't another counterTop already in use for this Resource type
+                    if(!canCreateNewRow(resource, player)){
+                        throw new WrongCounterTopException(resource); // User cannot have two counterTops with the same Resource type
+                    }
                     // If a counterTop is empty, we need to set the new resource type
                     player.getStorage().getFirstRow().setResourceType(resource);
-                    if(!player.getStorage().checkShelves()) {
-                        throw new WrongCounterTopException(resource); // User cannot create a "new" counterTop if another counterTop of the same type is already present
-                    }
                 }
                 if(player.getStorage().getFirstRow().getResourceType() != resource) {
                     throw new WrongCounterTopException(resource); // User cannot add a resource of a different type
@@ -49,6 +51,10 @@ public abstract class AtomicMarketAction {
                 player.getStorage().addToFirstRow(1); return true;
             case 2:
                 if(player.getStorage().getSecondRow().getContent() == 0) {
+                    // We need to check if there isn't another counterTop already in use for this Resource type
+                    if(!canCreateNewRow(resource, player)){
+                        throw new WrongCounterTopException(resource); // User cannot have two counterTops with the same Resource type
+                    }
                     // If a counterTop is empty, we need to set the new resource type
                     player.getStorage().getSecondRow().setResourceType(resource);
                 }
@@ -61,6 +67,10 @@ public abstract class AtomicMarketAction {
                 player.getStorage().addToSecondRow(1); return true;
             case 3:
                 if(player.getStorage().getThirdRow().getContent() == 0) {
+                    // We need to check if there isn't another counterTop already in use for this Resource type
+                    if(!canCreateNewRow(resource, player)){
+                        throw new WrongCounterTopException(resource); // User cannot have two counterTops with the same Resource type
+                    }
                     // If a counterTop is empty, we need to set the new resource type
                     player.getStorage().getThirdRow().setResourceType(resource);
                 }
@@ -82,5 +92,14 @@ public abstract class AtomicMarketAction {
             default:
                 throw new IllegalArgumentException();
         }
+    }
+
+    public boolean canCreateNewRow(Resource res, PlayerDashboard player) {
+        for(CounterTop c: player.getStorage().getShelvesArray()) {
+            if(c.getContent() != 0 && c.getResourceType().equals(res)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
