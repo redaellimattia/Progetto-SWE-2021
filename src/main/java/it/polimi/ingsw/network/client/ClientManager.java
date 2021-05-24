@@ -57,30 +57,41 @@ public class ClientManager {
         this.leaderCardProductionDone = new ArrayList<>();
         this.devCardProductionDone = new ArrayList<>();
     }
+
+    //GETTERS
     public ClientGameStatus getGameStatus() { return gameStatus;}
     public String getNickname() {
         return nickname;
     }
     public View getView(){ return view;}
     public ClientSocket getClientSocket(){return clientSocket;}
-
-
     public ArrayList<Boolean> getLeaderCardProductionDone() {
         return leaderCardProductionDone;
     }
-
     public ArrayList<Boolean> getDevCardProductionDone() {
         return devCardProductionDone;
-    }
-
-    public void setBasicProductionDone(boolean basicProductionDone) {
-        this.basicProductionDone = basicProductionDone;
     }
     public boolean isProductionActionOnGoing() {
         return productionActionOnGoing;
     }
+    /**
+     *
+     * @return true if the mainAction has been already done
+     */
+    public boolean isMainActionDone() {
+        return mainActionDone;
+    }
+
+
+    //SETTERS
+    public void setMainActionDone(boolean mainActionDone) {
+        this.mainActionDone = mainActionDone;
+    }
     public void setProductionActionOnGoing(boolean productionActionOnGoing) {
         this.productionActionOnGoing = productionActionOnGoing;
+    }
+    public void setBasicProductionDone(boolean basicProductionDone) {
+        this.basicProductionDone = basicProductionDone;
     }
     public void setGameStarted(boolean gameStarted) {
         this.gameStarted = gameStarted;
@@ -158,33 +169,73 @@ public class ClientManager {
         clientSocket.send(new PreGameResponseMessage(this.nickname, serverLobbyID,resources,leaders).serialize());
     }
 
+    /**
+     * Sends a PlayLeaderMessage to the server
+     *
+     * @param leaderCard Leader Card that the user wants to play
+     */
     public void playLeader(LeaderCard leaderCard){
         leaderCardProductionDone.add(false);
         clientSocket.send(new PlayLeaderMessage(nickname, serverLobbyID,leaderCard).serialize());
     }
 
+    /**
+     * Sends a DiscardLeaderMessage to the server
+     * @param leaderCard Leader Card that the user wants to discard
+     */
     public void discardLeader(LeaderCard leaderCard){
         clientSocket.send(new DiscardLeaderMessage(nickname,serverLobbyID,leaderCard).serialize());
     }
 
+    /**
+     * Ends Action, sending a EndActionMessage to the server
+     */
     public void endAction(){
         if(isProductionActionOnGoing())
             productionActionOnGoing = false;
         clientSocket.send(new EndActionMessage(nickname,serverLobbyID).serialize());
     }
 
+    /**
+     * Basic production on the dashboard
+     * Sends a BasicProductionMessage to the server
+     *
+     * @param storagePayment amount of resources from the storage that the user wants to use in order to pay
+     * @param chestPayment amount of resources from the chest that the user wants to use in order to pay
+     * @param outputResource Resource chosen by the user as output
+     */
     public void basicProduction(ResourceCount storagePayment,ResourceCount chestPayment, Resource outputResource){
         clientSocket.send(new BasicProductionMessage(nickname,serverLobbyID,outputResource,storagePayment,chestPayment).serialize());
     }
 
+    /**
+     * Production in a Leader Card
+     * Sends a LeaderProductionMessage to the server
+     *
+     * @param card Leader Card chosen
+     * @param storageCount amount of resources from the storage that the user wants to use in order to pay
+     * @param chestCount amount of resources from the chest that the user wants to use in order to pay
+     * @param res Resource chosen by the user as output
+     */
     public void leaderProduction(LeaderCard card,ResourceCount storageCount, ResourceCount chestCount, Resource res){
         clientSocket.send(new LeaderProductionMessage(nickname,serverLobbyID,card,storageCount,chestCount,res).serialize());
     }
 
+    /**
+     * Production in a Development Card
+     * Sends a DevCardProductionMessage to the server
+     *
+     * @param card Development Card chosen
+     * @param storageCount amount of resources from the storage that the user wants to use in order to pay
+     * @param chestCount amount of resources from the chest that the user wants to use in order to pay
+     */
     public void devCardProduction(DevelopmentCard card,ResourceCount storageCount, ResourceCount chestCount){
         clientSocket.send(new DevCardProductionMessage(nickname,serverLobbyID,card,storageCount,chestCount).serialize());
     }
 
+    /**
+     * Sets isMyTurn to false, then sens a EndTurnMessage to the server
+     */
     public void endTurn(){
         isMyTurn = false;
         clientSocket.send(new EndTurnMessage(nickname,serverLobbyID).serialize());
@@ -200,6 +251,11 @@ public class ClientManager {
         return req.isPlayable(getThisClientDashboard());
     }
 
+    /**
+     * Get List of leader cards in hand
+     *
+     * @return an ArrayList full of notPlayed leaders
+     */
     public ArrayList<LeaderCard> getNotPlayedLeaders(){
         ArrayList<LeaderCard> inHandLeaders = new ArrayList<>();
         for (LeaderCard l: getThisClientDashboard().getLeaderCards()) {
@@ -209,6 +265,10 @@ public class ClientManager {
         return inHandLeaders;
     }
 
+    /**
+     *
+     * @return true if the player has some leader cards that are not in game yet
+     */
     public boolean leadersInHand(){
         for (LeaderCard l: getThisClientDashboard().getLeaderCards()) {
             if(!l.isInGame())
@@ -217,6 +277,11 @@ public class ClientManager {
         return false;
     }
 
+    /**
+     * Get a list with only leader cards that have a production ability
+     *
+     * @return an ArrayList full of leader cards with production ability
+     */
     public ArrayList<LeaderCard> getProductionLeaders(){
         PlayerDashboard thisPlayer = getThisClientDashboard();
         ArrayList<LeaderCard> productionLeaders = new ArrayList<>();
@@ -238,6 +303,12 @@ public class ClientManager {
         return false;
     }
 
+    /**
+     * Updates player devCards
+     *
+     * @param nickname nickname of the player
+     * @param devCards updated devCards
+     */
     public void updateDevCards(String nickname,DeckDashboard[] devCards){
         int contDeck = 0;
         if(nickname.equals(this.nickname)&&devCardProductionDone.size()!=3) {
@@ -251,6 +322,11 @@ public class ClientManager {
        gameStatus.updateDevCards(nickname,devCards);
     }
 
+    /**
+     *
+     * @param resource Resource chosen by the player
+     * @return true if the move from storage to leader's deposit ability is possible
+     */
     public boolean canMoveToLeader(Resource resource){
         PlayerDashboard p = getThisClientDashboard();
         Storage storage = p.getStorage();
@@ -260,6 +336,12 @@ public class ClientManager {
         }
         return false;
     }
+
+    /**
+     *
+     * @param resource Resource chosen by the player
+     * @return true if the move from leader's deposit ability to storage is possible
+     */
     public boolean canMoveFromLeader(Resource resource){
         PlayerDashboard p = getThisClientDashboard();
         Storage storage = p.getStorage();
@@ -472,11 +554,9 @@ public class ClientManager {
     }
 
     public boolean hasWhiteChangeAbility() {
-        for (LeaderCard c: getThisClientDashboard().getLeaderCards()) {
-            if(c.getSpecialAbility().useWhiteChangeAbility() != null) {
+        for (LeaderCard c: getThisClientDashboard().getLeaderCards())
+            if(c.getSpecialAbility().useWhiteChangeAbility() != null)
                 return true;
-            }
-        }
         return false;
     }
 
@@ -489,14 +569,6 @@ public class ClientManager {
         return gameStatus.getShop().getCardByID(ID);
     }
 
-    public boolean isMainActionDone() {
-        return mainActionDone;
-    }
-
-    public void setMainActionDone(boolean mainActionDone) {
-        this.mainActionDone = mainActionDone;
-    }
-
     /**
      *
      * @return this client dashboard
@@ -505,6 +577,9 @@ public class ClientManager {
         return gameStatus.getClientDashboard(nickname);
     }
 
+    /**
+     * When a YourTurnMessage is received, set boolean values, then update the view
+     */
     public void yourTurn(){
         isMyTurn = true;
         mainActionDone = false;
@@ -516,11 +591,17 @@ public class ClientManager {
         view.yourTurn();
     }
 
+    /**
+     * Updates the view
+     */
     public void updateViewWithClear(){
         view.clearView();
         updateView();
     }
 
+    /**
+     * Updates the view
+     */
     public void updateView(){
         if(gameStarted) {
             if (isMyTurn)
