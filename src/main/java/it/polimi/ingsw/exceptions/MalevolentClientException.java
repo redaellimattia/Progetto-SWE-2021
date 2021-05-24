@@ -7,7 +7,7 @@ public class MalevolentClientException extends MasterOfRenaissanceRuntimeExcepti
     public MalevolentClientException(long serverThreadID, String nickname) {
 
         super("Malevolent client, going to disconnect him.");
-        ServerLobby serverLobby = Server.serverThreads.get(serverThreadID);
+        ServerLobby serverLobby = Server.lobbies.get(serverThreadID);
         serverLobby.onDisconnect(serverLobby.getClients().get(nickname));
     }
 }

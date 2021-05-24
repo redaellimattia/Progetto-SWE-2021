@@ -19,7 +19,7 @@ public class Server {
     public static long newServerID;
     public static final Logger LOGGER = Logger.getLogger("Server");
 
-    public static Map<Long, ServerLobby> serverThreads;
+    public static Map<Long, ServerLobby> lobbies;
 
     /**
      *
@@ -30,7 +30,7 @@ public class Server {
         newServerID = 0;
         this.socketPort = socketPort;
 
-        serverThreads = new HashMap<>();
+        lobbies = new HashMap<>();
         LOGGER.log(Level.INFO, "Server running.");
 
         startServer();
@@ -68,8 +68,8 @@ public class Server {
         ClientMessage deserializedMessage = ClientMessage.deserializeMessage(msg);
         long serverThreadID = deserializedMessage.getServerThreadID();
 
-        if(serverThreadID!=-1&&serverThreads.containsKey(serverThreadID))
-            serverThreads.get(serverThreadID).onMessage(sockConnection, deserializedMessage);
+        if(serverThreadID!=-1&& lobbies.containsKey(serverThreadID))
+            lobbies.get(serverThreadID).onMessage(sockConnection, deserializedMessage);
         else
             deserializedMessage.useMessage(sockConnection);
     }
@@ -93,29 +93,47 @@ public class Server {
         boolean checkNickname = true;
         if(nickname.equals("Lorenzo il Magnifico"))
             return false;
-        for(Long key: serverThreads.keySet())
-            checkNickname = serverThreads.get(key).getGameLobby().checkNickname(nickname);
+        for(Long key: lobbies.keySet())
+            checkNickname = lobbies.get(key).getGameLobby().checkNickname(nickname);
         return checkNickname;
     }
 
+    /**
+     *
+     * @param socketConnection passed client connection
+     * @return ServerLobby of the passed socketConnection
+     */
     public static synchronized ServerLobby getServerThread(SocketConnection socketConnection){
-        for(Long key: serverThreads.keySet()) {
-            ServerLobby serverLobby = serverThreads.get(key);
+        for(Long key: lobbies.keySet()) {
+            ServerLobby serverLobby = lobbies.get(key);
             for (String nickname : serverLobby.getClients().keySet())
                 if(serverLobby.getClients().get(nickname).equals(socketConnection))
                     return serverLobby;
         }
         return null;
     }
+
+    /**
+     * Creates a ReturnLobbiesMessage
+     * @return a ReturnLobbiesMessage
+     */
     public static synchronized ReturnLobbiesMessage createReturnLobbiesMessage(){
-        if(serverThreads.size()!=0) {
+        if(lobbies.size()!=0) {
             ArrayList<GameLobby> gameLobbies = new ArrayList<>();
-            for (Long key : serverThreads.keySet())
-                gameLobbies.add(serverThreads.get(key).getGameLobby());
+            for (Long key : lobbies.keySet())
+                gameLobbies.add(lobbies.get(key).getGameLobby());
             return new ReturnLobbiesMessage(gameLobbies);
         }
         else
             return new ReturnLobbiesMessage(new ArrayList<>());
+    }
+
+    /**
+     * Removes the lobby from the HashMap of lobbies
+     * @param serverLobbyID ID of the lobby that is closing
+     */
+    public static synchronized void closeLobby(long serverLobbyID){
+        lobbies.remove(serverLobbyID);
     }
 
     /**

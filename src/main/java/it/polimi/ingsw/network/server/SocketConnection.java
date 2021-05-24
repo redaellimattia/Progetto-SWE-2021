@@ -13,7 +13,7 @@ public class SocketConnection implements Runnable{
 
     private boolean isConnected;
 
-    private Thread socketListener;
+    private final Thread socketListener;
 
     /**
      *

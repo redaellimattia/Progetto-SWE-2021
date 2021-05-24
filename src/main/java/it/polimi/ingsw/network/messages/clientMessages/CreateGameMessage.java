@@ -28,7 +28,7 @@ public class CreateGameMessage extends ClientMessage {
         if(Server.checkNickname(getNickname())){
             ServerLobby serverLobby = new ServerLobby(numberOfPlayers,++Server.newServerID);
             serverLobby.newPlayerLogin(getNickname(), socketConnection);
-            Server.serverThreads.put(serverLobby.getLobbyId(), serverLobby);
+            Server.lobbies.put(serverLobby.getLobbyId(), serverLobby);
         }
         else {
             if (getNickname().equals("Lorenzo il Magnifico"))
