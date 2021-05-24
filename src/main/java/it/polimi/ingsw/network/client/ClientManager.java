@@ -287,6 +287,12 @@ public class ClientManager {
         return gameStatus.getClientDashboard(nickname).getChest().hasMoreOrEqualsResources(chest);
     }
 
+    public boolean canMoveResources(){
+        PlayerDashboard p = getThisClientDashboard();
+        ResourceCount total = p.getTotalResources();
+        total.sumCounts(p.getAbilityDepositResources());
+        return ResourceCount.resCountToInt(total) > 0;
+    }
     public void updateDevCards(String nickname,DeckDashboard[] devCards){
         int contDeck = 0;
         if(nickname.equals(this.nickname)&&devCardProductionDone.size()!=3) {

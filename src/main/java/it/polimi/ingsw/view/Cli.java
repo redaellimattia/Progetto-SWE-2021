@@ -340,7 +340,8 @@ public class Cli implements View {
             }
 
             //Reorganize
-            out.println("REORGANIZE RESOURCES: press R");
+            if(clientManager.canMoveResources())
+                out.println("REORGANIZE RESOURCES: press R");
 
             if (clientManager.isMainActionDone())
                 out.println(RED + "PRESS Q TO PASS YOUR TURN" + RESET);
@@ -370,7 +371,7 @@ public class Cli implements View {
                             if (input.equalsIgnoreCase("d") && clientManager.leadersInHand())
                                 leaderAction(clientManager.getNotPlayedLeaders(),true);
                             else {
-                                if (input.equalsIgnoreCase("r"))
+                                if (input.equalsIgnoreCase("r") && clientManager.canMoveResources())
                                     organizeResources();
                                 else
                                     chooseAction();
