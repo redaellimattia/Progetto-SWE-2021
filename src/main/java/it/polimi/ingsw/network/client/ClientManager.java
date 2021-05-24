@@ -615,6 +615,20 @@ public class ClientManager {
 
     /**
      *
+     * @param res the resource type of the deposit
+     * @return true if the user has an additional deposit of that type
+     */
+    public boolean hasAdditionalDeposit(Resource res) {
+        for (CounterTop c: getThisClientDashboard().getArrayDeposit()) {
+            if(c.getResourceType().equals(res)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     *
      * @param ID ID of the card
      * @return the Development card associated to the passed ID
      */

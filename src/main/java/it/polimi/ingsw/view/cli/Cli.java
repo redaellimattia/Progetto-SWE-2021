@@ -617,6 +617,7 @@ public class Cli implements View {
         int action;
         int count;
         boolean validChoice;
+        boolean hasValidAdditionalDeposit;
         MarketMarble[] marbles;
         ArrayList<AtomicMarketAction> choices = new ArrayList<AtomicMarketAction>();
         do {
