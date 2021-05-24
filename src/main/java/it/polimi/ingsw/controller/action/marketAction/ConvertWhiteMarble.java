@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
+import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.exceptions.action.CardNotExistsException;
 import it.polimi.ingsw.exceptions.action.NoWhiteMarbleException;
 import it.polimi.ingsw.exceptions.action.WrongAbilityException;
@@ -34,7 +35,7 @@ public class ConvertWhiteMarble extends AtomicMarketAction {
      *         false if the action was illegal
      */
     @Override
-    public boolean useAction(MarketMarble marble, PlayerDashboard player) {
+    public boolean useAction(MarketMarble marble, PlayerDashboard player, GameManager gameManager) {
         if(marble.getColour() != MarbleColour.WHITE) {
             throw new NoWhiteMarbleException(); // User cannot convert a marble that isn't white
         }

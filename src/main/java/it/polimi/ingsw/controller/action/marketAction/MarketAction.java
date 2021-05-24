@@ -13,19 +13,20 @@ public class MarketAction extends Action {
     private int pos;
     private ArrayList<AtomicMarketAction> choices;
     private MarketDashboard market;
+    private GameManager gameManager;
 
     /**
      *
      * @param type 0: user selected a row; 1: user selected a column
      * @param pos number of the row/column (starting from 1)
      * @param choices the choices made by the user for each marble (excluding red marbles)
-     * @param market the market of the current game
      */
-    public MarketAction(int type, int pos, ArrayList<AtomicMarketAction> choices, MarketDashboard market) {
+    public MarketAction(int type, int pos, ArrayList<AtomicMarketAction> choices, GameManager gameManager) {
         this.type = type;
         this.pos = pos;
         this.choices = choices;
-        this.market = market;
+        this.gameManager = gameManager;
+        this.market = gameManager.getGame().getMarket();
     }
 
     /**
@@ -62,7 +63,7 @@ public class MarketAction extends Action {
                 player.updatePathPosition();
             } else {
                 try {
-                    choices.get(j).useAction(marble, player);
+                    choices.get(j).useAction(marble, player, gameManager);
                 } catch (IndexOutOfBoundsException e) {
                     throw new IncompleteListException();
                 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
+import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.exceptions.action.NoAdditionalDepositException;
 import it.polimi.ingsw.exceptions.action.WrongCounterTopException;
@@ -17,7 +18,7 @@ public abstract class AtomicMarketAction {
      * @return true if ended correctly
      *         false if the action was illegal
      */
-    boolean useAction(MarketMarble marble, PlayerDashboard player) {
+    boolean useAction(MarketMarble marble, PlayerDashboard player, GameManager gameManager) {
         return false;
     }
 

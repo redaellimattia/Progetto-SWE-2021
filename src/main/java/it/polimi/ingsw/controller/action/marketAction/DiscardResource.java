@@ -6,14 +6,7 @@ import it.polimi.ingsw.model.PlayerDashboard;
 
 public class DiscardResource extends AtomicMarketAction {
 
-    private GameManager gameManager;
-
-    /**
-     *
-     * @param gameManager the gameManager associated with the current game
-     */
-    public DiscardResource(GameManager gameManager) {
-        this.gameManager = gameManager;
+    public DiscardResource() {
     }
 
     /**
@@ -24,7 +17,7 @@ public class DiscardResource extends AtomicMarketAction {
      *         false if the action was illegal
      */
     @Override
-    public boolean useAction(MarketMarble marble, PlayerDashboard player) {
+    public boolean useAction(MarketMarble marble, PlayerDashboard player, GameManager gameManager) {
         gameManager.updateOpponentsPathPosition(player);
         return true;
     }

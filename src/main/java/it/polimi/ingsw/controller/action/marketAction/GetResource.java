@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
+import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.exceptions.action.WrongMarbleException;
 import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.model.PlayerDashboard;
@@ -27,7 +28,7 @@ public class GetResource extends AtomicMarketAction {
      * @throws WrongMarbleException if the action was illegal
      */
     @Override
-    public boolean useAction(MarketMarble marble, PlayerDashboard player) {
+    public boolean useAction(MarketMarble marble, PlayerDashboard player, GameManager gameManager) {
         if(marble.getColour() == MarbleColour.WHITE) {
             return true; // GetResource on a white marble does nothing
         }

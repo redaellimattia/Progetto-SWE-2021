@@ -49,8 +49,8 @@ class DiscardResourceTest {
         boolean ok;
         GameManager testGameManager = buildGameManager();
         PlayerDashboard testPlayer = testGameManager.getGame().getPlayers().get(0);
-        DiscardResource test = new DiscardResource(testGameManager);
-        test.useAction(new MarketMarble(MarbleColour.YELLOW), testPlayer);
+        DiscardResource test = new DiscardResource();
+        test.useAction(new MarketMarble(MarbleColour.YELLOW), testPlayer, testGameManager);
         assertEquals(1, testGameManager.getGame().getPlayers().get(1).getPathPosition());
         assertEquals(0, testGameManager.getGame().getPlayers().get(0).getPathPosition());
     }

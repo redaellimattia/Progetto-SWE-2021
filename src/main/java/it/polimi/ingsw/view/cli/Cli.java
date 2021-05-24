@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
 import it.polimi.ingsw.controller.action.marketAction.ConvertWhiteMarble;
+import it.polimi.ingsw.controller.action.marketAction.DiscardResource;
 import it.polimi.ingsw.controller.action.marketAction.GetResource;
 import it.polimi.ingsw.exceptions.MasterOfRenaissanceRuntimeException;
 import it.polimi.ingsw.model.*;
@@ -669,17 +670,20 @@ public class Cli implements View {
                 do {
                     do {
                         if(clientManager.hasAdditionalDeposit(m.getColour().convertToResource())) {
-                            out.println("In witch deposit do you want to store the " + m.getColour().convertToResource() + "?\n1-3: regular storage; 4: additional storage");
+                            out.println("In witch deposit do you want to store the " + m.getColour().convertToResource() + "?\n0: discard resource;\n1-3: regular storage;\n4: additional storage");
                             max = 4;
                         }
                         else {
-                            out.println("In witch deposit do you want to store the " + m.getColour().convertToResource() + "?\n1-3: regular storage");
+                            out.println("In witch deposit do you want to store the " + m.getColour().convertToResource() + "?\n0: discard resource;\n1-3: regular storage");
                             max = 3;
                         }
                         input = readLine();
                         try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
-                    } while(row < 1 || row > max);
+                    } while(row < 0 || row > max);
                     validChoice = false;
+                    if(row == 0) {
+                        //choices.add(new DiscardResource());
+                    }
                     try {
                         clientManager.checkAddToStorage(row, m.getColour().convertToResource());
                         choices.add(new GetResource(row));

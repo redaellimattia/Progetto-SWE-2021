@@ -34,7 +34,7 @@ class GetResourceTest {
     void addResourceToFirstRow() throws CounterTopOverloadException {
         boolean ok;
         GetResource test = new GetResource(1);
-        ok = test.useAction(new MarketMarble(MarbleColour.PURPLE), buildPlayerDashboard(0, 2, 2));
+        ok = test.useAction(new MarketMarble(MarbleColour.PURPLE), buildPlayerDashboard(0, 2, 2), null);
         assertTrue(ok);
     }
 
@@ -42,7 +42,7 @@ class GetResourceTest {
     void addResourceToSecondRow() throws CounterTopOverloadException {
         boolean ok;
         GetResource test = new GetResource(2);
-        ok = test.useAction(new MarketMarble(MarbleColour.GREY), buildPlayerDashboard(1, 1, 3));
+        ok = test.useAction(new MarketMarble(MarbleColour.GREY), buildPlayerDashboard(1, 1, 3), null);
         assertTrue(ok);
     }
 
@@ -51,7 +51,7 @@ class GetResourceTest {
         boolean ok;
         PlayerDashboard testDashboard = buildPlayerDashboard(1, 1, 3);
         GetResource test = new GetResource(0);
-        ok = test.useAction(new MarketMarble(MarbleColour.WHITE), testDashboard);
+        ok = test.useAction(new MarketMarble(MarbleColour.WHITE), testDashboard, null);
         assertTrue(ok);
         assertEquals(1, testDashboard.getStorage().getFirstRow().getContent());
         assertEquals(1, testDashboard.getStorage().getSecondRow().getContent());
@@ -61,6 +61,6 @@ class GetResourceTest {
     @Test
     void IllegalGet() {
         GetResource test1 = new GetResource(2);
-        assertThrows(WrongMarbleException.class, () -> test1.useAction(new MarketMarble(MarbleColour.RED), buildPlayerDashboard(1, 0, 3)));
+        assertThrows(WrongMarbleException.class, () -> test1.useAction(new MarketMarble(MarbleColour.RED), buildPlayerDashboard(1, 0, 3), null));
     }
 }
