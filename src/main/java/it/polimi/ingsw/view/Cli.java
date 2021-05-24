@@ -349,7 +349,7 @@ public class Cli implements View {
             out.println("Choose one of the above to continue the game: ");
             input = readLine();
         }while(!input.equalsIgnoreCase("b")&& !input.equalsIgnoreCase("m")&&!input.equalsIgnoreCase("p")
-                &&!input.equalsIgnoreCase("l")&&!input.equalsIgnoreCase("d")&&!input.equalsIgnoreCase("o") &&
+                &&!input.equalsIgnoreCase("l")&&!input.equalsIgnoreCase("d")&&!input.equalsIgnoreCase("r") &&
                 !input.equalsIgnoreCase("q"));
 
 
@@ -788,10 +788,14 @@ public class Cli implements View {
 
         if(input.equals("1"))
             organizeStorage();
-        if(input.equals("2") && player.getArrayDeposit().size()>=1)
-            leaderMoveResources(player.getArrayDeposit().get(0));
-        if(input.equals("3") && player.getArrayDeposit().size()==2)
-            leaderMoveResources(player.getArrayDeposit().get(1));
+        else
+            if(input.equals("2") && player.getArrayDeposit().size()>=1)
+                leaderMoveResources(player.getArrayDeposit().get(0));
+            else
+                if(input.equals("3") && player.getArrayDeposit().size()==2)
+                    leaderMoveResources(player.getArrayDeposit().get(1));
+                else
+                    organizeResources();
     }
     private void leaderMoveResources(CounterTop leaderDeposit){
         String input;
