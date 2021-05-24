@@ -6,7 +6,6 @@ import it.polimi.ingsw.exceptions.network.GameAlreadyStartedException;
 import it.polimi.ingsw.exceptions.network.NotYourTurnException;
 import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.enumeration.ClientMessageType;
@@ -15,7 +14,6 @@ import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.*;
 import it.polimi.ingsw.network.messages.serverMessages.updates.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -35,9 +33,9 @@ public class ServerLobby extends Thread implements Observer {
     public ServerLobby(int numberOfPlayers, long serverID){
         this.clients = new HashMap<>();
         this.serverID = serverID;
-        this.gameLobby = new GameLobby(getThreadId(),numberOfPlayers);
+        this.gameLobby = new GameLobby(getLobbyId(),numberOfPlayers);
         this.gameLobby.addObserver(this);
-        Server.LOGGER.log(Level.INFO, "Server: "+getThreadId()+" Game lobby created with "+numberOfPlayers+" players.");
+        Server.LOGGER.log(Level.INFO, "Server: "+ getLobbyId()+" Game lobby created with "+numberOfPlayers+" players.");
     }
 
     public Map<String, SocketConnection> getClients() {
@@ -114,7 +112,8 @@ public class ServerLobby extends Thread implements Observer {
     }
 
     /**
-     * Login of a player that disconnected before
+     * Login of a player that disconnected before,
+     * Sets the known player as playing (isPlaying = true) then, if it's the only one playing, send him the YourTurnMessage
      *
      * @param playerPosition position of the player in the arraylist of players in game
      * @param nickname player nickname
@@ -123,20 +122,30 @@ public class ServerLobby extends Thread implements Observer {
     public void knownPlayerLogin(int playerPosition,String nickname,SocketConnection clientConnection){
         synchronized (gameLock) {
             if(gameLobby.isGameCreated()) {
-                gameLobby.getGameManager().playerComeback(playerPosition);
                 clients.put(nickname, clientConnection);
-                Server.LOGGER.log(Level.INFO, nickname + " is back in the lobby #" + getThreadId());
-                clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
+                Server.LOGGER.log(Level.INFO, nickname + " is back in the lobby #" + getLobbyId());
+                clientConnection.send(new JoinedLobbyMessage(getLobbyId()).serialize());
                 clientConnection.send(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(), gameLobby.getGameManager().getGame().getMarket(), gameLobby.getGameManager().getGame().getvReports()).serialize());
                 if(gameLobby.isGameStarted())
                     clientConnection.send(new GameStartedMessage().serialize());
-                if (gameLobby.getNumberOfPlayers() == 1 && gameLobby.isGameStarted())
-                    clientConnection.send(new YourTurnMessage().serialize());
-                else
-                    if(gameLobby.getNumberOfPlayers() == 1 && !gameLobby.isGameStarted())
+
+                if(gameLobby.isGameStarted()&&!gameLobby.getGameManager().isAnyoneConnected()) {
+                    for(PlayerDashboard p:gameLobby.getGameManager().getGame().getPlayers()){
+                        if(p.getNickname().equals(nickname)) {
+                            gameLobby.getGameManager().getTurnManager().setPlayer(p);
+                            clientConnection.send(new YourTurnMessage().serialize());
+                        }
+                    }
+                }
+                else {
+                    if (gameLobby.getNumberOfPlayers() == 1 && gameLobby.isGameStarted())
+                        clientConnection.send(new YourTurnMessage().serialize());
+                    else if (gameLobby.getNumberOfPlayers() == 1 && !gameLobby.isGameStarted())
                         gameLobby.addReadyPlayer();
                     else
                         clientConnection.send(new WaitYourTurnMessage().serialize());
+                }
+                gameLobby.getGameManager().playerComeback(playerPosition);
             }
         }
     }
@@ -152,8 +161,8 @@ public class ServerLobby extends Thread implements Observer {
                 throw new GameAlreadyStartedException();
             gameLobby.addPlayer(nickname);
             clients.put(nickname, clientConnection);
-            Server.LOGGER.log(Level.INFO,nickname+" joined the lobby #"+getThreadId()+", "+(gameLobby.getNumberOfPlayers()-clients.size())+" players to go!");
-            clientConnection.send(new JoinedLobbyMessage(getThreadId()).serialize());
+            Server.LOGGER.log(Level.INFO,nickname+" joined the lobby #"+ getLobbyId()+", "+(gameLobby.getNumberOfPlayers()-clients.size())+" players to go!");
+            clientConnection.send(new JoinedLobbyMessage(getLobbyId()).serialize());
             //Send message to the clients that are waiting
             for(String key : clients.keySet())
                 if(!key.equals(nickname))
@@ -222,6 +231,10 @@ public class ServerLobby extends Thread implements Observer {
     }
 
     /**
+     * 3 Different disconnections:
+     * 1. Player disconnected while the game is not even started, empty space for new players.
+     * 2. Player disconnected while the game is started, sets the player as not playing (isPlaying = false)
+     * 3. Player disconnected during the preGame, just assign him random resources and set him as not playing (isPlaying = false)
      *
      * @param socketConnection Client that is disconnecting
      */
@@ -309,15 +322,6 @@ public class ServerLobby extends Thread implements Observer {
                 break;
             }
         }
-        /*
-        for (String p: gameLobby.getPlayers()) {
-            if(!p.equals(firstPlayerNickname)) {
-                socketConnection = clients.get(p);
-                socketConnection.send(new WaitYourTurnMessage().serialize());
-            }
-        }
-        socketConnection = clients.get(firstPlayerNickname);
-        socketConnection.send(new YourTurnMessage().serialize());*/
     }
 
 
@@ -338,7 +342,7 @@ public class ServerLobby extends Thread implements Observer {
      *
      * @return this Server ID
      */
-    public long getThreadId(){
+    public long getLobbyId(){
         return this.serverID;
     }
 

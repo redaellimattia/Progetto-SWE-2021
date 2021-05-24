@@ -156,12 +156,21 @@ public class GameManager {
                 }
                 else {
                     PlayerDashboard nextPlayer = player;
-                    do { //Searching nextPlayer that is playing
-                        nextPlayer = game.getNextPlayer(nextPlayer);
-                    }while(nextPlayer == null || !nextPlayer.isPlaying());
-                    this.turnManager = new PlayerTurnManager(nextPlayer);
+                    if(isAnyoneConnected()) {
+                        do { //Searching nextPlayer that is playing
+                            nextPlayer = game.getNextPlayer(nextPlayer);
+                        } while (nextPlayer == null || !nextPlayer.isPlaying());
+                        this.turnManager = new PlayerTurnManager(nextPlayer);
+                    }
                 }
             }
+    }
+
+    public boolean isAnyoneConnected(){
+        for(PlayerDashboard p:game.getPlayers())
+            if (p.isPlaying())
+                return true;
+        return false;
     }
 
     /**
