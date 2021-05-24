@@ -86,6 +86,10 @@ public class PlayerTurnManager {
         return sideAction;
     }
 
+    public ArrayList<AtomicMarketAction> getMarketChoices() {
+        return marketChoices;
+    }
+
 
     /**
      * Adds an atomic production to the main action or creates a new MainAction as ProductionAction
