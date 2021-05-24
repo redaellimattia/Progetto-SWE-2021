@@ -682,7 +682,7 @@ public class Cli implements View {
                     } while(row < 0 || row > max);
                     validChoice = false;
                     if(row == 0) {
-                        //choices.add(new DiscardResource());
+                        choices.add(new DiscardResource());
                     }
                     try {
                         clientManager.checkAddToStorage(row, m.getColour().convertToResource());
@@ -721,11 +721,11 @@ public class Cli implements View {
                             do {
                                 if(clientManager.hasAdditionalDeposit(convertedResource)) {
                                     out.println("In witch deposit do you want to store the " + convertedResource + "?\n1-3: regular storage; 4: additional storage");
-                                    max = 3;
+                                    max = 4;
                                 }
                                 else {
                                     out.println("In witch deposit do you want to store the " + convertedResource + "?\n1-3: regular storage");
-                                    max = 4;
+                                    max = 3;
                                 }
                                 input = readLine();
                                 try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
