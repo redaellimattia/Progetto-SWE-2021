@@ -94,6 +94,12 @@ public abstract class AtomicMarketAction {
         }
     }
 
+    /**
+     * Check if the user already has a non-empty counterTop for this resource type
+     * @param res the resource type
+     * @param player the player that owns the storage
+     * @return true if there is NOT another counterTop of the same type
+     */
     public boolean canCreateNewRow(Resource res, PlayerDashboard player) {
         for(CounterTop c: player.getStorage().getShelvesArray()) {
             if(c.getContent() != 0 && c.getResourceType().equals(res)) {
