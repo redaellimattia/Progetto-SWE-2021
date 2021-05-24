@@ -8,20 +8,16 @@ import it.polimi.ingsw.network.server.SocketConnection;
 
 
 public class CreateGameMessage extends ClientMessage {
-    private int numberOfPlayers;
+    private final int numberOfPlayers;
 
     public CreateGameMessage(String nickname, long serverThreadID, int numberOfPlayers) {
         super(ClientMessageType.CREATEGAME, nickname, serverThreadID);
         this.numberOfPlayers = numberOfPlayers;
     }
 
-    public int getNumberOfPlayers() {
-        return numberOfPlayers;
-    }
-
     /**
-     *
-     * @param socketConnection socketConnection of the client
+     * Create a new ServerLobby upon player's request
+     * @param socketConnection from which the message has arrived
      */
     @Override
     public void useMessage(SocketConnection socketConnection){

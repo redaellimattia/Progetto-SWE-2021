@@ -95,10 +95,18 @@ public class GameLobby {
         return true;
     }
 
+    /**
+     * set the boolean gameStarted
+     * @param gameStarted
+     */
     public void setGameStarted(boolean gameStarted) {
         this.gameStarted = gameStarted;
     }
 
+    /**
+     * remove a player from the list of players
+     * @param nickname of the player to remove
+     */
     public void removePlayer(String nickname){
         players.remove(nickname);
     }
@@ -350,7 +358,13 @@ public class GameLobby {
             }
         }
     }
-    //da aggiungere controllo su posizione del nickname e che le carte che mi ha mandato siano nell'i-esimo gruppo da 4
+
+    /**
+     * used to save the configuration chosen by the player to start the game with
+     * @param nickname of the player
+     * @param chosen resources
+     * @param chosenLeaders the two chosen leaders
+     */
     public void preGame(String nickname, ArrayList<Resource> chosen, ArrayList<LeaderCard> chosenLeaders){
         CounterTop chosen1;
         CounterTop chosen2;
@@ -394,10 +408,18 @@ public class GameLobby {
             }
         }
     }
+
+    /**
+     *
+     * @return true if all the players have completed the preGame phase
+     */
     public boolean readyToStartGame(){
         return numberOfPlayers == readyPlayers;
     }
 
+    /**
+     * Incrementing the number of players that are ready upon receiving a PreGameResponse
+     */
     public void addReadyPlayer(){
         this.readyPlayers++;
         if(readyToStartGame())

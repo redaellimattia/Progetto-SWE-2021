@@ -15,8 +15,8 @@ public class AskLobbyMessage extends ClientMessage {
     }
 
     /**
-     *
-     * @param socketConnection socketConnection of the client
+     * Return the available lobbies upon request of a client.
+     * @param socketConnection from which the message has arrived
      */
     @Override
     public void useMessage(SocketConnection socketConnection){

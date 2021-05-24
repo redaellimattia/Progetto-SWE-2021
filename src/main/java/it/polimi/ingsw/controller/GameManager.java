@@ -114,9 +114,9 @@ public class GameManager {
     }
 
     /**
-     * MULTIPLAYER: SORT THE LIST OF PLAYER ON THE POINTS THEY HAVE; SOLOPLAYER: EITHER LORENZO WINS OR YOU GET YOUR TOTAL OF POINTS SCORED;
+     * MULTIPLAYER: SORT THE LIST OF PLAYER ON THE POINTS THEY HAVE;
+     * SOLOPLAYER: EITHER LORENZO WINS OR YOU GET YOUR TOTAL OF POINTS SCORED;
      */
-
     public void endGame() {
         if(!isSinglePlayer) {
             for (PlayerDashboard p : game.getPlayers()) {
@@ -136,7 +136,7 @@ public class GameManager {
     }
 
     /**
-     * upon being called, switch the PlayerTurnManager to the next player on the list of players
+     * Upon being called, switch the PlayerTurnManager to the next player on the list of players
      */
     public void nextRound(boolean singlePlayerFirstRound) {
             PlayerDashboard player = this.turnManager.getPlayer();
@@ -166,6 +166,9 @@ public class GameManager {
             }
     }
 
+    /**
+     * @return true if there's at least one player connected playing the game
+     */
     public boolean isAnyoneConnected(){
         for(PlayerDashboard p:game.getPlayers())
             if (p.isPlaying())

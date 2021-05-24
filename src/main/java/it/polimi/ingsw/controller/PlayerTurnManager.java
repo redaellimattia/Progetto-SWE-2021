@@ -117,11 +117,4 @@ public class PlayerTurnManager {
         }
         action.addLeaderCardProduction(leaderCardProduction,player);
     }
-    public void onUpdate() {
-
-    }
-
-    public void endTurn() {
-
-    }
 }

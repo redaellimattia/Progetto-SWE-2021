@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 public class PreGameResponseMessage extends ClientMessage{
-    ArrayList<Resource> chosen;
-    ArrayList<LeaderCard> chosenLeaders;
+    private final ArrayList<Resource> chosen;
+    private final ArrayList<LeaderCard> chosenLeaders;
 
     public PreGameResponseMessage(String nickname, long serverThreadID, ArrayList<Resource> chosen,ArrayList<LeaderCard> chosenLeaders) {
         super(ClientMessageType.PREGAMERESPONSE, nickname, serverThreadID);
@@ -22,6 +22,11 @@ public class PreGameResponseMessage extends ClientMessage{
         this.chosenLeaders = chosenLeaders;
     }
 
+    /**
+     * Proceeds to save the initial configuration chosen by the player
+     * @param socketConnection the connection from which the message has arrived
+     * @param serverLobby serverLobby of the client
+     */
     @Override
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
         serverLobby.getGameLobby().preGame(this.getNickname(),chosen,chosenLeaders);

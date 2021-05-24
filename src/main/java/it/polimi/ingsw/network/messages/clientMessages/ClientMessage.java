@@ -66,8 +66,6 @@ public abstract class ClientMessage {
                 return gson.fromJson(msg,CreateGameMessage.class);
             case JOINGAME:
                 return gson.fromJson(msg,JoinGameMessage.class);
-            case DISCONNECTION:
-                return gson.fromJson(msg,DisconnectionMessage.class);
             case ACTION:
                 return ActionMessage.deserializeAction(jsonObj);
             case PREGAMERESPONSE:

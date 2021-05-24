@@ -14,8 +14,9 @@ public class JoinGameMessage extends ClientMessage {
     }
 
     /**
-     *
-     * @param socketConnection socketConnection of the client
+     * Log the player in the chosen lobby
+     * @param socketConnection the connection from which the message has arrived
+     * @param serverLobby serverLobby of the client
      */
     @Override
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
