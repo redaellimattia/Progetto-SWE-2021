@@ -1,5 +1,6 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
 import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.exceptions.action.NoAdditionalDepositException;
 import it.polimi.ingsw.exceptions.action.WrongCounterTopException;
@@ -663,6 +664,10 @@ public class ClientManager {
             }
         }
         return null;
+    }
+
+    public void takeResourcesFromMarket(int type, int pos, ArrayList<AtomicMarketAction> choices) {
+        clientSocket.send(new MarketActionMessage(nickname, serverLobbyID, type, pos, choices).serialize());
     }
 
     /**

@@ -635,7 +635,6 @@ public class Cli implements View {
         int action;
         int count;
         boolean validChoice;
-        boolean hasValidAdditionalDeposit;
         MarketMarble[] marbles;
         ArrayList<AtomicMarketAction> choices = new ArrayList<AtomicMarketAction>();
 
@@ -747,6 +746,7 @@ public class Cli implements View {
                 }
             }
         }
+        clientManager.takeResourcesFromMarket(type, pos, choices);
     }
 
     /**
