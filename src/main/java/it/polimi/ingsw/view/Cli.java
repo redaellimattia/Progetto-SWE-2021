@@ -370,7 +370,7 @@ public class Cli implements View {
                             if (input.equalsIgnoreCase("d") && clientManager.leadersInHand())
                                 leaderAction(clientManager.getNotPlayedLeaders(),true);
                             else {
-                                if (input.equalsIgnoreCase("o"))
+                                if (input.equalsIgnoreCase("r"))
                                     organizeResources();
                                 else
                                     chooseAction();
