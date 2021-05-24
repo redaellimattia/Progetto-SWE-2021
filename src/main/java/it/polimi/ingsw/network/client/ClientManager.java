@@ -366,15 +366,33 @@ public class ClientManager {
         ArrayList<CounterTop> supportShelves = p.getStorage().getShelvesArray();
         return supportShelves.get(to - 1).getContent() <= from;
     }
+
+    /**
+     * Send an OrganizeStorageMessage to the server
+     * @param from start of the swap
+     * @param to arrive of the swap
+     */
     public void organizeStorage(int from, int to){
         clientSocket.send(new OrganizeStorageMessage(nickname, serverLobbyID,from,to).serialize());
     }
+
+    /**
+     * Check if the player has resources to enable an organize action
+     * @return true if it's doable
+     */
     public boolean canMoveResources(){
         PlayerDashboard p = getThisClientDashboard();
         ResourceCount total = p.getTotalResources();
         total.sumCounts(p.getAbilityDepositResources());
         return ResourceCount.resCountToInt(total) > 0;
     }
+
+    /**
+     * Send a MoveFromLeaderToDeposit/MoveFromDepositToLeader - Message depending on the choice done on the cli
+     * @param resource type of resource to move to find the indexes of the countertop and special ability deposit
+     * @param num number of resources to move
+     * @param fromLeader true if MoveFromLeaderToDeposit, false if MoveFromDepositToLeader
+     */
     public void moveLeaderResources(Resource resource, int num, boolean fromLeader){
         PlayerDashboard p = getThisClientDashboard();
         ArrayList<CounterTop> shelves = p.getStorage().getShelvesArray();
@@ -397,6 +415,10 @@ public class ClientManager {
             clientSocket.send(new MoveFromDepositToLeaderMessage(nickname,serverLobbyID,to,from,num).serialize());
     }
 
+    /**
+     * Check if the player has the possibility to buy at least one card from the shop
+     * @return true if it's doable
+     */
     public boolean canBuyCardFromShop(){
         Deck[][] shop = gameStatus.getShop().getGrid();
         for(int i=0;i<3;i++){
@@ -408,6 +430,11 @@ public class ClientManager {
         return false;
     }
 
+    /**
+     * Check if the player can buy a specific Development Card
+     * @param ID id of the specific Development Card
+     * @return true if it's doable
+     */
     public boolean canBuySpecificCard(int ID){
         PlayerDashboard p = getThisClientDashboard();
         DevelopmentCard c = getShopCardByID(ID);
@@ -420,11 +447,21 @@ public class ClientManager {
         return p.getTotalResources().hasMoreOrEqualsResources(cost) && canPlace;
     }
 
+    /**
+     * Check if the player can place a Development Card in a chosen position
+     * @param position chosen position
+     * @param level card's level
+     * @return true if it's doable
+     */
     public boolean positionPossible(int position, int level){
         PlayerDashboard p = getThisClientDashboard();
         return p.getDevCards()[position].getFirst().getLevel() == level-1;
     }
 
+    /**
+     * Get all the IDs of the first cards on the shop's decks
+     * @return an arraylist containing all of the IDs
+     */
     public ArrayList<Integer> getAllShopID(){
         ArrayList<Integer> firstCardID = new ArrayList<>();
         Deck[][] shop = gameStatus.getShop().getGrid();
@@ -434,6 +471,13 @@ public class ClientManager {
         return firstCardID;
     }
 
+    /**
+     * Send a CardShopMessage with the chosen parameters
+     * @param storage resources taken from the storage to pay
+     * @param chest resources taken from the chest to pay
+     * @param id of the chosen card
+     * @param position chosen to place the card on the dashboard
+     */
     public void buyCard(ResourceCount storage, ResourceCount chest, int id,int position){
         Deck[][] shop = gameStatus.getShop().getGrid();
         int row = 0,column = 0;
