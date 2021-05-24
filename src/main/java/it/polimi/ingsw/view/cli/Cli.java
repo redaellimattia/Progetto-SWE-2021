@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.cli;
 
 import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
+import it.polimi.ingsw.controller.action.marketAction.ConvertWhiteMarble;
 import it.polimi.ingsw.controller.action.marketAction.GetResource;
 import it.polimi.ingsw.exceptions.MasterOfRenaissanceRuntimeException;
 import it.polimi.ingsw.model.*;
@@ -711,7 +712,8 @@ public class Cli implements View {
                             validChoice = true;
                         }
                         else {
-                            Resource convertedResource = clientManager.getWhiteChangeResource(action);
+                            LeaderCard chosenLeaderCard = clientManager.getWhiteChangeCard(action);
+                            Resource convertedResource = chosenLeaderCard.getSpecialAbility().getResourceType();
                             do {
                                 if(clientManager.hasAdditionalDeposit(convertedResource)) {
                                     out.println("In witch deposit do you want to store the " + convertedResource + "?\n1-3: regular storage; 4: additional storage");
@@ -726,7 +728,7 @@ public class Cli implements View {
                             } while(row < 1 || row > max);
                             try {
                                 clientManager.checkAddToStorage(row, convertedResource);
-                                choices.add(new GetResource(row));
+                                choices.add(new ConvertWhiteMarble(chosenLeaderCard, row));
                                 out.println("Resource stored successfully!");
                                 validChoice = true;
                             }

@@ -628,14 +628,14 @@ public class ClientManager {
         return false;
     }
 
-    public Resource getWhiteChangeResource(int card) {
+    public LeaderCard getWhiteChangeCard(int card) {
         int count;
         count = 0;
         for (LeaderCard c: getThisClientDashboard().getLeaderCards()) {
             if(c.getSpecialAbility().useWhiteChangeAbility() != null) {
                 count++;
                 if(card == count) {
-                    return c.getSpecialAbility().getResourceType();
+                    return c;
                 }
             }
         }
