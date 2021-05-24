@@ -9,13 +9,13 @@ import it.polimi.ingsw.network.server.SocketConnection;
 import java.util.ArrayList;
 
 public class MarketActionMessage extends ActionMessage{
-    private final int type;
+    private final int rowColType;
     private final int pos;
     private final ArrayList<AtomicMarketAction> choices;
 
     public MarketActionMessage(String nickname, long serverThreadID,int type, int pos, ArrayList<AtomicMarketAction> choices) {
         super(ActionType.MARKETACTION, nickname, serverThreadID);
-        this.type = type;
+        this.rowColType = type;
         this.pos = pos;
         this.choices = choices;
     }
@@ -26,7 +26,7 @@ public class MarketActionMessage extends ActionMessage{
      */
     @Override
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby) {
-        MarketAction action = new MarketAction(type, pos, choices, serverLobby.getGameLobby().getGameManager());
+        MarketAction action = new MarketAction(rowColType, pos, choices, serverLobby.getGameLobby().getGameManager());
         useActionMessage(action, socketConnection, serverLobby);
     }
 }

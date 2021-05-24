@@ -667,6 +667,7 @@ public class ClientManager {
     }
 
     public void takeResourcesFromMarket(int type, int pos, ArrayList<AtomicMarketAction> choices) {
+        // System.out.println(new MarketActionMessage(nickname, serverLobbyID, type, pos, choices).serialize());
         clientSocket.send(new MarketActionMessage(nickname, serverLobbyID, type, pos, choices).serialize());
     }
 
