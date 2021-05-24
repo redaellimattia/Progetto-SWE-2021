@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.action.CardShopAction;
 import it.polimi.ingsw.controller.action.marketAction.GetResource;
 import it.polimi.ingsw.controller.action.marketAction.MarketAction;
 import it.polimi.ingsw.model.Game;
+import it.polimi.ingsw.network.enumeration.MarketActionType;
 import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
 
@@ -13,7 +14,7 @@ public class EndMarketActionMessage extends MarketActionMessage {
     private final int pos;
 
     public EndMarketActionMessage(String nickname, long serverThreadID, int rowColType, int pos) {
-        super(nickname, serverThreadID);
+        super(nickname, serverThreadID, MarketActionType.ENDMARKETACTION);
         this.rowColType = rowColType;
         this.pos = pos;
     }

@@ -673,15 +673,18 @@ public class ClientManager {
     }
 
     public void getResource(int row) {
+        System.out.println(new GetResourceMessage(nickname, serverLobbyID, row).serialize());
         clientSocket.send(new GetResourceMessage(nickname, serverLobbyID, row).serialize());
     }
 
     public void discardResource() {
+        System.out.println(new DiscardResourceMessage(nickname, serverLobbyID).serialize());
         clientSocket.send(new DiscardResourceMessage(nickname, serverLobbyID).serialize());
     }
 
     public void convertMarble(LeaderCard leaderCard, int row) {
         int cardId = leaderCard.getId();
+        System.out.println(new ConvertMarbleMessage(nickname, serverLobbyID, cardId, row).serialize());
         clientSocket.send(new ConvertMarbleMessage(nickname, serverLobbyID, cardId, row).serialize());
     }
 

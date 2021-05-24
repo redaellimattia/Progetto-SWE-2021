@@ -23,8 +23,9 @@ public abstract class MarketActionMessage extends ActionMessage{
     //private final int pos;
     //private final ArrayList<AtomicMarketAction> choices;
 
-    public MarketActionMessage(String nickname, long serverThreadID) {
+    public MarketActionMessage(String nickname, long serverThreadID, MarketActionType marketActionType) {
         super(ActionType.MARKETACTION, nickname, serverThreadID);
+        this.marketActionType = marketActionType;
     }
 
     /**

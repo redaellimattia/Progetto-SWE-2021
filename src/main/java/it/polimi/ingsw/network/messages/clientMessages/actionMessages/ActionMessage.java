@@ -47,7 +47,7 @@ public abstract class ActionMessage extends ClientMessage {
             case LEADERPRODUCTION:
                 return gson.fromJson(jsonObj, LeaderProductionMessage.class);
             case MARKETACTION:
-                return gson.fromJson(jsonObj, MarketActionMessage.class);
+                return MarketActionMessage.deserializeAction(jsonObj);
             case MOVEFROMDEPOSITTOLEADER:
                 return gson.fromJson(jsonObj, MoveFromDepositToLeaderMessage.class);
             case MOVEFROMLEADERTODEPOSIT:
