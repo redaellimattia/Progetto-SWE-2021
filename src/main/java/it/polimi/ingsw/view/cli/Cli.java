@@ -748,6 +748,9 @@ public class Cli implements View {
                     clientManager.getResource(0); // Storage row is not important (a white marble doesn't produce a resource)
                 }
             }
+            if(m.getColour() == MarbleColour.RED) {
+                out.println("You took a red marble, other players will gain 1 faith point.");
+            }
         }
         clientManager.endMarketAction(type, pos);
     }
