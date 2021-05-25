@@ -637,14 +637,17 @@ public class Cli implements View {
         boolean validChoice;
         MarketMarble[] marbles;
 
+        // Print the market
+        printMarket();
+
         // Choose the row/column
         do {
-            out.println("Type \"row\" if you want to select a row; \"col\" if you want to select a column");
+            out.println("Type \"row\" if you want to select a row; \"col\" if you want to select a column:");
             input = readLine();
         } while(!input.equalsIgnoreCase("row")  && !input.equalsIgnoreCase("col"));
         if(input.equalsIgnoreCase("row")) {
             do {
-                out.println("Chosen row: ");
+                out.println("Row number (starting from 1): ");
                 input = readLine();
                 try {pos = Integer.parseInt(input);} catch(NumberFormatException e) {pos = -1;}
             } while(pos < 1 || pos > 3);
@@ -652,7 +655,7 @@ public class Cli implements View {
         }
         else {
             do {
-                out.println("Chosen column: ");
+                out.println("Column number (starting from 1): ");
                 input = readLine();
                 try {pos = Integer.parseInt(input);} catch(NumberFormatException e) {pos = -1;}
             } while(pos < 1 || pos > 4);
@@ -697,7 +700,7 @@ public class Cli implements View {
                 if(clientManager.hasWhiteChangeAbility()) {
                     do {
                         do {
-                            out.println("What do you want to do with this leader card?\n0: Take nothing;");
+                            out.println("What do you want to do with this white marble?\n0: Take nothing;");
                             count = 1;
                             for(LeaderCard c: clientManager.getThisClientDashboard().getLeaderCards()) {
                                 if(c.getSpecialAbility().useWhiteChangeAbility() != null) {
@@ -741,6 +744,7 @@ public class Cli implements View {
                     } while(!validChoice);
                 }
                 else {
+                    out.println("You don't have a Leader Card that can convert the white marble.");
                     clientManager.getResource(0); // Storage row is not important (a white marble doesn't produce a resource)
                 }
             }
