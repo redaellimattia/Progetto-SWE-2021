@@ -319,7 +319,6 @@ public class ServerLobby extends Thread implements Observer {
         gameLobby.setGameStarted(true);
         SocketConnection socketConnection;
         sendToAll(new GameStartedMessage().serialize());
-        //sendToAll(new WaitYourTurnMessage().serialize());
         boolean firstPlayerFound = false;
         for(int i=0;i<gameLobby.getGameManager().getGame().getPlayers().size();i++){
             PlayerDashboard p = gameLobby.getGameManager().getGame().getPlayers().get(i);
@@ -332,7 +331,8 @@ public class ServerLobby extends Thread implements Observer {
             else
                 if(p.isPlaying()&&firstPlayerFound){
                     socketConnection = clients.get(p.getNickname());
-                    socketConnection.send(new WaitYourTurnMessage().serialize());
+                    if(socketConnection!=null)
+                        socketConnection.send(new WaitYourTurnMessage().serialize());
                 }
         }
     }
