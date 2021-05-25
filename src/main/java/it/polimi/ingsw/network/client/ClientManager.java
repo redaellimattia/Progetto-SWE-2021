@@ -68,12 +68,6 @@ public class ClientManager {
     }
     public View getView(){ return view;}
     public ClientSocket getClientSocket(){return clientSocket;}
-    public ArrayList<Boolean> getLeaderCardProductionDone() {
-        return leaderCardProductionDone;
-    }
-    public ArrayList<Boolean> getDevCardProductionDone() {
-        return devCardProductionDone;
-    }
     public boolean isProductionActionOnGoing() {
         return productionActionOnGoing;
     }
@@ -92,9 +86,6 @@ public class ClientManager {
     }
     public void setProductionActionOnGoing(boolean productionActionOnGoing) {
         this.productionActionOnGoing = productionActionOnGoing;
-    }
-    public void setBasicProductionDone(boolean basicProductionDone) {
-        this.basicProductionDone = basicProductionDone;
     }
     public void setGameStarted(boolean gameStarted) {
         this.gameStarted = gameStarted;
