@@ -95,7 +95,7 @@ public class ServerLobby extends Thread implements Observer {
 
                 if (actualPlayer.equals(askingPlayer)) { //If it's the player's turn
                     deserializedMessage.useMessage(socketConnection, this);
-                    sendToAll(new DoneMessage().serialize());
+                    //sendToAll(new DoneMessage().serialize());
                 }
                 else
                     throw new NotYourTurnException();
@@ -319,15 +319,21 @@ public class ServerLobby extends Thread implements Observer {
         gameLobby.setGameStarted(true);
         SocketConnection socketConnection;
         sendToAll(new GameStartedMessage().serialize());
-        sendToAll(new WaitYourTurnMessage().serialize());
+        //sendToAll(new WaitYourTurnMessage().serialize());
+        boolean firstPlayerFound = false;
         for(int i=0;i<gameLobby.getGameManager().getGame().getPlayers().size();i++){
             PlayerDashboard p = gameLobby.getGameManager().getGame().getPlayers().get(i);
-            if(p.isPlaying()){
+            if(p.isPlaying()&&!firstPlayerFound){
                 gameLobby.getGameManager().getTurnManager().setPlayer(p);
                 socketConnection = clients.get(p.getNickname());
                 socketConnection.send(new YourTurnMessage().serialize());
-                break;
+                firstPlayerFound = true;
             }
+            else
+                if(p.isPlaying()&&firstPlayerFound){
+                    socketConnection = clients.get(p.getNickname());
+                    socketConnection.send(new WaitYourTurnMessage().serialize());
+                }
         }
     }
 
@@ -350,7 +356,7 @@ public class ServerLobby extends Thread implements Observer {
      *
      * @param msg serialized message
      */
-    private void sendToAll(String msg){
+    public void sendToAll(String msg){
         synchronized (gameLock) {
             for (String key : clients.keySet())
                 clients.get(key).send(msg);

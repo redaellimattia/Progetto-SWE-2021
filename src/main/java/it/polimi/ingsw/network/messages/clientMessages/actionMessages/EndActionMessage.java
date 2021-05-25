@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.messages.clientMessages.actionMessages;
 
 import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.network.enumeration.ActionType;
+import it.polimi.ingsw.network.messages.serverMessages.DoneMessage;
 import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
 
@@ -20,5 +21,6 @@ public class EndActionMessage extends ActionMessage{
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
         PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
         turnManager.endAction(turnManager.getPlayer());
+        serverLobby.sendToAll(new DoneMessage().serialize());
     }
 }
