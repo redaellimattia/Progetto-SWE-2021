@@ -40,8 +40,10 @@ public abstract class AtomicMarketAction {
                     if(!canCreateNewRow(resource, player)){
                         throw new WrongCounterTopException(resource); // User cannot have two counterTops with the same Resource type
                     }
-                    // If a counterTop is empty, we need to set the new resource type
-                    player.getStorage().getFirstRow().setResourceType(resource);
+                    // If a counterTop is empty, we need to create a new one of the right resourceType
+                    CounterTop counterTop = new CounterTop(resource, 1);
+                    player.getStorage().setFirstRow(counterTop); return true;
+                    //player.getStorage().getFirstRow().setResourceType(resource);
                 }
                 if(player.getStorage().getFirstRow().getResourceType() != resource) {
                     throw new WrongCounterTopException(resource); // User cannot add a resource of a different type
@@ -56,8 +58,10 @@ public abstract class AtomicMarketAction {
                     if(!canCreateNewRow(resource, player)){
                         throw new WrongCounterTopException(resource); // User cannot have two counterTops with the same Resource type
                     }
-                    // If a counterTop is empty, we need to set the new resource type
-                    player.getStorage().getSecondRow().setResourceType(resource);
+                    // If a counterTop is empty, we need to create a new one of the right resourceType
+                    CounterTop counterTop = new CounterTop(resource, 1);
+                    player.getStorage().setSecondRow(counterTop); return true;
+                    //player.getStorage().getSecondRow().setResourceType(resource);
                 }
                 if(player.getStorage().getSecondRow().getResourceType() != resource) {
                     throw new WrongCounterTopException(resource); // User cannot add a resource of a different type
@@ -72,8 +76,10 @@ public abstract class AtomicMarketAction {
                     if(!canCreateNewRow(resource, player)){
                         throw new WrongCounterTopException(resource); // User cannot have two counterTops with the same Resource type
                     }
-                    // If a counterTop is empty, we need to set the new resource type
-                    player.getStorage().getThirdRow().setResourceType(resource);
+                    // If a counterTop is empty, we need to create a new one of the right resourceType
+                    CounterTop counterTop = new CounterTop(resource, 1);
+                    player.getStorage().setThirdRow(counterTop); return true;
+                    //player.getStorage().getThirdRow().setResourceType(resource);
                 }
                 if(player.getStorage().getThirdRow().getResourceType() != resource) {
                     throw new WrongCounterTopException(resource); // User cannot add a resource of a different type
