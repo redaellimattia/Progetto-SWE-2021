@@ -703,7 +703,7 @@ public class Cli implements View {
                             out.println("What do you want to do with this white marble?\n0: Take nothing;");
                             count = 1;
                             for(LeaderCard c: clientManager.getThisClientDashboard().getLeaderCards()) {
-                                if(c.getSpecialAbility().useWhiteChangeAbility() != null) {
+                                if(c.getSpecialAbility().useWhiteChangeAbility() != null && c.isInGame()) {
                                     out.println(count + ": Convert to " + c.getSpecialAbility().useWhiteChangeAbility().name() + " with Leader Card");
                                     count++;
                                 }

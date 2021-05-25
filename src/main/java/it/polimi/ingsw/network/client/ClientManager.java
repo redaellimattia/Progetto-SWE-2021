@@ -625,7 +625,7 @@ public class ClientManager {
 
     public boolean hasWhiteChangeAbility() {
         for (LeaderCard c: getThisClientDashboard().getLeaderCards())
-            if(c.getSpecialAbility().useWhiteChangeAbility() != null)
+            if(c.getSpecialAbility().useWhiteChangeAbility() != null && c.isInGame())
                 return true;
         return false;
     }
@@ -648,7 +648,7 @@ public class ClientManager {
         int count;
         count = 0;
         for (LeaderCard c: getThisClientDashboard().getLeaderCards()) {
-            if(c.getSpecialAbility().useWhiteChangeAbility() != null) {
+            if(c.getSpecialAbility().useWhiteChangeAbility() != null && c.isInGame()) {
                 count++;
                 if(card == count) {
                     return c;
