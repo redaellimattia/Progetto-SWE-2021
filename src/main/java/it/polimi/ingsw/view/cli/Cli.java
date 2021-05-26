@@ -411,9 +411,9 @@ public class Cli implements View {
 
             //PlayLeader || DiscardLeader
             if(clientManager.leadersInHand()) {
-                out.println("DISCARD A LEADER: press D \n");
+                out.println("DISCARD A LEADER: press D");
                 if(clientManager.canPlayLeader())
-                    out.println("PLAY A LEADER: press L\n");
+                    out.println("PLAY A LEADER: press L");
             }
 
             //Reorganize
@@ -509,7 +509,7 @@ public class Cli implements View {
     private void askPayment(ResourceCount cost, ResourceCount storage, ResourceCount chest){
         String input;
         do{
-            out.println("Press S to start payment from the storage, C from the chest: ");
+            out.println(GREEN+"Press S to start payment from the storage, C from the chest: "+RESET);
             input = readLine();
         }while(!input.equalsIgnoreCase("s")&&!input.equalsIgnoreCase("C"));
 
@@ -811,11 +811,11 @@ public class Cli implements View {
         out.println(PURPLE+"--BASIC PRODUCTION--"+RESET);
         ResourceCount chosenInput = new ResourceCount(0,0,0,0,0);
         do {
-            out.println("Choose 2 resources that you have as input of the production: ");
+            out.println(GREEN+"Choose 2 resources that you have as input of the production: "+RESET);
             ArrayList<Resource> inputResources = askResources(2);
             inputResources.get(0).add(chosenInput,1);
             inputResources.get(1).add(chosenInput,1);
-        }while(p.getTotalResources().hasMoreOrEqualsResources(chosenInput));
+        }while(!p.getTotalResources().hasMoreOrEqualsResources(chosenInput));
         ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
         ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
         ArrayList<Resource> outputResource = new ArrayList<>();
@@ -832,7 +832,7 @@ public class Cli implements View {
      */
     public void askPaymentAndChosenResourceOutput(ResourceCount chosenInput,ResourceCount storagePayment,ResourceCount chestPayment,ArrayList<Resource> outputResource){
         askPayment(chosenInput,storagePayment,chestPayment);
-        out.println("Choose the resource that will be the output of the production: ");
+        out.println(GREEN+"Choose the resource that will be the output of the production: "+RESET);
         outputResource = askResources(1);
     }
 
