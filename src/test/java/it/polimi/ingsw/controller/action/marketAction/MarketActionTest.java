@@ -35,8 +35,7 @@ class MarketActionTest {
         ServerLobby observer = new ServerLobby(2,1);
         market.addObserver(observer);
         Game game = new Game(players, new Shop(emptyGrid), market, new ArrayList<SoloToken>());
-        GameManager gameManager = new GameManager(game, new PlayerTurnManager(player1),true);
-        return gameManager;
+        return new GameManager(game, new PlayerTurnManager(player1),true);
     }
 
     public PlayerDashboard buildPlayerDashboard(String name) {
@@ -60,7 +59,6 @@ class MarketActionTest {
 
     @Test
     void buildChoices() {
-        boolean ok;
         GameManager testGameManager = buildGameManager();
         ArrayList<AtomicMarketAction> testChoices = new ArrayList<AtomicMarketAction>();
         testChoices.add(new DiscardResource());
