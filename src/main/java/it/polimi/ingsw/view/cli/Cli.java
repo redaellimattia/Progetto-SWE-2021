@@ -684,15 +684,17 @@ public class Cli implements View {
                     validChoice = false;
                     if(row == 0) {
                         clientManager.discardResource();
-                    }
-                    try {
-                        clientManager.checkAddToStorage(row, m.getColour().convertToResource());
-                        clientManager.getResource(row);
-                        out.println("Resource stored successfully!");
                         validChoice = true;
                     }
-                    catch (MasterOfRenaissanceRuntimeException e) {
-                        out.println(e.getMessage());
+                    else {
+                        if(clientManager.checkAddToStorage(row, m.getColour().convertToResource())) {
+                            clientManager.getResource(row);
+                            out.println("Resource stored successfully!");
+                            validChoice = true;
+                        }
+                        else {
+                            out.println("You cannot save the resource in this storage row.");
+                        }
                     }
                 } while(!validChoice);
             }
@@ -731,14 +733,13 @@ public class Cli implements View {
                                 input = readLine();
                                 try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
                             } while(row < 1 || row > max);
-                            try {
-                                clientManager.checkAddToStorage(row, convertedResource);
+                            if(clientManager.checkAddToStorage(row, convertedResource)) {
                                 clientManager.convertMarble(chosenLeaderCard, row);
                                 out.println("Resource stored successfully!");
                                 validChoice = true;
                             }
-                            catch (MasterOfRenaissanceRuntimeException e) {
-                                out.println(e.getMessage());
+                            else {
+                               out.println("You cannot save the resource in this storage row.");
                             }
                         }
                     } while(!validChoice);

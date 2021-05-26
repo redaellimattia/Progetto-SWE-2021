@@ -556,54 +556,58 @@ public class ClientManager {
             case 1:
                 if(getThisClientDashboard().getStorage().getFirstRow().getContent() == 0) {
                     if(!canCreateNewRow(res)){
-                        throw new WrongCounterTopException(res); // User cannot have two counterTops with the same Resource type
+                        return false; // User cannot have two counterTops with the same Resource type
+                        //throw new WrongCounterTopException(res);
                     }
                     return true;
                 }
                 if(getThisClientDashboard().getStorage().getFirstRow().getResourceType() != res) {
-                    //return false;
-                    throw new WrongCounterTopException(res); // User cannot add a resource of a different type
+                    return false; // User cannot add a resource of a different type
+                    //throw new WrongCounterTopException(res);
                 }
                 if(getThisClientDashboard().getStorage().getFirstRow().getContent() > 0) {
-                    //return false;
-                    //throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
+                    return false; // User cannot add a resource into a full counterTop
+                    //throw new CounterTopOverloadException();
                 }
                 return true;
             case 2:
                 if(getThisClientDashboard().getStorage().getSecondRow().getContent() == 0) {
                     if(!canCreateNewRow(res)){
-                        throw new WrongCounterTopException(res); // User cannot have two counterTops with the same Resource type
+                        return false; // User cannot have two counterTops with the same Resource type
+                        //throw new WrongCounterTopException(res);
                     }
                     return true;
                 }
                 if(getThisClientDashboard().getStorage().getSecondRow().getResourceType() != res) {
-                    //return false;
-                    throw new WrongCounterTopException(res); // User cannot add a resource of a different type
+                    return false;  // User cannot add a resource of a different type
+                    //throw new WrongCounterTopException(res);
                 }
                 if(getThisClientDashboard().getStorage().getSecondRow().getContent() > 1) {
-                    //return false;
-                    //throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
+                    return false; // User cannot add a resource into a full counterTop
+                    //throw new CounterTopOverloadException();
                 }
                 return true;
             case 3:
                 if(getThisClientDashboard().getStorage().getThirdRow().getContent() == 0) {
                     if(!canCreateNewRow(res)){
-                        throw new WrongCounterTopException(res); // User cannot have two counterTops with the same Resource type
+                        return false;  // User cannot have two counterTops with the same Resource type
+                        //throw new WrongCounterTopException(res);
                     }
                     return true;
                 }
                 if(getThisClientDashboard().getStorage().getThirdRow().getResourceType() != res) {
-                    //return false;
-                    throw new WrongCounterTopException(res); // User cannot add a resource of a different type
+                    return false;  // User cannot add a resource of a different type
+                    //throw new WrongCounterTopException(res);
                 }
                 if(getThisClientDashboard().getStorage().getThirdRow().getContent() > 2) {
-                    //return false;
-                    //throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
+                    return false; // User cannot add a resource into a full counterTop
+                    //throw new CounterTopOverloadException();
                 }
                 return true;
             case 4:
                 if(getThisClientDashboard().isFull(res)) {
-                    throw new NoAdditionalDepositException(res);
+                    return false;
+                    //throw new NoAdditionalDepositException(res);
                 }
                 else {
                     return true;

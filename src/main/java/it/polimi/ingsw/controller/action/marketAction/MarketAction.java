@@ -43,7 +43,7 @@ public class MarketAction extends Action {
                 marbles = market.getRow(pos);
             }
             catch(IndexOutOfBoundsException e) {
-                throw new IllegalMarketPositionException();
+                throw new IllegalMarketPositionException(player);
             }
         }
         if (type == 1) { // A column is selected
@@ -51,7 +51,7 @@ public class MarketAction extends Action {
                 marbles = market.getColumn(pos);
             }
             catch(IndexOutOfBoundsException e) {
-                throw new IllegalMarketPositionException();
+                throw new IllegalMarketPositionException(player);
             }
         }
 
@@ -65,7 +65,7 @@ public class MarketAction extends Action {
                 try {
                     choices.get(j).useAction(marble, player, gameManager);
                 } catch (IndexOutOfBoundsException e) {
-                    throw new IncompleteListException();
+                    throw new IncompleteListException(player);
                 }
                 j++;
             }
