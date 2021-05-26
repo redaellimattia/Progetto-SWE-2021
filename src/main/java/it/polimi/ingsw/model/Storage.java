@@ -118,7 +118,9 @@ public class Storage {
     public int addToFirstRow(int n){
         if(firstRow.getContent() == 0 && n == 1){
             firstRow.addContent(n);
-            observer.updateFirstRow(this.firstRow);
+            if(observer != null) {
+                observer.updateFirstRow(this.firstRow);
+            }
             return 0;
         }
         return n;
@@ -133,7 +135,7 @@ public class Storage {
         int i = 0;
         for(i = 0; i<n && secondRow.getContent()<2; i++)
                 secondRow.addContent(1);
-        if((n-i)!=n)
+        if((n-i)!=n && observer != null)
             observer.updateSecondRow(this.secondRow);
         return n-i;
     }
@@ -147,7 +149,7 @@ public class Storage {
         int i = 0;
         for(i = 0; i<n && thirdRow.getContent()<3; i++)
                 thirdRow.addContent(1);
-        if((n-i)!=n)
+        if((n-i)!=n && observer != null)
             observer.updateThirdRow(this.thirdRow);
         return n-i;
     }
