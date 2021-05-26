@@ -43,7 +43,7 @@ public class BasicProductionAction extends Action {
         if(!deleteRes(storageCount,chestCount,player)||total!=2||totalCount.getFaith()!=0)
             throw new PaymentFailedException(player);
 
-        ResourceCount output = new ResourceCount(0,0,0,0,0); //ResourceCount with 1 Faith
+        ResourceCount output = new ResourceCount(0,0,0,0,0);
         res.add(output,1);
         player.incrementBufferProduction(output);
     }

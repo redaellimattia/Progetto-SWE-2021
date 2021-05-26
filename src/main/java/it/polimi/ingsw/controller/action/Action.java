@@ -18,16 +18,18 @@ public abstract class Action {
     //TRUE IF BOTH STORAGE AND CHEST PAY ARE DONE CORRECTLY
     public boolean deleteRes(ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player){
         boolean storageDone = false,chestDone = false;
-        if(storageCount != null)
+        int storageToInt = ResourceCount.resCountToInt(storageCount);
+        int chestToInt = ResourceCount.resCountToInt(chestCount);
+        if(storageToInt != 0)
             storageDone = removeFromStorage(storageCount,player.getStorage());
-        if(chestCount != null)
+        if(chestToInt != 0)
             chestDone = removeFromChest(chestCount,player);
 
-        if(storageCount!=null&&chestCount!=null)
+        if(storageToInt != 0 && chestToInt != 0)
             return storageDone&&chestDone;
-        if(storageCount!=null)
+        if(storageToInt != 0)
             return storageDone;
-        if(chestCount!=null)
+        if(chestToInt != 0)
             return chestDone;
         return false;
     }

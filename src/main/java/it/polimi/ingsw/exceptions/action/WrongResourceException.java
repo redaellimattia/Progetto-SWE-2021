@@ -6,6 +6,6 @@ import it.polimi.ingsw.model.PlayerDashboard;
 public class WrongResourceException extends MasterOfRenaissanceRuntimeException {
     public WrongResourceException(String res, PlayerDashboard p) {
         super("You have chosen the wrong resource type: " + res);
-        p.setExceptionError("You have chosen the wrong resource type: " + res);
+        p.setMainActionError("You have chosen the wrong resource type: " + res);
     }
 }

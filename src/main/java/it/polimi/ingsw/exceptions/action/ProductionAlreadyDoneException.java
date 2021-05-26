@@ -5,6 +5,6 @@ import it.polimi.ingsw.model.PlayerDashboard;
 
 public class ProductionAlreadyDoneException extends MasterOfRenaissanceRuntimeException {
     public ProductionAlreadyDoneException(PlayerDashboard p) { super("Production already used in this turn!");
-        p.setExceptionError("Production already used in this turn!");
+        p.setMainActionError("Production already used in this turn!");
     }
 }

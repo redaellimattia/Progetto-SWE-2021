@@ -516,14 +516,14 @@ public class Cli implements View {
         }while(!input.equalsIgnoreCase("s")&&!input.equalsIgnoreCase("C"));
 
         if(input.equalsIgnoreCase("s")){
-            storage = askStoragePayment(cost,false);
+            storage = askStoragePayment(cost);
             if(ResourceCount.resCountToInt(cost) !=0)
-                chest = askChestPayment(cost,true);
+                chest = askChestPayment(cost);
         }
         else{
-            chest = askChestPayment(cost,false);
+            chest = askChestPayment(cost);
             if(ResourceCount.resCountToInt(cost) !=0)
-                storage = askStoragePayment(cost,true);
+                storage = askStoragePayment(cost);
         }
         payments.add(storage);
         payments.add(chest);
@@ -533,30 +533,28 @@ public class Cli implements View {
     /**
      *  ask for the resources from the Storage to pay with
      * @param cost cost that still needs to be covered
-     * @param needToCover boolean (the cost may not have already been covered entirely if coming from the chest payment)
      * @return a ResourceCount containing the resources chosen from the storage
      */
-    private ResourceCount askStoragePayment(ResourceCount cost,boolean needToCover){
+    private ResourceCount askStoragePayment(ResourceCount cost){
         out.println("You need to pay: " + cost);
         out.println("Now insert the resources you want to pay with FROM THE STORAGE: ");
         ResourceCount temporaryStorage = clientManager.getThisClientDashboard().getStorage().readStorage();
         ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
-        addResourceToPayment(temporaryStorage,storagePayment,cost,needToCover);
+        addResourceToPayment(temporaryStorage,storagePayment,cost);
         return storagePayment;
     }
 
     /**
      *  ask for the resources from the Chest to pay with
      * @param cost cost that still needs to be covered
-     * @param needToCover boolean (the cost may not have already been covered entirely if coming from the storage payment)
      * @return a ResourceCount containing the resources chosen from the chest
      */
-    private ResourceCount askChestPayment(ResourceCount cost,boolean needToCover){
+    private ResourceCount askChestPayment(ResourceCount cost){
         out.println("You need to pay: " + cost);
         out.println("Now insert the resources you want to pay with FROM THE CHEST: ");
         ResourceCount temporaryChest = clientManager.getThisClientDashboard().getChest();
         ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
-        addResourceToPayment(temporaryChest,chestPayment,cost,needToCover);
+        addResourceToPayment(temporaryChest,chestPayment,cost);
         return chestPayment;
     }
 
@@ -565,9 +563,8 @@ public class Cli implements View {
      * @param temporary ResourceCount that keeps track of the choices of the player (representing storage or chest)
      * @param payment ResourceCount that will contain the chosen resources to pay
      * @param cost amount of resources that need to be covered
-     * @param needToCover boolean representing if the cost still needs to be covered completely
      */
-    private void addResourceToPayment(ResourceCount temporary, ResourceCount payment, ResourceCount cost, boolean needToCover){
+    private void addResourceToPayment(ResourceCount temporary, ResourceCount payment, ResourceCount cost){
         String input;
         do {
             do {
@@ -579,8 +576,9 @@ public class Cli implements View {
                         "ROCKS: press R \n" +
                         "SHIELDS: press SH \n" +
                         "SERVANTS: press SE");
+                out.println("Press \"esc\" to exit: ");
                 input = readLine();
-            } while (!input.equalsIgnoreCase("c")&&!input.equalsIgnoreCase("r")&&!input.equalsIgnoreCase("sh")&&!input.equalsIgnoreCase("se"));
+            } while (!input.equalsIgnoreCase("esc")&&!input.equalsIgnoreCase("c")&&!input.equalsIgnoreCase("r")&&!input.equalsIgnoreCase("sh")&&!input.equalsIgnoreCase("se"));
             input= input.toUpperCase();
             boolean choiceOk = false;
             switch(input){
@@ -624,8 +622,10 @@ public class Cli implements View {
                 }
             }
             else {
-                out.println("Invalid choice, you don't have this resource in the storage.");
-                input = "c";
+                if(!input.equalsIgnoreCase("esc")) {
+                    out.println("Invalid choice, you don't have this resource in the storage.");
+                    input = "c";
+                }
             }
         }while(input.equalsIgnoreCase("c"));
     }
@@ -815,8 +815,9 @@ public class Cli implements View {
      */
     public void doBasicProduction(PlayerDashboard p){
         out.println(PURPLE+"--BASIC PRODUCTION--"+RESET);
-        ResourceCount chosenInput = new ResourceCount(0,0,0,0,0);
+        ResourceCount chosenInput;
         do {
+            chosenInput = new ResourceCount(0,0,0,0,0);
             out.println(GREEN+"Choose 2 resources that you have as input of the production: "+RESET);
             ArrayList<Resource> inputResources = askResources(2);
             inputResources.get(0).add(chosenInput,1);
@@ -1030,7 +1031,7 @@ public class Cli implements View {
      */
     private int askNumberResourcesToMove(CounterTop counterTop){
         String input;
-        int num = -1;
+        int num;
         do{
             out.println("How many resources do you want to move?");
             input = readLine();
@@ -1053,7 +1054,7 @@ public class Cli implements View {
      */
     private void organizeStorage(){
         String input;
-        int num = -1;
+        int num;
         do{
             out.println("Insert the number of the shelf you want to start the swap FROM (1,2 or 3): ");
             input = readLine();

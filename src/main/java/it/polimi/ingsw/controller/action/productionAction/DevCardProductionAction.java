@@ -39,7 +39,7 @@ public class DevCardProductionAction extends Action {
 
         //If devCard doesnt exist in the model then throw Exception
         if(!player.devCardExists(card))
-            throw new CardNotExistsException("Development Card",player);
+            throw new CardNotExistsException("Development Card",player,true);
 
         if(output.isEmpty() || !deleteRes(storageCount,chestCount,player)) //NOT ENOUGH RESOURCES OR PAYMENT FAILED
             throw new PaymentFailedException(player);

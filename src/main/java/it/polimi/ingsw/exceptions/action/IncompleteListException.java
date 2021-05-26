@@ -6,6 +6,6 @@ import it.polimi.ingsw.model.PlayerDashboard;
 public class IncompleteListException extends MasterOfRenaissanceRuntimeException {
     public IncompleteListException(PlayerDashboard p) {
         super("The list of choices is incomplete.");
-        p.setExceptionError("The list of choices is incomplete.");
+        p.setMainActionError("The list of choices is incomplete.");
     }
 }

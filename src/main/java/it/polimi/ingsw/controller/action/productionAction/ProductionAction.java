@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller.action.productionAction;
 
 import it.polimi.ingsw.controller.action.Action;
+import it.polimi.ingsw.exceptions.MasterOfRenaissanceRuntimeException;
 import it.polimi.ingsw.exceptions.action.ProductionAlreadyDoneException;
 import it.polimi.ingsw.model.PlayerDashboard;
 
@@ -63,7 +64,9 @@ public class ProductionAction extends Action {
             throw new ProductionAlreadyDoneException(player);
         else {
             this.basicProduction = basicProduction; //Updating basicProduction if possible
-            basicProduction.useAction(player); //Setting LastAddedAction
+            try {
+                basicProduction.useAction(player); //Setting LastAddedAction
+            }catch(MasterOfRenaissanceRuntimeException e){System.out.println(e.getMessage());}
         }
     }
 

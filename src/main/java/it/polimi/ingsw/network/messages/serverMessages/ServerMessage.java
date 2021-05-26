@@ -61,6 +61,8 @@ public abstract class ServerMessage {
                 return gson.fromJson(msg, GameStartedMessage.class);
             case DONE:
                 return gson.fromJson(msg, DoneMessage.class);
+            case EXCEPTION:
+                return gson.fromJson(msg, ExceptionMessage.class);
             default:
                 throw new IllegalArgumentException("ServerMessageType not valid.");
         }

@@ -471,7 +471,15 @@ public class ServerLobby extends Thread implements Observer {
     }
 
     @Override
-    public void updateException(String nickname, String message){
+    public void updateMainActionException(String nickname, String message){
+        SocketConnection clientConnection = clients.get(nickname);
+        if(clientConnection!=null) {
+            clientConnection.send(new ExceptionMessage(message).serialize());
+        }
+    }
+
+    @Override
+    public void updateSideActionException(String nickname, String message){
         SocketConnection clientConnection = clients.get(nickname);
         if(clientConnection!=null) {
             clientConnection.send(new PrintMessage(message).serialize());

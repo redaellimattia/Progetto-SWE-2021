@@ -40,7 +40,7 @@ public class ConvertWhiteMarble extends AtomicMarketAction {
             throw new NoWhiteMarbleException(player); // User cannot convert a marble that isn't white
         }
         if(!player.leaderCardExists(leaderCard) || !leaderCard.isInGame()) {
-            throw new CardNotExistsException("Leader Card", player); // User must own the leaderCard
+            throw new CardNotExistsException("Leader Card", player,true); // User must own the leaderCard
         }
         Resource resource = leaderCard.getSpecialAbility().useWhiteChangeAbility();
         if(resource == null) {
