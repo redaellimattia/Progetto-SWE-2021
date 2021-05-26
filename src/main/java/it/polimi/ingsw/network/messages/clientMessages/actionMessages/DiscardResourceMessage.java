@@ -16,6 +16,5 @@ public class DiscardResourceMessage extends MarketActionMessage {
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby) {
         DiscardResource action = new DiscardResource();
         serverLobby.getTurnManager().addMarketChoice(action);
-        serverLobby.sendToAll(new DoneMessage().serialize());
     }
 }

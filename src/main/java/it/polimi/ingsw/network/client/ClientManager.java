@@ -434,10 +434,15 @@ public class ClientManager {
         DevelopmentCard c = getShopCardByID(ID);
         ResourceCount cost = c.getCost();
         boolean canPlace = false;
-        for(int i=0;i<3;i++)
-            if(p.getDevCards()[i].getDeck().size()>0)
-                if(p.getDevCards()[i].getFirst().getLevel() == c.getLevel()-1)
-                    canPlace = true;
+        for(int i=0;i<3 && !canPlace;i++) {
+            if (p.getDevCards()[i].getDeck().size() == 0 && c.getLevel() == 1)
+                canPlace = true;
+            else {
+                if(p.getDevCards()[i].getDeck().size()>0)
+                    if (p.getDevCards()[i].getFirst().getLevel() == c.getLevel() - 1)
+                        canPlace = true;
+            }
+        }
         return p.getTotalResources().hasMoreOrEqualsResources(cost) && canPlace;
     }
 
@@ -561,7 +566,7 @@ public class ClientManager {
                 }
                 if(getThisClientDashboard().getStorage().getFirstRow().getContent() > 0) {
                     //return false;
-                    throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
+                    //throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
                 }
                 return true;
             case 2:
@@ -577,7 +582,7 @@ public class ClientManager {
                 }
                 if(getThisClientDashboard().getStorage().getSecondRow().getContent() > 1) {
                     //return false;
-                    throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
+                    //throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
                 }
                 return true;
             case 3:
@@ -593,7 +598,7 @@ public class ClientManager {
                 }
                 if(getThisClientDashboard().getStorage().getThirdRow().getContent() > 2) {
                     //return false;
-                    throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
+                    //throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
                 }
                 return true;
             case 4:
@@ -680,6 +685,7 @@ public class ClientManager {
     }
 
     public void endMarketAction(int type, int pos) {
+        setMainActionDone(true);
         clientSocket.send(new EndMarketActionMessage(nickname, serverLobbyID, type, pos).serialize());
     }
 

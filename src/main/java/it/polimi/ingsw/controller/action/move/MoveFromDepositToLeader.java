@@ -38,21 +38,21 @@ public class MoveFromDepositToLeader extends Action {
                 storage.getFirstRow().removeContent(number);
             }
             else
-                throw new WrongResourcesMovedException();
+                throw new WrongResourcesMovedException(player);
                 break;
             case 2: if( storage.getSecondRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getSecondRow().getResourceType().equals(leaderDeposit.getResourceType())) {
                 leaderDeposit.addContent(number);
                 storage.getSecondRow().removeContent(number);
             }
             else
-                throw new WrongResourcesMovedException();
+                throw new WrongResourcesMovedException(player);
                 break;
             case 3: if( storage.getThirdRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getThirdRow().getResourceType().equals(leaderDeposit.getResourceType())) {
                 leaderDeposit.addContent(number);
                 storage.getThirdRow().removeContent(number);
             }
             else
-                throw new WrongResourcesMovedException();
+                throw new WrongResourcesMovedException(player);
                 break;
         }
     }

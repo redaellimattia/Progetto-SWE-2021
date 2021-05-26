@@ -49,7 +49,7 @@ public abstract class AtomicMarketAction {
                     throw new WrongCounterTopException(resource); // User cannot add a resource of a different type
                 }
                 if(player.getStorage().getFirstRow().getContent() > 0) {
-                    throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
+                    throw new CounterTopOverloadException(player); // User cannot add a resource into a full counterTop
                 }
                 player.getStorage().addToFirstRow(1); return true;
             case 2:
@@ -67,7 +67,7 @@ public abstract class AtomicMarketAction {
                     throw new WrongCounterTopException(resource); // User cannot add a resource of a different type
                 }
                 if(player.getStorage().getSecondRow().getContent() > 1) {
-                    throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
+                    throw new CounterTopOverloadException(player); // User cannot add a resource into a full counterTop
                 }
                 player.getStorage().addToSecondRow(1); return true;
             case 3:
@@ -85,7 +85,7 @@ public abstract class AtomicMarketAction {
                     throw new WrongCounterTopException(resource); // User cannot add a resource of a different type
                 }
                 if(player.getStorage().getThirdRow().getContent() > 2) {
-                    throw new CounterTopOverloadException(); // User cannot add a resource into a full counterTop
+                    throw new CounterTopOverloadException(player); // User cannot add a resource into a full counterTop
                 }
                 player.getStorage().addToThirdRow(1); return true;
             case 4:

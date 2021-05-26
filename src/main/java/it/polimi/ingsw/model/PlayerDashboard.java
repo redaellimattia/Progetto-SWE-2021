@@ -44,7 +44,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
      * @param points total of victory Points
      */
     public PlayerDashboard(Storage storage, ResourceCount chest, DeckDashboard[] devCards, ArrayList<LeaderCard> leaderCards, String nickname, int points, boolean isLorenzo) {
-        super( nickname, points,isLorenzo);
+        super(nickname, points,isLorenzo);
         this.pathPosition = 0;
         this.storage = storage;
         this.storage.addObserver(this);
@@ -56,6 +56,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
         this.leaderCards = leaderCards;
         this.arrayDeposit = new ArrayList<>();
         bufferProduction = new ResourceCount(0,0,0,0,0);
+        storage.setPlayer(this);
     }
 
     //GETTERS
@@ -145,7 +146,10 @@ public class PlayerDashboard extends Player implements StorageObserver{
         if(observer!=null)
             observer.updateLeaders(getNickname(),leaderCards);
     }
-
+    public void setExceptionError(String error){
+        super.setExceptionError(error);
+        observer.updateException(getNickname(),getExceptionError());
+    }
     /**
      * INITIALIZE A NEW SHELF WHEN A DEPOSITABILITY LEADER IS PLAYED
      *
@@ -236,7 +240,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
                     c.addContent(1);
         }
         else
-            throw new CounterTopOverloadException();
+            throw new CounterTopOverloadException(this);
         observer.updateArrayDeposit(getNickname(),arrayDeposit);
     }
 

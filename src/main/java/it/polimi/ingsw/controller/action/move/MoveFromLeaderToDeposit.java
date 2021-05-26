@@ -36,7 +36,7 @@ public class MoveFromLeaderToDeposit extends Action {
         Storage storage = player.getStorage();
 
         if(leaderDeposit.getContent()< number)
-            throw new WrongResourcesMovedException();
+            throw new WrongResourcesMovedException(player);
 
         switch(to_deposit){
             case 1: if(storage.getFirstRow().getContent() == 0 && number == 1) {
@@ -45,7 +45,7 @@ public class MoveFromLeaderToDeposit extends Action {
                 leaderDeposit.removeContent(number);
             }
             else
-                throw new WrongResourcesMovedException();
+                throw new WrongResourcesMovedException(player);
                 break;
             case 2: if((storage.getSecondRow().getContent() + number) <= 2 && storage.getSecondRow().getResourceType().equals(leaderDeposit.getResourceType()) || (storage.getSecondRow().getContent() == 0)){
                 CounterTop substitute = new CounterTop(leaderDeposit.getResourceType(),number+storage.getSecondRow().getContent());
@@ -53,7 +53,7 @@ public class MoveFromLeaderToDeposit extends Action {
                 leaderDeposit.removeContent(number);
             }
             else
-                throw new WrongResourcesMovedException();
+                throw new WrongResourcesMovedException(player);
                 break;
             case 3: if(((storage.getThirdRow().getContent() + number) <= 3 && storage.getThirdRow().getResourceType().equals(leaderDeposit.getResourceType())) || (storage.getThirdRow().getContent() == 0)){
                 CounterTop substitute = new CounterTop(leaderDeposit.getResourceType(),number+storage.getThirdRow().getContent());
@@ -61,7 +61,7 @@ public class MoveFromLeaderToDeposit extends Action {
                 leaderDeposit.removeContent(number);
             }
             else
-                throw new WrongResourcesMovedException();
+                throw new WrongResourcesMovedException(player);
                 break;
         }
     }

@@ -468,7 +468,15 @@ public class ServerLobby extends Thread implements Observer {
     @Override
     public void updateLeaders(String nickname, ArrayList<LeaderCard> leaderCards){
         sendToAll(new LeaderChoiceMessage(nickname,leaderCards).serialize());
+    }
 
+    @Override
+    public void updateException(String nickname, String message){
+        SocketConnection clientConnection = clients.get(nickname);
+        if(clientConnection!=null) {
+            clientConnection.send(new PrintMessage(message).serialize());
+            clientConnection.send(new DoneMessage().serialize());
+        }
     }
     @Override
     public void setGameMustEnd(){

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 public class ClientSocket implements Runnable {
@@ -56,12 +57,29 @@ public class ClientSocket implements Runnable {
      */
     @Override
     public void run() {
+        ArrayList<String> messageQueue = new ArrayList<>();
         while (!socketListener.isInterrupted()) {
             try {
+                    /*while(in.ready()) {
+                        String msg = in.readLine();
+                        messageQueue.add(in.readLine());
+                    }*/
                     String msg = in.readLine();
-                    //System.out.println(msg);
-                    if (msg != null) clientManager.onMessage(msg);
-                    else disconnect();
+                    System.out.println(msg);
+                    if (msg != null)
+                        clientManager.onMessage(msg);
+                    else
+                        disconnect();
+                /*while(messageQueue.size()>0){
+                    String message = messageQueue.get(0);
+                    if(message != null) {
+                        clientManager.onMessage(message);
+                        messageQueue.remove(0);
+                    }
+                    else
+                        disconnect();
+                }*/
+                    //else disconnect();
             } catch (IOException e) {
                 ClientManager.LOGGER.severe("Failed to read message from server: "+ e.getMessage());
                 clientManager.getView().printMsg("Can't reach the Server");

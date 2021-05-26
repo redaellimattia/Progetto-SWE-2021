@@ -11,6 +11,7 @@ public class Storage {
     private CounterTop secondRow;
     private CounterTop thirdRow;
     private transient StorageObserver observer;
+    private transient PlayerDashboard player;
 
     /**
      * Adds reference to the observer
@@ -65,7 +66,7 @@ public class Storage {
         return thirdRow;
     }
 
-
+    public void setPlayer(PlayerDashboard p){this.player = p;}
     //SETTERS
     /**
      *
@@ -74,7 +75,7 @@ public class Storage {
      */
     public void setFirstRow(CounterTop firstRow) throws CounterTopOverloadException{
         if(firstRow.getContent() > 1 )
-            throw new CounterTopOverloadException("1");
+            throw new CounterTopOverloadException("1",player);
         this.firstRow = firstRow;
         if(observer!=null)
             observer.updateFirstRow(this.firstRow);
@@ -87,7 +88,7 @@ public class Storage {
      */
     public void setSecondRow(CounterTop secondRow) throws CounterTopOverloadException {
         if(secondRow.getContent() > 2 )
-            throw new CounterTopOverloadException("2");
+            throw new CounterTopOverloadException("2",player);
         this.secondRow = secondRow;
         if(observer!=null)
             observer.updateSecondRow(this.secondRow);
@@ -100,7 +101,7 @@ public class Storage {
      */
     public void setThirdRow(CounterTop thirdRow) throws CounterTopOverloadException{
         if(thirdRow.getContent() > 3)
-            throw new CounterTopOverloadException("3");
+            throw new CounterTopOverloadException("3",player);
         this.thirdRow = thirdRow;
         if(observer!=null)
             observer.updateThirdRow(this.thirdRow);

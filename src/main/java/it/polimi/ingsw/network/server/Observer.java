@@ -28,5 +28,7 @@ public interface Observer {
     void updateVaticanReport(int victoryPoints,ArrayList<String> nicknames);
     void updateStartGame();
     void updateEndGame();
+    void updateException(String nickname,String message);
     void setGameMustEnd();
+
 }
