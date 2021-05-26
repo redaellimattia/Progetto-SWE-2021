@@ -893,9 +893,9 @@ public class Cli implements View {
                 chosenCard = d;
             }
         }
-        ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
-        ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
         ArrayList<ResourceCount> payments = askPayment(cost);
+        ResourceCount storagePayment = payments.get(0);
+        ResourceCount chestPayment = payments.get(1);
         clientManager.devCardProduction(index,chosenCard,storagePayment,chestPayment);
     }
 
@@ -1059,7 +1059,6 @@ public class Cli implements View {
             try{num = Integer.parseInt(input);}catch(NumberFormatException e) { num = -1;}
         }while(num <1 || num>3);
         int from = num;
-        num = -1;
         do{
             out.println("Insert the number of the shelf you want to move TO (1,2 or 3): ");
             input = readLine();
