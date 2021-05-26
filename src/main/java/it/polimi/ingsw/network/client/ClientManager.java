@@ -454,7 +454,10 @@ public class ClientManager {
      */
     public boolean positionPossible(int position, int level){
         PlayerDashboard p = getThisClientDashboard();
-        return p.getDevCards()[position].getFirst().getLevel() == level-1;
+        if(p.getDevCards()[position].getDeck().size() == 0 && level == 1)
+            return true;
+        else
+            return p.getDevCards()[position].getFirst().getLevel() == level-1;
     }
 
     /**

@@ -496,7 +496,7 @@ public class Cli implements View {
             out.println("Now insert the position of the deck of which you want to put the card on top: ");
             input = readLine();
             try{position = Integer.parseInt(input);}catch(NumberFormatException e) {position = -1;}
-        }while((position <1 || position >3) || clientManager.positionPossible(position,card.getLevel()));
+        }while((position <1 || position >3) && clientManager.positionPossible(position,card.getLevel()));
         clientManager.setMainActionDone(true);
         clientManager.buyCard(storagePayment,chestPayment,id,position);
     }
@@ -614,19 +614,19 @@ public class Cli implements View {
                     break;
             }
             if(choiceOk) {
-                do {
-                    out.println("Choice registered, press C to continue adding resources from the storage, N to exit:");
-                    input = readLine();
-                } while (!input.equalsIgnoreCase("c") && !input.equalsIgnoreCase("N"));
+                if(ResourceCount.resCountToInt(cost) == 0)
+                    input = "n";
+                else {
+                    do {
+                        out.println("Choice registered, press C to continue adding resources from the storage, N to exit:");
+                        input = readLine();
+                    } while (!input.equalsIgnoreCase("c") && !input.equalsIgnoreCase("N"));
+                }
             }
             else {
                 out.println("Invalid choice, you don't have this resource in the storage.");
                 input = "c";
             }
-            if(needToCover && ResourceCount.resCountToInt(cost) != 0)
-                input = "c";
-            if(ResourceCount.resCountToInt(cost) == 0)
-                input = "n";
         }while(input.equalsIgnoreCase("c"));
     }
 
@@ -1261,7 +1261,7 @@ public class Cli implements View {
         out.print(card.getColour()+ RESET + "\n" +
                CYAN_BOLD+ "Production Power: " + "\n" +
                 "Cost: " + card.getProductionPower().getInput().toString() + "\n" +
-                "Output: " + card.getProductionPower().getOutput().toString());
+                "Output: " + card.getProductionPower().getOutput().toString() + RESET);
     }
 
     /**
