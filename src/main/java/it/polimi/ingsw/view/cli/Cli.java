@@ -537,7 +537,7 @@ public class Cli implements View {
      * @return a ResourceCount containing the resources chosen from the storage
      */
     private ResourceCount askStoragePayment(ResourceCount cost,boolean needToCover){
-        out.println("To buy this card you need to pay: " + cost);
+        out.println("You need to pay: " + cost);
         out.println("Now insert the resources you want to pay with FROM THE STORAGE: ");
         ResourceCount temporaryStorage = clientManager.getThisClientDashboard().getStorage().readStorage();
         ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
@@ -552,7 +552,7 @@ public class Cli implements View {
      * @return a ResourceCount containing the resources chosen from the chest
      */
     private ResourceCount askChestPayment(ResourceCount cost,boolean needToCover){
-        out.println("To buy this card you need to pay: " + cost);
+        out.println("You need to pay: " + cost);
         out.println("Now insert the resources you want to pay with FROM THE CHEST: ");
         ResourceCount temporaryChest = clientManager.getThisClientDashboard().getChest();
         ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
@@ -692,13 +692,13 @@ public class Cli implements View {
                         validChoice = true;
                     }
                     else {
-                        if(clientManager.checkAddToStorage(row, m.getColour().convertToResource())) {
+                        try {
+                            clientManager.checkAddToStorage(row, m.getColour().convertToResource());
                             clientManager.getResource(row);
                             out.println("Resource stored successfully!");
                             validChoice = true;
-                        }
-                        else {
-                            out.println("You cannot save the resource in this storage row.");
+                        }catch (MasterOfRenaissanceRuntimeException e) {
+                            out.println(e.getMessage());
                         }
                     }
                 } while(!validChoice);
@@ -738,13 +738,14 @@ public class Cli implements View {
                                 input = readLine();
                                 try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
                             } while(row < 1 || row > max);
-                            if(clientManager.checkAddToStorage(row, convertedResource)) {
+                            try {
+                                clientManager.checkAddToStorage(row, convertedResource);
                                 clientManager.convertMarble(chosenLeaderCard, row);
                                 out.println("Resource stored successfully!");
                                 validChoice = true;
                             }
-                            else {
-                               out.println("You cannot save the resource in this storage row.");
+                            catch (MasterOfRenaissanceRuntimeException e) {
+                                out.println(e.getMessage());
                             }
                         }
                     } while(!validChoice);
@@ -1243,7 +1244,8 @@ public class Cli implements View {
     void printDevCard(DevelopmentCard card){
         out.print("ID: " + card.getId() +"\n" +
                 "Level: " + card.getLevel() +"\n" +
-                "Victory Points: " + card.getVictoryPoints() + "\n");
+                "Victory Points: " + card.getVictoryPoints() + "\n" +
+                "Cost: " + card.getCost() +"\n");
         out.print("Colour: ");
         switch (card.getColour()){
             case GREEN: out.print(GREEN);
@@ -1255,8 +1257,9 @@ public class Cli implements View {
             case PURPLE: out.print(PURPLE);
                 break;
         }
+
         out.print(card.getColour()+ RESET + "\n" +
-                "Production Power: " + "\n" +
+               CYAN_BOLD+ "Production Power: " + "\n" +
                 "Cost: " + card.getProductionPower().getInput().toString() + "\n" +
                 "Output: " + card.getProductionPower().getOutput().toString());
     }
