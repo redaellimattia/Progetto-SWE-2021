@@ -17,6 +17,7 @@ import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
 import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.Gui;
+import org.w3c.dom.css.Counter;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -544,6 +545,25 @@ public class ClientManager {
         PlayerDashboard p = getThisClientDashboard();
         return (canDoDevCardProduction(p) || canDoLeaderCardProduction(p) || canDoBasicProduction(p));
     }
+
+    /*/**
+     * Creates a copy of the user storage at the beginning of the MarketAction
+     * that will be updated when user makes choices in order to perform client-side validity controls.
+     * It won't be sent to the server (the server will re-execute choices)
+     */
+    /*
+    public void initTempStorage() {
+        ArrayList<CounterTop> tempStorageRows = new ArrayList<CounterTop>();
+        // Create a COPY of each "regular" counterTop
+        for(CounterTop c: getThisClientDashboard().getStorage().getShelvesArray()) {
+            tempStorageRows.add(new CounterTop(c.getResourceType(), c.getContent()));
+        }
+        // Create a COPY of each additional counterTop
+        for(CounterTop c: getThisClientDashboard().getArrayDeposit()) {
+            tempArrayDeposit.add(new CounterTop(c.getResourceType(), c.getContent()));
+        }
+        tempStorage = new Storage(tempStorageRows.get(0), tempStorageRows.get(1), tempStorageRows.get(2));
+    }*/
 
     public MarketMarble[] getMarketMarbles(int type, int pos) {
         if(type == 0) {
