@@ -47,7 +47,7 @@ public class PlayerTurnManager {
         if(this.action==null) //First action
             this.action = action;
         else
-            throw new IllegalActionException();
+            throw new IllegalActionException(player);
     }
 
     /**

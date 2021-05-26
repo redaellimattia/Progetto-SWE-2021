@@ -25,9 +25,9 @@ public class DiscardLeaderAction extends Action {
     public void useAction(PlayerDashboard player){
         int position = player.getLeaderPos(card);
         if(position==-1)
-            throw new CardNotExistsException("Leader Card");
+            throw new CardNotExistsException("Leader Card",player);
         if(player.getLeaderCards().get(position).isInGame())
-            throw new CardInGameException();
+            throw new CardInGameException(player);
 
         player.discardLeader(position);
     }

@@ -30,7 +30,7 @@ public class ProductionAction extends Action {
     @Override
     public void addLeaderCardProduction(LeaderCardProductionAction leaderCardProduction,PlayerDashboard player) {
         if(this.leaderCardProductions.contains(leaderCardProduction)||this.leaderCardProductions.size()==2)
-            throw new ProductionAlreadyDoneException();
+            throw new ProductionAlreadyDoneException(player);
         else {
             this.leaderCardProductions.add(0, leaderCardProduction);
             leaderCardProduction.useAction(player);
@@ -45,7 +45,7 @@ public class ProductionAction extends Action {
     @Override
     public void addDevCardProduction(DevCardProductionAction devCardProduction,PlayerDashboard player) {
         if(this.devCardProductions.contains(devCardProduction)||this.leaderCardProductions.size()==3)
-            throw new ProductionAlreadyDoneException();
+            throw new ProductionAlreadyDoneException(player);
         else {
             this.devCardProductions.add(0, devCardProduction);
             devCardProduction.useAction(player); //Setting LastAddedAction
@@ -60,7 +60,7 @@ public class ProductionAction extends Action {
     @Override
     public void addBasicProduction(BasicProductionAction basicProduction,PlayerDashboard player) {
         if(this.basicProduction!=null) //Throw exception if basicProduction is not null, basicProduction already done
-            throw new ProductionAlreadyDoneException();
+            throw new ProductionAlreadyDoneException(player);
         else {
             this.basicProduction = basicProduction; //Updating basicProduction if possible
             basicProduction.useAction(player); //Setting LastAddedAction

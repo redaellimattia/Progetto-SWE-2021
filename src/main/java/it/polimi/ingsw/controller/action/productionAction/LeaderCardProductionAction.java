@@ -42,13 +42,13 @@ public class LeaderCardProductionAction extends Action {
 
         //If leaderCard doesnt exist in the model then throw Exception
         if(!(player.leaderCardExists(card)&&card.isInGame()))
-            throw new CardNotExistsException("Leader Card");
+            throw new CardNotExistsException("Leader Card",player);
         //Player wants to use the Storage to pay || throw exception if there aren't enough resources in StorageCount, or deleteRes goes wrong
         if(storageCount!=null&&(!card.getSpecialAbility().useProductionAbility(storageCount)||!deleteRes(storageCount,chestCount,player)))
-            throw new PaymentFailedException("Storage");
+            throw new PaymentFailedException("Storage",player);
         //Player wants to use the Chest to pay || throw exception if there aren't enough resources in StorageCount, or deleteRes goes wrong
         if(chestCount!=null&&(!card.getSpecialAbility().useProductionAbility(chestCount)||!deleteRes(storageCount,chestCount,player)))
-            throw new PaymentFailedException("Chest");
+            throw new PaymentFailedException("Chest",player);
 
         //res is the chosen resource as output
         ResourceCount output = new ResourceCount(0,0,0,0,1); //ResourceCount with 1 Faith

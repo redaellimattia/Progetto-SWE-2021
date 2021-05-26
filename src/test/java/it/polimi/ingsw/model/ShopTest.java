@@ -2,7 +2,9 @@ package it.polimi.ingsw.model;
 
 import it.polimi.ingsw.exceptions.EmptyDeckException;
 import it.polimi.ingsw.model.card.DevelopmentCard;
+import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.CardColour;
+import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.server.ServerLobby;
 import org.junit.jupiter.api.Test;
 
@@ -14,18 +16,19 @@ class ShopTest {
 
     @Test
     void buy() throws EmptyDeckException { //CHECK BUY METHODS AND ALL CORNER CASES (DECK EMPTY)
+        PlayerDashboard player = createPlayer();
         Shop shop = createShop();
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
         DevelopmentCard cardPurple = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,3, CardColour.PURPLE);
-        DevelopmentCard bought = shop.buy(0,3);
+        DevelopmentCard bought = shop.buy(0,3,player);
         assertEquals(bought, cardPurple);
         assertEquals(3, shop.getGrid()[0][3].getDeck().size());
         assertEquals(4, shop.getGrid()[1][3].getDeck().size()); //same problem with removeFirst()
-        bought = shop.buy(0,3);
-        bought = shop.buy(0,3);
-        bought = shop.buy(0,3);
+        bought = shop.buy(0,3,player);
+        bought = shop.buy(0,3,player);
+        bought = shop.buy(0,3,player);
         assertEquals(0, shop.getGrid()[0][3].getDeck().size());
-        assertThrows(EmptyDeckException.class,() -> shop.buy(0, 3));
+        assertThrows(EmptyDeckException.class,() -> shop.buy(0, 3,player));
         assertEquals(0, shop.getGrid()[0][3].getDeck().size());
 
     }
@@ -33,6 +36,7 @@ class ShopTest {
     @Test
     void discardFromTokenSubsequentialDiscard() throws EmptyDeckException{
         Shop shop = createShop();
+        PlayerDashboard player = createPlayer();
         CardColour purple = CardColour.PURPLE;
         assertEquals(4, shop.getGrid()[0][3].getDeck().size());
         assertEquals(4, shop.getGrid()[1][3].getDeck().size());
@@ -46,7 +50,7 @@ class ShopTest {
         assertEquals(4, shop.getGrid()[1][3].getDeck().size());
         shop.discardFromToken(purple);
         assertTrue(shop.getGrid()[2][3].getDeck().size() == 0 && shop.getGrid()[1][3].getDeck().size() == 2);
-        DevelopmentCard bought = shop.buy(1,3);
+        DevelopmentCard bought = shop.buy(1,3,player);
         shop.discardFromToken(purple);
         assertEquals(0,shop.getGrid()[1][3].getDeck().size());
         assertEquals(3,shop.getGrid()[0][3].getDeck().size());
@@ -225,4 +229,21 @@ class ShopTest {
         return shop;
     }
 
+    PlayerDashboard createPlayer(){
+        String nickname = "Prova";
+        Resource coins =  Resource.COIN;
+        CounterTop firstRow = new CounterTop(coins,0);
+        CounterTop secondRow = new CounterTop(coins,0);
+        CounterTop thirdRow = new CounterTop(coins,0);
+        Storage storage = new Storage(firstRow,secondRow,thirdRow);
+        ServerLobby playerObserver = new ServerLobby(2,1);
+        ResourceCount chest = new ResourceCount(0,0,0,0,0);
+        DeckDashboard[] devCards = new DeckDashboard[3];
+
+        ArrayList <LeaderCard> leaderCards = new ArrayList<>();
+        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,nickname,2, false);
+        player.addObserver(playerObserver);
+        player.getStorage().addObserver(player);
+        return player;
+    }
 }

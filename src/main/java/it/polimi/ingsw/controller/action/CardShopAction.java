@@ -46,7 +46,7 @@ public class CardShopAction extends Action {
         DevelopmentCard chosen = shop.getGrid()[row][column].getFirst();
 
         if(checkIfPossible(chosen.getLevel(),deckPosition, player) && chosen.getCost().equals(ResourceCount.getTotal(storageCount,chestCount))){
-            chosen = shop.buy(row,column);
+            chosen = shop.buy(row,column,player);
             player.addDevCards(chosen,deckPosition);
 
             for (LeaderCard l: player.getLeaderCards()) {
@@ -61,7 +61,7 @@ public class CardShopAction extends Action {
             deleteRes(storageCount,chestCount,player);
         }
         else
-            throw new PaymentFailedException();
+            throw new PaymentFailedException(player);
     }
 
     //CHECK IF THE CHOSEN POSITION FIT THE CARD CHOSEN
