@@ -33,7 +33,7 @@ class ActionTest {
         //TEST WITH storageFromView == null, player wants to pay with chest only || TOTAL COST IS 1 COIN AND 2 ROCKS
         PlayerDashboard player = createPlayer();
         ResourceCount chestFromView = new ResourceCount(1, 2, 0, 0, 0);
-        ResourceCount storageFromView = null;
+        ResourceCount storageFromView = new ResourceCount(0, 0, 0, 0, 0);
         ResourceCount resultChest = new ResourceCount(4, 3, 0, 0, 0);
         ResourceCount resultStorage = new ResourceCount(1, 2, 0, 0, 0);
         BasicProductionAction action = new BasicProductionAction(Resource.COIN,storageFromView,chestFromView);
@@ -47,7 +47,7 @@ class ActionTest {
     void storagePayOnly() {
         //TEST WITH chestFromView == null, player wants to pay with storage only || TOTAL COST IS 1 COIN AND 2 ROCKS
         PlayerDashboard player = createPlayer();
-        ResourceCount chestFromView = null;
+        ResourceCount chestFromView = new ResourceCount(0, 0, 0, 0, 0);
         ResourceCount storageFromView = new ResourceCount(1, 2, 0, 0, 0);
         ResourceCount resultChest = new ResourceCount(5, 5, 0, 0, 0);
         ResourceCount resultStorage = new ResourceCount(0, 0, 0, 0, 0);
@@ -62,8 +62,8 @@ class ActionTest {
     void storageAndChestNull(){
         //TEST WITH BOTH chestFromView == null AND storageFromView == null, return false
         PlayerDashboard player = createPlayer();
-        ResourceCount chestFromView = null;
-        ResourceCount storageFromView = null;
+        ResourceCount chestFromView = new ResourceCount(0, 0, 0, 0, 0);
+        ResourceCount storageFromView = new ResourceCount(0, 0, 0, 0, 0);
         ResourceCount resultChest = new ResourceCount(5,5,0,0,0);
         ResourceCount resultStorage = new ResourceCount(0,0,0,0,0);
         BasicProductionAction action = new BasicProductionAction(Resource.COIN,storageFromView,chestFromView);

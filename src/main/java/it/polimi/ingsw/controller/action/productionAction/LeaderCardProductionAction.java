@@ -35,19 +35,22 @@ public class LeaderCardProductionAction extends Action {
      */
     @Override
     public void useAction(PlayerDashboard player) {
-
+        int storageToInt = ResourceCount.resCountToInt(storageCount);
+        int chestToInt = ResourceCount.resCountToInt(chestCount);
         Resource abilityRes = card.getSpecialAbility().getResourceType();
         ResourceCount cost = new ResourceCount(0,0,0,0,0);
         abilityRes.add(cost,1);
 
+        if(chestToInt==0&&storageToInt==0)
+            throw new PaymentFailedException("Chest and Player",player);
         //If leaderCard doesnt exist in the model then throw Exception
         if(!(player.leaderCardExists(card)&&card.isInGame()))
             throw new CardNotExistsException("Leader Card",player,true);
         //Player wants to use the Storage to pay || throw exception if there aren't enough resources in StorageCount, or deleteRes goes wrong
-        if(storageCount!=null&&(!card.getSpecialAbility().useProductionAbility(storageCount)||!deleteRes(storageCount,chestCount,player)))
+        if(storageToInt!=0&&(!card.getSpecialAbility().useProductionAbility(storageCount)||!deleteRes(storageCount,chestCount,player)))
             throw new PaymentFailedException("Storage",player);
         //Player wants to use the Chest to pay || throw exception if there aren't enough resources in StorageCount, or deleteRes goes wrong
-        if(chestCount!=null&&(!card.getSpecialAbility().useProductionAbility(chestCount)||!deleteRes(storageCount,chestCount,player)))
+        if(chestToInt!=0&&(!card.getSpecialAbility().useProductionAbility(chestCount)||!deleteRes(storageCount,chestCount,player)))
             throw new PaymentFailedException("Chest",player);
 
         //res is the chosen resource as output

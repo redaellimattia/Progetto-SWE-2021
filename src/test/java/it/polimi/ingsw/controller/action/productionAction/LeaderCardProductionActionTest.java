@@ -21,7 +21,7 @@ class LeaderCardProductionActionTest {
         ResourceCount result = new ResourceCount(0, 2, 0, 0, 0);
         ResourceCount resultBuff = new ResourceCount(1, 0, 0, 0, 1);
         LeaderCard card = createLeaderCard(true);
-        LeaderCardProductionAction action = new LeaderCardProductionAction(card,storageCount,null,Resource.COIN);
+        LeaderCardProductionAction action = new LeaderCardProductionAction(card,storageCount,new ResourceCount(0, 0, 0, 0, 0),Resource.COIN);
         action.useAction(player);
         assertEquals(result, player.getStorage().readStorage()); //Paid correctly
         assertEquals(resultBuff, player.getBufferProduction()); //Buffer equals to production output
@@ -34,7 +34,7 @@ class LeaderCardProductionActionTest {
         ResourceCount result = new ResourceCount(4,5,0,0,0);
         ResourceCount resultBuff = new ResourceCount(1,0,0,0,1);
         LeaderCard card = createLeaderCard(true);
-        LeaderCardProductionAction action = new LeaderCardProductionAction(card,null,chestCount,Resource.COIN);
+        LeaderCardProductionAction action = new LeaderCardProductionAction(card,new ResourceCount(0, 0, 0, 0, 0),chestCount,Resource.COIN);
         action.useAction(player);
         assertEquals(result,player.getChest()); //Paid correctly
         assertEquals(resultBuff, player.getBufferProduction()); //Buffer equals to production output
@@ -45,7 +45,7 @@ class LeaderCardProductionActionTest {
         PlayerDashboard player = createPlayer(true);
         ResourceCount chestCount = new ResourceCount(0,0,0,0,0);
         LeaderCard card = createLeaderCard(true);
-        LeaderCardProductionAction action = new LeaderCardProductionAction(card,null,chestCount,Resource.COIN);
+        LeaderCardProductionAction action = new LeaderCardProductionAction(card,new ResourceCount(0, 0, 0, 0, 0),chestCount,Resource.COIN);
         assertThrows(PaymentFailedException.class, () -> action.useAction(player));
     }
 
@@ -54,7 +54,7 @@ class LeaderCardProductionActionTest {
         PlayerDashboard player = createPlayer(true);
         ResourceCount chestCount = new ResourceCount(5,5,5,5,0);
         LeaderCard card = createLeaderCard(true);
-        LeaderCardProductionAction action = new LeaderCardProductionAction(card,null,chestCount,Resource.COIN);
+        LeaderCardProductionAction action = new LeaderCardProductionAction(card,new ResourceCount(0, 0, 0, 0, 0),chestCount,Resource.COIN);
         assertThrows(PaymentFailedException.class, () -> action.useAction(player));
     }
 
@@ -63,7 +63,7 @@ class LeaderCardProductionActionTest {
         PlayerDashboard player = createPlayer(false);
         LeaderCard card = createLeaderCard(false);
         ResourceCount chestCount = new ResourceCount(1,0,0,0,0);
-        LeaderCardProductionAction action = new LeaderCardProductionAction(card,null,chestCount,Resource.COIN);
+        LeaderCardProductionAction action = new LeaderCardProductionAction(card,new ResourceCount(0, 0, 0, 0, 0),chestCount,Resource.COIN);
         assertThrows(CardNotExistsException.class, () -> action.useAction(player));
     }
 
@@ -72,7 +72,7 @@ class LeaderCardProductionActionTest {
         PlayerDashboard player = createPlayer(false);
         ResourceCount chestCount = new ResourceCount(1,0,0,0,0);
         LeaderCard card = createLeaderCard(true);
-        LeaderCardProductionAction action = new LeaderCardProductionAction(card,null,chestCount,Resource.COIN);
+        LeaderCardProductionAction action = new LeaderCardProductionAction(card,new ResourceCount(0, 0, 0, 0, 0),chestCount,Resource.COIN);
         assertThrows(CardNotExistsException.class, () -> action.useAction(player));
     }
 
@@ -81,7 +81,7 @@ class LeaderCardProductionActionTest {
         PlayerDashboard player = createPlayer(false);
         LeaderCard card = createLeaderCardNotProd();
         ResourceCount chestCount = new ResourceCount(1,0,0,0,0);
-        LeaderCardProductionAction action = new LeaderCardProductionAction(card,null,chestCount,Resource.COIN);
+        LeaderCardProductionAction action = new LeaderCardProductionAction(card,new ResourceCount(0, 0, 0, 0, 0),chestCount,Resource.COIN);
         assertThrows(CardNotExistsException.class, () -> action.useAction(player));
     }
 

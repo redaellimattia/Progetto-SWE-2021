@@ -34,7 +34,9 @@ public class ProductionAction extends Action {
             throw new ProductionAlreadyDoneException(player);
         else {
             this.leaderCardProductions.add(0, leaderCardProduction);
-            leaderCardProduction.useAction(player);
+            try {
+                leaderCardProduction.useAction(player);
+            }catch(MasterOfRenaissanceRuntimeException e){System.out.println(e.getMessage());}
         }
     }
 
@@ -49,7 +51,9 @@ public class ProductionAction extends Action {
             throw new ProductionAlreadyDoneException(player);
         else {
             this.devCardProductions.add(0, devCardProduction);
-            devCardProduction.useAction(player); //Setting LastAddedAction
+            try {
+                devCardProduction.useAction(player); //Setting LastAddedAction
+            }catch(MasterOfRenaissanceRuntimeException e){System.out.println(e.getMessage());}
         }
     }
 

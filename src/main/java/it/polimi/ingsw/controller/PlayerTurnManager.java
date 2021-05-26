@@ -6,6 +6,7 @@ import it.polimi.ingsw.controller.action.productionAction.BasicProductionAction;
 import it.polimi.ingsw.controller.action.productionAction.DevCardProductionAction;
 import it.polimi.ingsw.controller.action.productionAction.LeaderCardProductionAction;
 import it.polimi.ingsw.controller.action.productionAction.ProductionAction;
+import it.polimi.ingsw.exceptions.MasterOfRenaissanceRuntimeException;
 import it.polimi.ingsw.exceptions.action.IllegalActionException;
 import it.polimi.ingsw.model.PlayerDashboard;
 
@@ -62,14 +63,18 @@ public class PlayerTurnManager {
      * use the main action upon receiving a message
      */
     public void useAction(){
-        action.useAction(player);
+        try {
+            action.useAction(player);
+        }catch(MasterOfRenaissanceRuntimeException e){System.out.println(e.getMessage());}
     }
 
     /**
      * use a side action upon receiving a message
      */
     public void useSideAction(){
-        sideAction.useAction(player);
+        try {
+            sideAction.useAction(player);
+        }catch(MasterOfRenaissanceRuntimeException e){System.out.println(e.getMessage());}
     }
 
     /**
