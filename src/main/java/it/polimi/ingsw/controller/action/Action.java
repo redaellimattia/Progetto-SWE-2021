@@ -6,6 +6,8 @@ import it.polimi.ingsw.controller.action.productionAction.LeaderCardProductionAc
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.Resource;
 
+import java.util.ArrayList;
+
 public abstract class Action {
     public void useAction(PlayerDashboard player) {}
     public void endAction(PlayerDashboard player){}
@@ -19,7 +21,7 @@ public abstract class Action {
         if(storageCount != null)
             storageDone = removeFromStorage(storageCount,player.getStorage());
         if(chestCount != null)
-            chestDone = removeFromChest(chestCount,player.getChest());
+            chestDone = removeFromChest(chestCount,player);
 
         if(storageCount!=null&&chestCount!=null)
             return storageDone&&chestDone;
@@ -38,19 +40,32 @@ public abstract class Action {
         for (Resource res : resources) { //SCAN EVERY RESOURCE IN THE STORAGECOST
             int valueToRemove = res.get(storageCost);
             if(valueToRemove != 0){ //THIS RESOURCE IS ACTUALLY REQUIRED
-                for (CounterTop counter : storage.getShelvesArray()) { //SCAN EVERY SHELVES
-                    if(counter.getResourceType().equals(res)) //IF THE SHELF RESOURCETYPE MATCHES THE REQUESTED RESOURCE
-                        counter.removeContent(valueToRemove); //THEN REMOVE FROM THE SHELF CONTENT
+                ArrayList<CounterTop> shelves = storage.getShelvesArray();
+                for (int i=0;i<=2;i++){ //SCAN EVERY SHELVES
+                    CounterTop counter = shelves.get(i);
+                    if(counter.getResourceType().equals(res)) {//IF THE SHELF RESOURCETYPE MATCHES THE REQUESTED RESOURCE
+                    //counter.removeContent(valueToRemove); //THEN REMOVE FROM THE SHELF CONTENT
+                        CounterTop newCounter = new CounterTop(counter.getResourceType(),counter.getContent()-valueToRemove);
+                        switch(i){
+                            case 0: storage.setFirstRow(newCounter);
+                            break;
+                            case 1: storage.setSecondRow(newCounter);
+                            break;
+                            case 2: storage.setThirdRow(newCounter);
+                            break;
+                        }
+                    }
                 }
             }
         }
         return true;
     }
     //REMOVING RESOURCES FROM CHEST
-    public boolean removeFromChest(ResourceCount chestCost,ResourceCount chest){
+    public boolean removeFromChest(ResourceCount chestCost,PlayerDashboard player){
+        ResourceCount chest = player.getChest();
         if(!chest.hasMoreOrEqualsResources(chestCost))
             return false;
-        chest.subCounts(chestCost);
+        player.subtractFromChest(chestCost);
         return true;
     }
 }

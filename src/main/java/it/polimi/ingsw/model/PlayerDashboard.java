@@ -311,10 +311,6 @@ public class PlayerDashboard extends Player implements StorageObserver{
         return -1;
     }
 
-    public void addPathPositionPoints(){
-
-    }
-
 
     /**
      *
@@ -365,6 +361,10 @@ public class PlayerDashboard extends Player implements StorageObserver{
     public void addVictoryPoints(int points){
         addPoints(points);
         observer.updateVictoryPoints(getNickname(),getPoints());
+    }
+    public void subtractFromChest(ResourceCount toSubtract){
+        chest.subCounts(toSubtract);
+        observer.updateChest(getNickname(),chest);
     }
     @Override
     public void updateFirstRow(CounterTop firstRow) {

@@ -121,21 +121,21 @@ class ActionTest {
     @Test
     void removeFromChest() {
         //STANDARD REMOVE
-        ResourceCount playerChest = new ResourceCount(5, 5, 0, 0, 0); //Player's chest
+        PlayerDashboard player = createPlayer();
         ResourceCount chestFromView = new ResourceCount(1, 2, 0, 0, 0);
         ResourceCount resultChest = new ResourceCount(4, 3, 0, 0, 0);
         BasicProductionAction action = new BasicProductionAction(Resource.COIN,null,chestFromView);
-        assertTrue(action.removeFromChest(chestFromView, playerChest));
-        assertEquals(resultChest, playerChest);
+        assertTrue(action.removeFromChest(chestFromView, player));
+        assertEquals(resultChest, player.getChest());
     }
     @Test
     void impossibleChestRemove(){
         //IMPOSSIBLE REMOVE, CHESTFROMVIEW IS GREATER THAN ACTUAL CHEST
-        ResourceCount playerChest = new ResourceCount(5,5,0,0,0); //Player's chest
+        PlayerDashboard player = createPlayer();
         ResourceCount chestFromView = new ResourceCount(6,6,0,0,0);
         ResourceCount resultChest = new ResourceCount(4,3,0,0,0);
         BasicProductionAction action = new BasicProductionAction(Resource.COIN,null,chestFromView);
-        assertFalse(action.removeFromChest(chestFromView,playerChest));
+        assertFalse(action.removeFromChest(chestFromView,player));
     }
 
     PlayerDashboard createPlayer(){
