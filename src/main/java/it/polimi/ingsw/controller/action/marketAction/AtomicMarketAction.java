@@ -5,12 +5,15 @@ import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.exceptions.action.InvalidRowException;
 import it.polimi.ingsw.exceptions.action.NoAdditionalDepositException;
 import it.polimi.ingsw.exceptions.action.WrongCounterTopException;
-import it.polimi.ingsw.model.CounterTop;
-import it.polimi.ingsw.model.MarketMarble;
-import it.polimi.ingsw.model.PlayerDashboard;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.Resource;
 
+import java.util.ArrayList;
+
 public abstract class AtomicMarketAction {
+
+
+    boolean checkAction(MarketMarble marble, PlayerDashboard player, Storage tempStorage, ArrayList<CounterTop> tempArrayDeposit) {return false;}
 
     /**
      *
@@ -23,6 +26,85 @@ public abstract class AtomicMarketAction {
         return false;
     }
 
+    public boolean checkStore(Storage tempStorage, ArrayList<CounterTop> tempArrayDeposit, Resource res, int row) {
+        switch(row) {
+            case 1:
+                if(tempStorage.getFirstRow().getContent() == 0) {
+                    if(!canCreateNewRow(res, tempStorage)){
+                        return false; // User cannot have two counterTops with the same Resource type
+                        //throw new WrongCounterTopException(res);
+                    }
+                    tempStorage.setFirstRow(new CounterTop(res, 1));
+                    return true;
+                }
+                if(tempStorage.getFirstRow().getResourceType() != res) {
+                    return false; // User cannot add a resource of a different type
+                    //throw new WrongCounterTopException(res);
+                }
+                if(tempStorage.getFirstRow().getContent() > 0) {
+                    return false; // User cannot add a resource into a full counterTop
+                    //throw new CounterTopOverloadException();
+                }
+                tempStorage.addToFirstRow(1);
+                return true;
+            case 2:
+                if(tempStorage.getSecondRow().getContent() == 0) {
+                    if(!canCreateNewRow(res, tempStorage)){
+                        return false; // User cannot have two counterTops with the same Resource type
+                        //throw new WrongCounterTopException(res);
+                    }
+                    tempStorage.setSecondRow(new CounterTop(res, 1));
+                    return true;
+                }
+                if(tempStorage.getSecondRow().getResourceType() != res) {
+                    return false;  // User cannot add a resource of a different type
+                    //throw new WrongCounterTopException(res);
+                }
+                if(tempStorage.getSecondRow().getContent() > 1) {
+                    return false; // User cannot add a resource into a full counterTop
+                    //throw new CounterTopOverloadException();
+                }
+                tempStorage.addToSecondRow(1);
+                return true;
+            case 3:
+                if(tempStorage.getThirdRow().getContent() == 0) {
+                    if(!canCreateNewRow(res, tempStorage)){
+                        return false;  // User cannot have two counterTops with the same Resource type
+                        //throw new WrongCounterTopException(res);
+                    }
+                    tempStorage.setThirdRow(new CounterTop(res, 1));
+                    return true;
+                }
+                if(tempStorage.getThirdRow().getResourceType() != res) {
+                    return false;  // User cannot add a resource of a different type
+                    //throw new WrongCounterTopException(res);
+                }
+                if(tempStorage.getThirdRow().getContent() > 2) {
+                    return false; // User cannot add a resource into a full counterTop
+                    //throw new CounterTopOverloadException();
+                }
+                tempStorage.addToThirdRow(1);
+                return true;
+            case 4:
+                for(CounterTop c: tempArrayDeposit) {
+                    if(c.getResourceType() == res && c.getContent() < 2) {
+                        c.addContent(1);
+                        return true;
+                    }
+                }
+                return false;
+                /*if(getThisClientDashboard().isFull(res)) {
+                    return false;
+                    //throw new NoAdditionalDepositException(res);
+                }
+                else {
+                    return true;
+                }*/
+            default:
+                return false;
+            //throw new IllegalArgumentException();
+        }
+    }
     /**
      *
      * @param player the player storing the resource
@@ -37,79 +119,41 @@ public abstract class AtomicMarketAction {
         switch(storageRow) {
             case 1:
                 if(player.getStorage().getFirstRow().getContent() == 0) {
-                    // We need to check if there isn't another counterTop already in use for this Resource type
-                    if(!canCreateNewRow(resource, player)){
-                        throw new WrongCounterTopException(resource, player); // User cannot have two counterTops with the same Resource type
-                    }
                     // If a counterTop is empty, we need to create a new one of the right resourceType
                     CounterTop counterTop = new CounterTop(resource, 1);
                     player.getStorage().setFirstRow(counterTop); return true;
-                    //player.getStorage().getFirstRow().setResourceType(resource);
-                }
-                if(player.getStorage().getFirstRow().getResourceType() != resource) {
-                    throw new WrongCounterTopException(resource, player); // User cannot add a resource of a different type
-                }
-                if(player.getStorage().getFirstRow().getContent() > 0) {
-                    throw new CounterTopOverloadException(player); // User cannot add a resource into a full counterTop
                 }
                 player.getStorage().addToFirstRow(1); return true;
             case 2:
                 if(player.getStorage().getSecondRow().getContent() == 0) {
-                    // We need to check if there isn't another counterTop already in use for this Resource type
-                    if(!canCreateNewRow(resource, player)){
-                        throw new WrongCounterTopException(resource, player); // User cannot have two counterTops with the same Resource type
-                    }
                     // If a counterTop is empty, we need to create a new one of the right resourceType
                     CounterTop counterTop = new CounterTop(resource, 1);
                     player.getStorage().setSecondRow(counterTop); return true;
-                    //player.getStorage().getSecondRow().setResourceType(resource);
-                }
-                if(player.getStorage().getSecondRow().getResourceType() != resource) {
-                    throw new WrongCounterTopException(resource, player); // User cannot add a resource of a different type
-                }
-                if(player.getStorage().getSecondRow().getContent() > 1) {
-                    throw new CounterTopOverloadException(player); // User cannot add a resource into a full counterTop
                 }
                 player.getStorage().addToSecondRow(1); return true;
             case 3:
                 if(player.getStorage().getThirdRow().getContent() == 0) {
-                    // We need to check if there isn't another counterTop already in use for this Resource type
-                    if(!canCreateNewRow(resource, player)){
-                        throw new WrongCounterTopException(resource, player); // User cannot have two counterTops with the same Resource type
-                    }
                     // If a counterTop is empty, we need to create a new one of the right resourceType
                     CounterTop counterTop = new CounterTop(resource, 1);
                     player.getStorage().setThirdRow(counterTop); return true;
-                    //player.getStorage().getThirdRow().setResourceType(resource);
-                }
-                if(player.getStorage().getThirdRow().getResourceType() != resource) {
-                    throw new WrongCounterTopException(resource, player); // User cannot add a resource of a different type
-                }
-                if(player.getStorage().getThirdRow().getContent() > 2) {
-                    throw new CounterTopOverloadException(player); // User cannot add a resource into a full counterTop
                 }
                 player.getStorage().addToThirdRow(1); return true;
             case 4:
-                try {
-                    player.addToDeposit(resource);
-                    return true;
-                }
-                catch (CounterTopOverloadException e) {
-                    throw new NoAdditionalDepositException(resource, player); // User cannot add a resource in an additional deposit if it is full or not present
-                }
+                player.addToDeposit(resource);
+                return true;
             default:
-                throw new InvalidRowException(player);
+                return false;
         }
     }
 
     /**
      * Check if the user already has a non-empty counterTop for this resource type
      * @param res the resource type
-     * @param player the player that owns the storage
+     * @param tempStorage the storage of the player
      * @return true if there is NOT another counterTop of the same type
      */
-    public boolean canCreateNewRow(Resource res, PlayerDashboard player) {
-        for(CounterTop c: player.getStorage().getShelvesArray()) {
+    public boolean canCreateNewRow(Resource res, Storage tempStorage) {
+        for(CounterTop c: tempStorage.getShelvesArray()) {
             if(c.getContent() != 0 && c.getResourceType().equals(res)) {
                 return false;
             }

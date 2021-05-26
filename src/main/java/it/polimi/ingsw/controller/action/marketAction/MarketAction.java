@@ -3,6 +3,7 @@ import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.exceptions.action.IllegalMarketPositionException;
 import it.polimi.ingsw.exceptions.action.IncompleteListException;
+import it.polimi.ingsw.exceptions.action.MarketActionException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
 
@@ -14,6 +15,8 @@ public class MarketAction extends Action {
     private ArrayList<AtomicMarketAction> choices;
     private MarketDashboard market;
     private GameManager gameManager;
+    private Storage tempStorage;
+    private ArrayList<CounterTop> tempArrayDeposit;
 
     /**
      *
@@ -27,6 +30,24 @@ public class MarketAction extends Action {
         this.choices = choices;
         this.gameManager = gameManager;
         this.market = gameManager.getGame().getMarket();
+    }
+
+    /**
+     * Creates a copy of the user storage at the beginning of the MarketAction
+     * that will be updated when user makes choices in order to perform validity controls before executing actions
+     */
+    public void initTempStorage(PlayerDashboard player) {
+        ArrayList<CounterTop> tempStorageRows = new ArrayList<CounterTop>();
+        tempArrayDeposit = new ArrayList<CounterTop>();
+        // Create a COPY of each "regular" counterTop
+        for(CounterTop c: player.getStorage().getShelvesArray()) {
+            tempStorageRows.add(new CounterTop(c.getResourceType(), c.getContent()));
+        }
+        // Create a COPY of each additional counterTop
+        for(CounterTop c: player.getArrayDeposit()) {
+            tempArrayDeposit.add(new CounterTop(c.getResourceType(), c.getContent()));
+        }
+        tempStorage = new Storage(tempStorageRows.get(0), tempStorageRows.get(1), tempStorageRows.get(2));
     }
 
     /**
@@ -55,8 +76,25 @@ public class MarketAction extends Action {
             }
         }
 
-        // Executing actions (useAction method will check if an action is legal)
+        // Checking actions
+        initTempStorage(player);
         int j = 0; // current position in choices list
+        // (different from i because choices doesn't contain elements associated to red marbles)
+        for (MarketMarble marble : marbles) {
+            if (!(marble.getColour() == MarbleColour.RED)) {
+                try {
+                    if(!(choices.get(j).checkAction(marble, player, tempStorage, tempArrayDeposit))) {
+                        throw new MarketActionException(player);
+                    }
+                } catch (IndexOutOfBoundsException e) {
+                    throw new IncompleteListException(player);
+                }
+                j++;
+            }
+        }
+
+        // Executing actions (useAction method will check if an action is legal)
+        j = 0; // current position in choices list
         // (different from i because choices doesn't contain elements associated to red marbles)
         for (MarketMarble marble : marbles) {
             if (marble.getColour() == MarbleColour.RED) {
