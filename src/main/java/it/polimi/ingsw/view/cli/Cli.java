@@ -689,18 +689,12 @@ public class Cli implements View {
                     validChoice = false;
                     if(row == 0) {
                         clientManager.discardResource();
-                        validChoice = true;
                     }
                     else {
-                        if(clientManager.checkAddToStorage(row, m.getColour().convertToResource())) {
-                            clientManager.getResource(row);
-                            out.println("Resource stored successfully!");
-                            validChoice = true;
-                        }
-                        else {
-                            out.println("You cannot save the resource in this storage row.");
-                        }
+                        clientManager.getResource(row);
                     }
+                    out.println("Choice saved!");
+                    validChoice = true;
                 } while(!validChoice);
             }
             if(m.getColour() == MarbleColour.WHITE) {
@@ -738,14 +732,9 @@ public class Cli implements View {
                                 input = readLine();
                                 try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
                             } while(row < 1 || row > max);
-                            if(clientManager.checkAddToStorage(row, convertedResource)) {
-                                clientManager.convertMarble(chosenLeaderCard, row);
-                                out.println("Resource stored successfully!");
-                                validChoice = true;
-                            }
-                            else {
-                                out.println("You cannot save the resource in this storage row.");
-                            }
+                            clientManager.convertMarble(chosenLeaderCard, row);
+                            out.println("Choice saved!");
+                            validChoice = true;
                         }
                     } while(!validChoice);
                 }

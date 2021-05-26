@@ -596,6 +596,7 @@ public class ClientManager {
         }
     }
 
+    /*
     public boolean checkAddToStorage(int row, Resource res) {
         switch(row) {
             case 1:
@@ -661,7 +662,7 @@ public class ClientManager {
                 return false;
                 //throw new IllegalArgumentException();
         }
-    }
+    } */
 
     /**
      * Check if the user already has a non-empty counterTop for this resource type
