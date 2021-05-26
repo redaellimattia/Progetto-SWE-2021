@@ -56,28 +56,28 @@ class AtomicMarketActionTest {
     void addInFullRow() {
         PlayerDashboard testPlayer = buildPlayerDashboard(1, 2, 3);
         AtomicMarketAction testAction = new AtomicMarketAction() {};
-        assertThrows(CounterTopOverloadException.class, () -> testAction.storeResource(testPlayer, Resource.COIN, 1));
+        assertFalse(testAction.checkStore(testPlayer.getStorage(), testPlayer.getArrayDeposit(), Resource.COIN, 1));
     }
 
     @Test
     void illegalStore() {
         PlayerDashboard testPlayer = buildPlayerDashboard(1, 1, 3);
         AtomicMarketAction testAction = new AtomicMarketAction() {};
-        assertThrows(WrongCounterTopException.class, () -> testAction.storeResource(testPlayer, Resource.SHIELD, 2));
+        assertFalse(testAction.checkStore(testPlayer.getStorage(), testPlayer.getArrayDeposit(), Resource.SHIELD, 2));
     }
 
     @Test
     void depositNotPresent() {
         PlayerDashboard testPlayer = buildPlayerDashboard(1, 1, 3);
         AtomicMarketAction testAction = new AtomicMarketAction() {};
-        assertThrows(NoAdditionalDepositException.class, () -> testAction.storeResource(testPlayer, Resource.SHIELD, 4));
+        assertFalse(testAction.checkStore(testPlayer.getStorage(), testPlayer.getArrayDeposit(), Resource.SHIELD, 4));
     }
 
     @Test
     void duplicateDeposit() {
         PlayerDashboard testPlayer = buildPlayerDashboard(0, 2, 2);
         AtomicMarketAction testAction = new AtomicMarketAction() {};
-        assertThrows(WrongCounterTopException.class, () -> testAction.storeResource(testPlayer, Resource.SHIELD, 1));
+        assertFalse(testAction.checkStore(testPlayer.getStorage(), testPlayer.getArrayDeposit(), Resource.SHIELD, 1));
     }
 
 }
