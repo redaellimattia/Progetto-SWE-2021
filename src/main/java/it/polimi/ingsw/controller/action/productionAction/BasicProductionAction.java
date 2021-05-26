@@ -32,7 +32,7 @@ public class BasicProductionAction extends Action {
     @Override
     public void useAction(PlayerDashboard player) {
         if(res.equals(Resource.FAITH))
-            throw new WrongResourceException("Faith");
+            throw new WrongResourceException("Faith",player);
 
         //If Sum of storageCount and ChestCount != 2 OR deleteRes goes wrong then return false
         int total = 0;
@@ -41,7 +41,7 @@ public class BasicProductionAction extends Action {
         for (Resource r : resources)
             total += r.get(totalCount);
         if(!deleteRes(storageCount,chestCount,player)||total!=2||totalCount.getFaith()!=0)
-            throw new PaymentFailedException();
+            throw new PaymentFailedException(player);
 
         ResourceCount output = new ResourceCount(0,0,0,0,0); //ResourceCount with 1 Faith
         res.add(output,1);

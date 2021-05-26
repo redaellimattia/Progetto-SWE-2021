@@ -63,9 +63,9 @@ public class Shop {
      * @return the first visible card from that position [row,column], after removing it from the shop
      */
     // BUY A SELECTED CARD FROM SHOP, RETURN THE CARD TO THE CALLER AND DELETE IT FROM THE GRID;
-    public DevelopmentCard buy(int row, int column) throws EmptyDeckException { //the controller check if the player can buy the card before;
+    public DevelopmentCard buy(int row, int column, PlayerDashboard player) throws EmptyDeckException { //the controller check if the player can buy the card before;
         if(shopGrid[row][column].getDeck().size() == 0)
-            throw new EmptyDeckException();
+            throw new EmptyDeckException(player);
 
         DevelopmentCard bought = shopGrid[row][column].getFirst();
         shopGrid[row][column].removeFirst();

@@ -3,7 +3,9 @@ package it.polimi.ingsw.model.token;
 import it.polimi.ingsw.exceptions.EmptyDeckException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
+import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.CardColour;
+import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.server.ServerLobby;
 import org.junit.jupiter.api.Test;
 
@@ -71,9 +73,10 @@ class DiscardTokenTest {
     void testDiscardToken2() throws EmptyDeckException {
         Shop testShop = createShop();
         Shop testShopOld = createShop();
+        PlayerDashboard player = createPlayer();
         CardColour testColour = CardColour.PURPLE;
         testShop.discardFromToken(testColour); // Removed 2 cords in level 1 row
-        testShop.buy(2, testColour.getColumn()); // Removed 1 card in level 1 row
+        testShop.buy(2, testColour.getColumn(),player); // Removed 1 card in level 1 row
         testShop.discardFromToken(testColour); // Removed 1 card in level 1 row and 1 card in level 2
         for(int i=0; i<4; i++) {
             if(i == testColour.getColumn()) {
@@ -281,5 +284,21 @@ class DiscardTokenTest {
         Shop shop = new Shop(testStructure);
         shop.addObserver(shopObserver);
         return shop;
+    }
+    PlayerDashboard createPlayer(){
+        String nickname = "Prova";
+        Resource coins =  Resource.COIN;
+        CounterTop firstRow = new CounterTop(coins,0);
+        CounterTop secondRow = new CounterTop(coins,0);
+        CounterTop thirdRow = new CounterTop(coins,0);
+        Storage storage = new Storage(firstRow,secondRow,thirdRow);
+        ServerLobby playerObserver = new ServerLobby(2,1);
+        ResourceCount chest = new ResourceCount(0,0,0,0,0);
+        DeckDashboard[] devCards = new DeckDashboard[3];
+        ArrayList<LeaderCard> leaderCards = new ArrayList<>();
+        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,nickname,2, false);
+        player.addObserver(playerObserver);
+        player.getStorage().addObserver(player);
+        return player;
     }
 }
