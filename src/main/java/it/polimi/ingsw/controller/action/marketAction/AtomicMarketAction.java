@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller.action.marketAction;
 
 import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.exceptions.CounterTopOverloadException;
+import it.polimi.ingsw.exceptions.action.InvalidRowException;
 import it.polimi.ingsw.exceptions.action.NoAdditionalDepositException;
 import it.polimi.ingsw.exceptions.action.WrongCounterTopException;
 import it.polimi.ingsw.model.CounterTop;
@@ -94,10 +95,10 @@ public abstract class AtomicMarketAction {
                     return true;
                 }
                 catch (CounterTopOverloadException e) {
-                    throw new NoAdditionalDepositException(resource); // User cannot add a resource in an additional deposit if it is full or not present
+                    throw new NoAdditionalDepositException(resource, player); // User cannot add a resource in an additional deposit if it is full or not present
                 }
             default:
-                throw new IllegalArgumentException();
+                throw new InvalidRowException(player);
         }
     }
 
