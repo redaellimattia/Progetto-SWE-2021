@@ -46,6 +46,9 @@ public class GetResource extends AtomicMarketAction {
      */
     @Override
     public boolean useAction(MarketMarble marble, PlayerDashboard player, GameManager gameManager) {
+        if(marble.getColour() == MarbleColour.WHITE) {
+            return true; // GetResource on a white marble does nothing (and is always possible)
+        }
         return storeResource(player, marble.getColour().convertToResource(), storageRow);
     }
 }

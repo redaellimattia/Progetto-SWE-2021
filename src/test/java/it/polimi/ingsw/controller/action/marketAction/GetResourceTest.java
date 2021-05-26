@@ -61,6 +61,6 @@ class GetResourceTest {
     @Test
     void IllegalGet() {
         GetResource test1 = new GetResource(2);
-        assertThrows(WrongMarbleException.class, () -> test1.useAction(new MarketMarble(MarbleColour.RED), buildPlayerDashboard(1, 0, 3), null));
+        assertFalse(test1.checkAction(new MarketMarble(MarbleColour.RED), buildPlayerDashboard(1, 0, 3), buildPlayerDashboard(1, 0, 3).getStorage(), buildPlayerDashboard(1, 0, 3).getArrayDeposit()));
     }
 }
