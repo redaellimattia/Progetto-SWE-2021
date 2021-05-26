@@ -5,18 +5,22 @@ public abstract class Player implements Comparable<Player>{
     private int points;
     private boolean isLorenzo;
     private boolean isPlaying;
-    private transient String exceptionError;
+    private transient String mainActionError;
+    private transient String sideActionError;
 
     public Player(String nickname, int points, boolean isLorenzo) {
         this.nickname = nickname;
         this.points = points;
         this.isLorenzo = isLorenzo;
         this.isPlaying = true;
-        this.exceptionError = "";
     }
 
-    public String getExceptionError() {
-        return exceptionError;
+    public String getMainActionError() {
+        return mainActionError;
+    }
+
+    public String getSideActionError() {
+        return sideActionError;
     }
 
     public void setPlaying(boolean playing) {
@@ -26,9 +30,15 @@ public abstract class Player implements Comparable<Player>{
     public void setPoints(int points) {
         this.points = points;
     }
-    public void setExceptionError(String error){
-        exceptionError = error;
+
+    public void setMainActionError(String mainActionError) {
+        this.mainActionError = mainActionError;
     }
+
+    public void setSideActionError(String sideActionError) {
+        this.sideActionError = sideActionError;
+    }
+
     public String getNickname() {
         return nickname;
     }

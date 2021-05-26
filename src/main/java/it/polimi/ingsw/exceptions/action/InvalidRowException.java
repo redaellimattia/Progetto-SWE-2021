@@ -6,6 +6,6 @@ import it.polimi.ingsw.model.PlayerDashboard;
 public class InvalidRowException extends MasterOfRenaissanceRuntimeException {
     public InvalidRowException(PlayerDashboard p) {
         super("Invalid storage row number.");
-        p.setExceptionError("Invalid storage row number.");
+        p.setMainActionError("Invalid storage row number.");
     }
 }

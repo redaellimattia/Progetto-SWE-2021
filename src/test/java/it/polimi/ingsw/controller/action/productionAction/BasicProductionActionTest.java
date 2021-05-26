@@ -35,7 +35,7 @@ class BasicProductionActionTest {
          ResourceCount storageCount = new ResourceCount(1,1,0,0,0);
          ResourceCount resultStorage = new ResourceCount(0,1,0,0,0);
          ResourceCount resultBuff = new ResourceCount(1,0,0,0,0);
-         BasicProductionAction action = new BasicProductionAction(Resource.COIN, storageCount, null);
+         BasicProductionAction action = new BasicProductionAction(Resource.COIN, storageCount, new ResourceCount(0, 0, 0, 0, 0));
          action.useAction(player);
          assertEquals(resultStorage,player.getStorage().readStorage()); //Paid correctly
          assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
@@ -47,7 +47,7 @@ class BasicProductionActionTest {
         ResourceCount chestCount = new ResourceCount(1,1,0,0,0);
         ResourceCount resultChest = new ResourceCount(4,4,0,0,0);
         ResourceCount resultBuff = new ResourceCount(1,0,0,0,0);
-        BasicProductionAction action = new BasicProductionAction(Resource.COIN, null, chestCount);
+        BasicProductionAction action = new BasicProductionAction(Resource.COIN, new ResourceCount(0, 0, 0, 0, 0), chestCount);
         action.useAction(player);
         assertEquals(resultChest,player.getChest()); //Paid correctly
         assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output

@@ -25,7 +25,6 @@ public class JoinGameMessage extends ClientMessage {
         else{
             socketConnection.send(new PrintMessage("This username: [" + getNickname() + "] is already taken!").serialize());
             socketConnection.send(Server.createReturnLobbiesMessage().serialize());
-            //throw new NicknameAlreadyUsedException(getNickname());
         }
     }
 }

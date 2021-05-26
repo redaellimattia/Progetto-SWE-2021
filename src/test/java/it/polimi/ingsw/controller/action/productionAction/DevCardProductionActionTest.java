@@ -31,7 +31,7 @@ class DevCardProductionActionTest {
         PlayerDashboard player = createPlayer();
         ResourceCount storageCount = new ResourceCount(1,2,0,0,0); //Correct payment with storage
         DevelopmentCard card = createDevCard(3);
-        DevCardProductionAction action = new DevCardProductionAction(card,storageCount,null);
+        DevCardProductionAction action = new DevCardProductionAction(card,storageCount,new ResourceCount(0, 0, 0, 0, 0));
         action.useAction(player);
         assertEquals(card.getProductionPower().getOutput(),player.getBufferProduction()); //Buffer equals to production output
     }
@@ -41,7 +41,7 @@ class DevCardProductionActionTest {
         PlayerDashboard player = createPlayer();
         ResourceCount chestCount = new ResourceCount(1,2,0,0,0); //Correct payment with chest
         DevelopmentCard card = createDevCard(3);
-        DevCardProductionAction action = new DevCardProductionAction(card,null,chestCount);
+        DevCardProductionAction action = new DevCardProductionAction(card,new ResourceCount(0, 0, 0, 0, 0),chestCount);
         action.useAction(player);
         assertEquals(card.getProductionPower().getOutput(),player.getBufferProduction()); //Buffer equals to production output
     }
@@ -51,7 +51,7 @@ class DevCardProductionActionTest {
         PlayerDashboard player = createPlayer();
         ResourceCount chestCount = new ResourceCount(0, 2, 0, 0, 0);
         DevelopmentCard card = createDevCard(3);
-        DevCardProductionAction action = new DevCardProductionAction(card,null,chestCount);
+        DevCardProductionAction action = new DevCardProductionAction(card,new ResourceCount(0, 0, 0, 0, 0),chestCount);
         assertThrows(PaymentFailedException.class, () -> action.useAction(player));
     }
 

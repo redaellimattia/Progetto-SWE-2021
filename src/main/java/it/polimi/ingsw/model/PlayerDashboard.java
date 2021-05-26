@@ -146,10 +146,18 @@ public class PlayerDashboard extends Player implements StorageObserver{
         if(observer!=null)
             observer.updateLeaders(getNickname(),leaderCards);
     }
-    public void setExceptionError(String error){
-        super.setExceptionError(error);
-        observer.updateException(getNickname(),getExceptionError());
+
+
+    public void setMainActionError(String error){
+        super.setMainActionError(error);
+        observer.updateMainActionException(getNickname(),getMainActionError());
     }
+
+    public void setSideActionError(String error){
+        super.setSideActionError(error);
+        observer.updateSideActionException(getNickname(),getSideActionError());
+    }
+
     /**
      * INITIALIZE A NEW SHELF WHEN A DEPOSITABILITY LEADER IS PLAYED
      *

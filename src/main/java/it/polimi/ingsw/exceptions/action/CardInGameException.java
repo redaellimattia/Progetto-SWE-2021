@@ -6,6 +6,6 @@ import it.polimi.ingsw.model.PlayerDashboard;
 public class CardInGameException extends MasterOfRenaissanceRuntimeException {
     public CardInGameException(PlayerDashboard p) {
         super("The chosen card is in game, you can't discard it!");
-        p.setExceptionError("The chosen card is in game, you can't discard it!");
+        p.setSideActionError("The chosen card is in game, you can't discard it!");
     }
 }

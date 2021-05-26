@@ -40,6 +40,8 @@ public class ClientManager {
     private boolean gameStarted;
     private boolean productionActionOnGoing;
     private boolean basicProductionDone;
+    private int lastProduction;
+    private int lastIndex;
     private ArrayList<Boolean> leaderCardProductionDone;
     private ArrayList<Boolean> devCardProductionDone;
 
@@ -72,6 +74,12 @@ public class ClientManager {
     public boolean isProductionActionOnGoing() {
         return productionActionOnGoing;
     }
+    public int getLastProduction() {
+        return lastProduction;
+    }
+    public int getLastIndex() {
+        return lastIndex;
+    }
     /**
      *
      * @return true if the mainAction has been already done
@@ -88,6 +96,9 @@ public class ClientManager {
     public void setProductionActionOnGoing(boolean productionActionOnGoing) {
         this.productionActionOnGoing = productionActionOnGoing;
     }
+    public void setBasicProductionDone(boolean basicProductionDone) {
+        this.basicProductionDone = basicProductionDone;
+    }
     public void setGameStarted(boolean gameStarted) {
         this.gameStarted = gameStarted;
     }
@@ -96,6 +107,12 @@ public class ClientManager {
     }
     public void setServerLobbyID(long serverLobbyID) {
         this.serverLobbyID = serverLobbyID;
+    }
+    public void removeIndexLeaderCardProductionDone() {
+        this.leaderCardProductionDone.remove(lastIndex);
+    }
+    public void removeIndexDevCardProductionDone() {
+        this.devCardProductionDone.remove(lastIndex);
     }
 
     /**
@@ -201,6 +218,7 @@ public class ClientManager {
      */
     public void basicProduction(ResourceCount storagePayment,ResourceCount chestPayment, Resource outputResource){
         basicProductionDone = true;
+        lastProduction = 1;
         clientSocket.send(new BasicProductionMessage(nickname,serverLobbyID,outputResource,storagePayment,chestPayment).serialize());
     }
 
@@ -215,6 +233,8 @@ public class ClientManager {
      */
     public void leaderProduction(int index,LeaderCard card,ResourceCount storageCount, ResourceCount chestCount, Resource res){
         leaderCardProductionDone.add(index,true);
+        lastProduction = 2;
+        lastIndex = index;
         clientSocket.send(new LeaderProductionMessage(nickname,serverLobbyID,card,storageCount,chestCount,res).serialize());
     }
 
@@ -228,6 +248,8 @@ public class ClientManager {
      */
     public void devCardProduction(int index,DevelopmentCard card,ResourceCount storageCount, ResourceCount chestCount){
         devCardProductionDone.add(index,true);
+        lastProduction = 3;
+        lastIndex = index;
         clientSocket.send(new DevCardProductionMessage(nickname,serverLobbyID,card,storageCount,chestCount).serialize());
     }
 

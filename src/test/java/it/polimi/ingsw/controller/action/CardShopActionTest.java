@@ -18,7 +18,7 @@ class CardShopActionTest {
         PlayerDashboard player = createPlayer();
         Shop shop = createShop();
         ResourceCount payment = new ResourceCount(1,0,0,0,0);
-        CardShopAction action = new CardShopAction(shop,2,3,0,payment,null);
+        CardShopAction action = new CardShopAction(shop,2,3,0,payment,new ResourceCount(0, 0, 0, 0, 0));
         action.useAction(player);
         assertEquals(0,payment.getCoins()); //DiscountAbility works fine
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
@@ -31,7 +31,7 @@ class CardShopActionTest {
         PlayerDashboard player = createPlayerWithCards();
         Shop shop = createShop();
         ResourceCount payment = new ResourceCount(1,0,0,0,0);
-        CardShopAction action = new CardShopAction(shop,2,3,0,payment,null);
+        CardShopAction action = new CardShopAction(shop,2,3,0,payment,new ResourceCount(0, 0, 0, 0, 0));
         //assertFalse(action.useAction(player));
         assertThrows(PaymentFailedException.class, () -> action.useAction(player));
     }
@@ -40,7 +40,7 @@ class CardShopActionTest {
         PlayerDashboard player = createPlayer();
         Shop shop = createShop();
         ResourceCount payment = new ResourceCount(1,0,0,0,0);
-        CardShopAction action = new CardShopAction(shop,1,3,0,payment,null);
+        CardShopAction action = new CardShopAction(shop,1,3,0,payment,new ResourceCount(0, 0, 0, 0, 0));
         //assertFalse(action.useAction(player));
         assertThrows(PaymentFailedException.class, () -> action.useAction(player));
     }
@@ -49,7 +49,7 @@ class CardShopActionTest {
         PlayerDashboard player = createPlayer();
         Shop shop = createShop();
         ResourceCount payment = new ResourceCount(1,1,0,0,0);
-        CardShopAction action = new CardShopAction(shop,2,2,0,payment,null);
+        CardShopAction action = new CardShopAction(shop,2,2,0,payment,new ResourceCount(0, 0, 0, 0, 0));
         action.useAction(player);
         assertEquals(0,payment.getCoins()); //DiscountAbility works fine
         assertEquals(0,payment.getRocks());

@@ -6,6 +6,6 @@ import it.polimi.ingsw.model.PlayerDashboard;
 public class WrongResourcesMovedException extends MasterOfRenaissanceRuntimeException {
     public WrongResourcesMovedException(PlayerDashboard p) {
         super("The switch you tried to make is impossible!");
-        p.setExceptionError("The switch you tried to make is impossible!");
+        p.setSideActionError("The switch you tried to make is impossible!");
     }
 }

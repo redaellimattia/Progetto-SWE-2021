@@ -75,7 +75,7 @@ public class Storage {
      */
     public void setFirstRow(CounterTop firstRow) throws CounterTopOverloadException{
         if(firstRow.getContent() > 1 )
-            throw new CounterTopOverloadException("1",player);
+            throw new CounterTopOverloadException(player);
         this.firstRow = firstRow;
         if(observer!=null)
             observer.updateFirstRow(this.firstRow);
@@ -88,7 +88,7 @@ public class Storage {
      */
     public void setSecondRow(CounterTop secondRow) throws CounterTopOverloadException {
         if(secondRow.getContent() > 2 )
-            throw new CounterTopOverloadException("2",player);
+            throw new CounterTopOverloadException(player);
         this.secondRow = secondRow;
         if(observer!=null)
             observer.updateSecondRow(this.secondRow);
@@ -101,7 +101,7 @@ public class Storage {
      */
     public void setThirdRow(CounterTop thirdRow) throws CounterTopOverloadException{
         if(thirdRow.getContent() > 3)
-            throw new CounterTopOverloadException("3",player);
+            throw new CounterTopOverloadException(player);
         this.thirdRow = thirdRow;
         if(observer!=null)
             observer.updateThirdRow(this.thirdRow);

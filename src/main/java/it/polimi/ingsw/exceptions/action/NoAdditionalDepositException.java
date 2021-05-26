@@ -7,6 +7,6 @@ import it.polimi.ingsw.model.enumeration.Resource;
 public class NoAdditionalDepositException extends MasterOfRenaissanceRuntimeException {
     public NoAdditionalDepositException(Resource res, PlayerDashboard p) {
         super("You don't have an additional deposit available for the " + res.name() + ".");
-        p.setExceptionError("You don't have an additional deposit available for the " + res.name() + ".");
+        p.setMainActionError("You don't have an additional deposit available for the " + res.name() + ".");
     }
 }
