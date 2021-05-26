@@ -1309,7 +1309,7 @@ public class Cli implements View {
         boolean printed = false;
         for(DeckDashboard d:devCards){
             if(d.getDeck().size()>0) {
-                out.println(d.getFirst().toString());
+                printDevCard(d.getFirst());
                 printed = true;
             }
         }
