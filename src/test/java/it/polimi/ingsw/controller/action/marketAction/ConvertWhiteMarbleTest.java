@@ -60,7 +60,7 @@ class ConvertWhiteMarbleTest {
         PlayerDashboard testPlayer = buildPlayerDashboard(0, 2, 3);
         LeaderCard leaderTest = new LeaderCard(0,3, new CardLevelRequirement(CardColour.YELLOW, 2), new WhiteChangeAbility(Resource.COIN));
         ConvertWhiteMarble test = new ConvertWhiteMarble(leaderTest, 1);
-        assertThrows(CardNotExistsException.class, () -> test.useAction(new MarketMarble(MarbleColour.WHITE), testPlayer, null));
+        assertFalse(test.checkAction(new MarketMarble(MarbleColour.WHITE), testPlayer, testPlayer.getStorage(), testPlayer.getArrayDeposit()));
         assertEquals(Resource.COIN, testPlayer.getStorage().getFirstRow().getResourceType());
         assertEquals(0, testPlayer.getStorage().getFirstRow().getContent());
     }
@@ -70,7 +70,7 @@ class ConvertWhiteMarbleTest {
         PlayerDashboard testPlayer = buildPlayerDashboard(0, 2, 3);
         LeaderCard leaderTest = testPlayer.getLeaderCards().get(0);
         ConvertWhiteMarble test = new ConvertWhiteMarble(leaderTest, 1);
-        assertThrows(NoWhiteMarbleException.class, () -> test.useAction(new MarketMarble(MarbleColour.PURPLE), testPlayer, null));
+        assertFalse(test.checkAction(new MarketMarble(MarbleColour.PURPLE), testPlayer, testPlayer.getStorage(), testPlayer.getArrayDeposit()));
     }
 
     @Test
@@ -78,7 +78,7 @@ class ConvertWhiteMarbleTest {
         PlayerDashboard testPlayer = buildPlayerDashboard(0, 2, 3);
         LeaderCard leaderTest = testPlayer.getLeaderCards().get(1);
         ConvertWhiteMarble test = new ConvertWhiteMarble(leaderTest, 1);
-        assertThrows(WrongAbilityException.class, () -> test.useAction(new MarketMarble(MarbleColour.WHITE), testPlayer, null));
+        assertFalse(test.checkAction(new MarketMarble(MarbleColour.WHITE), testPlayer, testPlayer.getStorage(), testPlayer.getArrayDeposit()));
         assertEquals(Resource.COIN, testPlayer.getStorage().getFirstRow().getResourceType());
         assertEquals(0, testPlayer.getStorage().getFirstRow().getContent());
     }
