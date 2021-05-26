@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.action.productionAction.DevCardProductionActio
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.network.enumeration.ActionType;
+import it.polimi.ingsw.network.messages.serverMessages.DoneMessage;
 import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
 
@@ -29,6 +30,7 @@ public class DevCardProductionMessage extends ActionMessage{
         DevCardProductionAction action = new DevCardProductionAction(card, storageCount, chestCount);
         PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
         turnManager.addDevCardProduction(action);
+        serverLobby.sendToAll(new DoneMessage().serialize());
     }
 
 }

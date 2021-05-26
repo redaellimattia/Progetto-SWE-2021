@@ -411,9 +411,9 @@ public class Cli implements View {
 
             //PlayLeader || DiscardLeader
             if(clientManager.leadersInHand()) {
-                out.println("DISCARD A LEADER: press D \n");
+                out.println("DISCARD A LEADER: press D");
                 if(clientManager.canPlayLeader())
-                    out.println("PLAY A LEADER: press L\n");
+                    out.println("PLAY A LEADER: press L");
             }
 
             //Reorganize
@@ -486,10 +486,11 @@ public class Cli implements View {
 
         DevelopmentCard card = clientManager.getShopCardByID(id);
         ResourceCount cost = new ResourceCount(0,0,0,0,0);
-        ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
-        ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
+
         cost.sumCounts(card.getCost());
-        askPayment(cost,storagePayment,chestPayment);
+        ArrayList<ResourceCount> payments = askPayment(cost);
+        ResourceCount storagePayment = payments.get(0);
+        ResourceCount chestPayment = payments.get(1);
         int position;
         do{
             out.println("Now insert the position of the deck of which you want to put the card on top: ");
@@ -503,13 +504,14 @@ public class Cli implements View {
     /**
      * ask the player how he prefers to pay (where to take resources first) and calls proper methods
      * @param cost cost that needs to be covered to complete the purchase
-     * @param storage amount of resources taken by the storage to pay
-     * @param chest amount of resources taken by the chest to pay
      */
-    private void askPayment(ResourceCount cost, ResourceCount storage, ResourceCount chest){
+    private ArrayList<ResourceCount> askPayment(ResourceCount cost){
         String input;
+        ResourceCount storage = new ResourceCount(0,0,0,0,0);
+        ResourceCount chest = new ResourceCount(0,0,0,0,0);
+        ArrayList<ResourceCount> payments = new ArrayList<>();
         do{
-            out.println("Press S to start payment from the storage, C from the chest: ");
+            out.println(GREEN+"Press S to start payment from the storage, C from the chest: "+RESET);
             input = readLine();
         }while(!input.equalsIgnoreCase("s")&&!input.equalsIgnoreCase("C"));
 
@@ -523,6 +525,9 @@ public class Cli implements View {
             if(ResourceCount.resCountToInt(cost) !=0)
                 storage = askStoragePayment(cost,true);
         }
+        payments.add(storage);
+        payments.add(chest);
+        return payments;
     }
 
     /**
@@ -812,29 +817,24 @@ public class Cli implements View {
         out.println(PURPLE+"--BASIC PRODUCTION--"+RESET);
         ResourceCount chosenInput = new ResourceCount(0,0,0,0,0);
         do {
-            out.println("Choose 2 resources that you have as input of the production: ");
+            out.println(GREEN+"Choose 2 resources that you have as input of the production: "+RESET);
             ArrayList<Resource> inputResources = askResources(2);
             inputResources.get(0).add(chosenInput,1);
             inputResources.get(1).add(chosenInput,1);
-        }while(p.getTotalResources().hasMoreOrEqualsResources(chosenInput));
-        ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
-        ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
-        ArrayList<Resource> outputResource = new ArrayList<>();
-        askPaymentAndChosenResourceOutput(chosenInput,storagePayment,chestPayment,outputResource);
-        clientManager.basicProduction(storagePayment,chestPayment,outputResource.get(0));
+        }while(!p.getTotalResources().hasMoreOrEqualsResources(chosenInput));
+        ArrayList<ResourceCount> payments = askPayment(chosenInput);
+        ResourceCount storagePayment =payments.get(0);
+        ResourceCount chestPayment = payments.get(1);
+        Resource outputResource = askChosenResourceOutput().get(0);
+        clientManager.basicProduction(storagePayment,chestPayment,outputResource);
     }
 
     /**
      * Asks type of payment and the chosen resource as output
-     * @param chosenInput chosenInput
-     * @param storagePayment amount of resource from the storage
-     * @param chestPayment amount of resource from the chest
-     * @param outputResource chosen Resource as Output
      */
-    public void askPaymentAndChosenResourceOutput(ResourceCount chosenInput,ResourceCount storagePayment,ResourceCount chestPayment,ArrayList<Resource> outputResource){
-        askPayment(chosenInput,storagePayment,chestPayment);
-        out.println("Choose the resource that will be the output of the production: ");
-        outputResource = askResources(1);
+    public ArrayList<Resource> askChosenResourceOutput(){
+        out.println(GREEN+"Choose the resource that will be the output of the production: "+RESET);
+        return askResources(1);
     }
 
     /**
@@ -862,11 +862,11 @@ public class Cli implements View {
                 chosenCard = l;
             }
         }
-        ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
-        ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
-        ArrayList<Resource> outputResource = new ArrayList<>();
-        askPaymentAndChosenResourceOutput(cost,storagePayment,chestPayment,outputResource);
-        clientManager.leaderProduction(index,chosenCard,storagePayment,chestPayment,outputResource.get(0));
+        ArrayList<ResourceCount> payments = askPayment(cost);
+        ResourceCount storagePayment =payments.get(0);
+        ResourceCount chestPayment = payments.get(1);
+        Resource outputResource = askChosenResourceOutput().get(0);
+        clientManager.leaderProduction(index,chosenCard,storagePayment,chestPayment,outputResource);
     }
 
     /**
@@ -894,10 +894,9 @@ public class Cli implements View {
                 chosenCard = d;
             }
         }
-        ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
-        ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
-        ArrayList<Resource> outputResource = new ArrayList<>();
-        askPaymentAndChosenResourceOutput(cost,storagePayment,chestPayment,outputResource);
+        ArrayList<ResourceCount> payments = askPayment(cost);
+        ResourceCount storagePayment = payments.get(0);
+        ResourceCount chestPayment = payments.get(1);
         clientManager.devCardProduction(index,chosenCard,storagePayment,chestPayment);
     }
 
@@ -1061,7 +1060,6 @@ public class Cli implements View {
             try{num = Integer.parseInt(input);}catch(NumberFormatException e) { num = -1;}
         }while(num <1 || num>3);
         int from = num;
-        num = -1;
         do{
             out.println("Insert the number of the shelf you want to move TO (1,2 or 3): ");
             input = readLine();
