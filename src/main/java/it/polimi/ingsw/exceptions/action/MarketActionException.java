@@ -7,6 +7,6 @@ public class MarketActionException extends MasterOfRenaissanceRuntimeException {
     public MarketActionException(PlayerDashboard p) {
         super("You made some not allowed choices when getting resources from the market!");
         //p.setExceptionError("You made some not allowed choices when getting resources from the market!");
-        p.setSideActionError("You made some not allowed choices when getting resources from the market!");
+        p.setMainActionError("You made some not allowed choices when getting resources from the market!");
     }
 }
