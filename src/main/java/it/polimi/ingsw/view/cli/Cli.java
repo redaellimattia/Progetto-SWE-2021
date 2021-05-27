@@ -1302,6 +1302,7 @@ public class Cli implements View {
                 printDevCard(d.getFirst());
                 printed = true;
             }
+            out.println("---------------------");
         }
         if(!printed)
             out.println("No development cards yet!");
