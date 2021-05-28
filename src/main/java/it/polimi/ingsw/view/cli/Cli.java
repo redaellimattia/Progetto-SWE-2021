@@ -498,6 +498,7 @@ public class Cli implements View {
             out.println("Now insert the position of the deck of which you want to put the card on top: ");
             input = readLine();
             try{position = Integer.parseInt(input);}catch(NumberFormatException e) {position = -1;}
+            position--;
         }while((position <1 || position >3) && !clientManager.positionPossible(position,card.getLevel()));
         clientManager.setMainActionDone(true);
         clientManager.buyCard(storagePayment,chestPayment,id,position);
@@ -878,13 +879,14 @@ public class Cli implements View {
         }
         out.println("Choose the development card ID of the card you want to use the production: ");
         ID = askCardID(id,"Insert the ID of the chosen development card: " );
-        int index;
+        int index = -1;
         DevelopmentCard chosenCard = null;
-        for(index=0;index<devCards.size();index++) {
-            DevelopmentCard d = devCards.get(index);
+        for(int i=0;i<devCards.size() && index == -1;i++) {
+            DevelopmentCard d = devCards.get(i);
             if (d.getId() == ID) {
-                cost.sumCounts(d.getCost());
+                cost.sumCounts(d.getProductionPower().getInput());
                 chosenCard = d;
+                index = i;
             }
         }
         ArrayList<ResourceCount> payments = askPayment(cost);
