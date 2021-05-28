@@ -7,8 +7,11 @@ import it.polimi.ingsw.controller.action.marketAction.MarketAction;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.network.enumeration.MarketActionType;
 import it.polimi.ingsw.network.messages.serverMessages.DoneMessage;
+import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
+
+import java.util.logging.Level;
 
 public class EndMarketActionMessage extends MarketActionMessage {
     private final int rowColType;
@@ -24,6 +27,7 @@ public class EndMarketActionMessage extends MarketActionMessage {
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
         GameManager gameManager = serverLobby.getGameLobby().getGameManager();
         MarketAction action = new MarketAction(rowColType, pos, serverLobby.getTurnManager().getMarketChoices(), gameManager);
+        Server.LOGGER.log(Level.INFO,"End Market Action arrived!");
         useActionMessage(action, socketConnection, serverLobby);
     }
 }

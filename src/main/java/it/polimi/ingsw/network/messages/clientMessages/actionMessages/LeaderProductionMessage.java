@@ -7,8 +7,11 @@ import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.enumeration.ActionType;
 import it.polimi.ingsw.network.messages.serverMessages.DoneMessage;
+import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
+
+import java.util.logging.Level;
 
 public class LeaderProductionMessage extends ActionMessage{
     private final LeaderCard card;
@@ -32,6 +35,7 @@ public class LeaderProductionMessage extends ActionMessage{
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby) {
         LeaderCardProductionAction action = new LeaderCardProductionAction(card, storageCount, chestCount, res);
         PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
+        Server.LOGGER.log(Level.INFO,"Leader Production arrived!");
         if(turnManager.addLeaderCardProduction(action))
             serverLobby.sendToAll(new DoneMessage().serialize());
     }

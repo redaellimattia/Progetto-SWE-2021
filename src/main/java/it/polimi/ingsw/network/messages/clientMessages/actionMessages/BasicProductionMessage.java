@@ -6,8 +6,11 @@ import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.enumeration.ActionType;
 import it.polimi.ingsw.network.messages.serverMessages.DoneMessage;
+import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
+
+import java.util.logging.Level;
 
 public class BasicProductionMessage extends ActionMessage{
     private final Resource res;
@@ -29,6 +32,7 @@ public class BasicProductionMessage extends ActionMessage{
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby) {
         BasicProductionAction action = new BasicProductionAction(res, storageCount, chestCount);
         PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
+        Server.LOGGER.log(Level.INFO,"Basic Production arrived!");
         if(turnManager.addBasicProduction(action))
             serverLobby.sendToAll(new DoneMessage().serialize());
     }

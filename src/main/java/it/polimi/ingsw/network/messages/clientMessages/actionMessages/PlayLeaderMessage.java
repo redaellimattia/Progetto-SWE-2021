@@ -5,8 +5,11 @@ import it.polimi.ingsw.controller.action.leaderAction.PlayLeaderAction;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.network.enumeration.ActionType;
 import it.polimi.ingsw.network.messages.serverMessages.DoneMessage;
+import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
+
+import java.util.logging.Level;
 
 public class PlayLeaderMessage extends ActionMessage {
     private final LeaderCard card;
@@ -24,6 +27,7 @@ public class PlayLeaderMessage extends ActionMessage {
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
         PlayLeaderAction action = new PlayLeaderAction(card);
         useSideActionMessage(action,socketConnection, serverLobby);
+        Server.LOGGER.log(Level.INFO,"Play Leader Action arrived!");
         serverLobby.sendToAll(new DoneMessage().serialize());
     }
 }

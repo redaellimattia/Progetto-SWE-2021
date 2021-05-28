@@ -6,8 +6,11 @@ import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.network.enumeration.ActionType;
 import it.polimi.ingsw.network.messages.serverMessages.DoneMessage;
+import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
+
+import java.util.logging.Level;
 
 public class DevCardProductionMessage extends ActionMessage{
     private final DevelopmentCard card;
@@ -29,6 +32,7 @@ public class DevCardProductionMessage extends ActionMessage{
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby) {
         DevCardProductionAction action = new DevCardProductionAction(card, storageCount, chestCount);
         PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
+        Server.LOGGER.log(Level.INFO,"DevCard Production arrived!");
         if(turnManager.addDevCardProduction(action))
             serverLobby.sendToAll(new DoneMessage().serialize());
     }
