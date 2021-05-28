@@ -63,6 +63,8 @@ public abstract class ServerMessage {
                 return gson.fromJson(msg, DoneMessage.class);
             case EXCEPTION:
                 return gson.fromJson(msg, ExceptionMessage.class);
+            case PING:
+                return gson.fromJson(msg, PingMessage.class);
             default:
                 throw new IllegalArgumentException("ServerMessageType not valid.");
         }

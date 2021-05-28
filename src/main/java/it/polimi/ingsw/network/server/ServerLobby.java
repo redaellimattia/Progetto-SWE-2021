@@ -24,14 +24,17 @@ import java.util.logging.Level;
 public class ServerLobby extends Thread implements Observer {
     private final Object gameLock = new Object();
     private final Map<String, SocketConnection> clients;
+    private final Map<String, PingTimer> preGamePing;
     private final GameLobby gameLobby;
     private final long lobbyID;
+    private PingTimer pingTimer;
 
     /**
      * Creating Game Lobby, Clients HashMap and starting the Thread
      */
     public ServerLobby(int numberOfPlayers, long lobbyID){
         this.clients = new HashMap<>();
+        this.preGamePing = new HashMap<>();
         this.lobbyID = lobbyID;
         this.gameLobby = new GameLobby(this.lobbyID,numberOfPlayers);
         this.gameLobby.addObserver(this);
@@ -111,10 +114,14 @@ public class ServerLobby extends Thread implements Observer {
      */
     public void endRound(){
         gameLobby.getGameManager().nextRound(false);
+        pingTimer.deleteTimer();
         String nextPlayerNickname = getTurnManager().getPlayer().getNickname();
         SocketConnection socketConnection = clients.get(nextPlayerNickname);
-        if(socketConnection!=null)
+        if(socketConnection!=null){
+            pingTimer = new PingTimer(this,socketConnection);
+            pingTimer.startPinging();
             socketConnection.send(new YourTurnMessage().serialize());
+        }
     }
 
     /**
@@ -145,8 +152,11 @@ public class ServerLobby extends Thread implements Observer {
                     }
                 }
                 else {
-                    if (gameLobby.getNumberOfPlayers() == 1 && gameLobby.isGameStarted())
+                    if (gameLobby.getNumberOfPlayers() == 1 && gameLobby.isGameStarted()) {
+                        pingTimer = new PingTimer(this,clientConnection);
+                        pingTimer.startPinging();
                         clientConnection.send(new YourTurnMessage().serialize());
+                    }
                     else
                         clientConnection.send(new WaitYourTurnMessage().serialize());
                 }
@@ -210,11 +220,33 @@ public class ServerLobby extends Thread implements Observer {
         preGame();
     }
 
+    public void deletePreGameTimer(String nickname){
+        preGamePing.get(nickname).deleteTimer();
+    }
+
+
+    public void pingResponse(String nickname){
+        if(!gameLobby.isGameStarted())
+            preGamePing.get(nickname).hasResponded();
+        else
+            pingTimer.hasResponded();
+    }
+
+    public void preGamePing(){
+        for (String pNickname:gameLobby.getPlayers()) {
+            if(!pNickname.equals("Lorenzo il Magnifico")) {
+                preGamePing.put(pNickname, new PingTimer(this, clients.get(pNickname)));
+                preGamePing.get(pNickname).startPinging();
+            }
+        }
+    }
+
     /**
      * PreGame Set-Up choose 2 LeaderCards, and resources
      */
     public void preGame(){
         synchronized (gameLock) {
+            preGamePing();
             for (int i = 0; i < gameLobby.getPlayers().size(); i++) {
                 String p = gameLobby.getPlayers().get(i);
                 String message = null;
@@ -258,6 +290,7 @@ public class ServerLobby extends Thread implements Observer {
                     for(PlayerDashboard p: gameLobby.getGameManager().getGame().getPlayers())
                         if(p.getNickname().equals(disconnectedPlayerNickname))
                             p.setPlaying(false);
+                    pingTimer.deleteTimer();
                     clients.remove(disconnectedPlayerNickname);
                     Server.LOGGER.log(Level.INFO, "Client disconnected, going to next round...");
                     if(disconnectedPlayerNickname.equals(getTurnManager().getPlayer().getNickname()))
@@ -300,6 +333,7 @@ public class ServerLobby extends Thread implements Observer {
                             break;
                         }
                     }
+                    deletePreGameTimer(disconnectedPlayerNickname);
                     clients.remove(disconnectedPlayerNickname);
                     Server.LOGGER.log(Level.INFO, "Client disconnected during preGame, setPlaying to false...");
                     gameLobby.addReadyPlayer();
@@ -307,6 +341,7 @@ public class ServerLobby extends Thread implements Observer {
 
             }
         }
+        socketConnection.disconnect();
     }
 
     /**
@@ -325,8 +360,11 @@ public class ServerLobby extends Thread implements Observer {
                 if (p.isPlaying() && !firstPlayerFound) {
                     gameLobby.getGameManager().getTurnManager().setPlayer(p);
                     socketConnection = clients.get(p.getNickname());
-                    if (socketConnection != null)
+                    if (socketConnection != null) {
                         socketConnection.send(new YourTurnMessage().serialize());
+                        pingTimer = new PingTimer(this,socketConnection);
+                        pingTimer.startPinging();
+                    }
                     firstPlayerFound = true;
                 } else if (p.isPlaying() && firstPlayerFound) {
                     socketConnection = clients.get(p.getNickname());

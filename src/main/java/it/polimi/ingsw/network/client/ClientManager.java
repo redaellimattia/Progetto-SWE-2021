@@ -268,6 +268,10 @@ public class ClientManager {
         view.waitingForTurn();
     }
 
+    public void pingResponse(){
+        clientSocket.send(new PingResponseMessage(nickname,serverLobbyID).serialize());
+    }
+
     /**
      * Checking if the requirement is covered by the player
      *

@@ -2,18 +2,13 @@ package it.polimi.ingsw.network.messages.clientMessages;
 
 import com.google.gson.*;
 
-import it.polimi.ingsw.controller.GameLobby;
 import it.polimi.ingsw.model.card.Requirement;
 import it.polimi.ingsw.model.card.SpecialAbility;
 import it.polimi.ingsw.network.enumeration.ClientMessageType;
 import it.polimi.ingsw.network.messages.InterfaceAdapter;
 import it.polimi.ingsw.network.messages.clientMessages.actionMessages.ActionMessage;
-import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
-import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
-
-import java.util.ArrayList;
 
 public abstract class ClientMessage {
 
@@ -72,6 +67,8 @@ public abstract class ClientMessage {
                 return gson.fromJson(msg,PreGameResponseMessage.class);
             case ENDTURN:
                 return gson.fromJson(msg,EndTurnMessage.class);
+            case PINGRESPONSE:
+                return gson.fromJson(msg, PingResponseMessage.class);
             default:
                 throw new IllegalArgumentException("ClientMessageType not valid.");
         }
