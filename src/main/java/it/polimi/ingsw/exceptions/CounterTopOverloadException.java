@@ -1,5 +1,6 @@
 package it.polimi.ingsw.exceptions;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.model.PlayerDashboard;
 
 public class CounterTopOverloadException extends MasterOfRenaissanceRuntimeException{
@@ -11,6 +12,7 @@ public class CounterTopOverloadException extends MasterOfRenaissanceRuntimeExcep
 
     public CounterTopOverloadException(PlayerDashboard p,boolean isMain){
         super("The chosen destination is already full");
+        PlayerTurnManager.resetMainAction();
         p.setMainActionError("\"The chosen destination is already full\"");
     }
 }
