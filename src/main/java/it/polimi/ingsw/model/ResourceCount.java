@@ -273,7 +273,8 @@ public class ResourceCount {
             count += (" SERVANTS: " + this.getServants());
         if(this.getShields() !=0)
             count += (" SHIELDS: " + this.getShields());
-
+        if(this.getFaith() !=0)
+            count += (" FAITHPOINT: " + this.getShields());
         return count;
     }
 }

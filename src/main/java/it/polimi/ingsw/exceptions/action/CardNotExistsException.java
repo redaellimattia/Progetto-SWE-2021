@@ -11,9 +11,9 @@ public class CardNotExistsException extends MasterOfRenaissanceRuntimeException 
         player.setSideActionError("You don't own this " + cardType);
     }
 
-    public CardNotExistsException(String cardType, PlayerDashboard player,boolean isMain) {
+    public CardNotExistsException(String cardType, PlayerDashboard player,PlayerTurnManager turnManager) {
         super("You don't own this " + cardType);
-        PlayerTurnManager.resetMainAction();
+        turnManager.resetMainAction();
         player.setMainActionError("You don't own this " + cardType);
     }
 }

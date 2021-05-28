@@ -10,9 +10,9 @@ public class CounterTopOverloadException extends MasterOfRenaissanceRuntimeExcep
         p.setSideActionError("\"The chosen destination is already full\"");
     }
 
-    public CounterTopOverloadException(PlayerDashboard p,boolean isMain){
+    public CounterTopOverloadException(PlayerDashboard p,PlayerTurnManager turnManager){
         super("The chosen destination is already full");
-        PlayerTurnManager.resetMainAction();
+        turnManager.resetMainAction();
         p.setMainActionError("\"The chosen destination is already full\"");
     }
 }

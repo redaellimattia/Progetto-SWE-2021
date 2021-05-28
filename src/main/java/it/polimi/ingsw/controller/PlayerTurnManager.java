@@ -16,9 +16,9 @@ import java.util.logging.Level;
 
 public class PlayerTurnManager {
     private PlayerDashboard player;
-    private static Action action;
+    private Action action;
     private Action sideAction;
-    private static ArrayList<AtomicMarketAction> marketChoices;
+    private ArrayList<AtomicMarketAction> marketChoices;
 
     /**
      *
@@ -47,8 +47,8 @@ public class PlayerTurnManager {
      * @param action main action that the player want to execute
      */
     public void setAction(Action action) {
-        if(PlayerTurnManager.action==null) //First action
-            PlayerTurnManager.action = action;
+        if(this.action==null) //First action
+            this.action = action;
         else
             throw new IllegalActionException(player);
     }
@@ -66,7 +66,7 @@ public class PlayerTurnManager {
      */
     public boolean useAction(){
         try {
-            action.useAction(player);
+            action.useAction(player,this);
             return true;
         }catch(MasterOfRenaissanceRuntimeException e){Server.LOGGER.log(Level.SEVERE,e.getMessage());}
         return false;
@@ -77,7 +77,7 @@ public class PlayerTurnManager {
      */
     public void useSideAction(){
         try {
-            sideAction.useAction(player);
+            sideAction.useAction(player,this);
         }catch(MasterOfRenaissanceRuntimeException e){
             Server.LOGGER.log(Level.SEVERE,e.getMessage());}
     }
@@ -109,7 +109,7 @@ public class PlayerTurnManager {
         if(action==null) {
             action = new ProductionAction();
         }
-        return action.addBasicProduction(basicProduction,player);
+        return action.addBasicProduction(basicProduction,player,this);
     }
 
     /**
@@ -121,7 +121,7 @@ public class PlayerTurnManager {
         if(action==null) {
             action = new ProductionAction();
         }
-        return action.addDevCardProduction(devCardProduction,player);
+        return action.addDevCardProduction(devCardProduction,player,this);
     }
 
     /**
@@ -133,16 +133,16 @@ public class PlayerTurnManager {
         if(action==null) {
             action = new ProductionAction();
         }
-        return action.addLeaderCardProduction(leaderCardProduction,player);
+        return action.addLeaderCardProduction(leaderCardProduction,player,this);
     }
 
     /**
      * Resets the action
      */
-    public static void resetMainAction(){
-        action = null;
-        if(marketChoices.size()>0)
-            marketChoices = new ArrayList<>();
+    public void resetMainAction(){
+        this.action = null;
+        if(this.marketChoices.size()>0)
+            this.marketChoices = new ArrayList<>();
 
     }
 

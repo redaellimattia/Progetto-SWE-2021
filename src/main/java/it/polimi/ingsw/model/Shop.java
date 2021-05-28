@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.exceptions.EmptyDeckException;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.enumeration.CardColour;
@@ -63,9 +64,9 @@ public class Shop {
      * @return the first visible card from that position [row,column], after removing it from the shop
      */
     // BUY A SELECTED CARD FROM SHOP, RETURN THE CARD TO THE CALLER AND DELETE IT FROM THE GRID;
-    public DevelopmentCard buy(int row, int column, PlayerDashboard player) throws EmptyDeckException { //the controller check if the player can buy the card before;
+    public DevelopmentCard buy(int row, int column, PlayerDashboard player, PlayerTurnManager turnManager) throws EmptyDeckException { //the controller check if the player can buy the card before;
         if(shopGrid[row][column].getDeck().size() == 0)
-            throw new EmptyDeckException(player);
+            throw new EmptyDeckException(player,turnManager);
 
         DevelopmentCard bought = shopGrid[row][column].getFirst();
         shopGrid[row][column].removeFirst();

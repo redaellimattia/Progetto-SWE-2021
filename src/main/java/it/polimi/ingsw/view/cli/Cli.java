@@ -498,7 +498,7 @@ public class Cli implements View {
             out.println("Now insert the position of the deck of which you want to put the card on top: ");
             input = readLine();
             try{position = Integer.parseInt(input);}catch(NumberFormatException e) {position = -1;}
-        }while((position <1 || position >3) && clientManager.positionPossible(position,card.getLevel()));
+        }while((position <1 || position >3) && !clientManager.positionPossible(position,card.getLevel()));
         clientManager.setMainActionDone(true);
         clientManager.buyCard(storagePayment,chestPayment,id,position);
     }
@@ -644,6 +644,7 @@ public class Cli implements View {
         boolean validChoice;
         MarketMarble[] marbles;
 
+        printStorage(clientManager.getThisClientDashboard().getStorage());
         // Print the market
         printMarket();
 

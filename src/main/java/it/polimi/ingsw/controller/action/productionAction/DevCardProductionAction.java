@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.productionAction;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.exceptions.action.CardNotExistsException;
 import it.polimi.ingsw.exceptions.action.PaymentFailedException;
@@ -33,16 +34,16 @@ public class DevCardProductionAction extends Action {
      * @param player player that is doing the action
      */
     @Override
-    public boolean useAction(PlayerDashboard player) {
+    public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {
         Optional<ResourceCount> output = card.getProductionPower().useProduction(ResourceCount.getTotal(storageCount,chestCount));
 
 
         //If devCard doesnt exist in the model then throw Exception
         if(!player.devCardExists(card))
-            throw new CardNotExistsException("Development Card",player,true);
+            throw new CardNotExistsException("Development Card",player,turnManager);
 
         if(output.isEmpty() || !deleteRes(storageCount,chestCount,player)) //NOT ENOUGH RESOURCES OR PAYMENT FAILED
-            throw new PaymentFailedException(player);
+            throw new PaymentFailedException(player,turnManager);
 
         player.incrementBufferProduction(output.get());
         return true;

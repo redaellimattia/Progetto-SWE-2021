@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.exceptions.EmptyDeckException;
 import it.polimi.ingsw.exceptions.action.PaymentFailedException;
 import it.polimi.ingsw.model.PlayerDashboard;
@@ -41,12 +42,12 @@ public class CardShopAction extends Action {
      */
     //AFTER CHECKING IF THE CHOSEN POSITION ON THE BOARD CAN FIT THE CHOSEN CARD AND THE PLAYER CAN AFFORD IT, RETURN TRUE IF EVERYTHING IS DONE CORRECTLY, FALSE IF NOT
     @Override
-    public boolean useAction(PlayerDashboard player) {
+    public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {
 
         DevelopmentCard chosen = shop.getGrid()[row][column].getFirst();
 
         if(checkIfPossible(chosen.getLevel(),deckPosition, player) && chosen.getCost().equals(ResourceCount.getTotal(storageCount,chestCount))){
-            chosen = shop.buy(row,column,player);
+            chosen = shop.buy(row,column,player,turnManager);
             player.addDevCards(chosen,deckPosition);
 
             for (LeaderCard l: player.getLeaderCards()) {
@@ -62,7 +63,7 @@ public class CardShopAction extends Action {
             return true;
         }
         else {
-            throw new PaymentFailedException(player);
+            throw new PaymentFailedException(player,turnManager);
         }
     }
 

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.productionAction;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.exceptions.action.CardNotExistsException;
 import it.polimi.ingsw.exceptions.action.PaymentFailedException;
@@ -34,7 +35,7 @@ public class LeaderCardProductionAction extends Action {
      * @param player player that is doing the action
      */
     @Override
-    public boolean useAction(PlayerDashboard player) {
+    public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {
         int storageToInt = ResourceCount.resCountToInt(storageCount);
         int chestToInt = ResourceCount.resCountToInt(chestCount);
         Resource abilityRes = card.getSpecialAbility().getResourceType();
@@ -45,7 +46,7 @@ public class LeaderCardProductionAction extends Action {
             throw new PaymentFailedException("Chest and Player",player);
         //If leaderCard doesnt exist in the model then throw Exception
         if(!(player.leaderCardExists(card)&&card.isInGame()))
-            throw new CardNotExistsException("Leader Card",player,true);
+            throw new CardNotExistsException("Leader Card",player,turnManager);
         //Player wants to use the Storage to pay || throw exception if there aren't enough resources in StorageCount, or deleteRes goes wrong
         if(storageToInt!=0&&(!card.getSpecialAbility().useProductionAbility(storageCount)||!deleteRes(storageCount,chestCount,player)))
             throw new PaymentFailedException("Storage",player);

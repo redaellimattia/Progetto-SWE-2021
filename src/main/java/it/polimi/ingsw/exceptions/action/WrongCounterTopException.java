@@ -6,9 +6,9 @@ import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 public class WrongCounterTopException extends MasterOfRenaissanceRuntimeException {
-    public WrongCounterTopException(Resource res, PlayerDashboard p) {
+    public WrongCounterTopException(Resource res, PlayerDashboard p,PlayerTurnManager turnManager) {
         super("You cannot add a " + res.name() + " into this CounterTop.");
-        PlayerTurnManager.resetMainAction();
+        turnManager.resetMainAction();
         p.setMainActionError("You cannot add a " + res.name() + " into this CounterTop.");
     }
 }

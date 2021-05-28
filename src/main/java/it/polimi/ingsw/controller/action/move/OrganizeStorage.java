@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.move;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.exceptions.action.WrongResourcesMovedException;
 import it.polimi.ingsw.model.PlayerDashboard;
@@ -24,7 +25,7 @@ public class OrganizeStorage extends Action {
      */
     //RETURN TRUE IF THE SHELVES ARE SWAPPED CORRECTLY AND THE STORAGE RESPECTS THE RULES FOR RESOURCETYPES;
     @Override
-    public boolean useAction(PlayerDashboard player) {
+    public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {
         if(player.getStorage().swapRows(from,to)) {
             player.getStorage().checkShelves();
             return true;

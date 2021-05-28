@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.marketAction;
 import it.polimi.ingsw.controller.GameManager;
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.exceptions.action.IllegalMarketPositionException;
 import it.polimi.ingsw.exceptions.action.IncompleteListException;
@@ -55,7 +56,7 @@ public class MarketAction extends Action {
      * @param player the player performing the action
      */
     @Override
-    public boolean useAction(PlayerDashboard player) {
+    public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {
         MarketMarble[] marbles = new MarketMarble[0];
 
         // Getting marbles from the market
@@ -64,7 +65,7 @@ public class MarketAction extends Action {
                 marbles = market.getRow(pos);
             }
             catch(IndexOutOfBoundsException e) {
-                throw new IllegalMarketPositionException(player);
+                throw new IllegalMarketPositionException(player,turnManager);
             }
         }
         if (type == 1) { // A column is selected
@@ -72,7 +73,7 @@ public class MarketAction extends Action {
                 marbles = market.getColumn(pos);
             }
             catch(IndexOutOfBoundsException e) {
-                throw new IllegalMarketPositionException(player);
+                throw new IllegalMarketPositionException(player,turnManager);
             }
         }
 
@@ -84,10 +85,10 @@ public class MarketAction extends Action {
             if (!(marble.getColour() == MarbleColour.RED)) {
                 try {
                     if(!(choices.get(j).checkAction(marble, player, tempStorage, tempArrayDeposit))) {
-                        throw new MarketActionException(player);
+                        throw new MarketActionException(player,turnManager);
                     }
                 } catch (IndexOutOfBoundsException e) {
-                    throw new IncompleteListException(player);
+                    throw new IncompleteListException(player,turnManager);
                 }
                 j++;
             }
@@ -103,7 +104,7 @@ public class MarketAction extends Action {
                 try {
                     choices.get(j).useAction(marble, player, gameManager);
                 } catch (IndexOutOfBoundsException e) {
-                    throw new IncompleteListException(player);
+                    throw new IncompleteListException(player,turnManager);
                 }
                 j++;
             }

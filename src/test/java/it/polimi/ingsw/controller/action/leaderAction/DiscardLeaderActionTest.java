@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller.action.leaderAction;
 
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.exceptions.action.CardNotExistsException;
 import it.polimi.ingsw.exceptions.action.CardInGameException;
 import it.polimi.ingsw.model.*;
@@ -18,52 +19,57 @@ class DiscardLeaderActionTest {
     @Test
     void useActionFirstCard() { //DISCARD FIRST CARD
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         LeaderCard card = createLeaderCard(new ColourCount(1, 0, 0, 0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
-        action.useAction(player);
+        action.useAction(player,turnManager);
         assertEquals(1, player.getPathPosition());
     }
 
     @Test
     void useActionSecondCard() { //DISCARD SECOND CARD
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
-        action.useAction(player);
+        action.useAction(player,turnManager);
         assertEquals(1,player.getPathPosition());
     }
 
     @Test
     void useActionFirstAndSecondCard() { //DISCARD FIRST CARD AFTER SECOND
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
-        action.useAction(player);
+        action.useAction(player,turnManager);
         card = createLeaderCard(new ColourCount(1,0,0,0));
         action = new DiscardLeaderAction(card);
-        action.useAction(player);
+        action.useAction(player,turnManager);
         assertEquals(2,player.getPathPosition());
     }
 
     @Test
     void useActionCardNotInModel() { //CAN'T DISCARD, DOESN'T EXIST IN MODEL
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         LeaderCard card = createLeaderCard(new ColourCount(5,5,5,5));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
-        assertThrows(CardNotExistsException.class, () -> action.useAction(player)); //CAN'T DISCARD
+        assertThrows(CardNotExistsException.class, () -> action.useAction(player,turnManager)); //CAN'T DISCARD
         assertEquals(0,player.getPathPosition());
     }
 
     @Test
     void useActionInGame() { //CAN'T DISCARD, IT'S IN GAME
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
         PlayLeaderAction playAction = new PlayLeaderAction(card);
-        playAction.useAction(player); //Playing leader
+        playAction.useAction(player,turnManager); //Playing leader
         assertTrue(player.leadersInGame());
         card.setInGame();
-        assertThrows(CardInGameException.class, () -> action.useAction(player)); //CAN'T DISCARD
+        assertThrows(CardInGameException.class, () -> action.useAction(player,turnManager)); //CAN'T DISCARD
         assertEquals(0,player.getPathPosition());
     }
 
@@ -90,5 +96,9 @@ class DiscardLeaderActionTest {
         TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
         SpecialAbility specialAbility = new ProductionAbility(Resource.COIN);
         return new LeaderCard(0,0,requirement,specialAbility);
+    }
+
+    PlayerTurnManager createTurnManager(PlayerDashboard player){
+        return new PlayerTurnManager(player);
     }
 }

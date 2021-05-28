@@ -4,9 +4,9 @@ import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.model.PlayerDashboard;
 
 public class EmptyDeckException extends MasterOfRenaissanceRuntimeException{
-    public EmptyDeckException(PlayerDashboard p) {
+    public EmptyDeckException(PlayerDashboard p,PlayerTurnManager turnManager) {
         super("The chosen Deck is empty!");
-        PlayerTurnManager.resetMainAction();
+        turnManager.resetMainAction();
         p.setMainActionError("The chosen Deck is empty!");
     }
 }

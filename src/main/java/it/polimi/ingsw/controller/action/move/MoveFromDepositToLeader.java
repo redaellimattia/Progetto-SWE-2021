@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.move;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.exceptions.action.WrongResourcesMovedException;
 import it.polimi.ingsw.model.CounterTop;
@@ -29,7 +30,7 @@ public class MoveFromDepositToLeader extends Action {
      */
     //FOR EACH CASE CHECK IF: THE SHELVES HAS ENOUGH RESOURCES TO MOVE (CONTENT >= NUMBER), THE NUMBER+ CONTENT OF ARRAY IS MAX 2 AND THAT RESOURCES ARE COMPATIBLE;
     @Override
-    public boolean useAction(PlayerDashboard player){
+    public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager){
         Storage storage = player.getStorage();
         CounterTop leaderDeposit = player.getArrayDeposit().get(to_leader);
         switch(from_deposit){

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.leaderAction;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.exceptions.action.CardNotExistsException;
 import it.polimi.ingsw.exceptions.action.CardInGameException;
@@ -22,7 +23,7 @@ public class DiscardLeaderAction extends Action {
      * @param player player that is doing the action
      */
     @Override
-    public boolean useAction(PlayerDashboard player){
+    public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager){
         int position = player.getLeaderPos(card);
         if(position==-1)
             throw new CardNotExistsException("Leader Card",player);

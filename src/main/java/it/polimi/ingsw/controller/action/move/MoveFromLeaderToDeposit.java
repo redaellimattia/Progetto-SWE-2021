@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.move;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.exceptions.action.WrongResourcesMovedException;
@@ -31,7 +32,7 @@ public class MoveFromLeaderToDeposit extends Action {
     //MOVE GIVEN RESOURCES FROM A LEADER DEPOSIT TO A SHELF, RESPECTING BASIC STORAGE RULES (CONTENT AND RESOURCETYPE) OR CONSIDERING THE CASE THE SHELF IS EMPTY;
     //RETURN FALSE IF THAT DEPOSIT DOESN'T HAVE THE REQUIRED RESOURCES TO MOVE;
     @Override
-    public boolean useAction(PlayerDashboard player){
+    public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager){
         CounterTop leaderDeposit = player.getArrayDeposit().get(from_leader);
         Storage storage = player.getStorage();
 

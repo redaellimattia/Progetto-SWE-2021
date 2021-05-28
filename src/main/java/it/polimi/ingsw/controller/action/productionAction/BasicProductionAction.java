@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.productionAction;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.exceptions.action.PaymentFailedException;
 import it.polimi.ingsw.exceptions.action.WrongResourceException;
@@ -30,9 +31,9 @@ public class BasicProductionAction extends Action {
      * @param player player that is doing the action
      */
     @Override
-    public boolean useAction(PlayerDashboard player) {
+    public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {
         if(res.equals(Resource.FAITH))
-            throw new WrongResourceException("Faith",player);
+            throw new WrongResourceException("Faith",player,turnManager);
 
         //If Sum of storageCount and ChestCount != 2 OR deleteRes goes wrong then return false
         int total = 0;
@@ -41,7 +42,7 @@ public class BasicProductionAction extends Action {
         for (Resource r : resources)
             total += r.get(totalCount);
         if(!deleteRes(storageCount,chestCount,player)||total!=2||totalCount.getFaith()!=0)
-            throw new PaymentFailedException(player);
+            throw new PaymentFailedException(player,turnManager);
 
         ResourceCount output = new ResourceCount(0,0,0,0,0);
         res.add(output,1);

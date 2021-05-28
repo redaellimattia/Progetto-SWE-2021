@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.productionAction;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.exceptions.MasterOfRenaissanceRuntimeException;
 import it.polimi.ingsw.exceptions.action.ProductionAlreadyDoneException;
@@ -31,13 +32,13 @@ public class ProductionAction extends Action {
      * @param leaderCardProduction leaderCardProduction chosen by the client to do in this turn
      */
     @Override
-    public boolean addLeaderCardProduction(LeaderCardProductionAction leaderCardProduction,PlayerDashboard player) {
+    public boolean addLeaderCardProduction(LeaderCardProductionAction leaderCardProduction, PlayerDashboard player,PlayerTurnManager turnManager) {
         if(this.leaderCardProductions.contains(leaderCardProduction)||this.leaderCardProductions.size()==2)
-            throw new ProductionAlreadyDoneException(player);
+            throw new ProductionAlreadyDoneException(player,turnManager);
         else {
             this.leaderCardProductions.add(0, leaderCardProduction);
             try {
-                return leaderCardProduction.useAction(player);
+                return leaderCardProduction.useAction(player,turnManager);
             }catch(MasterOfRenaissanceRuntimeException e){Server.LOGGER.log(Level.SEVERE,e.getMessage());}
         }
         return false;
@@ -49,13 +50,13 @@ public class ProductionAction extends Action {
      * @param devCardProduction devCardProduction chosen by the client to do in this turn
      */
     @Override
-    public boolean addDevCardProduction(DevCardProductionAction devCardProduction,PlayerDashboard player) {
+    public boolean addDevCardProduction(DevCardProductionAction devCardProduction,PlayerDashboard player,PlayerTurnManager turnManager) {
         if(this.devCardProductions.contains(devCardProduction)||this.leaderCardProductions.size()==3)
-            throw new ProductionAlreadyDoneException(player);
+            throw new ProductionAlreadyDoneException(player,turnManager);
         else {
             this.devCardProductions.add(0, devCardProduction);
             try {
-                return devCardProduction.useAction(player); //Setting LastAddedAction
+                return devCardProduction.useAction(player,turnManager); //Setting LastAddedAction
             }catch(MasterOfRenaissanceRuntimeException e){Server.LOGGER.log(Level.SEVERE,e.getMessage());}
         }
         return false;
@@ -67,13 +68,13 @@ public class ProductionAction extends Action {
      * @param basicProduction basicProduction chosen by the client to do in this turn
      */
     @Override
-    public boolean addBasicProduction(BasicProductionAction basicProduction,PlayerDashboard player) {
+    public boolean addBasicProduction(BasicProductionAction basicProduction,PlayerDashboard player,PlayerTurnManager turnManager) {
         if(this.basicProduction!=null) //Throw exception if basicProduction is not null, basicProduction already done
-            throw new ProductionAlreadyDoneException(player);
+            throw new ProductionAlreadyDoneException(player,turnManager);
         else {
             this.basicProduction = basicProduction; //Updating basicProduction if possible
             try {
-                return basicProduction.useAction(player); //Setting LastAddedAction
+                return basicProduction.useAction(player,turnManager); //Setting LastAddedAction
             }catch(MasterOfRenaissanceRuntimeException e){
                 Server.LOGGER.log(Level.SEVERE,e.getMessage());}
         }

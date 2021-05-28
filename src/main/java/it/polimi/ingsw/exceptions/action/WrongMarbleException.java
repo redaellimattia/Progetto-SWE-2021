@@ -7,9 +7,9 @@ import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
 
 public class WrongMarbleException extends MasterOfRenaissanceRuntimeException {
-    public WrongMarbleException(MarketMarble marble, PlayerDashboard player) {
+    public WrongMarbleException(MarketMarble marble, PlayerDashboard player,PlayerTurnManager turnManager) {
         super("You cannot get a resource from a " + marble.getColour().name() + " marble.");
-        PlayerTurnManager.resetMainAction();
+        turnManager.resetMainAction();
         player.setMainActionError("You cannot get a resource from a " + marble.getColour().name() + " marble.");
     }
 }

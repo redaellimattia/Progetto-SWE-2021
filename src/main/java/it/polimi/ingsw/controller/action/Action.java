@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.productionAction.BasicProductionAction;
 import it.polimi.ingsw.controller.action.productionAction.DevCardProductionAction;
 import it.polimi.ingsw.controller.action.productionAction.LeaderCardProductionAction;
@@ -9,11 +10,11 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import java.util.ArrayList;
 
 public abstract class Action {
-    public boolean useAction(PlayerDashboard player) {return false;}
+    public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {return false;}
     public void endAction(PlayerDashboard player){}
-    public boolean addBasicProduction(BasicProductionAction basicProduction,PlayerDashboard player) {return false;}
-    public boolean addDevCardProduction(DevCardProductionAction devCardProduction,PlayerDashboard player) {return false;}
-    public boolean addLeaderCardProduction(LeaderCardProductionAction leaderCardProduction,PlayerDashboard player) {return false;}
+    public boolean addBasicProduction(BasicProductionAction basicProduction,PlayerDashboard player,PlayerTurnManager turnManager) {return false;}
+    public boolean addDevCardProduction(DevCardProductionAction devCardProduction,PlayerDashboard player,PlayerTurnManager turnManager) {return false;}
+    public boolean addLeaderCardProduction(LeaderCardProductionAction leaderCardProduction,PlayerDashboard player,PlayerTurnManager turnManager) {return false;}
 
     //TRUE IF BOTH STORAGE AND CHEST PAY ARE DONE CORRECTLY
     public boolean deleteRes(ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player){
