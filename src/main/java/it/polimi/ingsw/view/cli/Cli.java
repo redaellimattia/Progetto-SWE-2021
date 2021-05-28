@@ -744,7 +744,7 @@ public class Cli implements View {
                 }
             }
             if(m.getColour() == MarbleColour.RED) {
-                out.println("You took a red marble, other players will gain 1 faith point.");
+                out.println("You took a red marble, you will gain 1 faith point!");
             }
         }
         clientManager.endMarketAction(type, pos);
@@ -1247,7 +1247,7 @@ public class Cli implements View {
                 break;
         }
 
-        out.print(card.getColour()+ RESET + "\n" +
+        out.println(card.getColour()+ RESET + "\n" +
                CYAN_BOLD+ "Production Power: " + "\n" +
                 "Cost: " + card.getProductionPower().getInput().toString() + "\n" +
                 "Output: " + card.getProductionPower().getOutput().toString() + RESET);
