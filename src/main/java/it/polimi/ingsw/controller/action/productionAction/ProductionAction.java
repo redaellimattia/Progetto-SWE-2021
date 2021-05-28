@@ -4,8 +4,10 @@ import it.polimi.ingsw.controller.action.Action;
 import it.polimi.ingsw.exceptions.MasterOfRenaissanceRuntimeException;
 import it.polimi.ingsw.exceptions.action.ProductionAlreadyDoneException;
 import it.polimi.ingsw.model.PlayerDashboard;
+import it.polimi.ingsw.network.server.Server;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class ProductionAction extends Action {
     private ArrayList<LeaderCardProductionAction> leaderCardProductions;
@@ -36,7 +38,7 @@ public class ProductionAction extends Action {
             this.leaderCardProductions.add(0, leaderCardProduction);
             try {
                 return leaderCardProduction.useAction(player);
-            }catch(MasterOfRenaissanceRuntimeException e){System.out.println(e.getMessage());}
+            }catch(MasterOfRenaissanceRuntimeException e){Server.LOGGER.log(Level.SEVERE,e.getMessage());}
         }
         return false;
     }
@@ -54,7 +56,7 @@ public class ProductionAction extends Action {
             this.devCardProductions.add(0, devCardProduction);
             try {
                 return devCardProduction.useAction(player); //Setting LastAddedAction
-            }catch(MasterOfRenaissanceRuntimeException e){System.out.println(e.getMessage());}
+            }catch(MasterOfRenaissanceRuntimeException e){Server.LOGGER.log(Level.SEVERE,e.getMessage());}
         }
         return false;
     }
@@ -72,7 +74,8 @@ public class ProductionAction extends Action {
             this.basicProduction = basicProduction; //Updating basicProduction if possible
             try {
                 return basicProduction.useAction(player); //Setting LastAddedAction
-            }catch(MasterOfRenaissanceRuntimeException e){System.out.println(e.getMessage());}
+            }catch(MasterOfRenaissanceRuntimeException e){
+                Server.LOGGER.log(Level.SEVERE,e.getMessage());}
         }
         return false;
     }

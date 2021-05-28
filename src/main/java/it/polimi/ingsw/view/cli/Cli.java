@@ -398,6 +398,8 @@ public class Cli implements View {
         PlayerDashboard thisPlayerDashboard = clientManager.getThisClientDashboard();
         printPlayer(thisPlayerDashboard.getNickname());
         String input;
+        printMarket();
+        printShop(false);
         do {
             if (!clientManager.isMainActionDone()) {
                 out.println(YELLOW + "You still have to do one of these before ending your turn: " + RESET);
