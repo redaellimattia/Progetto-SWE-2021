@@ -1166,7 +1166,7 @@ public class Cli implements View {
                 out.print(BLUE + "[B] \t" + RESET);
                 break;
         }
-        out.println("Legend: W -> White |" + RED + " R -> Red |" + RESET + YELLOW + " Y -> Yellow |" + RESET + WHITE + " G -> Gray |" + RESET + PURPLE + " P -> Purple |" + RESET + BLUE + " B -> Blue " + RESET);
+        out.println("Legend: W -> White |" + RED + " R -> Red (Faith) |" + RESET + YELLOW + " Y -> Yellow (Coin)|" + RESET + WHITE + " G -> Gray (Rock) |" + RESET + PURPLE + " P -> Purple (Servant)|" + RESET + BLUE + " B -> Blue (Shield) " + RESET);
     }
 
     /**
