@@ -18,7 +18,7 @@ public class PlayerTurnManager {
     private PlayerDashboard player;
     private static Action action;
     private Action sideAction;
-    private ArrayList<AtomicMarketAction> marketChoices;
+    private static ArrayList<AtomicMarketAction> marketChoices;
 
     /**
      *
@@ -27,7 +27,7 @@ public class PlayerTurnManager {
     public PlayerTurnManager(PlayerDashboard player) {
         this.player = player;
         action = null;
-        this.marketChoices = new ArrayList<AtomicMarketAction>();
+        marketChoices = new ArrayList<AtomicMarketAction>();
     }
 
     /**
@@ -141,6 +141,9 @@ public class PlayerTurnManager {
      */
     public static void resetMainAction(){
         action = null;
+        if(marketChoices.size()>0)
+            marketChoices = new ArrayList<>();
+
     }
 
     /**
