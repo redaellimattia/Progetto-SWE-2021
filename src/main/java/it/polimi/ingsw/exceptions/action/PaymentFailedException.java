@@ -11,7 +11,7 @@ public class PaymentFailedException extends MasterOfRenaissanceRuntimeException 
     }
     public PaymentFailedException(PlayerDashboard p) {
         super("Payment failed");
-        PlayerTurnManager.resetAction();
+        PlayerTurnManager.resetMainAction();
         p.setMainActionError("Payment failed, retry the action");
     }
 }

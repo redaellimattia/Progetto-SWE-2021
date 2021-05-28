@@ -26,7 +26,7 @@ public class PlayerTurnManager {
      */
     public PlayerTurnManager(PlayerDashboard player) {
         this.player = player;
-        this.action = null;
+        action = null;
         this.marketChoices = new ArrayList<AtomicMarketAction>();
     }
 
@@ -47,8 +47,8 @@ public class PlayerTurnManager {
      * @param action main action that the player want to execute
      */
     public void setAction(Action action) {
-        if(this.action==null) //First action
-            this.action = action;
+        if(PlayerTurnManager.action==null) //First action
+            PlayerTurnManager.action = action;
         else
             throw new IllegalActionException(player);
     }
@@ -80,9 +80,6 @@ public class PlayerTurnManager {
             sideAction.useAction(player);
         }catch(MasterOfRenaissanceRuntimeException e){
             Server.LOGGER.log(Level.SEVERE,e.getMessage());}
-    }
-    public static void resetAction(){
-        action = null;
     }
     /**
      *  used to call the endAction method
@@ -137,6 +134,13 @@ public class PlayerTurnManager {
             action = new ProductionAction();
         }
         return action.addLeaderCardProduction(leaderCardProduction,player);
+    }
+
+    /**
+     * Resets the action
+     */
+    public static void resetMainAction(){
+        action = null;
     }
 
     /**
