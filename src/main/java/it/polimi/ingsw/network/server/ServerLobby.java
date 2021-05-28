@@ -147,8 +147,6 @@ public class ServerLobby extends Thread implements Observer {
                 else {
                     if (gameLobby.getNumberOfPlayers() == 1 && gameLobby.isGameStarted())
                         clientConnection.send(new YourTurnMessage().serialize());
-                    else if (gameLobby.getNumberOfPlayers() == 1 && !gameLobby.isGameStarted())
-                        gameLobby.addReadyPlayer();
                     else
                         clientConnection.send(new WaitYourTurnMessage().serialize());
                 }
@@ -304,8 +302,7 @@ public class ServerLobby extends Thread implements Observer {
                     }
                     clients.remove(disconnectedPlayerNickname);
                     Server.LOGGER.log(Level.INFO, "Client disconnected during preGame, setPlaying to false...");
-                    if(gameLobby.getNumberOfPlayers()>1)
-                        gameLobby.addReadyPlayer();
+                    gameLobby.addReadyPlayer();
                 }
 
             }
@@ -319,21 +316,24 @@ public class ServerLobby extends Thread implements Observer {
         gameLobby.setGameStarted(true);
         SocketConnection socketConnection;
         sendToAll(new GameStartedMessage().serialize());
-        boolean firstPlayerFound = false;
-        for(int i=0;i<gameLobby.getGameManager().getGame().getPlayers().size();i++){
-            PlayerDashboard p = gameLobby.getGameManager().getGame().getPlayers().get(i);
-            if(p.isPlaying()&&!firstPlayerFound){
-                gameLobby.getGameManager().getTurnManager().setPlayer(p);
-                socketConnection = clients.get(p.getNickname());
-                socketConnection.send(new YourTurnMessage().serialize());
-                firstPlayerFound = true;
-            }
-            else
-                if(p.isPlaying()&&firstPlayerFound){
+        if(gameLobby.getNumberOfPlayers()==1&&clients.size()==0)
+            gameLobby.getGameManager().getTurnManager().setPlayer(gameLobby.getGameManager().getGame().getPlayers().get(0));
+        else {
+            boolean firstPlayerFound = false;
+            for (int i = 0; i < gameLobby.getGameManager().getGame().getPlayers().size(); i++) {
+                PlayerDashboard p = gameLobby.getGameManager().getGame().getPlayers().get(i);
+                if (p.isPlaying() && !firstPlayerFound) {
+                    gameLobby.getGameManager().getTurnManager().setPlayer(p);
                     socketConnection = clients.get(p.getNickname());
-                    if(socketConnection!=null)
+                    if (socketConnection != null)
+                        socketConnection.send(new YourTurnMessage().serialize());
+                    firstPlayerFound = true;
+                } else if (p.isPlaying() && firstPlayerFound) {
+                    socketConnection = clients.get(p.getNickname());
+                    if (socketConnection != null)
                         socketConnection.send(new WaitYourTurnMessage().serialize());
                 }
+            }
         }
     }
 
