@@ -143,7 +143,6 @@ public class PlayerTurnManager {
         action = null;
         if(marketChoices.size()>0)
             marketChoices = new ArrayList<>();
-
     }
 
     /**
