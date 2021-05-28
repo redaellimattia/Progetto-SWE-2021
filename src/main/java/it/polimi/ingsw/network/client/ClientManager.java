@@ -259,6 +259,7 @@ public class ClientManager {
     public void endTurn(){
         isMyTurn = false;
         clientSocket.send(new EndTurnMessage(nickname,serverLobbyID).serialize());
+        view.waitingForTurn();
     }
 
     /**
@@ -477,6 +478,8 @@ public class ClientManager {
      */
     public boolean positionPossible(int position, int level){
         PlayerDashboard p = getThisClientDashboard();
+        if(position == -1)
+            return false;
         if(p.getDevCards()[position].getDeck().size() == 0 && level == 1)
             return true;
         else
