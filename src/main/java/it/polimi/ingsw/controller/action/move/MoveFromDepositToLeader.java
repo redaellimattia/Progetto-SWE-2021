@@ -29,31 +29,32 @@ public class MoveFromDepositToLeader extends Action {
      */
     //FOR EACH CASE CHECK IF: THE SHELVES HAS ENOUGH RESOURCES TO MOVE (CONTENT >= NUMBER), THE NUMBER+ CONTENT OF ARRAY IS MAX 2 AND THAT RESOURCES ARE COMPATIBLE;
     @Override
-    public void useAction(PlayerDashboard player){
+    public boolean useAction(PlayerDashboard player){
         Storage storage = player.getStorage();
         CounterTop leaderDeposit = player.getArrayDeposit().get(to_leader);
         switch(from_deposit){
             case 1: if( storage.getFirstRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getFirstRow().getResourceType().equals(leaderDeposit.getResourceType())) {
                 leaderDeposit.addContent(number);
                 storage.getFirstRow().removeContent(number);
+                return true;
             }
             else
                 throw new WrongResourcesMovedException(player);
-                break;
             case 2: if( storage.getSecondRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getSecondRow().getResourceType().equals(leaderDeposit.getResourceType())) {
                 leaderDeposit.addContent(number);
                 storage.getSecondRow().removeContent(number);
+                return true;
             }
             else
                 throw new WrongResourcesMovedException(player);
-                break;
             case 3: if( storage.getThirdRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getThirdRow().getResourceType().equals(leaderDeposit.getResourceType())) {
                 leaderDeposit.addContent(number);
                 storage.getThirdRow().removeContent(number);
+                return true;
             }
             else
                 throw new WrongResourcesMovedException(player);
-                break;
+            default: return false;
         }
     }
 

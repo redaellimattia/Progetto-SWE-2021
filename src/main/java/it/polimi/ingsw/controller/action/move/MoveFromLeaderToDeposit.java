@@ -31,7 +31,7 @@ public class MoveFromLeaderToDeposit extends Action {
     //MOVE GIVEN RESOURCES FROM A LEADER DEPOSIT TO A SHELF, RESPECTING BASIC STORAGE RULES (CONTENT AND RESOURCETYPE) OR CONSIDERING THE CASE THE SHELF IS EMPTY;
     //RETURN FALSE IF THAT DEPOSIT DOESN'T HAVE THE REQUIRED RESOURCES TO MOVE;
     @Override
-    public void useAction(PlayerDashboard player){
+    public boolean useAction(PlayerDashboard player){
         CounterTop leaderDeposit = player.getArrayDeposit().get(from_leader);
         Storage storage = player.getStorage();
 
@@ -43,26 +43,27 @@ public class MoveFromLeaderToDeposit extends Action {
                 CounterTop substitute = new CounterTop(leaderDeposit.getResourceType(),number);
                 try{storage.setFirstRow(substitute);}catch(CounterTopOverloadException e){}
                 leaderDeposit.removeContent(number);
+                return true;
             }
             else
                 throw new WrongResourcesMovedException(player);
-                break;
             case 2: if((storage.getSecondRow().getContent() + number) <= 2 && storage.getSecondRow().getResourceType().equals(leaderDeposit.getResourceType()) || (storage.getSecondRow().getContent() == 0)){
                 CounterTop substitute = new CounterTop(leaderDeposit.getResourceType(),number+storage.getSecondRow().getContent());
                 try{storage.setSecondRow(substitute);}catch(CounterTopOverloadException e){};
                 leaderDeposit.removeContent(number);
+                return true;
             }
             else
                 throw new WrongResourcesMovedException(player);
-                break;
             case 3: if(((storage.getThirdRow().getContent() + number) <= 3 && storage.getThirdRow().getResourceType().equals(leaderDeposit.getResourceType())) || (storage.getThirdRow().getContent() == 0)){
                 CounterTop substitute = new CounterTop(leaderDeposit.getResourceType(),number+storage.getThirdRow().getContent());
                 try{storage.setThirdRow(substitute);}catch(CounterTopOverloadException e){};
                 leaderDeposit.removeContent(number);
+                return true;
             }
             else
                 throw new WrongResourcesMovedException(player);
-                break;
+            default: return false;
         }
     }
 }

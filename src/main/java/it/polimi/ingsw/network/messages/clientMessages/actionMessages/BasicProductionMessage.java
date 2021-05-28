@@ -29,7 +29,7 @@ public class BasicProductionMessage extends ActionMessage{
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby) {
         BasicProductionAction action = new BasicProductionAction(res, storageCount, chestCount);
         PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
-        turnManager.addBasicProduction(action);
-        serverLobby.sendToAll(new DoneMessage().serialize());
+        if(turnManager.addBasicProduction(action))
+            serverLobby.sendToAll(new DoneMessage().serialize());
     }
 }

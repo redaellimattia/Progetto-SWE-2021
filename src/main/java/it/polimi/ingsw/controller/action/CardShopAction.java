@@ -41,7 +41,7 @@ public class CardShopAction extends Action {
      */
     //AFTER CHECKING IF THE CHOSEN POSITION ON THE BOARD CAN FIT THE CHOSEN CARD AND THE PLAYER CAN AFFORD IT, RETURN TRUE IF EVERYTHING IS DONE CORRECTLY, FALSE IF NOT
     @Override
-    public void useAction(PlayerDashboard player) {
+    public boolean useAction(PlayerDashboard player) {
 
         DevelopmentCard chosen = shop.getGrid()[row][column].getFirst();
 
@@ -59,9 +59,11 @@ public class CardShopAction extends Action {
                         l.getSpecialAbility().useDiscountAbility(chestCount);
             }
             deleteRes(storageCount,chestCount,player);
+            return true;
         }
-        else
+        else {
             throw new PaymentFailedException(player);
+        }
     }
 
     //CHECK IF THE CHOSEN POSITION FIT THE CARD CHOSEN

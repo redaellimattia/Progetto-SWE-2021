@@ -1,12 +1,16 @@
 package it.polimi.ingsw.network.messages.clientMessages.actionMessages;
 
 import it.polimi.ingsw.controller.action.CardShopAction;
+import it.polimi.ingsw.exceptions.MasterOfRenaissanceRuntimeException;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.network.enumeration.ActionType;
 import it.polimi.ingsw.network.messages.serverMessages.DoneMessage;
+import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
+
+import java.util.logging.Level;
 
 public class CardShopMessage extends ActionMessage {
 
@@ -34,7 +38,6 @@ public class CardShopMessage extends ActionMessage {
         Game game = serverLobby.getGameLobby().getGameManager().getGame();
         CardShopAction action = new CardShopAction(game.getShop(),row,column,deckPosition,storageCount,chestCount);
         useActionMessage(action,socketConnection, serverLobby);
-        serverLobby.sendToAll(new DoneMessage().serialize());
     }
 
     public int getRow() {

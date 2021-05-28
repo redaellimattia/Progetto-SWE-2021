@@ -55,7 +55,7 @@ public class MarketAction extends Action {
      * @param player the player performing the action
      */
     @Override
-    public void useAction(PlayerDashboard player) {
+    public boolean useAction(PlayerDashboard player) {
         MarketMarble[] marbles = new MarketMarble[0];
 
         // Getting marbles from the market
@@ -111,6 +111,7 @@ public class MarketAction extends Action {
 
         // Fixing grid
         market.fixGrid(type, pos);
+        return true;
     }
 
 }

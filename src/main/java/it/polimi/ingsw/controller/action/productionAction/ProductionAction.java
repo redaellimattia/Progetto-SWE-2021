@@ -29,15 +29,16 @@ public class ProductionAction extends Action {
      * @param leaderCardProduction leaderCardProduction chosen by the client to do in this turn
      */
     @Override
-    public void addLeaderCardProduction(LeaderCardProductionAction leaderCardProduction,PlayerDashboard player) {
+    public boolean addLeaderCardProduction(LeaderCardProductionAction leaderCardProduction,PlayerDashboard player) {
         if(this.leaderCardProductions.contains(leaderCardProduction)||this.leaderCardProductions.size()==2)
             throw new ProductionAlreadyDoneException(player);
         else {
             this.leaderCardProductions.add(0, leaderCardProduction);
             try {
-                leaderCardProduction.useAction(player);
+                return leaderCardProduction.useAction(player);
             }catch(MasterOfRenaissanceRuntimeException e){System.out.println(e.getMessage());}
         }
+        return false;
     }
 
     /**
@@ -46,15 +47,16 @@ public class ProductionAction extends Action {
      * @param devCardProduction devCardProduction chosen by the client to do in this turn
      */
     @Override
-    public void addDevCardProduction(DevCardProductionAction devCardProduction,PlayerDashboard player) {
+    public boolean addDevCardProduction(DevCardProductionAction devCardProduction,PlayerDashboard player) {
         if(this.devCardProductions.contains(devCardProduction)||this.leaderCardProductions.size()==3)
             throw new ProductionAlreadyDoneException(player);
         else {
             this.devCardProductions.add(0, devCardProduction);
             try {
-                devCardProduction.useAction(player); //Setting LastAddedAction
+                return devCardProduction.useAction(player); //Setting LastAddedAction
             }catch(MasterOfRenaissanceRuntimeException e){System.out.println(e.getMessage());}
         }
+        return false;
     }
 
     /**
@@ -63,15 +65,16 @@ public class ProductionAction extends Action {
      * @param basicProduction basicProduction chosen by the client to do in this turn
      */
     @Override
-    public void addBasicProduction(BasicProductionAction basicProduction,PlayerDashboard player) {
+    public boolean addBasicProduction(BasicProductionAction basicProduction,PlayerDashboard player) {
         if(this.basicProduction!=null) //Throw exception if basicProduction is not null, basicProduction already done
             throw new ProductionAlreadyDoneException(player);
         else {
             this.basicProduction = basicProduction; //Updating basicProduction if possible
             try {
-                basicProduction.useAction(player); //Setting LastAddedAction
+                return basicProduction.useAction(player); //Setting LastAddedAction
             }catch(MasterOfRenaissanceRuntimeException e){System.out.println(e.getMessage());}
         }
+        return false;
     }
 
     /**

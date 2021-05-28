@@ -9,11 +9,11 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import java.util.ArrayList;
 
 public abstract class Action {
-    public void useAction(PlayerDashboard player) {}
+    public boolean useAction(PlayerDashboard player) {return false;}
     public void endAction(PlayerDashboard player){}
-    public void addBasicProduction(BasicProductionAction basicProduction,PlayerDashboard player) {}
-    public void addDevCardProduction(DevCardProductionAction devCardProduction,PlayerDashboard player) {}
-    public void addLeaderCardProduction(LeaderCardProductionAction leaderCardProduction,PlayerDashboard player) {}
+    public boolean addBasicProduction(BasicProductionAction basicProduction,PlayerDashboard player) {return false;}
+    public boolean addDevCardProduction(DevCardProductionAction devCardProduction,PlayerDashboard player) {return false;}
+    public boolean addLeaderCardProduction(LeaderCardProductionAction leaderCardProduction,PlayerDashboard player) {return false;}
 
     //TRUE IF BOTH STORAGE AND CHEST PAY ARE DONE CORRECTLY
     public boolean deleteRes(ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player){

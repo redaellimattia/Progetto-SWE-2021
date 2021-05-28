@@ -25,6 +25,5 @@ public class EndMarketActionMessage extends MarketActionMessage {
         GameManager gameManager = serverLobby.getGameLobby().getGameManager();
         MarketAction action = new MarketAction(rowColType, pos, serverLobby.getTurnManager().getMarketChoices(), gameManager);
         useActionMessage(action, socketConnection, serverLobby);
-        serverLobby.sendToAll(new DoneMessage().serialize());
     }
 }

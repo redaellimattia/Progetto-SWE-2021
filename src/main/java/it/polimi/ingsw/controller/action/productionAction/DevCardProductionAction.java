@@ -33,7 +33,7 @@ public class DevCardProductionAction extends Action {
      * @param player player that is doing the action
      */
     @Override
-    public void useAction(PlayerDashboard player) {
+    public boolean useAction(PlayerDashboard player) {
         Optional<ResourceCount> output = card.getProductionPower().useProduction(ResourceCount.getTotal(storageCount,chestCount));
 
 
@@ -45,6 +45,7 @@ public class DevCardProductionAction extends Action {
             throw new PaymentFailedException(player);
 
         player.incrementBufferProduction(output.get());
+        return true;
     }
 
 }

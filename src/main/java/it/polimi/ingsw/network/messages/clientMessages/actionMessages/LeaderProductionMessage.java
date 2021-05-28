@@ -32,7 +32,7 @@ public class LeaderProductionMessage extends ActionMessage{
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby) {
         LeaderCardProductionAction action = new LeaderCardProductionAction(card, storageCount, chestCount, res);
         PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
-        turnManager.addLeaderCardProduction(action);
-        serverLobby.sendToAll(new DoneMessage().serialize());
+        if(turnManager.addLeaderCardProduction(action))
+            serverLobby.sendToAll(new DoneMessage().serialize());
     }
 }

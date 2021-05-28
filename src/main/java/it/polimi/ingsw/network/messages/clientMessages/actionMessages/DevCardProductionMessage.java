@@ -29,8 +29,8 @@ public class DevCardProductionMessage extends ActionMessage{
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby) {
         DevCardProductionAction action = new DevCardProductionAction(card, storageCount, chestCount);
         PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
-        turnManager.addDevCardProduction(action);
-        serverLobby.sendToAll(new DoneMessage().serialize());
+        if(turnManager.addDevCardProduction(action))
+            serverLobby.sendToAll(new DoneMessage().serialize());
     }
 
 }

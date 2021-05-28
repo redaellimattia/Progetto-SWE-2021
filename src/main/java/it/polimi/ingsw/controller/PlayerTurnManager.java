@@ -9,12 +9,14 @@ import it.polimi.ingsw.controller.action.productionAction.ProductionAction;
 import it.polimi.ingsw.exceptions.MasterOfRenaissanceRuntimeException;
 import it.polimi.ingsw.exceptions.action.IllegalActionException;
 import it.polimi.ingsw.model.PlayerDashboard;
+import it.polimi.ingsw.network.server.Server;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class PlayerTurnManager {
     private PlayerDashboard player;
-    private Action action;
+    private static Action action;
     private Action sideAction;
     private ArrayList<AtomicMarketAction> marketChoices;
 
@@ -62,10 +64,12 @@ public class PlayerTurnManager {
     /**
      * use the main action upon receiving a message
      */
-    public void useAction(){
+    public boolean useAction(){
         try {
             action.useAction(player);
-        }catch(MasterOfRenaissanceRuntimeException e){System.out.println(e.getMessage());}
+            return true;
+        }catch(MasterOfRenaissanceRuntimeException e){Server.LOGGER.log(Level.SEVERE,e.getMessage());}
+        return false;
     }
 
     /**
@@ -74,9 +78,12 @@ public class PlayerTurnManager {
     public void useSideAction(){
         try {
             sideAction.useAction(player);
-        }catch(MasterOfRenaissanceRuntimeException e){System.out.println(e.getMessage());}
+        }catch(MasterOfRenaissanceRuntimeException e){
+            Server.LOGGER.log(Level.SEVERE,e.getMessage());}
     }
-
+    public static void resetAction(){
+        action = null;
+    }
     /**
      *  used to call the endAction method
      * @param player player who sent the EndActionMessage
@@ -101,11 +108,11 @@ public class PlayerTurnManager {
      *
      * @param basicProduction basicProduction chosen by the client
      */
-    public void addBasicProduction(BasicProductionAction basicProduction){
+    public boolean addBasicProduction(BasicProductionAction basicProduction){
         if(action==null) {
             action = new ProductionAction();
         }
-        action.addBasicProduction(basicProduction,player);
+        return action.addBasicProduction(basicProduction,player);
     }
 
     /**
@@ -113,11 +120,11 @@ public class PlayerTurnManager {
      *
      * @param devCardProduction devCardProduction chosen by the client
      */
-    public void addDevCardProduction(DevCardProductionAction devCardProduction){
+    public boolean addDevCardProduction(DevCardProductionAction devCardProduction){
         if(action==null) {
             action = new ProductionAction();
         }
-        action.addDevCardProduction(devCardProduction,player);
+        return action.addDevCardProduction(devCardProduction,player);
     }
 
     /**
@@ -125,11 +132,11 @@ public class PlayerTurnManager {
      *
      * @param leaderCardProduction leaderCardProduction chosen by the client
      */
-    public void addLeaderCardProduction(LeaderCardProductionAction leaderCardProduction){
+    public boolean addLeaderCardProduction(LeaderCardProductionAction leaderCardProduction){
         if(action==null) {
             action = new ProductionAction();
         }
-        action.addLeaderCardProduction(leaderCardProduction,player);
+        return action.addLeaderCardProduction(leaderCardProduction,player);
     }
 
     /**

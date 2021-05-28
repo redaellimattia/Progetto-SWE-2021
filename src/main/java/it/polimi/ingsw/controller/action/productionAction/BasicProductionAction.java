@@ -30,7 +30,7 @@ public class BasicProductionAction extends Action {
      * @param player player that is doing the action
      */
     @Override
-    public void useAction(PlayerDashboard player) {
+    public boolean useAction(PlayerDashboard player) {
         if(res.equals(Resource.FAITH))
             throw new WrongResourceException("Faith",player);
 
@@ -46,6 +46,7 @@ public class BasicProductionAction extends Action {
         ResourceCount output = new ResourceCount(0,0,0,0,0);
         res.add(output,1);
         player.incrementBufferProduction(output);
+        return true;
     }
 
 }
