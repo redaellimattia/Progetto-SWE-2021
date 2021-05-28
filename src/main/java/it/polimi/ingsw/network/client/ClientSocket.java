@@ -60,26 +60,12 @@ public class ClientSocket implements Runnable {
         ArrayList<String> messageQueue = new ArrayList<>();
         while (!socketListener.isInterrupted()) {
             try {
-                    /*while(in.ready()) {
-                        String msg = in.readLine();
-                        messageQueue.add(in.readLine());
-                    }*/
                     String msg = in.readLine();
-                    System.out.println(msg);
+                    //System.out.println(msg);
                     if (msg != null)
                         clientManager.onMessage(msg);
                     else
                         disconnect();
-                /*while(messageQueue.size()>0){
-                    String message = messageQueue.get(0);
-                    if(message != null) {
-                        clientManager.onMessage(message);
-                        messageQueue.remove(0);
-                    }
-                    else
-                        disconnect();
-                }*/
-                    //else disconnect();
             } catch (IOException e) {
                 ClientManager.LOGGER.severe("Failed to read message from server: "+ e.getMessage());
                 clientManager.getView().printMsg("Can't reach the Server");
