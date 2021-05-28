@@ -124,6 +124,12 @@ public class ClientManager {
      */
     public void initGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market,VaticanReport[] vReports){
         gameStatus = new ClientGameStatus(players,shop,market,vReports);
+        PlayerDashboard p = getThisClientDashboard();
+        for(int i=0;i<3;i++)
+            if(p.getDevCards()[i].getDeck().size()>0)
+                devCardProductionDone.add(false);
+        for(LeaderCard l : getProductionLeaders())
+            leaderCardProductionDone.add(false);
     }
 
     /**
@@ -307,7 +313,7 @@ public class ClientManager {
         PlayerDashboard thisPlayer = getThisClientDashboard();
         ArrayList<LeaderCard> productionLeaders = new ArrayList<>();
         for(LeaderCard l:thisPlayer.getLeaderCards())
-            if(l.getSpecialAbility() instanceof ProductionAbility)
+            if(l.getSpecialAbility() instanceof ProductionAbility && l.isInGame())
                 productionLeaders.add(l);
         return productionLeaders;
     }
@@ -525,10 +531,10 @@ public class ClientManager {
      * @return true if a devCard production is available
      */
     public boolean canDoDevCardProduction(PlayerDashboard p){
-        for (int i=0;i<devCardProductionDone.size();i++) {
+        for (int i=0;i<3;i++) {
             DeckDashboard d = p.getDevCards()[i];
             if (d.getDeck().size() > 0)
-                if (p.getTotalResources().hasMoreOrEqualsResources(d.getFirst().getCost()) && !devCardProductionDone.get(i))
+                if (p.getTotalResources().hasMoreOrEqualsResources(d.getFirst().getProductionPower().getInput()) && !devCardProductionDone.get(i))
                     return true;
         }
         return false;
@@ -542,7 +548,7 @@ public class ClientManager {
     public boolean canDoLeaderCardProduction(PlayerDashboard p){
         ResourceCount resource = new ResourceCount(0,0,0,0,0);
         ArrayList<LeaderCard> productionLeaders = getProductionLeaders();
-        for(int i=0;i<leaderCardProductionDone.size();i++){
+        for(int i=0;i<productionLeaders.size();i++){
             LeaderCard l = productionLeaders.get(i);
             l.getSpecialAbility().getResourceType().add(resource, 1);
             if (p.getTotalResources().hasMoreOrEqualsResources(resource)&&!leaderCardProductionDone.get(i))

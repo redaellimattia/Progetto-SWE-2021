@@ -274,7 +274,7 @@ public class ResourceCount {
         if(this.getShields() !=0)
             count += (" SHIELDS: " + this.getShields());
         if(this.getFaith() !=0)
-            count += (" FAITHPOINT: " + this.getShields());
+            count += (" FAITHPOINT: " + this.getFaith());
         return count;
     }
 }
