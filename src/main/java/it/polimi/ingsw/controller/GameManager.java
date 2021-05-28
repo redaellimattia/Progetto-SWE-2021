@@ -20,6 +20,7 @@ public class GameManager {
      */
     public void addObserver(Observer observer) {
         this.observer = observer;
+        this.game.addObserver(observer);
     }
 
     /**

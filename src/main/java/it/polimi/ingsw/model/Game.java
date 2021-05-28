@@ -47,6 +47,7 @@ public class Game {
         vReports[0] = new VaticanReport(2,5,8);
         vReports[1] = new VaticanReport(3,12,16);
         vReports[2] = new VaticanReport(4,19,24);
+
     }
 
     public boolean isLastPlayer(PlayerDashboard player){
