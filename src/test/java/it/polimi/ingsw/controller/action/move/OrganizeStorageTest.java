@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.move;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.exceptions.CounterTopOverloadException;
 import it.polimi.ingsw.exceptions.action.WrongResourcesMovedException;
 import it.polimi.ingsw.model.*;
@@ -18,26 +19,28 @@ class OrganizeStorageTest {
     @Test
     void swapShelves() {
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         OrganizeStorage organize = new OrganizeStorage(2,3);
-        organize.useAction(player);
+        organize.useAction(player,turnManager);
         CounterTop check1 = new CounterTop(Resource.SERVANT,0);
         CounterTop check2 = new CounterTop(Resource.ROCK,2);
         assertEquals(player.getStorage().getSecondRow(), check1);
         assertEquals(player.getStorage().getThirdRow(), check2);
         OrganizeStorage organize1 = new OrganizeStorage(3,1);
         //assertFalse(organize1.useAction(player));
-        assertThrows(WrongResourcesMovedException.class, () -> organize1.useAction(player));
+        assertThrows(WrongResourcesMovedException.class, () -> organize1.useAction(player,turnManager));
     }
     @Test //DOESNT DO SWAP IF IT'S NOT POSSIBLE AND SWAP EVEN 2 EMPTY SHELVES
     void swapShelves1() {
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         OrganizeStorage organize = new OrganizeStorage(2,1);
         //assertFalse(organize.useAction(player));
-        assertThrows(WrongResourcesMovedException.class, () -> organize.useAction(player));
+        assertThrows(WrongResourcesMovedException.class, () -> organize.useAction(player,turnManager));
         CounterTop check = new CounterTop(Resource.COIN,0);
         try{player.getStorage().setFirstRow(check);}catch(CounterTopOverloadException e){}
         OrganizeStorage organize1 = new OrganizeStorage(1,3);
-        organize1.useAction(player);
+        organize1.useAction(player,turnManager);
         assertEquals(player.getStorage().getThirdRow().getResourceType(),Resource.COIN);
         assertEquals(player.getStorage().getFirstRow().getResourceType(),Resource.SERVANT);
 
@@ -76,5 +79,8 @@ class OrganizeStorageTest {
     DevelopmentCard createDevCard(int level){
         Production prod = new Production(new ResourceCount(1,2,0,0,0),new ResourceCount(0,0,3,0,0));
         return new DevelopmentCard(0,5,new ResourceCount(0,0,0,0,0),prod,level, CardColour.BLUE);
+    }
+    PlayerTurnManager createTurnManager(PlayerDashboard player){
+        return new PlayerTurnManager(player);
     }
 }

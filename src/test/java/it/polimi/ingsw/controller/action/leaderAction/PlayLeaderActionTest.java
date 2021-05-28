@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.leaderAction;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.exceptions.action.CardNotExistsException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
@@ -16,10 +17,11 @@ class PlayLeaderActionTest {
     @Test
     void useActionFirstCard() { //PLAY FIRST CARD
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         LeaderCard card = createLeaderCard(new ColourCount(1, 0, 0, 0));
         PlayLeaderAction action = new PlayLeaderAction(card);
         assertFalse(player.leadersInGame()); //Not in game
-        action.useAction(player); //Play the card
+        action.useAction(player,turnManager); //Play the card
         assertTrue(player.leadersInGame()); //Now it's in game
         assertTrue(player.getLeaderCards().get(1).isInGame()); //CARD POS=1 IN GAME
         assertFalse(player.getLeaderCards().get(0).isInGame()); //CARD POS=0 NOT IN GAME
@@ -28,10 +30,11 @@ class PlayLeaderActionTest {
     @Test
     void useActionSecondCard() { //PLAY SECOND CARD
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
         PlayLeaderAction action = new PlayLeaderAction(card);
         assertFalse(player.leadersInGame()); //Not in game
-        action.useAction(player); //Play the card
+        action.useAction(player,turnManager); //Play the card
         assertTrue(player.leadersInGame()); //Now it's in game
         assertFalse(player.getLeaderCards().get(1).isInGame()); //CARD POS=1 NOT IN GAME
         assertTrue(player.getLeaderCards().get(0).isInGame()); //CARD POS=0 IN GAME
@@ -40,22 +43,24 @@ class PlayLeaderActionTest {
     @Test
     void useActionPlayFirstAfterSecondIsInGame() { //PLAY FIRST CARD AFTER SECOND ALREADY IN GAME
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
         PlayLeaderAction action = new PlayLeaderAction(card);
-        action.useAction(player); //Play the card
+        action.useAction(player,turnManager); //Play the card
         card = createLeaderCard(new ColourCount(1,0,0,0));
         action = new PlayLeaderAction(card);
-        action.useAction(player); //Play the card
+        action.useAction(player,turnManager); //Play the card
         assertTrue(player.getLeaderCards().get(1).isInGame()); //CARD POS=0 IN GAME
     }
 
     @Test
     void useActionCardDoesntExists(){ //CARD THAT DOESN'T EXISTS
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         LeaderCard card = createLeaderCard(new ColourCount(5,5,5,5));
         PlayLeaderAction action = new PlayLeaderAction(card);
         assertFalse(player.leadersInGame()); //Not in game
-        assertThrows(CardNotExistsException.class, () -> action.useAction(player)); //Play the card
+        assertThrows(CardNotExistsException.class, () -> action.useAction(player,turnManager)); //Play the card
         assertFalse(player.leadersInGame()); //Not in game
     }
 
@@ -82,5 +87,8 @@ class PlayLeaderActionTest {
         TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
         SpecialAbility specialAbility = new ProductionAbility(Resource.COIN);
         return new LeaderCard(0,0,requirement,specialAbility);
+    }
+    PlayerTurnManager createTurnManager(PlayerDashboard player){
+        return new PlayerTurnManager(player);
     }
 }

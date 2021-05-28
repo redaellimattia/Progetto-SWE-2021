@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.productionAction;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.exceptions.action.CardNotExistsException;
 import it.polimi.ingsw.exceptions.action.PaymentFailedException;
 import it.polimi.ingsw.model.*;
@@ -17,12 +18,13 @@ class LeaderCardProductionActionTest {
     @Test
     void useActionStorageOnlyPayment() { //STORAGE ONLY PAYMENT
         PlayerDashboard player = createPlayer(true);
+        PlayerTurnManager turnManager = createTurnManager(player);
         ResourceCount storageCount = new ResourceCount(1, 0, 0, 0, 0);
         ResourceCount result = new ResourceCount(0, 2, 0, 0, 0);
         ResourceCount resultBuff = new ResourceCount(1, 0, 0, 0, 1);
         LeaderCard card = createLeaderCard(true);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card,storageCount,new ResourceCount(0, 0, 0, 0, 0),Resource.COIN);
-        action.useAction(player);
+        action.useAction(player,turnManager);
         assertEquals(result, player.getStorage().readStorage()); //Paid correctly
         assertEquals(resultBuff, player.getBufferProduction()); //Buffer equals to production output
     }
@@ -30,12 +32,13 @@ class LeaderCardProductionActionTest {
     @Test
     void useActionChestOnlyPayment() { //CHEST ONLY PAYMENT
         PlayerDashboard player = createPlayer(true);
+        PlayerTurnManager turnManager = createTurnManager(player);
         ResourceCount chestCount = new ResourceCount(1,0,0,0,0);
         ResourceCount result = new ResourceCount(4,5,0,0,0);
         ResourceCount resultBuff = new ResourceCount(1,0,0,0,1);
         LeaderCard card = createLeaderCard(true);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card,new ResourceCount(0, 0, 0, 0, 0),chestCount,Resource.COIN);
-        action.useAction(player);
+        action.useAction(player,turnManager);
         assertEquals(result,player.getChest()); //Paid correctly
         assertEquals(resultBuff, player.getBufferProduction()); //Buffer equals to production output
     }
@@ -43,46 +46,51 @@ class LeaderCardProductionActionTest {
     @Test
     void useActionNotEnoughResourcesToPay() {//CANT PAY
         PlayerDashboard player = createPlayer(true);
+        PlayerTurnManager turnManager = createTurnManager(player);
         ResourceCount chestCount = new ResourceCount(0,0,0,0,0);
         LeaderCard card = createLeaderCard(true);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card,new ResourceCount(0, 0, 0, 0, 0),chestCount,Resource.COIN);
-        assertThrows(PaymentFailedException.class, () -> action.useAction(player));
+        assertThrows(PaymentFailedException.class, () -> action.useAction(player,turnManager));
     }
 
     @Test
     void useActionMoreResourcesThanNecessaryToPay() { //OVERPAY
         PlayerDashboard player = createPlayer(true);
+        PlayerTurnManager turnManager = createTurnManager(player);
         ResourceCount chestCount = new ResourceCount(5,5,5,5,0);
         LeaderCard card = createLeaderCard(true);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card,new ResourceCount(0, 0, 0, 0, 0),chestCount,Resource.COIN);
-        assertThrows(PaymentFailedException.class, () -> action.useAction(player));
+        assertThrows(PaymentFailedException.class, () -> action.useAction(player,turnManager));
     }
 
     @Test
     void useActionWrongCardNotInGame() { //WRONG CARD, IT ISNT IN GAME
         PlayerDashboard player = createPlayer(false);
+        PlayerTurnManager turnManager = createTurnManager(player);
         LeaderCard card = createLeaderCard(false);
         ResourceCount chestCount = new ResourceCount(1,0,0,0,0);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card,new ResourceCount(0, 0, 0, 0, 0),chestCount,Resource.COIN);
-        assertThrows(CardNotExistsException.class, () -> action.useAction(player));
+        assertThrows(CardNotExistsException.class, () -> action.useAction(player,turnManager));
     }
 
     @Test
     void useActionWrongCardNotInGamePassingAsItIs() { //WRONG CARD, Passing as it is inGame but it actually isnt
         PlayerDashboard player = createPlayer(false);
+        PlayerTurnManager turnManager = createTurnManager(player);
         ResourceCount chestCount = new ResourceCount(1,0,0,0,0);
         LeaderCard card = createLeaderCard(true);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card,new ResourceCount(0, 0, 0, 0, 0),chestCount,Resource.COIN);
-        assertThrows(CardNotExistsException.class, () -> action.useAction(player));
+        assertThrows(CardNotExistsException.class, () -> action.useAction(player,turnManager));
     }
 
     @Test
     void useActionWrongCardNotAProductionAbility() { //WRONG CARD, NOT PROD ABILITY
         PlayerDashboard player = createPlayer(false);
+        PlayerTurnManager turnManager = createTurnManager(player);
         LeaderCard card = createLeaderCardNotProd();
         ResourceCount chestCount = new ResourceCount(1,0,0,0,0);
         LeaderCardProductionAction action = new LeaderCardProductionAction(card,new ResourceCount(0, 0, 0, 0, 0),chestCount,Resource.COIN);
-        assertThrows(CardNotExistsException.class, () -> action.useAction(player));
+        assertThrows(CardNotExistsException.class, () -> action.useAction(player,turnManager));
     }
 
 
@@ -122,5 +130,8 @@ class LeaderCardProductionActionTest {
         LeaderCard leader = new LeaderCard(0,0,requirement,specialAbility);
         leader.setInGame();
         return leader;
+    }
+    PlayerTurnManager createTurnManager(PlayerDashboard player){
+        return new PlayerTurnManager(player);
     }
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.move;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.leaderAction.PlayLeaderAction;
 import it.polimi.ingsw.exceptions.action.WrongResourcesMovedException;
 import it.polimi.ingsw.model.*;
@@ -17,37 +18,40 @@ class MoveFromLeaderToDepositTest {
     @Test
     void moveFromLeaderDeposit(){
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         MoveFromLeaderToDeposit organize = new MoveFromLeaderToDeposit(0,3,1);
         PlayLeaderAction action = new PlayLeaderAction(player.getLeaderCards().get(1));
-        action.useAction(player);
+        action.useAction(player,turnManager);
 
         player.getArrayDeposit().get(0).addContent(1);
-        organize.useAction(player);
+        organize.useAction(player,turnManager);
         assertEquals(1, player.getStorage().getThirdRow().getContent());
     }
 
     @Test //DOESN'T ADD RESOURCES TO ALREADY FULL COUNTERTOPS
     void moveFromLeaderDeposit1(){
         PlayerDashboard player = createPlayerThirdFull();
+        PlayerTurnManager turnManager = createTurnManager(player);
         MoveFromLeaderToDeposit organize = new MoveFromLeaderToDeposit(0,3,1);
         PlayLeaderAction action = new PlayLeaderAction(player.getLeaderCards().get(1));
-        action.useAction(player);
+        action.useAction(player,turnManager);
 
         player.getArrayDeposit().get(0).addContent(1);
         //assertFalse(organize.useAction(player));
-        assertThrows(WrongResourcesMovedException.class, () -> organize.useAction(player));
+        assertThrows(WrongResourcesMovedException.class, () -> organize.useAction(player,turnManager));
         assertEquals(3, player.getStorage().getThirdRow().getContent());
     }
     @Test //DOESN'T ADD RESOURCES TO A COUNTERTOP WITH A DIFFERENT RESOURCETYPE
     void moveFromLeaderDeposit2(){
         PlayerDashboard player = createPlayerThirdFull();
+        PlayerTurnManager turnManager = createTurnManager(player);
         MoveFromLeaderToDeposit organize = new MoveFromLeaderToDeposit(0,2,1);
         PlayLeaderAction action = new PlayLeaderAction(player.getLeaderCards().get(1));
-        action.useAction(player);
+        action.useAction(player,turnManager);
 
         player.getArrayDeposit().get(0).addContent(1);
         //assertFalse(organize.useAction(player));
-        assertThrows(WrongResourcesMovedException.class, () -> organize.useAction(player));
+        assertThrows(WrongResourcesMovedException.class, () -> organize.useAction(player,turnManager));
         assertEquals(1, player.getStorage().getSecondRow().getContent());
         assertSame(player.getStorage().getSecondRow().getResourceType(), Resource.ROCK);
         assertTrue(player.getArrayDeposit().get(0).getResourceType() == Resource.SERVANT && player.getArrayDeposit().get(0).getContent() == 1);
@@ -55,13 +59,14 @@ class MoveFromLeaderToDepositTest {
     @Test // DOESN'T MOVE MORE RESOURCES THAN WHAT A LEADER ACTUALLY HAS
     void moveFromLeaderDeposit3(){
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         MoveFromLeaderToDeposit organize = new MoveFromLeaderToDeposit(0,3,2);
         PlayLeaderAction action = new PlayLeaderAction(player.getLeaderCards().get(1));
-        action.useAction(player);
+        action.useAction(player,turnManager);
 
         player.getArrayDeposit().get(0).addContent(1);
         //assertFalse(organize.useAction(player));
-        assertThrows(WrongResourcesMovedException.class, () -> organize.useAction(player));
+        assertThrows(WrongResourcesMovedException.class, () -> organize.useAction(player,turnManager));
         assertEquals(0, player.getStorage().getThirdRow().getContent());
         assertEquals(1, player.getArrayDeposit().get(0).getContent());
     }
@@ -117,5 +122,8 @@ class MoveFromLeaderToDepositTest {
     DevelopmentCard createDevCard(int level){
         Production prod = new Production(new ResourceCount(1,2,0,0,0),new ResourceCount(0,0,3,0,0));
         return new DevelopmentCard(0,5,new ResourceCount(0,0,0,0,0),prod,level, CardColour.BLUE);
+    }
+    PlayerTurnManager createTurnManager(PlayerDashboard player){
+        return new PlayerTurnManager(player);
     }
 }

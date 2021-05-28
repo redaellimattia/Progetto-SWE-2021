@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.productionAction;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.exceptions.action.CardNotExistsException;
 import it.polimi.ingsw.exceptions.action.PaymentFailedException;
 import it.polimi.ingsw.model.*;
@@ -18,59 +19,65 @@ class DevCardProductionActionTest {
     @Test
     void useActionHybridPayment() { //DEVCARD PRODUCTION HYBRID PAYMENT
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         ResourceCount storageCount = new ResourceCount(1, 0, 0, 0, 0);
         ResourceCount chestCount = new ResourceCount(0, 2, 0, 0, 0);
         DevelopmentCard card = createDevCard(3);
         DevCardProductionAction action = new DevCardProductionAction(card,storageCount,chestCount);
-        action.useAction(player);
+        action.useAction(player,turnManager);
         assertEquals(card.getProductionPower().getOutput(), player.getBufferProduction()); //Buffer equals to production output
     }
 
     @Test
     void useActionStorageOnlyPayment(){ //STORAGE ONLY PAYMENT
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         ResourceCount storageCount = new ResourceCount(1,2,0,0,0); //Correct payment with storage
         DevelopmentCard card = createDevCard(3);
         DevCardProductionAction action = new DevCardProductionAction(card,storageCount,new ResourceCount(0, 0, 0, 0, 0));
-        action.useAction(player);
+        action.useAction(player,turnManager);
         assertEquals(card.getProductionPower().getOutput(),player.getBufferProduction()); //Buffer equals to production output
     }
 
     @Test
     void useActionChestOnlyPayment() { //CHEST ONLY PAYMENT
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         ResourceCount chestCount = new ResourceCount(1,2,0,0,0); //Correct payment with chest
         DevelopmentCard card = createDevCard(3);
         DevCardProductionAction action = new DevCardProductionAction(card,new ResourceCount(0, 0, 0, 0, 0),chestCount);
-        action.useAction(player);
+        action.useAction(player,turnManager);
         assertEquals(card.getProductionPower().getOutput(),player.getBufferProduction()); //Buffer equals to production output
     }
 
     @Test
     void useActionNotEnoughResourcesToPay() {//CANT PAY
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         ResourceCount chestCount = new ResourceCount(0, 2, 0, 0, 0);
         DevelopmentCard card = createDevCard(3);
         DevCardProductionAction action = new DevCardProductionAction(card,new ResourceCount(0, 0, 0, 0, 0),chestCount);
-        assertThrows(PaymentFailedException.class, () -> action.useAction(player));
+        assertThrows(PaymentFailedException.class, () -> action.useAction(player,turnManager));
     }
 
     @Test
     void useActionMoreResourcesThanNecessaryToPay() { //OVERPAY
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         ResourceCount chestCount = new ResourceCount(5,5,5,5,0);
         DevelopmentCard card = createDevCard(3);
         DevCardProductionAction action = new DevCardProductionAction(card,null,chestCount);
-        assertThrows(PaymentFailedException.class, () -> action.useAction(player));
+        assertThrows(PaymentFailedException.class, () -> action.useAction(player,turnManager));
     }
 
     @Test
     void useActionWrongCard() { //WRONG CARD, DIFF LEVEL
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         ResourceCount chestCount = new ResourceCount(1,2,0,0,0);
         DevelopmentCard card = createDevCard(2);
         DevCardProductionAction action = new DevCardProductionAction(card,null,chestCount);
-        assertThrows(CardNotExistsException.class, () -> action.useAction(player));
+        assertThrows(CardNotExistsException.class, () -> action.useAction(player,turnManager));
     }
 
 
@@ -122,5 +129,8 @@ class DevCardProductionActionTest {
     DevelopmentCard createDevCardWithFaith(){
         Production prod = new Production(new ResourceCount(1,2,0,0,0),new ResourceCount(0,0,2,0,1));
         return new DevelopmentCard(0,5,new ResourceCount(0,0,0,0,0),prod,3, CardColour.BLUE);
+    }
+    PlayerTurnManager createTurnManager(PlayerDashboard player){
+        return new PlayerTurnManager(player);
     }
 }

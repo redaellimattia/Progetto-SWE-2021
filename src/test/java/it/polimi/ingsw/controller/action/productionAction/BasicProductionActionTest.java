@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action.productionAction;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.exceptions.action.PaymentFailedException;
 import it.polimi.ingsw.exceptions.action.WrongResourceException;
 import it.polimi.ingsw.model.*;
@@ -17,13 +18,14 @@ class BasicProductionActionTest {
     @Test
     void useActionHybridPayment() { //BASICPRODUCTION HYBRID PAYMENT
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         ResourceCount storageCount = new ResourceCount(1, 0, 0, 0, 0);
         ResourceCount chestCount = new ResourceCount(0, 1, 0, 0, 0);
         ResourceCount resultStorage = new ResourceCount(0, 2, 0, 0, 0);
         ResourceCount resultChest = new ResourceCount(5, 4, 0, 0, 0);
         ResourceCount resultBuff = new ResourceCount(1, 0, 0, 0, 0);
         BasicProductionAction action = new BasicProductionAction(Resource.COIN, storageCount, chestCount);
-        action.useAction(player);
+        action.useAction(player,turnManager);
         assertEquals(resultStorage, player.getStorage().readStorage()); //Paid correctly
         assertEquals(resultChest, player.getChest()); //Paid correctly
         assertEquals(resultBuff, player.getBufferProduction()); //Buffer equals to production output
@@ -32,11 +34,12 @@ class BasicProductionActionTest {
     @Test
     void useActionStorageOnlyPayment(){ //STORAGE ONLY PAYMENT
          PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
          ResourceCount storageCount = new ResourceCount(1,1,0,0,0);
          ResourceCount resultStorage = new ResourceCount(0,1,0,0,0);
          ResourceCount resultBuff = new ResourceCount(1,0,0,0,0);
          BasicProductionAction action = new BasicProductionAction(Resource.COIN, storageCount, new ResourceCount(0, 0, 0, 0, 0));
-         action.useAction(player);
+         action.useAction(player,turnManager);
          assertEquals(resultStorage,player.getStorage().readStorage()); //Paid correctly
          assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
     }
@@ -44,11 +47,12 @@ class BasicProductionActionTest {
     @Test
     void useActionChestOnlyPayment() { //CHEST ONLY PAYMENT
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         ResourceCount chestCount = new ResourceCount(1,1,0,0,0);
         ResourceCount resultChest = new ResourceCount(4,4,0,0,0);
         ResourceCount resultBuff = new ResourceCount(1,0,0,0,0);
         BasicProductionAction action = new BasicProductionAction(Resource.COIN, new ResourceCount(0, 0, 0, 0, 0), chestCount);
-        action.useAction(player);
+        action.useAction(player,turnManager);
         assertEquals(resultChest,player.getChest()); //Paid correctly
         assertEquals(resultBuff,player.getBufferProduction()); //Buffer equals to production output
     }
@@ -56,28 +60,31 @@ class BasicProductionActionTest {
     @Test
     void useActionWrongInputMoreThan2() { //WRONG INPUT !=2: >2
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         ResourceCount storageCount = new ResourceCount(1,0,0,0,0);
         ResourceCount chestCount = new ResourceCount(1,1,0,0,0);
         BasicProductionAction action = new BasicProductionAction(Resource.COIN, storageCount, chestCount);
-        assertThrows(PaymentFailedException.class, () -> action.useAction(player));
+        assertThrows(PaymentFailedException.class, () -> action.useAction(player,turnManager));
     }
 
     @Test
     void useActionWrongInputLessThan2() { //WRONG INPUT !=2: <2
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         ResourceCount storageCount = new ResourceCount(1,0,0,0,0);
         ResourceCount chestCount = new ResourceCount(0,0,0,0,0);
         BasicProductionAction action = new BasicProductionAction(Resource.COIN, storageCount, chestCount);
-        assertThrows(PaymentFailedException.class, () -> action.useAction(player));
+        assertThrows(PaymentFailedException.class, () -> action.useAction(player,turnManager));
     }
 
     @Test
     void useActionWrongChosenResource() { //WRONG CHOSEN RESOURCE (CANT CHOOSE FAITH)
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         ResourceCount storageCount = new ResourceCount(1,0,0,0,0);
         ResourceCount chestCount = new ResourceCount(0,1,0,0,0);
         BasicProductionAction action = new BasicProductionAction(Resource.FAITH, storageCount, chestCount);
-        assertThrows(WrongResourceException.class, () -> action.useAction(player));
+        assertThrows(WrongResourceException.class, () -> action.useAction(player,turnManager));
     }
 
 
@@ -95,5 +102,8 @@ class BasicProductionActionTest {
         player.addObserver(playerObserver);
         player.getStorage().addObserver(player);
         return player;
+    }
+    PlayerTurnManager createTurnManager(PlayerDashboard player){
+        return new PlayerTurnManager(player);
     }
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.model.token;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.exceptions.EmptyDeckException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
@@ -74,9 +75,11 @@ class DiscardTokenTest {
         Shop testShop = createShop();
         Shop testShopOld = createShop();
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         CardColour testColour = CardColour.PURPLE;
         testShop.discardFromToken(testColour); // Removed 2 cords in level 1 row
-        testShop.buy(2, testColour.getColumn(),player); // Removed 1 card in level 1 row
+        testShop.buy(2, testColour.getColumn(),player,turnManager); // Removed 1 card in level 1 row
+
         testShop.discardFromToken(testColour); // Removed 1 card in level 1 row and 1 card in level 2
         for(int i=0; i<4; i++) {
             if(i == testColour.getColumn()) {
@@ -300,5 +303,8 @@ class DiscardTokenTest {
         player.addObserver(playerObserver);
         player.getStorage().addObserver(player);
         return player;
+    }
+    PlayerTurnManager createTurnManager(PlayerDashboard player){
+        return new PlayerTurnManager(player);
     }
 }

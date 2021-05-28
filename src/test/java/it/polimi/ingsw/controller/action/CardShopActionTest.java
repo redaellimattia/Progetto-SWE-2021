@@ -1,5 +1,6 @@
 package it.polimi.ingsw.controller.action;
 
+import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.exceptions.action.PaymentFailedException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
@@ -16,10 +17,11 @@ class CardShopActionTest {
     @Test //shop remove correctly the card and its placed in the right place.
     void legitimateBuy(){
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         Shop shop = createShop();
         ResourceCount payment = new ResourceCount(1,0,0,0,0);
         CardShopAction action = new CardShopAction(shop,2,3,0,payment,new ResourceCount(0, 0, 0, 0, 0));
-        action.useAction(player);
+        action.useAction(player,turnManager);
         assertEquals(0,payment.getCoins()); //DiscountAbility works fine
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
         DevelopmentCard cardPurple12 = new DevelopmentCard(0,1,new ResourceCount(1,0,0,0,0),prod,1, CardColour.PURPLE);
@@ -29,28 +31,31 @@ class CardShopActionTest {
     @Test //try to put level 1 card on a level 2 deck
     void illegitimateBuy1(){
         PlayerDashboard player = createPlayerWithCards();
+        PlayerTurnManager turnManager = createTurnManager(player);
         Shop shop = createShop();
         ResourceCount payment = new ResourceCount(1,0,0,0,0);
         CardShopAction action = new CardShopAction(shop,2,3,0,payment,new ResourceCount(0, 0, 0, 0, 0));
         //assertFalse(action.useAction(player));
-        assertThrows(PaymentFailedException.class, () -> action.useAction(player));
+        assertThrows(PaymentFailedException.class, () -> action.useAction(player,turnManager));
     }
     @Test//try to put level 2 card on a level 0 deck
     void illegitimateBuy2(){
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         Shop shop = createShop();
         ResourceCount payment = new ResourceCount(1,0,0,0,0);
         CardShopAction action = new CardShopAction(shop,1,3,0,payment,new ResourceCount(0, 0, 0, 0, 0));
         //assertFalse(action.useAction(player));
-        assertThrows(PaymentFailedException.class, () -> action.useAction(player));
+        assertThrows(PaymentFailedException.class, () -> action.useAction(player,turnManager));
     }
     @Test //shop remove correctly the card and its placed in the right place.
     void legitimateBuyCheckDiscounts(){
         PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
         Shop shop = createShop();
         ResourceCount payment = new ResourceCount(1,1,0,0,0);
         CardShopAction action = new CardShopAction(shop,2,2,0,payment,new ResourceCount(0, 0, 0, 0, 0));
-        action.useAction(player);
+        action.useAction(player,turnManager);
         assertEquals(0,payment.getCoins()); //DiscountAbility works fine
         assertEquals(0,payment.getRocks());
         Production prod = new Production(new ResourceCount(0,0,0,0,0),new ResourceCount(0,0,0,0,0));
@@ -282,5 +287,8 @@ class CardShopActionTest {
         Shop shop = new Shop(testStructure);
         shop.addObserver(shopObserver);
         return shop;
+    }
+    PlayerTurnManager createTurnManager(PlayerDashboard player){
+        return new PlayerTurnManager(player);
     }
 }
