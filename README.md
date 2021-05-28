@@ -3,5 +3,5 @@ Gruppo GC47
 ## Coverage
 Aggiornata al 22 Maggio
 <p>
-  <img src="/utilities/coverage/coverage 22-05.png">
+  <img src="/utilities/coverage/coverage 28-05.png">
 </p>
