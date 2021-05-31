@@ -644,8 +644,11 @@ public class Cli implements View {
         int count;
         boolean validChoice;
         MarketMarble[] marbles;
+        PlayerDashboard p = clientManager.getThisClientDashboard();
 
-        printStorage(clientManager.getThisClientDashboard().getStorage());
+        printStorage(p.getStorage());
+        if(p.getArrayDeposit().size() != 0)
+            printArrayDeposits(p.getArrayDeposit());
         // Print the market
         printMarket();
 
@@ -1436,7 +1439,7 @@ public class Cli implements View {
      */
     private void printCounterTop(CounterTop counterTop){
         if(counterTop.getContent()>0)
-            out.print("Resource: "+counterTop.getResourceType()+" ");
+            out.print(counterTop.getResourceType()+" ");
         else
             out.println("EMPTY");
         for(int i=0;i<counterTop.getContent();i++)
