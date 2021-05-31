@@ -506,10 +506,9 @@ public class Cli implements View {
             out.println("Now insert the position of the deck of which you want to put the card on top: ");
             input = readLine();
             try{position = Integer.parseInt(input);}catch(NumberFormatException e) {position = -1;}
-            position--;
-        }while( (position <1 || position >3) && !clientManager.positionPossible(position,card.getLevel()));
+        }while(position < 1 || position > 3 || !clientManager.positionPossible(position - 1, card.getLevel()));
         clientManager.setMainActionDone(true);
-        clientManager.buyCard(storagePayment,chestPayment,id,position);
+        clientManager.buyCard(storagePayment,chestPayment,id,position-1);
     }
 
     /**
@@ -521,6 +520,9 @@ public class Cli implements View {
         ResourceCount storage = new ResourceCount(0,0,0,0,0);
         ResourceCount chest = new ResourceCount(0,0,0,0,0);
         ArrayList<ResourceCount> payments = new ArrayList<>();
+        PlayerDashboard p = clientManager.getThisClientDashboard();
+        printStorage(p.getStorage());
+        printChest(p.getChest());
         do{
             out.println(GREEN+"Press S to start payment from the storage, C from the chest: "+RESET);
             input = readLine();
@@ -650,7 +652,6 @@ public class Cli implements View {
         int row;
         int action;
         int count;
-        boolean validChoice;
         MarketMarble[] marbles;
         PlayerDashboard p = clientManager.getThisClientDashboard();
 
@@ -689,69 +690,58 @@ public class Cli implements View {
         for (MarketMarble m: marbles) {
             if(m.getColour() != MarbleColour.RED && m.getColour() != MarbleColour.WHITE) {
                 do {
-                    do {
-                        if(clientManager.hasAdditionalDeposit(m.getColour().convertToResource())) {
-                            out.println("In witch deposit do you want to store the " + m.getColour().convertToResource() + "?\n0: discard resource;\n1-3: regular storage;\n4: additional storage");
-                            max = 4;
-                        }
-                        else {
-                            out.println("In witch deposit do you want to store the " + m.getColour().convertToResource() + "?\n0: discard resource;\n1-3: regular storage");
-                            max = 3;
-                        }
-                        input = readLine();
-                        try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
-                    } while(row < 0 || row > max);
-                    validChoice = false;
-                    if(row == 0) {
-                        clientManager.discardResource();
+                    if(clientManager.hasAdditionalDeposit(m.getColour().convertToResource())) {
+                        out.println("In which deposit do you want to store the " + m.getColour().convertToResource() + "?\n0: discard resource;\n1-3: regular storage;\n4: additional storage");
+                        max = 4;
                     }
                     else {
-                        clientManager.getResource(row);
+                        out.println("In which deposit do you want to store the " + m.getColour().convertToResource() + "?\n0: discard resource;\n1-3: regular storage");
+                        max = 3;
                     }
-                    out.println("Choice saved!");
-                    validChoice = true;
-                } while(!validChoice);
+                    input = readLine();
+                    try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
+                } while(row < 0 || row > max);
+                if(row == 0)
+                    clientManager.discardResource();
+                else
+                    clientManager.getResource(row);
+                out.println("Choice saved!");
             }
             if(m.getColour() == MarbleColour.WHITE) {
                 if(clientManager.hasWhiteChangeAbility()) {
                     do {
+                        out.println("What do you want to do with this white marble?\n0: Take nothing;");
+                        count = 1;
+                        for(LeaderCard c: clientManager.getThisClientDashboard().getLeaderCards()) {
+                            if(c.getSpecialAbility().useWhiteChangeAbility() != null && c.isInGame()) {
+                                out.println(count + ": Convert to " + c.getSpecialAbility().useWhiteChangeAbility().name() + " with Leader Card");
+                                count++;
+                            }
+                        }
+                        input = readLine();
+                        try {action = Integer.parseInt(input);} catch(NumberFormatException e) {action = -1;}
+                    } while(action < 0 && action >= count);
+                    if(action == 0) {
+                        clientManager.getResource(0);
+                    }
+                    else {
+                        LeaderCard chosenLeaderCard = clientManager.getWhiteChangeCard(action);
+                        Resource convertedResource = chosenLeaderCard.getSpecialAbility().getResourceType();
                         do {
-                            out.println("What do you want to do with this white marble?\n0: Take nothing;");
-                            count = 1;
-                            for(LeaderCard c: clientManager.getThisClientDashboard().getLeaderCards()) {
-                                if(c.getSpecialAbility().useWhiteChangeAbility() != null && c.isInGame()) {
-                                    out.println(count + ": Convert to " + c.getSpecialAbility().useWhiteChangeAbility().name() + " with Leader Card");
-                                    count++;
-                                }
+                            if(clientManager.hasAdditionalDeposit(convertedResource)) {
+                                out.println("In witch deposit do you want to store the " + convertedResource + "?\n1-3: regular storage; 4: additional storage");
+                                max = 4;
+                            }
+                            else {
+                                out.println("In witch deposit do you want to store the " + convertedResource + "?\n1-3: regular storage");
+                                max = 3;
                             }
                             input = readLine();
-                            try {action = Integer.parseInt(input);} catch(NumberFormatException e) {action = -1;}
-                        } while(action < 0 && action >= count);
-                        validChoice = false;
-                        if(action == 0) {
-                            clientManager.getResource(0);
-                            validChoice = true;
-                        }
-                        else {
-                            LeaderCard chosenLeaderCard = clientManager.getWhiteChangeCard(action);
-                            Resource convertedResource = chosenLeaderCard.getSpecialAbility().getResourceType();
-                            do {
-                                if(clientManager.hasAdditionalDeposit(convertedResource)) {
-                                    out.println("In witch deposit do you want to store the " + convertedResource + "?\n1-3: regular storage; 4: additional storage");
-                                    max = 4;
-                                }
-                                else {
-                                    out.println("In witch deposit do you want to store the " + convertedResource + "?\n1-3: regular storage");
-                                    max = 3;
-                                }
-                                input = readLine();
-                                try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
-                            } while(row < 1 || row > max);
-                            clientManager.convertMarble(chosenLeaderCard, row);
-                            out.println("Choice saved!");
-                            validChoice = true;
-                        }
-                    } while(!validChoice);
+                            try {row = Integer.parseInt(input);} catch(NumberFormatException e) {row = -1;}
+                        } while(row < 1 || row > max);
+                        clientManager.convertMarble(chosenLeaderCard, row);
+                        out.println("Choice saved!");
+                    }
                 }
                 else {
                     out.println("You don't have a Leader Card that can convert the white marble.");
