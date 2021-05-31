@@ -116,6 +116,7 @@ public class ServerLobby extends Thread implements Observer {
         String nextPlayerNickname = getTurnManager().getPlayer().getNickname();
         SocketConnection socketConnection = clients.get(nextPlayerNickname);
         if(socketConnection!=null){
+            Server.LOGGER.log(Level.INFO,"LobbyID: "+lobbyID+" it's "+nextPlayerNickname+" round!");
             pingTimer = new PingTimer(this,socketConnection);
             pingTimer.startPinging();
             socketConnection.send(new YourTurnMessage().serialize());

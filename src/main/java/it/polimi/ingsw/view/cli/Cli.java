@@ -1185,8 +1185,9 @@ public class Cli implements View {
         out.println(clientManager.getThisClientDashboard().getTotalResources());
         Deck[][] shop = clientManager.getGameStatus().getShop().getGrid();
         out.println(BLUE + "~~SHOP GRID~~" + RESET);
+        int level = 1;
         for (int i = 0; i < 3; i++) {
-            out.print("Level: " + (i+1) + "\t");
+            out.print("Level: " + (level++) + "\t");
             for (int j = 0; j < 4; j++) {
                 if (shop[i][j].getDeck().size() == 0)
                     out.print("****\t");

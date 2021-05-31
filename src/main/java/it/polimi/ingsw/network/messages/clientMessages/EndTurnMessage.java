@@ -1,8 +1,11 @@
 package it.polimi.ingsw.network.messages.clientMessages;
 
 import it.polimi.ingsw.network.enumeration.ClientMessageType;
+import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
+
+import java.util.logging.Level;
 
 public class EndTurnMessage extends ClientMessage{
     public EndTurnMessage(String nickname, long serverThreadID) {
@@ -16,6 +19,7 @@ public class EndTurnMessage extends ClientMessage{
      */
     @Override
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
+        Server.LOGGER.log(Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+" "+getNickname()+" ended his round!");
         serverLobby.endRound();
     }
 }
