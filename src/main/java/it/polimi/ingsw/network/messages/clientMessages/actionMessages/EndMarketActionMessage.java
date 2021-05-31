@@ -27,7 +27,7 @@ public class EndMarketActionMessage extends MarketActionMessage {
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
         GameManager gameManager = serverLobby.getGameLobby().getGameManager();
         MarketAction action = new MarketAction(rowColType, pos, serverLobby.getTurnManager().getMarketChoices(), gameManager);
-        Server.LOGGER.log(Level.INFO,"End Market Action arrived!");
+        Server.LOGGER.log(Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+": End Market Action arrived from: "+getNickname());
         useActionMessage(action, socketConnection, serverLobby);
     }
 }

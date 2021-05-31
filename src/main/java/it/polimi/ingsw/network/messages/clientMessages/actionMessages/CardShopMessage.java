@@ -37,7 +37,7 @@ public class CardShopMessage extends ActionMessage {
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
         Game game = serverLobby.getGameLobby().getGameManager().getGame();
         CardShopAction action = new CardShopAction(game.getShop(),row,column,deckPosition,storageCount,chestCount);
-        Server.LOGGER.log(Level.INFO,"Card Shop action arrived!");
+        Server.LOGGER.log(Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+": Card Shop action arrived from: "+getNickname());
         useActionMessage(action,socketConnection, serverLobby);
     }
 

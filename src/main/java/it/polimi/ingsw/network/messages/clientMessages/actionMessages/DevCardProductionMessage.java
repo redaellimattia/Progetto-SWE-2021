@@ -32,7 +32,7 @@ public class DevCardProductionMessage extends ActionMessage{
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby) {
         DevCardProductionAction action = new DevCardProductionAction(card, storageCount, chestCount);
         PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
-        Server.LOGGER.log(Level.INFO,"DevCard Production arrived!");
+        Server.LOGGER.log(Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+": DevCard Production arrived from: "+getNickname());
         if(turnManager.addDevCardProduction(action))
             serverLobby.sendToAll(new DoneMessage().serialize());
     }

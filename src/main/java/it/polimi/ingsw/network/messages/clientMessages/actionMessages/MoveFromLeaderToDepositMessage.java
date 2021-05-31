@@ -30,7 +30,7 @@ public class MoveFromLeaderToDepositMessage extends ActionMessage{
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
         MoveFromLeaderToDeposit action = new MoveFromLeaderToDeposit(from_leader,to_deposit,number);
         useSideActionMessage(action,socketConnection, serverLobby);
-        Server.LOGGER.log(Level.INFO,"Move From Leader Action arrived!");
+        Server.LOGGER.log(Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+": Move From Leader Action arrived from: "+getNickname());
         serverLobby.sendToAll(new DoneMessage().serialize());
     }
 }

@@ -32,7 +32,7 @@ public class BasicProductionMessage extends ActionMessage{
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby) {
         BasicProductionAction action = new BasicProductionAction(res, storageCount, chestCount);
         PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
-        Server.LOGGER.log(Level.INFO,"Basic Production arrived!");
+        Server.LOGGER.log(Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+": Basic Production arrived from: "+getNickname());
         if(turnManager.addBasicProduction(action))
             serverLobby.sendToAll(new DoneMessage().serialize());
     }

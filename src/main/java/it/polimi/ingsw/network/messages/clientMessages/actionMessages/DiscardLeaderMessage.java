@@ -25,7 +25,7 @@ public class DiscardLeaderMessage extends ActionMessage{
     @Override
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
         DiscardLeaderAction action = new DiscardLeaderAction(card);
-        Server.LOGGER.log(Level.INFO,"Discard Leader Action arrived!");
+        Server.LOGGER.log(Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+": Discard Leader Action arrived from: "+getNickname());
         useSideActionMessage(action,socketConnection, serverLobby);
         serverLobby.sendToAll(new DoneMessage().serialize());
     }

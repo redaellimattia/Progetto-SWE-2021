@@ -14,10 +14,7 @@ import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.*;
 import it.polimi.ingsw.network.messages.serverMessages.updates.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 
 
@@ -28,6 +25,7 @@ public class ServerLobby extends Thread implements Observer {
     private final GameLobby gameLobby;
     private final long lobbyID;
     private PingTimer pingTimer;
+    private Timer noOneConnectedTimer;
 
     /**
      * Creating Game Lobby, Clients HashMap and starting the Thread
@@ -136,32 +134,31 @@ public class ServerLobby extends Thread implements Observer {
         synchronized (gameLock) {
             if(gameLobby.isGameCreated()) {
                 clients.put(nickname, clientConnection);
-                Server.LOGGER.log(Level.INFO, nickname + " is back in the lobby #" + this.lobbyID);
                 clientConnection.send(new JoinedLobbyMessage(this.lobbyID).serialize());
                 clientConnection.send(new PrintMessage("Joined correctly the game with Lobby ID: " + this.lobbyID).serialize());
                 clientConnection.send(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(), gameLobby.getGameManager().getGame().getMarket(), gameLobby.getGameManager().getGame().getvReports()).serialize());
                 if(gameLobby.isGameStarted())
                     clientConnection.send(new GameStartedMessage().serialize());
 
+                //GameStarted and noone was connected
                 if(gameLobby.isGameStarted()&&!gameLobby.getGameManager().isAnyoneConnected()) {
+                    noOneConnectedTimer.cancel();
+                    Server.LOGGER.log(Level.INFO, "LobbyID: "+lobbyID+": Timer for empty lobby removed!");
                     for(PlayerDashboard p:gameLobby.getGameManager().getGame().getPlayers()){
                         if(p.getNickname().equals(nickname)) {
                             gameLobby.getGameManager().getTurnManager().setPlayer(p);
+                            pingTimer = new PingTimer(this,clientConnection);
+                            pingTimer.startPinging();
                             clientConnection.send(new YourTurnMessage().serialize());
                         }
                     }
                 }
-                else {
-                    if (gameLobby.getNumberOfPlayers() == 1 && gameLobby.isGameStarted()) {
-                        pingTimer = new PingTimer(this,clientConnection);
-                        pingTimer.startPinging();
-                        clientConnection.send(new YourTurnMessage().serialize());
-                    }
-                    else
-                        clientConnection.send(new WaitYourTurnMessage().serialize());
-                }
+                else //Someone was connected
+                    clientConnection.send(new WaitYourTurnMessage().serialize());
+
                 gameLobby.getGameManager().playerComeback(playerPosition);
             }
+            Server.LOGGER.log(Level.INFO, nickname + " is back in the lobby #" + this.lobbyID);
         }
     }
 
@@ -277,14 +274,14 @@ public class ServerLobby extends Thread implements Observer {
      * @param socketConnection Client that is disconnecting
      */
     public void onDisconnect(SocketConnection socketConnection){
-        Server.LOGGER.log(Level.INFO,"No answer from client, going to disconnect it.");
+        Server.LOGGER.log(Level.INFO,"LobbyID: "+lobbyID+": No answer from client, going to disconnect it.");
         String disconnectedPlayerNickname = getPlayerNickname(socketConnection);
-        Server.LOGGER.log(Level.INFO, "Disconnecting client: " + disconnectedPlayerNickname);
+        Server.LOGGER.log(Level.INFO, "LobbyID: "+lobbyID+": Disconnecting client: " + disconnectedPlayerNickname);
         synchronized (gameLock) {
             if (!gameLobby.isGameCreated()) {
                 gameLobby.removePlayer(disconnectedPlayerNickname);
                 clients.remove(disconnectedPlayerNickname);
-                Server.LOGGER.log(Level.INFO, "Client disconnected, waiting for players to join the lobby...");
+                Server.LOGGER.log(Level.INFO, "LobbyID: "+lobbyID+": Client disconnected, waiting for players to join the lobby...");
             } else {
                 if(gameLobby.isGameStarted()){
                     for(PlayerDashboard p: gameLobby.getGameManager().getGame().getPlayers())
@@ -292,7 +289,7 @@ public class ServerLobby extends Thread implements Observer {
                             p.setPlaying(false);
                     pingTimer.deleteTimer();
                     clients.remove(disconnectedPlayerNickname);
-                    Server.LOGGER.log(Level.INFO, "Client disconnected, going to next round...");
+                    Server.LOGGER.log(Level.INFO, "LobbyID: "+lobbyID+": Client disconnected, going to next round...");
                     if(disconnectedPlayerNickname.equals(getTurnManager().getPlayer().getNickname()))
                         endRound();
                 }
@@ -335,13 +332,25 @@ public class ServerLobby extends Thread implements Observer {
                     }
                     deletePreGameTimer(disconnectedPlayerNickname);
                     clients.remove(disconnectedPlayerNickname);
-                    Server.LOGGER.log(Level.INFO, "Client disconnected during preGame, setPlaying to false...");
+                    Server.LOGGER.log(Level.INFO, "LobbyID: "+lobbyID+": Client disconnected during preGame, setPlaying to false...");
                     gameLobby.addReadyPlayer();
                 }
 
             }
         }
         socketConnection.disconnect();
+        //Timer if the lobby is empty
+        if(!gameLobby.getGameManager().isAnyoneConnected()){
+            Server.LOGGER.log(Level.INFO,"LobbyID: "+lobbyID+": No one connected, starting timer...");
+            noOneConnectedTimer = new Timer();
+            noOneConnectedTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    Server.LOGGER.log(Level.INFO,"LobbyID: "+lobbyID+": No reconnection, closing the lobby");
+                    closeLobby();
+                }
+            },300000);
+        }
     }
 
     /**

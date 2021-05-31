@@ -132,6 +132,7 @@ public class Server {
      */
     public static synchronized void closeLobby(long serverLobbyID){
         lobbies.remove(serverLobbyID);
+        LOGGER.info("Lobby: "+serverLobbyID+" CLOSED!");
     }
 
     /**

@@ -31,7 +31,7 @@ public class PreGameResponseMessage extends ClientMessage{
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
         serverLobby.getGameLobby().preGame(this.getNickname(),chosen,chosenLeaders);
         serverLobby.getGameLobby().addReadyPlayer();
-        Server.LOGGER.log( Level.INFO,"Player: "+ getNickname() + " is now ready to play, he finished PreGame.");
+        Server.LOGGER.log( Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+": Player: "+ getNickname() + " is now ready to play, he finished PreGame.");
         serverLobby.deletePreGameTimer(getNickname());
         //Don't send if this is the last player to answer.
         if(!serverLobby.getGameLobby().readyToStartGame())

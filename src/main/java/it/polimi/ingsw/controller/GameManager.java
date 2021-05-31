@@ -172,7 +172,7 @@ public class GameManager {
      */
     public boolean isAnyoneConnected(){
         for(PlayerDashboard p:game.getPlayers())
-            if (p.isPlaying())
+            if (!p.isLorenzo()&&p.isPlaying())
                 return true;
         return false;
     }

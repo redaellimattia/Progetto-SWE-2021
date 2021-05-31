@@ -35,7 +35,7 @@ public class LeaderProductionMessage extends ActionMessage{
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby) {
         LeaderCardProductionAction action = new LeaderCardProductionAction(card, storageCount, chestCount, res);
         PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
-        Server.LOGGER.log(Level.INFO,"Leader Production arrived!");
+        Server.LOGGER.log(Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+": Leader Production arrived from: "+getNickname());
         if(turnManager.addLeaderCardProduction(action))
             serverLobby.sendToAll(new DoneMessage().serialize());
     }
