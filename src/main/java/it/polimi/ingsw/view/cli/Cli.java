@@ -1330,15 +1330,15 @@ public class Cli implements View {
                     break;
                 case 6: printFaithPathCell(position==i,2, false,0);
                     break;
-                case 8:
-                case 16:
-                    printFaithPathCell(position==i,0, true,2);
+                case 8:printFaithPathCell(position==i,0, true,2);
                     break;
                 case 9: printFaithPathCell(position==i,4, false,0);
                     break;
                 case 12: printFaithPathCell(position==i,6, false,0);
                     break;
                 case 15: printFaithPathCell(position==i,9, false,0);
+                    break;
+                case 16: printFaithPathCell(position==i,0, true,3);
                     break;
                 case 18: printFaithPathCell(position==i,12, false,0);
                     break;
