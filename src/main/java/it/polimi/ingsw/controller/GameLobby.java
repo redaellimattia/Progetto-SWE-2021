@@ -18,8 +18,9 @@ import it.polimi.ingsw.network.server.Observer;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerLobby;
 
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -435,12 +436,12 @@ public class GameLobby {
      */
     public JsonReader readJsonFile(String filename){
         JsonReader reader = null;
-        String configFilePath = "src/main/resources/json";
-        try {
-             reader = new JsonReader(new FileReader(configFilePath +filename+".json"));
-        }catch(IOException e){
-            Server.LOGGER.log(Level.SEVERE,"Can't read file: "+ configFilePath +filename+".json "+e.getMessage());
-        }
+        String configFilePath = "/json"+filename+".json";
+        InputStream inputStream = this.getClass().getResourceAsStream(configFilePath);
+        if(inputStream!=null)
+            reader = new JsonReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+        else
+            Server.LOGGER.log(Level.SEVERE,"Can't read file: "+ configFilePath);
         return reader;
     }
 }

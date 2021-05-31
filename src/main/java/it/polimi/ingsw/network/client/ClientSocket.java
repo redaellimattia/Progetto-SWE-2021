@@ -31,8 +31,7 @@ public class ClientSocket implements Runnable {
             this.isConnected = true;
             socketListener = new Thread(this);
             socketListener.start();
-            ClientManager.LOGGER.info("Client successfully connected at: "+ address+":" + socketPort);
-        } catch (IOException e) { ClientManager.LOGGER.severe("Failed to connect to: "+ address+":" + socketPort + "\n" +e.getMessage());}
+        } catch (IOException e) { System.out.println("Failed to connect to: "+ address+":" + socketPort + "\n" +e.getMessage());}
     }
 
 
@@ -66,7 +65,6 @@ public class ClientSocket implements Runnable {
                     else
                         disconnect();
             } catch (IOException e) {
-                ClientManager.LOGGER.severe("Failed to read message from server: "+ e.getMessage());
                 clientManager.getView().printMsg("Can't reach the Server");
                 disconnect();
             }
@@ -81,9 +79,7 @@ public class ClientSocket implements Runnable {
             try {
                 if (!socket.isClosed())
                     socket.close();
-            } catch (IOException e) {
-                ClientManager.LOGGER.log(Level.SEVERE,"Error while closing the Socket Connection\n"+ e.getMessage());}
-
+            } catch (IOException e) {System.out.println(e.getMessage());}
             socketListener.interrupt(); // Interrupts the thread
             isConnected = false;
         }

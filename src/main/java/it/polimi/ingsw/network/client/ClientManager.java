@@ -28,8 +28,6 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class ClientManager {
-    protected static final Logger LOGGER = Logger.getLogger("Client");
-
     private String nickname;
     private ClientSocket clientSocket;
     private long serverLobbyID = -1;
@@ -52,7 +50,6 @@ public class ClientManager {
      * @param socketPort port chosen
      */
     public ClientManager(String address, int socketPort,String choice) {
-        initLogger();
         this.nickname = "defaultNickname";
         if(choice.equals("-cli"))
             this.view = new Cli(this);
@@ -816,18 +813,4 @@ public class ClientManager {
     }
 
     public String getMessage(){return this.message;}
-    /**
-     * Creating logger file handler
-     */
-    private void initLogger() {
-        Date date = GregorianCalendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM_HH.mm.ss");
-
-        try {
-            FileHandler fh = new FileHandler("utilities/client_log/client-" + dateFormat.format(date) + ".log");
-            fh.setFormatter(new SimpleFormatter());
-
-            LOGGER.addHandler(fh);
-        } catch (IOException e) { LOGGER.severe(e.getMessage()); }
-    }
 }
