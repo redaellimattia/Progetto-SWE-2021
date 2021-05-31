@@ -32,7 +32,7 @@ public class PingTimer {
             public void run() {
                 send();
             }
-        },0,180000);
+        },0,200000);
     }
 
 
@@ -49,7 +49,7 @@ public class PingTimer {
                 Server.LOGGER.log(Level.INFO,"No ping response...");
                 serverLobby.onDisconnect(socketConnection);
             }
-        },120000);
+        },180000);
     }
 
     /**
