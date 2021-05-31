@@ -40,8 +40,8 @@ public class ClientManager {
     private boolean basicProductionDone;
     private int lastProduction;
     private int lastIndex;
-    private ArrayList<Boolean> leaderCardProductionDone;
-    private ArrayList<Boolean> devCardProductionDone;
+    private boolean[] leaderCardProductionDone;
+    private boolean[] devCardProductionDone;
 
     /**
      * Creates client Object, handles client connection and instantiates view
@@ -57,8 +57,8 @@ public class ClientManager {
         view.start();
         connection(address,socketPort);
         this.gameStarted = false;
-        this.leaderCardProductionDone = new ArrayList<>();
-        this.devCardProductionDone = new ArrayList<>();
+        this.leaderCardProductionDone = new boolean[2];
+        this.devCardProductionDone = new boolean[3];
     }
 
     //GETTERS
@@ -73,9 +73,6 @@ public class ClientManager {
     }
     public int getLastProduction() {
         return lastProduction;
-    }
-    public int getLastIndex() {
-        return lastIndex;
     }
     /**
      *
@@ -106,10 +103,21 @@ public class ClientManager {
         this.serverLobbyID = serverLobbyID;
     }
     public void removeIndexLeaderCardProductionDone() {
-        this.leaderCardProductionDone.remove(lastIndex);
+        this.leaderCardProductionDone[lastIndex] = false;
     }
     public void removeIndexDevCardProductionDone() {
-        this.devCardProductionDone.remove(lastIndex);
+        this.devCardProductionDone[lastIndex] = false;
+    }
+
+    private void initProductionDone(){
+        basicProductionDone = false;
+        PlayerDashboard p = getThisClientDashboard();
+        for(int i=0;i<3;i++)
+            devCardProductionDone[i] = p.getDevCards()[i].getDeck().size() <= 0;
+
+        ArrayList<LeaderCard> leaderCards = p.getLeaderCards();
+        for(int i=0;i<leaderCards.size();i++)
+            leaderCardProductionDone[i] = !leaderCards.get(i).isInGame();
     }
 
     /**
@@ -121,12 +129,6 @@ public class ClientManager {
      */
     public void initGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market,VaticanReport[] vReports){
         gameStatus = new ClientGameStatus(players,shop,market,vReports);
-        PlayerDashboard p = getThisClientDashboard();
-        for(int i=0;i<3;i++)
-            if(p.getDevCards()[i].getDeck().size()>0)
-                devCardProductionDone.add(false);
-        for(LeaderCard l : getProductionLeaders())
-            leaderCardProductionDone.add(false);
     }
 
     /**
@@ -190,7 +192,10 @@ public class ClientManager {
      * @param leaderCard Leader Card that the user wants to play
      */
     public void playLeader(LeaderCard leaderCard){
-        leaderCardProductionDone.add(false);
+        ArrayList<LeaderCard> leaderCards = getThisClientDashboard().getLeaderCards();
+        for(int i=0;i<leaderCards.size();i++)
+            if(leaderCards.get(i).equals(leaderCard))
+            leaderCardProductionDone[i] = false;
         clientSocket.send(new PlayLeaderMessage(nickname, serverLobbyID,leaderCard).serialize());
     }
 
@@ -235,7 +240,7 @@ public class ClientManager {
      * @param res Resource chosen by the user as output
      */
     public void leaderProduction(int index,LeaderCard card,ResourceCount storageCount, ResourceCount chestCount, Resource res){
-        leaderCardProductionDone.add(index,true);
+        leaderCardProductionDone[index] = true;
         lastProduction = 2;
         lastIndex = index;
         clientSocket.send(new LeaderProductionMessage(nickname,serverLobbyID,card,storageCount,chestCount,res).serialize());
@@ -250,7 +255,7 @@ public class ClientManager {
      * @param chestCount amount of resources from the chest that the user wants to use in order to pay
      */
     public void devCardProduction(int index,DevelopmentCard card,ResourceCount storageCount, ResourceCount chestCount){
-        devCardProductionDone.add(index,true);
+        devCardProductionDone[index] = true;
         lastProduction = 3;
         lastIndex = index;
         clientSocket.send(new DevCardProductionMessage(nickname,serverLobbyID,card,storageCount,chestCount).serialize());
@@ -339,14 +344,6 @@ public class ClientManager {
      */
     public void updateDevCards(String nickname,DeckDashboard[] devCards){
         int contDeck = 0;
-        if(nickname.equals(this.nickname)&&devCardProductionDone.size()!=3) {
-            for (DeckDashboard d : devCards)
-                if (d.getDeck().size() > 0)
-                    contDeck++;
-            do{
-                devCardProductionDone.add(false);
-            }while(devCardProductionDone.size()!=contDeck);
-        }
        gameStatus.updateDevCards(nickname,devCards);
     }
 
@@ -537,7 +534,7 @@ public class ClientManager {
         for (int i=0;i<3;i++) {
             DeckDashboard d = p.getDevCards()[i];
             if (d.getDeck().size() > 0)
-                if (p.getTotalResources().hasMoreOrEqualsResources(d.getFirst().getProductionPower().getInput()) && !devCardProductionDone.get(i))
+                if (p.getTotalResources().hasMoreOrEqualsResources(d.getFirst().getProductionPower().getInput()) && !devCardProductionDone[i])
                     return true;
         }
         return false;
@@ -554,7 +551,7 @@ public class ClientManager {
         for(int i=0;i<productionLeaders.size();i++){
             LeaderCard l = productionLeaders.get(i);
             l.getSpecialAbility().getResourceType().add(resource, 1);
-            if (p.getTotalResources().hasMoreOrEqualsResources(resource)&&!leaderCardProductionDone.get(i))
+            if (p.getTotalResources().hasMoreOrEqualsResources(resource)&&!leaderCardProductionDone[i])
                 return true;
         }
         return false;
@@ -774,11 +771,7 @@ public class ClientManager {
     public void yourTurn(){
         isMyTurn = true;
         mainActionDone = false;
-        basicProductionDone = false;
-        if(leaderCardProductionDone.size()>0)
-            Collections.fill(leaderCardProductionDone, Boolean.FALSE);
-        if(devCardProductionDone.size()>0)
-            Collections.fill(devCardProductionDone, Boolean.FALSE);
+        initProductionDone();
         view.yourTurn();
     }
 

@@ -538,7 +538,7 @@ public class Cli implements View {
      */
     private ResourceCount askStoragePayment(ResourceCount cost){
         out.println("You need to pay: " + cost);
-        out.println("Now insert the resources you want to pay with FROM THE STORAGE: ");
+        out.println(GREEN+"Now insert the resources you want to pay with FROM THE STORAGE: \n"+RESET);
         ResourceCount temporaryStorage = clientManager.getThisClientDashboard().getStorage().readStorage();
         ResourceCount storagePayment = new ResourceCount(0,0,0,0,0);
         addResourceToPayment(temporaryStorage,storagePayment,cost);
@@ -552,7 +552,7 @@ public class Cli implements View {
      */
     private ResourceCount askChestPayment(ResourceCount cost){
         out.println("You need to pay: " + cost);
-        out.println("Now insert the resources you want to pay with FROM THE CHEST: ");
+        out.println(GREEN+"Now insert the resources you want to pay with FROM THE CHEST: \n"+RESET);
         ResourceCount temporaryChest = clientManager.getThisClientDashboard().getChest();
         ResourceCount chestPayment = new ResourceCount(0,0,0,0,0);
         addResourceToPayment(temporaryChest,chestPayment,cost);
@@ -569,9 +569,9 @@ public class Cli implements View {
         String input;
         do {
             do {
-                out.println("Remaining cost to cover: " + cost);
-                out.println("Chosen Resources: " + payment);
-                out.println("Resources in the stock: " + temporary);
+                out.println("TO COVER: " + cost);
+                out.println("CHOSEN: " + payment);
+                out.println("STOCK: " + temporary+"\n");
                 out.println("Choose between 4 types of resources: \n" +
                         "COINS: press C \n" +
                         "ROCKS: press R \n" +
@@ -617,18 +617,18 @@ public class Cli implements View {
                     input = "n";
                 else {
                     do {
-                        out.println("Choice registered, press C to continue adding resources from the storage, N to exit:");
+                        out.println("Choice registered, press Y to continue adding resources from the storage, N to exit:");
                         input = readLine();
-                    } while (!input.equalsIgnoreCase("c") && !input.equalsIgnoreCase("N"));
+                    } while (!input.equalsIgnoreCase("y") && !input.equalsIgnoreCase("N"));
                 }
             }
             else {
                 if(!input.equalsIgnoreCase("esc")) {
                     out.println("Invalid choice, you don't have this resource in the storage.");
-                    input = "c";
+                    input = "y";
                 }
             }
-        }while(input.equalsIgnoreCase("c"));
+        }while(input.equalsIgnoreCase("y"));
     }
 
     @Override
@@ -754,18 +754,22 @@ public class Cli implements View {
         ResourceCount bufferProd = thisPlayer.getBufferProduction();
         if(ResourceCount.resCountToInt(bufferProd)!=0)
             printBufferProduction(bufferProd);
-        out.println(GREEN+"Here are the available productions: "+RESET);
-        do {
-            if (clientManager.canDoBasicProduction(thisPlayer))
-                out.println("The basic production is available, press B to start it: ");
-            if (clientManager.canDoLeaderCardProduction(thisPlayer))
-                out.println("A Leader card production is available, press L to start it: ");
-            if (clientManager.canDoDevCardProduction(thisPlayer))
-                out.println("A Development card production is available, press D to start it: ");
-            if (clientManager.isProductionActionOnGoing())
-                out.println("press Q to quit the production action: ");
-            input = readLine();
-        }while(!input.equalsIgnoreCase("B")&&!input.equalsIgnoreCase("L")&&!input.equalsIgnoreCase("D")&&!input.equalsIgnoreCase("Q"));
+        if(!clientManager.canDoLeaderCardProduction(thisPlayer)&&!clientManager.canDoBasicProduction(thisPlayer)&&!clientManager.canDoDevCardProduction(thisPlayer))
+            input = "Q";
+        else {
+            out.println(GREEN + "Here are the available productions: " + RESET);
+            do {
+                if (clientManager.canDoBasicProduction(thisPlayer))
+                    out.println("The basic production is available, press B to start it: ");
+                if (clientManager.canDoLeaderCardProduction(thisPlayer))
+                    out.println("A Leader card production is available, press L to start it: ");
+                if (clientManager.canDoDevCardProduction(thisPlayer))
+                    out.println("A Development card production is available, press D to start it: ");
+                if (clientManager.isProductionActionOnGoing())
+                    out.println("press Q to quit the production action: ");
+                input = readLine();
+            } while (!input.equalsIgnoreCase("B") && !input.equalsIgnoreCase("L") && !input.equalsIgnoreCase("D") && !input.equalsIgnoreCase("Q"));
+        }
         if(input.equalsIgnoreCase("B")) {
             doBasicProduction(thisPlayer);
             if(!clientManager.isProductionActionOnGoing())

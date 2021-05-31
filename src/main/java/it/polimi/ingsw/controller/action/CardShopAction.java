@@ -70,14 +70,12 @@ public class CardShopAction extends Action {
 
     //CHECK IF THE CHOSEN POSITION FIT THE CARD CHOSEN
     private boolean checkIfPossible(int level, int position, PlayerDashboard player){
-        boolean check = false;
-        if(level == 1) {
-            if (player.getDevCards()[position].getDeck().size() == 0)
-                check = true;
-        }
+        if(level == 1)
+            return player.getDevCards()[position].getDeck().size() == 0;
         else
-            if(player.getDevCards()[position].getFirst().getLevel() == (level - 1))
-                check = true;
-        return check;
-     }
+            if(player.getDevCards()[position].getDeck().size()>0)
+                return player.getDevCards()[position].getFirst().getLevel() == (level - 1);
+            else
+                return false;
+    }
 }
