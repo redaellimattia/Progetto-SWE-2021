@@ -17,7 +17,6 @@ public class PrintMessage extends ServerMessage{
      */
     @Override
     public void useMessage(ClientManager clientManager) {
-        clientManager.setMessage(this.msg);
-        //clientManager.getView().printMsg(this.msg);
+        clientManager.getView().printMsg(this.msg);
     }
 }

@@ -48,6 +48,19 @@ class CardShopActionTest {
         //assertFalse(action.useAction(player));
         assertThrows(PaymentFailedException.class, () -> action.useAction(player,turnManager));
     }
+    @Test
+    void buyCardLevelTwo(){
+        PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
+        Shop shop = createShop();
+        ResourceCount payment = new ResourceCount(1,0,0,0,0);
+        CardShopAction action = new CardShopAction(shop,2,3,0,payment,new ResourceCount(0, 0, 0, 0, 0));
+        action.useAction(player,turnManager);
+        ResourceCount payment1 = new ResourceCount(1,0,0,0,0);
+        action = new CardShopAction(shop,1,3,0,payment1,new ResourceCount(0, 0, 0, 0, 0));
+        action.useAction(player,turnManager);
+        assertEquals(2,player.getDevCards()[0].getFirst().getLevel());
+    }
     @Test //shop remove correctly the card and its placed in the right place.
     void legitimateBuyCheckDiscounts(){
         PlayerDashboard player = createPlayer();

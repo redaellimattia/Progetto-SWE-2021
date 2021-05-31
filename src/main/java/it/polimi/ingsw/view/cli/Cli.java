@@ -1,10 +1,6 @@
 package it.polimi.ingsw.view.cli;
 
-import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
-import it.polimi.ingsw.controller.action.marketAction.ConvertWhiteMarble;
-import it.polimi.ingsw.controller.action.marketAction.DiscardResource;
-import it.polimi.ingsw.controller.action.marketAction.GetResource;
-import it.polimi.ingsw.exceptions.MasterOfRenaissanceRuntimeException;
+
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
@@ -377,10 +373,6 @@ public class Cli implements View {
             out.println();
         }
         printShop(false);
-        if(clientManager.getMessage() != null) {
-            out.println(clientManager.getMessage());
-            clientManager.setMessage(null);
-        }
         printMsg("Waiting updates...");
     }
 
@@ -405,10 +397,6 @@ public class Cli implements View {
         printMarket();
         printShop(false);
         do {
-            if(clientManager.getMessage() != null) {
-                out.println(clientManager.getMessage());
-                clientManager.setMessage(null);
-            }
             if (!clientManager.isMainActionDone()) {
                 out.println(YELLOW + "You still have to do one of these before ending your turn: " + RESET);
                 out.println("TAKE RESOURCES FROM MARKET: press M");
@@ -1185,9 +1173,8 @@ public class Cli implements View {
         out.println(clientManager.getThisClientDashboard().getTotalResources());
         Deck[][] shop = clientManager.getGameStatus().getShop().getGrid();
         out.println(BLUE + "~~SHOP GRID~~" + RESET);
-        int level = 1;
         for (int i = 0; i < 3; i++) {
-            out.print("Level: " + (level++) + "\t");
+            out.print("Level: " + (3-i) + "\t");
             for (int j = 0; j < 4; j++) {
                 if (shop[i][j].getDeck().size() == 0)
                     out.print("****\t");

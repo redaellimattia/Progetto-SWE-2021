@@ -71,9 +71,10 @@ public class CardShopAction extends Action {
     //CHECK IF THE CHOSEN POSITION FIT THE CARD CHOSEN
     private boolean checkIfPossible(int level, int position, PlayerDashboard player){
         boolean check = false;
-        if(level == 1)
-            if(player.getDevCards()[position].getDeck().size() == 0)
+        if(level == 1) {
+            if (player.getDevCards()[position].getDeck().size() == 0)
                 check = true;
+        }
         else
             if(player.getDevCards()[position].getFirst().getLevel() == (level - 1))
                 check = true;
