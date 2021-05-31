@@ -349,7 +349,7 @@ public class ServerLobby extends Thread implements Observer {
                     Server.LOGGER.log(Level.INFO,"LobbyID: "+lobbyID+": No reconnection, closing the lobby");
                     closeLobby();
                 }
-            },300000);
+            },300000); //5min
         }
     }
 
