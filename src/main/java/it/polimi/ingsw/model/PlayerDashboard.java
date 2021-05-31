@@ -166,7 +166,8 @@ public class PlayerDashboard extends Player implements StorageObserver{
     public void initArrayDeposit(Resource res){
         if(arrayDeposit.size()<2) {
             arrayDeposit.add(0, new CounterTop(res, 0));
-            observer.updateInitArrayDeposit(getNickname(),res);
+            if(observer!=null)
+                observer.updateInitArrayDeposit(getNickname(),res);
         }
 
     }
