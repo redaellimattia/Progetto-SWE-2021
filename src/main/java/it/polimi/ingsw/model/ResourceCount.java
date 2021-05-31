@@ -266,15 +266,15 @@ public class ResourceCount {
     public String toString(){
         String count = "";
         if(this.getCoins() !=0)
-            count += ("COINS: " + this.getCoins());
+            count += ("COINS: " + this.getCoins()+" ");
         if(this.getRocks() !=0)
-            count +=(" ROCKS: " + this.getRocks());
+            count +=("ROCKS: " + this.getRocks()+" ");
         if(this.getServants() !=0)
-            count += (" SERVANTS: " + this.getServants());
+            count += ("SERVANTS: " + this.getServants()+" ");
         if(this.getShields() !=0)
-            count += (" SHIELDS: " + this.getShields());
+            count += ("SHIELDS: " + this.getShields()+" ");
         if(this.getFaith() !=0)
-            count += (" FAITHPOINT: " + this.getFaith());
+            count += ("FAITHPOINT: " + this.getFaith()+" ");
         return count;
     }
 }
