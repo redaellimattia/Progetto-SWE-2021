@@ -138,7 +138,9 @@ public class GameLobby {
 
         if(singlePlayer){
             // TO-DO: Check that Lorenzo name is not used by player
-            playerDashboards.add(createPlayer("Lorenzo il Magnifico", true));
+            PlayerDashboard lorenzo = createPlayer("Lorenzo il Magnifico", true);
+            lorenzo.addObserver(observer);
+            playerDashboards.add(lorenzo);
             Game game = new Game(playerDashboards, shop, market, initTokensDeck());
             gameManager = new GameManager(game, new PlayerTurnManager(playerDashboards.get(0)), true);
             // TO-DO: Set gameManager in every token

@@ -377,6 +377,10 @@ public class Cli implements View {
             out.println();
         }
         printShop(false);
+        if(clientManager.getMessage() != null) {
+            out.println(clientManager.getMessage());
+            clientManager.setMessage(null);
+        }
         printMsg("Waiting updates...");
     }
 
@@ -401,6 +405,10 @@ public class Cli implements View {
         printMarket();
         printShop(false);
         do {
+            if(clientManager.getMessage() != null) {
+                out.println(clientManager.getMessage());
+                clientManager.setMessage(null);
+            }
             if (!clientManager.isMainActionDone()) {
                 out.println(YELLOW + "You still have to do one of these before ending your turn: " + RESET);
                 out.println("TAKE RESOURCES FROM MARKET: press M");

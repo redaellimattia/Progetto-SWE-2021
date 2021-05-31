@@ -44,6 +44,7 @@ public class ClientManager {
     private int lastIndex;
     private ArrayList<Boolean> leaderCardProductionDone;
     private ArrayList<Boolean> devCardProductionDone;
+    private String message;
 
     /**
      * Creates client Object, handles client connection and instantiates view
@@ -62,6 +63,7 @@ public class ClientManager {
         this.gameStarted = false;
         this.leaderCardProductionDone = new ArrayList<>();
         this.devCardProductionDone = new ArrayList<>();
+        this.message = null;
     }
 
     //GETTERS
@@ -805,6 +807,15 @@ public class ClientManager {
         }
     }
 
+    /**
+     * set the message to be printed by the CLI
+     * @param message passed by the server
+     */
+    public void setMessage(String message){
+        this.message = message;
+    }
+
+    public String getMessage(){return this.message;}
     /**
      * Creating logger file handler
      */
