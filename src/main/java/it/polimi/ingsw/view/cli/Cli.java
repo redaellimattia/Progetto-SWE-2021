@@ -763,7 +763,10 @@ public class Cli implements View {
     public void startProduction(){
         PlayerDashboard thisPlayer = clientManager.getThisClientDashboard();
         String input;
-        out.println("Here are the available productions: ");
+        ResourceCount bufferProd = thisPlayer.getBufferProduction();
+        if(ResourceCount.resCountToInt(bufferProd)!=0)
+            printBufferProduction(bufferProd);
+        out.println(GREEN+"Here are the available productions: "+RESET);
         do {
             if (clientManager.canDoBasicProduction(thisPlayer))
                 out.println("The basic production is available, press B to start it: ");
@@ -1178,10 +1181,12 @@ public class Cli implements View {
      * @param isMyTurn if it's my turn, the Id-lookup functionality is activated in case of a card shop action
      */
     private void printShop(boolean isMyTurn) {
+        out.println(YELLOW+"YOUR RESOURCES"+RESET);
+        out.println(clientManager.getThisClientDashboard().getTotalResources());
         Deck[][] shop = clientManager.getGameStatus().getShop().getGrid();
         out.println(BLUE + "~~SHOP GRID~~" + RESET);
         for (int i = 0; i < 3; i++) {
-            out.print("Level: " + i+1 + "\t");
+            out.print("Level: " + (i+1) + "\t");
             for (int j = 0; j < 4; j++) {
                 if (shop[i][j].getDeck().size() == 0)
                     out.print("****\t");
