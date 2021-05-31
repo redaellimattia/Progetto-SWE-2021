@@ -419,6 +419,7 @@ public class ServerLobby extends Thread implements Observer {
             clients.get(key).disconnect();
         }
         clients.clear();
+        noOneConnectedTimer.cancel();
         Server.closeLobby(this.lobbyID);
     }
 
