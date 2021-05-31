@@ -102,7 +102,7 @@ public class GameManager {
             points += 12;
         if (pos >= 21 && pos <= 23)
             points += 16;
-        if (pos == 24)
+        if (pos >= 24)
             points += 20;
 
         //POINTS GIVEN FROM THE LEFT OVER RESOURCES

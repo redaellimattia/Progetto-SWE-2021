@@ -407,8 +407,8 @@ public class ServerLobby extends Thread implements Observer {
     private void closeLobby(){
         for (String key : clients.keySet()) {
             clients.get(key).disconnect();
-            clients.remove(key);
         }
+        clients.clear();
         Server.closeLobby(this.lobbyID);
     }
 
