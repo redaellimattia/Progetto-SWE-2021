@@ -105,11 +105,14 @@ public class Shop {
     }
 
     public DevelopmentCard getCardByID(int ID){
+        DevelopmentCard card = null;
         for(int i=0;i<3;i++)
             for(int j=0;j<4;j++) {
-                DevelopmentCard card = shopGrid[i][j].getFirst();
-                if (card.getId() == ID)
-                    return card;
+                if(shopGrid[i][j].getDeck().size()>0) {
+                    card = shopGrid[i][j].getFirst();
+                    if (card.getId() == ID)
+                        return card;
+                }
             }
         return null;
     }

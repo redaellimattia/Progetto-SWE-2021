@@ -44,7 +44,7 @@ public abstract class Action {
             int valueToRemove = res.get(storageCost);
             if(valueToRemove != 0){ //THIS RESOURCE IS ACTUALLY REQUIRED
                 ArrayList<CounterTop> shelves = storage.getShelvesArray();
-                for (int i=0;i<=2;i++){ //SCAN EVERY SHELVES
+                for (int i=0;i<=2;i++){ //SCAN EVERY SHELF
                     CounterTop counter = shelves.get(i);
                     if(counter.getResourceType().equals(res)) {//IF THE SHELF RESOURCETYPE MATCHES THE REQUESTED RESOURCE
                     //counter.removeContent(valueToRemove); //THEN REMOVE FROM THE SHELF CONTENT

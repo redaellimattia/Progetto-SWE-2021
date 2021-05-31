@@ -499,7 +499,7 @@ public class Cli implements View {
             input = readLine();
             try{position = Integer.parseInt(input);}catch(NumberFormatException e) {position = -1;}
             position--;
-        }while((position <1 || position >3) && !clientManager.positionPossible(position,card.getLevel()));
+        }while( (position <1 || position >3) && !clientManager.positionPossible(position,card.getLevel()));
         clientManager.setMainActionDone(true);
         clientManager.buyCard(storagePayment,chestPayment,id,position);
     }
@@ -1183,32 +1183,34 @@ public class Cli implements View {
         Deck[][] shop = clientManager.getGameStatus().getShop().getGrid();
         out.println(BLUE + "~~SHOP GRID~~" + RESET);
         for (int i = 0; i < 3; i++) {
-            out.print("Level: " + shop[i][0].getFirst().getLevel() + "\t");
+            out.print("Level: " + i+1 + "\t");
             for (int j = 0; j < 4; j++) {
-                switch (shop[i][j].getFirst().getColour()) {
-                    case GREEN:
-                        out.print(GREEN);
-                        break;
-                    case YELLOW:
-                        out.print(YELLOW);
-                        break;
-                    case BLUE:
-                        out.print(BLUE);
-                        break;
-                    case PURPLE:
-                        out.print(PURPLE);
-                        break;
-                }
-                if (shop[i][j].getFirst() == null)
-                    out.print("****");
-                if (shop[i][j].getFirst().getId() >= 10)
-                    out.print("[" + shop[i][j].getFirst().getId() + "]");
-                else
-                    out.print("[ " + shop[i][j].getFirst().getId() + "]");
+                if (shop[i][j].getDeck().size() == 0)
+                    out.print("****\t");
+                else {
+                    switch (shop[i][j].getFirst().getColour()) {
+                        case GREEN:
+                            out.print(GREEN);
+                            break;
+                        case YELLOW:
+                            out.print(YELLOW);
+                            break;
+                        case BLUE:
+                            out.print(BLUE);
+                            break;
+                        case PURPLE:
+                            out.print(PURPLE);
+                            break;
+                    }
+                    if (shop[i][j].getFirst().getId() >= 10)
+                        out.print("[" + shop[i][j].getFirst().getId() + "]");
+                    else
+                        out.print("[ " + shop[i][j].getFirst().getId() + "]");
 
-                for (int k = 0; k < shop[i][j].getDeck().size() - 1; k++)
-                    out.print("]");
-                out.print("\t" + RESET);
+                    for (int k = 0; k < shop[i][j].getDeck().size() - 1; k++)
+                        out.print("]");
+                    out.print("\t" + RESET);
+                }
             }
             out.print("\n");
         }

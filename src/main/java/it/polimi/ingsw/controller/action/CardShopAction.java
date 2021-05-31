@@ -49,15 +49,16 @@ public class CardShopAction extends Action {
         if(checkIfPossible(chosen.getLevel(),deckPosition, player) && chosen.getCost().equals(ResourceCount.getTotal(storageCount,chestCount))){
             chosen = shop.buy(row,column,player,turnManager);
             player.addDevCards(chosen,deckPosition);
-
+            int storageToInt = ResourceCount.resCountToInt(storageCount);
+            int chestToInt = ResourceCount.resCountToInt(chestCount);
             for (LeaderCard l: player.getLeaderCards()) {
                 Resource res = l.getSpecialAbility().getResourceType();
-                if(storageCount != null)
+                if(storageToInt != 0)
                     if(res.get(storageCount) != 0)
                         l.getSpecialAbility().useDiscountAbility(storageCount);
-                else if(chestCount != null)
-                    if(res.get(chestCount) != 0)
-                        l.getSpecialAbility().useDiscountAbility(chestCount);
+                    else if (chestToInt != 0)
+                        if(res.get(chestCount) != 0)
+                            l.getSpecialAbility().useDiscountAbility(chestCount);
             }
             deleteRes(storageCount,chestCount,player);
             return true;

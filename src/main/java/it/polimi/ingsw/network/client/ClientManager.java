@@ -451,8 +451,9 @@ public class ClientManager {
         Deck[][] shop = gameStatus.getShop().getGrid();
         for(int i=0;i<3;i++){
             for(int j=0;j<4;j++){
-                if(canBuySpecificCard(shop[i][j].getFirst().getId()))
-                    return true;
+                if(shop[i][j].getDeck().size()>0)
+                    if(canBuySpecificCard(shop[i][j].getFirst().getId()))
+                        return true;
             }
         }
         return false;
@@ -505,7 +506,8 @@ public class ClientManager {
         Deck[][] shop = gameStatus.getShop().getGrid();
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 4; j++)
-                firstCardID.add(shop[i][j].getFirst().getId());
+                if(shop[i][j].getDeck().size() >0)
+                    firstCardID.add(shop[i][j].getFirst().getId());
         return firstCardID;
     }
 
@@ -521,7 +523,7 @@ public class ClientManager {
         int row = 0,column = 0;
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < 4; j++)
-                if(shop[i][j].getFirst().getId() == id){
+                if(shop[i][j].getDeck().size() > 0 && shop[i][j].getFirst().getId() == id){
                     row = i;
                     column = j;
                     break;
