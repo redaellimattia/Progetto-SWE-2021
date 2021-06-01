@@ -16,20 +16,15 @@ public class GuiMain extends Application {
         GuiManager guiManager = GuiManager.getInstance();
         guiManager.setStage(stage);
         guiManager.setCurrentScene(stage.getScene());
-        guiManager.setLayout("/fxml/landingPage.fxml");
-        stage.show();
+        guiManager.setLayout("landingPage.fxml");
         stage.setTitle("Masters Of Renaissance");
         stage.setResizable(false);
+        stage.show();
 
         stage.setOnCloseRequest((windowEvent) -> {
             Platform.exit();
             System.exit(0);
         });
     }
-
-    public static void main(String[] args) {
-        launch();
-    }
-
 }
 

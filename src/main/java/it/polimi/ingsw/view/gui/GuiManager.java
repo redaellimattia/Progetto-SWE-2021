@@ -44,9 +44,9 @@ public class GuiManager implements View {
     }
 
 
-    public void setLayout(String fxmlPath){
+    public void setLayout(String fileName){
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(GuiManager.class.getResource(fxmlPath));
+        loader.setLocation(GuiManager.class.getResource("/fxml/"+fileName));
         Pane pane;
         try {
             pane = loader.load();
@@ -54,7 +54,7 @@ public class GuiManager implements View {
             this.currentController = loader.getController();
             currentController.setClientManager(this.clientManager);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("IOException while setting layout: "+e.getMessage());
         }
     }
     @Override
