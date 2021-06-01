@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="it.polimi.ingsw.view.gui.controllers.JoinedLobbyController" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fontSmoothingType="LCD" layoutX="434.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joined Lobby" AnchorPane.leftAnchor="434.0" AnchorPane.rightAnchor="433.587890625" AnchorPane.topAnchor="24.650390625">
+         <font>
+            <Font name="Roboto Light" size="70.0" />
+         </font>
+      </Text>
+      <ProgressBar layoutX="540.0" layoutY="140.0" prefWidth="200.0" progress="0.0" />
+      <Label layoutX="589.0" layoutY="117.0" text="Log in progress">
+         <font>
+            <Font name="Roboto Light" size="15.0" />
+         </font>
+      </Label>
+      <ListView layoutX="540.0" layoutY="223.0" prefHeight="200.0" prefWidth="200.0" />
+      <Label layoutX="616.0" layoutY="196.0" text="Players">
+         <font>
+            <Font name="Roboto Light" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

@@ -16,7 +16,7 @@ public class GuiMain extends Application {
         GuiManager guiManager = GuiManager.getInstance();
         guiManager.setStage(stage);
         guiManager.setCurrentScene(stage.getScene());
-        guiManager.setLayout("/fxml/landingPage.fxml");
+        guiManager.setLayout("/fxml/joinedLobby.fxml");
         stage.show();
         stage.setTitle("Masters Of Renaissance");
         stage.setFullScreen(true);
