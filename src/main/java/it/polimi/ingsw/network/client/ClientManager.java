@@ -43,8 +43,9 @@ public class ClientManager {
             this.view = new Cli(this);
         else
             this.view = new GuiManager(this);
-        view.start();
         connection(address,socketPort);
+        view.start();
+
         this.gameStarted = false;
         this.leaderCardProductionDone = new boolean[2];
         this.devCardProductionDone = new boolean[3];

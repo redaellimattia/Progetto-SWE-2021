@@ -4,17 +4,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-fx:controller="it.polimi.ingsw.view.gui.controllers.LandingPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controllers.LandingPageController">
    <children>
-      <TextField layoutX="543.0" layoutY="198.0" prefHeight="25.0" prefWidth="196.0" />
-      <TextField layoutX="542.0" layoutY="266.0" prefHeight="25.0" prefWidth="196.0" />
+      <TextField fx:id="nicknameField" layoutX="543.0" layoutY="198.0" prefHeight="25.0" prefWidth="196.0" />
+      <TextField fx:id="numberOfPlayersField" layoutX="542.0" layoutY="266.0" prefHeight="25.0" prefWidth="196.0" />
       <Label layoutX="542.0" layoutY="181.0" text="Insert a Nickname:" />
       <Label layoutX="541.0" layoutY="249.0" text="Insert the number of players: " />
-      <ListView layoutX="541.0" layoutY="318.0" prefHeight="200.0" prefWidth="196.0" />
+      <ListView fx:id="lobbyList" layoutX="541.0" layoutY="318.0" prefHeight="200.0" prefWidth="196.0" />
       <Label layoutX="538.0" layoutY="301.0" text="Select a Lobby to join it!" />
-      <Button layoutX="590.0" layoutY="549.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="98.0" text="Create Game" />
+      <Button fx:id="createButton" layoutX="590.0" layoutY="549.0" mnemonicParsing="false" onAction="#onCreateButtonClick" prefHeight="61.0" prefWidth="98.0" text="Create Game" />
       <Text layoutX="389.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Masters Of Renaissance">
          <font>
             <Font size="48.0" />

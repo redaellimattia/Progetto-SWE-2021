@@ -8,4 +8,6 @@ public abstract class GuiController {
     public void setClientManager(ClientManager clientManager){
         this.clientManager = clientManager;
     }
+    public ClientManager getClientManager(){return  this.clientManager;}
+    public void initialize(){}
 }

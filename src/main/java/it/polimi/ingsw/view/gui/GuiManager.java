@@ -22,6 +22,7 @@ public class GuiManager implements View {
     private Stage stage;
 
 
+
     private static GuiManager instance;
 
 
@@ -42,6 +43,7 @@ public class GuiManager implements View {
         this.currentScene = scene;
     }
 
+
     public void setLayout(String fxmlPath){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(GuiManager.class.getResource(fxmlPath));
@@ -50,6 +52,7 @@ public class GuiManager implements View {
             pane = loader.load();
             currentScene.setRoot(pane);
             this.currentController = loader.getController();
+            currentController.setClientManager(this.clientManager);
         } catch (IOException e) {
             e.printStackTrace();
         }
