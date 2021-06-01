@@ -19,7 +19,7 @@ public class GuiMain extends Application {
         guiManager.setLayout("/fxml/landingPage.fxml");
         stage.show();
         stage.setTitle("Masters Of Renaissance");
-        stage.setFullScreen(true);
+        stage.setResizable(false);
 
         stage.setOnCloseRequest((windowEvent) -> {
             Platform.exit();
