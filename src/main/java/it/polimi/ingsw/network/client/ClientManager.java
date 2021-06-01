@@ -1,10 +1,6 @@
 package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
-import it.polimi.ingsw.controller.action.marketAction.GetResource;
-import it.polimi.ingsw.exceptions.CounterTopOverloadException;
-import it.polimi.ingsw.exceptions.action.NoAdditionalDepositException;
-import it.polimi.ingsw.exceptions.action.WrongCounterTopException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
@@ -16,16 +12,9 @@ import it.polimi.ingsw.network.messages.clientMessages.actionMessages.*;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
 import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.View;
-import it.polimi.ingsw.view.gui.Gui;
-import org.w3c.dom.css.Counter;
+import it.polimi.ingsw.view.gui.GuiManager;
 
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 public class ClientManager {
     private String nickname;
@@ -53,7 +42,7 @@ public class ClientManager {
         if(choice.equals("-cli"))
             this.view = new Cli(this);
         else
-            this.view = new Gui();
+            this.view = new GuiManager(this);
         view.start();
         connection(address,socketPort);
         this.gameStarted = false;
