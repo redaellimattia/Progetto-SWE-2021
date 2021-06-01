@@ -56,7 +56,8 @@ public class PingTimer {
      * This method will be called if the client has answered
      */
     public void hasResponded(){
-        waitResponse.cancel();
+        if(waitResponse!=null)
+            waitResponse.cancel();
     }
 
     /**
