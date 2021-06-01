@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.gui.controllers;
 
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.view.gui.GuiManager;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -34,7 +35,9 @@ public class LandingPageController extends GuiController{
         if(numberOfPlayers<1 || numberOfPlayers>4)
             createButton.setText("Insert a valid number of players");
         else{
-            clientManager.createGame(numberOfPlayers);
+            createButton.setDisable(true);
+            int finalNumberOfPlayers = numberOfPlayers;
+            Platform.runLater(()->clientManager.createGame(finalNumberOfPlayers));
         }
     }
 }
