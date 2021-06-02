@@ -1495,7 +1495,10 @@ public class Cli implements View {
     public void printMsg(String msg) {
         out.println(YELLOW + msg + RESET);
     }
-
+    @Override
+    public void failedConnection(String msg){
+        printMsg(msg);
+    }
     /**
      * used to clear the cli window.
      */
