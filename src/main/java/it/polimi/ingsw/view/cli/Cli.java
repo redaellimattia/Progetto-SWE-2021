@@ -631,6 +631,12 @@ public class Cli implements View {
         }while(input.equalsIgnoreCase("y"));
     }
 
+    /**
+     * Called if the user decides to take resources from market
+     * The user must type "row" or "col" and the number of the chosen row/col
+     * Then, for every marble the user will choose what to do with it or,
+     * if there is only one choice possible, the method will print what happened
+     */
     @Override
     public void takeResourcesFromMarket(){
         String input;
