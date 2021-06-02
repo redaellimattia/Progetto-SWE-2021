@@ -20,7 +20,7 @@ public class ClientManager {
     private String nickname;
     private ClientSocket clientSocket;
     private long serverLobbyID = -1;
-    private final View view;
+    private View view;
     private ClientGameStatus gameStatus;
     private boolean mainActionDone;
     private boolean isMyTurn;
@@ -31,7 +31,8 @@ public class ClientManager {
     private int lastIndex;
     private boolean[] leaderCardProductionDone;
     private boolean[] devCardProductionDone;
-
+    private String address;
+    private int socketPort;
     /**
      * Creates client Object, handles client connection and instantiates view
      * @param address address chosen
@@ -39,19 +40,30 @@ public class ClientManager {
      */
     public ClientManager(String address, int socketPort,String choice) {
         this.nickname = "defaultNickname";
-        if(choice.equals("-cli"))
+        this.address = address;
+        this.socketPort = socketPort;
+        if(choice.equals("-cli")) {
             this.view = new Cli(this);
+            connection(address,socketPort);
+        }
         else
             this.view = new GuiManager(this);
-        connection(address,socketPort);
         view.start();
 
         this.gameStarted = false;
         this.leaderCardProductionDone = new boolean[2];
         this.devCardProductionDone = new boolean[3];
     }
-
     //GETTERS
+
+    public String getAddress() {
+        return address;
+    }
+
+    public int getSocketPort() {
+        return socketPort;
+    }
+
     public ClientGameStatus getGameStatus() { return gameStatus;}
     public String getNickname() {
         return nickname;
@@ -130,7 +142,7 @@ public class ClientManager {
         clientSocket = new ClientSocket(address, socketPort,this);
         askLobbies();
         if(!clientSocket.isConnected())
-            view.printMsg("Failed to connect to: "+ address+":" + socketPort);
+            view.failedConnection("Failed to connect to: "+ address+":" + socketPort);
     }
 
     /**
