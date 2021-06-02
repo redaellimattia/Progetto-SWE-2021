@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controllers.MarketActionController">
+   <children>
+      <Text fontSmoothingType="LCD" layoutY="58.0" text="Take resources from Market" textAlignment="CENTER" wrappingWidth="1280.0">
+         <font>
+            <Font size="41.0" />
+         </font></Text>
+   </children>
+</AnchorPane>
