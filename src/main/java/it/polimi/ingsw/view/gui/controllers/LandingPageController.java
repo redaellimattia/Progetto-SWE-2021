@@ -48,7 +48,7 @@ public class LandingPageController extends GuiController{
         else{
             createButton.setDisable(true);
             int finalNumberOfPlayers = numberOfPlayers;
-            //Platform.runLater(()->clientManager.createGame(finalNumberOfPlayers));
+            Platform.runLater(()->clientManager.createGame(finalNumberOfPlayers));
             ArrayList<LeaderCard> leaderCards = new ArrayList<>();
             leaderCards.add(new LeaderCard(5,5,null,null));
             leaderCards.add(new LeaderCard(6,6,null,null));

@@ -8,22 +8,22 @@
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controllers.PreGameChoiceController">
    <children>
-      <ImageView onMouseClicked="#firstLeaderClick" fitHeight="320.0" fitWidth="220.0" layoutX="80.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="firstLeader" fitHeight="320.0" fitWidth="220.0" layoutX="80.0" layoutY="120.0" onMouseClicked="#firstLeaderClick" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image fx:id="firstLeaderImage" url="@../img/cards/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-64-1.png" />
+            <Image url="@../img/cards/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-64-1.png" />
          </image></ImageView>
-      <ImageView onMouseClicked="#secondLeaderClick" fitHeight="320.0" fitWidth="220.0" layoutX="380.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="secondLeader" fitHeight="320.0" fitWidth="220.0" layoutX="380.0" layoutY="120.0" onMouseClicked="#secondLeaderClick" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image fx:id="secondLeaderImage" url="@../img/cards/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-60-1.png" />
+            <Image url="@../img/cards/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-60-1.png" />
          </image></ImageView>
-      <ImageView onMouseClicked="#thirdLeaderClick" fitHeight="320.0" fitWidth="220.0" layoutX="680.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="thirdLeader" fitHeight="320.0" fitWidth="220.0" layoutX="680.0" layoutY="120.0" onMouseClicked="#thirdLeaderClick" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image fx:id="thirdLeaderImage" url="@../img/cards/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-62-1.png" />
+            <Image url="@../img/cards/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-62-1.png" />
          </image>
       </ImageView>
-      <ImageView onMouseClicked="#fourthLeaderClick" fitHeight="320.0" fitWidth="220.0" layoutX="980.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="fourthLeader" fitHeight="320.0" fitWidth="220.0" layoutX="980.0" layoutY="120.0" onMouseClicked="#fourthLeaderClick" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image fx:id="fourthLeaderImage" url="@../img/cards/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-63-1.png" />
+            <Image url="@../img/cards/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-63-1.png" />
          </image>
       </ImageView>
       <Text layoutX="483.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leader Choice">
@@ -69,29 +69,29 @@
                   <Image url="@../img/punchboard/servant.png" />
                </image>
             </ImageView>
-            <Label layoutX="70.0" layoutY="118.0" visible="false" onMouseClicked="#xCoinClicked" fx:id="xCoin">
+            <Label layoutX="70.0" layoutY="118.0" onMouseClicked="#xCoinClicked" visible="false" fx:id="xCoin">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="184.0" layoutY="118.0" visible="false" onMouseClicked="#xShieldClicked" fx:id="xShield">
+            <Label layoutX="184.0" layoutY="118.0" onMouseClicked="#xShieldClicked" visible="false" fx:id="xShield">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="310.0" layoutY="118.0" visible="false" onMouseClicked="#xServantClicked" fx:id="xServant">
+            <Label layoutX="310.0" layoutY="118.0" onMouseClicked="#xServantClicked" visible="false" fx:id="xServant">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="430.0" layoutY="118.0" visible="false" onMouseClicked="#xRockClicked" fx:id="xRock">
+            <Label layoutX="430.0" layoutY="118.0" onMouseClicked="#xRockClicked" visible="false" fx:id="xRock">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <Button layoutX="581.0" layoutY="650.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="116.0" text="Send Choices" />
+      <Button fx:id="sendChoicesButton" layoutX="581.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#sendChoices" prefHeight="50.0" prefWidth="116.0" text="Send Choices" />
       <AnchorPane fx:id="firstLeaderChosen" layoutX="165.0" layoutY="445.0" prefHeight="0.0" prefWidth="41.0" visible="false">
          <children>
             <Circle fill="#81ff1f" layoutX="21.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />

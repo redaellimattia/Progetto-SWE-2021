@@ -4,7 +4,9 @@ import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.view.gui.GuiManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,11 +19,21 @@ import java.util.ArrayList;
 public class PreGameChoiceController extends GuiController{
 
     @FXML
-    public ImageView shieldImage;
+    private ImageView shieldImage;
     @FXML
-    public ImageView servantImage;
+    private ImageView servantImage;
     @FXML
-    public ImageView rockImage;
+    private ImageView rockImage;
+    @FXML
+    private ImageView firstLeader;
+    @FXML
+    private ImageView secondLeader;
+    @FXML
+    private ImageView thirdLeader;
+    @FXML
+    private ImageView fourthLeader;
+    @FXML
+    private Button sendChoicesButton;
     @FXML
     private ImageView coinImage;
     @FXML
@@ -73,6 +85,10 @@ public class PreGameChoiceController extends GuiController{
     public void setPreGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources){
         this.availableLeaders = leaders;
         //SET LEADER CARDS IMAGES
+        //firstLeader.setImage(new Image(this.getClass().getResourceAsStream("/img/cards/front/"+leaders.get(0).getId()+".png")));
+        //secondLeader.setImage(new Image(this.getClass().getResourceAsStream("/img/cards/front/"+leaders.get(1).getId()+".png")));
+        //thirdLeader.setImage(new Image(this.getClass().getResourceAsStream("/img/cards/front/"+leaders.get(2).getId()+".png")));
+        //fourthLeader.setImage(new Image(this.getClass().getResourceAsStream("/img/cards/front/"+leaders.get(3).getId()+".png")));
         this.numberOfResources = numberOfResources;
         switch(numberOfResources){
             case 0: resourcesBox.setVisible(false);
@@ -215,5 +231,42 @@ public class PreGameChoiceController extends GuiController{
                 firstLeaderChosen.setVisible(true);
             }
         }
+    }
+
+    @FXML
+    public void sendChoices(MouseEvent mouseEvent) {
+        if(ResourceCount.resCountToInt(chosenResources)!=numberOfResources||chosenLeaderCards.size()<2)
+            //ERROR
+            sendChoicesButton.setText("Invalid choices");
+        else{
+            sendChoicesButton.setDisable(true);
+            Platform.runLater(()->guiManager.getClientManager().preGameChoice(getResources(),chosenLeaderCards));
+            //UPDATE VIEW?
+        }
+
+    }
+
+    private ArrayList<Resource> getResources(){
+        ArrayList<Resource> resources = new ArrayList<>();
+        int takenRes = 0;
+        while(takenRes!=2){
+            if(chosenResources.getCoins()>0) {
+                resources.add(Resource.COIN);
+                takenRes++;
+            }
+            if(chosenResources.getRocks()>0) {
+                resources.add(Resource.ROCK);
+                takenRes++;
+            }
+            if(chosenResources.getServants()>0) {
+                resources.add(Resource.SERVANT);
+                takenRes++;
+            }
+            if(chosenResources.getShields()>0) {
+                resources.add(Resource.SHIELD);
+                takenRes++;
+            }
+        }
+        return resources;
     }
 }
