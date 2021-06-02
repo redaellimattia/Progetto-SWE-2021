@@ -31,6 +31,15 @@ public class ConvertWhiteMarble extends AtomicMarketAction {
         this.storageRow = storageRow;
     }
 
+    /**
+     * Checks if the action is legal
+     * @param marble the marble that is being converted (should be white)
+     * @param player the player performing the action
+     * @param tempStorage the storage copy updated during checks on different marbles, to perform controls without updating the real storage
+     * @param tempArrayDeposit the deposit array copy updated during checks on different marbles, to perform controls without updating the real deposits
+     * @return true if the action is legal
+     *         false if the action is illegal
+     */
     @Override
     public boolean checkAction(MarketMarble marble, PlayerDashboard player, Storage tempStorage, ArrayList<CounterTop> tempArrayDeposit) {
         if(marble.getColour() != MarbleColour.WHITE) {
@@ -48,6 +57,7 @@ public class ConvertWhiteMarble extends AtomicMarketAction {
         }
         return checkStore(tempStorage, tempArrayDeposit, resource, storageRow);
     }
+
     /**
      *
      * @param marble the marble to convert

@@ -26,6 +26,15 @@ public class GetResource extends AtomicMarketAction {
     }
 
 
+    /**
+     * Checks if the action is legal
+     * @param marble the marble from witch take a resource
+     * @param player the player performing the action
+     * @param tempStorage the storage copy updated during checks on different marbles, to perform controls without updating the real storage
+     * @param tempArrayDeposit the deposit array copy updated during checks on different marbles, to perform controls without updating the real deposits
+     * @return true if the action is legal
+     *         false if the action is illegal
+     */
     @Override
     public boolean checkAction(MarketMarble marble, PlayerDashboard player, Storage tempStorage, ArrayList<CounterTop> tempArrayDeposit){
         if(marble.getColour() == MarbleColour.WHITE) {
@@ -42,7 +51,7 @@ public class GetResource extends AtomicMarketAction {
      *
      * @param marble the marble to convert
      * @param player the player performing the action
-     * @throws WrongMarbleException if the action was illegal
+     * @return true if ended correctly
      */
     @Override
     public boolean useAction(MarketMarble marble, PlayerDashboard player, GameManager gameManager) {
