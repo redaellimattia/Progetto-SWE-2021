@@ -55,6 +55,8 @@ public class PreGameChoiceController extends GuiController{
     
     private GuiManager guiManager;
     private int numberOfResources;
+    private ArrayList<LeaderCard> availableLeaders;
+    private ArrayList<LeaderCard> chosenLeaderCards;
     private ResourceCount chosenResources;
 
 
@@ -64,10 +66,13 @@ public class PreGameChoiceController extends GuiController{
     public void initialize() {
         guiManager = GuiManager.getInstance();
         chosenResources = new ResourceCount(0,0,0,0,0);
+        chosenLeaderCards = new ArrayList<>();
     }
 
     @Override
     public void setPreGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources){
+        this.availableLeaders = leaders;
+        //SET LEADER CARDS IMAGES
         this.numberOfResources = numberOfResources;
         switch(numberOfResources){
             case 0: resourcesBox.setVisible(false);
@@ -80,23 +85,25 @@ public class PreGameChoiceController extends GuiController{
         }
     }
 
+    //When a resource image is clicked, add 1 resource
     @FXML
     public void coinClicked(MouseEvent mouseEvent) {
         addResource(Resource.COIN,xCoin);
     }
-
+    @FXML
     public void rockClicked(MouseEvent mouseEvent) {
         addResource(Resource.ROCK,xRock);
     }
-
+    @FXML
     public void shieldClicked(MouseEvent mouseEvent) {
         addResource(Resource.SHIELD,xShield);
     }
-
+    @FXML
     public void servantClicked(MouseEvent mouseEvent) {
         addResource(Resource.SERVANT,xServant);
     }
 
+    @FXML
     private void addResource(Resource res, Label xLabel){
         if(numberOfResources>ResourceCount.resCountToInt(chosenResources)){
             res.add(chosenResources,1);
@@ -111,6 +118,7 @@ public class PreGameChoiceController extends GuiController{
 
     }
 
+    @FXML
     private void disableResourcesClick(){
         coinImage.setDisable(true);
         shieldImage.setDisable(true);
@@ -118,6 +126,7 @@ public class PreGameChoiceController extends GuiController{
         rockImage.setDisable(true);
     }
 
+    @FXML
     private void enableResourcesClick(){
         coinImage.setDisable(false);
         shieldImage.setDisable(false);
@@ -125,6 +134,7 @@ public class PreGameChoiceController extends GuiController{
         rockImage.setDisable(false);
     }
 
+    @FXML
     private void removeResource(Resource res, Label xLabel){
         res.remove(chosenResources,1);
         if(res.get(chosenResources)==0) {
@@ -136,16 +146,74 @@ public class PreGameChoiceController extends GuiController{
         enableResourcesClick();
     }
 
+    //When a label is clicked, remove 1 resource
+    @FXML
     public void xCoinClicked(MouseEvent mouseEvent) {
         removeResource(Resource.COIN,xCoin);
     }
+    @FXML
     public void xRockClicked(MouseEvent mouseEvent) {
         removeResource(Resource.ROCK,xRock);
     }
+    @FXML
     public void xShieldClicked(MouseEvent mouseEvent) {
         removeResource(Resource.SHIELD,xShield);
     }
+    @FXML
     public void xServantClicked(MouseEvent mouseEvent) {
         removeResource(Resource.SERVANT,xServant);
+    }
+
+    @FXML
+    public void fourthLeaderClick(MouseEvent mouseEvent) {
+        if(fourthLeaderChosen.isVisible()){ //Remove leader
+            chosenLeaderCards.remove(availableLeaders.get(3));
+            fourthLeaderChosen.setVisible(false);
+        }
+        else {
+            if(chosenLeaderCards.size()<2) {
+                this.chosenLeaderCards.add(availableLeaders.get(3));
+                fourthLeaderChosen.setVisible(true);
+            }
+        }
+    }
+    @FXML
+    public void thirdLeaderClick(MouseEvent mouseEvent) {
+        if(thirdLeaderChosen.isVisible()){ //Remove leader
+            chosenLeaderCards.remove(availableLeaders.get(2));
+            thirdLeaderChosen.setVisible(false);
+        }
+        else {
+            if(chosenLeaderCards.size()<2) {
+                this.chosenLeaderCards.add(availableLeaders.get(2));
+                thirdLeaderChosen.setVisible(true);
+            }
+        }
+    }
+    @FXML
+    public void secondLeaderClick(MouseEvent mouseEvent) {
+        if(secondLeaderChosen.isVisible()){ //Remove leader
+            chosenLeaderCards.remove(availableLeaders.get(1));
+            secondLeaderChosen.setVisible(false);
+        }
+        else {
+            if(chosenLeaderCards.size()<2) {
+                this.chosenLeaderCards.add(availableLeaders.get(1));
+                secondLeaderChosen.setVisible(true);
+            }
+        }
+    }
+    @FXML
+    public void firstLeaderClick(MouseEvent mouseEvent) {
+        if(firstLeaderChosen.isVisible()){ //Remove leader
+            chosenLeaderCards.remove(availableLeaders.get(0));
+            firstLeaderChosen.setVisible(false);
+        }
+        else {
+            if(chosenLeaderCards.size()<2) {
+                this.chosenLeaderCards.add(availableLeaders.get(0));
+                firstLeaderChosen.setVisible(true);
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.controllers;
 
+import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 import it.polimi.ingsw.view.gui.GuiManager;
@@ -48,7 +49,12 @@ public class LandingPageController extends GuiController{
             createButton.setDisable(true);
             int finalNumberOfPlayers = numberOfPlayers;
             //Platform.runLater(()->clientManager.createGame(finalNumberOfPlayers));
-            guiManager.preGameChoice(null,2); //TESTING
+            ArrayList<LeaderCard> leaderCards = new ArrayList<>();
+            leaderCards.add(new LeaderCard(5,5,null,null));
+            leaderCards.add(new LeaderCard(6,6,null,null));
+            leaderCards.add(new LeaderCard(7,7,null,null));
+            leaderCards.add(new LeaderCard(8,8,null,null));
+            guiManager.preGameChoice(leaderCards,2); //TESTING
         }
     }
 
