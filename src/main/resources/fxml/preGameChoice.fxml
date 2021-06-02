@@ -49,42 +49,42 @@
                   <Font name="Roboto Light" size="29.0" />
                </font>
             </Text>
-            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="50.0" layoutY="59.0" onMouseClicked="#coinClicked" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="coinImage" fitHeight="60.0" fitWidth="60.0" layoutX="50.0" layoutY="59.0" onMouseClicked="#coinClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/punchboard/coin.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="410.0" layoutY="56.0" onMouseClicked="#rockClicked" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="rockImage" fitHeight="60.0" fitWidth="60.0" layoutX="410.0" layoutY="56.0" onMouseClicked="#rockClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/punchboard/stone.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="168.0" layoutY="55.0" onMouseClicked="#shieldClicked" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="shieldImage" fitHeight="60.0" fitWidth="60.0" layoutX="168.0" layoutY="55.0" onMouseClicked="#shieldClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/punchboard/shield.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="290.0" layoutY="58.0" onMouseClicked="#servantClicked" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="servantImage" fitHeight="60.0" fitWidth="60.0" layoutX="290.0" layoutY="58.0" onMouseClicked="#servantClicked" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/punchboard/servant.png" />
                </image>
             </ImageView>
-            <Label layoutX="70.0" layoutY="118.0" visible="false" fx:id="xCoin">
+            <Label layoutX="70.0" layoutY="118.0" visible="false" onMouseClicked="#xCoinClicked" fx:id="xCoin">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="184.0" layoutY="118.0" visible="false" fx:id="xShield">
+            <Label layoutX="184.0" layoutY="118.0" visible="false" onMouseClicked="#xShieldClicked" fx:id="xShield">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="310.0" layoutY="118.0" visible="false" fx:id="xServant">
+            <Label layoutX="310.0" layoutY="118.0" visible="false" onMouseClicked="#xServantClicked" fx:id="xServant">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="430.0" layoutY="118.0" visible="false" fx:id="xRock">
+            <Label layoutX="430.0" layoutY="118.0" visible="false" onMouseClicked="#xRockClicked" fx:id="xRock">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>

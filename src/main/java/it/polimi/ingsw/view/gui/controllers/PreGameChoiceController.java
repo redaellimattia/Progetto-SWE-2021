@@ -7,6 +7,7 @@ import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -15,6 +16,14 @@ import java.util.ArrayList;
 
 public class PreGameChoiceController extends GuiController{
 
+    @FXML
+    public ImageView shieldImage;
+    @FXML
+    public ImageView servantImage;
+    @FXML
+    public ImageView rockImage;
+    @FXML
+    private ImageView coinImage;
     @FXML
     private Text chooseResourcesText;
     @FXML
@@ -93,7 +102,50 @@ public class PreGameChoiceController extends GuiController{
             res.add(chosenResources,1);
             if(!xLabel.isVisible())
                 xLabel.setVisible(true);
+            if(xLabel.isDisable())
+                xLabel.setDisable(false);
             xLabel.setText("x"+res.get(chosenResources));
+            if(numberOfResources==ResourceCount.resCountToInt(chosenResources))
+                disableResourcesClick();
         }
+
+    }
+
+    private void disableResourcesClick(){
+        coinImage.setDisable(true);
+        shieldImage.setDisable(true);
+        servantImage.setDisable(true);
+        rockImage.setDisable(true);
+    }
+
+    private void enableResourcesClick(){
+        coinImage.setDisable(false);
+        shieldImage.setDisable(false);
+        servantImage.setDisable(false);
+        rockImage.setDisable(false);
+    }
+
+    private void removeResource(Resource res, Label xLabel){
+        res.remove(chosenResources,1);
+        if(res.get(chosenResources)==0) {
+            xLabel.setText("");
+            xLabel.setDisable(true);
+        }
+        else
+            xLabel.setText("x"+res.get(chosenResources));
+        enableResourcesClick();
+    }
+
+    public void xCoinClicked(MouseEvent mouseEvent) {
+        removeResource(Resource.COIN,xCoin);
+    }
+    public void xRockClicked(MouseEvent mouseEvent) {
+        removeResource(Resource.ROCK,xRock);
+    }
+    public void xShieldClicked(MouseEvent mouseEvent) {
+        removeResource(Resource.SHIELD,xShield);
+    }
+    public void xServantClicked(MouseEvent mouseEvent) {
+        removeResource(Resource.SERVANT,xServant);
     }
 }
