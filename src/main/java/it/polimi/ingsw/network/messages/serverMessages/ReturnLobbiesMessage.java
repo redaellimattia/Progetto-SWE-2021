@@ -38,6 +38,11 @@ public class ReturnLobbiesMessage extends ServerMessage {
         public ArrayList<String> getPlayers() {
             return players;
         }
+
+        @Override
+        public String toString(){
+            return "Players: " + this.getNumberOfPlayers() +"  "+this.getPlayers();
+        }
     }
 
     /**
