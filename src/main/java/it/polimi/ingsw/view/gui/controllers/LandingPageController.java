@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 public class LandingPageController extends GuiController{
     @FXML
+    private Label error;
+    @FXML
     private Label listLabel;
     @FXML
     private Button createButton;
