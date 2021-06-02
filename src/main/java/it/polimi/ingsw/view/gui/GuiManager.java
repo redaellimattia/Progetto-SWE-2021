@@ -83,7 +83,7 @@ public class GuiManager implements View {
     @Override
     public void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies) {
         setLayout("landingPage.fxml");
-        getCurrentController().setLobbies(availableGameLobbies);
+        currentController.setLobbies(availableGameLobbies);
         Platform.runLater(()->stage.setScene(currentScene));
     }
 
@@ -104,7 +104,9 @@ public class GuiManager implements View {
 
     @Override
     public void preGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources) {
-
+        setLayout("preGameChoice.fxml");
+        currentController.setPreGameChoice(leaders,numberOfResources);
+        Platform.runLater(()->stage.setScene(currentScene));
     }
 
     @Override

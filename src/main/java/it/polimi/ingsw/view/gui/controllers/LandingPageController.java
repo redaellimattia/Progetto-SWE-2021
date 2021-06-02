@@ -48,6 +48,7 @@ public class LandingPageController extends GuiController{
             createButton.setDisable(true);
             int finalNumberOfPlayers = numberOfPlayers;
             Platform.runLater(()->clientManager.createGame(finalNumberOfPlayers));
+            //guiManager.preGameChoice(null,2); //TESTING
         }
     }
 

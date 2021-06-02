@@ -10,20 +10,20 @@
    <children>
       <ImageView fitHeight="320.0" fitWidth="220.0" layoutX="80.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/cards/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-64-1.png" />
+            <Image fx:id="firstLeaderImage" url="@../img/cards/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-64-1.png" />
          </image></ImageView>
       <ImageView fitHeight="320.0" fitWidth="220.0" layoutX="380.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/cards/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-60-1.png" />
+            <Image fx:id="secondLeaderImage" url="@../img/cards/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-60-1.png" />
          </image></ImageView>
       <ImageView fitHeight="320.0" fitWidth="220.0" layoutX="680.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/cards/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-62-1.png" />
+            <Image fx:id="thirdLeaderImage" url="@../img/cards/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-62-1.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="320.0" fitWidth="220.0" layoutX="980.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/cards/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-63-1.png" />
+            <Image fx:id="fourthLeaderImage" url="@../img/cards/front/Masters%20of%20Renaissance_Cards_FRONT_3mmBleed_1-63-1.png" />
          </image>
       </ImageView>
       <Text layoutX="483.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leader Choice">
@@ -42,9 +42,9 @@
          </font>
       </Text>
       <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-      <AnchorPane layoutX="380.0" layoutY="488.0" prefHeight="151.0" prefWidth="520.0">
+      <AnchorPane fx:id="resourcesBox" layoutX="380.0" layoutY="488.0" prefHeight="151.0" prefWidth="520.0">
          <children>
-            <Text layoutX="128.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose 2 Resources">
+            <Text fx:id="chooseResourcesText" layoutX="128.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose 2 Resources">
                <font>
                   <Font name="Roboto Light" size="29.0" />
                </font>
@@ -69,22 +69,22 @@
                   <Image url="@../img/punchboard/servant.png" />
                </image>
             </ImageView>
-            <Label layoutX="70.0" layoutY="118.0" text="x1">
+            <Label layoutX="70.0" layoutY="118.0" visible="false" fx:id="xCoin">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="184.0" layoutY="118.0" text="x1">
+            <Label layoutX="184.0" layoutY="118.0" visible="false" fx:id="xRock">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="310.0" layoutY="118.0" text="x1">
+            <Label layoutX="310.0" layoutY="118.0" visible="false" fx:id="xShield">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="430.0" layoutY="118.0" text="x1">
+            <Label layoutX="430.0" layoutY="118.0" visible="false" fx:id="xServant">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>
@@ -92,7 +92,7 @@
          </children>
       </AnchorPane>
       <Button layoutX="581.0" layoutY="650.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="116.0" text="Send Choices" />
-      <AnchorPane layoutX="165.0" layoutY="445.0" prefHeight="0.0" prefWidth="41.0">
+      <AnchorPane fx:id="firstLeaderChosen" layoutX="165.0" layoutY="445.0" prefHeight="0.0" prefWidth="41.0">
          <children>
             <Circle fill="#81ff1f" layoutX="21.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
             <Text layoutX="12.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
@@ -102,7 +102,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="465.0" layoutY="445.0" prefHeight="0.0" prefWidth="41.0">
+      <AnchorPane fx:id="secondLeaderChosen" layoutX="465.0" layoutY="445.0" prefHeight="0.0" prefWidth="41.0">
          <children>
             <Circle fill="#81ff1f" layoutX="21.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
             <Text layoutX="12.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
@@ -112,7 +112,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="765.0" layoutY="445.0" prefHeight="0.0" prefWidth="41.0">
+      <AnchorPane fx:id="thirdLeaderChosen" layoutX="765.0" layoutY="445.0" prefHeight="0.0" prefWidth="41.0">
          <children>
             <Circle fill="#81ff1f" layoutX="21.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
             <Text layoutX="12.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
@@ -122,7 +122,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="1065.0" layoutY="445.0" prefHeight="0.0" prefWidth="41.0">
+      <AnchorPane fx:id="fourthLeaderChosen" layoutX="1065.0" layoutY="445.0" prefHeight="0.0" prefWidth="41.0">
          <children>
             <Circle fill="#81ff1f" layoutX="21.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
             <Text layoutX="12.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
