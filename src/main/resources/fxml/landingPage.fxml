@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controllers.LandingPageController">
    <children>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../javaFX/background.jpg" />
+         </image></ImageView>
       <TextField fx:id="nicknameField" layoutX="543.0" layoutY="198.0" prefHeight="25.0" prefWidth="196.0" />
       <TextField fx:id="numberOfPlayersField" layoutX="542.0" layoutY="266.0" prefHeight="25.0" prefWidth="196.0" />
-      <Label layoutX="542.0" layoutY="181.0" text="Insert a Nickname:" />
-      <Label layoutX="541.0" layoutY="249.0" text="Insert the number of players: " />
+      <Label layoutX="543.0" layoutY="181.0" text="Insert a Nickname:" />
+      <Label layoutX="543.0" layoutY="249.0" text="Insert the number of players: " />
       <ListView fx:id="lobbyList" layoutX="541.0" layoutY="318.0" prefHeight="200.0" prefWidth="196.0" />
-      <Label layoutX="538.0" layoutY="301.0" text="Select a Lobby to join it!" />
+      <Label fx:id="listLabel" layoutX="543.0" layoutY="301.0" text="Select a Lobby to join it!" />
       <Button fx:id="createButton" layoutX="590.0" layoutY="549.0" mnemonicParsing="false" onAction="#onCreateButtonClick" prefHeight="61.0" prefWidth="98.0" text="Create Game" />
-      <Text layoutX="389.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Masters Of Renaissance">
+      <Text layoutX="389.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Masters Of Renaissance" visible="false">
          <font>
             <Font size="48.0" />
          </font>
       </Text>
+      <Label fx:id="error" layoutX="623.0" layoutY="628.0" text="Label" textFill="#e40c0c">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

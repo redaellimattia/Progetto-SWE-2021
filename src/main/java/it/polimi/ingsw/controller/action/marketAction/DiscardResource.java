@@ -13,6 +13,15 @@ public class DiscardResource extends AtomicMarketAction {
     public DiscardResource() {
     }
 
+    /**
+     * Checks if the action is legal
+     * @param marble the marble to discard
+     * @param player the player performing the action
+     * @param tempStorage
+     *
+     * @return true if the action is legal
+     *         false if the action is illegal
+     */
     @Override
     public boolean checkAction(MarketMarble marble, PlayerDashboard player, Storage tempStorage, ArrayList<CounterTop> tempArrayDeposit) {
         return true; // Discard is always possible
@@ -23,7 +32,6 @@ public class DiscardResource extends AtomicMarketAction {
      * @param marble the marble to discard
      * @param player the player performing the action
      * @return true if ended correctly
-     *         false if the action was illegal
      */
     @Override
     public boolean useAction(MarketMarble marble, PlayerDashboard player, GameManager gameManager) {

@@ -20,12 +20,22 @@ public abstract class AtomicMarketAction {
      * @param marble the marble involved in the action
      * @param player the player performing the action
      * @return true if ended correctly
-     *         false if the action was illegal
      */
     boolean useAction(MarketMarble marble, PlayerDashboard player, GameManager gameManager) {
         return false;
     }
 
+    /**
+     * Check if the action is legal, without updating the real user storage
+     * @param tempStorage the storage copy updated during checks on different marbles, to perform controls without updating the real storage
+     * @param tempArrayDeposit the deposit array copy updated during checks on different marbles, to perform controls without updating the real deposits
+     * @param res the resource the user wants to store
+     * @param row the number of the storage row in which the resource should be added
+     *            1-3: first row, second row, third row
+     *            4: special deposit (leader card ability)
+     * @return true if the action is legal
+     *         false if the action is illegal
+     */
     public boolean checkStore(Storage tempStorage, ArrayList<CounterTop> tempArrayDeposit, Resource res, int row) {
         switch(row) {
             case 1:
@@ -105,6 +115,7 @@ public abstract class AtomicMarketAction {
             //throw new IllegalArgumentException();
         }
     }
+
     /**
      *
      * @param player the player storing the resource
@@ -113,7 +124,6 @@ public abstract class AtomicMarketAction {
      *                   1-3: first row, second row, third row
      *                   4: special deposit (leader card ability)
      * @return true if ended correctly
-     *         false if the action was illegal
      */
     public boolean storeResource(PlayerDashboard player, Resource resource, int storageRow) throws CounterTopOverloadException {
         switch(storageRow) {

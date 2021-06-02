@@ -25,4 +25,5 @@ public interface View {
     void organizeResources();
     void vaticanReportActivated(int victoryPoints,ArrayList<String> nicknames);
     void clearView();
+    void failedConnection(String message);
 }

@@ -5,6 +5,7 @@ import it.polimi.ingsw.network.client.PlayerPoints;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.controllers.GuiController;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -31,6 +32,18 @@ public class GuiManager implements View {
         instance = this;
     }
 
+    public ClientManager getClientManager() {
+        return clientManager;
+    }
+
+    public GuiController getCurrentController() {
+        return currentController;
+    }
+
+    public Scene getCurrentScene() {
+        return currentScene;
+    }
+
     public static GuiManager getInstance() {
         return instance;
     }
@@ -44,19 +57,24 @@ public class GuiManager implements View {
     }
 
 
-    public void setLayout(String fxmlPath){
+    public void setLayout(String fileName){
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(GuiManager.class.getResource(fxmlPath));
+        loader.setLocation(GuiManager.class.getResource("/fxml/"+fileName));
         Pane pane;
         try {
             pane = loader.load();
             currentScene.setRoot(pane);
             this.currentController = loader.getController();
-            currentController.setClientManager(this.clientManager);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("IOException while setting layout: "+e.getMessage());
         }
     }
+
+    @Override
+    public void failedConnection(String msg){
+        stage.close();
+    }
+
     @Override
     public void start() {
         javafx.application.Application.launch(GuiMain.class);
@@ -64,7 +82,9 @@ public class GuiManager implements View {
 
     @Override
     public void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies) {
-
+        setLayout("landingPage.fxml");
+        getCurrentController().setLobbies(availableGameLobbies);
+        Platform.runLater(()->stage.setScene(currentScene));
     }
 
     @Override
