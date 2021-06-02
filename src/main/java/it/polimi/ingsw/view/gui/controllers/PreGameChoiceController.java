@@ -55,14 +55,6 @@ public class PreGameChoiceController extends GuiController{
     @FXML
     private Label xCoin;
     @FXML
-    private Image fourthLeaderImage;
-    @FXML
-    private Image thirdLeaderImage;
-    @FXML
-    private Image secondLeaderImage;
-    @FXML
-    private Image firstLeaderImage;
-    @FXML
     private AnchorPane resourcesBox;
     
     private GuiManager guiManager;
@@ -84,11 +76,10 @@ public class PreGameChoiceController extends GuiController{
     @Override
     public void setPreGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources){
         this.availableLeaders = leaders;
-        //SET LEADER CARDS IMAGES
-        //firstLeader.setImage(new Image(this.getClass().getResourceAsStream("/img/cards/front/"+leaders.get(0).getId()+".png")));
-        //secondLeader.setImage(new Image(this.getClass().getResourceAsStream("/img/cards/front/"+leaders.get(1).getId()+".png")));
-        //thirdLeader.setImage(new Image(this.getClass().getResourceAsStream("/img/cards/front/"+leaders.get(2).getId()+".png")));
-        //fourthLeader.setImage(new Image(this.getClass().getResourceAsStream("/img/cards/front/"+leaders.get(3).getId()+".png")));
+        firstLeader.setImage(new Image(this.getClass().getResourceAsStream("/img/cards/front/LeaderCards/"+leaders.get(0).getId()+".png")));
+        secondLeader.setImage(new Image(this.getClass().getResourceAsStream("/img/cards/front/LeaderCards/"+leaders.get(1).getId()+".png")));
+        thirdLeader.setImage(new Image(this.getClass().getResourceAsStream("/img/cards/front/LeaderCards/"+leaders.get(2).getId()+".png")));
+        fourthLeader.setImage(new Image(this.getClass().getResourceAsStream("/img/cards/front/LeaderCards/"+leaders.get(3).getId()+".png")));
         this.numberOfResources = numberOfResources;
         switch(numberOfResources){
             case 0: resourcesBox.setVisible(false);

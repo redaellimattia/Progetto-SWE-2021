@@ -66,8 +66,8 @@ public class LandingPageController extends GuiController{
             }
             /*ArrayList<LeaderCard> leaderCards = new ArrayList<>();
             leaderCards.add(new LeaderCard(5,5,null,null));
-            leaderCards.add(new LeaderCard(6,6,null,null));
-            leaderCards.add(new LeaderCard(7,7,null,null));
+            leaderCards.add(new LeaderCard(14,6,null,null));
+            leaderCards.add(new LeaderCard(1,7,null,null));
             leaderCards.add(new LeaderCard(8,8,null,null));
             guiManager.preGameChoice(leaderCards,2); //TESTING*/
         }
