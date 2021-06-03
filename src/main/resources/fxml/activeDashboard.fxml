@@ -14,73 +14,58 @@
       </ImageView>
       <AnchorPane layoutX="33.0" layoutY="34.0" prefHeight="162.0" prefWidth="950.0">
          <children>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="52.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="102.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="102.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="101.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="152.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="201.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="249.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="299.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="351.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="351.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="350.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="400.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="449.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="497.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="547.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="593.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="593.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="592.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="644.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="693.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="742.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="790.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="840.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="886.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath0" fitHeight="50.0" fitWidth="50.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath1" fitHeight="50.0" fitWidth="50.0" layoutX="52.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath2" fitHeight="50.0" fitWidth="50.0" layoutX="102.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath3" fitHeight="50.0" fitWidth="50.0" layoutX="102.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath4" fitHeight="50.0" fitWidth="50.0" layoutX="101.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath5" fitHeight="50.0" fitWidth="50.0" layoutX="152.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath6" fitHeight="50.0" fitWidth="50.0" layoutX="201.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath7" fitHeight="50.0" fitWidth="50.0" layoutX="249.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath8" fitHeight="50.0" fitWidth="50.0" layoutX="299.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath9" fitHeight="50.0" fitWidth="50.0" layoutX="351.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath10" fitHeight="50.0" fitWidth="50.0" layoutX="351.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath11" fitHeight="50.0" fitWidth="50.0" layoutX="350.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath12" fitHeight="50.0" fitWidth="50.0" layoutX="400.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath13" fitHeight="50.0" fitWidth="50.0" layoutX="449.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath14" fitHeight="50.0" fitWidth="50.0" layoutX="497.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath15" fitHeight="50.0" fitWidth="50.0" layoutX="547.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath16" fitHeight="50.0" fitWidth="50.0" layoutX="593.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath17" fitHeight="50.0" fitWidth="50.0" layoutX="593.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath18" fitHeight="50.0" fitWidth="50.0" layoutX="592.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath19" fitHeight="50.0" fitWidth="50.0" layoutX="644.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath20" fitHeight="50.0" fitWidth="50.0" layoutX="693.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath21" fitHeight="50.0" fitWidth="50.0" layoutX="742.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath22" fitHeight="50.0" fitWidth="50.0" layoutX="790.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath23" fitHeight="50.0" fitWidth="50.0" layoutX="840.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath24" fitHeight="50.0" fitWidth="50.0" layoutX="886.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>
-      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Market" />
-      <Button layoutX="79.0" layoutY="14.0" mnemonicParsing="false" text="Shop" />
-      <Button layoutX="31.0" layoutY="49.0" mnemonicParsing="false" text="Production" />
+      <Button fx:id="marketButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Market" />
+      <Button fx:id="shopButton" layoutX="79.0" layoutY="14.0" mnemonicParsing="false" text="Shop" />
+      <Button fx:id="productionButton" layoutX="31.0" layoutY="49.0" mnemonicParsing="false" text="Production" />
       <AnchorPane layoutX="28.0" layoutY="290.0">
          <children>
-            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="69.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="firstRowImage" fitHeight="60.0" fitWidth="60.0" layoutX="69.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/punchboard/coin2.png" />
                </image>
             </ImageView>
             <AnchorPane layoutX="30.0" layoutY="70.0">
                <children>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/punchboard/coin2.png" />
-                     </image>
+                  <ImageView fx:id="secondRowImage1" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="76.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/punchboard/coin2.png" />
-                     </image>
+                  <ImageView fx:id="secondRowImage2" fitHeight="60.0" fitWidth="60.0" layoutX="76.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
                </children>
             </AnchorPane>
             <AnchorPane layoutY="134.0">
                <children>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/punchboard/coin2.png" />
-                     </image>
+                  <ImageView fx:id="thirdRowImage1" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="67.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/punchboard/coin2.png" />
-                     </image>
+                  <ImageView fx:id="thirdRowImage2" fitHeight="60.0" fitWidth="60.0" layoutX="67.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
-                  <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="136.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/punchboard/coin2.png" />
-                     </image>
+                  <ImageView fx:id="thirdRowImage3" fitHeight="60.0" fitWidth="60.0" layoutX="136.0" pickOnBounds="true" preserveRatio="true">
                   </ImageView>
                </children>
             </AnchorPane>
@@ -88,58 +73,31 @@
       </AnchorPane>
       <AnchorPane layoutX="385.0" layoutY="306.0">
          <children>
-            <ImageView fitHeight="268.0" fitWidth="170.0" layoutX="19.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/cards/front/DevelopmentCards/2.png" />
-               </image>
+            <ImageView fx:id="firstPositionLevel1" fitHeight="268.0" fitWidth="170.0" layoutX="19.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
-            <ImageView fitHeight="268.0" fitWidth="170.0" layoutX="8.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/cards/front/DevelopmentCards/2.png" />
-               </image>
+            <ImageView fx:id="firstPositionLevel2" fitHeight="268.0" fitWidth="170.0" layoutX="8.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
-            <ImageView fitHeight="268.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/cards/front/DevelopmentCards/2.png" />
-               </image>
+            <ImageView fx:id="firstPositionLevel3" fitHeight="268.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="583.0" layoutY="305.0">
          <children>
-            <ImageView fitHeight="268.0" fitWidth="170.0" layoutX="19.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/cards/front/DevelopmentCards/2.png" />
-               </image>
+            <ImageView fx:id="secondPositionLevel1" fitHeight="268.0" fitWidth="170.0" layoutX="19.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
-            <ImageView fitHeight="268.0" fitWidth="170.0" layoutX="8.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/cards/front/DevelopmentCards/2.png" />
-               </image>
+            <ImageView fx:id="secondPositionLevel2" fitHeight="268.0" fitWidth="170.0" layoutX="8.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
-            <ImageView fitHeight="268.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/cards/front/DevelopmentCards/2.png" />
-               </image>
+            <ImageView fx:id="secondPositionLevel3" fitHeight="268.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
          </children>
       </AnchorPane>
       <AnchorPane layoutX="787.0" layoutY="306.0">
          <children>
-            <ImageView fitHeight="268.0" fitWidth="170.0" layoutX="19.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/cards/front/DevelopmentCards/2.png" />
-               </image>
+            <ImageView fx:id="thirdPositionLevel1" fitHeight="268.0" fitWidth="170.0" layoutX="19.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
-            <ImageView fitHeight="268.0" fitWidth="170.0" layoutX="8.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/cards/front/DevelopmentCards/2.png" />
-               </image>
+            <ImageView fx:id="thirdPositionLevel2" fitHeight="268.0" fitWidth="170.0" layoutX="8.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
-            <ImageView fitHeight="268.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/cards/front/DevelopmentCards/2.png" />
-               </image>
+            <ImageView fx:id="thirdPositionLevel3" fitHeight="268.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
          </children>
       </AnchorPane>
@@ -163,42 +121,36 @@
             <Image url="@../img/punchboard/stone2.png" />
          </image>
       </ImageView>
-      <Label layoutX="91.0" layoutY="555.0" style="-fx-background-color: white;" text="x1">
+      <Label fx:id="xCoin" layoutX="91.0" layoutY="555.0" style="-fx-background-color: white;">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="90.0" layoutY="616.0" style="-fx-background-color: white;" text="x1">
+      <Label fx:id="xShield" layoutX="90.0" layoutY="616.0" style="-fx-background-color: white;">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="182.0" layoutY="555.0" style="-fx-background-color: white;" text="x1">
+      <Label fx:id="xServant" layoutX="182.0" layoutY="555.0" style="-fx-background-color: white;">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label layoutX="182.0" layoutY="616.0" style="-fx-background-color: white;" text="x1">
+      <Label fx:id="xRock" layoutX="182.0" layoutY="616.0" style="-fx-background-color: white;">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
       <AnchorPane layoutX="1007.0" prefHeight="720.0" prefWidth="273.0">
          <children>
-            <ImageView fitHeight="268.0" fitWidth="170.0" layoutX="52.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/cards/front/LeaderCards/10.png" />
-               </image>
+            <ImageView fx:id="leaderCard1" fitHeight="268.0" fitWidth="170.0" layoutX="52.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
-            <ImageView fitHeight="268.0" fitWidth="170.0" layoutX="52.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/cards/front/LeaderCards/12.png" />
-               </image>
+            <ImageView fx:id="leaderCard2" fitHeight="268.0" fitWidth="170.0" layoutX="52.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
             <TextFlow layoutX="-1.0" layoutY="540.0" prefHeight="180.0" prefWidth="273.0" />
          </children>
       </AnchorPane>
-      <Button layoutX="923.0" layoutY="127.0" mnemonicParsing="false" text="End Turn" />
-      <Button layoutX="25.0" layoutY="84.0" mnemonicParsing="false" text="Other Players" />
+      <Button fx:id="endTurnButton" layoutX="923.0" layoutY="127.0" mnemonicParsing="false" text="End Turn" />
+      <Button fx:id="otherPlayersButton" layoutX="25.0" layoutY="84.0" mnemonicParsing="false" text="Other Players" />
    </children>
 </AnchorPane>
