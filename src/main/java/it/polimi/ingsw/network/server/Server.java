@@ -115,15 +115,15 @@ public class Server {
      * Creates a ReturnLobbiesMessage
      * @return a ReturnLobbiesMessage
      */
-    public static synchronized ReturnLobbiesMessage createReturnLobbiesMessage(){
+    public static synchronized ReturnLobbiesMessage createReturnLobbiesMessage(String message){
         if(lobbies.size()!=0) {
             ArrayList<GameLobby> gameLobbies = new ArrayList<>();
             for (Long key : lobbies.keySet())
                 gameLobbies.add(lobbies.get(key).getGameLobby());
-            return new ReturnLobbiesMessage(gameLobbies);
+            return new ReturnLobbiesMessage(gameLobbies,message);
         }
         else
-            return new ReturnLobbiesMessage(new ArrayList<>());
+            return new ReturnLobbiesMessage(new ArrayList<>(),message);
     }
 
     /**

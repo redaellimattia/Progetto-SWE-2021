@@ -28,10 +28,10 @@ public class CreateGameMessage extends ClientMessage {
         }
         else {
             if (getNickname().equals("Lorenzo il Magnifico"))
-                socketConnection.send(new PrintMessage("This username: [" + getNickname() + "] is already taken in SinglePlayer!").serialize());
+                socketConnection.send(Server.createReturnLobbiesMessage("This username: [" + getNickname() + "] is already taken in SinglePlayer!!").serialize());
             else
-                socketConnection.send(new PrintMessage("This username: [" + getNickname() + "] is already taken!").serialize());
-            socketConnection.send(Server.createReturnLobbiesMessage().serialize());
+                socketConnection.send(Server.createReturnLobbiesMessage("This username: [" + getNickname() + "] is already taken!").serialize());
+
         }
     }
 }

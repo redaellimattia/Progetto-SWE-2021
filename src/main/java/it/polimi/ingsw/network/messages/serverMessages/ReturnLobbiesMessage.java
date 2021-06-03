@@ -8,12 +8,14 @@ import java.util.ArrayList;
 
 public class ReturnLobbiesMessage extends ServerMessage {
     private final ArrayList<availableGameLobbies> availableGameLobbies;
+    private final String message;
 
-    public ReturnLobbiesMessage(ArrayList<GameLobby> gameLobbies) {
+    public ReturnLobbiesMessage(ArrayList<GameLobby> gameLobbies,String message) {
         super(ServerMessageType.LOBBIES);
         availableGameLobbies = new ArrayList<>();
         for(GameLobby g:gameLobbies)
             availableGameLobbies.add(new availableGameLobbies(g.getServerThreadID(), g.getNumberOfPlayers(), g.getPlayers()));
+        this.message = message;
     }
 
     public static class availableGameLobbies {
@@ -52,7 +54,7 @@ public class ReturnLobbiesMessage extends ServerMessage {
      */
     @Override
     public void useMessage(ClientManager clientManager){
-        clientManager.getView().printLobbies(availableGameLobbies);
+        clientManager.getView().printLobbies(availableGameLobbies,message);
     }
 }
 

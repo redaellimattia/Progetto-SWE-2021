@@ -35,7 +35,7 @@ class ReturnLobbiesMessageTest {
 
         g4.addPlayer("Mattia");
 
-        ReturnLobbiesMessage returnLobbiesMessage = new ReturnLobbiesMessage(gameLobbies);
+        ReturnLobbiesMessage returnLobbiesMessage = new ReturnLobbiesMessage(gameLobbies,null);
         System.out.println(returnLobbiesMessage.serialize());
     }
 
