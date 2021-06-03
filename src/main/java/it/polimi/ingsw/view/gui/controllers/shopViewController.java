@@ -53,10 +53,10 @@ public class shopViewController extends GuiController {
         //GREEN CARDS
         if (shopGrid.getGrid()[0][0].getDeck().size() != 0) {
             setImage(g3, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[0][0].getFirst().getId() + ".png");
-            if(!getGuiManager().getClientManager().canBuySpecificCard(shopGrid.getGrid()[0][0].getFirst().getId())){
-                g3.setDisable(true);
-                g3.setOpacity(0.7);
-            }
+            //if(!getGuiManager().getClientManager().canBuySpecificCard(shopGrid.getGrid()[0][0].getFirst().getId())){
+            //    g3.setDisable(true);
+            //    g3.setOpacity(0.7);
+            //}
         }
         if (shopGrid.getGrid()[1][0].getDeck().size() != 0) {
             setImage(g2, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[1][0].getFirst().getId() + ".png");
@@ -144,8 +144,7 @@ public class shopViewController extends GuiController {
 
     @FXML
     private void selectImage(MouseEvent event) {
-        Node clicked = event.getPickResult().getIntersectedNode(); //returns JUST the id of the object that was clicked
-        String id = clicked.getId();
+        String id = event.getPickResult().getIntersectedNode().getId();
         switch (id){
             case "g3":
                     row = 0;
