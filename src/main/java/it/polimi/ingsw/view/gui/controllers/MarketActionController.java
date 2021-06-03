@@ -1,5 +1,6 @@
 package it.polimi.ingsw.view.gui.controllers;
 
+import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.fxml.FXML;
@@ -72,4 +73,11 @@ public class MarketActionController extends GuiController {
 
     }
 
+    public void selectResources(int type, int pos) {
+        MarketMarble marbles[];
+        marbles = clientManager.getMarketMarbles(type, pos);
+        for(MarketMarble m: marbles) {
+            // Atomic choice
+        }
+    }
 }
