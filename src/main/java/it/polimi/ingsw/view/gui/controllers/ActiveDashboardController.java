@@ -1,9 +1,9 @@
 package it.polimi.ingsw.view.gui.controllers;
 
-import it.polimi.ingsw.model.DeckDashboard;
-import it.polimi.ingsw.model.PlayerDashboard;
-import it.polimi.ingsw.model.ResourceCount;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
+import it.polimi.ingsw.model.card.LeaderCard;
+import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.fxml.FXML;
@@ -31,14 +31,19 @@ public class ActiveDashboardController extends GuiController{
             faithPath11,faithPath12,faithPath13,faithPath14,faithPath15,faithPath16,faithPath17,faithPath18,faithPath19,faithPath20,faithPath21,
             faithPath22,faithPath23,faithPath24;
     private PlayerDashboard playerDashboard;
+    private ClientManager clientManager;
 
     @FXML
     @Override
     public void initialize() {
         super.setGuiManager(GuiManager.getInstance());
-        this.playerDashboard = getGuiManager().getClientManager().getThisClientDashboard();
+        this.clientManager = getGuiManager().getClientManager();
+        this.playerDashboard = clientManager.getThisClientDashboard();
         setFaithPath(playerDashboard.getPathPosition());
         setDevCards(playerDashboard.getDevCards());
+        setLeaderCards(playerDashboard.getLeaderCards());
+        setStorage(playerDashboard.getStorage());
+        setChest(playerDashboard.getChest());
     }
 
     private void setFaithPath(int position){
@@ -114,22 +119,93 @@ public class ActiveDashboardController extends GuiController{
     }
 
     private void insertLevelOneCard(int ID,int i){
-        insertCard(ID, i, firstPositionLevel1, firstPositionLevel2, firstPositionLevel3);
+        insertCard(ID, i, firstPositionLevel1, secondPositionLevel1, thirdPositionLevel1);
     }
     private void insertLevelTwoCard(int ID,int i){
-        insertCard(ID, i, secondPositionLevel1, secondPositionLevel2, secondPositionLevel3);
+        insertCard(ID, i, firstPositionLevel2, secondPositionLevel2, thirdPositionLevel2);
     }
     private void insertLevelThreeCard(int ID,int i){
-        insertCard(ID, i, thirdPositionLevel1, thirdPositionLevel2, thirdPositionLevel3);
+        insertCard(ID, i, firstPositionLevel3, secondPositionLevel3, thirdPositionLevel3);
     }
-    private void insertCard(int ID, int i, ImageView level1, ImageView level2, ImageView level3) {
+
+    private void insertCard(int ID, int i, ImageView firstPosition, ImageView secondPosition, ImageView thirdPosition) {
         switch (i){
-            case 0: level1.setImage(new Image(this.getClass().getResourceAsStream("/img/cards/front/DevelopmentCards/"+ID+".png")));
+            case 0: setImage(firstPosition,"/img/cards/front/DevelopmentCards/"+ID+".png");
                 break;
-            case 1: level2.setImage(new Image(this.getClass().getResourceAsStream("/img/cards/front/DevelopmentCards/"+ID+".png")));
+            case 1: setImage(secondPosition,"/img/cards/front/DevelopmentCards/"+ID+".png");
                 break;
-            case 2: level3.setImage(new Image(this.getClass().getResourceAsStream("/img/cards/front/DevelopmentCards/"+ID+".png")));
+            case 2: setImage(thirdPosition,"/img/cards/front/DevelopmentCards/"+ID+".png");
                 break;
         }
+    }
+
+    private void setLeaderCards(ArrayList<LeaderCard> leaderCards){
+        for(int i=0;i<leaderCards.size();i++){
+            if(i==0)
+                setImage(leaderCard1,"/img/cards/front/LeaderCards/"+leaderCards.get(i).getId()+".png");
+            else
+                setImage(leaderCard2,"/img/cards/front/LeaderCards/"+leaderCards.get(i).getId()+".png");
+        }
+    }
+
+    private void setStorage(Storage storage){
+        ArrayList<CounterTop> shelves = storage.getShelvesArray();
+
+        if(shelves.size()!=0){
+            for(int i=0;i<shelves.size();i++)
+                if(shelves.get(i).getContent()!=0){
+                    setStorageRow(shelves.get(0),i+1);
+                }
+        }
+    }
+
+    private void setStorageRow(CounterTop row,int i){
+        switch(i){
+            case 1: setImage(firstRowImage,getCounterTopImage(row.getResourceType()));
+                break;
+            case 2: String path = getCounterTopImage(row.getResourceType());
+                    switch(row.getContent()){
+                        case 1: setImage(secondRowImage1,path);
+                                break;
+                        case 2: setImage(secondRowImage1,path);
+                                setImage(secondRowImage2,path);
+                                break;
+                    }
+                break;
+            case 3: path = getCounterTopImage(row.getResourceType());
+                    switch(row.getContent()){
+                        case 1: setImage(thirdRowImage1,path);
+                            break;
+                        case 2: setImage(thirdRowImage1,path);
+                                setImage(thirdRowImage2,path);
+                            break;
+                        case 3: setImage(thirdRowImage1,path);
+                                setImage(thirdRowImage2,path);
+                                setImage(thirdRowImage3,path);
+                            break;
+                    }
+                break;
+        }
+    }
+
+    private String getCounterTopImage(Resource res){
+        switch(res){
+            case COIN:  return "/img/punchboard/coin2.png";
+            case ROCK:  return "/img/punchboard/stone2.png";
+            case SHIELD:  return "/img/punchboard/shield2.png";
+            case SERVANT:  return "/img/punchboard/servant2.png";
+            default: return null;
+        }
+    }
+
+    private void setChest(ResourceCount chest){
+        if(chest.getCoins()!=0)
+            xCoin.setText("x"+chest.getCoins());
+        if(chest.getShields()!=0)
+            xShield.setText("x"+chest.getShields());
+        if(chest.getRocks()!=0)
+            xRock.setText("x"+chest.getRocks());
+        if(chest.getServants()!=0)
+            xServant.setText("x"+chest.getServants());
     }
 }

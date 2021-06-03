@@ -116,7 +116,8 @@ public class GuiManager implements View {
 
     @Override
     public void yourTurn() {
-
+        setLayout("ActiveDashboard.fxml");
+        Platform.runLater(()->stage.setScene(currentScene));
     }
 
     @Override
