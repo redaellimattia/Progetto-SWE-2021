@@ -61,10 +61,10 @@ public class LandingPageController extends GuiController{
                 clientManager.setNickname(nickname);
                 createButton.setDisable(true);
                 int finalNumberOfPlayers = numberOfPlayers;
-                /*Platform.runLater(() -> clientManager.createGame(finalNumberOfPlayers));
+                Platform.runLater(() -> clientManager.createGame(finalNumberOfPlayers));
                 if(finalNumberOfPlayers != 1)
-                    goToWaiting("Wait for all players to join the lobby!");*/
-                getGuiManager().setLayout("activeDashboard.fxml");
+                    goToWaiting("Wait for all players to join the lobby!");
+                //getGuiManager().setLayout("activeDashboard.fxml");
             }
         }
     }
@@ -101,6 +101,12 @@ public class LandingPageController extends GuiController{
     public void goToWaiting(String msg){
         getGuiManager().setLayout("waitingPage.fxml");
         getGuiManager().getCurrentController().setTextForWaiting(msg);
+    }
+
+    @Override
+    public void setTextForWaiting(String message){
+        error.setText(message);
+        error.setVisible(true);
     }
 
 }

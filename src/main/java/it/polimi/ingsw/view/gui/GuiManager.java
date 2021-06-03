@@ -81,9 +81,11 @@ public class GuiManager implements View {
     }
 
     @Override
-    public void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies) {
+    public void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies,String message) {
         setLayout("landingPage.fxml");
         currentController.setLobbies(availableGameLobbies);
+        if(message != null)
+            currentController.setTextForWaiting(message);
         Platform.runLater(()->stage.setScene(currentScene));
     }
 

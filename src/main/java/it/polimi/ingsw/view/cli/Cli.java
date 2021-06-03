@@ -106,7 +106,9 @@ public class Cli implements View {
      * @param availableGameLobbies arraylist of lobbies provided by the server upon connection
      */
     @Override
-    public void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies) {
+    public void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies,String message) {
+        if(message != null)
+            printMsg(message);
         String input;
         if (availableGameLobbies.size() == 0) {
             do {

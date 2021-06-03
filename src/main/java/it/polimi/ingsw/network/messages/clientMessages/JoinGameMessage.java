@@ -23,9 +23,9 @@ public class JoinGameMessage extends ClientMessage {
         if(Server.checkNickname(getNickname())||serverLobby.getGameLobby().getPlayers().contains(getNickname()))
             serverLobby.playerLogin(getNickname(), socketConnection);
         else{
-            socketConnection.send(new PrintMessage("This username: [" + getNickname() + "] is already taken!").serialize());
+            //socketConnection.send(new PrintMessage("This username: [" + getNickname() + "] is already taken!").serialize());
             //socketConnection.send(new NicknameUsedMessage("This username: [" + getNickname() + "] is already taken!").serialize());
-            socketConnection.send(Server.createReturnLobbiesMessage().serialize());
+            socketConnection.send(Server.createReturnLobbiesMessage("This username: [ "+ getNickname() + "] is already taken!").serialize());
         }
     }
 }

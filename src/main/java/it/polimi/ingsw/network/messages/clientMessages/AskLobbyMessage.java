@@ -20,6 +20,6 @@ public class AskLobbyMessage extends ClientMessage {
      */
     @Override
     public void useMessage(SocketConnection socketConnection){
-        socketConnection.send(Server.createReturnLobbiesMessage().serialize());
+        socketConnection.send(Server.createReturnLobbiesMessage(null).serialize());
     }
 }

@@ -81,14 +81,14 @@ public class ServerLobby extends Thread implements Observer {
                         deserializedMessage.useMessage(socketConnection, this);
                     else
                         if(p.getNickname().equals(askingPlayer)) {
-                            socketConnection.send(new PrintMessage("You can't join this lobby, " + askingPlayer + " is already in it!").serialize());
-                            socketConnection.send(Server.createReturnLobbiesMessage().serialize());
+                            //socketConnection.send(new PrintMessage("You can't join this lobby, " + askingPlayer + " is already in it!").serialize());
+                            socketConnection.send(Server.createReturnLobbiesMessage("You can't join this lobby, " + askingPlayer + " is already in it!").serialize());
                         }
             }
             else {
                 if(!(gameLobby.getPlayers().contains(deserializedMessage.getNickname()))&&deserializedMessage.getType().equals(ClientMessageType.JOINGAME)) {
-                    socketConnection.send(new PrintMessage("You can't join this lobby, it's already started without you").serialize());
-                    socketConnection.send(Server.createReturnLobbiesMessage().serialize());
+                    //socketConnection.send(new PrintMessage("You can't join this lobby, it's already started without you").serialize());
+                    socketConnection.send(Server.createReturnLobbiesMessage("You can't join this lobby, it's already started without you").serialize());
                 }
                 //If there isn't the askingPlayer or the askingPlayer nickname on the clients map doesn't match the socketConnection
                 if (!clients.containsKey(askingPlayer) || !clients.get(askingPlayer).equals(socketConnection))
@@ -203,8 +203,8 @@ public class ServerLobby extends Thread implements Observer {
             if(Server.checkNickname(nickname))
                 newPlayerLogin(nickname,clientConnection);
             else {
-                clientConnection.send(new PrintMessage("You can't join this lobby, " + nickname + " is already in it!").serialize());
-                clientConnection.send(Server.createReturnLobbiesMessage().serialize());
+                //clientConnection.send(new PrintMessage("You can't join this lobby, " + nickname + " is already in it!").serialize());
+                clientConnection.send(Server.createReturnLobbiesMessage("You can't join this lobby, " + nickname + " is already in it!").serialize());
             }
     }
 
