@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controllers.ActiveDashboardController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controllers.ClientDashboardController">
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -39,6 +39,21 @@
             <ImageView fx:id="faithPath22" fitHeight="50.0" fitWidth="50.0" layoutX="790.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="faithPath23" fitHeight="50.0" fitWidth="50.0" layoutX="840.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="faithPath24" fitHeight="50.0" fitWidth="50.0" layoutX="886.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="vaticanReport2" fitHeight="85.0" fitWidth="85.0" layoutX="207.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/punchboard/pope_favor1_front.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="vaticanReport3" fitHeight="85.0" fitWidth="85.0" layoutX="455.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/punchboard/pope_favor2_front.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="vaticanReport4" fitHeight="85.0" fitWidth="85.0" layoutX="751.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/punchboard/pope_favor3_front.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
       <Button fx:id="marketButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Market" />
@@ -118,22 +133,22 @@
             <Image url="@../img/punchboard/stone2.png" />
          </image>
       </ImageView>
-      <Label fx:id="xCoin" layoutX="91.0" layoutY="555.0" style="-fx-background-color: white;">
+      <Label layoutX="91.0" layoutY="555.0" style="-fx-background-color: white;" fx:id="xCoin">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="xShield" layoutX="90.0" layoutY="616.0" style="-fx-background-color: white;">
+      <Label layoutX="90.0" layoutY="616.0" style="-fx-background-color: white;" fx:id="xShield">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="xServant" layoutX="182.0" layoutY="555.0" style="-fx-background-color: white;">
+      <Label layoutX="182.0" layoutY="555.0" style="-fx-background-color: white;" fx:id="xServant">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label fx:id="xRock" layoutX="182.0" layoutY="616.0" style="-fx-background-color: white;">
+      <Label layoutX="182.0" layoutY="616.0" style="-fx-background-color: white;" fx:id="xRock">
          <font>
             <Font size="15.0" />
          </font>
@@ -144,7 +159,21 @@
             </ImageView>
             <ImageView fx:id="leaderCard2" fitHeight="268.0" fitWidth="170.0" layoutX="52.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
-            <TextFlow layoutX="-1.0" layoutY="540.0" prefHeight="180.0" prefWidth="273.0" />
+            <TextFlow fx:id="textFlowLog" layoutX="-1.0" layoutY="540.0" prefHeight="180.0" prefWidth="273.0" />
+            <AnchorPane fx:id="secondAbilityDeposit" layoutX="69.0" layoutY="470.0" prefHeight="60.0" prefWidth="143.0" visible="false">
+               <children>
+                  <ImageView fx:id="secondAbilityDeposit1" fitHeight="33.0" fitWidth="44.0" layoutX="86.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="secondAbilityDeposit2" fitHeight="33.0" fitWidth="44.0" layoutX="21.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="firstAbilityDeposit" layoutX="69.0" layoutY="202.0" prefHeight="60.0" prefWidth="143.0" visible="false">
+               <children>
+                  <ImageView fx:id="firstAbilityDeposit1" fitHeight="33.0" fitWidth="44.0" layoutX="82.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+                  </ImageView>
+                  <ImageView fx:id="firstAbilityDeposit2" fitHeight="33.0" fitWidth="44.0" layoutX="18.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+                  </ImageView>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
       <Button fx:id="endTurnButton" layoutX="923.0" layoutY="127.0" mnemonicParsing="false" text="End Turn" />

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui.controllers;
 
 import it.polimi.ingsw.model.*;
+import it.polimi.ingsw.model.card.DepositAbility;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -9,12 +10,21 @@ import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.TextFlow;
 
 import java.util.ArrayList;
 
-public class ActiveDashboardController extends GuiController{
+public class ClientDashboardController extends GuiController{
+    @FXML
+    private TextFlow textFlowLog;
+    @FXML
+    private ImageView firstAbilityDeposit1,firstAbilityDeposit2,secondAbilityDeposit1,secondAbilityDeposit2;
+    @FXML
+    private AnchorPane firstAbilityDeposit,secondAbilityDeposit;
+    @FXML
+    private ImageView vaticanReport2,vaticanReport3,vaticanReport4;
     @FXML //CHEST
     private Label xCoin,xServant,xShield,xRock;
     @FXML //LEADCARDS
@@ -44,6 +54,7 @@ public class ActiveDashboardController extends GuiController{
         setLeaderCards(playerDashboard.getLeaderCards());
         setStorage(playerDashboard.getStorage());
         setChest(playerDashboard.getChest());
+        setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
     }
 
     private void setFaithPath(int position){
@@ -207,5 +218,17 @@ public class ActiveDashboardController extends GuiController{
             xRock.setText("x"+chest.getRocks());
         if(chest.getServants()!=0)
             xServant.setText("x"+chest.getServants());
+    }
+
+    private void setAbilityDeposit(ArrayList<CounterTop> arrayDeposit,ArrayList<LeaderCard> leaderCards){
+        for(int i=0;i<leaderCards.size();i++) {
+            LeaderCard l = leaderCards.get(i);
+            if (l.isInGame() && l.getSpecialAbility() instanceof DepositAbility){
+                if(i==0)
+                    firstAbilityDeposit.setVisible(true);
+                else
+                    secondAbilityDeposit.setVisible(true);
+            }
+        }
     }
 }

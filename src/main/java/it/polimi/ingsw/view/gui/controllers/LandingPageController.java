@@ -64,7 +64,7 @@ public class LandingPageController extends GuiController{
                 Platform.runLater(() -> clientManager.createGame(finalNumberOfPlayers));
                 if(finalNumberOfPlayers != 1)
                     goToWaiting("Wait for all players to join the lobby!");
-                //getGuiManager().setLayout("activeDashboard.fxml");
+                //getGuiManager().setLayout("clientDashboard.fxml");
             }
         }
     }
