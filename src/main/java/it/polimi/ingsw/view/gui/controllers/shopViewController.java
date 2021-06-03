@@ -3,7 +3,6 @@ package it.polimi.ingsw.view.gui.controllers;
 import it.polimi.ingsw.model.Shop;
 import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -53,10 +52,10 @@ public class shopViewController extends GuiController {
         //GREEN CARDS
         if (shopGrid.getGrid()[0][0].getDeck().size() != 0) {
             setImage(g3, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[0][0].getFirst().getId() + ".png");
-            //if(!getGuiManager().getClientManager().canBuySpecificCard(shopGrid.getGrid()[0][0].getFirst().getId())){
-            //    g3.setDisable(true);
-            //    g3.setOpacity(0.7);
-            //}
+            if(!getGuiManager().getClientManager().canBuySpecificCard(shopGrid.getGrid()[0][0].getFirst().getId())){
+                g3.setDisable(true);
+                g3.setOpacity(0.7);
+            }
         }
         if (shopGrid.getGrid()[1][0].getDeck().size() != 0) {
             setImage(g2, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[1][0].getFirst().getId() + ".png");
