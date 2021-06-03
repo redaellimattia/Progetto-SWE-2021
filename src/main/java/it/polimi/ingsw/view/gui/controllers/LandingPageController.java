@@ -40,7 +40,7 @@ public class LandingPageController extends GuiController{
     }
 
     @FXML
-    public void onCreateButtonClick(ActionEvent actionEvent) {
+    public void onCreateButtonClick(MouseEvent mouseEvent) {
         String nickname = nicknameField.getText();
         ClientManager clientManager = getGuiManager().getClientManager();
 
@@ -62,7 +62,8 @@ public class LandingPageController extends GuiController{
                 createButton.setDisable(true);
                 int finalNumberOfPlayers = numberOfPlayers;
                 Platform.runLater(() -> clientManager.createGame(finalNumberOfPlayers));
-                goToWaiting("Wait for all players to join the lobby!");
+                if(finalNumberOfPlayers != 1)
+                    goToWaiting("Wait for all players to join the lobby!");
             }
         }
     }
