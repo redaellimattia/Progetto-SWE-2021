@@ -48,11 +48,10 @@ public class ClientManager {
         }
         else
             this.view = new GuiManager(this);
-        view.start();
-
         this.gameStarted = false;
         this.leaderCardProductionDone = new boolean[2];
         this.devCardProductionDone = new boolean[3];
+        view.start();
     }
     //GETTERS
 

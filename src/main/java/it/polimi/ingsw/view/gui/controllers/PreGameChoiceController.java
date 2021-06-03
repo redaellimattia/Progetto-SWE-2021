@@ -19,6 +19,8 @@ import java.util.ArrayList;
 public class PreGameChoiceController extends GuiController{
 
     @FXML
+    private Label errorLabel;
+    @FXML
     private ImageView shieldImage;
     @FXML
     private ImageView servantImage;
@@ -226,9 +228,10 @@ public class PreGameChoiceController extends GuiController{
     @FXML
     public void sendChoices(MouseEvent mouseEvent) {
         if(ResourceCount.resCountToInt(chosenResources)!=numberOfResources||chosenLeaderCards.size()<2)
-            //ERROR
-            sendChoicesButton.setText("Invalid choices");
+            errorLabel.setVisible(true);
         else{
+            if(errorLabel.isVisible())
+                errorLabel.setVisible(false);
             sendChoicesButton.setDisable(true);
             Platform.runLater(()->getGuiManager().getClientManager().preGameChoice(getResources(),chosenLeaderCards));
             goToWaiting("Waiting other player's choices...");

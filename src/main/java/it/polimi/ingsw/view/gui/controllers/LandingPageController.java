@@ -40,7 +40,7 @@ public class LandingPageController extends GuiController{
     }
 
     @FXML
-    public void onCreateButtonClick(MouseEvent mouseEvent) {
+    public void onCreateButtonClick(MouseEvent actionEvent) {
         String nickname = nicknameField.getText();
         ClientManager clientManager = getGuiManager().getClientManager();
 
