@@ -76,8 +76,8 @@ public class ClientDashboardController extends GuiController{
             endTurnButton.setDisable(false);
         }
         if(clientManager.isMyTurn()&&!clientManager.isMainActionDone()){
-            if(!clientManager.canBuyCardFromShop())
-                shopButton.setDisable(true);
+            //if(!clientManager.canBuyCardFromShop())
+                //shopButton.setDisable(true);
             if(!clientManager.canDoProduction())
                 productionButton.setDisable(true);
             endTurnButton.setDisable(true);
