@@ -62,6 +62,14 @@ public class MarketActionController extends GuiController {
                 break;
         }
         message.setText("Selected type: " + type + ", pos: " + pos);
+        col1.setDisable(true);
+        col2.setDisable(true);
+        col3.setDisable(true);
+        col4.setDisable(true);
+        row1.setDisable(true);
+        row2.setDisable(true);
+        row3.setDisable(true);
+
     }
 
 }
