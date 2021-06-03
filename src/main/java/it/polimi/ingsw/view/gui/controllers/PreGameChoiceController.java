@@ -56,8 +56,7 @@ public class PreGameChoiceController extends GuiController{
     private Label xCoin;
     @FXML
     private AnchorPane resourcesBox;
-    
-    private GuiManager guiManager;
+
     private int numberOfResources;
     private ArrayList<LeaderCard> availableLeaders;
     private ArrayList<LeaderCard> chosenLeaderCards;
@@ -68,7 +67,7 @@ public class PreGameChoiceController extends GuiController{
     @FXML
     @Override
     public void initialize() {
-        guiManager = GuiManager.getInstance();
+        super.setGuiManager(GuiManager.getInstance());
         chosenResources = new ResourceCount(0,0,0,0,0);
         chosenLeaderCards = new ArrayList<>();
     }
@@ -231,8 +230,8 @@ public class PreGameChoiceController extends GuiController{
             sendChoicesButton.setText("Invalid choices");
         else{
             sendChoicesButton.setDisable(true);
-            Platform.runLater(()->guiManager.getClientManager().preGameChoice(getResources(),chosenLeaderCards));
-            //UPDATE VIEW?
+            Platform.runLater(()->getGuiManager().getClientManager().preGameChoice(getResources(),chosenLeaderCards));
+            goToWaiting("Waiting other player's choices...");
         }
 
     }
@@ -240,7 +239,7 @@ public class PreGameChoiceController extends GuiController{
     private ArrayList<Resource> getResources(){
         ArrayList<Resource> resources = new ArrayList<>();
         int takenRes = 0;
-        while(takenRes!=2){
+        while(takenRes!=numberOfResources){
             if(chosenResources.getCoins()>0) {
                 resources.add(Resource.COIN);
                 takenRes++;
@@ -259,5 +258,10 @@ public class PreGameChoiceController extends GuiController{
             }
         }
         return resources;
+    }
+
+    public void goToWaiting(String msg){
+        getGuiManager().setLayout("waitingPage.fxml");
+        getGuiManager().getCurrentController().setTextForWaiting(msg);
     }
 }

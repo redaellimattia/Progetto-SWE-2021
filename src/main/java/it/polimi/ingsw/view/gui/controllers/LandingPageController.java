@@ -28,22 +28,21 @@ public class LandingPageController extends GuiController{
     private TextField numberOfPlayersField;
     @FXML
     private TextField nicknameField;
-    private GuiManager guiManager;
     private ClientManager clientManager;
     private ArrayList<ReturnLobbiesMessage.availableGameLobbies> lobbies;
 
     @FXML
     @Override
     public void initialize() {
-        guiManager = GuiManager.getInstance();
-        clientManager = guiManager.getClientManager();
+        super.setGuiManager(GuiManager.getInstance());
+        clientManager = getGuiManager().getClientManager();
         error.setVisible(false);
     }
 
     @FXML
     public void onCreateButtonClick(ActionEvent actionEvent) {
         String nickname = nicknameField.getText();
-        ClientManager clientManager = guiManager.getClientManager();
+        ClientManager clientManager = getGuiManager().getClientManager();
 
         int numberOfPlayers = 0;
         try{numberOfPlayers = Integer.parseInt(numberOfPlayersField.getText());} catch(NumberFormatException e){}
@@ -63,7 +62,7 @@ public class LandingPageController extends GuiController{
                 createButton.setDisable(true);
                 int finalNumberOfPlayers = numberOfPlayers;
                 Platform.runLater(() -> clientManager.createGame(finalNumberOfPlayers));
-                goToWaiting();
+                goToWaiting("Wait for all players to join the lobby!");
             }
         }
     }
@@ -94,12 +93,12 @@ public class LandingPageController extends GuiController{
             String nickname = nicknameField.getText();
             clientManager.setNickname(nickname);
             Platform.runLater(()->clientManager.joinGame(selected.getServerThreadID()));
-            goToWaiting();
+            goToWaiting("Wait for all players to join the lobby!");
         }
     }
-
-    public void goToWaiting(){
-        guiManager.setLayout("waitingPage.fxml");
-        guiManager.getCurrentController().setTextForWaiting("Wait for all players to join the lobby!");
+    public void goToWaiting(String msg){
+        getGuiManager().setLayout("waitingPage.fxml");
+        getGuiManager().getCurrentController().setTextForWaiting(msg);
     }
+
 }
