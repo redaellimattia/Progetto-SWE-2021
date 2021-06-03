@@ -81,13 +81,11 @@ public class ServerLobby extends Thread implements Observer {
                         deserializedMessage.useMessage(socketConnection, this);
                     else
                         if(p.getNickname().equals(askingPlayer)) {
-                            //socketConnection.send(new PrintMessage("You can't join this lobby, " + askingPlayer + " is already in it!").serialize());
                             socketConnection.send(Server.createReturnLobbiesMessage("You can't join this lobby, " + askingPlayer + " is already in it!").serialize());
                         }
             }
             else {
                 if(!(gameLobby.getPlayers().contains(deserializedMessage.getNickname()))&&deserializedMessage.getType().equals(ClientMessageType.JOINGAME)) {
-                    //socketConnection.send(new PrintMessage("You can't join this lobby, it's already started without you").serialize());
                     socketConnection.send(Server.createReturnLobbiesMessage("You can't join this lobby, it's already started without you").serialize());
                 }
                 //If there isn't the askingPlayer or the askingPlayer nickname on the clients map doesn't match the socketConnection
@@ -96,7 +94,6 @@ public class ServerLobby extends Thread implements Observer {
 
                 if (actualPlayer.equals(askingPlayer)) { //If it's the player's turn
                     deserializedMessage.useMessage(socketConnection, this);
-                    //sendToAll(new DoneMessage().serialize());
                 }
                 else
                     throw new NotYourTurnException();

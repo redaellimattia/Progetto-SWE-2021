@@ -31,9 +31,6 @@ public class CreateGameMessage extends ClientMessage {
                 socketConnection.send(Server.createReturnLobbiesMessage("This username: [" + getNickname() + "] is already taken in SinglePlayer!!").serialize());
             else
                 socketConnection.send(Server.createReturnLobbiesMessage("This username: [" + getNickname() + "] is already taken!").serialize());
-                //socketConnection.send(new PrintMessage("This username: [" + getNickname() + "] is already taken in SinglePlayer!").serialize());
-            //else
-                //socketConnection.send(new PrintMessage("This username: [" + getNickname() + "] is already taken!").serialize());
 
         }
     }
