@@ -22,6 +22,10 @@ public class ClientGameStatus {
         this.vReports = vReports;
     }
 
+    public VaticanReport[] getvReports() {
+        return vReports;
+    }
+
     public ArrayList<PlayerDashboard> getPlayers() {
         return players;
     }

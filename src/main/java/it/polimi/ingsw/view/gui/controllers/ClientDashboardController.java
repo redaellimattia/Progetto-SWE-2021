@@ -55,6 +55,7 @@ public class ClientDashboardController extends GuiController{
         setStorage(playerDashboard.getStorage());
         setChest(playerDashboard.getChest());
         setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
+        setVaticanReport(clientManager.getGameStatus().getvReports());
     }
 
     private void setFaithPath(int position){
@@ -224,11 +225,40 @@ public class ClientDashboardController extends GuiController{
         for(int i=0;i<leaderCards.size();i++) {
             LeaderCard l = leaderCards.get(i);
             if (l.isInGame() && l.getSpecialAbility() instanceof DepositAbility){
-                if(i==0)
+                if(i==0) {
                     firstAbilityDeposit.setVisible(true);
-                else
+                    if(arrayDeposit.get(0).getResourceType().equals(l.getSpecialAbility().getResourceType()))
+                        setCounterTopAbilityDeposit(firstAbilityDeposit1,firstAbilityDeposit2,arrayDeposit.get(0));
+                    else
+                        setCounterTopAbilityDeposit(firstAbilityDeposit1,firstAbilityDeposit2,arrayDeposit.get(1));
+                }
+                else {
                     secondAbilityDeposit.setVisible(true);
+                    if(arrayDeposit.get(0).getResourceType().equals(l.getSpecialAbility().getResourceType()))
+                        setCounterTopAbilityDeposit(secondAbilityDeposit1,secondAbilityDeposit2,arrayDeposit.get(0));
+                    else
+                        setCounterTopAbilityDeposit(secondAbilityDeposit1,secondAbilityDeposit2,arrayDeposit.get(1));
+                }
             }
         }
+    }
+    private void setCounterTopAbilityDeposit(ImageView image1,ImageView image2,CounterTop counterTop){
+        String path = getCounterTopImage(counterTop.getResourceType());
+        switch (counterTop.getContent()){
+            case 1: setImage(image1,path);
+                break;
+            case 2: setImage(image1, path);
+                    setImage(image2, path);
+                break;
+        }
+    }
+
+    private void setVaticanReport(VaticanReport[] vReports){
+        if(vReports[0].isUsed())
+            setImage(vaticanReport2,"/img/punchboard/pope_favor1_back.png");
+        if(vReports[1].isUsed())
+            setImage(vaticanReport3,"/img/punchboard/pope_favor2_back.png");
+        if(vReports[2].isUsed())
+            setImage(vaticanReport4,"/img/punchboard/pope_favor3_back.png");
     }
 }
