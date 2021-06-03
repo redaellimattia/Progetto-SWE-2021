@@ -6,9 +6,13 @@ import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+
+import java.util.ArrayList;
 
 
 public class MarketActionController extends GuiController {
@@ -17,10 +21,15 @@ public class MarketActionController extends GuiController {
     private Pane col1, col2, col3, col4, row1, row2, row3;
 
     @FXML
+    private ImageView marble1, marble2, marble3, marble4, marble5, marble6,
+            marble7, marble8, marble9, marble10, marble11, marble12;
+
+    @FXML
     private Text message;
 
     private int type;
     private int pos;
+    private ArrayList<ImageView> marblesView;
     private ClientManager clientManager;
 
     @Override
@@ -28,6 +37,57 @@ public class MarketActionController extends GuiController {
     public void initialize() {
         super.setGuiManager(GuiManager.getInstance());
         this.clientManager = getGuiManager().getClientManager();
+
+        // TO-DO
+        Image whiteMarble = new Image("");
+        Image redMarble = new Image("");
+        Image yellowMarble = new Image("");
+        Image blueMarble = new Image("");
+        Image purpleMarble = new Image("");
+        Image grayMarble = new Image("");
+
+        marblesView = new ArrayList<>();
+        marblesView.add(marble1);
+        marblesView.add(marble2);
+        marblesView.add(marble3);
+        marblesView.add(marble4);
+        marblesView.add(marble5);
+        marblesView.add(marble6);
+        marblesView.add(marble7);
+        marblesView.add(marble8);
+        marblesView.add(marble9);
+        marblesView.add(marble10);
+        marblesView.add(marble11);
+        marblesView.add(marble12);
+
+        MarketMarble structure[][] = clientManager.getGameStatus().getMarket().getStructure();
+
+        int cur = 0;
+        for(MarketMarble[] row: structure) {
+            for(MarketMarble m: row) {
+                switch (m.getColour()) {
+                    case RED:
+                        marblesView.get(cur).setImage(redMarble);
+                        break;
+                    case BLUE:
+                        marblesView.get(cur).setImage(blueMarble);
+                        break;
+                    case GREY:
+                        marblesView.get(cur).setImage(grayMarble);
+                        break;
+                    case WHITE:
+                        marblesView.get(cur).setImage(whiteMarble);
+                        break;
+                    case PURPLE:
+                        marblesView.get(cur).setImage(purpleMarble);
+                        break;
+                    case YELLOW:
+                        marblesView.get(cur).setImage(yellowMarble);
+                        break;
+                }
+                cur++;
+            }
+        }
     }
 
     public void setChosenPos(MouseEvent mouseEvent) {
