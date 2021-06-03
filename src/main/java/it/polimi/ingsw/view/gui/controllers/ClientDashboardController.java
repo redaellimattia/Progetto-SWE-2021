@@ -7,16 +7,22 @@ import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.view.gui.GuiManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.TextFlow;
 
 import java.util.ArrayList;
 
 public class ClientDashboardController extends GuiController{
+    @FXML
+    private AnchorPane playLeader1,discardLeader1,playLeader2,discardLeader2;
+    @FXML
+    private ImageView board,bwFaithPath;
     @FXML
     private TextFlow textFlowLog;
     @FXML
@@ -56,6 +62,26 @@ public class ClientDashboardController extends GuiController{
         setChest(playerDashboard.getChest());
         setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
         setVaticanReport(clientManager.getGameStatus().getvReports());
+        if(!clientManager.isMyTurn()){
+
+            marketButton.setDisable(true);
+            shopButton.setDisable(true);
+            productionButton.setDisable(true);
+            endTurnButton.setDisable(true);
+        }
+        if(clientManager.isMyTurn()&&clientManager.isMainActionDone()){
+            marketButton.setDisable(true);
+            shopButton.setDisable(true);
+            productionButton.setDisable(true);
+            endTurnButton.setDisable(false);
+        }
+        if(clientManager.isMyTurn()&&!clientManager.isMainActionDone()){
+            if(!clientManager.canBuyCardFromShop())
+                shopButton.setDisable(true);
+            if(!clientManager.canDoProduction())
+                productionButton.setDisable(true);
+            endTurnButton.setDisable(true);
+        }
     }
 
     private void setFaithPath(int position){
@@ -153,6 +179,19 @@ public class ClientDashboardController extends GuiController{
 
     private void setLeaderCards(ArrayList<LeaderCard> leaderCards){
         for(int i=0;i<leaderCards.size();i++){
+            LeaderCard l = leaderCards.get(i);
+            if(!l.isInGame()){
+                if(i==0){
+                    discardLeader1.setVisible(true);
+                    if(clientManager.isRequirementPossible(l.getRequirement()))
+                        playLeader1.setVisible(true);
+                }
+                else {
+                    discardLeader2.setVisible(true);
+                    if(clientManager.isRequirementPossible(l.getRequirement()))
+                        playLeader2.setVisible(true);
+                }
+            }
             if(i==0)
                 setImage(leaderCard1,"/img/cards/front/LeaderCards/"+leaderCards.get(i).getId()+".png");
             else
@@ -260,5 +299,45 @@ public class ClientDashboardController extends GuiController{
             setImage(vaticanReport3,"/img/punchboard/pope_favor2_back.png");
         if(vReports[2].isUsed())
             setImage(vaticanReport4,"/img/punchboard/pope_favor3_back.png");
+    }
+
+    public void goToMarket(MouseEvent mouseEvent) {
+        marketButton.setDisable(true);
+        getGuiManager().setLayout("marketAction.fxml");
+        getGuiManager().setNextScene();
+    }
+
+    public void goToShop(MouseEvent mouseEvent) {
+        shopButton.setDisable(true);
+        getGuiManager().setLayout("shopView.fxml");
+        getGuiManager().setNextScene();
+    }
+
+    public void startProduction(MouseEvent mouseEvent) {
+    }
+
+    public void endTurn(MouseEvent mouseEvent) {
+        setImage(board,"/img/board/inactiveBoard.jpg");
+        bwFaithPath.setVisible(true);
+        Platform.runLater(()->clientManager.endTurn());
+    }
+
+    public void otherPlayers(MouseEvent mouseEvent) {
+    }
+
+    public void discardLeader2(MouseEvent mouseEvent) {
+        Platform.runLater(()->clientManager.discardLeader(playerDashboard.getLeaderCards().get(1)));
+    }
+
+    public void playLeader2(MouseEvent mouseEvent) {
+        Platform.runLater(()->clientManager.playLeader(playerDashboard.getLeaderCards().get(1)));
+    }
+
+    public void discardLeader1(MouseEvent mouseEvent) {
+        Platform.runLater(()->clientManager.discardLeader(playerDashboard.getLeaderCards().get(0)));
+    }
+
+    public void playLeader1(MouseEvent mouseEvent) {
+        Platform.runLater(()->clientManager.playLeader(playerDashboard.getLeaderCards().get(0)));
     }
 }

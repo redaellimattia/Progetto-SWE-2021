@@ -3,13 +3,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controllers.ClientDashboardController">
    <children>
-      <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="board" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/board/activeBoard.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bwFaithPath" fitHeight="187.0" fitWidth="972.0" layoutX="33.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../img/board/b&amp;wFaithPath.jpg" />
          </image>
       </ImageView>
       <AnchorPane layoutX="33.0" layoutY="34.0" prefHeight="162.0" prefWidth="950.0">
@@ -56,9 +62,9 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <Button fx:id="marketButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Market" />
-      <Button fx:id="shopButton" layoutX="79.0" layoutY="14.0" mnemonicParsing="false" text="Shop" />
-      <Button fx:id="productionButton" layoutX="31.0" layoutY="49.0" mnemonicParsing="false" text="Production" />
+      <Button fx:id="marketButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#goToMarket" text="Market" />
+      <Button fx:id="shopButton" layoutX="79.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#goToShop" text="Shop" />
+      <Button fx:id="productionButton" layoutX="31.0" layoutY="49.0" mnemonicParsing="false" onMouseClicked="#startProduction" text="Production" />
       <AnchorPane layoutX="28.0" layoutY="290.0">
          <children>
             <ImageView fx:id="firstRowImage" fitHeight="60.0" fitWidth="60.0" layoutX="69.0" pickOnBounds="true" preserveRatio="true">
@@ -155,10 +161,30 @@
       </Label>
       <AnchorPane layoutX="1007.0" prefHeight="720.0" prefWidth="273.0">
          <children>
-            <ImageView fx:id="leaderCard1" fitHeight="268.0" fitWidth="170.0" layoutX="52.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="leaderCard1" fitHeight="268.0" fitWidth="170.0" layoutX="32.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
-            <ImageView fx:id="leaderCard2" fitHeight="268.0" fitWidth="170.0" layoutX="52.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="leaderCard2" fitHeight="268.0" fitWidth="170.0" layoutX="32.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
+            <AnchorPane fx:id="playLeader1" layoutX="218.0" layoutY="83.0" onMouseClicked="#playLeader1" prefHeight="0.0" prefWidth="41.0" visible="false">
+               <children>
+                  <Circle fill="#81ff1f" layoutX="21.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Text layoutX="12.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="discardLeader1" layoutX="218.0" layoutY="170.0" onMouseClicked="#discardLeader1" prefHeight="0.0" prefWidth="41.0" visible="false">
+               <children>
+                  <Circle fill="#ff3a21" layoutX="21.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Text layoutX="12.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✘">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
             <TextFlow fx:id="textFlowLog" layoutX="-1.0" layoutY="540.0" prefHeight="180.0" prefWidth="273.0" />
             <AnchorPane fx:id="secondAbilityDeposit" layoutX="69.0" layoutY="470.0" prefHeight="60.0" prefWidth="143.0" visible="false">
                <children>
@@ -174,9 +200,29 @@
                   </ImageView>
                </children>
             </AnchorPane>
+            <AnchorPane fx:id="playLeader2" layoutX="218.0" layoutY="351.0" onMouseClicked="#playLeader2" prefHeight="0.0" prefWidth="41.0" visible="false">
+               <children>
+                  <Circle fill="#81ff1f" layoutX="21.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Text layoutX="12.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="discardLeader2" layoutX="218.0" layoutY="438.0" onMouseClicked="#discardLeader2" prefHeight="0.0" prefWidth="41.0" visible="false">
+               <children>
+                  <Circle fill="#ff3a21" layoutX="21.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Text layoutX="12.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✘">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
-      <Button fx:id="endTurnButton" layoutX="923.0" layoutY="127.0" mnemonicParsing="false" text="End Turn" />
-      <Button fx:id="otherPlayersButton" layoutX="25.0" layoutY="84.0" mnemonicParsing="false" text="Other Players" />
+      <Button fx:id="endTurnButton" layoutX="923.0" layoutY="127.0" mnemonicParsing="false" onMouseClicked="#endTurn" text="End Turn" />
+      <Button fx:id="otherPlayersButton" layoutX="25.0" layoutY="84.0" mnemonicParsing="false" onMouseClicked="#otherPlayers" text="Other Players" />
    </children>
 </AnchorPane>

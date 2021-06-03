@@ -86,7 +86,7 @@ public class GuiManager implements View {
         currentController.setLobbies(availableGameLobbies);
         if(message != null)
             currentController.setTextForWaiting(message);
-        Platform.runLater(()->stage.setScene(currentScene));
+        setNextScene();
     }
 
     @Override
@@ -108,7 +108,7 @@ public class GuiManager implements View {
     public void preGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources) {
         setLayout("preGameChoice.fxml");
         currentController.setPreGameChoice(leaders,numberOfResources);
-        Platform.runLater(()->stage.setScene(currentScene));
+        setNextScene();
     }
 
     @Override
@@ -118,8 +118,8 @@ public class GuiManager implements View {
 
     @Override
     public void yourTurn() {
-        setLayout("ActiveDashboard.fxml");
-        Platform.runLater(()->stage.setScene(currentScene));
+        setLayout("clientDashboard.fxml");
+        setNextScene();
     }
 
     @Override
@@ -170,5 +170,9 @@ public class GuiManager implements View {
     @Override
     public void clearView() {
 
+    }
+
+    public void setNextScene(){
+        Platform.runLater(()->stage.setScene(currentScene));
     }
 }

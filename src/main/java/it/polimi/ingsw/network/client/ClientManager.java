@@ -63,6 +63,9 @@ public class ClientManager {
         return socketPort;
     }
 
+    public boolean isMyTurn() {
+        return isMyTurn;
+    }
     public ClientGameStatus getGameStatus() { return gameStatus;}
     public String getNickname() {
         return nickname;
