@@ -63,13 +63,8 @@ public class LandingPageController extends GuiController{
                 createButton.setDisable(true);
                 int finalNumberOfPlayers = numberOfPlayers;
                 Platform.runLater(() -> clientManager.createGame(finalNumberOfPlayers));
+                goToWaiting();
             }
-            /*ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-            leaderCards.add(new LeaderCard(5,5,null,null));
-            leaderCards.add(new LeaderCard(14,6,null,null));
-            leaderCards.add(new LeaderCard(1,7,null,null));
-            leaderCards.add(new LeaderCard(8,8,null,null));
-            guiManager.preGameChoice(leaderCards,2); //TESTING*/
         }
     }
     @FXML
@@ -99,6 +94,12 @@ public class LandingPageController extends GuiController{
             String nickname = nicknameField.getText();
             clientManager.setNickname(nickname);
             Platform.runLater(()->clientManager.joinGame(selected.getServerThreadID()));
+            goToWaiting();
         }
+    }
+
+    public void goToWaiting(){
+        guiManager.setLayout("waitingPage.fxml");
+        guiManager.getCurrentController().setTextForWaiting("Wait for all players to join the lobby!");
     }
 }

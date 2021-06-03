@@ -11,4 +11,5 @@ public abstract class GuiController {
     public void initialize(){}
     public void setLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> lobbies){}
     public void setPreGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources){}
+    public void setTextForWaiting(String text){}
 }
