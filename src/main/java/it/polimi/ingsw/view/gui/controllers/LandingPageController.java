@@ -62,7 +62,7 @@ public class LandingPageController extends GuiController{
                 clientManager.setNickname(nickname);
                 createButton.setDisable(true);
                 int finalNumberOfPlayers = numberOfPlayers;
-                Platform.runLater(() -> clientManager.createGame(finalNumberOfPlayers));
+                //Platform.runLater(() -> clientManager.createGame(finalNumberOfPlayers));
             }
             /*ArrayList<LeaderCard> leaderCards = new ArrayList<>();
             leaderCards.add(new LeaderCard(5,5,null,null));
@@ -70,6 +70,7 @@ public class LandingPageController extends GuiController{
             leaderCards.add(new LeaderCard(1,7,null,null));
             leaderCards.add(new LeaderCard(8,8,null,null));
             guiManager.preGameChoice(leaderCards,2); //TESTING*/
+            //guiManager.setLayout("activeDashboard.fxml");
         }
     }
     @FXML
