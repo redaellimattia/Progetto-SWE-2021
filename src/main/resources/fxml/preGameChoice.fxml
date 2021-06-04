@@ -3,11 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controllers.PreGameChoiceController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/guicss.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controllers.PreGameChoiceController">
    <children>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../javaFX/backgroundPreGame.jpg" />
+         </image>
+      </ImageView>
       <ImageView fx:id="firstLeader" fitHeight="320.0" fitWidth="220.0" layoutX="80.0" layoutY="120.0" onMouseClicked="#firstLeaderClick" pickOnBounds="true" preserveRatio="true">
       </ImageView>
       <ImageView fx:id="secondLeader" fitHeight="320.0" fitWidth="220.0" layoutX="380.0" layoutY="120.0" onMouseClicked="#secondLeaderClick" pickOnBounds="true" preserveRatio="true">
@@ -16,17 +20,17 @@
       </ImageView>
       <ImageView fx:id="fourthLeader" fitHeight="320.0" fitWidth="220.0" layoutX="980.0" layoutY="120.0" onMouseClicked="#fourthLeaderClick" pickOnBounds="true" preserveRatio="true">
       </ImageView>
-      <Text layoutX="483.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leader Choice">
+      <Text layoutX="471.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titles" text="Leaders Choice">
          <font>
             <Font name="Roboto Light" size="50.0" />
          </font>
       </Text>
-      <Text layoutX="525.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose 2 Leaders">
+      <Text layoutX="525.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titles" text="Choose 2 Leaders">
          <font>
             <Font name="Roboto Light" size="29.0" />
          </font>
       </Text>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Choose 2 Resources">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titles">
          <font>
             <Font name="Roboto Light" size="29.0" />
          </font>
@@ -34,7 +38,7 @@
       <ImageView fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
       <AnchorPane fx:id="resourcesBox" layoutX="380.0" layoutY="488.0" prefHeight="151.0" prefWidth="520.0">
          <children>
-            <Text fx:id="chooseResourcesText" layoutX="128.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose 2 Resources">
+            <Text fx:id="chooseResourcesText" fill="WHITE" layoutX="128.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose 2 Resources">
                <font>
                   <Font name="Roboto Light" size="29.0" />
                </font>
@@ -82,47 +86,43 @@
          </children>
       </AnchorPane>
       <Button fx:id="sendChoicesButton" layoutX="581.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#sendChoices" prefHeight="50.0" prefWidth="116.0" text="Send Choices" />
-      <AnchorPane fx:id="firstLeaderChosen" layoutX="165.0" layoutY="445.0" prefHeight="0.0" prefWidth="41.0" visible="false">
+      <AnchorPane styleClass="greenCircleButton" fx:id="firstLeaderChosen" layoutX="165.0" layoutY="445.0" prefHeight="40" prefWidth="40" visible="false">
          <children>
-            <Circle fill="#81ff1f" layoutX="21.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-            <Text layoutX="12.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
+            <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="secondLeaderChosen" layoutX="465.0" layoutY="445.0" prefHeight="0.0" prefWidth="41.0" visible="false">
+      <AnchorPane styleClass="greenCircleButton" fx:id="secondLeaderChosen" layoutX="465.0" layoutY="445.0" prefHeight="40" prefWidth="40" visible="false">
          <children>
-            <Circle fill="#81ff1f" layoutX="21.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-            <Text layoutX="12.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
+            <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="thirdLeaderChosen" layoutX="765.0" layoutY="445.0" prefHeight="0.0" prefWidth="41.0" visible="false">
+      <AnchorPane styleClass="greenCircleButton" fx:id="thirdLeaderChosen" layoutX="765.0" layoutY="445.0" prefHeight="40" prefWidth="40" visible="false">
          <children>
-            <Circle fill="#81ff1f" layoutX="21.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-            <Text layoutX="12.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
+            <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="fourthLeaderChosen" layoutX="1065.0" layoutY="445.0" prefHeight="0.0" prefWidth="41.0" visible="false">
+      <AnchorPane styleClass="greenCircleButton" fx:id="fourthLeaderChosen" layoutX="1065.0" layoutY="445.0" prefHeight="40" prefWidth="40" visible="false">
          <children>
-            <Circle fill="#81ff1f" layoutX="21.0" layoutY="23.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-            <Text layoutX="12.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
+            <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
          </children>
       </AnchorPane>
-      <Label fx:id="errorLabel" layoutX="703.0" layoutY="662.0" text="Invalid Choices!" textFill="RED" visible="false">
+      <Label fx:id="error" layoutX="703.0" layoutY="662.0" text="Invalid Choices!" textFill="RED" visible="false">
          <font>
             <Font size="18.0" />
          </font>

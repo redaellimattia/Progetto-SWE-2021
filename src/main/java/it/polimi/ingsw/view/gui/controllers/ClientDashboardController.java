@@ -46,8 +46,8 @@ public class ClientDashboardController extends GuiController{
             thirdPositionLevel1,thirdPositionLevel2,thirdPositionLevel3;
     @FXML //STORAGE
     private ImageView firstRowImage,secondRowImage1,secondRowImage2,thirdRowImage1,thirdRowImage2,thirdRowImage3;
-    @FXML //UP LEFT BUTTONS
-    private Button marketButton,shopButton,productionButton,endTurnButton;
+    @FXML
+    private Button marketButton,shopButton,productionButton,endTurnButton,backHome;
     @FXML //FAITHPATH
     private ImageView faithPath0,faithPath1,faithPath2,faithPath3,faithPath4,faithPath5,faithPath6,faithPath7,faithPath8,faithPath9,faithPath10,
             faithPath11,faithPath12,faithPath13,faithPath14,faithPath15,faithPath16,faithPath17,faithPath18,faithPath19,faithPath20,faithPath21,
@@ -72,6 +72,7 @@ public class ClientDashboardController extends GuiController{
             productionButton.setVisible(false);
             endTurnButton.setVisible(false);
             otherPlayers.setVisible(false);
+            backHome.setVisible(true);
         }
         else{
             if(!clientManager.isMyTurn()){
@@ -247,7 +248,7 @@ public class ClientDashboardController extends GuiController{
         ArrayList<CounterTop> shelves = storage.getShelvesArray();
         if(shelves.size()!=0){
             for(int i=0;i<shelves.size();i++)
-                setStorageRow(shelves.get(0), i + 1);
+                setStorageRow(shelves.get(i), i + 1);
         }
     }
 
@@ -448,5 +449,9 @@ public class ClientDashboardController extends GuiController{
     @Override
     public void updateVaticanReports(){
         setVaticanReport(clientManager.getGameStatus().getvReports());
+    }
+
+    public void backToHome(MouseEvent mouseEvent) {
+        getGuiManager().callDashboard();
     }
 }

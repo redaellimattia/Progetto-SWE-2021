@@ -5,18 +5,24 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controllers.LandingPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/guicss.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controllers.LandingPageController">
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../javaFX/background.jpg" />
          </image></ImageView>
-      <TextField fx:id="nicknameField" layoutX="543.0" layoutY="198.0" prefHeight="25.0" prefWidth="196.0" />
-      <Label layoutX="543.0" layoutY="181.0" text="Insert a Nickname:" />
-      <Label layoutX="543.0" layoutY="249.0" text="Select the number of players: " />
+      <TextField fx:id="nicknameField" layoutX="543.0" layoutY="198.0" prefHeight="25.0" prefWidth="196.0" promptText="Insert a Nickname" />
+      <Label layoutX="543.0" layoutY="181.0" text="Insert a Nickname:">
+         <font>
+            <Font name="Roboto Light" size="12.0" />
+         </font></Label>
+      <Label layoutX="543.0" layoutY="249.0" text="Select the number of players: ">
+         <font>
+            <Font name="Roboto Light" size="12.0" />
+         </font></Label>
       <ListView fx:id="lobbyList" layoutX="541.0" layoutY="318.0" onMouseClicked="#handleMouseClick" prefHeight="200.0" prefWidth="196.0" />
       <Label fx:id="listLabel" layoutX="543.0" layoutY="301.0" text="Select a Lobby to join it!" />
-      <Button fx:id="createButton" layoutX="590.0" layoutY="549.0" mnemonicParsing="false" onMouseClicked="#onCreateButtonClick" prefHeight="61.0" prefWidth="98.0" text="Create Game" />
+      <Button fx:id="createButton" layoutX="581.0" layoutY="550.0" mnemonicParsing="false" onMouseClicked="#onCreateButtonClick" prefHeight="61.0" prefWidth="120.0" text="Create Game" />
       <Text layoutX="389.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Masters Of Renaissance" visible="false">
          <font>
             <Font size="48.0" />
@@ -27,7 +33,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <ComboBox fx:id="numberOfPlayers" layoutX="543.0" layoutY="266.0" prefHeight="25.0" prefWidth="196.0" />
-      <Button fx:id="askLobbyButton" onMouseClicked="#askLobbies" layoutX="575.0" layoutY="656.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="128.0" text="Ask Lobby Again" />
+      <ComboBox fx:id="numberOfPlayers" layoutX="538.0" layoutY="266.0" prefHeight="50.0" prefWidth="202.0" promptText="Number of players..." />
+      <Button fx:id="askLobbyButton" layoutX="570.0" layoutY="654.0" mnemonicParsing="false" onMouseClicked="#askLobbies" prefHeight="42.0" prefWidth="138.0" text="Ask Lobby Again" />
    </children>
 </AnchorPane>

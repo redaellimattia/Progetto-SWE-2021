@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="it.polimi.ingsw.view.gui.controllers.JoinedLobbyController" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" stylesheets="@../css/guicss.css" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="it.polimi.ingsw.view.gui.controllers.JoinedLobbyController" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text fontSmoothingType="LCD" layoutX="434.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joined Lobby" AnchorPane.leftAnchor="434.0" AnchorPane.rightAnchor="433.587890625" AnchorPane.topAnchor="24.650390625">
          <font>
