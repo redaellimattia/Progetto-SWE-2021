@@ -86,6 +86,6 @@
             <Font size="22.0" />
          </font>
       </Text>
-      <ImageView fx:id="freeMarble" fitHeight="54.0" fitWidth="55.0" layoutX="350.0" layoutY="161.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="freeMarble" fitHeight="43.0" fitWidth="44.0" layoutX="361.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
