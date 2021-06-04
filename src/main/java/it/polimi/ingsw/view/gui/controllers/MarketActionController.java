@@ -38,13 +38,12 @@ public class MarketActionController extends GuiController {
         super.setGuiManager(GuiManager.getInstance());
         this.clientManager = getGuiManager().getClientManager();
 
-        // TO-DO
-        Image whiteMarble = new Image("");
-        Image redMarble = new Image("");
-        Image yellowMarble = new Image("");
-        Image blueMarble = new Image("");
-        Image purpleMarble = new Image("");
-        Image grayMarble = new Image("");
+        Image whiteMarble = new Image("/img/marbles/whiteMarble.png");
+        Image redMarble = new Image("/img/marbles/redMarble.png");
+        Image yellowMarble = new Image("/img/marbles/yellowMarble.png");
+        Image blueMarble = new Image("/img/marbles/blueMarble.png");
+        Image purpleMarble = new Image("/img/marbles/purpleMarble.png");
+        Image grayMarble = new Image("/img/marbles/grayMarble.png");
 
         marblesView = new ArrayList<>();
         marblesView.add(marble1);
