@@ -22,7 +22,8 @@ public class MarketActionController extends GuiController {
 
     @FXML
     private ImageView marble1, marble2, marble3, marble4, marble5, marble6,
-            marble7, marble8, marble9, marble10, marble11, marble12;
+            marble7, marble8, marble9, marble10, marble11, marble12,
+            freeMarble;
 
     @FXML
     private Text message;
@@ -89,6 +90,27 @@ public class MarketActionController extends GuiController {
                 }
                 cur++;
             }
+        }
+        MarketMarble freeMarketMarble = clientManager.getGameStatus().getMarket().getFreeMarble();
+        switch (freeMarketMarble.getColour()) {
+            case RED:
+                freeMarble.setImage(redMarble);
+                break;
+            case BLUE:
+                freeMarble.setImage(blueMarble);
+                break;
+            case GREY:
+                freeMarble.setImage(greyMarble);
+                break;
+            case WHITE:
+                freeMarble.setImage(whiteMarble);
+                break;
+            case PURPLE:
+                freeMarble.setImage(purpleMarble);
+                break;
+            case YELLOW:
+                freeMarble.setImage(yellowMarble);
+                break;
         }
     }
 
