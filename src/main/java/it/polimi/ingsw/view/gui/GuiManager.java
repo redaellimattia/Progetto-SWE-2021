@@ -83,13 +83,13 @@ public class GuiManager implements View {
     @Override
     public void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies,String message) {
         Platform.runLater(()->setLobbiesPage(availableGameLobbies,message));
-        setNextScene();
     }
     public void setLobbiesPage(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies,String message){
         setLayout("landingPage.fxml");
         currentController.setLobbies(availableGameLobbies);
         if(message != null)
             currentController.setTextForWaiting(message);
+        setNextScene();
     }
 
     @Override
@@ -110,28 +110,27 @@ public class GuiManager implements View {
     @Override
     public void preGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources) {
         Platform.runLater(()->goToPregame(leaders, numberOfResources));
-        setNextScene();
     }
     public void goToPregame(ArrayList<LeaderCard> leaders, int numberOfResources){
         setLayout("preGameChoice.fxml");
         currentController.setPreGameChoice(leaders,numberOfResources);
+        setNextScene();
     }
 
     @Override
     public void waitingForTurn() {
         //TO BE PASSED TRUE FOR A WAITING PLAYER
         Platform.runLater(()->goToClientDashboard(false));
-        setNextScene();
     }
 
     @Override
     public void yourTurn() {
         Platform.runLater(()->goToClientDashboard(false));
-        setNextScene();
     }
     public void goToClientDashboard(boolean watchingPlayer){
         setLayout("clientDashboard.fxml");
         currentController.setPlayer(clientManager.getThisClientDashboard(),false);
+        setNextScene();
     }
 
     @Override
