@@ -133,6 +133,9 @@ public class ClientManager {
      */
     public void initGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market,VaticanReport[] vReports){
         gameStatus = new ClientGameStatus(players,shop,market,vReports);
+
+        if(view instanceof GuiManager)
+            gameStatus.addObserver(GuiManager.getInstance());
     }
 
     /**
@@ -581,24 +584,6 @@ public class ClientManager {
         return (canDoDevCardProduction(p) || canDoLeaderCardProduction(p) || canDoBasicProduction(p));
     }
 
-    /*/**
-     * Creates a copy of the user storage at the beginning of the MarketAction
-     * that will be updated when user makes choices in order to perform client-side validity controls.
-     * It won't be sent to the server (the server will re-execute choices)
-     */
-    /*
-    public void initTempStorage() {
-        ArrayList<CounterTop> tempStorageRows = new ArrayList<CounterTop>();
-        // Create a COPY of each "regular" counterTop
-        for(CounterTop c: getThisClientDashboard().getStorage().getShelvesArray()) {
-            tempStorageRows.add(new CounterTop(c.getResourceType(), c.getContent()));
-        }
-        // Create a COPY of each additional counterTop
-        for(CounterTop c: getThisClientDashboard().getArrayDeposit()) {
-            tempArrayDeposit.add(new CounterTop(c.getResourceType(), c.getContent()));
-        }
-        tempStorage = new Storage(tempStorageRows.get(0), tempStorageRows.get(1), tempStorageRows.get(2));
-    }*/
 
     public MarketMarble[] getMarketMarbles(int type, int pos) {
         if(type == 0) {
@@ -609,73 +594,6 @@ public class ClientManager {
         }
     }
 
-    /*
-    public boolean checkAddToStorage(int row, Resource res) {
-        switch(row) {
-            case 1:
-                if(getThisClientDashboard().getStorage().getFirstRow().getContent() == 0) {
-                    if(!canCreateNewRow(res)){
-                        return false; // User cannot have two counterTops with the same Resource type
-                        //throw new WrongCounterTopException(res);
-                    }
-                    return true;
-                }
-                if(getThisClientDashboard().getStorage().getFirstRow().getResourceType() != res) {
-                    return false; // User cannot add a resource of a different type
-                    //throw new WrongCounterTopException(res);
-                }
-                if(getThisClientDashboard().getStorage().getFirstRow().getContent() > 0) {
-                    return false; // User cannot add a resource into a full counterTop
-                    //throw new CounterTopOverloadException();
-                }
-                return true;
-            case 2:
-                if(getThisClientDashboard().getStorage().getSecondRow().getContent() == 0) {
-                    if(!canCreateNewRow(res)){
-                        return false; // User cannot have two counterTops with the same Resource type
-                        //throw new WrongCounterTopException(res);
-                    }
-                    return true;
-                }
-                if(getThisClientDashboard().getStorage().getSecondRow().getResourceType() != res) {
-                    return false;  // User cannot add a resource of a different type
-                    //throw new WrongCounterTopException(res);
-                }
-                if(getThisClientDashboard().getStorage().getSecondRow().getContent() > 1) {
-                    return false; // User cannot add a resource into a full counterTop
-                    //throw new CounterTopOverloadException();
-                }
-                return true;
-            case 3:
-                if(getThisClientDashboard().getStorage().getThirdRow().getContent() == 0) {
-                    if(!canCreateNewRow(res)){
-                        return false;  // User cannot have two counterTops with the same Resource type
-                        //throw new WrongCounterTopException(res);
-                    }
-                    return true;
-                }
-                if(getThisClientDashboard().getStorage().getThirdRow().getResourceType() != res) {
-                    return false;  // User cannot add a resource of a different type
-                    //throw new WrongCounterTopException(res);
-                }
-                if(getThisClientDashboard().getStorage().getThirdRow().getContent() > 2) {
-                    return false; // User cannot add a resource into a full counterTop
-                    //throw new CounterTopOverloadException();
-                }
-                return true;
-            case 4:
-                if(getThisClientDashboard().isFull(res)) {
-                    return false;
-                    //throw new NoAdditionalDepositException(res);
-                }
-                else {
-                    return true;
-                }
-            default:
-                return false;
-                //throw new IllegalArgumentException();
-        }
-    } */
 
     /**
      * Check if the user already has a non-empty counterTop for this resource type

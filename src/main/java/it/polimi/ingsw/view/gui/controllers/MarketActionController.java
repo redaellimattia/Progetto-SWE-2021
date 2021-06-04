@@ -38,7 +38,10 @@ public class MarketActionController extends GuiController {
     public void initialize() {
         super.setGuiManager(GuiManager.getInstance());
         this.clientManager = getGuiManager().getClientManager();
+        setGrid();
 
+    }
+    public void setGrid(){
         Image whiteMarble = new Image("/img/marbles/whiteMarble.png");
         Image redMarble = new Image("/img/marbles/redMarble.png");
         Image yellowMarble = new Image("/img/marbles/yellowMarble.png");
@@ -163,5 +166,10 @@ public class MarketActionController extends GuiController {
         for(MarketMarble m: marbles) {
             // Atomic choice
         }
+    }
+
+    @Override
+    public void updateMarket(){
+        setGrid();
     }
 }

@@ -2,6 +2,7 @@ package it.polimi.ingsw.network.messages.serverMessages;
 
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.enumeration.ServerMessageType;
+import it.polimi.ingsw.view.cli.Cli;
 
 public class DoneMessage extends ServerMessage{
     public DoneMessage() {
@@ -19,6 +20,7 @@ public class DoneMessage extends ServerMessage{
         if(clientManager.isProductionActionOnGoing())
             clientManager.getView().startProduction();
         else
-            clientManager.updateViewWithClear();
+            if(clientManager.getView() instanceof Cli)
+                clientManager.updateViewWithClear();
     }
 }

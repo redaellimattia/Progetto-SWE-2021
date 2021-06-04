@@ -5,6 +5,7 @@ import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.client.PlayerPoints;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 import it.polimi.ingsw.view.View;
+import it.polimi.ingsw.view.gui.controllers.ClientDashboardController;
 import it.polimi.ingsw.view.gui.controllers.GuiController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class GuiManager implements View {
+public class GuiManager implements View, GuiObserver{
     private ClientManager clientManager;
 
     private GuiController currentController;
@@ -121,7 +122,7 @@ public class GuiManager implements View {
     @Override
     public void waitingForTurn() {
         //TO BE PASSED TRUE FOR A WAITING PLAYER
-        Platform.runLater(()->goToClientDashboard(false));
+        Platform.runLater(() -> goToClientDashboard(false));
         setNextScene();
     }
 
@@ -130,6 +131,7 @@ public class GuiManager implements View {
         Platform.runLater(()->goToClientDashboard(false));
         setNextScene();
     }
+
     public void goToClientDashboard(boolean watchingPlayer){
         setLayout("clientDashboard.fxml");
         currentController.setPlayer(clientManager.getThisClientDashboard(),watchingPlayer);
@@ -202,5 +204,44 @@ public class GuiManager implements View {
 
     public void setNextScene(){
         Platform.runLater(()->stage.setScene(currentScene));
+    }
+
+    @Override
+    public void updateShop(){
+        currentController.updateShop();
+    }
+    @Override
+    public void updatePathPosition(String nickname){
+        currentController.updatePathPosition(nickname);
+    }
+    @Override
+    public void updateLeaders(String nickname){
+        currentController.updateLeaders(nickname);
+    }
+    @Override
+    public void updateMarket(){currentController.updateMarket();}
+    @Override
+    public void updateArrayDeposits(String nickname){
+        currentController.updateArrayDeposits(nickname);
+    }
+    @Override
+    public void updateChest(String nickname){
+        currentController.updateChest(nickname);
+    }
+    @Override
+    public void updateDevCards(String nickname){
+        currentController.updateDevCards(nickname);
+    }
+    @Override
+    public void updateStorage(String nickname){
+        currentController.updateStorage(nickname);
+    }
+    @Override
+    public void updateVaticanReports(){
+        currentController.updateVaticanReports();
+    }
+    @Override
+    public void updateBufferProduction(String nickname){
+        currentController.updateBufferProduction(nickname);
     }
 }

@@ -5,6 +5,8 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
+import it.polimi.ingsw.network.server.Observer;
+import it.polimi.ingsw.view.gui.GuiObserver;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,12 +16,28 @@ public class ClientGameStatus {
     private Shop shop;
     private MarketDashboard market;
     private VaticanReport[] vReports;
+    private GuiObserver guiObserver;
 
     public ClientGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market, VaticanReport[] vReports) {
         this.players = players;
         this.shop = shop;
         this.market = market;
         this.vReports = vReports;
+        this.guiObserver = null;
+    }
+    /**
+     * Adds reference to the observer
+     * @param observer GuiManager that is observing the Player
+     */
+    public void addObserver(GuiObserver observer) {
+        this.guiObserver = observer;
+    }
+
+    /**
+     * Remove reference to the observer
+     */
+    public void removeObserver() {
+        this.guiObserver = null;
     }
 
     public VaticanReport[] getvReports() {
@@ -56,6 +74,8 @@ public class ClientGameStatus {
      */
     public void updateShop(DeckShop[][] shopGrid){
         this.shop.setShopGrid(shopGrid);
+        if(guiObserver!=null)
+            guiObserver.updateShop();
     }
 
     /**
@@ -65,6 +85,8 @@ public class ClientGameStatus {
      */
     public void updatePathPosition(String nickname,int position){
         getClientDashboard(nickname).setPathPosition(position);
+        if(guiObserver!=null)
+            guiObserver.updatePathPosition(nickname);
     }
 
     /**
@@ -75,6 +97,8 @@ public class ClientGameStatus {
     public void updateMarket(MarketMarble[][] structure,MarketMarble freeMarble){
         market.setStructure(structure);
         market.setFreeMarble(freeMarble);
+        if(guiObserver!=null)
+            guiObserver.updateMarket();
     }
 
     /**
@@ -84,6 +108,8 @@ public class ClientGameStatus {
      */
     public void updateLeaderCards(String nickname, ArrayList<LeaderCard> updatedLeaderCards){
         getClientDashboard(nickname).setLeaderCards(updatedLeaderCards);
+        if(guiObserver!=null)
+            guiObserver.updateLeaders(nickname);
     }
 
     /**
@@ -93,6 +119,8 @@ public class ClientGameStatus {
      */
     public void initArrayDeposit(String nickname, Resource res){
         getClientDashboard(nickname).initArrayDeposit(res);
+        if(guiObserver!=null)
+            guiObserver.updateArrayDeposits(nickname);
     }
 
     /**
@@ -102,6 +130,8 @@ public class ClientGameStatus {
      */
     public void updateArrayDeposit(String nickname,ArrayList<CounterTop> arrayDeposit){
         getClientDashboard(nickname).setArrayDeposit(arrayDeposit);
+        if(guiObserver!=null)
+            guiObserver.updateArrayDeposits(nickname);
     }
 
     /**
@@ -110,7 +140,10 @@ public class ClientGameStatus {
      * @param chest new chest from the server
      */
     public void updateChest(String nickname,ResourceCount chest){
+
         getClientDashboard(nickname).setChest(chest);
+        if(guiObserver!=null)
+            guiObserver.updateChest(nickname);
     }
 
     /**
@@ -120,6 +153,8 @@ public class ClientGameStatus {
      */
     public void updateDevCards(String nickname, DeckDashboard[] devCards){
         getClientDashboard(nickname).setDevCards(devCards);
+        if(guiObserver!=null)
+            guiObserver.updateDevCards(nickname);
     }
 
     /**
@@ -129,6 +164,8 @@ public class ClientGameStatus {
      */
     public void updateFirstRow(String nickname,CounterTop firstRow){
         getClientDashboard(nickname).getStorage().setFirstRow(firstRow);
+        if(guiObserver!=null)
+            guiObserver.updateStorage(nickname);
     }
 
     /**
@@ -138,6 +175,8 @@ public class ClientGameStatus {
      */
     public void updateSecondRow(String nickname,CounterTop secondRow){
         getClientDashboard(nickname).getStorage().setSecondRow(secondRow);
+        if(guiObserver!=null)
+            guiObserver.updateStorage(nickname);
     }
 
     /**
@@ -147,6 +186,8 @@ public class ClientGameStatus {
      */
     public void updateThirdRow(String nickname,CounterTop thirdRow){
         getClientDashboard(nickname).getStorage().setThirdRow(thirdRow);
+        if(guiObserver!=null)
+            guiObserver.updateStorage(nickname);
     }
 
     /**
@@ -156,6 +197,8 @@ public class ClientGameStatus {
      */
     public void updateBufferProduction(String nickname,ResourceCount bufferProduction){
         getClientDashboard(nickname).setBufferProduction(bufferProduction);
+        if(guiObserver!=null)
+            guiObserver.updateBufferProduction(nickname);
     }
 
 
@@ -173,6 +216,8 @@ public class ClientGameStatus {
             if(vReports[i].getVictoryPoints()==victoryPoints)
                 vReports[i].setUsed();
         }
+        if(guiObserver!=null)
+            guiObserver.updateVaticanReports();
     }
 
     /**

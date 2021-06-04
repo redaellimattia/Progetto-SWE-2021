@@ -76,7 +76,6 @@ public class ClientDashboardController extends GuiController{
         else{
             if(!clientManager.isMyTurn()){
                 marketButton.setDisable(true);
-                shopButton.setDisable(true);
                 productionButton.setDisable(true);
                 endTurnButton.setDisable(true);
             }
@@ -201,9 +200,10 @@ public class ClientDashboardController extends GuiController{
     }
 
     private void setLeaderCards(ArrayList<LeaderCard> leaderCards,boolean watchingPlayer){
-        for(int i=0;i<leaderCards.size();i++){
+        int i=0;
+        for(i=0;i<leaderCards.size();i++){
             LeaderCard l = leaderCards.get(i);
-            if(!l.isInGame()&&!watchingPlayer){
+            if(!l.isInGame()&&!watchingPlayer&&clientManager.isMyTurn()){
                 if(i==0){
                     discardLeader1.setVisible(true);
                     if(clientManager.isRequirementPossible(l.getRequirement()))
@@ -228,26 +228,44 @@ public class ClientDashboardController extends GuiController{
                     setImage(leaderCard2, "/img/cards/back/leaderCardBack.png");
             }
         }
+        if(i==0){
+            leaderCard1.setVisible(false);
+            leaderCard2.setVisible(false);
+            playLeader1.setVisible(false);
+            playLeader2.setVisible(false);
+            discardLeader1.setVisible(false);
+            discardLeader2.setVisible(false);
+        }
+        if(i==1){
+            leaderCard2.setVisible(false);
+            playLeader2.setVisible(false);
+            discardLeader2.setVisible(false);
+        }
     }
 
     private void setStorage(Storage storage){
         ArrayList<CounterTop> shelves = storage.getShelvesArray();
-
         if(shelves.size()!=0){
             for(int i=0;i<shelves.size();i++)
-                if(shelves.get(i).getContent()!=0){
-                    setStorageRow(shelves.get(0),i+1);
-                }
+                setStorageRow(shelves.get(0), i + 1);
         }
     }
 
     private void setStorageRow(CounterTop row,int i){
         switch(i){
-            case 1: setImage(firstRowImage,getCounterTopImage(row.getResourceType()));
+            case 1:
+                if(row.getContent()==0)
+                    setImage(firstRowImage,null);
+                else
+                    setImage(firstRowImage,getCounterTopImage(row.getResourceType()));
                 break;
             case 2: String path = getCounterTopImage(row.getResourceType());
                     switch(row.getContent()){
+                        case 0: setImage(secondRowImage1,null);
+                                setImage(secondRowImage2,null);
+                                break;
                         case 1: setImage(secondRowImage1,path);
+                                setImage(secondRowImage2,null);
                                 break;
                         case 2: setImage(secondRowImage1,path);
                                 setImage(secondRowImage2,path);
@@ -256,11 +274,18 @@ public class ClientDashboardController extends GuiController{
                 break;
             case 3: path = getCounterTopImage(row.getResourceType());
                     switch(row.getContent()){
+                        case 0: setImage(thirdRowImage1,null);
+                                setImage(thirdRowImage2,null);
+                                setImage(thirdRowImage3,null);
+                                break;
                         case 1: setImage(thirdRowImage1,path);
-                            break;
+                                setImage(thirdRowImage2,null);
+                                setImage(thirdRowImage3,null);
+                                break;
                         case 2: setImage(thirdRowImage1,path);
                                 setImage(thirdRowImage2,path);
-                            break;
+                                setImage(thirdRowImage3,null);
+                                break;
                         case 3: setImage(thirdRowImage1,path);
                                 setImage(thirdRowImage2,path);
                                 setImage(thirdRowImage3,path);
@@ -283,12 +308,20 @@ public class ClientDashboardController extends GuiController{
     private void setChest(ResourceCount chest){
         if(chest.getCoins()!=0)
             xCoin.setText("x"+chest.getCoins());
+        else
+            xCoin.setText("");
         if(chest.getShields()!=0)
             xShield.setText("x"+chest.getShields());
+        else
+            xShield.setText("");
         if(chest.getRocks()!=0)
             xRock.setText("x"+chest.getRocks());
+        else
+            xRock.setText("");
         if(chest.getServants()!=0)
             xServant.setText("x"+chest.getServants());
+        else
+            xServant.setText("");
     }
 
     private void setAbilityDeposit(ArrayList<CounterTop> arrayDeposit,ArrayList<LeaderCard> leaderCards){
@@ -315,6 +348,9 @@ public class ClientDashboardController extends GuiController{
     private void setCounterTopAbilityDeposit(ImageView image1,ImageView image2,CounterTop counterTop){
         String path = getCounterTopImage(counterTop.getResourceType());
         switch (counterTop.getContent()){
+            case 0: setImage(image1,null);
+                    setImage(image2,null);
+                    break;
             case 1: setImage(image1,path);
                 break;
             case 2: setImage(image1, path);
@@ -334,10 +370,9 @@ public class ClientDashboardController extends GuiController{
 
     public void goToMarket(MouseEvent mouseEvent) {
         marketButton.setDisable(true);
-        Platform.runLater(()->getGuiManager().setLayout("marketAction.fxml"));
+        Platform.runLater(()-> getGuiManager().setLayout("marketAction.fxml"));
         getGuiManager().setNextScene();
     }
-
     public void goToShop(MouseEvent mouseEvent) {
         shopButton.setDisable(true);
         Platform.runLater(()->getGuiManager().setLayout("shopView.fxml"));
@@ -376,5 +411,42 @@ public class ClientDashboardController extends GuiController{
     public void selectPlayer(ActionEvent actionEvent) {
         String selectedPlayer = otherPlayers.getSelectionModel().getSelectedItem().toString();
         Platform.runLater(()->getGuiManager().watchPlayer(selectedPlayer));
+    }
+
+    @Override
+    public void updatePathPosition(String nickname){
+        if(nickname.equals(playerDashboard.getNickname()))
+            setFaithPath(playerDashboard.getPathPosition());
+    }
+
+    @Override
+    public void updateLeaders(String nickname){
+        if(nickname.equals(playerDashboard.getNickname()))
+            setLeaderCards(playerDashboard.getLeaderCards(),!playerDashboard.getNickname().equals(clientManager.getNickname()));
+    }
+
+    @Override
+    public void updateArrayDeposits(String nickname){
+        if(nickname.equals(playerDashboard.getNickname()))
+            setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
+    }
+    @Override
+    public void updateChest(String nickname){
+        if(nickname.equals(playerDashboard.getNickname()))
+            setChest(playerDashboard.getChest());
+    }
+    @Override
+    public void updateDevCards(String nickname){
+        if(nickname.equals(playerDashboard.getNickname()))
+            setDevCards(playerDashboard.getDevCards());
+    }
+    @Override
+    public void updateStorage(String nickname){
+        if(nickname.equals(playerDashboard.getNickname()))
+            setStorage(playerDashboard.getStorage());
+    }
+    @Override
+    public void updateVaticanReports(){
+        setVaticanReport(clientManager.getGameStatus().getvReports());
     }
 }
