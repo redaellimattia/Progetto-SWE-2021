@@ -59,6 +59,8 @@ public class ClientDashboardController extends GuiController{
         setChest(playerDashboard.getChest());
         setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
         if(watchingPlayer){
+            setImage(board,"/img/board/inactiveBoard.png");
+            bwFaithPath.setVisible(true);
             marketButton.setVisible(false);
             shopButton.setVisible(false);
             productionButton.setVisible(false);
