@@ -49,39 +49,51 @@ public class ClientDashboardController extends GuiController{
     private PlayerDashboard playerDashboard;
     private ClientManager clientManager;
 
-    @FXML
     @Override
-    public void initialize() {
-        super.setGuiManager(GuiManager.getInstance());
-        this.clientManager = getGuiManager().getClientManager();
-        this.playerDashboard = clientManager.getThisClientDashboard();
+    public void setPlayer(PlayerDashboard playerDashboard,boolean watchingPlayer) {
+        this.playerDashboard = playerDashboard;
         setFaithPath(playerDashboard.getPathPosition());
         setDevCards(playerDashboard.getDevCards());
         setLeaderCards(playerDashboard.getLeaderCards());
         setStorage(playerDashboard.getStorage());
         setChest(playerDashboard.getChest());
         setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
-        setVaticanReport(clientManager.getGameStatus().getvReports());
-        if(!clientManager.isMyTurn()){
-
-            marketButton.setDisable(true);
-            shopButton.setDisable(true);
-            productionButton.setDisable(true);
-            endTurnButton.setDisable(true);
+        if(watchingPlayer){
+            marketButton.setVisible(false);
+            shopButton.setVisible(false);
+            productionButton.setVisible(false);
+            endTurnButton.setVisible(false);
+            otherPlayersButton.setVisible(false);
         }
-        if(clientManager.isMyTurn()&&clientManager.isMainActionDone()){
-            marketButton.setDisable(true);
-            shopButton.setDisable(true);
-            productionButton.setDisable(true);
-            endTurnButton.setDisable(false);
-        }
-        if(clientManager.isMyTurn()&&!clientManager.isMainActionDone()){
-            if(!clientManager.canBuyCardFromShop())
+        else{
+            if(!clientManager.isMyTurn()){
+                marketButton.setDisable(true);
                 shopButton.setDisable(true);
-            if(!clientManager.canDoProduction())
                 productionButton.setDisable(true);
-            endTurnButton.setDisable(true);
+                endTurnButton.setDisable(true);
+            }
+            if(clientManager.isMyTurn()&&clientManager.isMainActionDone()){
+                marketButton.setDisable(true);
+                shopButton.setDisable(true);
+                productionButton.setDisable(true);
+                endTurnButton.setDisable(false);
+            }
+            if(clientManager.isMyTurn()&&!clientManager.isMainActionDone()){
+                if(!clientManager.canBuyCardFromShop())
+                    shopButton.setDisable(true);
+                if(!clientManager.canDoProduction())
+                    productionButton.setDisable(true);
+                endTurnButton.setDisable(true);
+            }
         }
+    }
+
+    @FXML
+    @Override
+    public void initialize() {
+        super.setGuiManager(GuiManager.getInstance());
+        this.clientManager = getGuiManager().getClientManager();
+        setVaticanReport(clientManager.getGameStatus().getvReports());
     }
 
     private void setFaithPath(int position){

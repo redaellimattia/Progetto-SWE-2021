@@ -113,12 +113,15 @@ public class GuiManager implements View {
 
     @Override
     public void waitingForTurn() {
-
+        setLayout("clientDashboard.fxml");
+        currentController.setPlayer(clientManager.getThisClientDashboard(),false);
+        setNextScene();
     }
 
     @Override
     public void yourTurn() {
         setLayout("clientDashboard.fxml");
+        currentController.setPlayer(clientManager.getThisClientDashboard(),false);
         setNextScene();
     }
 
