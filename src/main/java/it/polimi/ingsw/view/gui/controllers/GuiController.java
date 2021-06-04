@@ -27,7 +27,10 @@ public abstract class GuiController {
     public void setPlayer(PlayerDashboard player,boolean watchingPlayer){}
 
     protected void setImage(ImageView image, String path){
-        image.setImage(new Image(this.getClass().getResourceAsStream(path)));
+        if(path == null)
+            image.setImage(null);
+        else
+            image.setImage(new Image(this.getClass().getResourceAsStream(path)));
     }
 
     public void updateShop(){}
