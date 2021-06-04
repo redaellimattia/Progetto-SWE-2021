@@ -3,9 +3,8 @@ package it.polimi.ingsw.view.gui;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class GuiMain extends Application {
@@ -19,6 +18,7 @@ public class GuiMain extends Application {
         guiManager.setLayout("splashScreen.fxml");
         stage.setTitle("Masters Of Renaissance");
         stage.setResizable(false);
+        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/img/javaFX/icon.png")));
         stage.show();
 
         stage.setOnCloseRequest((windowEvent) -> {

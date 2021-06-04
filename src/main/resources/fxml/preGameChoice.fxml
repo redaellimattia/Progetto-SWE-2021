@@ -9,7 +9,7 @@
    <children>
       <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../javaFX/backgroundPreGame.jpg" />
+            <Image url="@../img/javaFX/backgroundPreGame.jpg" />
          </image>
       </ImageView>
       <ImageView fx:id="firstLeader" fitHeight="320.0" fitWidth="220.0" layoutX="80.0" layoutY="120.0" onMouseClicked="#firstLeaderClick" pickOnBounds="true" preserveRatio="true">
@@ -86,7 +86,7 @@
          </children>
       </AnchorPane>
       <Button fx:id="sendChoicesButton" layoutX="581.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#sendChoices" prefHeight="50.0" prefWidth="116.0" text="Send Choices" />
-      <AnchorPane styleClass="greenCircleButton" fx:id="firstLeaderChosen" layoutX="165.0" layoutY="445.0" prefHeight="40" prefWidth="40" visible="false">
+      <AnchorPane styleClass="greenCircleButton" fx:id="firstLeaderChosen" onMouseClicked="#firstLeaderClick" layoutX="165.0" layoutY="445.0" prefHeight="40" prefWidth="40" visible="false">
          <children>
             <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                <font>
@@ -95,7 +95,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane styleClass="greenCircleButton" fx:id="secondLeaderChosen" layoutX="465.0" layoutY="445.0" prefHeight="40" prefWidth="40" visible="false">
+      <AnchorPane styleClass="greenCircleButton" fx:id="secondLeaderChosen" onMouseClicked="#secondLeaderClick" layoutX="465.0" layoutY="445.0" prefHeight="40" prefWidth="40" visible="false">
          <children>
             <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                <font>
@@ -104,7 +104,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane styleClass="greenCircleButton" fx:id="thirdLeaderChosen" layoutX="765.0" layoutY="445.0" prefHeight="40" prefWidth="40" visible="false">
+      <AnchorPane styleClass="greenCircleButton" fx:id="thirdLeaderChosen" onMouseClicked="#thirdLeaderClick" layoutX="765.0" layoutY="445.0" prefHeight="40" prefWidth="40" visible="false">
          <children>
             <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                <font>
@@ -113,7 +113,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane styleClass="greenCircleButton" fx:id="fourthLeaderChosen" layoutX="1065.0" layoutY="445.0" prefHeight="40" prefWidth="40" visible="false">
+      <AnchorPane styleClass="greenCircleButton" fx:id="fourthLeaderChosen" onMouseClicked="#fourthLeaderClick" layoutX="1065.0" layoutY="445.0" prefHeight="40" prefWidth="40" visible="false">
          <children>
             <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                <font>

@@ -5,8 +5,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
-import java.io.File;
-
 public class WaitingPageController extends GuiController{
     @FXML
     private ImageView gifPlayer;
@@ -16,7 +14,7 @@ public class WaitingPageController extends GuiController{
     @Override
     public void initialize() {
         super.initialize();
-        gifPlayer.setImage(new Image(this.getClass().getResourceAsStream("/javaFX/hourglass.gif")));
+        gifPlayer.setImage(new Image(this.getClass().getResourceAsStream("/img/javaFX/hourglass.gif")));
     }
 
     @FXML

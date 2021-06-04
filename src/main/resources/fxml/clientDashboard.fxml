@@ -119,51 +119,55 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="28.0" layoutY="537.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/punchboard/coin2.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="33.0" layoutY="596.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/punchboard/shield2.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="116.0" layoutY="537.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/punchboard/servant2.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="117.0" layoutY="599.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/punchboard/stone2.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="91.0" layoutY="555.0" style="-fx-background-color: white;" fx:id="xCoin">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="90.0" layoutY="616.0" style="-fx-background-color: white;" fx:id="xShield">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="182.0" layoutY="555.0" style="-fx-background-color: white;" fx:id="xServant">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
-      <Label layoutX="182.0" layoutY="616.0" style="-fx-background-color: white;" fx:id="xRock">
-         <font>
-            <Font size="15.0" />
-         </font>
-      </Label>
+      <AnchorPane layoutX="28.0" layoutY="537.0">
+         <children>
+            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/punchboard/coin2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="5.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/punchboard/shield2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="88.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/punchboard/servant2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="89.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/punchboard/stone2.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="21.0" layoutY="13.0" fx:id="xCoin">
+               <font>
+                  <Font name="Roboto Light" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="79.0" fx:id="xShield">
+               <font>
+                  <Font name="Roboto Light" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="110.0" layoutY="17.0" textFill="WHITE" fx:id="xServant">
+               <font>
+                  <Font name="Roboto Light" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="110.0" layoutY="79.0" fx:id="xRock">
+               <font>
+                  <Font name="Roboto Light" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
       <AnchorPane layoutX="1007.0" prefHeight="720.0" prefWidth="273.0">
          <children>
             <ImageView fitHeight="720.0" fitWidth="273.0" pickOnBounds="true">
                <image>
-                  <Image url="@../javaFX/leadersBackground.jpg" />
+                  <Image url="@../img/javaFX/leadersBackground.jpg" />
                </image>
             </ImageView>
             <ImageView fx:id="leaderCard1" fitHeight="268.0" fitWidth="170.0" layoutX="32.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">

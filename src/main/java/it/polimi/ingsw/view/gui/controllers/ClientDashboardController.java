@@ -310,19 +310,19 @@ public class ClientDashboardController extends GuiController{
         if(chest.getCoins()!=0)
             xCoin.setText("x"+chest.getCoins());
         else
-            xCoin.setText("");
+            xCoin.setText("x0");
         if(chest.getShields()!=0)
             xShield.setText("x"+chest.getShields());
         else
-            xShield.setText("");
+            xShield.setText("x0");
         if(chest.getRocks()!=0)
             xRock.setText("x"+chest.getRocks());
         else
-            xRock.setText("");
+            xRock.setText("x0");
         if(chest.getServants()!=0)
             xServant.setText("x"+chest.getServants());
         else
-            xServant.setText("");
+            xServant.setText("x0");
     }
 
     private void setAbilityDeposit(ArrayList<CounterTop> arrayDeposit,ArrayList<LeaderCard> leaderCards){

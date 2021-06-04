@@ -5,7 +5,6 @@ import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.client.PlayerPoints;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 import it.polimi.ingsw.view.View;
-import it.polimi.ingsw.view.gui.controllers.ClientDashboardController;
 import it.polimi.ingsw.view.gui.controllers.GuiController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
