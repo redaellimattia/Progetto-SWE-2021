@@ -219,9 +219,13 @@ public class shopViewController extends GuiController {
         }
         else{
             //passing the parameter got in this scene to the next scene of payment;
-            //getGuiManager().setLayout("payment.fxml");
-            //getGuiManager().getCurrentController().setBuyCard(row,col);
+            //Platform.runLater(()->goToMarket();
         }
+    }
+
+    private void goToMarket(){
+        //getGuiManager().setLayout("payment.fxml");
+        //getGuiManager().getCurrentController().setBuyCard(this.row,this.col);
     }
 }
 

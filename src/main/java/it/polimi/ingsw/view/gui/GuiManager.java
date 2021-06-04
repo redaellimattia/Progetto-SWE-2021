@@ -109,23 +109,29 @@ public class GuiManager implements View {
 
     @Override
     public void preGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources) {
+        Platform.runLater(()->goToPregame(leaders, numberOfResources));
+        setNextScene();
+    }
+    public void goToPregame(ArrayList<LeaderCard> leaders, int numberOfResources){
         setLayout("preGameChoice.fxml");
         currentController.setPreGameChoice(leaders,numberOfResources);
-        setNextScene();
     }
 
     @Override
     public void waitingForTurn() {
-        setLayout("clientDashboard.fxml");
-        currentController.setPlayer(clientManager.getThisClientDashboard(),false);
+        //TO BE PASSED TRUE FOR A WAITING PLAYER
+        Platform.runLater(()->goToClientDashboard(false));
         setNextScene();
     }
 
     @Override
     public void yourTurn() {
-        Platform.runLater(()->setLayout("clientDashboard.fxml"));
-        currentController.setPlayer(clientManager.getThisClientDashboard(),false);
+        Platform.runLater(()->goToClientDashboard(false));
         setNextScene();
+    }
+    public void goToClientDashboard(boolean watchingPlayer){
+        setLayout("clientDashboard.fxml");
+        currentController.setPlayer(clientManager.getThisClientDashboard(),false);
     }
 
     @Override
