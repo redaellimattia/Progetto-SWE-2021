@@ -70,7 +70,7 @@
     -fx-text-fill: #333333;
     -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }
-#xServant{
+.whiteLabel{
     -fx-text-fill: #ffffff;
     -fx-effect: dropshadow( gaussian , black , 0,0,0,1 );
 }

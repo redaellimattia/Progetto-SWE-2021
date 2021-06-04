@@ -63,8 +63,8 @@ public class ClientDashboardController extends GuiController{
         setFaithPath(playerDashboard.getPathPosition());
         setDevCards(playerDashboard.getDevCards());
         setLeaderCards(playerDashboard.getLeaderCards(),watchingPlayer);
-        setStorage(playerDashboard.getStorage());
-        setChest(playerDashboard.getChest());
+        setStorage(playerDashboard.getStorage(),firstRowImage,secondRowImage1,secondRowImage2,thirdRowImage1,thirdRowImage2,thirdRowImage3);
+        setChest(playerDashboard.getChest(),xCoin,xShield,xRock,xServant);
         setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
         if(watchingPlayer){
             setImage(board,"/img/board/inactiveBoard.jpg");
@@ -204,87 +204,6 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
-    private void setStorage(Storage storage){
-        ArrayList<CounterTop> shelves = storage.getShelvesArray();
-        if(shelves.size()!=0){
-            for(int i=0;i<shelves.size();i++)
-                setStorageRow(shelves.get(i), i + 1);
-        }
-    }
-
-    private void setStorageRow(CounterTop row,int i){
-        switch(i){
-            case 1:
-                if(row.getContent()==0)
-                    setImage(firstRowImage,null);
-                else
-                    setImage(firstRowImage,getCounterTopImage(row.getResourceType()));
-                break;
-            case 2: String path = getCounterTopImage(row.getResourceType());
-                    switch(row.getContent()){
-                        case 0: setImage(secondRowImage1,null);
-                                setImage(secondRowImage2,null);
-                                break;
-                        case 1: setImage(secondRowImage1,path);
-                                setImage(secondRowImage2,null);
-                                break;
-                        case 2: setImage(secondRowImage1,path);
-                                setImage(secondRowImage2,path);
-                                break;
-                    }
-                break;
-            case 3: path = getCounterTopImage(row.getResourceType());
-                    switch(row.getContent()){
-                        case 0: setImage(thirdRowImage1,null);
-                                setImage(thirdRowImage2,null);
-                                setImage(thirdRowImage3,null);
-                                break;
-                        case 1: setImage(thirdRowImage1,path);
-                                setImage(thirdRowImage2,null);
-                                setImage(thirdRowImage3,null);
-                                break;
-                        case 2: setImage(thirdRowImage1,path);
-                                setImage(thirdRowImage2,path);
-                                setImage(thirdRowImage3,null);
-                                break;
-                        case 3: setImage(thirdRowImage1,path);
-                                setImage(thirdRowImage2,path);
-                                setImage(thirdRowImage3,path);
-                            break;
-                    }
-                break;
-        }
-    }
-
-    private String getCounterTopImage(Resource res){
-        switch(res){
-            case COIN:  return "/img/punchboard/coin2.png";
-            case ROCK:  return "/img/punchboard/stone2.png";
-            case SHIELD:  return "/img/punchboard/shield2.png";
-            case SERVANT:  return "/img/punchboard/servant2.png";
-            default: return null;
-        }
-    }
-
-    private void setChest(ResourceCount chest){
-        if(chest.getCoins()!=0)
-            xCoin.setText("x"+chest.getCoins());
-        else
-            xCoin.setText("x0");
-        if(chest.getShields()!=0)
-            xShield.setText("x"+chest.getShields());
-        else
-            xShield.setText("x0");
-        if(chest.getRocks()!=0)
-            xRock.setText("x"+chest.getRocks());
-        else
-            xRock.setText("x0");
-        if(chest.getServants()!=0)
-            xServant.setText("x"+chest.getServants());
-        else
-            xServant.setText("x0");
-    }
-
     private void setAbilityDeposit(ArrayList<CounterTop> arrayDeposit,ArrayList<LeaderCard> leaderCards){
         for(int i=0;i<leaderCards.size();i++) {
             LeaderCard l = leaderCards.get(i);
@@ -399,7 +318,7 @@ public class ClientDashboardController extends GuiController{
     @Override
     public void updateChest(String nickname){
         if(nickname.equals(playerDashboard.getNickname()))
-            setChest(playerDashboard.getChest());
+            setChest(playerDashboard.getChest(),xCoin,xShield,xRock,xServant);
     }
     @Override
     public void updateDevCards(String nickname){
@@ -409,7 +328,7 @@ public class ClientDashboardController extends GuiController{
     @Override
     public void updateStorage(String nickname){
         if(nickname.equals(playerDashboard.getNickname()))
-            setStorage(playerDashboard.getStorage());
+            setStorage(playerDashboard.getStorage(),firstRowImage,secondRowImage1,secondRowImage2,thirdRowImage1,thirdRowImage2,thirdRowImage3);
     }
     @Override
     public void updateVaticanReports(){

@@ -20,41 +20,17 @@ public class PreGameChoiceController extends GuiController{
     @FXML
     private Label error;
     @FXML
-    private ImageView shieldImage;
+    private ImageView shieldImage,coinImage,servantImage,rockImage;
     @FXML
-    private ImageView servantImage;
-    @FXML
-    private ImageView rockImage;
-    @FXML
-    private ImageView firstLeader;
-    @FXML
-    private ImageView secondLeader;
-    @FXML
-    private ImageView thirdLeader;
-    @FXML
-    private ImageView fourthLeader;
+    private ImageView firstLeader,secondLeader,thirdLeader,fourthLeader;
     @FXML
     private Button sendChoicesButton;
     @FXML
-    private ImageView coinImage;
-    @FXML
     private Text chooseResourcesText;
     @FXML
-    private AnchorPane fourthLeaderChosen;
+    private AnchorPane firstLeaderChosen,secondLeaderChosen,thirdLeaderChosen,fourthLeaderChosen;
     @FXML
-    private AnchorPane thirdLeaderChosen;
-    @FXML
-    private AnchorPane secondLeaderChosen;
-    @FXML
-    private AnchorPane firstLeaderChosen;
-    @FXML
-    private Label xServant;
-    @FXML
-    private Label xShield;
-    @FXML
-    private Label xRock;
-    @FXML
-    private Label xCoin;
+    private Label xServant,xCoin,xShield,xRock;
     @FXML
     private AnchorPane resourcesBox;
 

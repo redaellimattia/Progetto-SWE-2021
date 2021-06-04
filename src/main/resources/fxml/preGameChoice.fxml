@@ -63,22 +63,22 @@
                   <Image url="@../img/punchboard/servant.png" />
                </image>
             </ImageView>
-            <Label layoutX="70.0" layoutY="118.0" onMouseClicked="#xCoinClicked" visible="false" fx:id="xCoin">
+            <Label styleClass="whiteLabel" layoutX="70.0" layoutY="118.0" onMouseClicked="#xCoinClicked" textFill="WHITE" visible="false" fx:id="xCoin">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="184.0" layoutY="118.0" onMouseClicked="#xShieldClicked" visible="false" fx:id="xShield">
+            <Label styleClass="whiteLabel" layoutX="184.0" layoutY="118.0" onMouseClicked="#xShieldClicked" textFill="WHITE" visible="false" fx:id="xShield">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="310.0" layoutY="118.0" onMouseClicked="#xServantClicked" visible="false" fx:id="xServant">
+            <Label styleClass="whiteLabel" layoutX="310.0" layoutY="118.0" onMouseClicked="#xServantClicked" textFill="WHITE" visible="false" fx:id="xServant">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="430.0" layoutY="118.0" onMouseClicked="#xRockClicked" visible="false" fx:id="xRock">
+            <Label styleClass="whiteLabel" layoutX="430.0" layoutY="118.0" onMouseClicked="#xRockClicked" textFill="WHITE" visible="false" fx:id="xRock">
                <font>
                   <Font name="Roboto Light" size="18.0" />
                </font>
@@ -86,7 +86,7 @@
          </children>
       </AnchorPane>
       <Button fx:id="sendChoicesButton" layoutX="581.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#sendChoices" prefHeight="50.0" prefWidth="116.0" text="Send Choices" />
-      <AnchorPane styleClass="greenCircleButton" fx:id="firstLeaderChosen" onMouseClicked="#firstLeaderClick" layoutX="165.0" layoutY="445.0" prefHeight="40" prefWidth="40" visible="false">
+      <AnchorPane fx:id="firstLeaderChosen" layoutX="165.0" layoutY="445.0" onMouseClicked="#firstLeaderClick" prefHeight="40" prefWidth="40" styleClass="greenCircleButton" visible="false">
          <children>
             <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                <font>
@@ -95,7 +95,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane styleClass="greenCircleButton" fx:id="secondLeaderChosen" onMouseClicked="#secondLeaderClick" layoutX="465.0" layoutY="445.0" prefHeight="40" prefWidth="40" visible="false">
+      <AnchorPane fx:id="secondLeaderChosen" layoutX="465.0" layoutY="445.0" onMouseClicked="#secondLeaderClick" prefHeight="40" prefWidth="40" styleClass="greenCircleButton" visible="false">
          <children>
             <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                <font>
@@ -104,7 +104,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane styleClass="greenCircleButton" fx:id="thirdLeaderChosen" onMouseClicked="#thirdLeaderClick" layoutX="765.0" layoutY="445.0" prefHeight="40" prefWidth="40" visible="false">
+      <AnchorPane fx:id="thirdLeaderChosen" layoutX="765.0" layoutY="445.0" onMouseClicked="#thirdLeaderClick" prefHeight="40" prefWidth="40" styleClass="greenCircleButton" visible="false">
          <children>
             <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                <font>
@@ -113,7 +113,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane styleClass="greenCircleButton" fx:id="fourthLeaderChosen" onMouseClicked="#fourthLeaderClick" layoutX="1065.0" layoutY="445.0" prefHeight="40" prefWidth="40" visible="false">
+      <AnchorPane fx:id="fourthLeaderChosen" layoutX="1065.0" layoutY="445.0" onMouseClicked="#fourthLeaderClick" prefHeight="40" prefWidth="40" styleClass="greenCircleButton" visible="false">
          <children>
             <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                <font>
