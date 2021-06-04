@@ -18,11 +18,14 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import java.util.ArrayList;
 
 public class ClientDashboardController extends GuiController{
+    @FXML
+    private Text nickname;
     @FXML
     private ComboBox otherPlayers;
     @FXML
@@ -49,11 +52,10 @@ public class ClientDashboardController extends GuiController{
     @FXML
     private Button marketButton,shopButton,productionButton,endTurnButton,backHome;
     @FXML //FAITHPATH
-    private ImageView faithPath0,faithPath1,faithPath2,faithPath3,faithPath4,faithPath5,faithPath6,faithPath7,faithPath8,faithPath9,faithPath10,
-            faithPath11,faithPath12,faithPath13,faithPath14,faithPath15,faithPath16,faithPath17,faithPath18,faithPath19,faithPath20,faithPath21,
-            faithPath22,faithPath23,faithPath24;
+    private ImageView faithPath;
     private PlayerDashboard playerDashboard;
     private ClientManager clientManager;
+    private FaithPos[] faithPos;
 
     @Override
     public void setPlayer(PlayerDashboard playerDashboard,boolean watchingPlayer) {
@@ -66,6 +68,8 @@ public class ClientDashboardController extends GuiController{
         setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
         if(watchingPlayer){
             setImage(board,"/img/board/inactiveBoard.jpg");
+            nickname.setText(playerDashboard.getNickname());
+            nickname.setVisible(true);
             bwFaithPath.setVisible(true);
             marketButton.setVisible(false);
             shopButton.setVisible(false);
@@ -105,61 +109,17 @@ public class ClientDashboardController extends GuiController{
                 players.add(p.getNickname());
         }
         otherPlayers.setItems(players);
+        faithPos = new FaithPos[]{
+                new FaithPos(0,105),new FaithPos(52,105),new FaithPos(102,105),new FaithPos(102,58),new FaithPos(101,2),
+                new FaithPos(152,2),new FaithPos(201,2),new FaithPos(249,2),new FaithPos(299,2),
+                new FaithPos(351,103),new FaithPos(351,56),new FaithPos(350,2),new FaithPos(400,105),new FaithPos(449,105),
+                new FaithPos(497,105),new FaithPos(547,105),new FaithPos(593,102),new FaithPos(593,55),
+                new FaithPos(592,1),new FaithPos(644,3),new FaithPos(693,5),new FaithPos(742,5),new FaithPos(790,5),
+                new FaithPos(840,5),new FaithPos(886,2)};
     }
 
     private void setFaithPath(int position){
-        switch (position){
-            case 0: faithPath0.setVisible(true);
-                break;
-            case 1: faithPath1.setVisible(true);
-                break;
-            case 2: faithPath2.setVisible(true);
-                break;
-            case 3: faithPath3.setVisible(true);
-                break;
-            case 4: faithPath4.setVisible(true);
-                break;
-            case 5: faithPath5.setVisible(true);
-                break;
-            case 6: faithPath6.setVisible(true);
-                break;
-            case 7: faithPath7.setVisible(true);
-                break;
-            case 8: faithPath8.setVisible(true);
-                break;
-            case 9: faithPath9.setVisible(true);
-                break;
-            case 10: faithPath10.setVisible(true);
-                break;
-            case 11: faithPath11.setVisible(true);
-                break;
-            case 12: faithPath12.setVisible(true);
-                break;
-            case 13: faithPath13.setVisible(true);
-                break;
-            case 14: faithPath14.setVisible(true);
-                break;
-            case 15: faithPath15.setVisible(true);
-                break;
-            case 16: faithPath16.setVisible(true);
-                break;
-            case 17: faithPath17.setVisible(true);
-                break;
-            case 18: faithPath18.setVisible(true);
-                break;
-            case 19: faithPath19.setVisible(true);
-                break;
-            case 20: faithPath20.setVisible(true);
-                break;
-            case 21: faithPath21.setVisible(true);
-                break;
-            case 22: faithPath22.setVisible(true);
-                break;
-            case 23: faithPath23.setVisible(true);
-                break;
-            case 24: faithPath24.setVisible(true);
-                break;
-        }
+        setFaithPath(faithPos[position]);
     }
 
     private void setDevCards(DeckDashboard[] devCards){
@@ -369,6 +329,11 @@ public class ClientDashboardController extends GuiController{
             setImage(vaticanReport4,"/img/punchboard/pope_favor3_back.png");
     }
 
+    private void setFaithPath(FaithPos fp){
+        faithPath.setLayoutX(fp.getX());
+        faithPath.setLayoutY(fp.getY());
+    }
+
     public void goToMarket(MouseEvent mouseEvent) {
         marketButton.setDisable(true);
         Platform.runLater(()-> getGuiManager().setLayout("marketAction.fxml"));
@@ -453,5 +418,23 @@ public class ClientDashboardController extends GuiController{
 
     public void backToHome(MouseEvent mouseEvent) {
         getGuiManager().callDashboard();
+    }
+    //FAITH PATH IMG POSITION
+    private static class FaithPos{
+        private int x;
+        private int y;
+
+        public FaithPos(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        public int getX() {
+            return x;
+        }
+
+        public int getY() {
+            return y;
+        }
     }
 }

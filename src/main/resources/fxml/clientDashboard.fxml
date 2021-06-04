@@ -19,31 +19,10 @@
       </ImageView>
       <AnchorPane layoutX="33.0" layoutY="34.0" prefHeight="162.0" prefWidth="950.0">
          <children>
-            <ImageView fx:id="faithPath0" fitHeight="50.0" fitWidth="50.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath1" fitHeight="50.0" fitWidth="50.0" layoutX="52.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath2" fitHeight="50.0" fitWidth="50.0" layoutX="102.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath3" fitHeight="50.0" fitWidth="50.0" layoutX="102.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath4" fitHeight="50.0" fitWidth="50.0" layoutX="101.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath5" fitHeight="50.0" fitWidth="50.0" layoutX="152.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath6" fitHeight="50.0" fitWidth="50.0" layoutX="201.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath7" fitHeight="50.0" fitWidth="50.0" layoutX="249.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath8" fitHeight="50.0" fitWidth="50.0" layoutX="299.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath9" fitHeight="50.0" fitWidth="50.0" layoutX="351.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath10" fitHeight="50.0" fitWidth="50.0" layoutX="351.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath11" fitHeight="50.0" fitWidth="50.0" layoutX="350.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath12" fitHeight="50.0" fitWidth="50.0" layoutX="400.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath13" fitHeight="50.0" fitWidth="50.0" layoutX="449.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath14" fitHeight="50.0" fitWidth="50.0" layoutX="497.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath15" fitHeight="50.0" fitWidth="50.0" layoutX="547.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath16" fitHeight="50.0" fitWidth="50.0" layoutX="593.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath17" fitHeight="50.0" fitWidth="50.0" layoutX="593.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath18" fitHeight="50.0" fitWidth="50.0" layoutX="592.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath19" fitHeight="50.0" fitWidth="50.0" layoutX="644.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath20" fitHeight="50.0" fitWidth="50.0" layoutX="693.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath21" fitHeight="50.0" fitWidth="50.0" layoutX="742.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath22" fitHeight="50.0" fitWidth="50.0" layoutX="790.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath23" fitHeight="50.0" fitWidth="50.0" layoutX="840.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fx:id="faithPath24" fitHeight="50.0" fitWidth="50.0" layoutX="886.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="faithPath" fitHeight="50.0" fitWidth="50.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/javaFX/icon.png" />
+               </image></ImageView>
             <ImageView fx:id="vaticanReport2" fitHeight="85.0" fitWidth="85.0" layoutX="207.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/punchboard/pope_favor1_front.png" />
@@ -229,5 +208,10 @@
       </AnchorPane>
       <Button fx:id="shopButton" layoutX="286.0" layoutY="387.0" mnemonicParsing="false" onMouseClicked="#goToShop" text="Shop" />
       <ComboBox fx:id="otherPlayers" layoutX="2.0" layoutY="7.0" onAction="#selectPlayer" prefHeight="25.0" prefWidth="121.0" promptText="Other players..." />
+      <Text fx:id="nickname" layoutX="444.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nickname" visible="false">
+         <font>
+            <Font name="Roboto Light" size="28.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
