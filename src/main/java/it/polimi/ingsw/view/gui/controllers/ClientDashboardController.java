@@ -76,13 +76,10 @@ public class ClientDashboardController extends GuiController{
             }
             if(clientManager.isMyTurn()&&clientManager.isMainActionDone()){
                 marketButton.setDisable(true);
-                shopButton.setDisable(true);
                 productionButton.setDisable(true);
                 endTurnButton.setDisable(false);
             }
             if(clientManager.isMyTurn()&&!clientManager.isMainActionDone()){
-                if(!clientManager.canBuyCardFromShop())
-                    shopButton.setDisable(true);
                 if(!clientManager.canDoProduction())
                     productionButton.setDisable(true);
                 endTurnButton.setDisable(true);
@@ -345,6 +342,7 @@ public class ClientDashboardController extends GuiController{
     }
 
     public void otherPlayers(MouseEvent mouseEvent) {
+        //Enter PlayerChoose scene
     }
 
     public void discardLeader2(MouseEvent mouseEvent) {
