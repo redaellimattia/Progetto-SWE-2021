@@ -1,6 +1,6 @@
 package it.polimi.ingsw.view.gui.controllers;
 
-import it.polimi.ingsw.model.card.LeaderCard;
+
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 import it.polimi.ingsw.view.gui.GuiManager;
@@ -17,6 +17,8 @@ import java.util.ArrayList;
 
 public class LandingPageController extends GuiController{
     @FXML
+    private ComboBox numberOfPlayers;
+    @FXML
     private Label error;
     @FXML
     private Label listLabel;
@@ -24,8 +26,7 @@ public class LandingPageController extends GuiController{
     private Button createButton;
     @FXML
     private ListView<ReturnLobbiesMessage.availableGameLobbies> lobbyList;
-    @FXML
-    private TextField numberOfPlayersField;
+
     @FXML
     private TextField nicknameField;
     private ClientManager clientManager;
@@ -37,19 +38,18 @@ public class LandingPageController extends GuiController{
         super.setGuiManager(GuiManager.getInstance());
         clientManager = getGuiManager().getClientManager();
         error.setVisible(false);
+        ObservableList<Integer> numbers = FXCollections.observableArrayList(1,2,3,4);
+        numberOfPlayers.setItems(numbers);
     }
 
     @FXML
     public void onCreateButtonClick(MouseEvent actionEvent) {
         String nickname = nicknameField.getText();
         ClientManager clientManager = getGuiManager().getClientManager();
-
-        int numberOfPlayers = 0;
-        try{numberOfPlayers = Integer.parseInt(numberOfPlayersField.getText());} catch(NumberFormatException e){}
-        if(numberOfPlayers<1 || numberOfPlayers>4 ) {
+        //NOT SELECTED NUMBER
+        if(numberOfPlayers.getSelectionModel().getSelectedItem()==null) {
             error.setText("Insert a valid number of players!");
             error.setVisible(true);
-            numberOfPlayersField.clear();
         }
         else{
             if(nicknameField.getText().equals("")) {
@@ -60,14 +60,14 @@ public class LandingPageController extends GuiController{
             else {
                 clientManager.setNickname(nickname);
                 createButton.setDisable(true);
-                int finalNumberOfPlayers = numberOfPlayers;
+                int finalNumberOfPlayers = (int) numberOfPlayers.getSelectionModel().getSelectedItem();
                 Platform.runLater(() -> clientManager.createGame(finalNumberOfPlayers));
                 if(finalNumberOfPlayers != 1)
                     goToWaiting("Wait for all players to join the lobby!");
-                //getGuiManager().setLayout("clientDashboard.fxml");
             }
         }
     }
+
     @FXML
     public void setLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> lobbies){
         this.lobbies = lobbies;
