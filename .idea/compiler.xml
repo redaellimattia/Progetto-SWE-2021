@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Masters of Renaissance" />
         <module name="GC47" />
+        <module name="IngSWproject" />
       </profile>
     </annotationProcessing>
   </component>

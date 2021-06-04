@@ -317,13 +317,13 @@ public class ClientDashboardController extends GuiController{
 
     public void goToMarket(MouseEvent mouseEvent) {
         marketButton.setDisable(true);
-        getGuiManager().setLayout("marketAction.fxml");
+        Platform.runLater(()->getGuiManager().setLayout("marketAction.fxml"));
         getGuiManager().setNextScene();
     }
 
     public void goToShop(MouseEvent mouseEvent) {
         shopButton.setDisable(true);
-        getGuiManager().setLayout("shopView.fxml");
+        Platform.runLater(()->getGuiManager().setLayout("shopView.fxml"));
         getGuiManager().setNextScene();
     }
 

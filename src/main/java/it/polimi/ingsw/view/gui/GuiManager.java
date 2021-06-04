@@ -82,11 +82,14 @@ public class GuiManager implements View {
 
     @Override
     public void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies,String message) {
+        Platform.runLater(()->setLobbiesPage(availableGameLobbies,message));
+        setNextScene();
+    }
+    public void setLobbiesPage(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies,String message){
         setLayout("landingPage.fxml");
         currentController.setLobbies(availableGameLobbies);
         if(message != null)
             currentController.setTextForWaiting(message);
-        setNextScene();
     }
 
     @Override
@@ -120,7 +123,7 @@ public class GuiManager implements View {
 
     @Override
     public void yourTurn() {
-        setLayout("clientDashboard.fxml");
+        Platform.runLater(()->setLayout("clientDashboard.fxml"));
         currentController.setPlayer(clientManager.getThisClientDashboard(),false);
         setNextScene();
     }
