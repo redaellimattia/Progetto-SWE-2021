@@ -7,10 +7,8 @@ import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.input.MouseEvent;
 
 import java.util.ArrayList;
@@ -46,7 +44,6 @@ public class LandingPageController extends GuiController{
     public void onCreateButtonClick(MouseEvent actionEvent) {
         String nickname = nicknameField.getText();
         ClientManager clientManager = getGuiManager().getClientManager();
-        //NOT SELECTED NUMBER
         if(numberOfPlayers.getSelectionModel().getSelectedItem()==null) {
             error.setText("Insert a valid number of players!");
             error.setVisible(true);
@@ -103,4 +100,7 @@ public class LandingPageController extends GuiController{
         getGuiManager().getCurrentController().setTextForWaiting(msg);
     }
 
+    public void askLobbies(MouseEvent mouseEvent) {
+        Platform.runLater(()-> clientManager.askLobbies());
+    }
 }

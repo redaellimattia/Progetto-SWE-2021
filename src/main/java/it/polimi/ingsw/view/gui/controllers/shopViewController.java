@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.gui.controllers;
 
 import it.polimi.ingsw.model.Shop;
 import it.polimi.ingsw.view.gui.GuiManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -10,6 +11,8 @@ import javafx.scene.input.MouseEvent;
 
 
 public class shopViewController extends GuiController {
+    @FXML
+    private Button backToDashboard;
     @FXML
     private Label errorLabel;
     @FXML
@@ -48,6 +51,10 @@ public class shopViewController extends GuiController {
         super.setGuiManager(GuiManager.getInstance());
         errorLabel.setVisible(false);
         confirmButton.setDisable(true);
+        if(!getGuiManager().getClientManager().isMyTurn()) {
+            confirmButton.setVisible(false);
+            selected.setVisible(false);
+        }
         Shop shopGrid = getGuiManager().getClientManager().getGameStatus().getShop();
         //GREEN CARDS
         if (shopGrid.getGrid()[0][0].getDeck().size() != 0) {
@@ -227,6 +234,12 @@ public class shopViewController extends GuiController {
         //getGuiManager().setLayout("payment.fxml");
         //getGuiManager().getCurrentController().setBuyCard(this.row,this.col);
     }
+
+    public void goBackToDashboard(MouseEvent mouseEvent) {
+        Platform.runLater(()->getGuiManager().callDashboard());
+        getGuiManager().setNextScene();
+    }
+
 }
 
 

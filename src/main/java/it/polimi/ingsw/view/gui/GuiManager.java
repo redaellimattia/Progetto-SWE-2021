@@ -131,9 +131,13 @@ public class GuiManager implements View {
     }
     public void goToClientDashboard(boolean watchingPlayer){
         setLayout("clientDashboard.fxml");
-        currentController.setPlayer(clientManager.getThisClientDashboard(),false);
+        currentController.setPlayer(clientManager.getThisClientDashboard(),watchingPlayer);
     }
 
+    public void callDashboard(){
+        setLayout("clientDashboard.fxml");
+        getCurrentController().setPlayer(getClientManager().getThisClientDashboard(), false);
+    }
     @Override
     public void endGame(ArrayList<PlayerPoints> scoreboard) {
 
