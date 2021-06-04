@@ -54,7 +54,7 @@ public class ClientDashboardController extends GuiController{
         this.playerDashboard = playerDashboard;
         setFaithPath(playerDashboard.getPathPosition());
         setDevCards(playerDashboard.getDevCards());
-        setLeaderCards(playerDashboard.getLeaderCards());
+        setLeaderCards(playerDashboard.getLeaderCards(),watchingPlayer);
         setStorage(playerDashboard.getStorage());
         setChest(playerDashboard.getChest());
         setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
@@ -191,10 +191,10 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
-    private void setLeaderCards(ArrayList<LeaderCard> leaderCards){
+    private void setLeaderCards(ArrayList<LeaderCard> leaderCards,boolean watchingPlayer){
         for(int i=0;i<leaderCards.size();i++){
             LeaderCard l = leaderCards.get(i);
-            if(!l.isInGame()){
+            if(!l.isInGame()&&!watchingPlayer){
                 if(i==0){
                     discardLeader1.setVisible(true);
                     if(clientManager.isRequirementPossible(l.getRequirement()))
@@ -206,10 +206,18 @@ public class ClientDashboardController extends GuiController{
                         playLeader2.setVisible(true);
                 }
             }
-            if(i==0)
-                setImage(leaderCard1,"/img/cards/front/LeaderCards/"+leaderCards.get(i).getId()+".png");
-            else
-                setImage(leaderCard2,"/img/cards/front/LeaderCards/"+leaderCards.get(i).getId()+".png");
+            if(i==0) {
+                if (!watchingPlayer || l.isInGame())
+                    setImage(leaderCard1, "/img/cards/front/LeaderCards/" + l.getId() + ".png");
+                else
+                    setImage(leaderCard1, "/img/cards/back/leaderCardBack.png");
+            }
+            else {
+                if (!watchingPlayer || l.isInGame())
+                    setImage(leaderCard2, "/img/cards/front/LeaderCards/" + l.getId() + ".png");
+                else
+                    setImage(leaderCard2, "/img/cards/back/leaderCardBack.png");
+            }
         }
     }
 
