@@ -8,8 +8,12 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -19,6 +23,8 @@ import javafx.scene.text.TextFlow;
 import java.util.ArrayList;
 
 public class ClientDashboardController extends GuiController{
+    @FXML
+    private ComboBox otherPlayers;
     @FXML
     private AnchorPane playLeader1,discardLeader1,playLeader2,discardLeader2;
     @FXML
@@ -41,7 +47,7 @@ public class ClientDashboardController extends GuiController{
     @FXML //STORAGE
     private ImageView firstRowImage,secondRowImage1,secondRowImage2,thirdRowImage1,thirdRowImage2,thirdRowImage3;
     @FXML //UP LEFT BUTTONS
-    private Button marketButton,shopButton,productionButton,endTurnButton,otherPlayersButton;
+    private Button marketButton,shopButton,productionButton,endTurnButton;
     @FXML //FAITHPATH
     private ImageView faithPath0,faithPath1,faithPath2,faithPath3,faithPath4,faithPath5,faithPath6,faithPath7,faithPath8,faithPath9,faithPath10,
             faithPath11,faithPath12,faithPath13,faithPath14,faithPath15,faithPath16,faithPath17,faithPath18,faithPath19,faithPath20,faithPath21,
@@ -59,13 +65,13 @@ public class ClientDashboardController extends GuiController{
         setChest(playerDashboard.getChest());
         setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
         if(watchingPlayer){
-            setImage(board,"/img/board/inactiveBoard.png");
+            setImage(board,"/img/board/inactiveBoard.jpg");
             bwFaithPath.setVisible(true);
             marketButton.setVisible(false);
             shopButton.setVisible(false);
             productionButton.setVisible(false);
             endTurnButton.setVisible(false);
-            otherPlayersButton.setVisible(false);
+            otherPlayers.setVisible(false);
         }
         else{
             if(!clientManager.isMyTurn()){
@@ -93,6 +99,12 @@ public class ClientDashboardController extends GuiController{
         super.setGuiManager(GuiManager.getInstance());
         this.clientManager = getGuiManager().getClientManager();
         setVaticanReport(clientManager.getGameStatus().getvReports());
+        ObservableList<String> players = FXCollections.observableArrayList();
+        for(PlayerDashboard p:clientManager.getGameStatus().getPlayers()){
+            if(!p.getNickname().equals(clientManager.getThisClientDashboard().getNickname()))
+                players.add(p.getNickname());
+        }
+        otherPlayers.setItems(players);
     }
 
     private void setFaithPath(int position){
@@ -359,5 +371,10 @@ public class ClientDashboardController extends GuiController{
 
     public void playLeader1(MouseEvent mouseEvent) {
         Platform.runLater(()->clientManager.playLeader(playerDashboard.getLeaderCards().get(0)));
+    }
+
+    public void selectPlayer(ActionEvent actionEvent) {
+        String selectedPlayer = otherPlayers.getSelectionModel().getSelectedItem().toString();
+        Platform.runLater(()->getGuiManager().watchPlayer(selectedPlayer));
     }
 }

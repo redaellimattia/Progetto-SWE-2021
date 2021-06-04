@@ -1,4 +1,5 @@
 package it.polimi.ingsw.view.gui;
+import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.client.PlayerPoints;
@@ -136,8 +137,19 @@ public class GuiManager implements View {
 
     public void callDashboard(){
         setLayout("clientDashboard.fxml");
-        getCurrentController().setPlayer(getClientManager().getThisClientDashboard(), false);
+        currentController.setPlayer(getClientManager().getThisClientDashboard(), false);
     }
+
+    public void watchPlayer(String player){
+        setLayout("clientDashboard.fxml");
+        PlayerDashboard chosenPlayer = null;
+        for(PlayerDashboard p:clientManager.getGameStatus().getPlayers()){
+            if(p.getNickname().equals(player))
+                chosenPlayer = p;
+        }
+        currentController.setPlayer(chosenPlayer, true);
+    }
+
     @Override
     public void endGame(ArrayList<PlayerPoints> scoreboard) {
 

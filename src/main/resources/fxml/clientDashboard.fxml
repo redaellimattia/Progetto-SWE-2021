@@ -60,11 +60,12 @@
                   <Image url="@../img/punchboard/pope_favor3_front.png" />
                </image>
             </ImageView>
+            <ComboBox fx:id="otherPlayers" layoutX="-16.0" layoutY="50.0" onAction="#selectPlayer" prefHeight="25.0" prefWidth="99.0" />
          </children>
       </AnchorPane>
-      <Button fx:id="marketButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#goToMarket" text="Market" />
-      <Button fx:id="shopButton" layoutX="79.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#goToShop" text="Shop" />
-      <Button fx:id="productionButton" layoutX="31.0" layoutY="49.0" mnemonicParsing="false" onMouseClicked="#startProduction" text="Production" />
+      <Button fx:id="marketButton" layoutX="11.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#goToMarket" text="Market" />
+      <Button fx:id="shopButton" layoutX="76.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#goToShop" text="Shop" />
+      <Button fx:id="productionButton" layoutX="28.0" layoutY="49.0" mnemonicParsing="false" onMouseClicked="#startProduction" text="Production" />
       <AnchorPane layoutX="28.0" layoutY="290.0">
          <children>
             <ImageView fx:id="firstRowImage" fitHeight="60.0" fitWidth="60.0" layoutX="69.0" pickOnBounds="true" preserveRatio="true">
@@ -223,6 +224,5 @@
          </children>
       </AnchorPane>
       <Button fx:id="endTurnButton" layoutX="923.0" layoutY="127.0" mnemonicParsing="false" onMouseClicked="#endTurn" text="End Turn" />
-      <Button fx:id="otherPlayersButton" layoutX="25.0" layoutY="84.0" mnemonicParsing="false" onMouseClicked="#otherPlayers" text="Other Players" />
    </children>
 </AnchorPane>
