@@ -11,44 +11,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 1.1em;
 }
-.greenCircleButton{
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 10;
-    -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #2aac00 0%, #0de700 100%),
-            #15d20f,
-            #28ff00,
-            radial-gradient(center 50% 50%, radius 100%, #3bd700, #2a950a);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-    -fx-font-weight: bold;
-    -fx-font-size: 1.1em;
-}
-.greenCircleButton:hover{
-    -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #2aac00 0%, #0de700 100%),
-            #15d20f,
-            #28ff00,
-            radial-gradient(center 50% 50%, radius 100%, #34ff6e, #00a01a);
-}
-.redCircleButton{
-    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
-    -fx-background-radius: 10;
-    -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #ba0a0a 0%, #ef2525 100%),
-            #721e0b,
-            #f52020,
-            radial-gradient(center 50% 50%, radius 100%, #fd2222, #a11010);
-    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
-    -fx-font-weight: bold;
-    -fx-font-size: 1.1em;
-}
-.redCircleButton:hover{
-    -fx-background-color:
-            linear-gradient(from 0% 93% to 0% 100%, #ba0a0a 0%, #ef2525 100%),
-            #721e0b,
-            #f52020,
-            radial-gradient(center 50% 50%, radius 100%, #ff5252, #d43b12);
-}
+
 .combo-box-popup, .list-view, .list-cell{
     -fx-background-color:
             linear-gradient(from 0% 93% to 0% 100%, #a34313 0%, #903b12 100%),
@@ -63,6 +26,44 @@
             #9d4024,
             #ea8750,
             radial-gradient(center 50% 50%, radius 100%, #eaa24b, #c54e2c);
+}
+.greenButton{
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 10;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #2aac00 0%, #0de700 100%),
+            #15d20f,
+            #28ff00,
+            radial-gradient(center 50% 50%, radius 100%, #3bd700, #2a950a);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+}
+.greenButton:hover{
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #2aac00 0%, #0de700 100%),
+            #15d20f,
+            #28ff00,
+            radial-gradient(center 50% 50%, radius 100%, #34ff6e, #00a01a);
+}
+.redButton{
+    -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 10;
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #ba0a0a 0%, #ef2525 100%),
+            #721e0b,
+            #f52020,
+            radial-gradient(center 50% 50%, radius 100%, #fd2222, #a11010);
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
+    -fx-font-weight: bold;
+    -fx-font-size: 1.1em;
+}
+.redButton:hover{
+    -fx-background-color:
+            linear-gradient(from 0% 93% to 0% 100%, #ba0a0a 0%, #ef2525 100%),
+            #721e0b,
+            #f52020,
+            radial-gradient(center 50% 50%, radius 100%, #ff5252, #d43b12);
 }
 .label{
     -fx-font-size: 12px;

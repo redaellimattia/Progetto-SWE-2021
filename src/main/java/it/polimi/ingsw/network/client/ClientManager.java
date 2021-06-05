@@ -78,6 +78,16 @@ public class ClientManager {
     public int getLastProduction() {
         return lastProduction;
     }
+    public boolean isBasicProductionDone() {
+        return basicProductionDone;
+    }
+    public boolean[] getLeaderCardProductionDone() {
+        return leaderCardProductionDone;
+    }
+    public boolean[] getDevCardProductionDone() {
+        return devCardProductionDone;
+    }
+
     /**
      *
      * @return true if the mainAction has been already done

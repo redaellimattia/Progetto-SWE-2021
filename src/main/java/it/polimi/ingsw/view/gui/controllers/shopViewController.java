@@ -136,13 +136,14 @@ public class shopViewController extends GuiController {
         }
         else{
             //passing the parameter got in this scene to the next scene of payment;
-            //Platform.runLater(()->goToMarket();
+            Platform.runLater(()->goToPayment());
         }
     }
 
-    private void goToMarket(){
-        //getGuiManager().setLayout("payment.fxml");
-        //getGuiManager().getCurrentController().setBuyCard(this.row,this.col);
+    private void goToPayment(){
+        Shop shopGrid = getGuiManager().getClientManager().getGameStatus().getShop();
+        getGuiManager().setLayout("payment.fxml");
+        getGuiManager().getCurrentController().setBuyCard(this.row,this.col,shopGrid.getGrid()[row][col].getFirst());
     }
 
     public void goBackToDashboard(MouseEvent mouseEvent) {
@@ -160,10 +161,10 @@ public class shopViewController extends GuiController {
         //GREEN CARDS
         if (shopGrid.getGrid()[0][0].getDeck().size() != 0) {
             setImage(g3, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[0][0].getFirst().getId() + ".png");
-            if(!getGuiManager().getClientManager().canBuySpecificCard(shopGrid.getGrid()[0][0].getFirst().getId())){
-                g3.setDisable(true);
-                g3.setOpacity(0.7);
-            }
+            //if(!getGuiManager().getClientManager().canBuySpecificCard(shopGrid.getGrid()[0][0].getFirst().getId())){
+                //g3.setDisable(true);
+                //g3.setOpacity(0.7);
+            //}
         }
         if (shopGrid.getGrid()[1][0].getDeck().size() != 0) {
             setImage(g2, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[1][0].getFirst().getId() + ".png");

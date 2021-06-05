@@ -19,9 +19,9 @@
       </ImageView>
       <AnchorPane layoutX="33.0" layoutY="34.0" prefHeight="162.0" prefWidth="950.0">
          <children>
-            <ImageView fx:id="faithPath" fitHeight="50.0" fitWidth="50.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="faithPath" fitHeight="50.0" fitWidth="50.0" layoutX="4.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/javaFX/icon.png" />
+                  <Image url="@../img/punchboard/redCross.png" />
                </image></ImageView>
             <ImageView fx:id="vaticanReport2" fitHeight="85.0" fitWidth="85.0" layoutX="207.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -78,16 +78,6 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="583.0" layoutY="305.0">
-         <children>
-            <ImageView fx:id="secondPositionLevel1" fitHeight="268.0" fitWidth="170.0" layoutX="19.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-            <ImageView fx:id="secondPositionLevel2" fitHeight="268.0" fitWidth="170.0" layoutX="8.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-            <ImageView fx:id="secondPositionLevel3" fitHeight="268.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-         </children>
-      </AnchorPane>
       <AnchorPane layoutX="787.0" layoutY="306.0">
          <children>
             <ImageView fx:id="thirdPositionLevel1" fitHeight="268.0" fitWidth="170.0" layoutX="19.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
@@ -95,6 +85,16 @@
             <ImageView fx:id="thirdPositionLevel2" fitHeight="268.0" fitWidth="170.0" layoutX="8.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
             <ImageView fx:id="thirdPositionLevel3" fitHeight="268.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="583.0" layoutY="305.0">
+         <children>
+            <ImageView fx:id="secondPositionLevel1" fitHeight="268.0" fitWidth="170.0" layoutX="19.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+            </ImageView>
+            <ImageView fx:id="secondPositionLevel2" fitHeight="268.0" fitWidth="170.0" layoutX="8.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+            </ImageView>
+            <ImageView fx:id="secondPositionLevel3" fitHeight="268.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
          </children>
       </AnchorPane>
@@ -130,7 +130,7 @@
                   <Font name="Roboto Light" size="15.0" />
                </font>
             </Label>
-            <Label styleClass="whiteLabel" layoutX="110.0" layoutY="17.0" textFill="WHITE" fx:id="xServant">
+            <Label layoutX="110.0" layoutY="17.0" styleClass="whiteLabel" textFill="WHITE" fx:id="xServant">
                <font>
                   <Font name="Roboto Light" size="15.0" />
                </font>
@@ -153,7 +153,7 @@
             </ImageView>
             <ImageView fx:id="leaderCard2" fitHeight="268.0" fitWidth="170.0" layoutX="32.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
-            <AnchorPane fx:id="playLeader1" layoutX="218.0" layoutY="83.0" onMouseClicked="#playLeader1" prefHeight="40" prefWidth="40" styleClass="greenCircleButton" visible="false">
+            <AnchorPane fx:id="playLeader1" layoutX="218.0" layoutY="83.0" onMouseClicked="#playLeader1" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
                <children>
                   <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                      <font>
@@ -162,7 +162,16 @@
                   </Text>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="discardLeader1" layoutX="218.0" layoutY="170.0" onMouseClicked="#discardLeader1" prefHeight="40" prefWidth="40" styleClass="redCircleButton" visible="false">
+            <AnchorPane fx:id="leaderProduction1" layoutX="218.0" layoutY="120.0" onMouseClicked="#playLeader2" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/javaFX/hammer.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="discardLeader1" layoutX="218.0" layoutY="170.0" onMouseClicked="#discardLeader1" prefHeight="40" prefWidth="40" styleClass="redButton" visible="false">
                <children>
                   <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✘">
                      <font>
@@ -186,7 +195,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="playLeader2" layoutX="218.0" layoutY="351.0" onMouseClicked="#playLeader2" prefHeight="40" prefWidth="40" styleClass="greenCircleButton" visible="false">
+            <AnchorPane fx:id="playLeader2" layoutX="218.0" layoutY="351.0" onMouseClicked="#playLeader2" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
                <children>
                   <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                      <font>
@@ -195,7 +204,16 @@
                   </Text>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="discardLeader2" layoutX="218.0" layoutY="438.0" onMouseClicked="#discardLeader2" prefHeight="40" prefWidth="40" styleClass="redCircleButton" visible="false">
+            <AnchorPane fx:id="leaderProduction2" layoutX="218.0" layoutY="385.0" onMouseClicked="#playLeader2" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/javaFX/hammer.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="discardLeader2" layoutX="218.0" layoutY="438.0" onMouseClicked="#discardLeader2" prefHeight="40" prefWidth="40" styleClass="redButton" visible="false">
                <children>
                   <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✘">
                      <font>
@@ -213,5 +231,10 @@
             <Font name="Roboto Light" size="28.0" />
          </font>
       </Text>
+      <Button fx:id="startBasicProduction" layoutX="239.0" layoutY="605.0" mnemonicParsing="false" onMouseClicked="#startBasicProduction" styleClass="greenButton" text="Basic Production" visible="false" />
+      <Button fx:id="devCardProduction1" layoutX="400.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction" styleClass="greenButton" text="DevCard Production" visible="false" />
+      <Button fx:id="devCardProduction2" layoutX="590.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction" styleClass="greenButton" text="DevCard Production" visible="false" />
+      <Button fx:id="endProduction" layoutX="870.0" layoutY="175.0" mnemonicParsing="false" onMouseClicked="#endProduction" styleClass="redButton" text="End Production" visible="false" />
+      <Button fx:id="devCardProduction3" layoutX="800.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction" styleClass="greenButton" text="DevCard Production" visible="false" />
    </children>
 </AnchorPane>
