@@ -9,6 +9,7 @@ import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -248,7 +249,8 @@ public class PaymentController extends GuiController{
     }
 
     public void registerPaymentChest(MouseEvent mouseEvent) {
-        String id = mouseEvent.getPickResult().getIntersectedNode().getId();
+        final Node SOURCE = (Node) mouseEvent.getSource();
+        String id = SOURCE.getId();
         switch (id){
             case "chestCoinYouHave":
                 mockChestChosen.addCoins(1);
@@ -290,7 +292,8 @@ public class PaymentController extends GuiController{
     }
 
     public void deselectPaymentChest(MouseEvent mouseEvent) {
-        String id = mouseEvent.getPickResult().getIntersectedNode().getId();
+        final Node SOURCE = (Node) mouseEvent.getSource();
+        String id = SOURCE.getId();
         switch (id){
             case "chestCoinChosen":
                 mockChestChosen.removeCoins(1);
