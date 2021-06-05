@@ -90,5 +90,6 @@
          </opaqueInsets>
       </Pane>
       <ImageView fx:id="freeMarble" fitHeight="43.0" fitWidth="44.0" layoutX="361.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="confirmAction" layoutX="813.0" layoutY="388.0" mnemonicParsing="false" onMouseClicked="#doMarketAction" prefHeight="42.0" prefWidth="150.0" text="Confirm choice" />
    </children>
 </AnchorPane>

@@ -30,7 +30,7 @@ public class MarketActionController extends GuiController {
     private Text marketActionMessage;
 
     @FXML
-    private Button backToDashboard;
+    private Button backToDashboard, confirmAction;
 
     private int type;
     private int pos;
@@ -42,6 +42,7 @@ public class MarketActionController extends GuiController {
     public void initialize() {
         super.setGuiManager(GuiManager.getInstance());
         this.clientManager = getGuiManager().getClientManager();
+        confirmAction.setVisible(false);
         if(!clientManager.isMyTurn() || clientManager.isMainActionDone()) {
             marketActionMessage.setVisible(false);
             disableArrows();
@@ -158,8 +159,15 @@ public class MarketActionController extends GuiController {
                 pos = 4;
                 break;
         }
-        //message.setText("Selected type: " + type + ", pos: " + pos);
-        disableArrows();
+        if(type == 0) {
+            messageString = "You've selected row number ";
+        }
+        else {
+            messageString = "You've selected column number ";
+        }
+        messageString += pos;
+        marketActionMessage.setText(messageString);
+        confirmAction.setVisible(true);
     }
 
     public void selectResources(int type, int pos) {
@@ -183,6 +191,11 @@ public class MarketActionController extends GuiController {
     public void goBackToDashboard(MouseEvent mouseEvent) {
         Platform.runLater(()->getGuiManager().callDashboard());
         getGuiManager().setNextScene();
+    }
+
+    public void doMarketAction(MouseEvent mouseEvent) {
+        disableArrows();
+        confirmAction.setVisible(false);
     }
 
     @Override
