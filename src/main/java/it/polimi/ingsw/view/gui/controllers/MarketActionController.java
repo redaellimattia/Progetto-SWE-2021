@@ -239,6 +239,7 @@ public class MarketActionController extends GuiController {
                         }
                     }
                     choicesList.setItems(choices);
+                    choicesList.getSelectionModel().clearSelection();
                     choicesList.setVisible(true);
                 }
                 else {
@@ -266,6 +267,7 @@ public class MarketActionController extends GuiController {
             options.add("Add to additional storage");
         }
         getResourceList.setItems(options);
+        getResourceList.getSelectionModel().clearSelection();
         getResourceList.setVisible(true);
     }
 
