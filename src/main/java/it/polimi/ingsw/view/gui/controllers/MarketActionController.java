@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.gui.controllers;
 import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.view.gui.GuiManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
@@ -26,7 +27,10 @@ public class MarketActionController extends GuiController {
             freeMarble;
 
     @FXML
-    private Text message;
+    private Text marketActionMessage;
+
+    @FXML
+    private Button backToDashboard, confirmAction;
 
     private int type;
     private int pos;
@@ -38,6 +42,11 @@ public class MarketActionController extends GuiController {
     public void initialize() {
         super.setGuiManager(GuiManager.getInstance());
         this.clientManager = getGuiManager().getClientManager();
+        confirmAction.setVisible(false);
+        if(!clientManager.isMyTurn() || clientManager.isMainActionDone()) {
+            marketActionMessage.setVisible(false);
+            disableArrows();
+        }
         setGrid();
 
     }
@@ -118,6 +127,7 @@ public class MarketActionController extends GuiController {
     }
 
     public void setChosenPos(MouseEvent mouseEvent) {
+        String messageString;
         Pane clicked = (Pane) mouseEvent.getSource();
         switch(clicked.getId()) {
             case "row1":
@@ -149,15 +159,15 @@ public class MarketActionController extends GuiController {
                 pos = 4;
                 break;
         }
-        message.setText("Selected type: " + type + ", pos: " + pos);
-        col1.setDisable(true);
-        col2.setDisable(true);
-        col3.setDisable(true);
-        col4.setDisable(true);
-        row1.setDisable(true);
-        row2.setDisable(true);
-        row3.setDisable(true);
-
+        if(type == 0) {
+            messageString = "You've selected row number ";
+        }
+        else {
+            messageString = "You've selected column number ";
+        }
+        messageString += pos;
+        marketActionMessage.setText(messageString);
+        confirmAction.setVisible(true);
     }
 
     public void selectResources(int type, int pos) {
@@ -166,6 +176,26 @@ public class MarketActionController extends GuiController {
         for(MarketMarble m: marbles) {
             // Atomic choice
         }
+    }
+
+    public void disableArrows() {
+        col1.setDisable(true);
+        col2.setDisable(true);
+        col3.setDisable(true);
+        col4.setDisable(true);
+        row1.setDisable(true);
+        row2.setDisable(true);
+        row3.setDisable(true);
+    }
+
+    public void goBackToDashboard(MouseEvent mouseEvent) {
+        Platform.runLater(()->getGuiManager().callDashboard());
+        getGuiManager().setNextScene();
+    }
+
+    public void doMarketAction(MouseEvent mouseEvent) {
+        disableArrows();
+        confirmAction.setVisible(false);
     }
 
     @Override
