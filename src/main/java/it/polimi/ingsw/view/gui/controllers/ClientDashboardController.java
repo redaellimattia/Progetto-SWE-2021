@@ -97,7 +97,7 @@ public class ClientDashboardController extends GuiController{
                 endTurnButton.setDisable(false);
             }
             if(clientManager.isMyTurn()&&!clientManager.isMainActionDone()){
-                if(clientManager.canDoProduction())
+                if(!clientManager.canDoProduction())
                     productionButton.setDisable(true);
                 endTurnButton.setDisable(true);
             }
