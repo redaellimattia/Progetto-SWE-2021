@@ -325,7 +325,7 @@ public class ClientDashboardController extends GuiController{
     }
 
     public void startBasicProduction(MouseEvent mouseEvent) {
-        launchChooseResources(true,true,null);
+        launchChooseResources(true,true,null,null);
     }
 
     public void endTurn(MouseEvent mouseEvent) {
@@ -430,7 +430,7 @@ public class ClientDashboardController extends GuiController{
             case "leaderProduction2": card = playerDashboard.getLeaderCards().get(1);
                 break;
         }
-        launchChooseResources(false,false,card);
+        launchChooseResources(false,false,card,null);
     }
 
     //FAITH PATH IMG POSITION

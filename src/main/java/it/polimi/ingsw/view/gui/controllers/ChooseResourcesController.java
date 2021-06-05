@@ -3,11 +3,13 @@ package it.polimi.ingsw.view.gui.controllers;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
+import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class ChooseResourcesController extends GuiController{
     @FXML
@@ -19,7 +21,7 @@ public class ChooseResourcesController extends GuiController{
     @FXML
     private Label xCoinChosen,xRockChosen,xShieldChosen,xServantChosen;
 
-
+    private Stage modal;
     private int toChoose;
     private boolean isInput;
     private ResourceCount chosenInput;
@@ -28,32 +30,44 @@ public class ChooseResourcesController extends GuiController{
     private LeaderCard leaderCard;
 
     @Override
-    public void setModal(boolean isInput,boolean isBasic,LeaderCard card) {
+    public void setModal(boolean isInput,boolean isBasic,LeaderCard card,ResourceCount chosenInput,Stage modal) {
         this.isInput = isInput;
         this.isBasic = isBasic;
         this.leaderCard = card;
+        this.modal = modal;
         if(isInput){
             toChoose = 2;
-            chosenInput = new ResourceCount(0,0,0,0,0);
+            this.chosenInput = new ResourceCount(0,0,0,0,0);
             title.setText("Choose 2 Resources as input");
         }
         else {
+            this.chosenInput = chosenInput;
             toChoose = 1;
             chosenOutput = new ResourceCount(0,0,0,0,0);
             title.setText("Choose 1 Resource as output");
         }
     }
 
+    @FXML
+    @Override
+    public void initialize() {
+        super.setGuiManager(GuiManager.getInstance());
+    }
+
     public void confirmClick(MouseEvent mouseEvent) {
             if (isInput) {
-                if(toChoose==ResourceCount.resCountToInt(chosenInput))
-                    launchChooseResources(false,isBasic,leaderCard);
+                if(toChoose==ResourceCount.resCountToInt(chosenInput)) {
+                    modal.close();
+                    launchChooseResources(false, isBasic, leaderCard, chosenInput);
+                }
                 else
                     printError();
             }
             else {
-                if (toChoose == ResourceCount.resCountToInt(chosenOutput))
+                if (toChoose == ResourceCount.resCountToInt(chosenOutput)) {
+                    modal.close();
                     goToPayment();
+                }
                 else
                     printError();
             }

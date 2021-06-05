@@ -50,7 +50,6 @@ public class PaymentController extends GuiController{
     public void initialize() {
         super.setGuiManager(GuiManager.getInstance());
         playerDashboard = getGuiManager().getClientManager().getThisClientDashboard();
-        addChestToTest(new ResourceCount(2,1,3,4,0));
         //Setting up what the player's have
         setStorage(playerDashboard.getStorage(),firstRowImageYouHave,secondRowImage1YouHave,secondRowImage2YouHave,thirdRowImage1YouHave,thirdRowImage2YouHave,thirdRowImage3YouHave);
         setChest(playerDashboard.getChest(),xCoinYouHave,xShieldYouHave,xRockYouHave,xServantYouHave);
@@ -114,6 +113,7 @@ public class PaymentController extends GuiController{
     @Override
     public void setBasicProduction(ResourceCount cost,Resource res){
         basicProduction = true;
+        this.res = res;
         setCost(cost);
     }
 

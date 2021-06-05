@@ -145,9 +145,9 @@ public abstract class GuiController {
     //RICHIAMA TUTTO IL SET LAYOUT COSì SI POSSONO AGGIORNARE CORRETTAMENTE CARTE NON PIU CLICCABILI
     public void updateBufferProduction(String nickname){}
 
-    public void setModal(boolean isInput,boolean isBasic,LeaderCard card){}
+    public void setModal(boolean isInput,boolean isBasic,LeaderCard card,ResourceCount chosenInput,Stage modal){}
 
-    protected void launchChooseResources(boolean isInput,boolean isBasic,LeaderCard card){
+    protected void launchChooseResources(boolean isInput,boolean isBasic,LeaderCard card,ResourceCount chosenInput){
         GuiController controller = null;
         Stage modal = new Stage();
         modal.setScene(new Scene(new Pane()));
@@ -165,7 +165,7 @@ public abstract class GuiController {
         modal.initStyle(StageStyle.UNDECORATED);
         modal.setResizable(false);
         modal.getIcons().add(new Image(this.getClass().getResourceAsStream("/img/javaFX/icon.png")));
-        controller.setModal(isInput,isBasic,card);
+        controller.setModal(isInput,isBasic,card,chosenInput,modal);
         Platform.runLater(modal::show);
     }
 
