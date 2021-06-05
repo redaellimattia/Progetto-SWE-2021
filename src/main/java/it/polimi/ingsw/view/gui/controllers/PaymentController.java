@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui.controllers;
 
 import it.polimi.ingsw.model.PlayerDashboard;
+import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -37,5 +38,9 @@ public class PaymentController extends GuiController{
         //Setting up what the player's have
         setStorage(playerDashboard.getStorage(),firstRowImageYouHave,secondRowImage1YouHave,secondRowImage2YouHave,thirdRowImage1YouHave,thirdRowImage2YouHave,thirdRowImage3YouHave);
         setChest(playerDashboard.getChest(),xCoinYouHave,xShieldYouHave,xRockYouHave,xServantYouHave);
+    }
+
+    public void setStillToPay(ResourceCount resourceCount){
+        setChest(resourceCount,xCoinStillToPay,xShieldStillToPay,xRockStillToPay,xServantStillToPay);
     }
 }
