@@ -2,6 +2,9 @@ package it.polimi.ingsw.view.gui.controllers;
 
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
+import it.polimi.ingsw.model.card.DevelopmentCard;
+import it.polimi.ingsw.model.card.LeaderCard;
+import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -42,5 +45,17 @@ public class PaymentController extends GuiController{
 
     public void setStillToPay(ResourceCount resourceCount){
         setChest(resourceCount,xCoinStillToPay,xShieldStillToPay,xRockStillToPay,xServantStillToPay);
+    }
+
+    public void setDevCardProduction(DevelopmentCard card){
+
+    }
+
+    public void setLeaderCardProduction(LeaderCard card, Resource res){
+
+    }
+
+    public void setBasicProduction(Resource res){
+    
     }
 }
