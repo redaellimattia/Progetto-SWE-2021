@@ -296,7 +296,7 @@ public class ClientDashboardController extends GuiController{
             startBasicProduction.setVisible(true);
         if(clientManager.canDoDevCardProduction(playerDashboard)) {
             for(int i=0;i<3;i++){
-                if(playerDashboard.getDevCards()[i].getDeck().size()>0&&!clientManager.getDevCardProductionDone()[i]) {
+                if(playerDashboard.getDevCards()[i].getDeck().size()>0&&!clientManager.getDevCardProductionDone()[i]&&playerDashboard.getTotalResources().hasMoreOrEqualsResources(playerDashboard.getDevCards()[i].getFirst().getProductionPower().getInput())) {
                     switch(i){
                         case 0: devCardProduction1.setVisible(true);
                             break;
@@ -310,9 +310,11 @@ public class ClientDashboardController extends GuiController{
             }
         }
         if(clientManager.canDoLeaderCardProduction(playerDashboard)){
+            ResourceCount resource = new ResourceCount(0,0,0,0,0);
             for(int i=0;i<playerDashboard.getLeaderCards().size();i++){
                 LeaderCard l = playerDashboard.getLeaderCards().get(i);
-                if(l.isInGame()&&l.getSpecialAbility() instanceof ProductionAbility&&!clientManager.getLeaderCardProductionDone()[i]){
+                l.getSpecialAbility().getResourceType().add(resource, 1);
+                if(l.isInGame()&&l.getSpecialAbility() instanceof ProductionAbility&&!clientManager.getLeaderCardProductionDone()[i]&&playerDashboard.getTotalResources().hasMoreOrEqualsResources(resource)){
                     if(i==0)
                         leaderProduction1.setVisible(true);
                     else
