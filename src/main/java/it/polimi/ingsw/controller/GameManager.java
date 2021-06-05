@@ -154,6 +154,8 @@ public class GameManager {
                         token.useToken(game.getLorenzo(), game);
                         this.turnManager = new PlayerTurnManager(player); //da controllare se serve svuotare tutto
                     }
+                    else
+                        this.turnManager = new PlayerTurnManager(player);
                 }
                 else {
                     PlayerDashboard nextPlayer = player;
