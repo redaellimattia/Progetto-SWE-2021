@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.CounterTop;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.Storage;
+import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
@@ -30,6 +31,7 @@ public abstract class GuiController {
     public void setPreGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources){}
     public void setTextForWaiting(String text){}
     public void setPlayer(PlayerDashboard player,boolean watchingPlayer){}
+    public void setBuyCard(int row, int col, DevelopmentCard card){}
 
     protected void setImage(ImageView image, String path){
         if(path == null)

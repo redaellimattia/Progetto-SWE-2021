@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controllers.PaymentController">
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/guicss.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controllers.PaymentController">
    <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" />
    <Text layoutX="538.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment" wrappingWidth="205.0">
       <font>
@@ -14,23 +14,23 @@
    </Text>
     <AnchorPane layoutX="108.0" layoutY="165.0">
         <children>
-            <ImageView fx:id="firstRowImageYouHave" fitHeight="60.0" fitWidth="60.0" layoutX="69.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="firstRowImageYouHave" fitHeight="60.0" fitWidth="60.0" layoutX="69.0" onMouseClicked="#registerPaymentStorage" pickOnBounds="true" preserveRatio="true">
             </ImageView>
             <AnchorPane layoutX="30.0" layoutY="70.0">
                 <children>
-                    <ImageView fx:id="secondRowImage1YouHave" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="secondRowImage1YouHave" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#registerPaymentStorage" pickOnBounds="true" preserveRatio="true">
                     </ImageView>
-                    <ImageView fx:id="secondRowImage2YouHave" fitHeight="60.0" fitWidth="60.0" layoutX="76.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="secondRowImage2YouHave" fitHeight="60.0" fitWidth="60.0" layoutX="76.0" onMouseClicked="#registerPaymentStorage" pickOnBounds="true" preserveRatio="true">
                     </ImageView>
                 </children>
             </AnchorPane>
             <AnchorPane layoutY="134.0">
                 <children>
-                    <ImageView fx:id="thirdRowImage1YouHave" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="thirdRowImage1YouHave" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#registerPaymentStorage" pickOnBounds="true" preserveRatio="true">
                     </ImageView>
-                    <ImageView fx:id="thirdRowImage2YouHave" fitHeight="60.0" fitWidth="60.0" layoutX="67.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="thirdRowImage2YouHave" fitHeight="60.0" fitWidth="60.0" layoutX="67.0" onMouseClicked="#registerPaymentStorage" pickOnBounds="true" preserveRatio="true">
                     </ImageView>
-                    <ImageView fx:id="thirdRowImage3YouHave" fitHeight="60.0" fitWidth="60.0" layoutX="136.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fx:id="thirdRowImage3YouHave" fitHeight="60.0" fitWidth="60.0" layoutX="136.0" onMouseClicked="#registerPaymentStorage" pickOnBounds="true" preserveRatio="true">
                     </ImageView>
                 </children>
             </AnchorPane>
@@ -38,50 +38,62 @@
     </AnchorPane>
     <AnchorPane layoutX="108.0" layoutY="450.0" prefHeight="147.0" prefWidth="196.0">
         <children>
-         <AnchorPane layoutX="9.0" layoutY="1.0">
+         <AnchorPane fx:id="chestCoinYouHave" onMouseClicked="#registerPaymentChest" layoutX="9.0" layoutY="1.0">
             <children>
-                  <ImageView fx:id="chestCoinYouHave" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView  fitHeight="60.0" fitWidth="60.0"  pickOnBounds="true" preserveRatio="true">
                       <image>
                           <Image url="@../img/punchboard/coin2.png" />
                       </image>
                   </ImageView>
-                  <Label layoutX="21.0" layoutY="13.0" fx:id="xCoin">
+                  <Label layoutX="21.0" layoutY="13.0" fx:id="xCoinYouHave">
                       <font>
                           <Font name="Roboto Light" size="15.0" />
                       </font>
                   </Label>
             </children>
          </AnchorPane>
-            <ImageView fx:id="chestShieldYouHave" fitHeight="60.0" fitWidth="60.0" layoutX="14.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@../img/punchboard/shield2.png" />
-                </image>
-            </ImageView>
-            <ImageView fx:id="chestServantYouHave" fitHeight="60.0" fitWidth="60.0" layoutX="119.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@../img/punchboard/servant2.png" />
-                </image>
-            </ImageView>
-            <ImageView fx:id="chestRockYouHave" fitHeight="60.0" fitWidth="60.0" layoutX="119.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@../img/punchboard/stone2.png" />
-                </image>
-            </ImageView>
-            <Label layoutX="30.0" layoutY="90.0" fx:id="xShieldYouHave">
-                <font>
-                    <Font name="Roboto Light" size="15.0" />
-                </font>
-            </Label>
-            <Label layoutX="141.0" layoutY="16.0" textFill="WHITE" fx:id="xServantYouHave">
-                <font>
-                    <Font name="Roboto Light" size="15.0" />
-                </font>
-            </Label>
-            <Label layoutX="140.0" layoutY="90.0" fx:id="xRockYouHave">
-                <font>
-                    <Font name="Roboto Light" size="15.0" />
-                </font>
-            </Label>
+         <AnchorPane fx:id="chestShieldYouHave" onMouseClicked="#registerPaymentChest" layoutX="14.0" layoutY="70.0">
+            <children>
+                  <ImageView  fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="@../img/punchboard/shield2.png" />
+                      </image>
+                  </ImageView>
+                  <Label layoutX="9.0" layoutY="20.0" fx:id="xShieldYouHave">
+                      <font>
+                          <Font name="Roboto Light" size="15.0" />
+                      </font>
+                  </Label>
+            </children>
+         </AnchorPane>
+         <AnchorPane fx:id="chestServantYouHave" onMouseClicked="#registerPaymentChest" layoutX="119.0" layoutY="-1.0">
+            <children>
+                  <ImageView  fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="@../img/punchboard/servant2.png" />
+                      </image>
+                  </ImageView>
+                  <Label layoutX="19.0" layoutY="26.0" styleClass="whiteLabel" fx:id="xServantYouHave">
+                      <font>
+                          <Font name="Roboto Light" size="15.0" />
+                      </font>
+                  </Label>
+            </children>
+         </AnchorPane>
+         <AnchorPane fx:id="chestRockYouHave" onMouseClicked="#registerPaymentChest" layoutX="119.0" layoutY="72.0">
+            <children>
+                  <ImageView  fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="@../img/punchboard/stone2.png" />
+                      </image>
+                  </ImageView>
+                  <Label layoutX="14.0" layoutY="18.0"  fx:id="xRockYouHave">
+                      <font>
+                          <Font name="Roboto Light" size="15.0" />
+                      </font>
+                  </Label>
+            </children>
+         </AnchorPane>
         </children>
     </AnchorPane>
    <Text layoutX="154.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Storage">
@@ -101,22 +113,22 @@
    </Text>
    <AnchorPane layoutX="443.0" layoutY="615.0" prefHeight="83.0" prefWidth="396.0">
       <children>
-         <ImageView fx:id="coinStillToPay" fitHeight="60.0" fitWidth="60.0" layoutX="12.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="12.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../img/punchboard/coin2.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="shieldStillToPay" fitHeight="60.0" fitWidth="60.0" layoutX="233.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="233.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../img/punchboard/shield2.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="servantStillToPay" fitHeight="60.0" fitWidth="60.0" layoutX="122.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="122.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../img/punchboard/servant2.png" />
             </image>
          </ImageView>
-         <ImageView fx:id="rockStillToPay" fitHeight="60.0" fitWidth="60.0" layoutX="325.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="325.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../img/punchboard/stone2.png" />
             </image>
@@ -145,64 +157,80 @@
    </AnchorPane>
    <AnchorPane layoutX="967.0" layoutY="165.0">
       <children>
-         <ImageView fx:id="firstRowImageChosen" fitHeight="60.0" fitWidth="60.0" layoutX="69.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="firstRowImageChosen" fitHeight="60.0" fitWidth="60.0" layoutX="69.0" onMouseClicked="#deselectPaymentStorage" pickOnBounds="true" preserveRatio="true" />
          <AnchorPane layoutX="30.0" layoutY="70.0">
             <children>
-               <ImageView fx:id="secondRowImage1Chosen" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
-               <ImageView fx:id="secondRowImage2Chosen" fitHeight="60.0" fitWidth="60.0" layoutX="76.0" pickOnBounds="true" preserveRatio="true" />
+               <ImageView fx:id="secondRowImage1Chosen" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#deselectPaymentStorage" pickOnBounds="true" preserveRatio="true" />
+               <ImageView fx:id="secondRowImage2Chosen" fitHeight="60.0" fitWidth="60.0" layoutX="76.0" onMouseClicked="#deselectPaymentStorage" pickOnBounds="true" preserveRatio="true" />
             </children>
          </AnchorPane>
          <AnchorPane layoutY="134.0">
             <children>
-               <ImageView fx:id="thirdRowImage1Chosen" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
-               <ImageView fx:id="thirdRowImage2Chosen" fitHeight="60.0" fitWidth="60.0" layoutX="67.0" pickOnBounds="true" preserveRatio="true" />
-               <ImageView fx:id="thirdRowImage3Chosen" fitHeight="60.0" fitWidth="60.0" layoutX="136.0" pickOnBounds="true" preserveRatio="true" />
+               <ImageView fx:id="thirdRowImage1Chosen" fitHeight="60.0" fitWidth="60.0" onMouseClicked="#deselectPaymentStorage" pickOnBounds="true" preserveRatio="true" />
+               <ImageView fx:id="thirdRowImage2Chosen" fitHeight="60.0" fitWidth="60.0" layoutX="67.0" onMouseClicked="#deselectPaymentStorage" pickOnBounds="true" preserveRatio="true" />
+               <ImageView fx:id="thirdRowImage3Chosen" fitHeight="60.0" fitWidth="60.0" layoutX="136.0" onMouseClicked="#deselectPaymentStorage" pickOnBounds="true" preserveRatio="true" />
             </children>
          </AnchorPane>
       </children>
    </AnchorPane>
    <AnchorPane layoutX="967.0" layoutY="450.0" prefHeight="147.0" prefWidth="196.0">
       <children>
-         <ImageView fx:id="chestCoinChosen" fitHeight="60.0" fitWidth="60.0" layoutX="9.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../img/punchboard/coin2.png" />
-            </image>
-         </ImageView>
-         <ImageView fx:id="chestShieldChosen" fitHeight="60.0" fitWidth="60.0" layoutX="14.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../img/punchboard/shield2.png" />
-            </image>
-         </ImageView>
-         <ImageView fx:id="chestServantChosen" fitHeight="60.0" fitWidth="60.0" layoutX="119.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../img/punchboard/servant2.png" />
-            </image>
-         </ImageView>
-         <ImageView fx:id="chestRockChosen" fitHeight="60.0" fitWidth="60.0" layoutX="119.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../img/punchboard/stone2.png" />
-            </image>
-         </ImageView>
-         <Label layoutX="30.0" layoutY="14.0" fx:id="xCoinChosen">
-            <font>
-               <Font name="Roboto Light" size="15.0" />
-            </font>
-         </Label>
-         <Label layoutX="30.0" layoutY="90.0" fx:id="xShieldChosen">
-            <font>
-               <Font name="Roboto Light" size="15.0" />
-            </font>
-         </Label>
-         <Label layoutX="141.0" layoutY="16.0" textFill="WHITE" fx:id="xServantChosen">
-            <font>
-               <Font name="Roboto Light" size="15.0" />
-            </font>
-         </Label>
-         <Label layoutX="140.0" layoutY="90.0" fx:id="xRockChosen">
-            <font>
-               <Font name="Roboto Light" size="15.0" />
-            </font>
-         </Label>
+         <AnchorPane fx:id="chestCoinChosen" onMouseClicked="#deselectPaymentChest" layoutX="9.0" layoutY="1.0">
+            <children>
+               <ImageView  fitHeight="60.0" fitWidth="60.0"  pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../img/punchboard/coin2.png" />
+                  </image>
+               </ImageView>
+               <Label layoutX="14.0" layoutY="15.0" fx:id="xCoinChosen">
+                  <font>
+                     <Font name="Roboto Light" size="15.0" />
+                  </font>
+               </Label>
+            </children>
+         </AnchorPane>
+         <AnchorPane fx:id="chestShieldChosen" onMouseClicked="#deselectPaymentChest" layoutX="14.0" layoutY="70.0">
+            <children>
+               <ImageView  fitHeight="60.0" fitWidth="60.0"  pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../img/punchboard/shield2.png" />
+                  </image>
+               </ImageView>
+               <Label layoutX="9.0" layoutY="20.0" fx:id="xShieldChosen">
+                  <font>
+                     <Font name="Roboto Light" size="15.0" />
+                  </font>
+               </Label>
+            </children>
+         </AnchorPane>
+         <AnchorPane fx:id="chestServantChosen" onMouseClicked="#deselectPaymentChest" layoutX="119.0" layoutY="-1.0">
+            <children>
+               <ImageView  fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../img/punchboard/servant2.png" />
+                  </image>
+               </ImageView>
+               <Label layoutX="14.0" layoutY="16.0" styleClass="whiteLabel" fx:id="xServantChosen">
+                  <font>
+                     <Font name="Roboto Light" size="15.0" />
+                  </font>
+               </Label>
+            </children>
+         </AnchorPane>
+         <AnchorPane fx:id="chestRockChosen" onMouseClicked="#deselectPaymentChest" layoutX="119.0" layoutY="73.0">
+            <children>
+               <ImageView  fitHeight="60.0" fitWidth="60.0"  pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../img/punchboard/stone2.png" />
+                  </image>
+               </ImageView>
+               <Label layoutX="9.0" layoutY="18.0" fx:id="xRockChosen">
+                  <font>
+                     <Font name="Roboto Light" size="15.0" />
+                  </font>
+               </Label>
+            </children>
+         </AnchorPane>
       </children>
    </AnchorPane>
    <Text layoutX="1013.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Storage">
