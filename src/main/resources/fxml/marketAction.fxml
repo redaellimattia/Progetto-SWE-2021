@@ -91,5 +91,8 @@
       </Pane>
       <ImageView fx:id="freeMarble" fitHeight="43.0" fitWidth="44.0" layoutX="361.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="confirmAction" layoutX="813.0" layoutY="388.0" mnemonicParsing="false" onMouseClicked="#doMarketAction" prefHeight="42.0" prefWidth="150.0" text="Confirm choice" />
+      <ListView fx:id="choicesList" layoutX="735.0" layoutY="259.0" prefHeight="300.0" prefWidth="306.0" />
+      <Button fx:id="closeMessage" layoutX="813.0" layoutY="388.0" mnemonicParsing="false" onMouseClicked="#noChoiceMessageClosed" prefHeight="42.0" prefWidth="150.0" text="OK" />
+      <ListView fx:id="getResourceList" layoutX="735.0" layoutY="259.0" prefHeight="300.0" prefWidth="306.0" />
    </children>
 </AnchorPane>

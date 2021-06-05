@@ -1,12 +1,18 @@
 package it.polimi.ingsw.view.gui.controllers;
 
 import it.polimi.ingsw.model.MarketMarble;
+import it.polimi.ingsw.model.card.LeaderCard;
+import it.polimi.ingsw.model.enumeration.MarbleColour;
+import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -30,10 +36,15 @@ public class MarketActionController extends GuiController {
     private Text marketActionMessage;
 
     @FXML
-    private Button backToDashboard, confirmAction;
+    private Button backToDashboard, confirmAction, closeMessage;
+
+    @FXML
+    private ListView<String> choicesList, getResourceList;
 
     private int type;
     private int pos;
+    MarketMarble[] marbles;
+    int curChoice;
     private ArrayList<ImageView> marblesView;
     private ClientManager clientManager;
 
@@ -43,6 +54,8 @@ public class MarketActionController extends GuiController {
         super.setGuiManager(GuiManager.getInstance());
         this.clientManager = getGuiManager().getClientManager();
         confirmAction.setVisible(false);
+        closeMessage.setVisible(false);
+        choicesList.setVisible(false);
         if(!clientManager.isMyTurn() || clientManager.isMainActionDone()) {
             marketActionMessage.setVisible(false);
             disableArrows();
@@ -196,6 +209,65 @@ public class MarketActionController extends GuiController {
     public void doMarketAction(MouseEvent mouseEvent) {
         disableArrows();
         confirmAction.setVisible(false);
+
+        // Get marbles
+        marbles = clientManager.getMarketMarbles(type, pos);
+        curChoice = 0;
+        doNextAtomicChoice();
+
+    }
+
+    public void doNextAtomicChoice() {
+        if((pos == 0 && curChoice == 4) || (pos == 1 && curChoice == 3)) {
+            // end market action
+        }
+        else {
+            if(marbles[curChoice].getColour() == MarbleColour.RED) {
+                marketActionMessage.setText("You took a red marble, you will gain 1 faith point!");
+                closeMessage.setVisible(true);
+            }
+            else if(marbles[curChoice].getColour() == MarbleColour.WHITE) {
+                if(clientManager.hasWhiteChangeAbility()) {
+                    marketActionMessage.setText("What do you want to do with the white marble?");
+                    ObservableList<String> choices = FXCollections.observableArrayList("Do nothing");
+                    for(LeaderCard c: clientManager.getThisClientDashboard().getLeaderCards()) {
+                        if(c.getSpecialAbility().useWhiteChangeAbility() != null && c.isInGame()) {
+                            choices.add("Convert to " + c.getSpecialAbility().useWhiteChangeAbility().name() + " with Leader Card");
+                        }
+                    }
+                    choicesList.setItems(choices);
+                    choicesList.setVisible(true);
+                }
+                else {
+                    marketActionMessage.setText("You don't have a Leader Card that can convert the white marble.");
+                    clientManager.getResource(0);
+                    closeMessage.setVisible(true);
+                }
+            }
+            else {
+                storeResourceChoices();
+            }
+        }
+    }
+
+    public void noChoiceMessageClosed(MouseEvent mouseEvent) {
+        closeMessage.setVisible(false);
+        curChoice++;
+        doNextAtomicChoice();
+    }
+
+    public void storeResourceChoices() {
+        marketActionMessage.setText("In which deposit do you want to store the " + marbles[curChoice].getColour().convertToResource() + "?");
+        ObservableList<String> options = FXCollections.observableArrayList("Discard", "Add to first storage row", "Add to second storage row", "Add to third storage row");
+        if(clientManager.hasAdditionalDeposit(marbles[curChoice].getColour().convertToResource())) {
+            options.add("Add to additional storage");
+        }
+        getResourceList.setItems(options);
+        getResourceList.setVisible(true);
+    }
+
+    public void saveAtomicChoice() {
+
     }
 
     @Override
