@@ -1,7 +1,7 @@
 package it.polimi.ingsw.network.client;
 
 public class Client {
-    private static final int DEFAULT_SOCKET_PORT = 65000;
+    private static final int DEFAULT_SOCKET_PORT = 65500;
     private static final String DEFAULT_SOCKET_IP = "127.0.0.1";
     private static final String DEFAULT_CHOICE = "-cli";
     /**

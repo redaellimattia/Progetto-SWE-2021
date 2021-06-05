@@ -51,7 +51,7 @@ public class shopViewController extends GuiController {
         super.setGuiManager(GuiManager.getInstance());
         errorLabel.setVisible(false);
         confirmButton.setDisable(true);
-        if(!getGuiManager().getClientManager().isMyTurn()) {
+        if(!getGuiManager().getClientManager().isMyTurn() || getGuiManager().getClientManager().isMainActionDone()) {
             confirmButton.setVisible(false);
             selected.setVisible(false);
         }
@@ -161,10 +161,10 @@ public class shopViewController extends GuiController {
         //GREEN CARDS
         if (shopGrid.getGrid()[0][0].getDeck().size() != 0) {
             setImage(g3, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[0][0].getFirst().getId() + ".png");
-            //if(!getGuiManager().getClientManager().canBuySpecificCard(shopGrid.getGrid()[0][0].getFirst().getId())){
-                //g3.setDisable(true);
-                //g3.setOpacity(0.7);
-            //}
+            if(!getGuiManager().getClientManager().canBuySpecificCard(shopGrid.getGrid()[0][0].getFirst().getId())){
+                g3.setDisable(true);
+                g3.setOpacity(0.7);
+            }
         }
         if (shopGrid.getGrid()[1][0].getDeck().size() != 0) {
             setImage(g2, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[1][0].getFirst().getId() + ".png");

@@ -36,6 +36,7 @@ public class PaymentController extends GuiController{
     private int col;
     private boolean shopAction;
     private ResourceCount cost;
+    private ResourceCount fixedCost;
     private ResourceCount mockChest;
     private ResourceCount mockChestChosen;
     private DevelopmentCard devCard;
@@ -47,7 +48,6 @@ public class PaymentController extends GuiController{
     public void initialize() {
         super.setGuiManager(GuiManager.getInstance());
         playerDashboard = getGuiManager().getClientManager().getThisClientDashboard();
-        addStorageToTest();
         addChestToTest(new ResourceCount(2,1,3,4,0));
         //Setting up what the player's have
         setStorage(playerDashboard.getStorage(),firstRowImageYouHave,secondRowImage1YouHave,secondRowImage2YouHave,thirdRowImage1YouHave,thirdRowImage2YouHave,thirdRowImage3YouHave);
@@ -109,7 +109,9 @@ public class PaymentController extends GuiController{
         this.col=col;
         this.shopAction=true;
         this.devCard = card;
-        this.cost = card.getCost();
+        this.fixedCost = card.getCost();
+        this.cost = new ResourceCount(fixedCost.getCoins(),fixedCost.getRocks(),fixedCost.getServants(),fixedCost.getShields(),0);
+
         setStillToPay(cost);
     }
     @FXML
@@ -233,16 +235,20 @@ public class PaymentController extends GuiController{
     public void resourceDeselected(Resource res){
         switch (res){
             case COIN:
-                cost.addCoins(1);
+                if(cost.getCoins()< fixedCost.getCoins() && mockChestChosen.getCoins() <fixedCost.getCoins())
+                    cost.addCoins(1);
                 break;
             case ROCK:
-                cost.addRocks(1);
+                if(cost.getRocks()< fixedCost.getRocks() && mockChestChosen.getRocks() <fixedCost.getRocks())
+                    cost.addRocks(1);
                 break;
             case SHIELD:
-                cost.addShields(1);
+                if(cost.getShields()< fixedCost.getShields() && mockChestChosen.getShields() <fixedCost.getShields())
+                    cost.addShields(1);
                 break;
             case SERVANT:
-                cost.addServants(1);
+                if(cost.getServants()< fixedCost.getServants() && mockChestChosen.getServants() <fixedCost.getServants())
+                    cost.addServants(1);
                 break;
         }
         setStillToPay(cost);
@@ -259,6 +265,8 @@ public class PaymentController extends GuiController{
                 xCoinYouHave.setText("x"+mockChest.getCoins());
                 if(mockChest.getCoins()==0)
                     chestCoinYouHave.setDisable(true);
+                if(mockChestChosen.getCoins()!=0)
+                    chestCoinChosen.setDisable(false);
                 resourceSelected(Resource.COIN);
                 break;
             case "chestRockYouHave":
@@ -268,6 +276,8 @@ public class PaymentController extends GuiController{
                 xRockYouHave.setText("x"+mockChest.getRocks());
                 if(mockChest.getRocks()==0)
                     chestRockYouHave.setDisable(true);
+                if(mockChestChosen.getRocks()!=0)
+                    chestRockChosen.setDisable(false);
                 resourceSelected(Resource.ROCK);
                 break;
             case "chestShieldYouHave":
@@ -277,6 +287,8 @@ public class PaymentController extends GuiController{
                 xShieldYouHave.setText("x"+mockChest.getShields());
                 if(mockChest.getShields()==0)
                     chestShieldYouHave.setDisable(true);
+                if(mockChestChosen.getShields()!=0)
+                    chestShieldChosen.setDisable(false);
                 resourceSelected(Resource.SHIELD);
                 break;
             case "chestServantYouHave":
@@ -286,6 +298,8 @@ public class PaymentController extends GuiController{
                 xServantYouHave.setText("x"+mockChest.getServants());
                 if(mockChest.getServants()==0)
                     chestServantYouHave.setDisable(true);
+                if(mockChestChosen.getServants()!=0)
+                    chestServantChosen.setDisable(false);
                 resourceSelected(Resource.SERVANT);
                 break;
         }
