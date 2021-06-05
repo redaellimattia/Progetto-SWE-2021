@@ -178,7 +178,7 @@ public class GuiManager implements View, GuiObserver{
 
     @Override
     public void startProduction() {
-
+        currentController.setProductionOnGoing();
     }
 
     @Override

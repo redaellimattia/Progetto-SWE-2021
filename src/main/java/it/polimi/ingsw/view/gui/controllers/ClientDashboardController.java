@@ -92,7 +92,6 @@ public class ClientDashboardController extends GuiController{
                 endTurnButton.setDisable(true);
             }
             if(clientManager.isMyTurn()&&clientManager.isMainActionDone()){
-                marketButton.setDisable(true);
                 productionButton.setDisable(true);
                 endTurnButton.setDisable(false);
             }
@@ -124,6 +123,14 @@ public class ClientDashboardController extends GuiController{
                 new FaithPos(597,0),new FaithPos(648,0),new FaithPos(697,0),new FaithPos(746,0),new FaithPos(794,0),
                 new FaithPos(844,0),new FaithPos(890,0)};
         startingFirstProduction = false;
+    }
+
+    @Override
+    public void setProductionOnGoing(){
+        endProduction.setVisible(true);
+        if(!productionButton.isDisabled())
+            productionButton.setDisable(true);
+        startProduction(null);
     }
 
     private void setFaithPath(int position){
@@ -279,6 +286,7 @@ public class ClientDashboardController extends GuiController{
         shopButton.setDisable(true);
         marketButton.setDisable(true);
         productionButton.setDisable(true);
+        otherPlayers.setDisable(true);
         setAvailableProductions();
         endProduction.setVisible(true);
     }
@@ -318,6 +326,11 @@ public class ClientDashboardController extends GuiController{
 
     public void resetProduction(){
         startBasicProduction.setVisible(false);
+        devCardProduction1.setVisible(false);
+        devCardProduction2.setVisible(false);
+        devCardProduction3.setVisible(false);
+        leaderProduction1.setVisible(false);
+        leaderProduction2.setVisible(false);
         shopButton.setDisable(false);
         marketButton.setDisable(false);
         productionButton.setDisable(false);
@@ -375,7 +388,7 @@ public class ClientDashboardController extends GuiController{
     @Override
     public void updateChest(String nickname){
         if(nickname.equals(playerDashboard.getNickname()))
-            setChest(playerDashboard.getChest(),xCoin,xShield,xRock,xServant);
+            Platform.runLater(()->setChest(playerDashboard.getChest(),xCoin,xShield,xRock,xServant));
     }
     @Override
     public void updateDevCards(String nickname){
@@ -417,8 +430,13 @@ public class ClientDashboardController extends GuiController{
     public void endProduction(MouseEvent mouseEvent) {
         if(!clientManager.isMainActionDone())
             resetProduction();
-        else
-            clientManager.endAction();
+        else {
+            endProduction.setVisible(false);
+            marketButton.setDisable(false);
+            shopButton.setDisable(false);
+            otherPlayers.setDisable(false);
+            Platform.runLater(() -> clientManager.endAction());
+        }
     }
 
     public void startLeaderProduction(MouseEvent mouseEvent) {

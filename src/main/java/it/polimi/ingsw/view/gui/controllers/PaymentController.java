@@ -429,16 +429,19 @@ public class PaymentController extends GuiController{
         }
         getGuiManager().getClientManager().devCardProduction(index,devCard,storageCount, chestCount);
         getGuiManager().callDashboard();
+        getGuiManager().getCurrentController().setProductionOnGoing();
     }
 
     private void payLeaderCardProduction(){
         getGuiManager().getClientManager().leaderProduction(playerDashboard.getLeaderPos(leaderCard),leaderCard,storageCount, chestCount,res);
         getGuiManager().callDashboard();
+        getGuiManager().getCurrentController().setProductionOnGoing();
     }
 
     private void payBasicProduction(){
         getGuiManager().getClientManager().basicProduction(storageCount, chestCount,res);
         getGuiManager().callDashboard();
+        getGuiManager().getCurrentController().setProductionOnGoing();
     }
 
     private void goToEndBuyCard(){

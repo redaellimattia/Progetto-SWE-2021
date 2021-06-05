@@ -45,6 +45,8 @@ public abstract class GuiController {
     public void setLeaderCardProduction(LeaderCard card, Resource res){}
     public void setBasicProduction(ResourceCount cost,Resource res){}
     public void setFinalStageBuy(int row,int col, DevelopmentCard card,ResourceCount storageCount, ResourceCount chestCount){}
+
+    public void setProductionOnGoing(){}
     protected void setImage(ImageView image, String path){
         if(path == null)
             image.setImage(null);
