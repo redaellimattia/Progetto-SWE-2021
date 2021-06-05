@@ -331,7 +331,7 @@ public class ClientDashboardController extends GuiController{
     }
 
     public void startBasicProduction(MouseEvent mouseEvent) {
-        launchChooseResources(true);
+        launchChooseResources(true,true);
     }
 
     public void endTurn(MouseEvent mouseEvent) {

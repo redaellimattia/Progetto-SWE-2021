@@ -1,9 +1,9 @@
 package it.polimi.ingsw.view.gui.controllers;
 
 import it.polimi.ingsw.model.CounterTop;
+import it.polimi.ingsw.model.DeckDashboard;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
-import it.polimi.ingsw.model.Storage;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -36,16 +36,12 @@ public class PaymentController extends GuiController{
     private AnchorPane chestCoinYouHave,chestShieldYouHave,chestServantYouHave,chestRockYouHave;
     @FXML //STORAGEYOUHAVE
     private ImageView firstRowImageYouHave,secondRowImage1YouHave,secondRowImage2YouHave,thirdRowImage1YouHave,thirdRowImage2YouHave,thirdRowImage3YouHave;
-    private int row;
-    private int col;
-    private boolean shopAction;
-    private ResourceCount cost;
+    private int row,col;
+    private boolean shopAction,basicProduction,leaderCardProduction,devCardProduction;
     private Resource res;
-    private ResourceCount fixedCost;
-    private ResourceCount mockChest;
-    private ResourceCount mockChestChosen;
-    private ResourceCount storageCount;
+    private ResourceCount cost,fixedCost,playerChest,chestCount,storageCount;
     private DevelopmentCard devCard;
+    private LeaderCard leaderCard;
     private PlayerDashboard playerDashboard;
 
 
@@ -58,8 +54,9 @@ public class PaymentController extends GuiController{
         //Setting up what the player's have
         setStorage(playerDashboard.getStorage(),firstRowImageYouHave,secondRowImage1YouHave,secondRowImage2YouHave,thirdRowImage1YouHave,thirdRowImage2YouHave,thirdRowImage3YouHave);
         setChest(playerDashboard.getChest(),xCoinYouHave,xShieldYouHave,xRockYouHave,xServantYouHave);
-        mockChest = playerDashboard.getChest();
-        mockChestChosen = new ResourceCount(0,0,0,0,0);
+        playerChest = playerDashboard.getChest();
+        chestCount = new ResourceCount(0,0,0,0,0);
+        storageCount = new ResourceCount(0,0,0,0,0);
 
         firstRowImageChosen.setDisable(true);
         secondRowImage1Chosen.setDisable(true);
@@ -80,15 +77,15 @@ public class PaymentController extends GuiController{
             thirdRowImage2YouHave.setDisable(true);
             thirdRowImage3YouHave.setDisable(true);
         }
-        if(mockChest.getCoins()==0)
+        if(playerChest.getCoins()==0)
             chestCoinYouHave.setDisable(true);
         else
             chestCoinYouHave.setDisable(false);
-        if(mockChest.getRocks()==0)
+        if(playerChest.getRocks()==0)
             chestRockYouHave.setDisable(true);
-        if(mockChest.getShields()==0)
+        if(playerChest.getShields()==0)
             chestShieldYouHave.setDisable(true);
-        if(mockChest.getServants()==0)
+        if(playerChest.getServants()==0)
             chestServantYouHave.setDisable(true);
 
     }
@@ -98,27 +95,37 @@ public class PaymentController extends GuiController{
     }
 
     public void setDevCardProduction(DevelopmentCard card){
-
+        devCardProduction = true;
+        this.devCard = card;
+        setCost(card.getProductionPower().getInput());
     }
 
     public void setLeaderCardProduction(LeaderCard card, Resource res){
-
+        leaderCardProduction = true;
+        this.leaderCard = card;
+        ResourceCount cost = new ResourceCount(0,0,0,0,0);
+        card.getSpecialAbility().getResourceType().add(cost,1);
+        setCost(cost);
+        this.res = res;
     }
 
-    public void setBasicProduction(Resource res){
-
+    public void setBasicProduction(ResourceCount cost,Resource res){
+        basicProduction = true;
+        setCost(cost);
     }
 
+    private void setCost(ResourceCount cost){
+        this.fixedCost = cost;
+        this.cost = new ResourceCount(fixedCost.getCoins(),fixedCost.getRocks(),fixedCost.getServants(),fixedCost.getShields(),0);
+        setStillToPay(cost);
+    }
     @Override
     public void setBuyCard(int row,int col,DevelopmentCard card){
         this.row=row;
         this.col=col;
         this.shopAction=true;
         this.devCard = card;
-        this.fixedCost = card.getCost();
-        this.cost = new ResourceCount(fixedCost.getCoins(),fixedCost.getRocks(),fixedCost.getServants(),fixedCost.getShields(),0);
-
-        setStillToPay(cost);
+        setCost(card.getCost());
     }
     @FXML
     public void registerPaymentStorage(MouseEvent mouseEvent) {
@@ -266,19 +273,19 @@ public class PaymentController extends GuiController{
     public void resourceDeselected(Resource res){
         switch (res){
             case COIN:
-                if(cost.getCoins()< fixedCost.getCoins() && mockChestChosen.getCoins() <fixedCost.getCoins())
+                if(cost.getCoins()< fixedCost.getCoins() && chestCount.getCoins() <fixedCost.getCoins())
                     cost.addCoins(1);
                 break;
             case ROCK:
-                if(cost.getRocks()< fixedCost.getRocks() && mockChestChosen.getRocks() <fixedCost.getRocks())
+                if(cost.getRocks()< fixedCost.getRocks() && chestCount.getRocks() <fixedCost.getRocks())
                     cost.addRocks(1);
                 break;
             case SHIELD:
-                if(cost.getShields()< fixedCost.getShields() && mockChestChosen.getShields() <fixedCost.getShields())
+                if(cost.getShields()< fixedCost.getShields() && chestCount.getShields() <fixedCost.getShields())
                     cost.addShields(1);
                 break;
             case SERVANT:
-                if(cost.getServants()< fixedCost.getServants() && mockChestChosen.getServants() <fixedCost.getServants())
+                if(cost.getServants()< fixedCost.getServants() && chestCount.getServants() <fixedCost.getServants())
                     cost.addServants(1);
                 break;
         }
@@ -290,46 +297,46 @@ public class PaymentController extends GuiController{
         String id = SOURCE.getId();
         switch (id){
             case "chestCoinYouHave":
-                mockChestChosen.addCoins(1);
-                xCoinChosen.setText("x"+mockChestChosen.getCoins());
-                mockChest.removeCoins(1);
-                xCoinYouHave.setText("x"+mockChest.getCoins());
-                if(mockChest.getCoins()==0)
+                chestCount.addCoins(1);
+                xCoinChosen.setText("x"+ chestCount.getCoins());
+                playerChest.removeCoins(1);
+                xCoinYouHave.setText("x"+ playerChest.getCoins());
+                if(playerChest.getCoins()==0)
                     chestCoinYouHave.setDisable(true);
-                if(mockChestChosen.getCoins()!=0)
+                if(chestCount.getCoins()!=0)
                     chestCoinChosen.setDisable(false);
                 resourceSelected(Resource.COIN);
                 break;
             case "chestRockYouHave":
-                mockChestChosen.addRocks(1);
-                xRockChosen.setText("x"+mockChestChosen.getRocks());
-                mockChest.removeRocks(1);
-                xRockYouHave.setText("x"+mockChest.getRocks());
-                if(mockChest.getRocks()==0)
+                chestCount.addRocks(1);
+                xRockChosen.setText("x"+ chestCount.getRocks());
+                playerChest.removeRocks(1);
+                xRockYouHave.setText("x"+ playerChest.getRocks());
+                if(playerChest.getRocks()==0)
                     chestRockYouHave.setDisable(true);
-                if(mockChestChosen.getRocks()!=0)
+                if(chestCount.getRocks()!=0)
                     chestRockChosen.setDisable(false);
                 resourceSelected(Resource.ROCK);
                 break;
             case "chestShieldYouHave":
-                mockChestChosen.addShields(1);
-                xShieldChosen.setText("x"+mockChestChosen.getShields());
-                mockChest.removeShields(1);
-                xShieldYouHave.setText("x"+mockChest.getShields());
-                if(mockChest.getShields()==0)
+                chestCount.addShields(1);
+                xShieldChosen.setText("x"+ chestCount.getShields());
+                playerChest.removeShields(1);
+                xShieldYouHave.setText("x"+ playerChest.getShields());
+                if(playerChest.getShields()==0)
                     chestShieldYouHave.setDisable(true);
-                if(mockChestChosen.getShields()!=0)
+                if(chestCount.getShields()!=0)
                     chestShieldChosen.setDisable(false);
                 resourceSelected(Resource.SHIELD);
                 break;
             case "chestServantYouHave":
-                mockChestChosen.addServants(1);
-                xServantChosen.setText("x"+mockChestChosen.getServants());
-                mockChest.removeServants(1);
-                xServantYouHave.setText("x"+mockChest.getServants());
-                if(mockChest.getServants()==0)
+                chestCount.addServants(1);
+                xServantChosen.setText("x"+ chestCount.getServants());
+                playerChest.removeServants(1);
+                xServantYouHave.setText("x"+ playerChest.getServants());
+                if(playerChest.getServants()==0)
                     chestServantYouHave.setDisable(true);
-                if(mockChestChosen.getServants()!=0)
+                if(chestCount.getServants()!=0)
                     chestServantChosen.setDisable(false);
                 resourceSelected(Resource.SERVANT);
                 break;
@@ -341,46 +348,46 @@ public class PaymentController extends GuiController{
         String id = SOURCE.getId();
         switch (id){
             case "chestCoinChosen":
-                mockChestChosen.removeCoins(1);
-                xCoinChosen.setText("x"+mockChestChosen.getCoins());
-                mockChest.addCoins(1);
-                xCoinYouHave.setText("x"+mockChest.getCoins());
-                if(mockChest.getCoins()!=0)
+                chestCount.removeCoins(1);
+                xCoinChosen.setText("x"+ chestCount.getCoins());
+                playerChest.addCoins(1);
+                xCoinYouHave.setText("x"+ playerChest.getCoins());
+                if(playerChest.getCoins()!=0)
                     chestCoinYouHave.setDisable(false);
-                if(mockChestChosen.getCoins()==0)
+                if(chestCount.getCoins()==0)
                     chestCoinChosen.setDisable(true);
                 resourceDeselected(Resource.COIN);
                 break;
             case "chestRockChosen":
-                mockChestChosen.removeRocks(1);
-                xRockChosen.setText("x"+mockChestChosen.getRocks());
-                mockChest.addRocks(1);
-                xRockYouHave.setText("x"+mockChest.getRocks());
-                if(mockChest.getRocks()!=0)
+                chestCount.removeRocks(1);
+                xRockChosen.setText("x"+ chestCount.getRocks());
+                playerChest.addRocks(1);
+                xRockYouHave.setText("x"+ playerChest.getRocks());
+                if(playerChest.getRocks()!=0)
                     chestRockYouHave.setDisable(false);
-                if(mockChestChosen.getRocks()==0)
+                if(chestCount.getRocks()==0)
                     chestRockChosen.setDisable(true);
                 resourceDeselected(Resource.ROCK);
                 break;
             case "chestShieldChosen":
-                mockChestChosen.removeShields(1);
-                xShieldChosen.setText("x"+mockChestChosen.getShields());
-                mockChest.addShields(1);
-                xShieldYouHave.setText("x"+mockChest.getShields());
-                if(mockChest.getShields()!=0)
+                chestCount.removeShields(1);
+                xShieldChosen.setText("x"+ chestCount.getShields());
+                playerChest.addShields(1);
+                xShieldYouHave.setText("x"+ playerChest.getShields());
+                if(playerChest.getShields()!=0)
                     chestShieldYouHave.setDisable(false);
-                if(mockChestChosen.getShields()==0)
+                if(chestCount.getShields()==0)
                     chestShieldChosen.setDisable(true);
                 resourceDeselected(Resource.SHIELD);
                 break;
             case "chestServantChosen":
-                mockChestChosen.removeServants(1);
-                xServantChosen.setText("x"+mockChestChosen.getServants());
-                mockChest.addServants(1);
-                xServantYouHave.setText("x"+mockChest.getServants());
-                if(mockChest.getServants()!=0)
+                chestCount.removeServants(1);
+                xServantChosen.setText("x"+ chestCount.getServants());
+                playerChest.addServants(1);
+                xServantYouHave.setText("x"+ playerChest.getServants());
+                if(playerChest.getServants()!=0)
                     chestServantYouHave.setDisable(false);
-                if(mockChestChosen.getServants()==0)
+                if(chestCount.getServants()==0)
                     chestServantChosen.setDisable(true);
                 resourceDeselected(Resource.SERVANT);
                 break;
@@ -399,14 +406,40 @@ public class PaymentController extends GuiController{
         playerDashboard.getStorage().setThirdRow(third);
     }
 
-    public void endBuyCard(MouseEvent mouseEvent) {
-        if(shopAction) {
+    public void endBuy(MouseEvent mouseEvent) {
+        if(shopAction)
             Platform.runLater(() -> goToEndBuyCard());
+        if(basicProduction)
+            Platform.runLater(() -> payBasicProduction());
+        if(leaderCardProduction)
+            Platform.runLater(() -> payLeaderCardProduction());
+        if(devCardProduction)
+            Platform.runLater(() -> payDevCardProduction());
+    }
+
+    private void payDevCardProduction(){
+        int index = -1;
+        for(int i=0;i<3;i++){
+            DeckDashboard deck = playerDashboard.getDevCards()[i];
+            if(deck.getDeck().size()>0&&deck.getFirst().equals(devCard))
+                index = i;
         }
+        getGuiManager().getClientManager().devCardProduction(index,devCard,storageCount, chestCount);
+        getGuiManager().callDashboard();
+    }
+
+    private void payLeaderCardProduction(){
+        getGuiManager().getClientManager().leaderProduction(playerDashboard.getLeaderPos(leaderCard),leaderCard,storageCount, chestCount,res);
+        getGuiManager().callDashboard();
+    }
+
+    private void payBasicProduction(){
+        getGuiManager().getClientManager().basicProduction(storageCount, chestCount,res);
+        getGuiManager().callDashboard();
     }
 
     private void goToEndBuyCard(){
         getGuiManager().setLayout("endCardBuy.fxml");
-        getGuiManager().getCurrentController().setFinalStageBuy(row,col,devCard,storageCount,mockChestChosen);
+        getGuiManager().getCurrentController().setFinalStageBuy(row,col,devCard,storageCount, chestCount);
     }
 }

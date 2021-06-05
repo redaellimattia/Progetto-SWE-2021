@@ -258,5 +258,5 @@
          <Font name="Roboto Light" size="35.0" />
       </font>
    </Text>
-   <Button fx:id="continueButton" onMouseClicked="#endBuyCard" layoutX="1064.0" layoutY="657.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="170.0" text="Continue" />
+   <Button fx:id="continueButton" onMouseClicked="#endBuy" layoutX="1064.0" layoutY="657.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="170.0" text="Continue" />
 </AnchorPane>
