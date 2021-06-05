@@ -47,7 +47,7 @@
                     <Image url="@../img/punchboard/servant2.png" />
                 </image>
             </ImageView>
-            <Label layoutX="146.0" layoutY="76.0" styleClass="whiteLabel" textFill="WHITE" onMouseClicked="#xServantClick" visible="false" fx:id="xServantChosen">
+            <Label layoutX="146.0" layoutY="76.0" textFill="WHITE" onMouseClicked="#xServantClick" visible="false" fx:id="xServantChosen">
                 <font>
                     <Font name="Roboto Light" size="15.0" />
                 </font>

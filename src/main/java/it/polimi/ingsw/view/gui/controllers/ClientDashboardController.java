@@ -25,6 +25,10 @@ import java.util.ArrayList;
 
 public class ClientDashboardController extends GuiController{
     @FXML
+    private AnchorPane bufferProduction;
+    @FXML
+    private Label xCoinBufferProduction,xServantBufferProduction,xShieldBufferProduction,xRockBufferProduction;
+    @FXML
     private AnchorPane leaderProduction1,leaderProduction2;
     @FXML
     private Button startBasicProduction,devCardProduction1,devCardProduction2,devCardProduction3,endProduction;
@@ -288,6 +292,7 @@ public class ClientDashboardController extends GuiController{
         productionButton.setDisable(true);
         otherPlayers.setDisable(true);
         setAvailableProductions();
+        bufferProduction.setVisible(true);
         endProduction.setVisible(true);
     }
 
@@ -331,6 +336,7 @@ public class ClientDashboardController extends GuiController{
         devCardProduction3.setVisible(false);
         leaderProduction1.setVisible(false);
         leaderProduction2.setVisible(false);
+        bufferProduction.setVisible(false);
         shopButton.setDisable(false);
         marketButton.setDisable(false);
         productionButton.setDisable(false);
@@ -391,6 +397,11 @@ public class ClientDashboardController extends GuiController{
             Platform.runLater(()->setChest(playerDashboard.getChest(),xCoin,xShield,xRock,xServant));
     }
     @Override
+    public void updateBufferProduction(String nickname){
+        if(nickname.equals(playerDashboard.getNickname()))
+            Platform.runLater(()->setChest(playerDashboard.getBufferProduction(),xCoinBufferProduction,xShieldBufferProduction,xRockBufferProduction,xServantBufferProduction));
+    }
+    @Override
     public void updateDevCards(String nickname){
         if(nickname.equals(playerDashboard.getNickname()))
             setDevCards(playerDashboard.getDevCards());
@@ -435,6 +446,7 @@ public class ClientDashboardController extends GuiController{
             marketButton.setDisable(false);
             shopButton.setDisable(false);
             otherPlayers.setDisable(false);
+            bufferProduction.setVisible(false);
             Platform.runLater(() -> clientManager.endAction());
         }
     }

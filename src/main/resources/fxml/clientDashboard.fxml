@@ -236,5 +236,53 @@
       <Button fx:id="devCardProduction2" layoutX="590.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction" styleClass="greenButton" text="DevCard Production" visible="false" />
       <Button fx:id="endProduction" layoutX="870.0" layoutY="175.0" mnemonicParsing="false" onMouseClicked="#endProduction" styleClass="redButton" text="End Production" visible="false" />
       <Button fx:id="devCardProduction3" layoutX="800.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction" styleClass="greenButton" text="DevCard Production" visible="false" />
+      <AnchorPane fx:id="bufferProduction" layoutX="444.0" layoutY="600.0" prefHeight="119.0" prefWidth="396.0" visible="false">
+         <children>
+            <Text fill="WHITE" layoutX="97.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Production Buffer">
+               <font>
+                  <Font name="Roboto Light" size="26.0" />
+               </font></Text>
+            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="12.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/punchboard/coin2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="233.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/punchboard/shield2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="122.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/punchboard/servant2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="325.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/punchboard/stone2.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="33.0" layoutY="63.0" fx:id="xCoinBufferProduction">
+               <font>
+                  <Font name="Roboto Light" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="249.0" layoutY="65.0" fx:id="xShieldBufferProduction">
+               <font>
+                  <Font name="Roboto Light" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="144.0" layoutY="65.0" styleClass="whiteLabel" textFill="WHITE" fx:id="xServantBufferProduction">
+               <font>
+                  <Font name="Roboto Light" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="346.0" layoutY="65.0" fx:id="xRockBufferProduction">
+               <font>
+                  <Font name="Roboto Light" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

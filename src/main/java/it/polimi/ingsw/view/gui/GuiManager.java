@@ -241,6 +241,6 @@ public class GuiManager implements View, GuiObserver{
     }
     @Override
     public void updateBufferProduction(String nickname){
-        currentController.updateBufferProduction(nickname);
+        Platform.runLater(()->currentController.updateBufferProduction(nickname));
     }
 }
