@@ -132,4 +132,6 @@ public abstract class GuiController {
     public void updateVaticanReports(){}
     //RICHIAMA TUTTO IL SET LAYOUT COSì SI POSSONO AGGIORNARE CORRETTAMENTE CARTE NON PIU CLICCABILI
     public void updateBufferProduction(String nickname){}
+
+    public void setModal(boolean isInput){}
 }

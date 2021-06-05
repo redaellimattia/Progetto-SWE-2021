@@ -4,7 +4,6 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DepositAbility;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
-import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.application.Platform;
@@ -12,18 +11,30 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ClientDashboardController extends GuiController{
+    @FXML
+    private AnchorPane leaderProduction1,leaderProduction2;
+    @FXML
+    private Button startBasicProduction,devCardProduction1,devCardProduction2,devCardProduction3,endProduction;
     @FXML
     private Text nickname;
     @FXML
@@ -56,6 +67,7 @@ public class ClientDashboardController extends GuiController{
     private PlayerDashboard playerDashboard;
     private ClientManager clientManager;
     private FaithPos[] faithPos;
+    private boolean startingFirstProduction;
 
     @Override
     public void setPlayer(PlayerDashboard playerDashboard,boolean watchingPlayer) {
@@ -90,7 +102,7 @@ public class ClientDashboardController extends GuiController{
                 endTurnButton.setDisable(false);
             }
             if(clientManager.isMyTurn()&&!clientManager.isMainActionDone()){
-                if(!clientManager.canDoProduction())
+                if(clientManager.canDoProduction())
                     productionButton.setDisable(true);
                 endTurnButton.setDisable(true);
             }
@@ -116,6 +128,7 @@ public class ClientDashboardController extends GuiController{
                 new FaithPos(497,105),new FaithPos(547,105),new FaithPos(593,102),new FaithPos(593,55),
                 new FaithPos(592,1),new FaithPos(644,3),new FaithPos(693,5),new FaithPos(742,5),new FaithPos(790,5),
                 new FaithPos(840,5),new FaithPos(886,2)};
+        startingFirstProduction = false;
     }
 
     private void setFaithPath(int position){
@@ -264,17 +277,42 @@ public class ClientDashboardController extends GuiController{
         getGuiManager().setNextScene();
     }
 
+    /**
+     * Starts the productionAction, disables all other possible mainActions, once a production is done, it will be disabled
+     *
+     * @param mouseEvent click
+     */
     public void startProduction(MouseEvent mouseEvent) {
+        shopButton.setDisable(true);
+        marketButton.setDisable(true);
+        productionButton.setDisable(true);
+        startBasicProduction.setVisible(true);
+        if(clientManager.canDoDevCardProduction(playerDashboard)) {
+            devCardProduction1.setVisible(true);
+            devCardProduction2.setVisible(true);
+            devCardProduction3.setVisible(true);
+        }
+        if(clientManager.canDoLeaderCardProduction(playerDashboard)){
+            leaderProduction1.setVisible(true);
+            leaderProduction2.setVisible(true);
+        }
+        endProduction.setVisible(true);
+    }
+
+    public void resetProduction(){
+        startBasicProduction.setVisible(false);
+        shopButton.setDisable(false);
+        marketButton.setDisable(false);
+    }
+
+    public void startBasicProduction(MouseEvent mouseEvent) {
+        launchChooseResources(true);
     }
 
     public void endTurn(MouseEvent mouseEvent) {
         setImage(board,"/img/board/inactiveBoard.jpg");
         bwFaithPath.setVisible(true);
         Platform.runLater(()->clientManager.endTurn());
-    }
-
-    public void otherPlayers(MouseEvent mouseEvent) {
-        //Enter PlayerChoose scene
     }
 
     public void discardLeader2(MouseEvent mouseEvent) {
@@ -338,6 +376,40 @@ public class ClientDashboardController extends GuiController{
     public void backToHome(MouseEvent mouseEvent) {
         getGuiManager().callDashboard();
     }
+
+    private void launchChooseResources(boolean isInput){
+        GuiController controller = null;
+        Stage modal = new Stage();
+        modal.setScene(new Scene(new Pane()));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(this.getClass().getResource("/fxml/chooseResources.fxml"));
+        Pane pane;
+        try {
+            pane = loader.load();
+            modal.getScene().setRoot(pane);
+            controller = loader.getController();
+        } catch (IOException e) {
+            System.out.println("IOException while setting layout: "+e.getMessage());
+        }
+        modal.initModality(Modality.APPLICATION_MODAL);
+        modal.initStyle(StageStyle.UNDECORATED);
+        modal.setResizable(false);
+        modal.getIcons().add(new Image(this.getClass().getResourceAsStream("/img/javaFX/icon.png")));
+        controller.setModal(isInput);
+        modal.setOnCloseRequest((windowEvent) -> {
+            if(startingFirstProduction)
+                resetProduction();
+        });
+        Platform.runLater(modal::show);
+
+    }
+
+    public void startDevCardProduction(MouseEvent mouseEvent) {
+    }
+
+    public void endProduction(MouseEvent mouseEvent) {
+    }
+
     //FAITH PATH IMG POSITION
     private static class FaithPos{
         private int x;
