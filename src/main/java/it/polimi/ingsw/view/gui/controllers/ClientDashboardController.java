@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DepositAbility;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
+import it.polimi.ingsw.model.card.ProductionAbility;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.application.Platform;
@@ -122,12 +123,12 @@ public class ClientDashboardController extends GuiController{
         }
         otherPlayers.setItems(players);
         faithPos = new FaithPos[]{
-                new FaithPos(0,105),new FaithPos(52,105),new FaithPos(102,105),new FaithPos(102,58),new FaithPos(101,2),
-                new FaithPos(152,2),new FaithPos(201,2),new FaithPos(249,2),new FaithPos(299,2),
-                new FaithPos(351,103),new FaithPos(351,56),new FaithPos(350,2),new FaithPos(400,105),new FaithPos(449,105),
-                new FaithPos(497,105),new FaithPos(547,105),new FaithPos(593,102),new FaithPos(593,55),
-                new FaithPos(592,1),new FaithPos(644,3),new FaithPos(693,5),new FaithPos(742,5),new FaithPos(790,5),
-                new FaithPos(840,5),new FaithPos(886,2)};
+                new FaithPos(4,102),new FaithPos(56,102),new FaithPos(106,102),new FaithPos(106,98),new FaithPos(106,0),
+                new FaithPos(156,0),new FaithPos(205,0),new FaithPos(253,0),new FaithPos(303,0),
+                new FaithPos(355,99),new FaithPos(355,52),new FaithPos(355,0),new FaithPos(404,101),new FaithPos(453,101),
+                new FaithPos(501,101),new FaithPos(551,101),new FaithPos(597,98),new FaithPos(597,51),
+                new FaithPos(597,0),new FaithPos(648,0),new FaithPos(697,0),new FaithPos(746,0),new FaithPos(794,0),
+                new FaithPos(844,0),new FaithPos(890,0)};
         startingFirstProduction = false;
     }
 
@@ -286,17 +287,39 @@ public class ClientDashboardController extends GuiController{
         shopButton.setDisable(true);
         marketButton.setDisable(true);
         productionButton.setDisable(true);
-        startBasicProduction.setVisible(true);
+        setAvailableProductions();
+        endProduction.setVisible(true);
+    }
+
+    private void setAvailableProductions(){
+        if(!clientManager.isBasicProductionDone())
+            startBasicProduction.setVisible(true);
         if(clientManager.canDoDevCardProduction(playerDashboard)) {
-            devCardProduction1.setVisible(true);
-            devCardProduction2.setVisible(true);
-            devCardProduction3.setVisible(true);
+            for(int i=0;i<3;i++){
+                if(playerDashboard.getDevCards()[i].getDeck().size()>0&&!clientManager.getDevCardProductionDone()[i]) {
+                    switch(i){
+                        case 0: devCardProduction1.setVisible(true);
+                            break;
+                        case 1: devCardProduction2.setVisible(true);
+                            break;
+                        case 2: devCardProduction3.setVisible(true);
+                            break;
+                    }
+                }
+
+            }
         }
         if(clientManager.canDoLeaderCardProduction(playerDashboard)){
-            leaderProduction1.setVisible(true);
-            leaderProduction2.setVisible(true);
+            for(int i=0;i<playerDashboard.getLeaderCards().size();i++){
+                LeaderCard l = playerDashboard.getLeaderCards().get(i);
+                if(l.isInGame()&&l.getSpecialAbility() instanceof ProductionAbility&&!clientManager.getLeaderCardProductionDone()[i]){
+                    if(i==0)
+                        leaderProduction1.setVisible(true);
+                    else
+                        leaderProduction2.setVisible(true);
+                }
+            }
         }
-        endProduction.setVisible(true);
     }
 
     public void resetProduction(){
@@ -408,6 +431,7 @@ public class ClientDashboardController extends GuiController{
     }
 
     public void endProduction(MouseEvent mouseEvent) {
+        //if(!clientManager.is)
     }
 
     //FAITH PATH IMG POSITION
