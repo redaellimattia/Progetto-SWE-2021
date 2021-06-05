@@ -56,6 +56,7 @@ public class MarketActionController extends GuiController {
         confirmAction.setVisible(false);
         closeMessage.setVisible(false);
         choicesList.setVisible(false);
+        getResourceList.setVisible(false);
         if(!clientManager.isMyTurn() || clientManager.isMainActionDone()) {
             marketActionMessage.setVisible(false);
             disableArrows();
@@ -209,6 +210,7 @@ public class MarketActionController extends GuiController {
     public void doMarketAction(MouseEvent mouseEvent) {
         disableArrows();
         confirmAction.setVisible(false);
+        backToDashboard.setDisable(true);
 
         // Get marbles
         marbles = clientManager.getMarketMarbles(type, pos);
@@ -245,7 +247,7 @@ public class MarketActionController extends GuiController {
                 }
             }
             else {
-                storeResourceChoices();
+                showStoreResourceChoices(marbles[curChoice].getColour().convertToResource());
             }
         }
     }
@@ -256,18 +258,41 @@ public class MarketActionController extends GuiController {
         doNextAtomicChoice();
     }
 
-    public void storeResourceChoices() {
-        marketActionMessage.setText("In which deposit do you want to store the " + marbles[curChoice].getColour().convertToResource() + "?");
+    public void showStoreResourceChoices(Resource resource) {
+        marketActionMessage.setText("In which deposit do you want to store the " + resource + "?");
         ObservableList<String> options = FXCollections.observableArrayList("Discard", "Add to first storage row", "Add to second storage row", "Add to third storage row");
-        if(clientManager.hasAdditionalDeposit(marbles[curChoice].getColour().convertToResource())) {
+        if(clientManager.hasAdditionalDeposit(resource)) {
             options.add("Add to additional storage");
         }
         getResourceList.setItems(options);
         getResourceList.setVisible(true);
     }
 
-    public void saveAtomicChoice() {
+    public void whiteMarbleChoice(MouseEvent mouseEvent) {
+        if(choicesList.getSelectionModel().getSelectedIndex() == 0) {
+            clientManager.getResource(0);
+            choicesList.setVisible(false);
+            curChoice++;
+            doNextAtomicChoice();
+        }
+        else {
+            LeaderCard chosenLeaderCard = clientManager.getWhiteChangeCard(choicesList.getSelectionModel().getSelectedIndex());
+            Resource convertedResource = chosenLeaderCard.getSpecialAbility().getResourceType();
+            choicesList.setVisible(false);
+            showStoreResourceChoices(convertedResource);
+        }
+    }
 
+    public void storeResourceChoice(MouseEvent mouseEvent) {
+        if(getResourceList.getSelectionModel().getSelectedIndex() == 0) {
+            clientManager.discardResource();
+        }
+        else {
+            clientManager.getResource(getResourceList.getSelectionModel().getSelectedIndex());
+        }
+        getResourceList.setVisible(false);
+        curChoice++;
+        doNextAtomicChoice();
     }
 
     @Override
