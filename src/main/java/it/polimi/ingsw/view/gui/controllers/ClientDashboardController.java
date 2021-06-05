@@ -80,6 +80,8 @@ public class ClientDashboardController extends GuiController{
         setChest(playerDashboard.getChest(),xCoin,xShield,xRock,xServant);
         setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
         if(watchingPlayer){
+            if(playerDashboard.isLorenzo())
+                setImage(faithPath,"/img/punchboard/croce.png");
             setImage(board,"/img/board/inactiveBoard.jpg");
             nickname.setText(playerDashboard.getNickname());
             nickname.setVisible(true);
@@ -123,9 +125,9 @@ public class ClientDashboardController extends GuiController{
         }
         otherPlayers.setItems(players);
         faithPos = new FaithPos[]{
-                new FaithPos(4,102),new FaithPos(56,102),new FaithPos(106,102),new FaithPos(106,98),new FaithPos(106,0),
+                new FaithPos(4,102),new FaithPos(56,102),new FaithPos(106,102),new FaithPos(106,52),new FaithPos(106,0),
                 new FaithPos(156,0),new FaithPos(205,0),new FaithPos(253,0),new FaithPos(303,0),
-                new FaithPos(355,99),new FaithPos(355,52),new FaithPos(355,0),new FaithPos(404,101),new FaithPos(453,101),
+                new FaithPos(355,0),new FaithPos(355,52),new FaithPos(355,99),new FaithPos(404,101),new FaithPos(453,101),
                 new FaithPos(501,101),new FaithPos(551,101),new FaithPos(597,98),new FaithPos(597,51),
                 new FaithPos(597,0),new FaithPos(648,0),new FaithPos(697,0),new FaithPos(746,0),new FaithPos(794,0),
                 new FaithPos(844,0),new FaithPos(890,0)};
@@ -133,7 +135,8 @@ public class ClientDashboardController extends GuiController{
     }
 
     private void setFaithPath(int position){
-        setFaithPath(faithPos[position]);
+        faithPath.setLayoutX(faithPos[position].getX());
+        faithPath.setLayoutY(faithPos[position].getY());
     }
 
     private void setDevCards(DeckDashboard[] devCards){
@@ -262,10 +265,7 @@ public class ClientDashboardController extends GuiController{
             setImage(vaticanReport4,"/img/punchboard/pope_favor3_back.png");
     }
 
-    private void setFaithPath(FaithPos fp){
-        faithPath.setLayoutX(fp.getX());
-        faithPath.setLayoutY(fp.getY());
-    }
+
 
     public void goToMarket(MouseEvent mouseEvent) {
         marketButton.setDisable(true);
