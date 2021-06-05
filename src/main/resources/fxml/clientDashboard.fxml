@@ -162,7 +162,7 @@
                   </Text>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="leaderProduction1" layoutX="218.0" layoutY="120.0" onMouseClicked="#playLeader2" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
+            <AnchorPane fx:id="leaderProduction1" layoutX="218.0" layoutY="120.0" onMouseClicked="#startLeaderProduction" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -204,7 +204,7 @@
                   </Text>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="leaderProduction2" layoutX="218.0" layoutY="385.0" onMouseClicked="#playLeader2" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
+            <AnchorPane fx:id="leaderProduction2" layoutX="218.0" layoutY="385.0" onMouseClicked="#startLeaderProduction" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
                <children>
                   <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                      <image>

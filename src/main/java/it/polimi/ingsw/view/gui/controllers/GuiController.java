@@ -41,6 +41,9 @@ public abstract class GuiController {
     public void setTextForWaiting(String text){}
     public void setPlayer(PlayerDashboard player,boolean watchingPlayer){}
     public void setBuyCard(int row, int col, DevelopmentCard card){}
+    public void setDevCardProduction(DevelopmentCard card){}
+    public void setLeaderCardProduction(LeaderCard card, Resource res){}
+    public void setBasicProduction(ResourceCount cost,Resource res){}
     public void setFinalStageBuy(int row,int col, DevelopmentCard card,ResourceCount storageCount, ResourceCount chestCount){}
     protected void setImage(ImageView image, String path){
         if(path == null)
@@ -142,9 +145,9 @@ public abstract class GuiController {
     //RICHIAMA TUTTO IL SET LAYOUT COSì SI POSSONO AGGIORNARE CORRETTAMENTE CARTE NON PIU CLICCABILI
     public void updateBufferProduction(String nickname){}
 
-    public void setModal(boolean isInput,boolean isBasic){}
+    public void setModal(boolean isInput,boolean isBasic,LeaderCard card){}
 
-    protected void launchChooseResources(boolean isInput,boolean isBasic){
+    protected void launchChooseResources(boolean isInput,boolean isBasic,LeaderCard card){
         GuiController controller = null;
         Stage modal = new Stage();
         modal.setScene(new Scene(new Pane()));
@@ -162,7 +165,7 @@ public abstract class GuiController {
         modal.initStyle(StageStyle.UNDECORATED);
         modal.setResizable(false);
         modal.getIcons().add(new Image(this.getClass().getResourceAsStream("/img/javaFX/icon.png")));
-        controller.setModal(isInput,isBasic);
+        controller.setModal(isInput,isBasic,card);
         Platform.runLater(modal::show);
     }
 

@@ -12,23 +12,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ClientDashboardController extends GuiController{
@@ -328,10 +320,12 @@ public class ClientDashboardController extends GuiController{
         startBasicProduction.setVisible(false);
         shopButton.setDisable(false);
         marketButton.setDisable(false);
+        productionButton.setDisable(false);
+        endProduction.setVisible(false);
     }
 
     public void startBasicProduction(MouseEvent mouseEvent) {
-        launchChooseResources(true,true);
+        launchChooseResources(true,true,null);
     }
 
     public void endTurn(MouseEvent mouseEvent) {
@@ -404,10 +398,39 @@ public class ClientDashboardController extends GuiController{
 
 
     public void startDevCardProduction(MouseEvent mouseEvent) {
+        String ID = mouseEvent.getPickResult().getIntersectedNode().getId();
+        switch (ID){
+            case "devCardProduction1": goToPayment(playerDashboard.getDevCards()[0].getFirst());
+            break;
+            case "devCardProduction2": goToPayment(playerDashboard.getDevCards()[1].getFirst());
+                break;
+            case "devCardProduction3": goToPayment(playerDashboard.getDevCards()[2].getFirst());
+                break;
+        }
+    }
+
+    private void goToPayment(DevelopmentCard card){
+        getGuiManager().setLayout("payment.fxml");
+        getGuiManager().getCurrentController().setDevCardProduction(card);
     }
 
     public void endProduction(MouseEvent mouseEvent) {
-        //if(!clientManager.is)
+        if(!clientManager.isMainActionDone())
+            resetProduction();
+        else
+            clientManager.endAction();
+    }
+
+    public void startLeaderProduction(MouseEvent mouseEvent) {
+        String ID = mouseEvent.getPickResult().getIntersectedNode().getId();
+        LeaderCard card = null;
+        switch (ID){
+            case "leaderProduction1": card = playerDashboard.getLeaderCards().get(0);
+                break;
+            case "leaderProduction2": card = playerDashboard.getLeaderCards().get(1);
+                break;
+        }
+        launchChooseResources(false,false,card);
     }
 
     //FAITH PATH IMG POSITION

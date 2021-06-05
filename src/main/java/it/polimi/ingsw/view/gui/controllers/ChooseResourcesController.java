@@ -1,6 +1,7 @@
 package it.polimi.ingsw.view.gui.controllers;
 
 import it.polimi.ingsw.model.ResourceCount;
+import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -24,11 +25,13 @@ public class ChooseResourcesController extends GuiController{
     private ResourceCount chosenInput;
     private ResourceCount chosenOutput;
     private boolean isBasic;
+    private LeaderCard leaderCard;
 
     @Override
-    public void setModal(boolean isInput,boolean isBasic) {
+    public void setModal(boolean isInput,boolean isBasic,LeaderCard card) {
         this.isInput = isInput;
         this.isBasic = isBasic;
+        this.leaderCard = card;
         if(isInput){
             toChoose = 2;
             chosenInput = new ResourceCount(0,0,0,0,0);
@@ -41,24 +44,39 @@ public class ChooseResourcesController extends GuiController{
         }
     }
 
-    @FXML
-    @Override
-    public void initialize(){
-    }
-
     public void confirmClick(MouseEvent mouseEvent) {
             if (isInput) {
                 if(toChoose==ResourceCount.resCountToInt(chosenInput))
-                    launchChooseResources(false,isBasic);
+                    launchChooseResources(false,isBasic,leaderCard);
                 else
                     printError();
             }
             else {
                 if (toChoose == ResourceCount.resCountToInt(chosenOutput))
-                    launchChooseResources(true,isBasic); //PAYMENT
+                    goToPayment();
                 else
                     printError();
             }
+    }
+
+    private void goToPayment(){
+        getGuiManager().setLayout("payment.fxml");
+        if(isBasic)
+            getGuiManager().getCurrentController().setBasicProduction(chosenInput,getResourceFromResourceCount());
+        else
+            getGuiManager().getCurrentController().setLeaderCardProduction(leaderCard,getResourceFromResourceCount());
+    }
+
+    private Resource getResourceFromResourceCount(){
+        if(chosenOutput.getCoins()>0)
+            return Resource.COIN;
+        if(chosenOutput.getShields()>0)
+            return Resource.SHIELD;
+        if(chosenOutput.getRocks()>0)
+            return Resource.ROCK;
+        if(chosenOutput.getServants()>0)
+            return Resource.SERVANT;
+        return null;
     }
 
     private void printError(){
@@ -121,10 +139,4 @@ public class ChooseResourcesController extends GuiController{
         else
             removeResource(Resource.SHIELD,xShieldChosen,chosenOutput,coin,shield,servant,rock);
     }
-
-
-
-
-
-
 }

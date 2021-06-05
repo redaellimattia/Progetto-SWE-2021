@@ -94,12 +94,14 @@ public class PaymentController extends GuiController{
         setChest(resourceCount,xCoinStillToPay,xShieldStillToPay,xRockStillToPay,xServantStillToPay);
     }
 
+    @Override
     public void setDevCardProduction(DevelopmentCard card){
         devCardProduction = true;
         this.devCard = card;
         setCost(card.getProductionPower().getInput());
     }
 
+    @Override
     public void setLeaderCardProduction(LeaderCard card, Resource res){
         leaderCardProduction = true;
         this.leaderCard = card;
@@ -109,6 +111,7 @@ public class PaymentController extends GuiController{
         this.res = res;
     }
 
+    @Override
     public void setBasicProduction(ResourceCount cost,Resource res){
         basicProduction = true;
         setCost(cost);
