@@ -128,7 +128,8 @@ public class PaymentController extends GuiController{
                 firstRowImageChosen.setImage(firstRowImageYouHave.getImage());
                 setImage(firstRowImageYouHave,null);
                 resourceSelected(playerDashboard.getStorage().getFirstRow().getResourceType());
-                storageCount.addGeneric(playerDashboard.getStorage().getFirstRow().getResourceType());
+
+                playerDashboard.getStorage().getFirstRow().getResourceType().add(storageCount,1);
                 firstRowImageYouHave.setDisable(true);
                 firstRowImageChosen.setDisable(false);
                 break;
@@ -136,7 +137,8 @@ public class PaymentController extends GuiController{
                 secondRowImage1Chosen.setImage(secondRowImage1YouHave.getImage());
                 setImage(secondRowImage1YouHave,null);
                 resourceSelected(playerDashboard.getStorage().getSecondRow().getResourceType());
-                storageCount.addGeneric(playerDashboard.getStorage().getSecondRow().getResourceType());
+
+                playerDashboard.getStorage().getSecondRow().getResourceType().add(storageCount,1);
                 secondRowImage1YouHave.setDisable(true);
                 secondRowImage1Chosen.setDisable(false);
                 break;
@@ -144,7 +146,8 @@ public class PaymentController extends GuiController{
                 secondRowImage2Chosen.setImage(secondRowImage2YouHave.getImage());
                 setImage(secondRowImage2YouHave,null);
                 resourceSelected(playerDashboard.getStorage().getSecondRow().getResourceType());
-                storageCount.addGeneric(playerDashboard.getStorage().getSecondRow().getResourceType());
+
+                playerDashboard.getStorage().getSecondRow().getResourceType().add(storageCount,1);
                 secondRowImage2YouHave.setDisable(true);
                 secondRowImage2Chosen.setDisable(false);
                 break;
@@ -152,7 +155,8 @@ public class PaymentController extends GuiController{
                 thirdRowImage1Chosen.setImage(thirdRowImage1YouHave.getImage());
                 setImage(thirdRowImage1YouHave,null);
                 resourceSelected(playerDashboard.getStorage().getThirdRow().getResourceType());
-                storageCount.addGeneric(playerDashboard.getStorage().getThirdRow().getResourceType());
+
+                playerDashboard.getStorage().getThirdRow().getResourceType().add(storageCount,1);
                 thirdRowImage1YouHave.setDisable(true);
                 thirdRowImage1Chosen.setDisable(false);
                 break;
@@ -160,7 +164,8 @@ public class PaymentController extends GuiController{
                 thirdRowImage2Chosen.setImage(thirdRowImage2YouHave.getImage());
                 setImage(thirdRowImage2YouHave,null);
                 resourceSelected(playerDashboard.getStorage().getThirdRow().getResourceType());
-                storageCount.addGeneric(playerDashboard.getStorage().getThirdRow().getResourceType());
+
+                playerDashboard.getStorage().getThirdRow().getResourceType().add(storageCount,1);
                 thirdRowImage2YouHave.setDisable(true);
                 thirdRowImage2Chosen.setDisable(false);
                 break;
@@ -168,7 +173,8 @@ public class PaymentController extends GuiController{
                 thirdRowImage3Chosen.setImage(thirdRowImage3YouHave.getImage());
                 setImage(thirdRowImage3YouHave,null);
                 resourceSelected(playerDashboard.getStorage().getThirdRow().getResourceType());
-                storageCount.addGeneric(playerDashboard.getStorage().getThirdRow().getResourceType());
+
+                playerDashboard.getStorage().getThirdRow().getResourceType().add(storageCount,1);
                 thirdRowImage3YouHave.setDisable(true);
                 thirdRowImage3Chosen.setDisable(false);
                 break;
@@ -204,7 +210,9 @@ public class PaymentController extends GuiController{
                 firstRowImageYouHave.setImage(firstRowImageChosen.getImage());
                 setImage(firstRowImageChosen,null);
                 resourceDeselected(playerDashboard.getStorage().getFirstRow().getResourceType());
-                storageCount.removeGeneric(playerDashboard.getStorage().getFirstRow().getResourceType());
+
+
+                playerDashboard.getStorage().getFirstRow().getResourceType().remove(storageCount,1);
                 firstRowImageYouHave.setDisable(false);
                 firstRowImageChosen.setDisable(true);
                 break;
@@ -212,7 +220,8 @@ public class PaymentController extends GuiController{
                 secondRowImage1YouHave.setImage(secondRowImage1Chosen.getImage());
                 setImage(secondRowImage1Chosen,null);
                 resourceDeselected(playerDashboard.getStorage().getSecondRow().getResourceType());
-                storageCount.removeGeneric(playerDashboard.getStorage().getSecondRow().getResourceType());
+
+                playerDashboard.getStorage().getSecondRow().getResourceType().remove(storageCount,1);
                 secondRowImage1YouHave.setDisable(false);
                 secondRowImage1Chosen.setDisable(true);
                 break;
@@ -220,7 +229,8 @@ public class PaymentController extends GuiController{
                 secondRowImage2YouHave.setImage(secondRowImage2Chosen.getImage());
                 setImage(secondRowImage2Chosen,null);
                 resourceDeselected(playerDashboard.getStorage().getSecondRow().getResourceType());
-                storageCount.removeGeneric(playerDashboard.getStorage().getSecondRow().getResourceType());
+
+                playerDashboard.getStorage().getSecondRow().getResourceType().remove(storageCount,1);
                 secondRowImage2YouHave.setDisable(false);
                 secondRowImage2Chosen.setDisable(true);
                 break;
@@ -228,7 +238,8 @@ public class PaymentController extends GuiController{
                 thirdRowImage1YouHave.setImage(thirdRowImage1Chosen.getImage());
                 setImage(thirdRowImage1Chosen,null);
                 resourceDeselected(playerDashboard.getStorage().getThirdRow().getResourceType());
-                storageCount.removeGeneric(playerDashboard.getStorage().getThirdRow().getResourceType());
+
+                playerDashboard.getStorage().getThirdRow().getResourceType().remove(storageCount,1);
                 thirdRowImage1YouHave.setDisable(false);
                 thirdRowImage1Chosen.setDisable(true);
                 break;
@@ -236,7 +247,8 @@ public class PaymentController extends GuiController{
                 thirdRowImage2YouHave.setImage(thirdRowImage2Chosen.getImage());
                 setImage(thirdRowImage2Chosen,null);
                 resourceDeselected(playerDashboard.getStorage().getThirdRow().getResourceType());
-                storageCount.removeGeneric(playerDashboard.getStorage().getThirdRow().getResourceType());
+
+                playerDashboard.getStorage().getThirdRow().getResourceType().remove(storageCount,1);
                 thirdRowImage2YouHave.setDisable(false);
                 thirdRowImage2Chosen.setDisable(true);
                 break;
@@ -244,7 +256,8 @@ public class PaymentController extends GuiController{
                 thirdRowImage3YouHave.setImage(thirdRowImage3Chosen.getImage());
                 setImage(thirdRowImage3Chosen,null);
                 resourceDeselected(playerDashboard.getStorage().getThirdRow().getResourceType());
-                storageCount.removeGeneric(playerDashboard.getStorage().getThirdRow().getResourceType());
+
+                playerDashboard.getStorage().getThirdRow().getResourceType().remove(storageCount,1);
                 thirdRowImage3YouHave.setDisable(false);
                 thirdRowImage3Chosen.setDisable(true);
                 break;

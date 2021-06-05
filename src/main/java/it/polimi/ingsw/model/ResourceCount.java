@@ -199,46 +199,6 @@ public class ResourceCount {
     }
 
     /**
-     *
-     * @param res generic resources that needs to be added to a resourceCount;
-     */
-    public void addGeneric(Resource res){
-        switch (res){
-            case COIN:
-                this.addCoins(1);
-                break;
-            case SHIELD:
-                this.addShields(1);
-                break;
-            case ROCK:
-                this.addRocks(1);
-                break;
-            case SERVANT:
-                this.addServants(1);
-                break;
-        }
-    }
-    /**
-     *
-     * @param res generic resources that needs to be added to a resourceCount;
-     */
-    public void removeGeneric(Resource res){
-        switch (res){
-            case COIN:
-                this.removeCoins(1);
-                break;
-            case SHIELD:
-                this.removeShields(1);
-                break;
-            case ROCK:
-                this.removeRocks(1);
-                break;
-            case SERVANT:
-                this.removeServants(1);
-                break;
-        }
-    }
-    /**
      * SUM 2 RESOURCECOUNT
      *
      * @param add passed ResourceCount
