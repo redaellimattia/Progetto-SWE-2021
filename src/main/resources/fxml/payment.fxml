@@ -38,9 +38,9 @@
     </AnchorPane>
     <AnchorPane layoutX="108.0" layoutY="450.0" prefHeight="147.0" prefWidth="196.0">
         <children>
-         <AnchorPane fx:id="chestCoinYouHave" onMouseClicked="#registerPaymentChest" layoutX="9.0" layoutY="1.0">
+         <AnchorPane fx:id="chestCoinYouHave" layoutX="9.0" layoutY="1.0" onMouseClicked="#registerPaymentChest">
             <children>
-                  <ImageView  fitHeight="60.0" fitWidth="60.0"  pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                           <Image url="@../img/punchboard/coin2.png" />
                       </image>
@@ -52,9 +52,9 @@
                   </Label>
             </children>
          </AnchorPane>
-         <AnchorPane fx:id="chestShieldYouHave" onMouseClicked="#registerPaymentChest" layoutX="14.0" layoutY="70.0">
+         <AnchorPane fx:id="chestShieldYouHave" layoutX="14.0" layoutY="70.0" onMouseClicked="#registerPaymentChest">
             <children>
-                  <ImageView  fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                           <Image url="@../img/punchboard/shield2.png" />
                       </image>
@@ -66,9 +66,9 @@
                   </Label>
             </children>
          </AnchorPane>
-         <AnchorPane fx:id="chestServantYouHave" onMouseClicked="#registerPaymentChest" layoutX="119.0" layoutY="-1.0">
+         <AnchorPane fx:id="chestServantYouHave" layoutX="119.0" layoutY="-1.0" onMouseClicked="#registerPaymentChest">
             <children>
-                  <ImageView  fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                           <Image url="@../img/punchboard/servant2.png" />
                       </image>
@@ -80,14 +80,14 @@
                   </Label>
             </children>
          </AnchorPane>
-         <AnchorPane fx:id="chestRockYouHave" onMouseClicked="#registerPaymentChest" layoutX="119.0" layoutY="72.0">
+         <AnchorPane fx:id="chestRockYouHave" layoutX="119.0" layoutY="72.0" onMouseClicked="#registerPaymentChest">
             <children>
-                  <ImageView  fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                           <Image url="@../img/punchboard/stone2.png" />
                       </image>
                   </ImageView>
-                  <Label layoutX="14.0" layoutY="18.0"  fx:id="xRockYouHave">
+                  <Label layoutX="14.0" layoutY="18.0" fx:id="xRockYouHave">
                       <font>
                           <Font name="Roboto Light" size="15.0" />
                       </font>
@@ -175,9 +175,9 @@
    </AnchorPane>
    <AnchorPane layoutX="967.0" layoutY="450.0" prefHeight="147.0" prefWidth="196.0">
       <children>
-         <AnchorPane fx:id="chestCoinChosen" onMouseClicked="#deselectPaymentChest" layoutX="9.0" layoutY="1.0">
+         <AnchorPane fx:id="chestCoinChosen" layoutX="9.0" layoutY="1.0" onMouseClicked="#deselectPaymentChest">
             <children>
-               <ImageView  fitHeight="60.0" fitWidth="60.0"  pickOnBounds="true" preserveRatio="true">
+               <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@../img/punchboard/coin2.png" />
                   </image>
@@ -189,9 +189,9 @@
                </Label>
             </children>
          </AnchorPane>
-         <AnchorPane fx:id="chestShieldChosen" onMouseClicked="#deselectPaymentChest" layoutX="14.0" layoutY="70.0">
+         <AnchorPane fx:id="chestShieldChosen" layoutX="14.0" layoutY="70.0" onMouseClicked="#deselectPaymentChest">
             <children>
-               <ImageView  fitHeight="60.0" fitWidth="60.0"  pickOnBounds="true" preserveRatio="true">
+               <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@../img/punchboard/shield2.png" />
                   </image>
@@ -203,9 +203,9 @@
                </Label>
             </children>
          </AnchorPane>
-         <AnchorPane fx:id="chestServantChosen" onMouseClicked="#deselectPaymentChest" layoutX="119.0" layoutY="-1.0">
+         <AnchorPane fx:id="chestServantChosen" layoutX="119.0" layoutY="-1.0" onMouseClicked="#deselectPaymentChest">
             <children>
-               <ImageView  fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@../img/punchboard/servant2.png" />
                   </image>
@@ -217,9 +217,9 @@
                </Label>
             </children>
          </AnchorPane>
-         <AnchorPane fx:id="chestRockChosen" onMouseClicked="#deselectPaymentChest" layoutX="119.0" layoutY="73.0">
+         <AnchorPane fx:id="chestRockChosen" layoutX="119.0" layoutY="73.0" onMouseClicked="#deselectPaymentChest">
             <children>
-               <ImageView  fitHeight="60.0" fitWidth="60.0"  pickOnBounds="true" preserveRatio="true">
+               <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@../img/punchboard/stone2.png" />
                   </image>
@@ -258,4 +258,5 @@
          <Font name="Roboto Light" size="35.0" />
       </font>
    </Text>
+   <Button fx:id="continueButton" onMouseClicked="#endBuyCard" layoutX="1064.0" layoutY="657.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="170.0" text="Continue" />
 </AnchorPane>

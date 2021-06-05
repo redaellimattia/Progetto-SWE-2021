@@ -41,7 +41,7 @@ public abstract class GuiController {
     public void setTextForWaiting(String text){}
     public void setPlayer(PlayerDashboard player,boolean watchingPlayer){}
     public void setBuyCard(int row, int col, DevelopmentCard card){}
-
+    public void setFinalStageBuy(int row,int col, DevelopmentCard card,ResourceCount storageCount, ResourceCount chestCount){}
     protected void setImage(ImageView image, String path){
         if(path == null)
             image.setImage(null);

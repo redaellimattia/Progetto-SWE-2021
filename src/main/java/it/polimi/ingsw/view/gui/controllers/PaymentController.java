@@ -8,8 +8,10 @@ import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.view.gui.GuiManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -18,6 +20,8 @@ import javafx.scene.layout.AnchorPane;
 import java.util.ArrayList;
 
 public class PaymentController extends GuiController{
+    @FXML
+    private Button continueButton;
     @FXML //XCHOSEN
     private Label xCoinChosen,xShieldChosen,xServantChosen,xRockChosen;
     @FXML //CHESTCHOSEN
@@ -40,6 +44,7 @@ public class PaymentController extends GuiController{
     private ResourceCount fixedCost;
     private ResourceCount mockChest;
     private ResourceCount mockChestChosen;
+    private ResourceCount storageCount;
     private DevelopmentCard devCard;
     private PlayerDashboard playerDashboard;
 
@@ -123,6 +128,7 @@ public class PaymentController extends GuiController{
                 firstRowImageChosen.setImage(firstRowImageYouHave.getImage());
                 setImage(firstRowImageYouHave,null);
                 resourceSelected(playerDashboard.getStorage().getFirstRow().getResourceType());
+                storageCount.addGeneric(playerDashboard.getStorage().getFirstRow().getResourceType());
                 firstRowImageYouHave.setDisable(true);
                 firstRowImageChosen.setDisable(false);
                 break;
@@ -130,6 +136,7 @@ public class PaymentController extends GuiController{
                 secondRowImage1Chosen.setImage(secondRowImage1YouHave.getImage());
                 setImage(secondRowImage1YouHave,null);
                 resourceSelected(playerDashboard.getStorage().getSecondRow().getResourceType());
+                storageCount.addGeneric(playerDashboard.getStorage().getSecondRow().getResourceType());
                 secondRowImage1YouHave.setDisable(true);
                 secondRowImage1Chosen.setDisable(false);
                 break;
@@ -137,6 +144,7 @@ public class PaymentController extends GuiController{
                 secondRowImage2Chosen.setImage(secondRowImage2YouHave.getImage());
                 setImage(secondRowImage2YouHave,null);
                 resourceSelected(playerDashboard.getStorage().getSecondRow().getResourceType());
+                storageCount.addGeneric(playerDashboard.getStorage().getSecondRow().getResourceType());
                 secondRowImage2YouHave.setDisable(true);
                 secondRowImage2Chosen.setDisable(false);
                 break;
@@ -144,6 +152,7 @@ public class PaymentController extends GuiController{
                 thirdRowImage1Chosen.setImage(thirdRowImage1YouHave.getImage());
                 setImage(thirdRowImage1YouHave,null);
                 resourceSelected(playerDashboard.getStorage().getThirdRow().getResourceType());
+                storageCount.addGeneric(playerDashboard.getStorage().getThirdRow().getResourceType());
                 thirdRowImage1YouHave.setDisable(true);
                 thirdRowImage1Chosen.setDisable(false);
                 break;
@@ -151,6 +160,7 @@ public class PaymentController extends GuiController{
                 thirdRowImage2Chosen.setImage(thirdRowImage2YouHave.getImage());
                 setImage(thirdRowImage2YouHave,null);
                 resourceSelected(playerDashboard.getStorage().getThirdRow().getResourceType());
+                storageCount.addGeneric(playerDashboard.getStorage().getThirdRow().getResourceType());
                 thirdRowImage2YouHave.setDisable(true);
                 thirdRowImage2Chosen.setDisable(false);
                 break;
@@ -158,6 +168,7 @@ public class PaymentController extends GuiController{
                 thirdRowImage3Chosen.setImage(thirdRowImage3YouHave.getImage());
                 setImage(thirdRowImage3YouHave,null);
                 resourceSelected(playerDashboard.getStorage().getThirdRow().getResourceType());
+                storageCount.addGeneric(playerDashboard.getStorage().getThirdRow().getResourceType());
                 thirdRowImage3YouHave.setDisable(true);
                 thirdRowImage3Chosen.setDisable(false);
                 break;
@@ -193,6 +204,7 @@ public class PaymentController extends GuiController{
                 firstRowImageYouHave.setImage(firstRowImageChosen.getImage());
                 setImage(firstRowImageChosen,null);
                 resourceDeselected(playerDashboard.getStorage().getFirstRow().getResourceType());
+                storageCount.removeGeneric(playerDashboard.getStorage().getFirstRow().getResourceType());
                 firstRowImageYouHave.setDisable(false);
                 firstRowImageChosen.setDisable(true);
                 break;
@@ -200,6 +212,7 @@ public class PaymentController extends GuiController{
                 secondRowImage1YouHave.setImage(secondRowImage1Chosen.getImage());
                 setImage(secondRowImage1Chosen,null);
                 resourceDeselected(playerDashboard.getStorage().getSecondRow().getResourceType());
+                storageCount.removeGeneric(playerDashboard.getStorage().getSecondRow().getResourceType());
                 secondRowImage1YouHave.setDisable(false);
                 secondRowImage1Chosen.setDisable(true);
                 break;
@@ -207,6 +220,7 @@ public class PaymentController extends GuiController{
                 secondRowImage2YouHave.setImage(secondRowImage2Chosen.getImage());
                 setImage(secondRowImage2Chosen,null);
                 resourceDeselected(playerDashboard.getStorage().getSecondRow().getResourceType());
+                storageCount.removeGeneric(playerDashboard.getStorage().getSecondRow().getResourceType());
                 secondRowImage2YouHave.setDisable(false);
                 secondRowImage2Chosen.setDisable(true);
                 break;
@@ -214,6 +228,7 @@ public class PaymentController extends GuiController{
                 thirdRowImage1YouHave.setImage(thirdRowImage1Chosen.getImage());
                 setImage(thirdRowImage1Chosen,null);
                 resourceDeselected(playerDashboard.getStorage().getThirdRow().getResourceType());
+                storageCount.removeGeneric(playerDashboard.getStorage().getThirdRow().getResourceType());
                 thirdRowImage1YouHave.setDisable(false);
                 thirdRowImage1Chosen.setDisable(true);
                 break;
@@ -221,6 +236,7 @@ public class PaymentController extends GuiController{
                 thirdRowImage2YouHave.setImage(thirdRowImage2Chosen.getImage());
                 setImage(thirdRowImage2Chosen,null);
                 resourceDeselected(playerDashboard.getStorage().getThirdRow().getResourceType());
+                storageCount.removeGeneric(playerDashboard.getStorage().getThirdRow().getResourceType());
                 thirdRowImage2YouHave.setDisable(false);
                 thirdRowImage2Chosen.setDisable(true);
                 break;
@@ -228,6 +244,7 @@ public class PaymentController extends GuiController{
                 thirdRowImage3YouHave.setImage(thirdRowImage3Chosen.getImage());
                 setImage(thirdRowImage3Chosen,null);
                 resourceDeselected(playerDashboard.getStorage().getThirdRow().getResourceType());
+                storageCount.removeGeneric(playerDashboard.getStorage().getThirdRow().getResourceType());
                 thirdRowImage3YouHave.setDisable(false);
                 thirdRowImage3Chosen.setDisable(true);
                 break;
@@ -367,5 +384,16 @@ public class PaymentController extends GuiController{
         playerDashboard.getStorage().setFirstRow(first);
         playerDashboard.getStorage().setSecondRow(second);
         playerDashboard.getStorage().setThirdRow(third);
+    }
+
+    public void endBuyCard(MouseEvent mouseEvent) {
+        if(shopAction) {
+            Platform.runLater(() -> goToEndBuyCard());
+        }
+    }
+
+    private void goToEndBuyCard(){
+        getGuiManager().setLayout("endCardBuy.fxml");
+        getGuiManager().getCurrentController().setFinalStageBuy(row,col,devCard,storageCount,mockChestChosen);
     }
 }
