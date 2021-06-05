@@ -36,7 +36,6 @@ public class PaymentController extends GuiController{
     private AnchorPane chestCoinYouHave,chestShieldYouHave,chestServantYouHave,chestRockYouHave;
     @FXML //STORAGEYOUHAVE
     private ImageView firstRowImageYouHave,secondRowImage1YouHave,secondRowImage2YouHave,thirdRowImage1YouHave,thirdRowImage2YouHave,thirdRowImage3YouHave;
-    private int row,col;
     private boolean shopAction,basicProduction,leaderCardProduction,devCardProduction;
     private Resource res;
     private ResourceCount cost,fixedCost,playerChest,chestCount,storageCount;
@@ -123,9 +122,7 @@ public class PaymentController extends GuiController{
         setStillToPay(cost);
     }
     @Override
-    public void setBuyCard(int row,int col,DevelopmentCard card){
-        this.row=row;
-        this.col=col;
+    public void setBuyCard(DevelopmentCard card){
         this.shopAction=true;
         this.devCard = card;
         setCost(card.getCost());
@@ -446,6 +443,6 @@ public class PaymentController extends GuiController{
 
     private void goToEndBuyCard(){
         getGuiManager().setLayout("endCardBuy.fxml");
-        getGuiManager().getCurrentController().setFinalStageBuy(row,col,devCard,storageCount, chestCount);
+        getGuiManager().getCurrentController().setFinalStageBuy(devCard,storageCount, chestCount);
     }
 }

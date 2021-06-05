@@ -143,7 +143,7 @@ public class shopViewController extends GuiController {
     private void goToPayment(){
         Shop shopGrid = getGuiManager().getClientManager().getGameStatus().getShop();
         getGuiManager().setLayout("payment.fxml");
-        getGuiManager().getCurrentController().setBuyCard(this.row,this.col,shopGrid.getGrid()[row][col].getFirst());
+        getGuiManager().getCurrentController().setBuyCard(shopGrid.getGrid()[row][col].getFirst());
     }
 
     public void goBackToDashboard(MouseEvent mouseEvent) {

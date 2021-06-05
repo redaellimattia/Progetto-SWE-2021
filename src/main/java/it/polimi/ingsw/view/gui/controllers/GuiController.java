@@ -40,11 +40,11 @@ public abstract class GuiController {
     public void setPreGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources){}
     public void setTextForWaiting(String text){}
     public void setPlayer(PlayerDashboard player,boolean watchingPlayer){}
-    public void setBuyCard(int row, int col, DevelopmentCard card){}
+    public void setBuyCard(DevelopmentCard card){}
     public void setDevCardProduction(DevelopmentCard card){}
     public void setLeaderCardProduction(LeaderCard card, Resource res){}
     public void setBasicProduction(ResourceCount cost,Resource res){}
-    public void setFinalStageBuy(int row,int col, DevelopmentCard card,ResourceCount storageCount, ResourceCount chestCount){}
+    public void setFinalStageBuy(DevelopmentCard card,ResourceCount storageCount, ResourceCount chestCount){}
 
     public void setProductionOnGoing(){}
     protected void setImage(ImageView image, String path){
