@@ -220,8 +220,9 @@ public class MarketActionController extends GuiController {
     }
 
     public void doNextAtomicChoice() {
-        if((pos == 0 && curChoice == 4) || (pos == 1 && curChoice == 3)) {
-            // end market action
+        if((type == 0 && curChoice == 4) || (type == 1 && curChoice == 3)) {
+            clientManager.endMarketAction(type, pos);
+            goBackToDashboard(null);
         }
         else {
             if(marbles[curChoice].getColour() == MarbleColour.RED) {
