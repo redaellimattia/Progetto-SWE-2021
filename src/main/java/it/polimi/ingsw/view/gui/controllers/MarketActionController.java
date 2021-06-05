@@ -3,6 +3,7 @@ package it.polimi.ingsw.view.gui.controllers;
 import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.view.gui.GuiManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
@@ -27,6 +28,9 @@ public class MarketActionController extends GuiController {
 
     @FXML
     private Text marketActionMessage;
+
+    @FXML
+    private Button backToDashboard;
 
     private int type;
     private int pos;
@@ -122,6 +126,7 @@ public class MarketActionController extends GuiController {
     }
 
     public void setChosenPos(MouseEvent mouseEvent) {
+        String messageString;
         Pane clicked = (Pane) mouseEvent.getSource();
         switch(clicked.getId()) {
             case "row1":
@@ -173,6 +178,11 @@ public class MarketActionController extends GuiController {
         row1.setDisable(true);
         row2.setDisable(true);
         row3.setDisable(true);
+    }
+
+    public void goBackToDashboard(MouseEvent mouseEvent) {
+        Platform.runLater(()->getGuiManager().callDashboard());
+        getGuiManager().setNextScene();
     }
 
     @Override
