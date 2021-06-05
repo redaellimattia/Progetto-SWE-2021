@@ -56,6 +56,6 @@ public class PaymentController extends GuiController{
     }
 
     public void setBasicProduction(Resource res){
-    
+
     }
 }

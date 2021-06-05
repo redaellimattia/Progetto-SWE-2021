@@ -86,7 +86,7 @@
          </children>
       </AnchorPane>
       <Button fx:id="sendChoicesButton" layoutX="581.0" layoutY="650.0" mnemonicParsing="false" onMouseClicked="#sendChoices" prefHeight="50.0" prefWidth="116.0" text="Send Choices" />
-      <AnchorPane fx:id="firstLeaderChosen" layoutX="165.0" layoutY="445.0" onMouseClicked="#firstLeaderClick" prefHeight="40" prefWidth="40" styleClass="greenCircleButton" visible="false">
+      <AnchorPane fx:id="firstLeaderChosen" layoutX="165.0" layoutY="445.0" onMouseClicked="#firstLeaderClick" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
          <children>
             <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                <font>
@@ -95,7 +95,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="secondLeaderChosen" layoutX="465.0" layoutY="445.0" onMouseClicked="#secondLeaderClick" prefHeight="40" prefWidth="40" styleClass="greenCircleButton" visible="false">
+      <AnchorPane fx:id="secondLeaderChosen" layoutX="465.0" layoutY="445.0" onMouseClicked="#secondLeaderClick" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
          <children>
             <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                <font>
@@ -104,7 +104,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="thirdLeaderChosen" layoutX="765.0" layoutY="445.0" onMouseClicked="#thirdLeaderClick" prefHeight="40" prefWidth="40" styleClass="greenCircleButton" visible="false">
+      <AnchorPane fx:id="thirdLeaderChosen" layoutX="765.0" layoutY="445.0" onMouseClicked="#thirdLeaderClick" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
          <children>
             <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                <font>
@@ -113,7 +113,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="fourthLeaderChosen" layoutX="1065.0" layoutY="445.0" onMouseClicked="#fourthLeaderClick" prefHeight="40" prefWidth="40" styleClass="greenCircleButton" visible="false">
+      <AnchorPane fx:id="fourthLeaderChosen" layoutX="1065.0" layoutY="445.0" onMouseClicked="#fourthLeaderClick" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
          <children>
             <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
                <font>
