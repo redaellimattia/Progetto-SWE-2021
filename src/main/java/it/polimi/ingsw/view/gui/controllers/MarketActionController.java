@@ -26,7 +26,7 @@ public class MarketActionController extends GuiController {
             freeMarble;
 
     @FXML
-    private Text message;
+    private Text marketActionMessage;
 
     private int type;
     private int pos;
@@ -38,6 +38,10 @@ public class MarketActionController extends GuiController {
     public void initialize() {
         super.setGuiManager(GuiManager.getInstance());
         this.clientManager = getGuiManager().getClientManager();
+        if(!clientManager.isMyTurn() || clientManager.isMainActionDone()) {
+            marketActionMessage.setVisible(false);
+            disableArrows();
+        }
         setGrid();
 
     }
@@ -149,15 +153,8 @@ public class MarketActionController extends GuiController {
                 pos = 4;
                 break;
         }
-        message.setText("Selected type: " + type + ", pos: " + pos);
-        col1.setDisable(true);
-        col2.setDisable(true);
-        col3.setDisable(true);
-        col4.setDisable(true);
-        row1.setDisable(true);
-        row2.setDisable(true);
-        row3.setDisable(true);
-
+        //message.setText("Selected type: " + type + ", pos: " + pos);
+        disableArrows();
     }
 
     public void selectResources(int type, int pos) {
@@ -166,6 +163,16 @@ public class MarketActionController extends GuiController {
         for(MarketMarble m: marbles) {
             // Atomic choice
         }
+    }
+
+    public void disableArrows() {
+        col1.setDisable(true);
+        col2.setDisable(true);
+        col3.setDisable(true);
+        col4.setDisable(true);
+        row1.setDisable(true);
+        row2.setDisable(true);
+        row3.setDisable(true);
     }
 
     @Override
