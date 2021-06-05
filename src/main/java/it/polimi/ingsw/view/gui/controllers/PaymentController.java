@@ -36,6 +36,7 @@ public class PaymentController extends GuiController{
     private int col;
     private boolean shopAction;
     private ResourceCount cost;
+    private Resource res;
     private ResourceCount fixedCost;
     private ResourceCount mockChest;
     private ResourceCount mockChestChosen;

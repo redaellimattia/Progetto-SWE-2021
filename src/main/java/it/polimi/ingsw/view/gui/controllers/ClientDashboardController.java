@@ -402,32 +402,6 @@ public class ClientDashboardController extends GuiController{
         getGuiManager().callDashboard();
     }
 
-    private void launchChooseResources(boolean isInput){
-        GuiController controller = null;
-        Stage modal = new Stage();
-        modal.setScene(new Scene(new Pane()));
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource("/fxml/chooseResources.fxml"));
-        Pane pane;
-        try {
-            pane = loader.load();
-            modal.getScene().setRoot(pane);
-            controller = loader.getController();
-        } catch (IOException e) {
-            System.out.println("IOException while setting layout: "+e.getMessage());
-        }
-        modal.initModality(Modality.APPLICATION_MODAL);
-        modal.initStyle(StageStyle.UNDECORATED);
-        modal.setResizable(false);
-        modal.getIcons().add(new Image(this.getClass().getResourceAsStream("/img/javaFX/icon.png")));
-        controller.setModal(isInput);
-        modal.setOnCloseRequest((windowEvent) -> {
-            if(startingFirstProduction)
-                resetProduction();
-        });
-        Platform.runLater(modal::show);
-
-    }
 
     public void startDevCardProduction(MouseEvent mouseEvent) {
     }

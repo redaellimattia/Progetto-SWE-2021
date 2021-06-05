@@ -9,10 +9,19 @@ import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 import it.polimi.ingsw.view.gui.GuiManager;
+import javafx.application.Platform;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public abstract class GuiController {
@@ -134,4 +143,67 @@ public abstract class GuiController {
     public void updateBufferProduction(String nickname){}
 
     public void setModal(boolean isInput){}
+
+    protected void launchChooseResources(boolean isInput){
+        GuiController controller = null;
+        Stage modal = new Stage();
+        modal.setScene(new Scene(new Pane()));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(this.getClass().getResource("/fxml/chooseResources.fxml"));
+        Pane pane;
+        try {
+            pane = loader.load();
+            modal.getScene().setRoot(pane);
+            controller = loader.getController();
+        } catch (IOException e) {
+            System.out.println("IOException while setting layout: "+e.getMessage());
+        }
+        modal.initModality(Modality.APPLICATION_MODAL);
+        modal.initStyle(StageStyle.UNDECORATED);
+        modal.setResizable(false);
+        modal.getIcons().add(new Image(this.getClass().getResourceAsStream("/img/javaFX/icon.png")));
+        controller.setModal(isInput);
+        Platform.runLater(modal::show);
+    }
+
+    @FXML
+    protected void addResource(Resource res, Label xLabel,ResourceCount rc,int count,ImageView coin,ImageView shield,ImageView servant,ImageView rock){
+        if(count>ResourceCount.resCountToInt(rc)){
+            res.add(rc,1);
+            if(!xLabel.isVisible())
+                xLabel.setVisible(true);
+            if(xLabel.isDisable())
+                xLabel.setDisable(false);
+            xLabel.setText("x"+res.get(rc));
+            if(count==ResourceCount.resCountToInt(rc))
+                disableResourcesClick(coin,shield,servant,rock);
+        }
+    }
+    @FXML
+    protected void removeResource(Resource res, Label xLabel,ResourceCount rc,ImageView coin,ImageView shield,ImageView servant,ImageView rock){
+        res.remove(rc,1);
+        if(res.get(rc)==0) {
+            xLabel.setText("");
+            xLabel.setDisable(true);
+        }
+        else
+            xLabel.setText("x"+res.get(rc));
+        enableResourcesClick(coin,shield,servant,rock);
+    }
+
+    @FXML
+    private void disableResourcesClick(ImageView coin,ImageView shield,ImageView servant,ImageView rock){
+        coin.setDisable(true);
+        shield.setDisable(true);
+        servant.setDisable(true);
+        rock.setDisable(true);
+    }
+
+    @FXML
+    private void enableResourcesClick(ImageView coin,ImageView shield,ImageView servant,ImageView rock){
+        coin.setDisable(false);
+        shield.setDisable(false);
+        servant.setDisable(false);
+        rock.setDisable(false);
+    }
 }
