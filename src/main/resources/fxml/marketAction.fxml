@@ -22,7 +22,7 @@
             <Font name="Roboto Light" size="50.0" />
          </font>
       </Text>
-      <Text fx:id="marketActionMessage" layoutX="511.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titles" text="Select a row or column by clicking on the relative arrow to get resources." textAlignment="CENTER" wrappingWidth="754.4317016601562">
+      <Text fx:id="marketActionMessage" layoutX="511.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titles" text="Select a row or column by clicking on the corresponding arrow to get resources." textAlignment="CENTER" wrappingWidth="754.4317016601562">
          <font>
             <Font name="Roboto Light" size="29.0" />
          </font>
