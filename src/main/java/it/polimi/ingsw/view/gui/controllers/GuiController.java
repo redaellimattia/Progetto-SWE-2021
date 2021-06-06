@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.Storage;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
+import it.polimi.ingsw.network.client.PlayerPoints;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.application.Platform;
@@ -211,4 +212,7 @@ public abstract class GuiController {
         servant.setDisable(false);
         rock.setDisable(false);
     }
+
+    public void setEndGame(ArrayList<PlayerPoints> scoreboard){}
+    public void setEndGame(boolean lorenzoWin, int playerPoints){}
 }

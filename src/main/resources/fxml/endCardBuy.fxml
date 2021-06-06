@@ -10,27 +10,27 @@
       </ImageView>
    </AnchorPane>
    <AnchorPane layoutX="918.0" layoutY="260.0" prefHeight="409.0" prefWidth="248.0">
-      <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="87.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="thirdDeck1" fitHeight="220.0" fitWidth="170.0" layoutX="87.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
-      <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="51.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="thirdDeck2" fitHeight="220.0" fitWidth="170.0" layoutX="51.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
-      <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="14.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="thirdDeck3" fitHeight="220.0" fitWidth="170.0" layoutX="14.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
    </AnchorPane>
    <AnchorPane layoutX="632.0" layoutY="260.0" prefHeight="409.0" prefWidth="248.0">
-      <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="87.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="secondDeck1" fitHeight="220.0" fitWidth="170.0" layoutX="87.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
-      <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="51.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="secondDeck2" fitHeight="220.0" fitWidth="170.0" layoutX="51.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
-      <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="14.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="secondDeck3" fitHeight="220.0" fitWidth="170.0" layoutX="14.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
    </AnchorPane>
    <AnchorPane layoutX="329.0" layoutY="260.0" prefHeight="409.0" prefWidth="248.0">
-      <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="87.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="firstDeck1" fitHeight="220.0" fitWidth="170.0" layoutX="87.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
-      <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="51.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="firstDeck2" fitHeight="220.0" fitWidth="170.0" layoutX="51.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
-      <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="14.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="firstDeck3" fitHeight="220.0" fitWidth="170.0" layoutX="14.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
    </AnchorPane>
    <Button fx:id="firstDeck" layoutX="364.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#firstDeckChosen" prefHeight="37.0" prefWidth="101.0" text="First Deck" />

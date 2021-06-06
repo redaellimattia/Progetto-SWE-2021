@@ -6,11 +6,18 @@
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/guicss.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controllers.WaitingPageController">
    <children>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/javaFX/waitingbackground.jpg" />
+         </image></ImageView>
       <Text fx:id="textBox" layoutX="620.0" layoutY="500.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titles" textAlignment="CENTER" textOrigin="CENTER" BorderPane.alignment="CENTER">
          <font>
             <Font name="Roboto Light" size="36.0" />
          </font>
       </Text>
-      <ImageView fx:id="gifPlayer" fitHeight="286.0" fitWidth="200.0" layoutX="540.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="gifPlayer" fitHeight="244.0" fitWidth="247.0" layoutX="518.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/javaFX/leo1.gif" />
+         </image></ImageView>
    </children>
 </AnchorPane>

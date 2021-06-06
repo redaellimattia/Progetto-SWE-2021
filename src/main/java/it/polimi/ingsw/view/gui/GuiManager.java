@@ -153,12 +153,14 @@ public class GuiManager implements View, GuiObserver{
 
     @Override
     public void endGame(ArrayList<PlayerPoints> scoreboard) {
-
+        setLayout("endGame.fxml");
+        currentController.setEndGame(scoreboard);
     }
 
     @Override
     public void endGame(boolean lorenzoWin, int playerPoints) {
-
+        setLayout("endGame.fxml");
+        currentController.setEndGame(lorenzoWin,playerPoints);
     }
 
     @Override
