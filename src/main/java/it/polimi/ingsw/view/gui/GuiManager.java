@@ -229,7 +229,7 @@ public class GuiManager implements View, GuiObserver{
     }
     @Override
     public void updateDevCards(String nickname){
-        currentController.updateDevCards(nickname);
+        Platform.runLater(()->currentController.updateDevCards(nickname));
     }
     @Override
     public void updateStorage(String nickname){
