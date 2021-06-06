@@ -330,6 +330,15 @@ public class ClientDashboardController extends GuiController{
     }
 
     public void resetProduction(){
+        disableProductionFields();
+        shopButton.setDisable(false);
+        marketButton.setDisable(false);
+        productionButton.setDisable(false);
+        endProduction.setVisible(false);
+        otherPlayers.setDisable(false);
+    }
+
+    private void disableProductionFields(){
         startBasicProduction.setVisible(false);
         devCardProduction1.setVisible(false);
         devCardProduction2.setVisible(false);
@@ -337,11 +346,6 @@ public class ClientDashboardController extends GuiController{
         leaderProduction1.setVisible(false);
         leaderProduction2.setVisible(false);
         bufferProduction.setVisible(false);
-        shopButton.setDisable(false);
-        marketButton.setDisable(false);
-        productionButton.setDisable(false);
-        endProduction.setVisible(false);
-        otherPlayers.setDisable(false);
     }
 
     public void startBasicProduction(MouseEvent mouseEvent) {
@@ -443,11 +447,11 @@ public class ClientDashboardController extends GuiController{
         if(!clientManager.isMainActionDone())
             resetProduction();
         else {
+            disableProductionFields();
             endProduction.setVisible(false);
             marketButton.setDisable(false);
             shopButton.setDisable(false);
             otherPlayers.setDisable(false);
-            bufferProduction.setVisible(false);
             Platform.runLater(() -> clientManager.endAction());
         }
     }
