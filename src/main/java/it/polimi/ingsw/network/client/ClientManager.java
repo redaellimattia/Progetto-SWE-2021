@@ -542,6 +542,7 @@ public class ClientManager {
                     column = j;
                     break;
                 }
+        mainActionDone = true;
         clientSocket.send(new CardShopMessage(nickname,serverLobbyID,row,column,position,storage,chest).serialize());
     }
 
