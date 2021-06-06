@@ -341,6 +341,7 @@ public class ClientDashboardController extends GuiController{
         marketButton.setDisable(false);
         productionButton.setDisable(false);
         endProduction.setVisible(false);
+        otherPlayers.setDisable(false);
     }
 
     public void startBasicProduction(MouseEvent mouseEvent) {
