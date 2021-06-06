@@ -11,38 +11,29 @@
    </AnchorPane>
    <AnchorPane layoutX="918.0" layoutY="260.0" prefHeight="409.0" prefWidth="248.0">
       <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="87.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@../img/cards/front/DevelopmentCards/1.png" />
       </ImageView>
       <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="51.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@../img/cards/front/DevelopmentCards/1.png" />
       </ImageView>
       <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="14.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@../img/cards/front/DevelopmentCards/1.png" />
       </ImageView>
    </AnchorPane>
    <AnchorPane layoutX="632.0" layoutY="260.0" prefHeight="409.0" prefWidth="248.0">
       <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="87.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@../img/cards/front/DevelopmentCards/1.png" />
       </ImageView>
       <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="51.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@../img/cards/front/DevelopmentCards/1.png" />
       </ImageView>
       <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="14.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@../img/cards/front/DevelopmentCards/1.png" />
       </ImageView>
    </AnchorPane>
    <AnchorPane layoutX="329.0" layoutY="260.0" prefHeight="409.0" prefWidth="248.0">
       <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="87.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@../img/cards/front/DevelopmentCards/1.png" />
       </ImageView>
       <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="51.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@../img/cards/front/DevelopmentCards/1.png" />
       </ImageView>
       <ImageView fitHeight="220.0" fitWidth="170.0" layoutX="14.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@../img/cards/front/DevelopmentCards/1.png" />
       </ImageView>
    </AnchorPane>
-   <Button fx:id="firstDeck" layoutX="364.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#firstDeckChosen" prefHeight="37.0" prefWidth="101.0" text="Button" />
-   <Button fx:id="secondDeck" layoutX="655.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#secondDeckChosen" prefHeight="37.0" prefWidth="101.0" text="Button" />
-   <Button fx:id="thirdDeck" layoutX="941.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#thirdDeckChosen" prefHeight="37.0" prefWidth="101.0" text="Button" />
+   <Button fx:id="firstDeck" layoutX="364.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#firstDeckChosen" prefHeight="37.0" prefWidth="101.0" text="First Deck" />
+   <Button fx:id="secondDeck" layoutX="655.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#secondDeckChosen" prefHeight="37.0" prefWidth="101.0" text="Second Deck" />
+   <Button fx:id="thirdDeck" layoutX="941.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#thirdDeckChosen" prefHeight="37.0" prefWidth="101.0" text="Third Deck" />
 </AnchorPane>
