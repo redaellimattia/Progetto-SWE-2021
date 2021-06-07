@@ -125,24 +125,28 @@ public class MarketActionController extends GuiController {
             }
         }
         MarketMarble freeMarketMarble = clientManager.getGameStatus().getMarket().getFreeMarble();
-        switch (freeMarketMarble.getColour()) {
+        setMarbleImage(freeMarketMarble, freeMarble);
+    }
+
+    private void setMarbleImage(MarketMarble marble, ImageView imageView) {
+        switch (marble.getColour()) {
             case RED:
-                freeMarble.setImage(redMarble);
+                imageView.setImage(redMarble);
                 break;
             case BLUE:
-                freeMarble.setImage(blueMarble);
+                imageView.setImage(blueMarble);
                 break;
             case GREY:
-                freeMarble.setImage(greyMarble);
+                imageView.setImage(greyMarble);
                 break;
             case WHITE:
-                freeMarble.setImage(whiteMarble);
+                imageView.setImage(whiteMarble);
                 break;
             case PURPLE:
-                freeMarble.setImage(purpleMarble);
+                imageView.setImage(purpleMarble);
                 break;
             case YELLOW:
-                freeMarble.setImage(yellowMarble);
+                imageView.setImage(yellowMarble);
                 break;
         }
     }
@@ -192,32 +196,13 @@ public class MarketActionController extends GuiController {
         MarketMarble[] marbles;
         marbles = clientManager.getMarketMarbles(type, pos);
         preview.getChildren().clear();
+        ImageView previewImage;
         for(MarketMarble m: marbles) {
-            switch(m.getColour()) {
-                case RED:
-                    preview.getChildren().add(new ImageView(redMarble));
-                    break;
-                case BLUE:
-                    preview.getChildren().add(new ImageView(blueMarble));
-                    break;
-                case GREY:
-                    preview.getChildren().add(new ImageView(greyMarble));
-                    break;
-                case WHITE:
-                    preview.getChildren().add(new ImageView(whiteMarble));
-                    break;
-                case PURPLE:
-                    preview.getChildren().add(new ImageView(purpleMarble));
-                    break;
-                case YELLOW:
-                    preview.getChildren().add(new ImageView(yellowMarble));
-                    break;
-            }
-        }
-        for (Node n: preview.getChildren()) {
-            ImageView img = (ImageView) n;
-            img.setFitHeight(54);
-            img.setFitWidth(55);
+            previewImage = new ImageView();
+            previewImage.setFitWidth(55);
+            previewImage.setFitHeight(54);
+            setMarbleImage(m, previewImage);
+            preview.getChildren().add(previewImage);
         }
         preview.setVisible(true);
         confirmAction.setVisible(true);
