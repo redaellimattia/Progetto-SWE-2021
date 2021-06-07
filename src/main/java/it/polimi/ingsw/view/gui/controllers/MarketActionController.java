@@ -159,7 +159,7 @@ public class MarketActionController extends GuiController {
     }
 
     /**
-     * Method called when the user select a row or column from the market
+     * Method called when the user selects a row or column from the market
      * @param mouseEvent the mouseEvent associated with the choice (useful to retrieve the chosen row or column)
      */
     public void setChosenPos(MouseEvent mouseEvent) {
@@ -244,7 +244,7 @@ public class MarketActionController extends GuiController {
     }
 
     /**
-     * Called after the user has confirmed the row/column choice
+     * Called when the user confirms the row/column choice
      * @param mouseEvent the mouseEvent that triggered the method invocation
      */
     public void doMarketAction(MouseEvent mouseEvent) {
@@ -308,7 +308,7 @@ public class MarketActionController extends GuiController {
     }
 
     /**
-     * Called after the user closes a message informing that there was only one possible choice
+     * Called when the user closes a message informing that there was only one possible choice
      * @param mouseEvent the mouseEvent that triggered the method invocation
      */
     public void noChoiceMessageClosed(MouseEvent mouseEvent) {
@@ -351,6 +351,10 @@ public class MarketActionController extends GuiController {
         }
     }
 
+    /**
+     * Called when the user selects where to store a resource
+     * @param mouseEvent the mouseEvent that triggered the method invocation
+     */
     public void storeResourceChoice(MouseEvent mouseEvent) {
         if(getResourceList.getSelectionModel().getSelectedIndex() == 0) {
             clientManager.discardResource();
@@ -363,6 +367,9 @@ public class MarketActionController extends GuiController {
         doNextAtomicChoice();
     }
 
+    /**
+     * Called when the server notifies an update of the market structure
+     */
     @Override
     public void updateMarket(){
         setGrid();
