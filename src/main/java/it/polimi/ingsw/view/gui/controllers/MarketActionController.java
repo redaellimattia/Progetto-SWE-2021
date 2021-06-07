@@ -22,6 +22,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class MarketActionController extends GuiController {
@@ -249,6 +250,14 @@ public class MarketActionController extends GuiController {
             goBackToDashboard(null);
         }
         else {
+            for(Node n: preview.getChildren()) {
+                if(preview.getChildren().indexOf(n) == curChoice) {
+                    n.setOpacity(1);
+                }
+                else {
+                    n.setOpacity(0.25);
+                }
+            }
             if(marbles[curChoice].getColour() == MarbleColour.RED) {
                 marketActionMessage.setText("You took a red marble, you will gain 1 faith point!");
                 closeMessage.setVisible(true);
