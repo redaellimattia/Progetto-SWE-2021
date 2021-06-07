@@ -75,7 +75,6 @@ public class ClientDashboardController extends GuiController{
     private PlayerDashboard playerDashboard;
     private ClientManager clientManager;
     private FaithPos[] faithPos;
-    private boolean startingFirstProduction;
     private int firstCounterTopSwapped,numberOfResourcesLeaderMove;
     private Resource resourceTypeMove;
 
@@ -160,7 +159,6 @@ public class ClientDashboardController extends GuiController{
                 new FaithPos(501,101),new FaithPos(551,101),new FaithPos(597,98),new FaithPos(597,51),
                 new FaithPos(597,0),new FaithPos(648,0),new FaithPos(697,0),new FaithPos(746,0),new FaithPos(794,0),
                 new FaithPos(844,0),new FaithPos(890,0)};
-        startingFirstProduction = false;
     }
 
     @Override
@@ -516,10 +514,13 @@ public class ClientDashboardController extends GuiController{
         firstStorage.setVisible(true);
         secondStorage.setVisible(true);
         thirdStorage.setVisible(true);
-        if(firstAbilityDeposit.isVisible() && clientManager.canMoveFromLeader(playerDashboard.getArrayDeposit().get(0).getResourceType()) ||clientManager.canMoveToLeader(playerDashboard.getArrayDeposit().get(0).getResourceType()))
-            firstLeaderButton.setVisible(true);
-        if(secondAbilityDeposit.isVisible() && clientManager.canMoveFromLeader(playerDashboard.getArrayDeposit().get(1).getResourceType()) ||clientManager.canMoveToLeader(playerDashboard.getArrayDeposit().get(1).getResourceType()))
-            secondLeaderButton.setVisible(true);
+        if(firstAbilityDeposit.isVisible())
+            if(playerDashboard.getArrayDeposit().size()>0) {
+                if (clientManager.canMoveFromLeader(playerDashboard.getArrayDeposit().get(0).getResourceType()) || clientManager.canMoveToLeader(playerDashboard.getArrayDeposit().get(0).getResourceType()))
+                firstLeaderButton.setVisible(true);
+                if (secondAbilityDeposit.isVisible() && clientManager.canMoveFromLeader(playerDashboard.getArrayDeposit().get(1).getResourceType()) || clientManager.canMoveToLeader(playerDashboard.getArrayDeposit().get(1).getResourceType()))
+                    secondLeaderButton.setVisible(true);
+            }
         }
     }
 
