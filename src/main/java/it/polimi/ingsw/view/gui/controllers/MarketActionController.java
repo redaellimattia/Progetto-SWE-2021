@@ -86,7 +86,7 @@ public class MarketActionController extends GuiController {
         marblesView.add(marble11);
         marblesView.add(marble12);
 
-        MarketMarble structure[][] = clientManager.getGameStatus().getMarket().getStructure();
+        MarketMarble[][] structure = clientManager.getGameStatus().getMarket().getStructure();
 
         int cur = 0;
         for(MarketMarble[] row: structure) {
@@ -185,7 +185,7 @@ public class MarketActionController extends GuiController {
     }
 
     public void selectResources(int type, int pos) {
-        MarketMarble marbles[];
+        MarketMarble[] marbles;
         marbles = clientManager.getMarketMarbles(type, pos);
         for(MarketMarble m: marbles) {
             // Atomic choice
@@ -204,7 +204,7 @@ public class MarketActionController extends GuiController {
 
     public void goBackToDashboard(MouseEvent mouseEvent) {
         Platform.runLater(()->getGuiManager().callDashboard());
-        getGuiManager().setNextScene();
+        //getGuiManager().setNextScene();
     }
 
     public void doMarketAction(MouseEvent mouseEvent) {

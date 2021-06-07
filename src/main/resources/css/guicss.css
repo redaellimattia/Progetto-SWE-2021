@@ -75,14 +75,20 @@
     -fx-text-fill: #ffffff;
     -fx-effect: dropshadow( gaussian , black , 0,0,0,1 );
 }
-#error{
+#error,.log{
     -fx-font-size: 12px;
     -fx-font-weight: bold;
     -fx-text-fill: #ff0000;
-    -fx-effect: dropshadow( gaussian , darkred , 0,0,0,1 );
+    -fx-effect: dropshadow( gaussian , #800e0e, 0,0,0,1 );
 }
 .titles{
     -fx-font-weight: bold;
     -fx-text-fill: #333333;
     -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+.scroll-pane{
+    -fx-background-color:transparent;
+}
+.scroll-pane > .viewport {
+-fx-background-color: transparent;
 }

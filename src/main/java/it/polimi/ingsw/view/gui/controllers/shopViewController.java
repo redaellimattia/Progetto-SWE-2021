@@ -148,7 +148,7 @@ public class shopViewController extends GuiController {
 
     public void goBackToDashboard(MouseEvent mouseEvent) {
         Platform.runLater(()->getGuiManager().callDashboard());
-        getGuiManager().setNextScene();
+        //getGuiManager().setNextScene();
     }
 
     @Override

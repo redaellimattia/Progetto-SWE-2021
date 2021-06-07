@@ -22,15 +22,14 @@ public class GuiManager implements View, GuiObserver{
     private GuiController currentController;
     private Scene currentScene;
     private Stage stage;
-
-
-
+    private ArrayList<String> log;
     private static GuiManager instance;
 
 
     public GuiManager(ClientManager clientManager) {
         this.clientManager = clientManager;
         instance = this;
+        log = new ArrayList<>();
     }
 
     public ClientManager getClientManager() {
@@ -84,7 +83,7 @@ public class GuiManager implements View, GuiObserver{
     @Override
     public void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies,String message) {
         Platform.runLater(()->setLobbiesPage(availableGameLobbies,message));
-        setNextScene();
+        //setNextScene();
     }
     public void setLobbiesPage(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies,String message){
         setLayout("landingPage.fxml");
@@ -105,13 +104,13 @@ public class GuiManager implements View, GuiObserver{
 
     @Override
     public void printMsg(String msg) {
-
+        log.add(msg);
     }
 
     @Override
     public void preGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources) {
         Platform.runLater(()->goToPregame(leaders, numberOfResources));
-        setNextScene();
+        //setNextScene();
     }
     public void goToPregame(ArrayList<LeaderCard> leaders, int numberOfResources){
         setLayout("preGameChoice.fxml");
@@ -122,23 +121,24 @@ public class GuiManager implements View, GuiObserver{
     public void waitingForTurn() {
         //TO BE PASSED TRUE FOR A WAITING PLAYER
         Platform.runLater(() -> goToClientDashboard(false));
-        setNextScene();
+        //setNextScene();
     }
 
     @Override
     public void yourTurn() {
         Platform.runLater(()->goToClientDashboard(false));
-        setNextScene();
+        //setNextScene();
     }
 
     public void goToClientDashboard(boolean watchingPlayer){
         setLayout("clientDashboard.fxml");
-        currentController.setPlayer(clientManager.getThisClientDashboard(),watchingPlayer);
+        currentController.setPlayer(clientManager.getThisClientDashboard(),watchingPlayer,log);
     }
 
     public void callDashboard(){
         setLayout("clientDashboard.fxml");
-        currentController.setPlayer(getClientManager().getThisClientDashboard(), false);
+        currentController.setPlayer(getClientManager().getThisClientDashboard(), false,log);
+        setNextScene();
     }
 
     public void watchPlayer(String player){
@@ -148,7 +148,7 @@ public class GuiManager implements View, GuiObserver{
             if(p.getNickname().equals(player))
                 chosenPlayer = p;
         }
-        currentController.setPlayer(chosenPlayer, true);
+        currentController.setPlayer(chosenPlayer, true,log);
     }
 
     @Override
@@ -165,6 +165,7 @@ public class GuiManager implements View, GuiObserver{
 
     @Override
     public void endTurn() {
+        log.clear();
         Platform.runLater(()->clientManager.endTurn());
     }
 

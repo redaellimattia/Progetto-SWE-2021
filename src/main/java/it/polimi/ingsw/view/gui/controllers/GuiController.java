@@ -40,13 +40,12 @@ public abstract class GuiController {
     public void setLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> lobbies){}
     public void setPreGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources){}
     public void setTextForWaiting(String text){}
-    public void setPlayer(PlayerDashboard player,boolean watchingPlayer){}
+    public void setPlayer(PlayerDashboard player,boolean watchingPlayer,ArrayList<String> log){}
     public void setBuyCard(DevelopmentCard card){}
     public void setDevCardProduction(DevelopmentCard card){}
     public void setLeaderCardProduction(LeaderCard card, Resource res){}
     public void setBasicProduction(ResourceCount cost,Resource res){}
     public void setFinalStageBuy(DevelopmentCard card,ResourceCount storageCount, ResourceCount chestCount){}
-
     public void setProductionOnGoing(){}
     protected void setImage(ImageView image, String path){
         if(path == null)

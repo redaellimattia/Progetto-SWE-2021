@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -153,6 +154,18 @@
             </ImageView>
             <ImageView fx:id="leaderCard2" fitHeight="268.0" fitWidth="170.0" layoutX="32.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
             </ImageView>
+            <ScrollPane hbarPolicy="NEVER" layoutX="3.0" layoutY="568.0" prefHeight="152.0" prefWidth="270.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="153.0" prefWidth="277.0">
+                     <children>
+                        <TextFlow fx:id="textFlowLog" lineSpacing="1.0" prefHeight="152.0" prefWidth="273.0" styleClass="log">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets></TextFlow>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
             <AnchorPane fx:id="playLeader1" layoutX="218.0" layoutY="83.0" onMouseClicked="#playLeader1" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
                <children>
                   <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
@@ -180,7 +193,6 @@
                   </Text>
                </children>
             </AnchorPane>
-            <TextFlow fx:id="textFlowLog" layoutX="-1.0" layoutY="540.0" prefHeight="180.0" prefWidth="273.0" />
             <AnchorPane fx:id="secondAbilityDeposit" layoutX="69.0" layoutY="470.0" prefHeight="60.0" prefWidth="143.0" visible="false">
                <children>
                   <ImageView fx:id="secondAbilityDeposit1" fitHeight="33.0" fitWidth="44.0" layoutX="86.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />

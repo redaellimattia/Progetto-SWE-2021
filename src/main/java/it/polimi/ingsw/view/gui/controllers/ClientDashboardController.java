@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -67,7 +68,7 @@ public class ClientDashboardController extends GuiController{
     private boolean startingFirstProduction;
 
     @Override
-    public void setPlayer(PlayerDashboard playerDashboard,boolean watchingPlayer) {
+    public void setPlayer(PlayerDashboard playerDashboard,boolean watchingPlayer,ArrayList<String> log) {
         this.playerDashboard = playerDashboard;
         setFaithPath(playerDashboard.getPathPosition());
         setDevCards(playerDashboard.getDevCards());
@@ -75,6 +76,12 @@ public class ClientDashboardController extends GuiController{
         setStorage(playerDashboard.getStorage(),firstRowImage,secondRowImage1,secondRowImage2,thirdRowImage1,thirdRowImage2,thirdRowImage3);
         setChest(playerDashboard.getChest(),xCoin,xShield,xRock,xServant);
         setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
+        for(String msg:log) {
+            Text text = new Text(msg + "\n");
+            text.setFill(Color.RED);
+            text.getStyleClass().add("log");
+            textFlowLog.getChildren().add(text);
+        }
         if(watchingPlayer){
             if(playerDashboard.isLorenzo())
                 setImage(faithPath,"/img/punchboard/croce.png");
@@ -277,12 +284,12 @@ public class ClientDashboardController extends GuiController{
     public void goToMarket(MouseEvent mouseEvent) {
         marketButton.setDisable(true);
         Platform.runLater(()-> getGuiManager().setLayout("marketAction.fxml"));
-        getGuiManager().setNextScene();
+        //getGuiManager().setNextScene();
     }
     public void goToShop(MouseEvent mouseEvent) {
         shopButton.setDisable(true);
         Platform.runLater(()->getGuiManager().setLayout("shopView.fxml"));
-        getGuiManager().setNextScene();
+        //getGuiManager().setNextScene();
     }
 
     /**
@@ -472,7 +479,6 @@ public class ClientDashboardController extends GuiController{
         }
         launchChooseResources(false,false,card,null);
     }
-
     //FAITH PATH IMG POSITION
     private static class FaithPos{
         private int x;
