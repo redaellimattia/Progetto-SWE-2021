@@ -56,6 +56,8 @@ public class MarketActionController extends GuiController {
     private int pos;
     MarketMarble[] marbles;
     int curChoice;
+    boolean isWhiteMarbleConversion; // true if the current atomicMarketAction is a conversion with white marble
+    LeaderCard chosenLeaderCard;
     private ArrayList<ImageView> marblesView;
     private ClientManager clientManager;
 
@@ -218,6 +220,7 @@ public class MarketActionController extends GuiController {
         }
         preview.setVisible(true);
         confirmAction.setVisible(true);
+        isWhiteMarbleConversion = false; // Value initialized
     }
 
     /**
@@ -344,8 +347,9 @@ public class MarketActionController extends GuiController {
             doNextAtomicChoice();
         }
         else {
-            LeaderCard chosenLeaderCard = clientManager.getWhiteChangeCard(choicesList.getSelectionModel().getSelectedIndex());
+            chosenLeaderCard = clientManager.getWhiteChangeCard(choicesList.getSelectionModel().getSelectedIndex());
             Resource convertedResource = chosenLeaderCard.getSpecialAbility().getResourceType();
+            isWhiteMarbleConversion = true;
             choicesList.setVisible(false);
             showStoreResourceChoices(convertedResource);
         }
@@ -358,9 +362,16 @@ public class MarketActionController extends GuiController {
     public void storeResourceChoice(MouseEvent mouseEvent) {
         if(getResourceList.getSelectionModel().getSelectedIndex() == 0) {
             clientManager.discardResource();
+            isWhiteMarbleConversion = false; // In any case this value must be reset
         }
         else {
-            clientManager.getResource(getResourceList.getSelectionModel().getSelectedIndex());
+            if(isWhiteMarbleConversion) {
+                clientManager.convertMarble(chosenLeaderCard, getResourceList.getSelectionModel().getSelectedIndex());
+                isWhiteMarbleConversion = false; // reset the value after the action is done
+            }
+            else {
+                clientManager.getResource(getResourceList.getSelectionModel().getSelectedIndex());
+            }
         }
         getResourceList.setVisible(false);
         curChoice++;
