@@ -245,7 +245,7 @@ public class MarketActionController extends GuiController {
 
     /**
      * Called after the user has confirmed the row/column choice
-     * @param mouseEvent
+     * @param mouseEvent the mouseEvent that triggered the method invocation
      */
     public void doMarketAction(MouseEvent mouseEvent) {
         disableArrows();
@@ -269,6 +269,7 @@ public class MarketActionController extends GuiController {
             goBackToDashboard(null);
         }
         else {
+            // Highlight only the marble associated with this atomicMarketAction
             for(Node n: preview.getChildren()) {
                 if(preview.getChildren().indexOf(n) == curChoice) {
                     n.setOpacity(1);
@@ -306,12 +307,20 @@ public class MarketActionController extends GuiController {
         }
     }
 
+    /**
+     * Called after the user closes a message informing that there was only one possible choice
+     * @param mouseEvent the mouseEvent that triggered the method invocation
+     */
     public void noChoiceMessageClosed(MouseEvent mouseEvent) {
         closeMessage.setVisible(false);
         curChoice++;
         doNextAtomicChoice();
     }
 
+    /**
+     * Updates the GUI to ask user to select the storage row in witch store the resource (plus discard option)
+     * @param resource the resource to store
+     */
     public void showStoreResourceChoices(Resource resource) {
         marketActionMessage.setText("In which deposit do you want to store the " + resource + "?");
         ObservableList<String> options = FXCollections.observableArrayList("Discard", "Add to first storage row", "Add to second storage row", "Add to third storage row");
@@ -323,6 +332,10 @@ public class MarketActionController extends GuiController {
         getResourceList.setVisible(true);
     }
 
+    /**
+     * Shows options related to the conversion of a white marble
+     * @param mouseEvent the mouseEvent that triggered the method invocation
+     */
     public void whiteMarbleChoice(MouseEvent mouseEvent) {
         if(choicesList.getSelectionModel().getSelectedIndex() == 0) {
             clientManager.getResource(0);
