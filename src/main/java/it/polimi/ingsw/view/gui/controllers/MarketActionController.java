@@ -10,12 +10,14 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
@@ -41,6 +43,16 @@ public class MarketActionController extends GuiController {
     @FXML
     private ListView<String> choicesList, getResourceList;
 
+    @FXML
+    private HBox preview;
+
+    private Image whiteMarble = new Image("/img/marbles/whiteMarble.png");
+    private Image redMarble = new Image("/img/marbles/redMarble.png");
+    private Image yellowMarble = new Image("/img/marbles/yellowMarble.png");
+    private Image blueMarble = new Image("/img/marbles/blueMarble.png");
+    private Image purpleMarble = new Image("/img/marbles/purpleMarble.png");
+    private Image greyMarble = new Image("/img/marbles/greyMarble.png");
+
     private int type;
     private int pos;
     MarketMarble[] marbles;
@@ -57,6 +69,7 @@ public class MarketActionController extends GuiController {
         closeMessage.setVisible(false);
         choicesList.setVisible(false);
         getResourceList.setVisible(false);
+        preview.setVisible(false);
         if(!clientManager.isMyTurn() || clientManager.isMainActionDone()) {
             marketActionMessage.setVisible(false);
             disableArrows();
@@ -65,12 +78,6 @@ public class MarketActionController extends GuiController {
 
     }
     public void setGrid(){
-        Image whiteMarble = new Image("/img/marbles/whiteMarble.png");
-        Image redMarble = new Image("/img/marbles/redMarble.png");
-        Image yellowMarble = new Image("/img/marbles/yellowMarble.png");
-        Image blueMarble = new Image("/img/marbles/blueMarble.png");
-        Image purpleMarble = new Image("/img/marbles/purpleMarble.png");
-        Image greyMarble = new Image("/img/marbles/greyMarble.png");
 
         marblesView = new ArrayList<>();
         marblesView.add(marble1);
@@ -181,6 +188,38 @@ public class MarketActionController extends GuiController {
         }
         messageString += pos;
         marketActionMessage.setText(messageString);
+
+        MarketMarble[] marbles;
+        marbles = clientManager.getMarketMarbles(type, pos);
+        preview.getChildren().clear();
+        for(MarketMarble m: marbles) {
+            switch(m.getColour()) {
+                case RED:
+                    preview.getChildren().add(new ImageView(redMarble));
+                    break;
+                case BLUE:
+                    preview.getChildren().add(new ImageView(blueMarble));
+                    break;
+                case GREY:
+                    preview.getChildren().add(new ImageView(greyMarble));
+                    break;
+                case WHITE:
+                    preview.getChildren().add(new ImageView(whiteMarble));
+                    break;
+                case PURPLE:
+                    preview.getChildren().add(new ImageView(purpleMarble));
+                    break;
+                case YELLOW:
+                    preview.getChildren().add(new ImageView(yellowMarble));
+                    break;
+            }
+        }
+        for (Node n: preview.getChildren()) {
+            ImageView img = (ImageView) n;
+            img.setFitHeight(54);
+            img.setFitWidth(55);
+        }
+        preview.setVisible(true);
         confirmAction.setVisible(true);
     }
 

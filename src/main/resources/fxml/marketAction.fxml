@@ -94,5 +94,6 @@
       <ListView fx:id="choicesList" layoutX="735.0" layoutY="333.0" onMouseClicked="#whiteMarbleChoice" prefHeight="126.0" prefWidth="306.0" />
       <Button fx:id="closeMessage" layoutX="813.0" layoutY="388.0" mnemonicParsing="false" onMouseClicked="#noChoiceMessageClosed" prefHeight="42.0" prefWidth="150.0" text="OK" />
       <ListView fx:id="getResourceList" layoutX="735.0" layoutY="333.0" onMouseClicked="#storeResourceChoice" prefHeight="126.0" prefWidth="306.0" />
+      <HBox fx:id="preview" alignment="CENTER" layoutX="751.0" layoutY="167.0" prefHeight="54.0" prefWidth="273.0" />
    </children>
 </AnchorPane>
