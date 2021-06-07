@@ -12,7 +12,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,7 +21,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 
 public class MarketActionController extends GuiController {
@@ -78,8 +76,11 @@ public class MarketActionController extends GuiController {
         setGrid();
 
     }
-    public void setGrid(){
 
+    /**
+     * Shows the market dashboard placing marble images in the grid
+     */
+    public void setGrid(){
         marblesView = new ArrayList<>();
         marblesView.add(marble1);
         marblesView.add(marble2);
@@ -129,6 +130,11 @@ public class MarketActionController extends GuiController {
         setMarbleImage(freeMarketMarble, freeMarble);
     }
 
+    /**
+     * Selects the image file to show in the imageView based on the marble colour
+     * @param marble the marble to represent
+     * @param imageView the ImageView that will show the image of the marble
+     */
     private void setMarbleImage(MarketMarble marble, ImageView imageView) {
         switch (marble.getColour()) {
             case RED:
@@ -152,6 +158,10 @@ public class MarketActionController extends GuiController {
         }
     }
 
+    /**
+     * Method called when the user select a row or column from the market
+     * @param mouseEvent the mouseEvent associated with the choice (useful to retrieve the chosen row or column)
+     */
     public void setChosenPos(MouseEvent mouseEvent) {
         String messageString;
         Pane clicked = (Pane) mouseEvent.getSource();
@@ -194,6 +204,7 @@ public class MarketActionController extends GuiController {
         messageString += pos;
         marketActionMessage.setText(messageString);
 
+        // Show a preview of the marbles selected
         MarketMarble[] marbles;
         marbles = clientManager.getMarketMarbles(type, pos);
         preview.getChildren().clear();
@@ -209,14 +220,10 @@ public class MarketActionController extends GuiController {
         confirmAction.setVisible(true);
     }
 
-    public void selectResources(int type, int pos) {
-        MarketMarble[] marbles;
-        marbles = clientManager.getMarketMarbles(type, pos);
-        for(MarketMarble m: marbles) {
-            // Atomic choice
-        }
-    }
-
+    /**
+     * Disables all the market arrows after the user has confirmed the choice
+     * or if is not allowed to start a marketAction
+     */
     public void disableArrows() {
         col1.setDisable(true);
         col2.setDisable(true);
@@ -227,11 +234,19 @@ public class MarketActionController extends GuiController {
         row3.setDisable(true);
     }
 
+    /**
+     * Returns to the dashboard scene
+     * @param mouseEvent (could be null)
+     */
     public void goBackToDashboard(MouseEvent mouseEvent) {
         Platform.runLater(()->getGuiManager().callDashboard());
         //getGuiManager().setNextScene();
     }
 
+    /**
+     * Called after the user has confirmed the row/column choice
+     * @param mouseEvent
+     */
     public void doMarketAction(MouseEvent mouseEvent) {
         disableArrows();
         confirmAction.setVisible(false);
@@ -244,6 +259,10 @@ public class MarketActionController extends GuiController {
 
     }
 
+    /**
+     * Updates the GUI to show options associated with the next marble the user is taking
+     * or, if the marketAction is completed, notifies the server and returns to the dashboard
+     */
     public void doNextAtomicChoice() {
         if((type == 0 && curChoice == 4) || (type == 1 && curChoice == 3)) {
             clientManager.endMarketAction(type, pos);
