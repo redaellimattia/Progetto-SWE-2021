@@ -148,7 +148,7 @@ public abstract class GuiController {
     public void updateBufferProduction(String nickname){}
 
     public void setModal(boolean isInput,boolean isBasic,LeaderCard card,ResourceCount chosenInput,Stage modal){}
-
+    public void setModal(boolean toLeader,CounterTop leaderDeposit,ClientDashboardController clientDashboard,Stage modal){}
     protected void launchChooseResources(boolean isInput,boolean isBasic,LeaderCard card,ResourceCount chosenInput){
         GuiController controller = null;
         Stage modal = new Stage();

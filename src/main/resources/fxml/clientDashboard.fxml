@@ -7,294 +7,227 @@
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/guicss.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.view.gui.controllers.ClientDashboardController">
-   <children>
-      <ImageView fx:id="board" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/board/activeBoard.jpg" />
-         </image>
+   <ImageView fx:id="board" fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../img/board/activeBoard.jpg" />
+   </ImageView>
+   <ImageView fx:id="bwFaithPath" fitHeight="187.0" fitWidth="972.0" layoutX="33.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <Image url="@../img/board/b&amp;wFaithPath.jpg" />
+   </ImageView>
+   <AnchorPane layoutX="33.0" layoutY="34.0" prefHeight="162.0" prefWidth="950.0">
+      <ImageView fx:id="faithPath" fitHeight="50.0" fitWidth="50.0" layoutX="4.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../img/punchboard/redCross.png" />
       </ImageView>
-      <ImageView fx:id="bwFaithPath" fitHeight="187.0" fitWidth="972.0" layoutX="33.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../img/board/b&amp;wFaithPath.jpg" />
-         </image>
+      <ImageView fx:id="vaticanReport2" fitHeight="85.0" fitWidth="85.0" layoutX="207.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../img/punchboard/pope_favor1_front.png" />
       </ImageView>
-      <AnchorPane layoutX="33.0" layoutY="34.0" prefHeight="162.0" prefWidth="950.0">
-         <children>
-            <ImageView fx:id="faithPath" fitHeight="50.0" fitWidth="50.0" layoutX="4.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/punchboard/redCross.png" />
-               </image></ImageView>
-            <ImageView fx:id="vaticanReport2" fitHeight="85.0" fitWidth="85.0" layoutX="207.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/punchboard/pope_favor1_front.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="vaticanReport3" fitHeight="85.0" fitWidth="85.0" layoutX="455.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/punchboard/pope_favor2_front.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="vaticanReport4" fitHeight="85.0" fitWidth="85.0" layoutX="751.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/punchboard/pope_favor3_front.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="backHome" layoutX="-2.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#backToHome" text="Back" visible="false" />
-            <Button fx:id="endTurnButton" layoutX="847.0" layoutY="92.0" mnemonicParsing="false" onMouseClicked="#endTurn" prefHeight="21.0" prefWidth="99.0" text="End Turn" />
-         </children>
+      <ImageView fx:id="vaticanReport3" fitHeight="85.0" fitWidth="85.0" layoutX="455.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../img/punchboard/pope_favor2_front.png" />
+      </ImageView>
+      <ImageView fx:id="vaticanReport4" fitHeight="85.0" fitWidth="85.0" layoutX="751.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../img/punchboard/pope_favor3_front.png" />
+      </ImageView>
+      <Button fx:id="backHome" layoutX="-2.0" layoutY="26.0" mnemonicParsing="false" onMouseClicked="#backToHome" text="Back" visible="false" />
+      <Button fx:id="endTurnButton" layoutX="847.0" layoutY="92.0" mnemonicParsing="false" onMouseClicked="#endTurn" prefHeight="21.0" prefWidth="99.0" text="End Turn" />
+   </AnchorPane>
+   <Button fx:id="marketButton" layoutX="279.0" layoutY="285.0" mnemonicParsing="false" onMouseClicked="#goToMarket" text="Market" />
+   <Button fx:id="productionButton" layoutX="267.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#startProduction" text="Production" />
+   <AnchorPane layoutX="28.0" layoutY="290.0">
+      <ImageView fx:id="firstRowImage" fitHeight="60.0" fitWidth="60.0" layoutX="69.0" pickOnBounds="true" preserveRatio="true">
+      </ImageView>
+      <AnchorPane layoutX="30.0" layoutY="70.0">
+         <ImageView fx:id="secondRowImage1" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+         </ImageView>
+         <ImageView fx:id="secondRowImage2" fitHeight="60.0" fitWidth="60.0" layoutX="76.0" pickOnBounds="true" preserveRatio="true">
+         </ImageView>
       </AnchorPane>
-      <Button fx:id="marketButton" layoutX="279.0" layoutY="285.0" mnemonicParsing="false" onMouseClicked="#goToMarket" text="Market" />
-      <Button fx:id="productionButton" layoutX="267.0" layoutY="335.0" mnemonicParsing="false" onMouseClicked="#startProduction" text="Production" />
-      <AnchorPane layoutX="28.0" layoutY="290.0">
-         <children>
-            <ImageView fx:id="firstRowImage" fitHeight="60.0" fitWidth="60.0" layoutX="69.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-            <AnchorPane layoutX="30.0" layoutY="70.0">
-               <children>
-                  <ImageView fx:id="secondRowImage1" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                  </ImageView>
-                  <ImageView fx:id="secondRowImage2" fitHeight="60.0" fitWidth="60.0" layoutX="76.0" pickOnBounds="true" preserveRatio="true">
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutY="134.0">
-               <children>
-                  <ImageView fx:id="thirdRowImage1" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                  </ImageView>
-                  <ImageView fx:id="thirdRowImage2" fitHeight="60.0" fitWidth="60.0" layoutX="67.0" pickOnBounds="true" preserveRatio="true">
-                  </ImageView>
-                  <ImageView fx:id="thirdRowImage3" fitHeight="60.0" fitWidth="60.0" layoutX="136.0" pickOnBounds="true" preserveRatio="true">
-                  </ImageView>
-               </children>
-            </AnchorPane>
-         </children>
+      <AnchorPane layoutY="134.0">
+         <ImageView fx:id="thirdRowImage1" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+         </ImageView>
+         <ImageView fx:id="thirdRowImage2" fitHeight="60.0" fitWidth="60.0" layoutX="67.0" pickOnBounds="true" preserveRatio="true">
+         </ImageView>
+         <ImageView fx:id="thirdRowImage3" fitHeight="60.0" fitWidth="60.0" layoutX="136.0" pickOnBounds="true" preserveRatio="true">
+         </ImageView>
       </AnchorPane>
-      <AnchorPane layoutX="385.0" layoutY="306.0">
-         <children>
-            <ImageView fx:id="firstPositionLevel1" fitHeight="268.0" fitWidth="170.0" layoutX="19.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-            <ImageView fx:id="firstPositionLevel2" fitHeight="268.0" fitWidth="170.0" layoutX="8.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-            <ImageView fx:id="firstPositionLevel3" fitHeight="268.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="787.0" layoutY="306.0">
-         <children>
-            <ImageView fx:id="thirdPositionLevel1" fitHeight="268.0" fitWidth="170.0" layoutX="19.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-            <ImageView fx:id="thirdPositionLevel2" fitHeight="268.0" fitWidth="170.0" layoutX="8.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-            <ImageView fx:id="thirdPositionLevel3" fitHeight="268.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="583.0" layoutY="305.0">
-         <children>
-            <ImageView fx:id="secondPositionLevel1" fitHeight="268.0" fitWidth="170.0" layoutX="19.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-            <ImageView fx:id="secondPositionLevel2" fitHeight="268.0" fitWidth="170.0" layoutX="8.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-            <ImageView fx:id="secondPositionLevel3" fitHeight="268.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="28.0" layoutY="537.0">
-         <children>
-            <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/punchboard/coin2.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="5.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/punchboard/shield2.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="88.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/punchboard/servant2.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="89.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/punchboard/stone2.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="21.0" layoutY="13.0" fx:id="xCoin">
-               <font>
-                  <Font name="Roboto Light" size="15.0" />
-               </font>
-            </Label>
-            <Label layoutX="21.0" layoutY="79.0" fx:id="xShield">
-               <font>
-                  <Font name="Roboto Light" size="15.0" />
-               </font>
-            </Label>
-            <Label layoutX="110.0" layoutY="17.0" styleClass="whiteLabel" textFill="WHITE" fx:id="xServant">
-               <font>
-                  <Font name="Roboto Light" size="15.0" />
-               </font>
-            </Label>
-            <Label layoutX="110.0" layoutY="79.0" fx:id="xRock">
-               <font>
-                  <Font name="Roboto Light" size="15.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="1007.0" prefHeight="720.0" prefWidth="273.0">
-         <children>
-            <ImageView fitHeight="720.0" fitWidth="273.0" pickOnBounds="true">
-               <image>
-                  <Image url="@../img/javaFX/leadersBackground.jpg" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="leaderCard1" fitHeight="268.0" fitWidth="170.0" layoutX="32.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-            <ImageView fx:id="leaderCard2" fitHeight="268.0" fitWidth="170.0" layoutX="32.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
-            <ScrollPane hbarPolicy="NEVER" layoutX="3.0" layoutY="568.0" prefHeight="152.0" prefWidth="270.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="153.0" prefWidth="277.0">
-                     <children>
-                        <TextFlow fx:id="textFlowLog" lineSpacing="1.0" prefHeight="152.0" prefWidth="273.0" styleClass="log">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets></TextFlow>
-                     </children>
-                  </AnchorPane>
-              </content>
-            </ScrollPane>
-            <AnchorPane fx:id="playLeader1" layoutX="218.0" layoutY="83.0" onMouseClicked="#playLeader1" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
-               <children>
-                  <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="leaderProduction1" layoutX="218.0" layoutY="120.0" onMouseClicked="#startLeaderProduction" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
-               <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/javaFX/hammer.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="discardLeader1" layoutX="218.0" layoutY="170.0" onMouseClicked="#discardLeader1" prefHeight="40" prefWidth="40" styleClass="redButton" visible="false">
-               <children>
-                  <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✘">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="secondAbilityDeposit" layoutX="69.0" layoutY="470.0" prefHeight="60.0" prefWidth="143.0" visible="false">
-               <children>
-                  <ImageView fx:id="secondAbilityDeposit1" fitHeight="33.0" fitWidth="44.0" layoutX="86.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
-                  <ImageView fx:id="secondAbilityDeposit2" fitHeight="33.0" fitWidth="44.0" layoutX="21.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="firstAbilityDeposit" layoutX="69.0" layoutY="202.0" prefHeight="60.0" prefWidth="143.0" visible="false">
-               <children>
-                  <ImageView fx:id="firstAbilityDeposit1" fitHeight="33.0" fitWidth="44.0" layoutX="82.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
-                  </ImageView>
-                  <ImageView fx:id="firstAbilityDeposit2" fitHeight="33.0" fitWidth="44.0" layoutX="18.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="playLeader2" layoutX="218.0" layoutY="351.0" onMouseClicked="#playLeader2" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
-               <children>
-                  <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="leaderProduction2" layoutX="218.0" layoutY="385.0" onMouseClicked="#startLeaderProduction" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
-               <children>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/javaFX/hammer.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </AnchorPane>
-            <AnchorPane fx:id="discardLeader2" layoutX="218.0" layoutY="438.0" onMouseClicked="#discardLeader2" prefHeight="40" prefWidth="40" styleClass="redButton" visible="false">
-               <children>
-                  <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✘">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Text>
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
-      <Button fx:id="shopButton" layoutX="286.0" layoutY="387.0" mnemonicParsing="false" onMouseClicked="#goToShop" text="Shop" />
-      <ComboBox fx:id="otherPlayers" layoutX="2.0" layoutY="7.0" onAction="#selectPlayer" prefHeight="25.0" prefWidth="121.0" promptText="Other players..." />
-      <Text fx:id="nickname" layoutX="444.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nickname" visible="false">
+      <Button fx:id="secondStorage" layoutX="182.0" layoutY="76.0" mnemonicParsing="false" onMouseClicked="#secondStorageSelected" prefHeight="42.0" prefWidth="40.0" styleClass="greenButton" text="2" />
+      <Button fx:id="thirdStorage" layoutX="182.0" layoutY="143.0" mnemonicParsing="false" onMouseClicked="#thirdStorageSelected" prefHeight="42.0" prefWidth="40.0" styleClass="greenButton" text="3" />
+   </AnchorPane>
+   <AnchorPane layoutX="385.0" layoutY="306.0">
+      <ImageView fx:id="firstPositionLevel1" fitHeight="268.0" fitWidth="170.0" layoutX="19.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+      </ImageView>
+      <ImageView fx:id="firstPositionLevel2" fitHeight="268.0" fitWidth="170.0" layoutX="8.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+      </ImageView>
+      <ImageView fx:id="firstPositionLevel3" fitHeight="268.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+      </ImageView>
+   </AnchorPane>
+   <AnchorPane layoutX="787.0" layoutY="306.0">
+      <ImageView fx:id="thirdPositionLevel1" fitHeight="268.0" fitWidth="170.0" layoutX="19.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+      </ImageView>
+      <ImageView fx:id="thirdPositionLevel2" fitHeight="268.0" fitWidth="170.0" layoutX="8.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+      </ImageView>
+      <ImageView fx:id="thirdPositionLevel3" fitHeight="268.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+      </ImageView>
+   </AnchorPane>
+   <AnchorPane layoutX="583.0" layoutY="305.0">
+      <ImageView fx:id="secondPositionLevel1" fitHeight="268.0" fitWidth="170.0" layoutX="19.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
+      </ImageView>
+      <ImageView fx:id="secondPositionLevel2" fitHeight="268.0" fitWidth="170.0" layoutX="8.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+      </ImageView>
+      <ImageView fx:id="secondPositionLevel3" fitHeight="268.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true">
+      </ImageView>
+   </AnchorPane>
+   <AnchorPane layoutX="28.0" layoutY="537.0">
+      <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../img/punchboard/coin2.png" />
+      </ImageView>
+      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="5.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../img/punchboard/shield2.png" />
+      </ImageView>
+      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="88.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../img/punchboard/servant2.png" />
+      </ImageView>
+      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="89.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../img/punchboard/stone2.png" />
+      </ImageView>
+      <Label layoutX="21.0" layoutY="13.0" fx:id="xCoin">
          <font>
-            <Font name="Roboto Light" size="28.0" />
+            <Font name="Roboto Light" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="21.0" layoutY="79.0" fx:id="xShield">
+         <font>
+            <Font name="Roboto Light" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="110.0" layoutY="17.0" styleClass="whiteLabel" textFill="WHITE" fx:id="xServant">
+         <font>
+            <Font name="Roboto Light" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="110.0" layoutY="79.0" fx:id="xRock">
+         <font>
+            <Font name="Roboto Light" size="15.0" />
+         </font>
+      </Label>
+   </AnchorPane>
+   <AnchorPane layoutX="1007.0" prefHeight="720.0" prefWidth="273.0">
+      <ImageView fitHeight="720.0" fitWidth="273.0" pickOnBounds="true">
+         <Image url="@../img/javaFX/leadersBackground.jpg" />
+      </ImageView>
+      <ImageView fx:id="leaderCard1" fitHeight="268.0" fitWidth="170.0" layoutX="32.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+      </ImageView>
+      <ImageView fx:id="leaderCard2" fitHeight="268.0" fitWidth="170.0" layoutX="32.0" layoutY="282.0" pickOnBounds="true" preserveRatio="true">
+      </ImageView>
+      <ScrollPane hbarPolicy="NEVER" layoutX="3.0" layoutY="568.0" prefHeight="152.0" prefWidth="270.0">
+         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="153.0" prefWidth="277.0">
+            <TextFlow fx:id="textFlowLog" lineSpacing="1.0" prefHeight="152.0" prefWidth="273.0" styleClass="log">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </TextFlow>
+         </AnchorPane>
+      </ScrollPane>
+      <AnchorPane fx:id="playLeader1" layoutX="218.0" layoutY="83.0" onMouseClicked="#playLeader1" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
+         <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Text>
+      </AnchorPane>
+      <AnchorPane fx:id="leaderProduction1" layoutX="218.0" layoutY="120.0" onMouseClicked="#startLeaderProduction" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
+         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../img/javaFX/hammer.png" />
+         </ImageView>
+      </AnchorPane>
+      <AnchorPane fx:id="discardLeader1" layoutX="218.0" layoutY="170.0" onMouseClicked="#discardLeader1" prefHeight="40" prefWidth="40" styleClass="redButton" visible="false">
+         <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✘">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Text>
+      </AnchorPane>
+      <AnchorPane fx:id="secondAbilityDeposit" layoutX="69.0" layoutY="470.0" prefHeight="60.0" prefWidth="143.0" visible="false">
+         <ImageView fx:id="secondAbilityDeposit1" fitHeight="33.0" fitWidth="44.0" layoutX="86.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
+         <ImageView fx:id="secondAbilityDeposit2" fitHeight="33.0" fitWidth="44.0" layoutX="21.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
+      </AnchorPane>
+      <AnchorPane fx:id="firstAbilityDeposit" layoutX="69.0" layoutY="202.0" prefHeight="60.0" prefWidth="143.0" visible="false">
+         <ImageView fx:id="firstAbilityDeposit1" fitHeight="33.0" fitWidth="44.0" layoutX="82.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+         </ImageView>
+         <ImageView fx:id="firstAbilityDeposit2" fitHeight="33.0" fitWidth="44.0" layoutX="18.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+         </ImageView>
+      </AnchorPane>
+      <AnchorPane fx:id="playLeader2" layoutX="218.0" layoutY="351.0" onMouseClicked="#playLeader2" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
+         <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✔">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Text>
+      </AnchorPane>
+      <AnchorPane fx:id="leaderProduction2" layoutX="218.0" layoutY="385.0" onMouseClicked="#startLeaderProduction" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
+         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../img/javaFX/hammer.png" />
+         </ImageView>
+      </AnchorPane>
+      <AnchorPane fx:id="discardLeader2" layoutX="218.0" layoutY="438.0" onMouseClicked="#discardLeader2" prefHeight="40" prefWidth="40" styleClass="redButton" visible="false">
+         <Text layoutX="11.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✘">
+            <font>
+               <Font size="18.0" />
+            </font>
+         </Text>
+      </AnchorPane>
+      <Button fx:id="firstLeaderButton" layoutX="24.0" layoutY="211.0" mnemonicParsing="false" onMouseClicked="#firstLeaderSelected" styleClass="greenButton" text="4" />
+      <Button fx:id="secondLeaderButton" layoutX="24.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#secondLeaderSelected" styleClass="greenButton" text="5" />
+   </AnchorPane>
+   <Button fx:id="shopButton" layoutX="286.0" layoutY="387.0" mnemonicParsing="false" onMouseClicked="#goToShop" text="Shop" />
+   <ComboBox fx:id="otherPlayers" layoutX="2.0" layoutY="7.0" onAction="#selectPlayer" prefHeight="25.0" prefWidth="121.0" promptText="Other players..." />
+   <Text fx:id="nickname" layoutX="444.0" layoutY="29.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nickname" visible="false">
+      <font>
+         <Font name="Roboto Light" size="28.0" />
+      </font>
+   </Text>
+   <Button fx:id="startBasicProduction" layoutX="239.0" layoutY="605.0" mnemonicParsing="false" onMouseClicked="#startBasicProduction" styleClass="greenButton" text="Basic Production" visible="false" />
+   <Button fx:id="devCardProduction1" layoutX="400.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction" styleClass="greenButton" text="DevCard Production" visible="false" />
+   <Button fx:id="devCardProduction2" layoutX="590.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction" styleClass="greenButton" text="DevCard Production" visible="false" />
+   <Button fx:id="endProduction" layoutX="870.0" layoutY="175.0" mnemonicParsing="false" onMouseClicked="#endProduction" styleClass="redButton" text="End Production" visible="false" />
+   <Button fx:id="devCardProduction3" layoutX="800.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction" styleClass="greenButton" text="DevCard Production" visible="false" />
+   <AnchorPane fx:id="bufferProduction" layoutX="444.0" layoutY="600.0" prefHeight="119.0" prefWidth="396.0" visible="false">
+      <Text fill="WHITE" layoutX="97.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Production Buffer">
+         <font>
+            <Font name="Roboto Light" size="26.0" />
          </font>
       </Text>
-      <Button fx:id="startBasicProduction" layoutX="239.0" layoutY="605.0" mnemonicParsing="false" onMouseClicked="#startBasicProduction" styleClass="greenButton" text="Basic Production" visible="false" />
-      <Button fx:id="devCardProduction1" layoutX="400.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction" styleClass="greenButton" text="DevCard Production" visible="false" />
-      <Button fx:id="devCardProduction2" layoutX="590.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction" styleClass="greenButton" text="DevCard Production" visible="false" />
-      <Button fx:id="endProduction" layoutX="870.0" layoutY="175.0" mnemonicParsing="false" onMouseClicked="#endProduction" styleClass="redButton" text="End Production" visible="false" />
-      <Button fx:id="devCardProduction3" layoutX="800.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction" styleClass="greenButton" text="DevCard Production" visible="false" />
-      <AnchorPane fx:id="bufferProduction" layoutX="444.0" layoutY="600.0" prefHeight="119.0" prefWidth="396.0" visible="false">
-         <children>
-            <Text fill="WHITE" layoutX="97.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Production Buffer">
-               <font>
-                  <Font name="Roboto Light" size="26.0" />
-               </font></Text>
-            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="12.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/punchboard/coin2.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="233.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/punchboard/shield2.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="122.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/punchboard/servant2.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="325.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/punchboard/stone2.png" />
-               </image>
-            </ImageView>
-            <Label layoutX="33.0" layoutY="63.0" fx:id="xCoinBufferProduction">
-               <font>
-                  <Font name="Roboto Light" size="15.0" />
-               </font>
-            </Label>
-            <Label layoutX="249.0" layoutY="65.0" fx:id="xShieldBufferProduction">
-               <font>
-                  <Font name="Roboto Light" size="15.0" />
-               </font>
-            </Label>
-            <Label layoutX="144.0" layoutY="65.0" styleClass="whiteLabel" textFill="WHITE" fx:id="xServantBufferProduction">
-               <font>
-                  <Font name="Roboto Light" size="15.0" />
-               </font>
-            </Label>
-            <Label layoutX="346.0" layoutY="65.0" fx:id="xRockBufferProduction">
-               <font>
-                  <Font name="Roboto Light" size="15.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-   </children>
+      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="12.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../img/punchboard/coin2.png" />
+      </ImageView>
+      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="233.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../img/punchboard/shield2.png" />
+      </ImageView>
+      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="122.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../img/punchboard/servant2.png" />
+      </ImageView>
+      <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="325.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@../img/punchboard/stone2.png" />
+      </ImageView>
+      <Label layoutX="33.0" layoutY="63.0" fx:id="xCoinBufferProduction">
+         <font>
+            <Font name="Roboto Light" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="249.0" layoutY="65.0" fx:id="xShieldBufferProduction">
+         <font>
+            <Font name="Roboto Light" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="144.0" layoutY="65.0" styleClass="whiteLabel" textFill="WHITE" fx:id="xServantBufferProduction">
+         <font>
+            <Font name="Roboto Light" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="346.0" layoutY="65.0" fx:id="xRockBufferProduction">
+         <font>
+            <Font name="Roboto Light" size="15.0" />
+         </font>
+      </Label>
+   </AnchorPane>
+   <Button fx:id="organizeButton" layoutX="274.0" layoutY="440.0" mnemonicParsing="false" onMouseClicked="#startOrganizing" text="Organize" />
+   <Button fx:id="firstStorage" layoutX="210.0" layoutY="306.0" mnemonicParsing="false" onMouseClicked="#firstStorageSelected" prefHeight="42.0" prefWidth="40.0" styleClass="greenButton" text="1" />
 </AnchorPane>

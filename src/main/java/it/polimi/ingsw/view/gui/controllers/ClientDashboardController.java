@@ -5,6 +5,7 @@ import it.polimi.ingsw.model.card.DepositAbility;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.card.ProductionAbility;
+import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.application.Platform;
@@ -12,16 +13,24 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ClientDashboardController extends GuiController{
@@ -32,7 +41,8 @@ public class ClientDashboardController extends GuiController{
     @FXML
     private AnchorPane leaderProduction1,leaderProduction2;
     @FXML
-    private Button startBasicProduction,devCardProduction1,devCardProduction2,devCardProduction3,endProduction;
+    private Button startBasicProduction,devCardProduction1,devCardProduction2,devCardProduction3,endProduction,organizeButton,firstStorage,secondStorage,thirdStorage,firstLeaderButton
+            ,secondLeaderButton;
     @FXML
     private Text nickname;
     @FXML
@@ -66,6 +76,8 @@ public class ClientDashboardController extends GuiController{
     private ClientManager clientManager;
     private FaithPos[] faithPos;
     private boolean startingFirstProduction;
+    private int firstCounterTopSwapped,numberOfResourcesLeaderMove;
+    private Resource resourceTypeMove;
 
     @Override
     public void setPlayer(PlayerDashboard playerDashboard,boolean watchingPlayer,ArrayList<String> log) {
@@ -76,6 +88,16 @@ public class ClientDashboardController extends GuiController{
         setStorage(playerDashboard.getStorage(),firstRowImage,secondRowImage1,secondRowImage2,thirdRowImage1,thirdRowImage2,thirdRowImage3);
         setChest(playerDashboard.getChest(),xCoin,xShield,xRock,xServant);
         setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
+        firstStorage.setVisible(false);
+        secondStorage.setVisible(false);
+        thirdStorage.setVisible(false);
+        firstLeaderButton.setVisible(false);
+        secondLeaderButton.setVisible(false);
+        firstCounterTopSwapped = -1;
+        numberOfResourcesLeaderMove=0;
+        resourceTypeMove=null;
+        if(!getGuiManager().getClientManager().canMoveResources())
+            organizeButton.setDisable(true);
         for(String msg:log) {
             Text text = new Text(msg + "\n");
             text.setFill(Color.RED);
@@ -91,6 +113,7 @@ public class ClientDashboardController extends GuiController{
             bwFaithPath.setVisible(true);
             marketButton.setVisible(false);
             shopButton.setVisible(false);
+            organizeButton.setVisible(false);
             productionButton.setVisible(false);
             endTurnButton.setVisible(false);
             otherPlayers.setVisible(false);
@@ -301,6 +324,7 @@ public class ClientDashboardController extends GuiController{
         clientManager.setProductionActionOnGoing(true);
         shopButton.setDisable(true);
         marketButton.setDisable(true);
+        organizeButton.setDisable(true);
         productionButton.setDisable(true);
         otherPlayers.setDisable(true);
         setAvailableProductions();
@@ -479,6 +503,114 @@ public class ClientDashboardController extends GuiController{
         }
         launchChooseResources(false,false,card,null);
     }
+
+
+
+    public void startOrganizing(MouseEvent mouseEvent) {
+        if(getGuiManager().getClientManager().canMoveResources()) {
+        shopButton.setDisable(true);
+        marketButton.setDisable(true);
+        organizeButton.setDisable(true);
+        productionButton.setDisable(true);
+        otherPlayers.setDisable(true);
+        firstStorage.setVisible(true);
+        secondStorage.setVisible(true);
+        thirdStorage.setVisible(true);
+        if(firstAbilityDeposit.isVisible() && clientManager.canMoveFromLeader(playerDashboard.getArrayDeposit().get(0).getResourceType()) ||clientManager.canMoveToLeader(playerDashboard.getArrayDeposit().get(0).getResourceType()))
+            firstLeaderButton.setVisible(true);
+        if(secondAbilityDeposit.isVisible() && clientManager.canMoveFromLeader(playerDashboard.getArrayDeposit().get(1).getResourceType()) ||clientManager.canMoveToLeader(playerDashboard.getArrayDeposit().get(1).getResourceType()))
+            secondLeaderButton.setVisible(true);
+        }
+    }
+
+
+    public void firstStorageSelected(MouseEvent mouseEvent) {
+        if(firstCounterTopSwapped==-1) {
+            firstCounterTopSwapped = 1;
+        }
+        else{
+            if(firstCounterTopSwapped<4)
+                getGuiManager().getClientManager().organizeStorage(firstCounterTopSwapped, 1);
+            else
+                clientManager.moveLeaderResources(resourceTypeMove,numberOfResourcesLeaderMove,true);
+            getGuiManager().callDashboard();
+        }
+    }
+    public void secondStorageSelected(MouseEvent mouseEvent) {
+        if(firstCounterTopSwapped==-1)
+            firstCounterTopSwapped = 2;
+        else{
+            if(firstCounterTopSwapped<4)
+                getGuiManager().getClientManager().organizeStorage(firstCounterTopSwapped, 2);
+            else
+                clientManager.moveLeaderResources(resourceTypeMove,numberOfResourcesLeaderMove,true);
+            getGuiManager().callDashboard();
+        }
+    }
+
+    public void thirdStorageSelected(MouseEvent mouseEvent) {
+        if(firstCounterTopSwapped==-1)
+            firstCounterTopSwapped = 3;
+        else{
+            if(firstCounterTopSwapped<4)
+                getGuiManager().getClientManager().organizeStorage(firstCounterTopSwapped, 3);
+            else
+                clientManager.moveLeaderResources(resourceTypeMove,numberOfResourcesLeaderMove,true);
+
+            getGuiManager().callDashboard();
+        }
+    }
+
+    public void firstLeaderSelected(MouseEvent mouseEvent) {
+        if(firstCounterTopSwapped==-1) {
+            firstCounterTopSwapped = 4;
+            askResourcesToMove(false,playerDashboard.getArrayDeposit().get(0),this);
+        }
+        else{
+            askResourcesToMove(true,playerDashboard.getArrayDeposit().get(0),this);
+        }
+    }
+
+    public void secondLeaderSelected(MouseEvent mouseEvent) {
+        if(firstCounterTopSwapped==-1) {
+            firstCounterTopSwapped = 5;
+            askResourcesToMove(false,playerDashboard.getArrayDeposit().get(1),this);
+        }
+        else{
+            askResourcesToMove(true,playerDashboard.getArrayDeposit().get(1),this);
+        }
+    }
+
+    protected void askResourcesToMove(boolean toLeader, CounterTop leaderDeposit,ClientDashboardController dashBoard){
+        GuiController controller = null;
+        Stage modal = new Stage();
+        modal.setScene(new Scene(new Pane()));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(this.getClass().getResource("/fxml/askResourcesToMove.fxml"));
+        Pane pane;
+        try {
+            pane = loader.load();
+            modal.getScene().setRoot(pane);
+            controller = loader.getController();
+        } catch (IOException e) {
+            System.out.println("IOException while setting layout: "+e.getMessage());
+        }
+        modal.initModality(Modality.APPLICATION_MODAL);
+        modal.initStyle(StageStyle.UNDECORATED);
+        modal.setResizable(false);
+        modal.getIcons().add(new Image(this.getClass().getResourceAsStream("/img/javaFX/icon.png")));
+        controller.setModal(toLeader,leaderDeposit,this,modal);
+        Platform.runLater(modal::show);
+    }
+
+    public void setNumberOfResourcesLeaderMove(int numberOfResourcesLeaderMove) {
+        this.numberOfResourcesLeaderMove = numberOfResourcesLeaderMove;
+    }
+
+    public void setResourceTypeMove(Resource resourceTypeMove) {
+        this.resourceTypeMove = resourceTypeMove;
+    }
+
     //FAITH PATH IMG POSITION
     private static class FaithPos{
         private int x;

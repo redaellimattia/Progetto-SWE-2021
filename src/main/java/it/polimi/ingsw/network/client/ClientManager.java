@@ -439,22 +439,38 @@ public class ClientManager {
         PlayerDashboard p = getThisClientDashboard();
         ArrayList<CounterTop> shelves = p.getStorage().getShelvesArray();
         int from= 0,to = 0;
-        for(int i=0; i<shelves.size();i++) {
-            if (shelves.get(i).getResourceType().equals(resource)) {
-                to = i;
-                break;
+        if(fromLeader) {
+            for (int i = 0; i < shelves.size(); i++) {
+                if (shelves.get(i).getResourceType().equals(resource) || shelves.get(i).getContent()==0) {
+                    to = i;
+                    break;
+                }
             }
-        }
-        for (int i=0;i<p.getArrayDeposit().size();i++){
-            if(p.getArrayDeposit().get(i).getResourceType().equals(resource)) {
-                from = i;
-                break;
+            for (int i = 0; i < p.getArrayDeposit().size(); i++) {
+                if (p.getArrayDeposit().get(i).getResourceType().equals(resource)) {
+                    from = i;
+                    break;
+                }
             }
-        }
-        if(fromLeader)
             clientSocket.send(new MoveFromLeaderToDepositMessage(nickname,serverLobbyID,from,to,num).serialize());
-        else
+        }
+        else{
+            for (int i = 0; i < shelves.size(); i++) {
+                if (shelves.get(i).getResourceType().equals(resource)) {
+                    to = i;
+                    break;
+                }
+            }
+            for (int i = 0; i < p.getArrayDeposit().size(); i++) {
+                if (p.getArrayDeposit().get(i).getResourceType().equals(resource)) {
+                    from = i;
+                    break;
+                }
+            }
             clientSocket.send(new MoveFromDepositToLeaderMessage(nickname,serverLobbyID,to,from,num).serialize());
+        }
+
+
     }
 
     /**
