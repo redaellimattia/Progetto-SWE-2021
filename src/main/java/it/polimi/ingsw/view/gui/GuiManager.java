@@ -196,7 +196,23 @@ public class GuiManager implements View, GuiObserver{
 
     @Override
     public void vaticanReportActivated(int victoryPoints, ArrayList<String> nicknames) {
-
+        String playerNickname = clientManager.getNickname();
+        String toAdd ="";
+        toAdd +="A vatican report worth "+victoryPoints+" victory points has been activated! \n";
+        if(!nicknames.contains(playerNickname))
+            toAdd+="Unfortunately, you weren't affected.\n";
+        else
+            toAdd+="Well done, you have been affected by the vatican report!\n";
+        toAdd+="Other players affected by the vatican report: \n";
+        for(int i=0;i<nicknames.size();i++){
+            String nick = nicknames.get(i);
+            if(!nick.equals(playerNickname)) {
+                toAdd += nick +"\n";
+                if(i!=nicknames.size()-1&&(i==nicknames.size()-2&&!nicknames.get(i+1).equals(playerNickname)))
+                    toAdd+=" - ";
+            }
+        }
+        log.add(toAdd);
     }
 
     @Override
