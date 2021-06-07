@@ -96,12 +96,16 @@ public class ClientDashboardController extends GuiController{
                 endTurnButton.setDisable(true);
             }
             if(clientManager.isMyTurn()&&clientManager.isMainActionDone()){
+
                 productionButton.setDisable(true);
                 endTurnButton.setDisable(false);
             }
             if(clientManager.isMyTurn()&&!clientManager.isMainActionDone()){
-                if(!clientManager.canDoProduction())
-                    productionButton.setDisable(true);
+                if(clientManager.isProductionActionOnGoing())
+                    setProductionOnGoing();
+                else
+                    if(!clientManager.canDoProduction())
+                        productionButton.setDisable(true);
                 endTurnButton.setDisable(true);
             }
         }
@@ -287,6 +291,7 @@ public class ClientDashboardController extends GuiController{
      * @param mouseEvent click
      */
     public void startProduction(MouseEvent mouseEvent) {
+        clientManager.setProductionActionOnGoing(true);
         shopButton.setDisable(true);
         marketButton.setDisable(true);
         productionButton.setDisable(true);
@@ -355,7 +360,7 @@ public class ClientDashboardController extends GuiController{
     public void endTurn(MouseEvent mouseEvent) {
         setImage(board,"/img/board/inactiveBoard.jpg");
         bwFaithPath.setVisible(true);
-        Platform.runLater(()->clientManager.endTurn());
+        getGuiManager().endTurn();
     }
 
     public void discardLeader2(MouseEvent mouseEvent) {

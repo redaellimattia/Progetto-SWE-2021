@@ -165,7 +165,7 @@ public class GuiManager implements View, GuiObserver{
 
     @Override
     public void endTurn() {
-
+        Platform.runLater(()->clientManager.endTurn());
     }
 
     @Override

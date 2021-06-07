@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
-public class endGameController extends GuiController{
+public class EndGameController extends GuiController{
     @FXML
     private Text firstPlayer,secondPlayer,thirdPlayer,fourthPlayer;
     @FXML
@@ -25,11 +25,11 @@ public class endGameController extends GuiController{
         fourthPlayer.setVisible(false);
         secondPlayer.setVisible(false);
         if(lorenzoWin) {
-            setImage(endGameLogo, "Inserire path dell'immagine you lost");
+            setImage(endGameLogo, "/img/javaFX/gameOver.gif");
             firstPlayer.setText("Unfortunately you lost, but you managed to score: " + playerPoints + " points");
         }
         else {
-            setImage(endGameLogo, "Inserire path dell'immagine you won");
+            setImage(endGameLogo, "/img/javaFX/win.gif");
             firstPlayer.setText("You won with a total of: " + playerPoints+ " points");
         }
     }
@@ -37,9 +37,9 @@ public class endGameController extends GuiController{
     @Override
     public void setEndGame(ArrayList<PlayerPoints> scoreboard){
         if(getGuiManager().getClientManager().getNickname().equals(scoreboard.get(0).getPlayer()))
-            setImage(endGameLogo,"Inserire path dell'immagine you won");
+            setImage(endGameLogo,"/img/javaFX/win.gif");
         else
-            setImage(endGameLogo,"Inserire path dell'immagine you lost");
+            setImage(endGameLogo,"/img/javaFX/gameOver.gif");
 
         firstPlayer.setText("1. " + scoreboard.get(0).getPlayer() + scoreboard.get(0).getVictoryPoints());
         secondPlayer.setText("2. " + scoreboard.get(1).getPlayer() + scoreboard.get(1).getVictoryPoints());
