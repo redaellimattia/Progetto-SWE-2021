@@ -383,7 +383,9 @@ public class ClientDashboardController extends GuiController{
     }
 
     public void startBasicProduction(MouseEvent mouseEvent) {
-        launchChooseResources(true,true,null,null);
+        Stage modal = launchModal("/fxml/chooseResources.fxml");
+        getGuiManager().getCurrentController().setModal(true,true,null,null,modal);
+        Platform.runLater(modal::show);
     }
 
     public void endTurn(MouseEvent mouseEvent) {
@@ -499,7 +501,9 @@ public class ClientDashboardController extends GuiController{
             case "leaderProduction2": card = playerDashboard.getLeaderCards().get(1);
                 break;
         }
-        launchChooseResources(false,false,card,null);
+        Stage modal = launchModal("/fxml/chooseResources.fxml");
+        getGuiManager().getCurrentController().setModal(false,false,card,null,modal);
+        Platform.runLater(modal::show);
     }
 
 
@@ -565,43 +569,29 @@ public class ClientDashboardController extends GuiController{
     public void firstLeaderSelected(MouseEvent mouseEvent) {
         if(firstCounterTopSwapped==-1) {
             firstCounterTopSwapped = 4;
-            askResourcesToMove(false,playerDashboard.getArrayDeposit().get(0),this);
+            Stage modal = launchModal("/fxml/askResourcesToMove.fxml");
+            getGuiManager().getCurrentController().setModal(false,playerDashboard.getArrayDeposit().get(0),this,modal);
+            Platform.runLater(modal::show);
         }
         else{
-            askResourcesToMove(true,playerDashboard.getArrayDeposit().get(0),this);
+            Stage modal = launchModal("/fxml/askResourcesToMove.fxml");
+            getGuiManager().getCurrentController().setModal(true,playerDashboard.getArrayDeposit().get(0),this,modal);
+            Platform.runLater(modal::show);
         }
     }
 
     public void secondLeaderSelected(MouseEvent mouseEvent) {
         if(firstCounterTopSwapped==-1) {
             firstCounterTopSwapped = 5;
-            askResourcesToMove(false,playerDashboard.getArrayDeposit().get(1),this);
+            Stage modal = launchModal("/fxml/askResourcesToMove.fxml");
+            getGuiManager().getCurrentController().setModal(false,playerDashboard.getArrayDeposit().get(1),this,modal);
+            Platform.runLater(modal::show);
         }
         else{
-            askResourcesToMove(true,playerDashboard.getArrayDeposit().get(1),this);
+            Stage modal = launchModal("/fxml/askResourcesToMove.fxml");
+            getGuiManager().getCurrentController().setModal(true,playerDashboard.getArrayDeposit().get(1),this,modal);
+            Platform.runLater(modal::show);
         }
-    }
-
-    protected void askResourcesToMove(boolean toLeader, CounterTop leaderDeposit,ClientDashboardController dashBoard){
-        GuiController controller = null;
-        Stage modal = new Stage();
-        modal.setScene(new Scene(new Pane()));
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource("/fxml/askResourcesToMove.fxml"));
-        Pane pane;
-        try {
-            pane = loader.load();
-            modal.getScene().setRoot(pane);
-            controller = loader.getController();
-        } catch (IOException e) {
-            System.out.println("IOException while setting layout: "+e.getMessage());
-        }
-        modal.initModality(Modality.APPLICATION_MODAL);
-        modal.initStyle(StageStyle.UNDECORATED);
-        modal.setResizable(false);
-        modal.getIcons().add(new Image(this.getClass().getResourceAsStream("/img/javaFX/icon.png")));
-        controller.setModal(toLeader,leaderDeposit,this,modal);
-        Platform.runLater(modal::show);
     }
 
     public void setNumberOfResourcesLeaderMove(int numberOfResourcesLeaderMove) {

@@ -36,6 +36,7 @@ public abstract class GuiController {
         return guiManager;
     }
 
+    //INITIAL SET
     public void initialize(){}
     public void setLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> lobbies){}
     public void setPreGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources){}
@@ -47,6 +48,28 @@ public abstract class GuiController {
     public void setBasicProduction(ResourceCount cost,Resource res){}
     public void setFinalStageBuy(DevelopmentCard card,ResourceCount storageCount, ResourceCount chestCount){}
     public void setProductionOnGoing(){}
+    public void setEndGame(ArrayList<PlayerPoints> scoreboard){}
+    public void setEndGame(boolean lorenzoWin, int playerPoints){}
+
+    //UPDATES
+    public void updateShop(){}
+    public void updatePathPosition(String nickname){}
+    public void updateLeaders(String nickname){}
+    public void updateMarket(){}
+    public void updateArrayDeposits(String nickname){}
+    public void updateChest(String nickname){}
+    public void updateDevCards(String nickname){}
+    public void updateStorage(String nickname){}
+    public void updateVaticanReports(){}
+    public void updateBufferProduction(String nickname){}
+
+
+    /**
+     * Sets the image on the passed ImageView
+     *
+     * @param image ImageView object
+     * @param path path of the image
+     */
     protected void setImage(ImageView image, String path){
         if(path == null)
             image.setImage(null);
@@ -54,6 +77,17 @@ public abstract class GuiController {
             image.setImage(new Image(this.getClass().getResourceAsStream(path)));
     }
 
+    /**
+     * Sets the storage
+     *
+     * @param storage Storage of the player
+     * @param firstRowImage ImageView of the first row
+     * @param secondRowImage1 ImageView of the first resource of the second row
+     * @param secondRowImage2 ImageView of the second resource of the second row
+     * @param thirdRowImage1 ImageView of the first resource of the third row
+     * @param thirdRowImage2 ImageView of the second resource of the third row
+     * @param thirdRowImage3 ImageView of the third resource of the third row
+     */
     protected void setStorage(Storage storage,ImageView firstRowImage,ImageView secondRowImage1,ImageView secondRowImage2,ImageView thirdRowImage1,ImageView thirdRowImage2,ImageView thirdRowImage3){
         ArrayList<CounterTop> shelves = storage.getShelvesArray();
         if(shelves.size()!=0){
@@ -62,6 +96,18 @@ public abstract class GuiController {
         }
     }
 
+    /**
+     * Sets a storageRow
+     *
+     * @param row CounterTop of the row
+     * @param i Index of the rows
+     * @param firstRowImage ImageView of the first row
+     * @param secondRowImage1 ImageView of the first resource of the second row
+     * @param secondRowImage2 ImageView of the second resource of the second row
+     * @param thirdRowImage1 ImageView of the first resource of the third row
+     * @param thirdRowImage2 ImageView of the second resource of the third row
+     * @param thirdRowImage3 ImageView of the third resource of the third row
+     */
     private void setStorageRow(CounterTop row,int i,ImageView firstRowImage,ImageView secondRowImage1,ImageView secondRowImage2,ImageView thirdRowImage1,ImageView thirdRowImage2,ImageView thirdRowImage3){
         switch(i){
             case 1:
@@ -106,6 +152,12 @@ public abstract class GuiController {
         }
     }
 
+    /**
+     * Gets the image path based on the type of the resource of the row
+     *
+     * @param res Resource of the CounterTop
+     * @return path of the image of the resource
+     */
     protected String getCounterTopImage(Resource res){
         switch(res){
             case COIN:  return "/img/punchboard/coin2.png";
@@ -116,6 +168,15 @@ public abstract class GuiController {
         }
     }
 
+    /**
+     * Sets the chest
+     *
+     * @param chest Chest of the Player
+     * @param xCoin Label for coin
+     * @param xShield Label for shield
+     * @param xRock Label for rock
+     * @param xServant Label for servant
+     */
     protected void setChest(ResourceCount chest, Label xCoin, Label xShield,Label xRock, Label xServant){
         if(chest.getCoins()!=0)
             xCoin.setText("x"+chest.getCoins());
@@ -135,42 +196,18 @@ public abstract class GuiController {
             xServant.setText("x0");
     }
 
-    public void updateShop(){}
-    public void updatePathPosition(String nickname){}
-    public void updateLeaders(String nickname){}
-    public void updateMarket(){}
-    public void updateArrayDeposits(String nickname){}
-    public void updateChest(String nickname){}
-    public void updateDevCards(String nickname){}
-    public void updateStorage(String nickname){}
-    public void updateVaticanReports(){}
-    //RICHIAMA TUTTO IL SET LAYOUT COSì SI POSSONO AGGIORNARE CORRETTAMENTE CARTE NON PIU CLICCABILI
-    public void updateBufferProduction(String nickname){}
-
-    public void setModal(boolean isInput,boolean isBasic,LeaderCard card,ResourceCount chosenInput,Stage modal){}
-    public void setModal(boolean toLeader,CounterTop leaderDeposit,ClientDashboardController clientDashboard,Stage modal){}
-    protected void launchChooseResources(boolean isInput,boolean isBasic,LeaderCard card,ResourceCount chosenInput){
-        GuiController controller = null;
-        Stage modal = new Stage();
-        modal.setScene(new Scene(new Pane()));
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(this.getClass().getResource("/fxml/chooseResources.fxml"));
-        Pane pane;
-        try {
-            pane = loader.load();
-            modal.getScene().setRoot(pane);
-            controller = loader.getController();
-        } catch (IOException e) {
-            System.out.println("IOException while setting layout: "+e.getMessage());
-        }
-        modal.initModality(Modality.APPLICATION_MODAL);
-        modal.initStyle(StageStyle.UNDECORATED);
-        modal.setResizable(false);
-        modal.getIcons().add(new Image(this.getClass().getResourceAsStream("/img/javaFX/icon.png")));
-        controller.setModal(isInput,isBasic,card,chosenInput,modal);
-        Platform.runLater(modal::show);
-    }
-
+    /**
+     * Adds resources when clicked
+     *
+     * @param res Clicked Resource
+     * @param xLabel Label cliked
+     * @param rc ResourceCount that will be updated
+     * @param count Amount of resources that are needed
+     * @param coin ImageView of the coin
+     * @param shield ImageView of the shield
+     * @param servant ImageView of the servant
+     * @param rock ImageView of the rock
+     */
     @FXML
     protected void addResource(Resource res, Label xLabel,ResourceCount rc,int count,ImageView coin,ImageView shield,ImageView servant,ImageView rock){
         if(count>ResourceCount.resCountToInt(rc)){
@@ -184,6 +221,18 @@ public abstract class GuiController {
                 disableResourcesClick(coin,shield,servant,rock);
         }
     }
+
+    /**
+     * Removes resources when clicked
+     *
+     * @param res Clicked Resource
+     * @param xLabel Label cliked
+     * @param rc ResourceCount that will be updated
+     * @param coin ImageView of the coin
+     * @param shield ImageView of the shield
+     * @param servant ImageView of the servant
+     * @param rock ImageView of the rock
+     */
     @FXML
     protected void removeResource(Resource res, Label xLabel,ResourceCount rc,ImageView coin,ImageView shield,ImageView servant,ImageView rock){
         res.remove(rc,1);
@@ -196,6 +245,14 @@ public abstract class GuiController {
         enableResourcesClick(coin,shield,servant,rock);
     }
 
+    /**
+     * Makes ImageViews of the Resources not clickable
+     *
+     * @param coin ImageView of the coin
+     * @param shield ImageView of the shield
+     * @param servant ImageView of the servant
+     * @param rock ImageView of the rock
+     */
     @FXML
     private void disableResourcesClick(ImageView coin,ImageView shield,ImageView servant,ImageView rock){
         coin.setDisable(true);
@@ -204,6 +261,14 @@ public abstract class GuiController {
         rock.setDisable(true);
     }
 
+    /**
+     * Makes ImageViews of the Resources clickable
+     *
+     * @param coin ImageView of the coin
+     * @param shield ImageView of the shield
+     * @param servant ImageView of the servant
+     * @param rock ImageView of the rock
+     */
     @FXML
     private void enableResourcesClick(ImageView coin,ImageView shield,ImageView servant,ImageView rock){
         coin.setDisable(false);
@@ -212,6 +277,29 @@ public abstract class GuiController {
         rock.setDisable(false);
     }
 
-    public void setEndGame(ArrayList<PlayerPoints> scoreboard){}
-    public void setEndGame(boolean lorenzoWin, int playerPoints){}
+    //SET MODAL
+    public void setModal(boolean isInput,boolean isBasic,LeaderCard card,ResourceCount chosenInput,Stage modal){}
+    public void setModal(boolean toLeader,CounterTop leaderDeposit,ClientDashboardController clientDashboard,Stage modal){}
+
+    protected Stage launchModal(String fxml){
+        GuiController controller = null;
+        Stage modal = new Stage();
+        modal.setScene(new Scene(new Pane()));
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(this.getClass().getResource(fxml));
+        Pane pane;
+        try {
+            pane = loader.load();
+            modal.getScene().setRoot(pane);
+            controller = loader.getController();
+        } catch (IOException e) {
+            System.out.println("IOException while setting layout: "+e.getMessage());
+        }
+        getGuiManager().setCurrentController(controller);
+        modal.initModality(Modality.APPLICATION_MODAL);
+        modal.initStyle(StageStyle.UNDECORATED);
+        modal.setResizable(false);
+        modal.getIcons().add(new Image(this.getClass().getResourceAsStream("/img/javaFX/icon.png")));
+        return modal;
+    }
 }

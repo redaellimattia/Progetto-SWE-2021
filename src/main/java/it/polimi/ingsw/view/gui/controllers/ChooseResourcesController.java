@@ -4,6 +4,7 @@ import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.view.gui.GuiManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -60,7 +61,10 @@ public class ChooseResourcesController extends GuiController{
             if (isInput) {
                 if(toChoose==ResourceCount.resCountToInt(chosenInput)) {
                     modal.close();
-                    launchChooseResources(false, isBasic, leaderCard, chosenInput);
+                    //launchModal(false, isBasic, leaderCard, chosenInput);
+                    this.modal = launchModal("/fxml/chooseResources.fxml");
+                    getGuiManager().getCurrentController().setModal(false,isBasic,leaderCard,chosenInput,modal);
+                    Platform.runLater(modal::show);
                 }
                 else
                     printError();

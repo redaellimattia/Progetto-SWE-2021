@@ -35,15 +35,12 @@ public class GuiManager implements View, GuiObserver{
     public ClientManager getClientManager() {
         return clientManager;
     }
-
     public GuiController getCurrentController() {
         return currentController;
     }
-
     public Scene getCurrentScene() {
         return currentScene;
     }
-
     public static GuiManager getInstance() {
         return instance;
     }
@@ -51,7 +48,9 @@ public class GuiManager implements View, GuiObserver{
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-
+    public void setCurrentController(GuiController currentController) {
+        this.currentController = currentController;
+    }
     public void setCurrentScene(Scene scene){
         this.currentScene = scene;
     }

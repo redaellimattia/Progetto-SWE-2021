@@ -51,7 +51,7 @@ public class PreGameChoiceController extends GuiController{
 
     /**
      * Sets leadercards image, and eventually make the choose resource visible
-     * 
+     *
      * @param leaders the 4 available leaders coming from the server
      * @param numberOfResources the amount of resources that the player has to choose
      *
