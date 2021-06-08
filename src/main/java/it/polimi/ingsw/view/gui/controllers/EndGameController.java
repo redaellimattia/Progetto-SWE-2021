@@ -19,6 +19,7 @@ public class EndGameController extends GuiController{
     public void initialize(){
         super.setGuiManager(GuiManager.getInstance());
     }
+    @FXML
     @Override
     public void setEndGame(boolean lorenzoWin, int playerPoints){
         thirdPlayer.setVisible(false);
@@ -33,7 +34,7 @@ public class EndGameController extends GuiController{
             firstPlayer.setText("You won with a total of: " + playerPoints+ " points");
         }
     }
-
+    @FXML
     @Override
     public void setEndGame(ArrayList<PlayerPoints> scoreboard){
         if(getGuiManager().getClientManager().getNickname().equals(scoreboard.get(0).getPlayer()))

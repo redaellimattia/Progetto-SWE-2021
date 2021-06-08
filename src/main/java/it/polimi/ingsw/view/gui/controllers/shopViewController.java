@@ -166,6 +166,8 @@ public class shopViewController extends GuiController {
                 g3.setOpacity(0.7);
             }
         }
+        else
+            g3.setDisable(true);
         if (shopGrid.getGrid()[1][0].getDeck().size() != 0) {
             setImage(g2, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[1][0].getFirst().getId() + ".png");
             if(!getGuiManager().getClientManager().canBuySpecificCard(shopGrid.getGrid()[1][0].getFirst().getId())){
@@ -173,6 +175,8 @@ public class shopViewController extends GuiController {
                 g2.setOpacity(0.7);
             }
         }
+        else
+            g2.setDisable(true);
         if (shopGrid.getGrid()[2][0].getDeck().size() != 0) {
             setImage(g1, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[2][0].getFirst().getId() + ".png");
             if(!getGuiManager().getClientManager().canBuySpecificCard(shopGrid.getGrid()[2][0].getFirst().getId())){
@@ -180,6 +184,8 @@ public class shopViewController extends GuiController {
                 g1.setOpacity(0.7);
             }
         }
+        else
+            g1.setDisable(true);
         //BLUE CARDS
         if (shopGrid.getGrid()[0][1].getDeck().size() != 0) {
             setImage(b3, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[0][1].getFirst().getId() + ".png");
@@ -188,6 +194,8 @@ public class shopViewController extends GuiController {
                 b3.setOpacity(0.7);
             }
         }
+        else
+            b3.setDisable(true);
         if (shopGrid.getGrid()[1][1].getDeck().size() != 0) {
             setImage(b2, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[1][1].getFirst().getId() + ".png");
             if(!getGuiManager().getClientManager().canBuySpecificCard(shopGrid.getGrid()[1][1].getFirst().getId())){
@@ -195,6 +203,8 @@ public class shopViewController extends GuiController {
                 b2.setOpacity(0.7);
             }
         }
+        else
+            b2.setDisable(true);
         if (shopGrid.getGrid()[2][1].getDeck().size() != 0) {
             setImage(b1, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[2][1].getFirst().getId() + ".png");
             if(!getGuiManager().getClientManager().canBuySpecificCard(shopGrid.getGrid()[2][1].getFirst().getId())){
@@ -202,6 +212,8 @@ public class shopViewController extends GuiController {
                 b1.setOpacity(0.7);
             }
         }
+        else
+            b1.setDisable(true);
 
         //YELLOW CARDS
         if (shopGrid.getGrid()[0][2].getDeck().size() != 0) {
@@ -211,6 +223,8 @@ public class shopViewController extends GuiController {
                 y3.setOpacity(0.7);
             }
         }
+        else
+            y3.setDisable(true);
         if (shopGrid.getGrid()[1][2].getDeck().size() != 0) {
             setImage(y2, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[1][2].getFirst().getId() + ".png");
             if(!getGuiManager().getClientManager().canBuySpecificCard(shopGrid.getGrid()[1][2].getFirst().getId())){
@@ -218,6 +232,8 @@ public class shopViewController extends GuiController {
                 y2.setOpacity(0.7);
             }
         }
+        else
+            y2.setDisable(true);
         if (shopGrid.getGrid()[2][2].getDeck().size() != 0) {
             setImage(y1, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[2][2].getFirst().getId() + ".png");
             if(!getGuiManager().getClientManager().canBuySpecificCard(shopGrid.getGrid()[2][2].getFirst().getId())){
@@ -225,6 +241,8 @@ public class shopViewController extends GuiController {
                 y1.setOpacity(0.7);
             }
         }
+        else
+            y1.setDisable(true);
 
         //PURPLE CARDS
         if (shopGrid.getGrid()[0][3].getDeck().size() != 0) {
@@ -234,6 +252,8 @@ public class shopViewController extends GuiController {
                 p3.setOpacity(0.7);
             }
         }
+        else
+            p3.setDisable(true);
         if (shopGrid.getGrid()[1][3].getDeck().size() != 0) {
             setImage(p2, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[1][3].getFirst().getId() + ".png");
             if(!getGuiManager().getClientManager().canBuySpecificCard(shopGrid.getGrid()[1][3].getFirst().getId())){
@@ -241,6 +261,8 @@ public class shopViewController extends GuiController {
                 p2.setOpacity(0.7);
             }
         }
+        else
+            p2.setDisable(true);
         if (shopGrid.getGrid()[2][3].getDeck().size() != 0) {
             setImage(p1, "/img/cards/front/DevelopmentCards/" + shopGrid.getGrid()[2][3].getFirst().getId() + ".png");
             if (!getGuiManager().getClientManager().canBuySpecificCard(shopGrid.getGrid()[2][3].getFirst().getId())) {
@@ -248,6 +270,8 @@ public class shopViewController extends GuiController {
                 p1.setOpacity(0.7);
             }
         }
+        else
+            p1.setDisable(true);
     }
 }
 
