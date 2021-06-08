@@ -49,6 +49,13 @@ public class PreGameChoiceController extends GuiController{
         chosenLeaderCards = new ArrayList<>();
     }
 
+    /**
+     * Sets leadercards image, and eventually make the choose resource visible
+     * 
+     * @param leaders the 4 available leaders coming from the server
+     * @param numberOfResources the amount of resources that the player has to choose
+     *
+     */
     @Override
     public void setPreGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources){
         this.availableLeaders = leaders;
@@ -68,42 +75,91 @@ public class PreGameChoiceController extends GuiController{
         }
     }
 
-    //When a resource image is clicked, add 1 resource
+    /**
+     * Image clicked add 1 coin
+     *
+     * @param mouseEvent click event
+     */
     @FXML
     public void coinClicked(MouseEvent mouseEvent) {
         addResource(Resource.COIN,xCoin,chosenResources,numberOfResources,coinImage,shieldImage,servantImage,rockImage);
     }
+
+    /**
+     * Image clicked add 1 rock
+     *
+     * @param mouseEvent click event
+     */
     @FXML
     public void rockClicked(MouseEvent mouseEvent) {
         addResource(Resource.ROCK,xRock,chosenResources,numberOfResources,coinImage,shieldImage,servantImage,rockImage);
     }
+
+    /**
+     * Image clicked add 1 shield
+     *
+     * @param mouseEvent click event
+     */
     @FXML
     public void shieldClicked(MouseEvent mouseEvent) {
         addResource(Resource.SHIELD,xShield,chosenResources,numberOfResources,coinImage,shieldImage,servantImage,rockImage);
     }
+
+    /**
+     * Image clicked add 1 servant
+     *
+     * @param mouseEvent click event
+     */
     @FXML
     public void servantClicked(MouseEvent mouseEvent) {
         addResource(Resource.SERVANT,xServant,chosenResources,numberOfResources,coinImage,shieldImage,servantImage,rockImage);
     }
 
-    //When a label is clicked, remove 1 resource
+    /**
+     * Label clicked remove 1 coin
+     *
+     * @param mouseEvent click event
+     */
     @FXML
     public void xCoinClicked(MouseEvent mouseEvent) {
         removeResource(Resource.COIN,xCoin,chosenResources,coinImage,shieldImage,servantImage,rockImage);
     }
+
+    /**
+     * Label clicked remove 1 rock
+     *
+     * @param mouseEvent click event
+     */
     @FXML
     public void xRockClicked(MouseEvent mouseEvent) {
         removeResource(Resource.ROCK,xRock,chosenResources,coinImage,shieldImage,servantImage,rockImage);
     }
+
+    /**
+     * Label clicked remove 1 shield
+     *
+     * @param mouseEvent click event
+     */
     @FXML
     public void xShieldClicked(MouseEvent mouseEvent) {
         removeResource(Resource.SHIELD,xShield,chosenResources,coinImage,shieldImage,servantImage,rockImage);
     }
+
+    /**
+     * Label clicked remove 1 servant
+     *
+     * @param mouseEvent click event
+     */
     @FXML
     public void xServantClicked(MouseEvent mouseEvent) {
         removeResource(Resource.SERVANT,xServant,chosenResources,coinImage,shieldImage,servantImage,rockImage);
     }
 
+    /**
+     * When the fourth leader is clicked, add or remove it (if already clicked) from the list of chosen leaders
+     *
+     * @param mouseEvent click event
+     */
     @FXML
     public void fourthLeaderClick(MouseEvent mouseEvent) {
         if(fourthLeaderChosen.isVisible()){ //Remove leader
@@ -117,6 +173,12 @@ public class PreGameChoiceController extends GuiController{
             }
         }
     }
+
+    /**
+     * When the third leader is clicked, add or remove it (if already clicked) from the list of chosen leaders
+     *
+     * @param mouseEvent click event
+     */
     @FXML
     public void thirdLeaderClick(MouseEvent mouseEvent) {
         if(thirdLeaderChosen.isVisible()){ //Remove leader
@@ -130,6 +192,12 @@ public class PreGameChoiceController extends GuiController{
             }
         }
     }
+
+    /**
+     * When the second leader is clicked, add or remove it (if already clicked) from the list of chosen leaders
+     *
+     * @param mouseEvent click event
+     */
     @FXML
     public void secondLeaderClick(MouseEvent mouseEvent) {
         if(secondLeaderChosen.isVisible()){ //Remove leader
@@ -143,6 +211,12 @@ public class PreGameChoiceController extends GuiController{
             }
         }
     }
+
+    /**
+     * When the first leader is clicked, add or remove it (if already clicked) from the list of chosen leaders
+     *
+     * @param mouseEvent click event
+     */
     @FXML
     public void firstLeaderClick(MouseEvent mouseEvent) {
         if(firstLeaderChosen.isVisible()){ //Remove leader
@@ -157,6 +231,11 @@ public class PreGameChoiceController extends GuiController{
         }
     }
 
+    /**
+     * Send choices to the clientManager preGameChoice
+     *
+     * @param mouseEvent click event
+     */
     @FXML
     public void sendChoices(MouseEvent mouseEvent) {
         if(ResourceCount.resCountToInt(chosenResources)!=numberOfResources||chosenLeaderCards.size()<2)
@@ -171,6 +250,11 @@ public class PreGameChoiceController extends GuiController{
 
     }
 
+    /**
+     * Turn the ResourceCount of chosen resources into an arrayList
+     *
+     * @return an ArrayList of Resource full of the chosen resources by the player
+     */
     private ArrayList<Resource> getResources(){
         ArrayList<Resource> resources = new ArrayList<>();
         int takenRes = 0;
@@ -195,6 +279,11 @@ public class PreGameChoiceController extends GuiController{
         return resources;
     }
 
+    /**
+     * Changes scene, go to waiting page
+     *
+     * @param msg msg that will be displayed in the waitingPage
+     */
     public void goToWaiting(String msg){
         getGuiManager().setLayout("waitingPage.fxml");
         getGuiManager().getCurrentController().setTextForWaiting(msg);
