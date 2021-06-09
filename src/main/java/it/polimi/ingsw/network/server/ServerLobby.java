@@ -338,7 +338,7 @@ public class ServerLobby extends Thread implements Observer {
         }
         socketConnection.disconnect();
         //Timer if the lobby is empty
-        if(!gameLobby.getGameManager().isAnyoneConnected()){
+        if(gameLobby.isGameStarted()&&!gameLobby.getGameManager().isAnyoneConnected()){
             Server.LOGGER.log(Level.INFO,"LobbyID: "+lobbyID+": No one connected, starting timer...");
             noOneConnectedTimer = new Timer();
             noOneConnectedTimer.schedule(new TimerTask() {
@@ -505,11 +505,13 @@ public class ServerLobby extends Thread implements Observer {
 
     @Override
     public void updateEndGame(){
-        if(gameLobby.getNumberOfPlayers()==1)
-            sendToAll(new EndSinglePlayerGameMessage(gameLobby.getGameManager().getGame().isLorenzoWin(),gameLobby.getGameManager().getTurnManager().getPlayer().getPoints()).serialize());
-        else
-            sendToAll(new EndMultiPlayerGameMessage(gameLobby.getGameManager().getGame().getPlayers()).serialize());
-        closeLobby();
+        synchronized (gameLock) {
+            if (gameLobby.getNumberOfPlayers() == 1)
+                sendToAll(new EndSinglePlayerGameMessage(gameLobby.getGameManager().getGame().isLorenzoWin(), gameLobby.getGameManager().getTurnManager().getPlayer().getPoints()).serialize());
+            else
+                sendToAll(new EndMultiPlayerGameMessage(gameLobby.getGameManager().getGame().getPlayers()).serialize());
+            closeLobby();
+        }
     }
 
     @Override

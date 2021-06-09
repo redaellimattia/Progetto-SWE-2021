@@ -108,7 +108,7 @@
          <Font name="Roboto Light" size="30.0" />
       </font>
    </Text>
-   <Text fill="#eec82d" layoutX="508.0" layoutY="605.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You still have to pay">
+   <Text fx:id="stillToPayText" fill="#eec82d" layoutX="508.0" layoutY="605.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You still have to pay">
       <font>
          <Font name="Roboto Light" size="30.0" />
       </font>

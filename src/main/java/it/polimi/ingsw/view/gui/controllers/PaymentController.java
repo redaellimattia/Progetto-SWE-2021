@@ -24,7 +24,7 @@ public class PaymentController extends GuiController{
     @FXML
     public AnchorPane stillToPay;
     @FXML
-    public Text title,basicProductionTitle;
+    public Text title,basicProductionTitle,stillToPayText;
     @FXML
     private Button continueButton;
     @FXML //XCHOSEN
@@ -117,6 +117,7 @@ public class PaymentController extends GuiController{
         this.res = res;
         stillToPay.setVisible(false);
         title.setVisible(false);
+        stillToPayText.setVisible(false);
         basicProductionTitle.setVisible(true);
     }
 
