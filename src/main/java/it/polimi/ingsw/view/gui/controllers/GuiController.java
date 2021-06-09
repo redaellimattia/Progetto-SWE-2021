@@ -184,16 +184,6 @@ public abstract class GuiController {
         }
     }
 
-    /*protected void insertLevelOneCard(int ID,int i,ImageView firstDeck, ImageView secondDeck, ImageView thirdDeck){
-        insertCard(ID, i, firstDeck, firstDeck, firstDeck);
-    }
-    protected void insertLevelTwoCard(int ID,int i){
-        insertCard(ID, i, firstDeck2, secondDeck2, thirdDeck2);
-    }
-    protected void insertLevelThreeCard(int ID,int i){
-        insertCard(ID, i, firstDeck3, secondDeck3, thirdDeck3);
-    }*/
-
     protected void insertCard(int ID, int i, ImageView firstPosition, ImageView secondPosition, ImageView thirdPosition) {
         switch (i){
             case 0: setImage(firstPosition,"/img/cards/front/DevelopmentCards/"+ID+".png");

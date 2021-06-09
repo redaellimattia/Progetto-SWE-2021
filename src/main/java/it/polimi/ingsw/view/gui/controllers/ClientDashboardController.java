@@ -118,7 +118,6 @@ public class ClientDashboardController extends GuiController{
                 endTurnButton.setDisable(true);
             }
             if(clientManager.isMyTurn()&&clientManager.isMainActionDone()){
-
                 productionButton.setDisable(true);
                 endTurnButton.setDisable(false);
             }
@@ -168,44 +167,6 @@ public class ClientDashboardController extends GuiController{
             faithPath.setLayoutY(faithPos[position].getY());
         }
     }
-
-    /*private void setDevCards(DeckDashboard[] devCards){
-        for(int i=0;i<3;i++){
-            ArrayList<DevelopmentCard> deck = devCards[i].getDeck();
-            if(deck.size()!=0){
-                for(DevelopmentCard d:deck)
-                    switch (d.getLevel()){
-                        case 1: insertLevelOneCard(d.getId(),i);
-                        break;
-                        case 2: insertLevelTwoCard(d.getId(),i);
-                            break;
-                        case 3: insertLevelThreeCard(d.getId(),i);
-                            break;
-                    }
-            }
-        }
-    }
-
-    private void insertLevelOneCard(int ID,int i){
-        insertCard(ID, i, firstPositionLevel1, secondPositionLevel1, thirdPositionLevel1);
-    }
-    private void insertLevelTwoCard(int ID,int i){
-        insertCard(ID, i, firstPositionLevel2, secondPositionLevel2, thirdPositionLevel2);
-    }
-    private void insertLevelThreeCard(int ID,int i){
-        insertCard(ID, i, firstPositionLevel3, secondPositionLevel3, thirdPositionLevel3);
-    }
-
-    private void insertCard(int ID, int i, ImageView firstPosition, ImageView secondPosition, ImageView thirdPosition) {
-        switch (i){
-            case 0: setImage(firstPosition,"/img/cards/front/DevelopmentCards/"+ID+".png");
-                break;
-            case 1: setImage(secondPosition,"/img/cards/front/DevelopmentCards/"+ID+".png");
-                break;
-            case 2: setImage(thirdPosition,"/img/cards/front/DevelopmentCards/"+ID+".png");
-                break;
-        }
-    }*/
 
     private void setLeaderCards(ArrayList<LeaderCard> leaderCards,boolean watchingPlayer){
         int i=0;
@@ -604,9 +565,6 @@ public class ClientDashboardController extends GuiController{
     public void setResourceTypeMove(Resource resourceTypeMove) {
         this.resourceTypeMove = resourceTypeMove;
     }
-
-
-
 
     //FAITH PATH IMG POSITION
     private static class FaithPos{
