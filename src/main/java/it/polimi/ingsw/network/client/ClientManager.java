@@ -222,7 +222,7 @@ public class ClientManager {
         ArrayList<LeaderCard> leaderCards = thisPlayerDashboard.getLeaderCards();
         for(int i=0;i<leaderCards.size();i++)
             if(leaderCards.get(i).equals(leaderCard))
-            leaderCardProductionDone[i] = false;
+                leaderCardProductionDone[i] = false;
         clientSocket.send(new PlayLeaderMessage(nickname, serverLobbyID,leaderCard).serialize());
     }
 
@@ -607,12 +607,12 @@ public class ClientManager {
      * @return true if a leaderCard production is available
      */
     public boolean canDoLeaderCardProduction(PlayerDashboard p){
-        ResourceCount resource = new ResourceCount(0,0,0,0,0);
-        ArrayList<LeaderCard> productionLeaders = getProductionLeaders();
+        ResourceCount resource;
         for(int i=0;i<thisPlayerDashboard.getLeaderCards().size();i++){
-            LeaderCard l = productionLeaders.get(i);
+            resource = new ResourceCount(0,0,0,0,0);
+            LeaderCard l = thisPlayerDashboard.getLeaderCards().get(i);
             l.getSpecialAbility().getResourceType().add(resource, 1);
-            if (p.getTotalResources().hasMoreOrEqualsResources(resource)&&!leaderCardProductionDone[i])
+            if (l.isInGame()&&l.getSpecialAbility() instanceof ProductionAbility&&p.getTotalResources().hasMoreOrEqualsResources(resource)&&!leaderCardProductionDone[i])
                 return true;
         }
         return false;

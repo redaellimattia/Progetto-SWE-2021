@@ -357,8 +357,9 @@ public class ClientDashboardController extends GuiController{
             }
         }
         if(clientManager.canDoLeaderCardProduction(playerDashboard)){
-            ResourceCount resource = new ResourceCount(0,0,0,0,0);
+            ResourceCount resource;
             for(int i=0;i<playerDashboard.getLeaderCards().size();i++){
+                resource = new ResourceCount(0,0,0,0,0);
                 LeaderCard l = playerDashboard.getLeaderCards().get(i);
                 l.getSpecialAbility().getResourceType().add(resource, 1);
                 if(l.isInGame()&&l.getSpecialAbility() instanceof ProductionAbility&&!clientManager.getLeaderCardProductionDone()[i]&&playerDashboard.getTotalResources().hasMoreOrEqualsResources(resource)){
