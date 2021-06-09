@@ -42,7 +42,7 @@ public abstract class GuiController {
     public void setBuyCard(DevelopmentCard card){}
     public void setDevCardProduction(DevelopmentCard card){}
     public void setLeaderCardProduction(LeaderCard card, Resource res){}
-    public void setBasicProduction(ResourceCount cost,Resource res){}
+    public void setBasicProduction(Resource res){}
     public void setFinalStageBuy(DevelopmentCard card,ResourceCount storageCount, ResourceCount chestCount){}
     public void setProductionOnGoing(){}
     public void setEndGame(ArrayList<PlayerPoints> scoreboard){}
@@ -106,7 +106,6 @@ public abstract class GuiController {
      * @param thirdRowImage3 ImageView of the third resource of the third row
      */
     private void setStorageRow(CounterTop row,int i,ImageView firstRowImage,ImageView secondRowImage1,ImageView secondRowImage2,ImageView thirdRowImage1,ImageView thirdRowImage2,ImageView thirdRowImage3){
-        System.out.println("Row: "+i+" type: "+row.getResourceType()+" content: "+row.getContent());
         switch(i){
             case 1:
                 if(row.getContent()==0)
@@ -306,7 +305,7 @@ public abstract class GuiController {
     }
 
     //SET MODAL
-    public void setModal(boolean isInput,boolean isBasic,LeaderCard card,ResourceCount chosenInput,Stage modal){}
+    public void setModal(boolean isBasic,LeaderCard card,Stage modal){}
     public void setModal(boolean toLeader,CounterTop leaderDeposit,ClientDashboardController clientDashboard,Stage modal){}
 
     protected Stage launchModal(String fxml){

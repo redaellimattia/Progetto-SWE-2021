@@ -392,7 +392,7 @@ public class ClientDashboardController extends GuiController{
 
     public void startBasicProduction(MouseEvent mouseEvent) {
         Stage modal = launchModal("/fxml/chooseResources.fxml");
-        getGuiManager().getCurrentController().setModal(true,true,null,null,modal);
+        getGuiManager().getCurrentController().setModal(true,null,modal);
         Platform.runLater(modal::show);
     }
 
@@ -516,7 +516,7 @@ public class ClientDashboardController extends GuiController{
 
     private void launchChooseResourceLeaderProduction(LeaderCard card){
         Stage modal = launchModal("/fxml/chooseResources.fxml");
-        getGuiManager().getCurrentController().setModal(false,false,card,null,modal);
+        getGuiManager().getCurrentController().setModal(false,card,modal);
         Platform.runLater(modal::show);
     }
 

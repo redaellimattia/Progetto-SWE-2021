@@ -24,29 +24,18 @@ public class ChooseResourcesController extends GuiController{
 
     private Stage modal;
     private int toChoose;
-    private boolean isInput;
-    private ResourceCount chosenInput;
     private ResourceCount chosenOutput;
     private boolean isBasic;
     private LeaderCard leaderCard;
 
     @Override
-    public void setModal(boolean isInput,boolean isBasic,LeaderCard card,ResourceCount chosenInput,Stage modal) {
-        this.isInput = isInput;
+    public void setModal(boolean isBasic,LeaderCard card,Stage modal) {
         this.isBasic = isBasic;
         this.leaderCard = card;
         this.modal = modal;
-        if(isInput){
-            toChoose = 2;
-            this.chosenInput = new ResourceCount(0,0,0,0,0);
-            title.setText("Choose 2 Resources as input");
-        }
-        else {
-            this.chosenInput = chosenInput;
-            toChoose = 1;
-            chosenOutput = new ResourceCount(0,0,0,0,0);
-            title.setText("Choose 1 Resource as output");
-        }
+        toChoose = 1;
+        chosenOutput = new ResourceCount(0,0,0,0,0);
+        title.setText("Choose 1 Resource as output");
     }
 
 
@@ -58,31 +47,18 @@ public class ChooseResourcesController extends GuiController{
     }
 
     public void confirmClick(MouseEvent mouseEvent) {
-            if (isInput) {
-                if(toChoose==ResourceCount.resCountToInt(chosenInput)) {
-                    modal.close();
-                    //launchModal(false, isBasic, leaderCard, chosenInput);
-                    this.modal = launchModal("/fxml/chooseResources.fxml");
-                    getGuiManager().getCurrentController().setModal(false,isBasic,leaderCard,chosenInput,modal);
-                    Platform.runLater(modal::show);
-                }
-                else
-                    printError();
-            }
-            else {
-                if (toChoose == ResourceCount.resCountToInt(chosenOutput)) {
-                    modal.close();
-                    goToPayment();
-                }
-                else
-                    printError();
-            }
+        if (toChoose == ResourceCount.resCountToInt(chosenOutput)) {
+            modal.close();
+            goToPayment();
+        }
+        else
+            printError();
     }
 
     private void goToPayment(){
         getGuiManager().setLayout("payment.fxml");
         if(isBasic)
-            getGuiManager().getCurrentController().setBasicProduction(chosenInput,getResourceFromResourceCount());
+            getGuiManager().getCurrentController().setBasicProduction(getResourceFromResourceCount());
         else
             getGuiManager().getCurrentController().setLeaderCardProduction(leaderCard,getResourceFromResourceCount());
     }
@@ -105,58 +81,34 @@ public class ChooseResourcesController extends GuiController{
     }
 
     public void coinClick(MouseEvent mouseEvent) {
-        if(isInput)
-            addResource(Resource.COIN,xCoinChosen,chosenInput,toChoose,coin,shield,servant,rock);
-        else
-            addResource(Resource.COIN,xCoinChosen,chosenOutput,toChoose,coin,shield,servant,rock);
+        addResource(Resource.COIN,xCoinChosen,chosenOutput,toChoose,coin,shield,servant,rock);
     }
 
     public void shieldClick(MouseEvent mouseEvent) {
-        if(isInput)
-            addResource(Resource.SHIELD,xShieldChosen,chosenInput,toChoose,coin,shield,servant,rock);
-        else
-            addResource(Resource.SHIELD,xShieldChosen,chosenOutput,toChoose,coin,shield,servant,rock);
+        addResource(Resource.SHIELD,xShieldChosen,chosenOutput,toChoose,coin,shield,servant,rock);
     }
 
     public void servantClick(MouseEvent mouseEvent) {
-        if(isInput)
-            addResource(Resource.SERVANT,xServantChosen,chosenInput,toChoose,coin,shield,servant,rock);
-        else
-            addResource(Resource.SERVANT,xServantChosen,chosenOutput,toChoose,coin,shield,servant,rock);
+        addResource(Resource.SERVANT,xServantChosen,chosenOutput,toChoose,coin,shield,servant,rock);
     }
 
     public void rockClick(MouseEvent mouseEvent) {
-        if(isInput)
-            addResource(Resource.ROCK,xRockChosen,chosenInput,toChoose,coin,shield,servant,rock);
-        else
-            addResource(Resource.ROCK,xRockChosen,chosenOutput,toChoose,coin,shield,servant,rock);
+        addResource(Resource.ROCK,xRockChosen,chosenOutput,toChoose,coin,shield,servant,rock);
     }
 
     public void xRockClick(MouseEvent mouseEvent) {
-        if(isInput)
-            removeResource(Resource.ROCK,xRockChosen,chosenInput,coin,shield,servant,rock);
-        else
-            removeResource(Resource.ROCK,xRockChosen,chosenOutput,coin,shield,servant,rock);
+        removeResource(Resource.ROCK,xRockChosen,chosenOutput,coin,shield,servant,rock);
     }
 
     public void xCoinClick(MouseEvent mouseEvent) {
-        if(isInput)
-            removeResource(Resource.COIN,xCoinChosen,chosenInput,coin,shield,servant,rock);
-        else
-            removeResource(Resource.COIN,xCoinChosen,chosenOutput,coin,shield,servant,rock);
+        removeResource(Resource.COIN,xCoinChosen,chosenOutput,coin,shield,servant,rock);
     }
 
     public void xServantClick(MouseEvent mouseEvent) {
-        if(isInput)
-            removeResource(Resource.SERVANT,xServantChosen,chosenInput,coin,shield,servant,rock);
-        else
-            removeResource(Resource.SERVANT,xServantChosen,chosenOutput,coin,shield,servant,rock);
+        removeResource(Resource.SERVANT,xServantChosen,chosenOutput,coin,shield,servant,rock);
     }
 
     public void xShieldClick(MouseEvent mouseEvent) {
-        if(isInput)
-            removeResource(Resource.SHIELD,xShieldChosen,chosenInput,coin,shield,servant,rock);
-        else
-            removeResource(Resource.SHIELD,xShieldChosen,chosenOutput,coin,shield,servant,rock);
+        removeResource(Resource.SHIELD,xShieldChosen,chosenOutput,coin,shield,servant,rock);
     }
 }
