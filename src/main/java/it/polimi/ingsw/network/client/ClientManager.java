@@ -459,8 +459,16 @@ public class ClientManager {
                         }
                     }
                     else{
-                        to = i+1;
-                        break;
+                        if(i==1 && shelves.get(i).getContent()==0){
+                            if(shelves.get(2).getResourceType()!=resource){
+                                to=i+1;
+                                break;
+                            }
+                        }
+                        else {
+                            to = i + 1;
+                            break;
+                        }
                     }
 
                 }
