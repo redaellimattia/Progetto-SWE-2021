@@ -37,9 +37,8 @@ public class askResourcesToMoveController extends GuiController{
         this.modal=modal;
     }
     public void confirmClick(MouseEvent mouseEvent) {
-        if(toLeader){
-            clientDashboard.getGuiManager().getClientManager().moveLeaderResources(leaderDeposit.getResourceType(),numSelected,false);
-        }
+        if(toLeader)
+            clientDashboard.getGuiManager().sendMoveToLeader(leaderDeposit.getResourceType(),numSelected);
         else {
             clientDashboard.setNumberOfResourcesLeaderMove(numSelected);
             clientDashboard.setResourceTypeMove(leaderDeposit.getResourceType());
