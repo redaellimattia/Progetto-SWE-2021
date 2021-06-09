@@ -471,11 +471,11 @@ public class ClientDashboardController extends GuiController{
     public void startDevCardProduction(MouseEvent mouseEvent) {
         String ID = mouseEvent.getPickResult().getIntersectedNode().getId();
         switch (ID){
-            case "devCardProduction1": goToPayment(playerDashboard.getDevCards()[0].getFirst());
-            break;
-            case "devCardProduction2": goToPayment(playerDashboard.getDevCards()[1].getFirst());
+            case "devCardProduction1": Platform.runLater(()->goToPayment(playerDashboard.getDevCards()[0].getFirst()));
                 break;
-            case "devCardProduction3": goToPayment(playerDashboard.getDevCards()[2].getFirst());
+            case "devCardProduction2": Platform.runLater(()->goToPayment(playerDashboard.getDevCards()[1].getFirst()));
+                break;
+            case "devCardProduction3": Platform.runLater(()->goToPayment(playerDashboard.getDevCards()[2].getFirst()));
                 break;
         }
     }
