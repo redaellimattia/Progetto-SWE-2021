@@ -45,13 +45,18 @@ public class CardShopAction extends Action {
     public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {
 
         DevelopmentCard chosen = shop.getGrid()[row][column].getFirst();
+        ResourceCount chosenCost = chosen.getCost();
+        if(player.getLeaderCards().get(0).isInGame())
+            player.getLeaderCards().get(0).getSpecialAbility().useDiscountAbility(chosenCost);
+        if(player.getLeaderCards().get(1).isInGame())
+            player.getLeaderCards().get(1).getSpecialAbility().useDiscountAbility(chosenCost);
 
-        if(checkIfPossible(chosen.getLevel(),deckPosition, player) && chosen.getCost().equals(ResourceCount.getTotal(storageCount,chestCount))){
+        if(checkIfPossible(chosen.getLevel(),deckPosition, player) && chosenCost.equals(ResourceCount.getTotal(storageCount,chestCount))){
             chosen = shop.buy(row,column,player,turnManager);
             player.addDevCards(chosen,deckPosition);
             int storageToInt = ResourceCount.resCountToInt(storageCount);
             int chestToInt = ResourceCount.resCountToInt(chestCount);
-            for (LeaderCard l: player.getLeaderCards()) {
+            /*for (LeaderCard l: player.getLeaderCards()) {
                 Resource res = l.getSpecialAbility().getResourceType();
                 if(storageToInt != 0)
                     if(res.get(storageCount) != 0)
@@ -59,7 +64,7 @@ public class CardShopAction extends Action {
                     else if (chestToInt != 0)
                         if(res.get(chestCount) != 0)
                             l.getSpecialAbility().useDiscountAbility(chestCount);
-            }
+            }*/
             deleteRes(storageCount,chestCount,player);
             return true;
         }

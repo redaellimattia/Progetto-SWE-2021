@@ -515,7 +515,15 @@ public class ClientManager {
         }
         return false;
     }
+    public ResourceCount discountCardCost(ResourceCount cost){
+        ArrayList<LeaderCard> leaders = getThisClientDashboard().getLeaderCards();
+        if(leaders.get(0).isInGame())
+            leaders.get(0).getSpecialAbility().useDiscountAbility(cost);
+        if(leaders.get(1).isInGame())
+            leaders.get(1).getSpecialAbility().useDiscountAbility(cost);
 
+        return cost;
+    }
     /**
      * Check if the player can buy a specific Development Card
      * @param ID id of the specific Development Card
@@ -534,7 +542,7 @@ public class ClientManager {
                         canPlace = true;
             }
         }
-        return thisPlayerDashboard.getTotalResources().hasMoreOrEqualsResources(cost) && canPlace;
+        return thisPlayerDashboard.getTotalResources().hasMoreOrEqualsResources(discountCardCost(cost)) && canPlace;
     }
 
     /**

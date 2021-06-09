@@ -129,7 +129,8 @@ public class PaymentController extends GuiController{
     public void setBuyCard(DevelopmentCard card){
         this.shopAction=true;
         this.devCard = card;
-        setCost(card.getCost());
+        ResourceCount discountCost = getGuiManager().getClientManager().discountCardCost(card.getCost());
+        setCost(discountCost);
     }
     @FXML
     public void registerPaymentStorage(MouseEvent mouseEvent) {

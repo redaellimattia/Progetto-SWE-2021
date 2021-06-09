@@ -488,7 +488,7 @@ public class Cli implements View {
         ResourceCount cost = new ResourceCount(0,0,0,0,0);
 
         cost.sumCounts(card.getCost());
-        ArrayList<ResourceCount> payments = askPayment(cost);
+        ArrayList<ResourceCount> payments = askPayment(clientManager.discountCardCost(cost));
         ResourceCount storagePayment = payments.get(0);
         ResourceCount chestPayment = payments.get(1);
         int position;
