@@ -13,24 +13,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ClientDashboardController extends GuiController{
@@ -82,7 +74,8 @@ public class ClientDashboardController extends GuiController{
     public void setPlayer(PlayerDashboard playerDashboard,boolean watchingPlayer,ArrayList<String> log) {
         this.playerDashboard = playerDashboard;
         setFaithPath(playerDashboard.getPathPosition());
-        setDevCards(playerDashboard.getDevCards());
+        setDevCards(playerDashboard.getDevCards(),firstPositionLevel1,secondPositionLevel1,thirdPositionLevel1,firstPositionLevel2,secondPositionLevel2,thirdPositionLevel2
+                                                 ,firstPositionLevel3,secondPositionLevel3,thirdPositionLevel3);
         setLeaderCards(playerDashboard.getLeaderCards(),watchingPlayer);
         setStorage(playerDashboard.getStorage(),firstRowImage,secondRowImage1,secondRowImage2,thirdRowImage1,thirdRowImage2,thirdRowImage3);
         setChest(playerDashboard.getChest(),xCoin,xShield,xRock,xServant);
@@ -174,7 +167,7 @@ public class ClientDashboardController extends GuiController{
         faithPath.setLayoutY(faithPos[position].getY());
     }
 
-    private void setDevCards(DeckDashboard[] devCards){
+    /*private void setDevCards(DeckDashboard[] devCards){
         for(int i=0;i<3;i++){
             ArrayList<DevelopmentCard> deck = devCards[i].getDeck();
             if(deck.size()!=0){
@@ -210,7 +203,7 @@ public class ClientDashboardController extends GuiController{
             case 2: setImage(thirdPosition,"/img/cards/front/DevelopmentCards/"+ID+".png");
                 break;
         }
-    }
+    }*/
 
     private void setLeaderCards(ArrayList<LeaderCard> leaderCards,boolean watchingPlayer){
         int i=0;
@@ -451,7 +444,8 @@ public class ClientDashboardController extends GuiController{
     @Override
     public void updateDevCards(String nickname){
         if(nickname.equals(playerDashboard.getNickname()))
-            setDevCards(playerDashboard.getDevCards());
+            setDevCards(playerDashboard.getDevCards(),firstPositionLevel1,secondPositionLevel1,thirdPositionLevel1,firstPositionLevel2,secondPositionLevel2,thirdPositionLevel2
+                    ,firstPositionLevel3,secondPositionLevel3,thirdPositionLevel3);
     }
     @Override
     public void updateStorage(String nickname){
@@ -467,17 +461,14 @@ public class ClientDashboardController extends GuiController{
         getGuiManager().callDashboard();
     }
 
-
-    public void startDevCardProduction(MouseEvent mouseEvent) {
-        String ID = mouseEvent.getPickResult().getIntersectedNode().getId();
-        switch (ID){
-            case "devCardProduction1": Platform.runLater(()->goToPayment(playerDashboard.getDevCards()[0].getFirst()));
-                break;
-            case "devCardProduction2": Platform.runLater(()->goToPayment(playerDashboard.getDevCards()[1].getFirst()));
-                break;
-            case "devCardProduction3": Platform.runLater(()->goToPayment(playerDashboard.getDevCards()[2].getFirst()));
-                break;
-        }
+    public void startDevCardProduction1(MouseEvent mouseEvent) {
+        goToPayment(playerDashboard.getDevCards()[0].getFirst());
+    }
+    public void startDevCardProduction2(MouseEvent mouseEvent) {
+        goToPayment(playerDashboard.getDevCards()[1].getFirst());
+    }
+    public void startDevCardProduction3(MouseEvent mouseEvent) {
+        goToPayment(playerDashboard.getDevCards()[2].getFirst());
     }
 
     private void goToPayment(DevelopmentCard card){
@@ -486,6 +477,7 @@ public class ClientDashboardController extends GuiController{
     }
 
     public void endProduction(MouseEvent mouseEvent) {
+        clientManager.setProductionActionOnGoing(false);
         if(!clientManager.isMainActionDone())
             resetProduction();
         else {
@@ -498,21 +490,19 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
-    public void startLeaderProduction(MouseEvent mouseEvent) {
-        String ID = mouseEvent.getPickResult().getIntersectedNode().getId();
-        LeaderCard card = null;
-        switch (ID){
-            case "leaderProduction1": card = playerDashboard.getLeaderCards().get(0);
-                break;
-            case "leaderProduction2": card = playerDashboard.getLeaderCards().get(1);
-                break;
-        }
+    public void startLeaderProduction1(MouseEvent mouseEvent) {
+        launchChooseResourceLeaderProduction(playerDashboard.getLeaderCards().get(0));
+    }
+
+    public void startLeaderProduction2(MouseEvent mouseEvent) {
+        launchChooseResourceLeaderProduction(playerDashboard.getLeaderCards().get(1));
+    }
+
+    private void launchChooseResourceLeaderProduction(LeaderCard card){
         Stage modal = launchModal("/fxml/chooseResources.fxml");
         getGuiManager().getCurrentController().setModal(false,false,card,null,modal);
         Platform.runLater(modal::show);
     }
-
-
 
     public void startOrganizing(MouseEvent mouseEvent) {
         if(getGuiManager().getClientManager().canMoveResources()) {
@@ -607,6 +597,9 @@ public class ClientDashboardController extends GuiController{
     public void setResourceTypeMove(Resource resourceTypeMove) {
         this.resourceTypeMove = resourceTypeMove;
     }
+
+
+
 
     //FAITH PATH IMG POSITION
     private static class FaithPos{

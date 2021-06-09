@@ -133,7 +133,7 @@
             </font>
          </Text>
       </AnchorPane>
-      <AnchorPane fx:id="leaderProduction1" layoutX="218.0" layoutY="120.0" onMouseClicked="#startLeaderProduction" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
+      <AnchorPane fx:id="leaderProduction1" layoutX="218.0" layoutY="120.0" onMouseClicked="#startLeaderProduction1" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../img/javaFX/hammer.png" />
          </ImageView>
@@ -162,7 +162,7 @@
             </font>
          </Text>
       </AnchorPane>
-      <AnchorPane fx:id="leaderProduction2" layoutX="218.0" layoutY="385.0" onMouseClicked="#startLeaderProduction" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
+      <AnchorPane fx:id="leaderProduction2" layoutX="218.0" layoutY="385.0" onMouseClicked="#startLeaderProduction2" prefHeight="40" prefWidth="40" styleClass="greenButton" visible="false">
          <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="5.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
             <Image url="@../img/javaFX/hammer.png" />
          </ImageView>
@@ -185,10 +185,10 @@
       </font>
    </Text>
    <Button fx:id="startBasicProduction" layoutX="239.0" layoutY="605.0" mnemonicParsing="false" onMouseClicked="#startBasicProduction" styleClass="greenButton" text="Basic Production" visible="false" />
-   <Button fx:id="devCardProduction1" layoutX="400.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction" styleClass="greenButton" text="DevCard Production" visible="false" />
-   <Button fx:id="devCardProduction2" layoutX="590.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction" styleClass="greenButton" text="DevCard Production" visible="false" />
+   <Button fx:id="devCardProduction1" layoutX="400.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction1" styleClass="greenButton" text="DevCard Production" visible="false" />
+   <Button fx:id="devCardProduction2" layoutX="590.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction2" styleClass="greenButton" text="DevCard Production" visible="false" />
    <Button fx:id="endProduction" layoutX="870.0" layoutY="175.0" mnemonicParsing="false" onMouseClicked="#endProduction" styleClass="redButton" text="End Production" visible="false" />
-   <Button fx:id="devCardProduction3" layoutX="800.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction" styleClass="greenButton" text="DevCard Production" visible="false" />
+   <Button fx:id="devCardProduction3" layoutX="800.0" layoutY="250.0" mnemonicParsing="false" onMouseClicked="#startDevCardProduction3" styleClass="greenButton" text="DevCard Production" visible="false" />
    <AnchorPane fx:id="bufferProduction" layoutX="444.0" layoutY="600.0" prefHeight="119.0" prefWidth="396.0" visible="false">
       <Text fill="WHITE" layoutX="97.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Production Buffer">
          <font>

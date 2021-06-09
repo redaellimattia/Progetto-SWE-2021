@@ -1,9 +1,6 @@
 package it.polimi.ingsw.view.gui.controllers;
 
-import it.polimi.ingsw.model.CounterTop;
-import it.polimi.ingsw.model.PlayerDashboard;
-import it.polimi.ingsw.model.ResourceCount;
-import it.polimi.ingsw.model.Storage;
+import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -165,6 +162,46 @@ public abstract class GuiController {
             case SHIELD:  return "/img/punchboard/shield2.png";
             case SERVANT:  return "/img/punchboard/servant2.png";
             default: return null;
+        }
+    }
+
+    protected void setDevCards(DeckDashboard[] devCards,ImageView firstDeck1, ImageView secondDeck1, ImageView thirdDeck1,
+                                ImageView firstDeck2, ImageView secondDeck2, ImageView thirdDeck2,
+                                ImageView firstDeck3, ImageView secondDeck3, ImageView thirdDeck3){
+        for(int i=0;i<3;i++){
+            ArrayList<DevelopmentCard> deck = devCards[i].getDeck();
+            if(deck.size()!=0){
+                for(DevelopmentCard d:deck)
+                    switch (d.getLevel()){
+                        case 1: insertCard(d.getId(),i,firstDeck1,secondDeck1,thirdDeck1);
+                            break;
+                        case 2: insertCard(d.getId(),i,firstDeck2,secondDeck2,thirdDeck2);
+                            break;
+                        case 3: insertCard(d.getId(),i,firstDeck3,secondDeck3,thirdDeck3);
+                            break;
+                    }
+            }
+        }
+    }
+
+    /*protected void insertLevelOneCard(int ID,int i,ImageView firstDeck, ImageView secondDeck, ImageView thirdDeck){
+        insertCard(ID, i, firstDeck, firstDeck, firstDeck);
+    }
+    protected void insertLevelTwoCard(int ID,int i){
+        insertCard(ID, i, firstDeck2, secondDeck2, thirdDeck2);
+    }
+    protected void insertLevelThreeCard(int ID,int i){
+        insertCard(ID, i, firstDeck3, secondDeck3, thirdDeck3);
+    }*/
+
+    protected void insertCard(int ID, int i, ImageView firstPosition, ImageView secondPosition, ImageView thirdPosition) {
+        switch (i){
+            case 0: setImage(firstPosition,"/img/cards/front/DevelopmentCards/"+ID+".png");
+                break;
+            case 1: setImage(secondPosition,"/img/cards/front/DevelopmentCards/"+ID+".png");
+                break;
+            case 2: setImage(thirdPosition,"/img/cards/front/DevelopmentCards/"+ID+".png");
+                break;
         }
     }
 
