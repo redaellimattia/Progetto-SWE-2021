@@ -97,8 +97,9 @@ public class GameLobby {
     }
 
     /**
-     * set the boolean gameStarted
-     * @param gameStarted
+     * Set the boolean gameStarted
+     *
+     * @param gameStarted new value of gameStarted
      */
     public void setGameStarted(boolean gameStarted) {
         this.gameStarted = gameStarted;
@@ -106,6 +107,7 @@ public class GameLobby {
 
     /**
      * remove a player from the list of players
+     *
      * @param nickname of the player to remove
      */
     public void removePlayer(String nickname){
@@ -118,6 +120,7 @@ public class GameLobby {
 
     /**
      * Initializes all objects for a new game, loading default initial configuration
+     *
      * @param singlePlayer true if the game is in single player mode
      * @param observer the observer that will listen for changes in the game status
      */

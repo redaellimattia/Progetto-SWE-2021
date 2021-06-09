@@ -210,7 +210,8 @@ public class PlayerDashboard extends Player implements StorageObserver{
      * ADVANCE OF 1 ON THE PATH POSITION
      */
     public void updatePathPosition(){
-        pathPosition += 1;
+        if(pathPosition<24)
+            pathPosition += 1;
         if(observer!=null)
             observer.updatePathPosition(this,pathPosition);
     }
