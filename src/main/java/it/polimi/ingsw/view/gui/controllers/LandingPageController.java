@@ -90,6 +90,7 @@ public class LandingPageController extends GuiController{
             error.setText("Insert a valid nickname!");
             error.setVisible(true);
             nicknameField.clear();
+            lobbyList.getSelectionModel().clearSelection();
         }
         else{
             String nickname = nicknameField.getText();
