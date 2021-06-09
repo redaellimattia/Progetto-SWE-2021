@@ -51,6 +51,7 @@ public class MoveFromLeaderToDeposit extends Action {
                 CounterTop substitute = new CounterTop(leaderDeposit.getResourceType(),number);
                 try{storage.setFirstRow(substitute);}catch(CounterTopOverloadException e){}
                 leaderDeposit.removeContent(number);
+                player.updateArrayDeposits();
                 return true;
             }
             else
@@ -59,6 +60,7 @@ public class MoveFromLeaderToDeposit extends Action {
                 CounterTop substitute = new CounterTop(leaderDeposit.getResourceType(),number+storage.getSecondRow().getContent());
                 try{storage.setSecondRow(substitute);}catch(CounterTopOverloadException e){};
                 leaderDeposit.removeContent(number);
+                player.updateArrayDeposits();
                 return true;
             }
             else
@@ -67,6 +69,7 @@ public class MoveFromLeaderToDeposit extends Action {
                 CounterTop substitute = new CounterTop(leaderDeposit.getResourceType(),number+storage.getThirdRow().getContent());
                 try{storage.setThirdRow(substitute);}catch(CounterTopOverloadException e){};
                 leaderDeposit.removeContent(number);
+                player.updateArrayDeposits();
                 return true;
             }
             else

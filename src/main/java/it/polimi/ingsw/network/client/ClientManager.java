@@ -452,8 +452,17 @@ public class ClientManager {
         if(fromLeader) {
             for (int i = 0; i < shelves.size(); i++) {
                 if (shelves.get(i).getResourceType().equals(resource) || shelves.get(i).getContent()==0) {
-                    to = i+1;
-                    break;
+                    if(i==0){
+                        if(shelves.get(1).getResourceType()!=resource && shelves.get(2).getResourceType()!= resource){
+                            to = i+1;
+                            break;
+                        }
+                    }
+                    else{
+                        to = i+1;
+                        break;
+                    }
+
                 }
             }
             for (int i = 0; i < p.getArrayDeposit().size(); i++) {

@@ -466,7 +466,6 @@ public class ClientDashboardController extends GuiController{
     public void updateStorage(String nickname){
         if(nickname.equals(playerDashboard.getNickname())) {
             setStorage(playerDashboard.getStorage(), firstRowImage, secondRowImage1, secondRowImage2, thirdRowImage1, thirdRowImage2, thirdRowImage3);
-            setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
         }
     }
     @Override
