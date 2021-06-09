@@ -83,6 +83,9 @@ public class LandingPageController extends GuiController{
     @FXML
     public void handleMouseClick(MouseEvent mouseEvent) {
         ReturnLobbiesMessage.availableGameLobbies selected = lobbyList.getSelectionModel().getSelectedItem();
+        if(selected == null) {
+            return;
+        }
         if(nicknameField.getText().equals("")) {
             error.setText("Insert a valid nickname!");
             error.setVisible(true);
