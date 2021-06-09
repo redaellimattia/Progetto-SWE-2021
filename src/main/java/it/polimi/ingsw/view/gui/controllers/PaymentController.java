@@ -24,7 +24,7 @@ public class PaymentController extends GuiController{
     @FXML
     public AnchorPane stillToPay;
     @FXML
-    public Text title;
+    public Text title,basicProductionTitle;
     @FXML
     private Button continueButton;
     @FXML //XCHOSEN
@@ -116,7 +116,8 @@ public class PaymentController extends GuiController{
         basicProduction = true;
         this.res = res;
         stillToPay.setVisible(false);
-        title.setText("Choose 2 Resources as input");
+        title.setVisible(false);
+        basicProductionTitle.setVisible(true);
     }
 
     private void setCost(ResourceCount cost){

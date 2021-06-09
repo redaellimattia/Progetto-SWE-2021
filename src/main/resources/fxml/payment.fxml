@@ -261,4 +261,9 @@
       </font>
    </Text>
    <Button fx:id="continueButton" layoutX="1064.0" layoutY="657.0" mnemonicParsing="false" onMouseClicked="#endBuy" prefHeight="46.0" prefWidth="170.0" text="Continue" />
+   <Text fx:id="basicProductionTitle" fill="#ffcc00" layoutX="409.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose 2 Resources as input" textAlignment="CENTER" visible="false" wrappingWidth="465.0">
+      <font>
+         <Font name="Roboto Light" size="50.0" />
+      </font>
+   </Text>
 </AnchorPane>
