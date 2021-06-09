@@ -1,5 +1,7 @@
 package it.polimi.ingsw.network.client;
 
+import it.polimi.ingsw.view.gui.GuiManager;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -84,6 +86,9 @@ public class ClientSocket implements Runnable {
             } catch (IOException e) {System.out.println(e.getMessage());}
             socketListener.interrupt(); // Interrupts the thread
             isConnected = false;
+        }
+        if(!clientManager.isGameEnded()){
+            clientManager.getView().failedConnection("Unexpectedly the server stopped running!");
         }
     }
 }

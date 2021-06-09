@@ -20,6 +20,7 @@ public class EndSinglePlayerGameMessage extends ServerMessage {
      */
     @Override
     public void useMessage(ClientManager clientManager){
+        clientManager.setGameEnded(true);
         clientManager.getView().endGame(lorenzoWin,playerVictoryPoints);
     }
 }

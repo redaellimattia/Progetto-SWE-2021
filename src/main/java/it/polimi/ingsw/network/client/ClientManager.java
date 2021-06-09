@@ -25,6 +25,7 @@ public class ClientManager {
     private boolean mainActionDone;
     private boolean isMyTurn;
     private boolean gameStarted;
+    private boolean gameEnded;
     private boolean productionActionOnGoing;
     private boolean basicProductionDone;
     private int lastProduction;
@@ -51,6 +52,7 @@ public class ClientManager {
         this.gameStarted = false;
         this.leaderCardProductionDone = new boolean[2];
         this.devCardProductionDone = new boolean[3];
+        this.gameEnded=false;
         view.start();
     }
     //GETTERS
@@ -86,6 +88,14 @@ public class ClientManager {
     }
     public boolean[] getDevCardProductionDone() {
         return devCardProductionDone;
+    }
+
+    public boolean isGameEnded() {
+        return gameEnded;
+    }
+
+    public void setGameEnded(boolean gameEnded) {
+        this.gameEnded = gameEnded;
     }
 
     /**

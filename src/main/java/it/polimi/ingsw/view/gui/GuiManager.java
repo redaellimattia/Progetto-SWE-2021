@@ -71,7 +71,7 @@ public class GuiManager implements View, GuiObserver{
 
     @Override
     public void failedConnection(String msg){
-        stage.close();
+        Platform.runLater(()->stage.close());
     }
 
     @Override
