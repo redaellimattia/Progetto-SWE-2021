@@ -46,7 +46,7 @@ public abstract class Action {
                 ArrayList<CounterTop> shelves = storage.getShelvesArray();
                 for (int i=0;i<=2;i++){ //SCAN EVERY SHELF
                     CounterTop counter = shelves.get(i);
-                    if(counter.getResourceType().equals(res)) {//IF THE SHELF RESOURCETYPE MATCHES THE REQUESTED RESOURCE
+                    if(counter.getResourceType().equals(res)&&counter.getContent()>0) {//IF THE SHELF RESOURCETYPE MATCHES THE REQUESTED RESOURCE
                     //counter.removeContent(valueToRemove); //THEN REMOVE FROM THE SHELF CONTENT
                         CounterTop newCounter = new CounterTop(counter.getResourceType(),counter.getContent()-valueToRemove);
                         switch(i){
