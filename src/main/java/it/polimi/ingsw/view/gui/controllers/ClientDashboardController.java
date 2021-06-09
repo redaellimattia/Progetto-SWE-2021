@@ -339,7 +339,7 @@ public class ClientDashboardController extends GuiController{
     }
 
     private void setAvailableProductions(){
-        if(!clientManager.isBasicProductionDone())
+        if(!clientManager.isBasicProductionDone()&&ResourceCount.resCountToInt(playerDashboard.getTotalResources())>1)
             startBasicProduction.setVisible(true);
         if(clientManager.canDoDevCardProduction(playerDashboard)) {
             for(int i=0;i<3;i++){
