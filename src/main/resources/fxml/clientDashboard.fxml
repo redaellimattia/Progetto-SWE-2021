@@ -145,11 +145,11 @@
             </font>
          </Text>
       </AnchorPane>
-      <AnchorPane fx:id="secondAbilityDeposit" layoutX="69.0" layoutY="470.0" prefHeight="60.0" prefWidth="143.0" visible="false">
+      <AnchorPane fx:id="secondAbilityDeposit" layoutX="45.0" layoutY="470.0" prefHeight="60.0" prefWidth="143.0" visible="false">
          <ImageView fx:id="secondAbilityDeposit1" fitHeight="33.0" fitWidth="44.0" layoutX="86.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
          <ImageView fx:id="secondAbilityDeposit2" fitHeight="33.0" fitWidth="44.0" layoutX="21.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" />
       </AnchorPane>
-      <AnchorPane fx:id="firstAbilityDeposit" layoutX="69.0" layoutY="202.0" prefHeight="60.0" prefWidth="143.0" visible="false">
+      <AnchorPane fx:id="firstAbilityDeposit" layoutX="45.0" layoutY="202.0" prefHeight="60.0" prefWidth="143.0" visible="false">
          <ImageView fx:id="firstAbilityDeposit1" fitHeight="33.0" fitWidth="44.0" layoutX="82.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
          </ImageView>
          <ImageView fx:id="firstAbilityDeposit2" fitHeight="33.0" fitWidth="44.0" layoutX="18.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
@@ -174,8 +174,8 @@
             </font>
          </Text>
       </AnchorPane>
-      <Button fx:id="firstLeaderButton" layoutX="24.0" layoutY="211.0" mnemonicParsing="false" onMouseClicked="#firstLeaderSelected" styleClass="greenButton" text="4" />
-      <Button fx:id="secondLeaderButton" layoutX="24.0" layoutY="479.0" mnemonicParsing="false" onMouseClicked="#secondLeaderSelected" styleClass="greenButton" text="5" />
+      <Button fx:id="firstLeaderButton" layoutX="13.0" layoutY="214.0" mnemonicParsing="false" onMouseClicked="#firstLeaderSelected" styleClass="greenButton" text="4" />
+      <Button fx:id="secondLeaderButton" layoutX="13.0" layoutY="482.0" mnemonicParsing="false" onMouseClicked="#secondLeaderSelected" styleClass="greenButton" text="5" />
    </AnchorPane>
    <Button fx:id="shopButton" layoutX="286.0" layoutY="387.0" mnemonicParsing="false" onMouseClicked="#goToShop" text="Shop" />
    <ComboBox fx:id="otherPlayers" layoutX="2.0" layoutY="7.0" onAction="#selectPlayer" prefHeight="25.0" prefWidth="121.0" promptText="Other players..." />

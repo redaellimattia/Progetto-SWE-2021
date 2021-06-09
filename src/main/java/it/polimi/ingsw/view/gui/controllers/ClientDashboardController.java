@@ -228,6 +228,12 @@ public class ClientDashboardController extends GuiController{
                         playLeader2.setVisible(true);
                 }
             }
+            else{
+                playLeader1.setVisible(false);
+                playLeader2.setVisible(false);
+                discardLeader1.setVisible(false);
+                discardLeader2.setVisible(false);
+            }
             if(i==0) {
                 if (!watchingPlayer || l.isInGame())
                     setImage(leaderCard1, "/img/cards/front/LeaderCards/" + l.getId() + ".png");
