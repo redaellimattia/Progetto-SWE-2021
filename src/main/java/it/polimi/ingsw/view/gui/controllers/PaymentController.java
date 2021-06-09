@@ -75,10 +75,7 @@ public class PaymentController extends GuiController{
             thirdRowImage2YouHave.setDisable(true);
             thirdRowImage3YouHave.setDisable(true);
         }
-        if(playerChest.getCoins()==0)
-            chestCoinYouHave.setDisable(true);
-        else
-            chestCoinYouHave.setDisable(false);
+        chestCoinYouHave.setDisable(playerChest.getCoins() == 0);
         if(playerChest.getRocks()==0)
             chestRockYouHave.setDisable(true);
         if(playerChest.getShields()==0)
