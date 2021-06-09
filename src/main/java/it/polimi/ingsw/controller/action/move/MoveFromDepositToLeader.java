@@ -32,7 +32,11 @@ public class MoveFromDepositToLeader extends Action {
     @Override
     public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager){
         Storage storage = player.getStorage();
-        CounterTop leaderDeposit = player.getArrayDeposit().get(to_leader);
+        CounterTop leaderDeposit;
+        if(player.getArrayDeposit().size()>1)
+            leaderDeposit = player.getArrayDeposit().get(to_leader-1);
+        else
+            leaderDeposit = player.getArrayDeposit().get(0);
         switch(from_deposit){
             case 1: if( storage.getFirstRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getFirstRow().getResourceType().equals(leaderDeposit.getResourceType())) {
                 leaderDeposit.addContent(number);

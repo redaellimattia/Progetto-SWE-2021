@@ -7,6 +7,9 @@ import it.polimi.ingsw.exceptions.action.WrongResourcesMovedException;
 import it.polimi.ingsw.model.CounterTop;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.Storage;
+import it.polimi.ingsw.model.card.LeaderCard;
+
+import javax.swing.*;
 
 public class MoveFromLeaderToDeposit extends Action {
     private int from_leader;
@@ -33,7 +36,11 @@ public class MoveFromLeaderToDeposit extends Action {
     //RETURN FALSE IF THAT DEPOSIT DOESN'T HAVE THE REQUIRED RESOURCES TO MOVE;
     @Override
     public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager){
-        CounterTop leaderDeposit = player.getArrayDeposit().get(from_leader);
+        CounterTop leaderDeposit;
+        if(player.getArrayDeposit().size()>1)
+            leaderDeposit = player.getArrayDeposit().get(from_leader-1);
+        else
+            leaderDeposit = player.getArrayDeposit().get(0);
         Storage storage = player.getStorage();
 
         if(leaderDeposit.getContent()< number)

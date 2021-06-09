@@ -163,8 +163,10 @@ public class ClientDashboardController extends GuiController{
     }
 
     private void setFaithPath(int position){
-        faithPath.setLayoutX(faithPos[position].getX());
-        faithPath.setLayoutY(faithPos[position].getY());
+        if(position<25) {
+            faithPath.setLayoutX(faithPos[position].getX());
+            faithPath.setLayoutY(faithPos[position].getY());
+        }
     }
 
     /*private void setDevCards(DeckDashboard[] devCards){
@@ -222,10 +224,14 @@ public class ClientDashboardController extends GuiController{
                 }
             }
             else{
-                playLeader1.setVisible(false);
-                playLeader2.setVisible(false);
-                discardLeader1.setVisible(false);
-                discardLeader2.setVisible(false);
+                if(i==0) {
+                    playLeader1.setVisible(false);
+                    discardLeader1.setVisible(false);
+                }
+                if(i==1) {
+                    playLeader2.setVisible(false);
+                    discardLeader2.setVisible(false);
+                }
             }
             if(i==0) {
                 if (!watchingPlayer || l.isInGame())
@@ -518,6 +524,7 @@ public class ClientDashboardController extends GuiController{
             if(playerDashboard.getArrayDeposit().size()>0) {
                 if (clientManager.canMoveFromLeader(playerDashboard.getArrayDeposit().get(0).getResourceType()) || clientManager.canMoveToLeader(playerDashboard.getArrayDeposit().get(0).getResourceType()))
                 firstLeaderButton.setVisible(true);
+            if(playerDashboard.getArrayDeposit().size()>1)
                 if (secondAbilityDeposit.isVisible() && clientManager.canMoveFromLeader(playerDashboard.getArrayDeposit().get(1).getResourceType()) || clientManager.canMoveToLeader(playerDashboard.getArrayDeposit().get(1).getResourceType()))
                     secondLeaderButton.setVisible(true);
             }

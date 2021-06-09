@@ -452,13 +452,13 @@ public class ClientManager {
         if(fromLeader) {
             for (int i = 0; i < shelves.size(); i++) {
                 if (shelves.get(i).getResourceType().equals(resource) || shelves.get(i).getContent()==0) {
-                    to = i;
+                    to = i+1;
                     break;
                 }
             }
             for (int i = 0; i < p.getArrayDeposit().size(); i++) {
                 if (p.getArrayDeposit().get(i).getResourceType().equals(resource)) {
-                    from = i;
+                    from = i+1;
                     break;
                 }
             }
@@ -467,13 +467,13 @@ public class ClientManager {
         else{
             for (int i = 0; i < shelves.size(); i++) {
                 if (shelves.get(i).getResourceType().equals(resource)) {
-                    to = i;
+                    to = i+1;
                     break;
                 }
             }
             for (int i = 0; i < p.getArrayDeposit().size(); i++) {
                 if (p.getArrayDeposit().get(i).getResourceType().equals(resource)) {
-                    from = i;
+                    from = i+1;
                     break;
                 }
             }

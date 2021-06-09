@@ -152,14 +152,19 @@ public class GuiManager implements View, GuiObserver{
 
     @Override
     public void endGame(ArrayList<PlayerPoints> scoreboard) {
+        Platform.runLater(()->goToEndGameMulti(scoreboard));
+    }
+    private void goToEndGameMulti(ArrayList<PlayerPoints> scoreboard){
         setLayout("endGame.fxml");
         currentController.setEndGame(scoreboard);
     }
-
-    @Override
-    public void endGame(boolean lorenzoWin, int playerPoints) {
+    private void goToEndGameSingle(boolean lorenzoWin, int playerPoints){
         setLayout("endGame.fxml");
         currentController.setEndGame(lorenzoWin,playerPoints);
+    }
+    @Override
+    public void endGame(boolean lorenzoWin, int playerPoints) {
+        Platform.runLater(()->goToEndGameSingle(lorenzoWin,playerPoints));
     }
 
     @Override
