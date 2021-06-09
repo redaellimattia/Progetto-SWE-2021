@@ -45,7 +45,7 @@ public class CardShopAction extends Action {
     public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {
 
         DevelopmentCard chosen = shop.getGrid()[row][column].getFirst();
-        ResourceCount chosenCost = chosen.getCost();
+        ResourceCount chosenCost = new ResourceCount(chosen.getCost().getCoins(),chosen.getCost().getRocks(),chosen.getCost().getServants(),chosen.getCost().getShields(),0);
         if(player.getLeaderCards().get(0).isInGame())
             player.getLeaderCards().get(0).getSpecialAbility().useDiscountAbility(chosenCost);
         if(player.getLeaderCards().get(1).isInGame())

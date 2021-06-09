@@ -40,7 +40,7 @@ public class ClientGameStatus {
         this.guiObserver = null;
     }
 
-    public VaticanReport[] getvReports() {
+    public VaticanReport[] getReports() {
         return vReports;
     }
 

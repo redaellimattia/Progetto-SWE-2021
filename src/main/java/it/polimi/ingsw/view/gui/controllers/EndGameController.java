@@ -41,9 +41,8 @@ public class EndGameController extends GuiController{
             setImage(endGameLogo,"/img/javaFX/win.gif");
         else
             setImage(endGameLogo,"/img/javaFX/gameOver.gif");
-
-        firstPlayer.setText("1. " + scoreboard.get(0).getPlayer() + scoreboard.get(0).getVictoryPoints());
-        secondPlayer.setText("2. " + scoreboard.get(1).getPlayer() + scoreboard.get(1).getVictoryPoints());
+        firstPlayer.setText("1. " + scoreboard.get(0).getPlayer() + " "+ scoreboard.get(0).getVictoryPoints()+" points");
+        secondPlayer.setText("2. " + scoreboard.get(1).getPlayer() +" " + scoreboard.get(1).getVictoryPoints()+" points");
         if(scoreboard.size()==3)
             thirdPlayer.setText("3. " + scoreboard.get(2).getPlayer() + scoreboard.get(2).getVictoryPoints());
         else

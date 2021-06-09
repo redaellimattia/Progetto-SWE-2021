@@ -141,7 +141,7 @@ public class GameManager {
      */
     public void nextRound(boolean singlePlayerFirstRound) {
             PlayerDashboard player = this.turnManager.getPlayer();
-            if (game.getShop().emptyColumn() || player.hasSevenDevCards())//If this player has 7 devCards or a shop column is empty, game must end
+            if ((game.getShop().emptyColumn() && isSinglePlayer ) || (!isSinglePlayer && player.hasSevenDevCards()))//If this player has 7 devCards or a shop column is empty, game must end
                 setGameMustEnd();
             //this check should work. Lorenzo is in the player list, so the passive changes are made correctly and setGameMustEnd is called correctly.
             //In the case of single player, it doesn't matter which player is last, it will just end the game

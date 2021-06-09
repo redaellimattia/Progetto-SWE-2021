@@ -516,13 +516,14 @@ public class ClientManager {
         return false;
     }
     public ResourceCount discountCardCost(ResourceCount cost){
+        ResourceCount discountCost = new ResourceCount(cost.getCoins(),cost.getRocks(),cost.getServants(),cost.getShields(),0);
         ArrayList<LeaderCard> leaders = getThisClientDashboard().getLeaderCards();
         if(leaders.get(0).isInGame())
-            leaders.get(0).getSpecialAbility().useDiscountAbility(cost);
+            leaders.get(0).getSpecialAbility().useDiscountAbility(discountCost);
         if(leaders.get(1).isInGame())
-            leaders.get(1).getSpecialAbility().useDiscountAbility(cost);
+            leaders.get(1).getSpecialAbility().useDiscountAbility(discountCost);
 
-        return cost;
+        return discountCost;
     }
     /**
      * Check if the player can buy a specific Development Card

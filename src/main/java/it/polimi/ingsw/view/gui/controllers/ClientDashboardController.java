@@ -113,9 +113,9 @@ public class ClientDashboardController extends GuiController{
         }
         else{
             if(!clientManager.isMyTurn()){
-                marketButton.setDisable(true);
                 productionButton.setDisable(true);
                 endTurnButton.setDisable(true);
+                organizeButton.setDisable(true);
             }
             if(clientManager.isMyTurn()&&clientManager.isMainActionDone()){
                 productionButton.setDisable(true);
@@ -137,7 +137,7 @@ public class ClientDashboardController extends GuiController{
     public void initialize() {
         super.setGuiManager(GuiManager.getInstance());
         this.clientManager = getGuiManager().getClientManager();
-        setVaticanReport(clientManager.getGameStatus().getvReports());
+        setVaticanReport(clientManager.getGameStatus().getReports());
         ObservableList<String> players = FXCollections.observableArrayList();
         for(PlayerDashboard p:clientManager.getGameStatus().getPlayers()){
             if(!p.getNickname().equals(clientManager.getThisClientDashboard().getNickname()))
@@ -471,7 +471,7 @@ public class ClientDashboardController extends GuiController{
     }
     @Override
     public void updateVaticanReports(){
-        setVaticanReport(clientManager.getGameStatus().getvReports());
+        setVaticanReport(clientManager.getGameStatus().getReports());
     }
 
     public void backToHome(MouseEvent mouseEvent) {
