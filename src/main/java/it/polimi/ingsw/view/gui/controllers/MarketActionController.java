@@ -341,7 +341,7 @@ public class MarketActionController extends GuiController {
      */
     public void whiteMarbleChoice(MouseEvent mouseEvent) {
         // Check if the user has clicked on a part of the list with no item
-        if(getResourceList.getSelectionModel().getSelectedIndex() < 0) {
+        if(choicesList.getSelectionModel().getSelectedIndex() < 0) {
             return; // return without saving choice
         }
         if(choicesList.getSelectionModel().getSelectedIndex() == 0) {
