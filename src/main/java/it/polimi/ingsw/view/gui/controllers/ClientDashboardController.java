@@ -464,8 +464,10 @@ public class ClientDashboardController extends GuiController{
     }
     @Override
     public void updateStorage(String nickname){
-        if(nickname.equals(playerDashboard.getNickname()))
-            setStorage(playerDashboard.getStorage(),firstRowImage,secondRowImage1,secondRowImage2,thirdRowImage1,thirdRowImage2,thirdRowImage3);
+        if(nickname.equals(playerDashboard.getNickname())) {
+            setStorage(playerDashboard.getStorage(), firstRowImage, secondRowImage1, secondRowImage2, thirdRowImage1, thirdRowImage2, thirdRowImage3);
+            setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
+        }
     }
     @Override
     public void updateVaticanReports(){
@@ -529,14 +531,12 @@ public class ClientDashboardController extends GuiController{
         firstStorage.setVisible(true);
         secondStorage.setVisible(true);
         thirdStorage.setVisible(true);
-        if(firstAbilityDeposit.isVisible())
-            if(playerDashboard.getArrayDeposit().size()>0) {
-                if (clientManager.canMoveFromLeader(playerDashboard.getArrayDeposit().get(0).getResourceType()) || clientManager.canMoveToLeader(playerDashboard.getArrayDeposit().get(0).getResourceType()))
+        if(playerDashboard.getArrayDeposit().size()>0) {
+            if (firstAbilityDeposit.isVisible())
                 firstLeaderButton.setVisible(true);
-            if(playerDashboard.getArrayDeposit().size()>1)
-                if (secondAbilityDeposit.isVisible() && clientManager.canMoveFromLeader(playerDashboard.getArrayDeposit().get(1).getResourceType()) || clientManager.canMoveToLeader(playerDashboard.getArrayDeposit().get(1).getResourceType()))
-                    secondLeaderButton.setVisible(true);
-            }
+            if (secondAbilityDeposit.isVisible())
+                secondLeaderButton.setVisible(true);
+        }
         }
     }
 
@@ -596,12 +596,18 @@ public class ClientDashboardController extends GuiController{
         if(firstCounterTopSwapped==-1) {
             firstCounterTopSwapped = 5;
             Stage modal = launchModal("/fxml/askResourcesToMove.fxml");
-            getGuiManager().getCurrentController().setModal(false,playerDashboard.getArrayDeposit().get(1),this,modal);
+            if(playerDashboard.getArrayDeposit().size()>1)
+                getGuiManager().getCurrentController().setModal(false,playerDashboard.getArrayDeposit().get(1),this,modal);
+            else
+                getGuiManager().getCurrentController().setModal(false,playerDashboard.getArrayDeposit().get(0),this,modal);
             Platform.runLater(modal::show);
         }
         else{
             Stage modal = launchModal("/fxml/askResourcesToMove.fxml");
-            getGuiManager().getCurrentController().setModal(true,playerDashboard.getArrayDeposit().get(1),this,modal);
+            if(playerDashboard.getArrayDeposit().size()>1)
+                getGuiManager().getCurrentController().setModal(true,playerDashboard.getArrayDeposit().get(1),this,modal);
+            else
+                getGuiManager().getCurrentController().setModal(true,playerDashboard.getArrayDeposit().get(0),this,modal);
             Platform.runLater(modal::show);
         }
     }
