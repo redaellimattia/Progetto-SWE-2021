@@ -58,7 +58,9 @@ public class PlayerDashboard extends Player implements StorageObserver{
         bufferProduction = new ResourceCount(0,0,0,0,0);
         storage.setPlayer(this);
     }
-
+    public void updateArrayDeposits(){
+        this.observer.updateArrayDeposit(getNickname(),arrayDeposit);
+    }
     //GETTERS
 
     /**

@@ -34,6 +34,6 @@
       </ImageView>
    </AnchorPane>
    <Button fx:id="firstDeck" layoutX="364.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#firstDeckChosen" prefHeight="37.0" prefWidth="101.0" text="First Deck" />
-   <Button fx:id="secondDeck" layoutX="655.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#secondDeckChosen" prefHeight="37.0" prefWidth="101.0" text="Second Deck" />
-   <Button fx:id="thirdDeck" layoutX="941.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#thirdDeckChosen" prefHeight="37.0" prefWidth="101.0" text="Third Deck" />
+   <Button fx:id="secondDeck" layoutX="651.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#secondDeckChosen" prefHeight="42.0" prefWidth="118.0" text="Second Deck" />
+   <Button fx:id="thirdDeck" layoutX="946.0" layoutY="223.0" mnemonicParsing="false" onMouseClicked="#thirdDeckChosen" prefHeight="37.0" prefWidth="101.0" text="Third Deck" />
 </AnchorPane>

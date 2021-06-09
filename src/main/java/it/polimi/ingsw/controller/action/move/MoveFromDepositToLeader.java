@@ -38,23 +38,29 @@ public class MoveFromDepositToLeader extends Action {
         else
             leaderDeposit = player.getArrayDeposit().get(0);
         switch(from_deposit){
-            case 1: if( storage.getFirstRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getFirstRow().getResourceType().equals(leaderDeposit.getResourceType())) {
+            case 1: if(storage.getFirstRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getFirstRow().getResourceType().equals(leaderDeposit.getResourceType())) {
+                CounterTop substitute = new CounterTop(leaderDeposit.getResourceType(),0);
                 leaderDeposit.addContent(number);
-                storage.getFirstRow().removeContent(number);
+                storage.setFirstRow(substitute);
+                player.updateArrayDeposits();
                 return true;
             }
             else
                 throw new WrongResourcesMovedException(player);
             case 2: if( storage.getSecondRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getSecondRow().getResourceType().equals(leaderDeposit.getResourceType())) {
+                CounterTop substitute = new CounterTop(storage.getSecondRow().getResourceType(),storage.getSecondRow().getContent() - number);
                 leaderDeposit.addContent(number);
-                storage.getSecondRow().removeContent(number);
+                storage.setSecondRow(substitute);
+                player.updateArrayDeposits();
                 return true;
             }
             else
                 throw new WrongResourcesMovedException(player);
             case 3: if( storage.getThirdRow().getContent() >= number &&(number+ leaderDeposit.getContent()) <= 2 && storage.getThirdRow().getResourceType().equals(leaderDeposit.getResourceType())) {
+                CounterTop substitute = new CounterTop(storage.getThirdRow().getResourceType(),storage.getThirdRow().getContent() - number);
                 leaderDeposit.addContent(number);
-                storage.getThirdRow().removeContent(number);
+                storage.setThirdRow(substitute);
+                player.updateArrayDeposits();
                 return true;
             }
             else

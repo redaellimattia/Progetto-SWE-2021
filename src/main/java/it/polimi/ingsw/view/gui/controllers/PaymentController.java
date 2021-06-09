@@ -16,10 +16,15 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
 public class PaymentController extends GuiController{
+    @FXML
+    public AnchorPane stillToPay;
+    @FXML
+    public Text title,basicProductionTitle;
     @FXML
     private Button continueButton;
     @FXML //XCHOSEN
@@ -75,10 +80,7 @@ public class PaymentController extends GuiController{
             thirdRowImage2YouHave.setDisable(true);
             thirdRowImage3YouHave.setDisable(true);
         }
-        if(playerChest.getCoins()==0)
-            chestCoinYouHave.setDisable(true);
-        else
-            chestCoinYouHave.setDisable(false);
+        chestCoinYouHave.setDisable(playerChest.getCoins() == 0);
         if(playerChest.getRocks()==0)
             chestRockYouHave.setDisable(true);
         if(playerChest.getShields()==0)
@@ -110,10 +112,12 @@ public class PaymentController extends GuiController{
     }
 
     @Override
-    public void setBasicProduction(ResourceCount cost,Resource res){
+    public void setBasicProduction(Resource res){
         basicProduction = true;
         this.res = res;
-        setCost(cost);
+        stillToPay.setVisible(false);
+        title.setVisible(false);
+        basicProductionTitle.setVisible(true);
     }
 
     private void setCost(ResourceCount cost){
@@ -189,25 +193,27 @@ public class PaymentController extends GuiController{
     }
 
     public void resourceSelected(Resource res){
-        switch (res){
-            case COIN:
-                if(cost.getCoins()>0)
-                    cost.removeCoins(1);
-                break;
-            case ROCK:
-                if(cost.getRocks()>0)
-                    cost.removeRocks(1);
-                break;
-            case SHIELD:
-                if(cost.getShields()>0)
-                    cost.removeShields(1);
-                break;
-            case SERVANT:
-                if(cost.getServants()>0)
-                    cost.removeServants(1);
-                break;
+        if(!basicProduction) {
+            switch (res) {
+                case COIN:
+                    if (cost.getCoins() > 0)
+                        cost.removeCoins(1);
+                    break;
+                case ROCK:
+                    if (cost.getRocks() > 0)
+                        cost.removeRocks(1);
+                    break;
+                case SHIELD:
+                    if (cost.getShields() > 0)
+                        cost.removeShields(1);
+                    break;
+                case SERVANT:
+                    if (cost.getServants() > 0)
+                        cost.removeServants(1);
+                    break;
+            }
+            setStillToPay(cost);
         }
-        setStillToPay(cost);
     }
     @FXML
     public void deselectPaymentStorage(MouseEvent mouseEvent) {

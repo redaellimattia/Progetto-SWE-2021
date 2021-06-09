@@ -34,6 +34,7 @@ public class ClientManager {
     private boolean[] devCardProductionDone;
     private String address;
     private int socketPort;
+    private PlayerDashboard thisPlayerDashboard;
     /**
      * Creates client Object, handles client connection and instantiates view
      * @param address address chosen
@@ -135,11 +136,10 @@ public class ClientManager {
 
     private void initProductionDone(){
         basicProductionDone = false;
-        PlayerDashboard p = getThisClientDashboard();
         for(int i=0;i<3;i++)
-            devCardProductionDone[i] = p.getDevCards()[i].getDeck().size() <= 0;
+            devCardProductionDone[i] = thisPlayerDashboard.getDevCards()[i].getDeck().size() <= 0;
 
-        ArrayList<LeaderCard> leaderCards = p.getLeaderCards();
+        ArrayList<LeaderCard> leaderCards = thisPlayerDashboard.getLeaderCards();
         for(int i=0;i<leaderCards.size();i++)
             leaderCardProductionDone[i] = !leaderCards.get(i).isInGame();
     }
@@ -153,7 +153,7 @@ public class ClientManager {
      */
     public void initGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market,VaticanReport[] vReports){
         gameStatus = new ClientGameStatus(players,shop,market,vReports);
-
+        thisPlayerDashboard = getThisClientDashboard();
         if(view instanceof GuiManager)
             gameStatus.addObserver(GuiManager.getInstance());
     }
@@ -219,10 +219,10 @@ public class ClientManager {
      * @param leaderCard Leader Card that the user wants to play
      */
     public void playLeader(LeaderCard leaderCard){
-        ArrayList<LeaderCard> leaderCards = getThisClientDashboard().getLeaderCards();
+        ArrayList<LeaderCard> leaderCards = thisPlayerDashboard.getLeaderCards();
         for(int i=0;i<leaderCards.size();i++)
             if(leaderCards.get(i).equals(leaderCard))
-            leaderCardProductionDone[i] = false;
+                leaderCardProductionDone[i] = false;
         clientSocket.send(new PlayLeaderMessage(nickname, serverLobbyID,leaderCard).serialize());
     }
 
@@ -311,7 +311,7 @@ public class ClientManager {
      * @return true if playable
      */
     public boolean isRequirementPossible(Requirement req){
-        return req.isPlayable(getThisClientDashboard());
+        return req.isPlayable(thisPlayerDashboard);
     }
 
     /**
@@ -321,7 +321,7 @@ public class ClientManager {
      */
     public ArrayList<LeaderCard> getNotPlayedLeaders(){
         ArrayList<LeaderCard> inHandLeaders = new ArrayList<>();
-        for (LeaderCard l: getThisClientDashboard().getLeaderCards()) {
+        for (LeaderCard l: thisPlayerDashboard.getLeaderCards()) {
             if(!l.isInGame())
                 inHandLeaders.add(l);
         }
@@ -333,7 +333,7 @@ public class ClientManager {
      * @return true if the player has some leader cards that are not in game yet
      */
     public boolean leadersInHand(){
-        for (LeaderCard l: getThisClientDashboard().getLeaderCards()) {
+        for (LeaderCard l: thisPlayerDashboard.getLeaderCards()) {
             if(!l.isInGame())
                 return true;
         }
@@ -346,7 +346,7 @@ public class ClientManager {
      * @return an ArrayList full of leader cards with production ability
      */
     public ArrayList<LeaderCard> getProductionLeaders(){
-        PlayerDashboard thisPlayer = getThisClientDashboard();
+        PlayerDashboard thisPlayer = thisPlayerDashboard;
         ArrayList<LeaderCard> productionLeaders = new ArrayList<>();
         for(LeaderCard l:thisPlayer.getLeaderCards())
             if(l.getSpecialAbility() instanceof ProductionAbility && l.isInGame())
@@ -359,7 +359,7 @@ public class ClientManager {
      * @return true if there is a playable leader
      */
     public boolean canPlayLeader(){
-        ArrayList<LeaderCard> leaderCards = getThisClientDashboard().getLeaderCards();
+        ArrayList<LeaderCard> leaderCards = thisPlayerDashboard.getLeaderCards();
         for(LeaderCard l:leaderCards)
             if(!l.isInGame()&&isRequirementPossible(l.getRequirement()))
                 return true;
@@ -383,7 +383,7 @@ public class ClientManager {
      * @return true if the move from storage to leader's deposit ability is possible
      */
     public boolean canMoveToLeader(Resource resource){
-        PlayerDashboard p = getThisClientDashboard();
+        PlayerDashboard p = thisPlayerDashboard;
         Storage storage = p.getStorage();
         for (CounterTop c : storage.getShelvesArray()) {
             if(c.getResourceType().equals(resource) && !p.isFull(resource))
@@ -398,7 +398,7 @@ public class ClientManager {
      * @return true if the move from leader's deposit ability to storage is possible
      */
     public boolean canMoveFromLeader(Resource resource){
-        PlayerDashboard p = getThisClientDashboard();
+        PlayerDashboard p = thisPlayerDashboard;
         Storage storage = p.getStorage();
         if(storage.getFirstRow().getContent() == 0)
             return true;
@@ -414,7 +414,7 @@ public class ClientManager {
      * @return true if it's doable
      */
     public boolean swapOk(int from, int to){
-        PlayerDashboard p = getThisClientDashboard();
+        PlayerDashboard p = thisPlayerDashboard;
         ArrayList<CounterTop> supportShelves = p.getStorage().getShelvesArray();
         return supportShelves.get(to - 1).getContent() <= from;
     }
@@ -433,7 +433,7 @@ public class ClientManager {
      * @return true if it's doable
      */
     public boolean canMoveResources(){
-        PlayerDashboard p = getThisClientDashboard();
+        PlayerDashboard p = thisPlayerDashboard;
         ResourceCount total = p.getTotalResources();
         total.sumCounts(p.getAbilityDepositResources());
         return ResourceCount.resCountToInt(total) > 0;
@@ -446,14 +446,31 @@ public class ClientManager {
      * @param fromLeader true if MoveFromLeaderToDeposit, false if MoveFromDepositToLeader
      */
     public void moveLeaderResources(Resource resource, int num, boolean fromLeader){
-        PlayerDashboard p = getThisClientDashboard();
+        PlayerDashboard p = thisPlayerDashboard;
         ArrayList<CounterTop> shelves = p.getStorage().getShelvesArray();
         int from= 0,to = 0;
         if(fromLeader) {
             for (int i = 0; i < shelves.size(); i++) {
                 if (shelves.get(i).getResourceType().equals(resource) || shelves.get(i).getContent()==0) {
-                    to = i+1;
-                    break;
+                    if(i==0){
+                        if(shelves.get(1).getResourceType()!=resource && shelves.get(2).getResourceType()!= resource){
+                            to = i+1;
+                            break;
+                        }
+                    }
+                    else{
+                        if(i==1 && shelves.get(i).getContent()==0){
+                            if(shelves.get(2).getResourceType()!=resource){
+                                to=i+1;
+                                break;
+                            }
+                        }
+                        else {
+                            to = i + 1;
+                            break;
+                        }
+                    }
+
                 }
             }
             for (int i = 0; i < p.getArrayDeposit().size(); i++) {
@@ -505,20 +522,19 @@ public class ClientManager {
      * @return true if it's doable
      */
     public boolean canBuySpecificCard(int ID){
-        PlayerDashboard p = getThisClientDashboard();
         DevelopmentCard c = getShopCardByID(ID);
         ResourceCount cost = c.getCost();
         boolean canPlace = false;
         for(int i=0;i<3 && !canPlace;i++) {
-            if (p.getDevCards()[i].getDeck().size() == 0 && c.getLevel() == 1)
+            if (thisPlayerDashboard.getDevCards()[i].getDeck().size() == 0 && c.getLevel() == 1)
                 canPlace = true;
             else {
-                if(p.getDevCards()[i].getDeck().size()>0)
-                    if (p.getDevCards()[i].getFirst().getLevel() == c.getLevel() - 1)
+                if(thisPlayerDashboard.getDevCards()[i].getDeck().size()>0)
+                    if (thisPlayerDashboard.getDevCards()[i].getFirst().getLevel() == c.getLevel() - 1)
                         canPlace = true;
             }
         }
-        return p.getTotalResources().hasMoreOrEqualsResources(cost) && canPlace;
+        return thisPlayerDashboard.getTotalResources().hasMoreOrEqualsResources(cost) && canPlace;
     }
 
     /**
@@ -528,13 +544,12 @@ public class ClientManager {
      * @return true if it's doable
      */
     public boolean positionPossible(int position, int level){
-        PlayerDashboard p = getThisClientDashboard();
         if(position == -1)
             return false;
-        if(p.getDevCards()[position].getDeck().size() == 0 && level == 1)
+        if(thisPlayerDashboard.getDevCards()[position].getDeck().size() == 0 && level == 1)
             return true;
         else
-            return p.getDevCards()[position].getFirst().getLevel() == level-1;
+            return thisPlayerDashboard.getDevCards()[position].getFirst().getLevel() == level-1;
     }
 
     /**
@@ -592,12 +607,12 @@ public class ClientManager {
      * @return true if a leaderCard production is available
      */
     public boolean canDoLeaderCardProduction(PlayerDashboard p){
-        ResourceCount resource = new ResourceCount(0,0,0,0,0);
-        ArrayList<LeaderCard> productionLeaders = getProductionLeaders();
-        for(int i=0;i<productionLeaders.size();i++){
-            LeaderCard l = productionLeaders.get(i);
+        ResourceCount resource;
+        for(int i=0;i<thisPlayerDashboard.getLeaderCards().size();i++){
+            resource = new ResourceCount(0,0,0,0,0);
+            LeaderCard l = thisPlayerDashboard.getLeaderCards().get(i);
             l.getSpecialAbility().getResourceType().add(resource, 1);
-            if (p.getTotalResources().hasMoreOrEqualsResources(resource)&&!leaderCardProductionDone[i])
+            if (l.isInGame()&&l.getSpecialAbility() instanceof ProductionAbility&&p.getTotalResources().hasMoreOrEqualsResources(resource)&&!leaderCardProductionDone[i])
                 return true;
         }
         return false;
@@ -619,8 +634,7 @@ public class ClientManager {
      * @return true if atleast 1 production is available.
      */
     public boolean canDoProduction(){
-        PlayerDashboard p = getThisClientDashboard();
-        return (canDoDevCardProduction(p) || canDoLeaderCardProduction(p) || canDoBasicProduction(p));
+        return (canDoDevCardProduction(thisPlayerDashboard) || canDoLeaderCardProduction(thisPlayerDashboard) || canDoBasicProduction(thisPlayerDashboard));
     }
 
 
@@ -640,7 +654,7 @@ public class ClientManager {
      * @return true if there is NOT another counterTop of the same type
      */
     public boolean canCreateNewRow(Resource res) {
-        for(CounterTop c: getThisClientDashboard().getStorage().getShelvesArray()) {
+        for(CounterTop c: thisPlayerDashboard.getStorage().getShelvesArray()) {
             if(c.getContent() != 0 && c.getResourceType().equals(res)) {
                 return false;
             }
@@ -649,7 +663,7 @@ public class ClientManager {
     }
 
     public boolean hasWhiteChangeAbility() {
-        for (LeaderCard c: getThisClientDashboard().getLeaderCards())
+        for (LeaderCard c: thisPlayerDashboard.getLeaderCards())
             if(c.getSpecialAbility().useWhiteChangeAbility() != null && c.isInGame())
                 return true;
         return false;
@@ -661,7 +675,7 @@ public class ClientManager {
      * @return true if the user has an additional deposit of that type
      */
     public boolean hasAdditionalDeposit(Resource res) {
-        for (CounterTop c: getThisClientDashboard().getArrayDeposit()) {
+        for (CounterTop c: thisPlayerDashboard.getArrayDeposit()) {
             if(c.getResourceType().equals(res)) {
                 return true;
             }
@@ -672,7 +686,7 @@ public class ClientManager {
     public LeaderCard getWhiteChangeCard(int card) {
         int count;
         count = 0;
-        for (LeaderCard c: getThisClientDashboard().getLeaderCards()) {
+        for (LeaderCard c: thisPlayerDashboard.getLeaderCards()) {
             if(c.getSpecialAbility().useWhiteChangeAbility() != null && c.isInGame()) {
                 count++;
                 if(card == count) {

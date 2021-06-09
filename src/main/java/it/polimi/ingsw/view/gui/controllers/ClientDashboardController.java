@@ -339,7 +339,7 @@ public class ClientDashboardController extends GuiController{
     }
 
     private void setAvailableProductions(){
-        if(!clientManager.isBasicProductionDone())
+        if(!clientManager.isBasicProductionDone()&&ResourceCount.resCountToInt(playerDashboard.getTotalResources())>1)
             startBasicProduction.setVisible(true);
         if(clientManager.canDoDevCardProduction(playerDashboard)) {
             for(int i=0;i<3;i++){
@@ -357,8 +357,9 @@ public class ClientDashboardController extends GuiController{
             }
         }
         if(clientManager.canDoLeaderCardProduction(playerDashboard)){
-            ResourceCount resource = new ResourceCount(0,0,0,0,0);
+            ResourceCount resource;
             for(int i=0;i<playerDashboard.getLeaderCards().size();i++){
+                resource = new ResourceCount(0,0,0,0,0);
                 LeaderCard l = playerDashboard.getLeaderCards().get(i);
                 l.getSpecialAbility().getResourceType().add(resource, 1);
                 if(l.isInGame()&&l.getSpecialAbility() instanceof ProductionAbility&&!clientManager.getLeaderCardProductionDone()[i]&&playerDashboard.getTotalResources().hasMoreOrEqualsResources(resource)){
@@ -392,7 +393,7 @@ public class ClientDashboardController extends GuiController{
 
     public void startBasicProduction(MouseEvent mouseEvent) {
         Stage modal = launchModal("/fxml/chooseResources.fxml");
-        getGuiManager().getCurrentController().setModal(true,true,null,null,modal);
+        getGuiManager().getCurrentController().setModal(true,null,modal);
         Platform.runLater(modal::show);
     }
 
@@ -466,7 +467,6 @@ public class ClientDashboardController extends GuiController{
     public void updateStorage(String nickname){
         if(nickname.equals(playerDashboard.getNickname())) {
             setStorage(playerDashboard.getStorage(), firstRowImage, secondRowImage1, secondRowImage2, thirdRowImage1, thirdRowImage2, thirdRowImage3);
-            setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
         }
     }
     @Override
@@ -517,7 +517,7 @@ public class ClientDashboardController extends GuiController{
 
     private void launchChooseResourceLeaderProduction(LeaderCard card){
         Stage modal = launchModal("/fxml/chooseResources.fxml");
-        getGuiManager().getCurrentController().setModal(false,false,card,null,modal);
+        getGuiManager().getCurrentController().setModal(false,card,modal);
         Platform.runLater(modal::show);
     }
 

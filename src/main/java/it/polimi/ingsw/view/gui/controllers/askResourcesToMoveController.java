@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.gui.controllers;
 
 import it.polimi.ingsw.model.CounterTop;
 import it.polimi.ingsw.view.cli.Cli;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -36,14 +37,12 @@ public class askResourcesToMoveController extends GuiController{
         this.modal=modal;
     }
     public void confirmClick(MouseEvent mouseEvent) {
-        if(toLeader){
-            clientDashboard.getGuiManager().getClientManager().moveLeaderResources(leaderDeposit.getResourceType(),numSelected,false);
-        }
+        if(toLeader)
+            clientDashboard.getGuiManager().sendMoveToLeader(leaderDeposit.getResourceType(),numSelected);
         else {
             clientDashboard.setNumberOfResourcesLeaderMove(numSelected);
             clientDashboard.setResourceTypeMove(leaderDeposit.getResourceType());
         }
-
         modal.close();
     }
 

@@ -41,7 +41,7 @@ public class BasicProductionAction extends Action {
         Resource[] resources = new Resource[]{ Resource.COIN, Resource.ROCK, Resource.SERVANT, Resource.SHIELD};
         for (Resource r : resources)
             total += r.get(totalCount);
-        if(!deleteRes(storageCount,chestCount,player)||total!=2||totalCount.getFaith()!=0)
+        if(total!=2||!deleteRes(storageCount,chestCount,player)||totalCount.getFaith()!=0)
             throw new PaymentFailedException(player,turnManager);
 
         ResourceCount output = new ResourceCount(0,0,0,0,0);
