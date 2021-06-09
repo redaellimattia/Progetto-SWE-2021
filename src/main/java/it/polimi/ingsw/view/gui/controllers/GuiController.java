@@ -106,6 +106,7 @@ public abstract class GuiController {
      * @param thirdRowImage3 ImageView of the third resource of the third row
      */
     private void setStorageRow(CounterTop row,int i,ImageView firstRowImage,ImageView secondRowImage1,ImageView secondRowImage2,ImageView thirdRowImage1,ImageView thirdRowImage2,ImageView thirdRowImage3){
+        System.out.println("Row: "+i+" type: "+row.getResourceType()+" content: "+row.getContent());
         switch(i){
             case 1:
                 if(row.getContent()==0)

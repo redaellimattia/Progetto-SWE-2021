@@ -153,6 +153,9 @@ public class ClientDashboardController extends GuiController{
                 new FaithPos(844,0),new FaithPos(890,0)};
     }
 
+    /**
+     * Change button visibility if the production is still ongoing
+     */
     @Override
     public void setProductionOnGoing(){
         endProduction.setVisible(true);
@@ -161,6 +164,11 @@ public class ClientDashboardController extends GuiController{
         startProduction(null);
     }
 
+    /**
+     * Setting position on the faith path
+     *
+     * @param position position of the player
+     */
     private void setFaithPath(int position){
         if(position<25) {
             faithPath.setLayoutX(faithPos[position].getX());
@@ -168,6 +176,12 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
+    /**
+     * Setting leaderCards of the player
+     *
+     * @param leaderCards LeaderCards of the player
+     * @param watchingPlayer true if the client is watching another player
+     */
     private void setLeaderCards(ArrayList<LeaderCard> leaderCards,boolean watchingPlayer){
         int i=0;
         for(i=0;i<leaderCards.size();i++){
@@ -222,6 +236,12 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
+    /**
+     * Set ability deposit visibility
+     *
+     * @param arrayDeposit CounterTop of the arrayDeposit
+     * @param leaderCards leaderCards of the player
+     */
     private void setAbilityDeposit(ArrayList<CounterTop> arrayDeposit,ArrayList<LeaderCard> leaderCards){
         for(int i=0;i<leaderCards.size();i++) {
             LeaderCard l = leaderCards.get(i);
@@ -243,6 +263,14 @@ public class ClientDashboardController extends GuiController{
             }
         }
     }
+
+    /**
+     * Setting images in a counterTop of the ability deposit of a leader
+     *
+     * @param image1 first ImageView
+     * @param image2 second ImageView
+     * @param counterTop counterTop chosen
+     */
     private void setCounterTopAbilityDeposit(ImageView image1,ImageView image2,CounterTop counterTop){
         String path = getCounterTopImage(counterTop.getResourceType());
         switch (counterTop.getContent()){
@@ -257,6 +285,11 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
+    /**
+     * Setting vatican report images
+     *
+     * @param vReports vReports updated
+     */
     private void setVaticanReport(VaticanReport[] vReports){
         if(vReports[0].isUsed())
             setImage(vaticanReport2,"/img/punchboard/pope_favor1_back.png");
@@ -266,13 +299,22 @@ public class ClientDashboardController extends GuiController{
             setImage(vaticanReport4,"/img/punchboard/pope_favor3_back.png");
     }
 
-
-
+    /**
+     * Switch scene to market
+     *
+     * @param mouseEvent click event
+     */
     public void goToMarket(MouseEvent mouseEvent) {
         marketButton.setDisable(true);
         Platform.runLater(()-> getGuiManager().setLayout("marketAction.fxml"));
         //getGuiManager().setNextScene();
     }
+
+    /**
+     * Switch scene to shop
+     *
+     * @param mouseEvent click event
+     */
     public void goToShop(MouseEvent mouseEvent) {
         shopButton.setDisable(true);
         Platform.runLater(()->getGuiManager().setLayout("shopView.fxml"));
@@ -391,6 +433,9 @@ public class ClientDashboardController extends GuiController{
     public void updateLeaders(String nickname){
         if(nickname.equals(playerDashboard.getNickname()))
             setLeaderCards(playerDashboard.getLeaderCards(),!playerDashboard.getNickname().equals(clientManager.getNickname()));
+        if(clientManager.canDoProduction()&&!clientManager.isMainActionDone()){
+            productionButton.setDisable(false);
+        }
     }
 
     @Override
@@ -413,6 +458,9 @@ public class ClientDashboardController extends GuiController{
         if(nickname.equals(playerDashboard.getNickname()))
             setDevCards(playerDashboard.getDevCards(),firstPositionLevel1,secondPositionLevel1,thirdPositionLevel1,firstPositionLevel2,secondPositionLevel2,thirdPositionLevel2
                     ,firstPositionLevel3,secondPositionLevel3,thirdPositionLevel3);
+        if(clientManager.canPlayLeader()){
+            setLeaderCards(playerDashboard.getLeaderCards(),false);
+        }
     }
     @Override
     public void updateStorage(String nickname){
