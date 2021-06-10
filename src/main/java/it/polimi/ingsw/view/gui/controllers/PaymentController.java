@@ -59,7 +59,7 @@ public class PaymentController extends GuiController{
         //Setting up what the player's have
         setStorage(playerDashboard.getStorage(),firstRowImageYouHave,secondRowImage1YouHave,secondRowImage2YouHave,thirdRowImage1YouHave,thirdRowImage2YouHave,thirdRowImage3YouHave);
         setChest(playerDashboard.getChest(),xCoinYouHave,xShieldYouHave,xRockYouHave,xServantYouHave);
-        playerChest = playerDashboard.getChest();
+        playerChest = new ResourceCount(playerDashboard.getChest().getCoins(),playerDashboard.getChest().getRocks(),playerDashboard.getChest().getServants(),playerDashboard.getChest().getShields(),0);
         chestCount = new ResourceCount(0,0,0,0,0);
         storageCount = new ResourceCount(0,0,0,0,0);
 
