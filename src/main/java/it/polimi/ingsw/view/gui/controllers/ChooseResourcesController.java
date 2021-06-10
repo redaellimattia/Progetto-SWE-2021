@@ -4,11 +4,9 @@ import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.view.gui.GuiManager;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -46,7 +44,10 @@ public class ChooseResourcesController extends GuiController{
         super.setGuiManager(GuiManager.getInstance());
     }
 
-    public void confirmClick(MouseEvent mouseEvent) {
+    /**
+     * When confirm is clicked, goToPayment if the player has chosen enough resources, or printError
+     */
+    public void confirmClick() {
         if (toChoose == ResourceCount.resCountToInt(chosenOutput)) {
             modal.close();
             goToPayment();
@@ -55,6 +56,9 @@ public class ChooseResourcesController extends GuiController{
             printError();
     }
 
+    /**
+     * Switch to payment scene, if a basicProduction set the output only, if a leaderCard set both cost and output
+     */
     private void goToPayment(){
         getGuiManager().setLayout("payment.fxml");
         if(isBasic)
@@ -63,6 +67,10 @@ public class ChooseResourcesController extends GuiController{
             getGuiManager().getCurrentController().setLeaderCardProduction(leaderCard,getResourceFromResourceCount());
     }
 
+    /**
+     *
+     * @return a Resource starting from a ResourceCount, used for the output
+     */
     private Resource getResourceFromResourceCount(){
         if(chosenOutput.getCoins()>0)
             return Resource.COIN;
@@ -80,35 +88,59 @@ public class ChooseResourcesController extends GuiController{
         error.setVisible(true);
     }
 
-    public void coinClick(MouseEvent mouseEvent) {
+    /**
+     * When the coin ImageView is clicked, addResource
+     */
+    public void coinClick() {
         addResource(Resource.COIN,xCoinChosen,chosenOutput,toChoose,coin,shield,servant,rock);
     }
 
-    public void shieldClick(MouseEvent mouseEvent) {
+    /**
+     * When the shield ImageView is clicked, addResource
+     */
+    public void shieldClick() {
         addResource(Resource.SHIELD,xShieldChosen,chosenOutput,toChoose,coin,shield,servant,rock);
     }
 
-    public void servantClick(MouseEvent mouseEvent) {
+    /**
+     * When the servant ImageView is clicked, addResource
+     */
+    public void servantClick() {
         addResource(Resource.SERVANT,xServantChosen,chosenOutput,toChoose,coin,shield,servant,rock);
     }
 
-    public void rockClick(MouseEvent mouseEvent) {
+    /**
+     * When the rock ImageView is clicked, addResource
+     */
+    public void rockClick() {
         addResource(Resource.ROCK,xRockChosen,chosenOutput,toChoose,coin,shield,servant,rock);
     }
 
-    public void xRockClick(MouseEvent mouseEvent) {
+    /**
+     * When the rock label is clicked, removeResource
+     */
+    public void xRockClick() {
         removeResource(Resource.ROCK,xRockChosen,chosenOutput,coin,shield,servant,rock);
     }
 
-    public void xCoinClick(MouseEvent mouseEvent) {
+    /**
+     * When the coin label is clicked, removeResource
+     */
+    public void xCoinClick() {
         removeResource(Resource.COIN,xCoinChosen,chosenOutput,coin,shield,servant,rock);
     }
 
-    public void xServantClick(MouseEvent mouseEvent) {
+    /**
+     * When the servant label is clicked, removeResource
+     */
+    public void xServantClick() {
         removeResource(Resource.SERVANT,xServantChosen,chosenOutput,coin,shield,servant,rock);
     }
 
-    public void xShieldClick(MouseEvent mouseEvent) {
+    /**
+     * When the shield label is clicked, removeResource
+     */
+    public void xShieldClick() {
         removeResource(Resource.SHIELD,xShieldChosen,chosenOutput,coin,shield,servant,rock);
     }
 }

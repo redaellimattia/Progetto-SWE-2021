@@ -62,7 +62,7 @@ public class shopViewController extends GuiController {
 
     /**
      * upon selecting an image, show it in the selected frame and save row and column of the selected one
-     * @param event
+     * @param event click event
      */
     @FXML
     private void selectImage(MouseEvent event) {
@@ -134,10 +134,9 @@ public class shopViewController extends GuiController {
 
     /**
      * after clicking "Confirm" button, call the method to pass on to the payment scene
-     * @param event
      */
     @FXML
-    private void sendToPayment(MouseEvent event) {
+    private void sendToPayment() {
         if(confirmButton.isDisable()) {
             errorLabel.setVisible(true);
         }
@@ -146,7 +145,7 @@ public class shopViewController extends GuiController {
         }
         else{
             //passing the parameter got in this scene to the next scene of payment;
-            Platform.runLater(()->goToPayment());
+            Platform.runLater(this::goToPayment);
         }
     }
 
@@ -161,9 +160,8 @@ public class shopViewController extends GuiController {
 
     /**
      * go back to dashboard not committing the choice
-     * @param mouseEvent
      */
-    public void goBackToDashboard(MouseEvent mouseEvent) {
+    public void goBackToDashboard() {
         Platform.runLater(()->getGuiManager().callDashboard());
         //getGuiManager().setNextScene();
     }

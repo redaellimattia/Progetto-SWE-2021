@@ -5,17 +5,13 @@ import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.application.Platform;
 
 public class SplashScreenController extends GuiController{
-    private GuiManager guiManager;
-
     /**
      * performing the connection to the server
      */
     @Override
     public void initialize() {
-        guiManager = GuiManager.getInstance();
+        GuiManager guiManager = GuiManager.getInstance();
         ClientManager clientManager = guiManager.getClientManager();
         Platform.runLater(()->clientManager.connection(clientManager.getAddress(),clientManager.getSocketPort()));
     }
-
-
 }
