@@ -143,9 +143,10 @@ public class GuiManager implements View, GuiObserver{
     }
 
     /**
+     * Pregame choices
      *
-     * @param leaders
-     * @param numberOfResources
+     * @param leaders avaialble leaders
+     * @param numberOfResources amount of resources that are needed to be chosen
      */
     public void goToPregame(ArrayList<LeaderCard> leaders, int numberOfResources){
         setLayout("preGameChoice.fxml");
@@ -154,15 +155,13 @@ public class GuiManager implements View, GuiObserver{
 
     @Override
     public void waitingForTurn() {
-        //TO BE PASSED TRUE FOR A WAITING PLAYER
         Platform.runLater(() -> goToClientDashboard(false));
-        //setNextScene();
     }
 
     @Override
     public void yourTurn() {
+        log.add("It's your turn!");
         Platform.runLater(()->goToClientDashboard(false));
-        //setNextScene();
     }
 
     public void goToClientDashboard(boolean watchingPlayer){
@@ -193,10 +192,12 @@ public class GuiManager implements View, GuiObserver{
     private void goToEndGameMulti(ArrayList<PlayerPoints> scoreboard){
         setLayout("endGame.fxml");
         currentController.setEndGame(scoreboard);
+        stage.setScene(currentScene);
     }
     private void goToEndGameSingle(boolean lorenzoWin, int playerPoints){
         setLayout("endGame.fxml");
         currentController.setEndGame(lorenzoWin,playerPoints);
+        stage.setScene(currentScene);
     }
     @Override
     public void endGame(boolean lorenzoWin, int playerPoints) {

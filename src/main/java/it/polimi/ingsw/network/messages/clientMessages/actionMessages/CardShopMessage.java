@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.network.enumeration.ActionType;
 import it.polimi.ingsw.network.messages.serverMessages.DoneMessage;
+import it.polimi.ingsw.network.messages.serverMessages.PrintMessage;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
@@ -38,7 +39,8 @@ public class CardShopMessage extends ActionMessage {
         Game game = serverLobby.getGameLobby().getGameManager().getGame();
         CardShopAction action = new CardShopAction(game.getShop(),row,column,deckPosition,storageCount,chestCount);
         Server.LOGGER.log(Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+": Card Shop action arrived from: "+getNickname());
-        useActionMessage(action,socketConnection, serverLobby);
+        if(useActionMessage(action, serverLobby))
+            serverLobby.sendToAll(new PrintMessage("Player: "+getNickname()+" bought a card!").serialize(),getNickname());
     }
 
     public int getRow() {

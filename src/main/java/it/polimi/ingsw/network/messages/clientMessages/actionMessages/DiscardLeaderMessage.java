@@ -4,6 +4,7 @@ import it.polimi.ingsw.controller.action.leaderAction.DiscardLeaderAction;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.network.enumeration.ActionType;
 import it.polimi.ingsw.network.messages.serverMessages.DoneMessage;
+import it.polimi.ingsw.network.messages.serverMessages.PrintMessage;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
@@ -26,8 +27,9 @@ public class DiscardLeaderMessage extends ActionMessage{
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
         DiscardLeaderAction action = new DiscardLeaderAction(card);
         Server.LOGGER.log(Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+": Discard Leader Action arrived from: "+getNickname());
-        useSideActionMessage(action,socketConnection, serverLobby);
-        serverLobby.sendToAll(new DoneMessage().serialize());
+        if(useSideActionMessage(action,socketConnection, serverLobby))
+            serverLobby.sendToAll(new PrintMessage("Player: "+getNickname()+" discarded a leader!").serialize(),getNickname());
+        serverLobby.sendToAll(new DoneMessage().serialize(),null);
     }
 
 }
