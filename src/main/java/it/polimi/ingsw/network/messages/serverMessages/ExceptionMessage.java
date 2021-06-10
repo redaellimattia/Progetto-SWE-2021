@@ -23,6 +23,10 @@ public class ExceptionMessage extends ServerMessage {
                 case 3: clientManager.removeIndexDevCardProductionDone();
                         break;
             }
+            if(!clientManager.isBasicProductionDone()&&!clientManager.getLeaderCardProductionDone()[0]&&
+                    !clientManager.getLeaderCardProductionDone()[1]&&!clientManager.getDevCardProductionDone()[0]&&
+                    !clientManager.getDevCardProductionDone()[1]&&!clientManager.getDevCardProductionDone()[2])
+                clientManager.setMainActionDone(false);
             clientManager.getView().startProduction();
         }
         else {
