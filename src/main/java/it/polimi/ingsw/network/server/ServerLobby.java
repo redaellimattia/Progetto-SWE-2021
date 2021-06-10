@@ -505,13 +505,11 @@ public class ServerLobby extends Thread implements Observer {
 
     @Override
     public void updateEndGame(){
-        synchronized (gameLock) {
-            if (gameLobby.getNumberOfPlayers() == 1)
-                sendToAll(new EndSinglePlayerGameMessage(gameLobby.getGameManager().getGame().isLorenzoWin(), gameLobby.getGameManager().getTurnManager().getPlayer().getPoints()).serialize());
-            else
-                sendToAll(new EndMultiPlayerGameMessage(gameLobby.getGameManager().getGame().getPlayers()).serialize());
-            closeLobby();
-        }
+        if (gameLobby.getNumberOfPlayers() == 1)
+            sendToAll(new EndSinglePlayerGameMessage(gameLobby.getGameManager().getGame().isLorenzoWin(), gameLobby.getGameManager().getTurnManager().getPlayer().getPoints()).serialize());
+        else
+            sendToAll(new EndMultiPlayerGameMessage(gameLobby.getGameManager().getGame().getPlayers()).serialize());
+        closeLobby();
     }
 
     @Override
