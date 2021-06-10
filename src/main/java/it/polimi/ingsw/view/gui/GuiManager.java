@@ -143,39 +143,53 @@ public class GuiManager implements View, GuiObserver{
     }
 
     /**
-     *
-     * @param leaders
-     * @param numberOfResources
+     * call the scene for the pregame choice
+     * @param leaders four leaders proposed by the server
+     * @param numberOfResources number of resources the player can choose
      */
     public void goToPregame(ArrayList<LeaderCard> leaders, int numberOfResources){
         setLayout("preGameChoice.fxml");
         currentController.setPreGameChoice(leaders,numberOfResources);
     }
 
+    /**
+     * after passing the turn on upon the start of the game, the player is set in waiting
+     */
     @Override
     public void waitingForTurn() {
-        //TO BE PASSED TRUE FOR A WAITING PLAYER
         Platform.runLater(() -> goToClientDashboard(false));
-        //setNextScene();
     }
 
+    /**
+     * the player is set in turn
+     */
     @Override
     public void yourTurn() {
         Platform.runLater(()->goToClientDashboard(false));
-        //setNextScene();
     }
 
+    /**
+     * go to the player's clientDashboard
+     * @param watchingPlayer boolean
+     */
     public void goToClientDashboard(boolean watchingPlayer){
         setLayout("clientDashboard.fxml");
         currentController.setPlayer(clientManager.getThisClientDashboard(),watchingPlayer,log);
     }
 
+    /**
+     * go back to your dashboard
+     */
     public void callDashboard(){
         setLayout("clientDashboard.fxml");
         currentController.setPlayer(getClientManager().getThisClientDashboard(), false,log);
         setNextScene();
     }
 
+    /**
+     * go to watch a player to see what is doing
+     * @param player the chosen player
+     */
     public void watchPlayer(String player){
         setLayout("clientDashboard.fxml");
         PlayerDashboard chosenPlayer = null;
@@ -186,23 +200,47 @@ public class GuiManager implements View, GuiObserver{
         currentController.setPlayer(chosenPlayer, true,log);
     }
 
+    /**
+     * call the endGame scene and set the proper controller (multi player)
+     * @param scoreboard list with players and their points
+     */
     @Override
     public void endGame(ArrayList<PlayerPoints> scoreboard) {
         Platform.runLater(()->goToEndGameMulti(scoreboard));
     }
+
+    /**
+     * set the endgame for a multiplayer game
+     * @param scoreboard list with players and their points
+     */
     private void goToEndGameMulti(ArrayList<PlayerPoints> scoreboard){
         setLayout("endGame.fxml");
         currentController.setEndGame(scoreboard);
     }
+
+    /**
+     * set the endgame for a single player game
+     * @param lorenzoWin boolean true if lorenzo has won
+     * @param playerPoints points scored by the player
+     */
     private void goToEndGameSingle(boolean lorenzoWin, int playerPoints){
         setLayout("endGame.fxml");
         currentController.setEndGame(lorenzoWin,playerPoints);
     }
+
+    /**
+     * call the endGame scene and set the proper controller (single player)
+     * @param lorenzoWin boolean true if lorenzo has won
+     * @param playerPoints points scored by the player
+     */
     @Override
     public void endGame(boolean lorenzoWin, int playerPoints) {
         Platform.runLater(()->goToEndGameSingle(lorenzoWin,playerPoints));
     }
 
+    /**
+     * after a player has passed his turn, clear the log and call the send of the message
+     */
     @Override
     public void endTurn() {
         log.clear();
@@ -219,6 +257,9 @@ public class GuiManager implements View, GuiObserver{
 
     }
 
+    /**
+     * set the start of the production in the clientDashboardController
+     */
     @Override
     public void startProduction() {
         currentController.setProductionOnGoing();
@@ -234,6 +275,11 @@ public class GuiManager implements View, GuiObserver{
 
     }
 
+    /**
+     * when a vatican report is activated, save the message on the log
+     * @param victoryPoints points of the interested vatican report
+     * @param nicknames names of the affected players
+     */
     @Override
     public void vaticanReportActivated(int victoryPoints, ArrayList<String> nicknames) {
         String playerNickname = clientManager.getNickname();
@@ -260,15 +306,24 @@ public class GuiManager implements View, GuiObserver{
 
     }
 
+    /**
+     * send the message for a leader move and queue up the call for "resetting" the dashboard
+     * @param res resources interested in the move
+     * @param num number of resources to move
+     */
     public void sendMoveToLeader(Resource res, int num){
         getClientManager().moveLeaderResources(res,num,false);
         Platform.runLater(this::callDashboard);
     }
 
+    /**
+     * queue up the set of the next scene after a setLayout
+     */
     public void setNextScene(){
         Platform.runLater(()->stage.setScene(currentScene));
     }
 
+    //METHOD FOR UPDATES OF THE GRAPHIC CONTENTS, CALLED AFTER A CHANGE ON THE CLIENTGAMESTATUS
     @Override
     public void updateShop(){
         currentController.updateShop();
