@@ -378,6 +378,7 @@ public class ClientDashboardController extends GuiController{
         marketButton.setDisable(false);
         productionButton.setDisable(false);
         endProduction.setVisible(false);
+        organizeButton.setDisable(false);
         otherPlayers.setDisable(false);
     }
 

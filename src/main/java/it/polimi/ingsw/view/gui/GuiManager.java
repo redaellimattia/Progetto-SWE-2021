@@ -57,8 +57,8 @@ public class GuiManager implements View, GuiObserver{
     }
 
     /**
-     *
-     * @param fileName
+     * setting the scene on the passed path, updating also the controller for the specific fxml
+     * @param fileName the fxml path for the selected scene
      */
     public void setLayout(String fileName){
         FXMLLoader loader = new FXMLLoader();
@@ -73,21 +73,38 @@ public class GuiManager implements View, GuiObserver{
         }
     }
 
+    /**
+     * called if the connection is refused from the server
+     * @param msg message to be printed on terminal
+     */
     @Override
     public void failedConnection(String msg){
         Platform.runLater(()->stage.close());
     }
 
+    /**
+     * launch of the Gui Application with the splash screen
+     */
     @Override
     public void start() {
         javafx.application.Application.launch(GuiMain.class);
     }
 
+    /**
+     * call the landing page with the passed available lobbies, if there are any
+     * @param availableGameLobbies lobbies passed by the server
+     * @param message optional message to be printed
+     */
     @Override
     public void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies,String message) {
         Platform.runLater(()->setLobbiesPage(availableGameLobbies,message));
-        //setNextScene();
     }
+
+    /**
+     * called in the runlater of printLobbies, set the layout and parameters on the controller
+     * @param availableGameLobbies the list of lobbies
+     * @param message optional message
+     */
     public void setLobbiesPage(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies,String message){
         setLayout("landingPage.fxml");
         currentController.setLobbies(availableGameLobbies);
@@ -105,16 +122,31 @@ public class GuiManager implements View, GuiObserver{
 
     }
 
+    /**
+     * add to the log a message that will be printed in the clientDashboardController scrollpane
+     * @param msg
+     */
     @Override
     public void printMsg(String msg) {
         log.add(msg);
     }
 
+    /**
+     * define how many resources a player can choose in the pregame and which four leaders are given him
+     * to choose two
+     * @param leaders arraylist of the four leaders
+     * @param numberOfResources number of resources he can choose
+     */
     @Override
     public void preGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources) {
         Platform.runLater(()->goToPregame(leaders, numberOfResources));
-        //setNextScene();
     }
+
+    /**
+     *
+     * @param leaders
+     * @param numberOfResources
+     */
     public void goToPregame(ArrayList<LeaderCard> leaders, int numberOfResources){
         setLayout("preGameChoice.fxml");
         currentController.setPreGameChoice(leaders,numberOfResources);
