@@ -28,8 +28,7 @@ public class ClientManager {
     private boolean gameEnded;
     private boolean productionActionOnGoing;
     private boolean basicProductionDone;
-    private int lastProduction;
-    private int lastIndex;
+    private int lastProduction,lastIndex,numProd;
     private boolean[] leaderCardProductionDone;
     private boolean[] devCardProductionDone;
     private String address;
@@ -53,6 +52,7 @@ public class ClientManager {
         this.gameStarted = false;
         this.leaderCardProductionDone = new boolean[2];
         this.devCardProductionDone = new boolean[3];
+        this.numProd = 0;
         this.gameEnded=false;
         view.start();
     }
@@ -89,6 +89,9 @@ public class ClientManager {
     }
     public boolean[] getDevCardProductionDone() {
         return devCardProductionDone;
+    }
+    public int getNumProd() {
+        return numProd;
     }
 
     public boolean isGameEnded() {
@@ -135,6 +138,7 @@ public class ClientManager {
     }
 
     private void initProductionDone(){
+        numProd = 0;
         basicProductionDone = false;
         for(int i=0;i<3;i++)
             devCardProductionDone[i] = thisPlayerDashboard.getDevCards()[i].getDeck().size() <= 0;
@@ -255,6 +259,7 @@ public class ClientManager {
         mainActionDone = true;
         basicProductionDone = true;
         lastProduction = 1;
+        numProd++;
         clientSocket.send(new BasicProductionMessage(nickname,serverLobbyID,outputResource,storagePayment,chestPayment).serialize());
     }
 
@@ -272,6 +277,7 @@ public class ClientManager {
         leaderCardProductionDone[index] = true;
         lastProduction = 2;
         lastIndex = index;
+        numProd++;
         clientSocket.send(new LeaderProductionMessage(nickname,serverLobbyID,card,storageCount,chestCount,res).serialize());
     }
 
@@ -288,6 +294,7 @@ public class ClientManager {
         devCardProductionDone[index] = true;
         lastProduction = 3;
         lastIndex = index;
+        numProd++;
         clientSocket.send(new DevCardProductionMessage(nickname,serverLobbyID,card,storageCount,chestCount).serialize());
     }
 
@@ -373,7 +380,6 @@ public class ClientManager {
      * @param devCards updated devCards
      */
     public void updateDevCards(String nickname,DeckDashboard[] devCards){
-        int contDeck = 0;
        gameStatus.updateDevCards(nickname,devCards);
     }
 
@@ -617,9 +623,9 @@ public class ClientManager {
      */
     public boolean canDoLeaderCardProduction(PlayerDashboard p){
         ResourceCount resource;
-        for(int i=0;i<thisPlayerDashboard.getLeaderCards().size();i++){
+        for(int i=0;i<p.getLeaderCards().size();i++){
             resource = new ResourceCount(0,0,0,0,0);
-            LeaderCard l = thisPlayerDashboard.getLeaderCards().get(i);
+            LeaderCard l = p.getLeaderCards().get(i);
             l.getSpecialAbility().getResourceType().add(resource, 1);
             if (l.isInGame()&&l.getSpecialAbility() instanceof ProductionAbility&&p.getTotalResources().hasMoreOrEqualsResources(resource)&&!leaderCardProductionDone[i])
                 return true;
