@@ -11,13 +11,11 @@ import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -70,6 +68,13 @@ public class ClientDashboardController extends GuiController{
     private int firstCounterTopSwapped,numberOfResourcesLeaderMove;
     private Resource resourceTypeMove;
 
+    /**
+     * Sets playerdashboard, if the client is watching a player or not, and the ArrayList of log
+     *
+     * @param playerDashboard dashboard the client wants to see
+     * @param watchingPlayer true if the client is watching another player not himself
+     * @param log ArrayList of messages coming from the server
+     */
     @Override
     public void setPlayer(PlayerDashboard playerDashboard,boolean watchingPlayer,ArrayList<String> log) {
         this.playerDashboard = playerDashboard;
@@ -132,6 +137,9 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
+    /**
+     * Init the guiManager, the vaticanReports, the otherPlayers and the positions on the faithPath
+     */
     @FXML
     @Override
     public void initialize() {
@@ -161,7 +169,7 @@ public class ClientDashboardController extends GuiController{
         endProduction.setVisible(true);
         if(!productionButton.isDisabled())
             productionButton.setDisable(true);
-        startProduction(null);
+        startProduction();
     }
 
     /**
@@ -183,7 +191,7 @@ public class ClientDashboardController extends GuiController{
      * @param watchingPlayer true if the client is watching another player
      */
     private void setLeaderCards(ArrayList<LeaderCard> leaderCards,boolean watchingPlayer){
-        int i=0;
+        int i;
         for(i=0;i<leaderCards.size();i++){
             LeaderCard l = leaderCards.get(i);
             if(!l.isInGame()&&!watchingPlayer&&clientManager.isMyTurn()){
@@ -300,46 +308,26 @@ public class ClientDashboardController extends GuiController{
     }
 
     /**
-     * Switch scene to market
-     *
-     * @param mouseEvent click event
+     * Switch to market scene
      */
-    public void goToMarket(MouseEvent mouseEvent) {
+    public void goToMarket() {
         marketButton.setDisable(true);
         Platform.runLater(()-> getGuiManager().setLayout("marketAction.fxml"));
-        //getGuiManager().setNextScene();
     }
 
     /**
-     * Switch scene to shop
-     *
-     * @param mouseEvent click event
+     * Switch to shop scene
      */
-    public void goToShop(MouseEvent mouseEvent) {
+    public void goToShop() {
         shopButton.setDisable(true);
         Platform.runLater(()->getGuiManager().setLayout("shopView.fxml"));
-        //getGuiManager().setNextScene();
     }
 
     /**
-     * Starts the productionAction, disables all other possible mainActions, once a production is done, it will be disabled
-     *
-     * @param mouseEvent click
+     * Sets the available productions availability
      */
-    public void startProduction(MouseEvent mouseEvent) {
-        clientManager.setProductionActionOnGoing(true);
-        shopButton.setDisable(true);
-        marketButton.setDisable(true);
-        organizeButton.setDisable(true);
-        productionButton.setDisable(true);
-        otherPlayers.setDisable(true);
-        setAvailableProductions();
-        bufferProduction.setVisible(true);
-        endProduction.setVisible(true);
-    }
-
     private void setAvailableProductions(){
-        if(!clientManager.isBasicProductionDone()&&ResourceCount.resCountToInt(playerDashboard.getTotalResources())>1)
+        if(clientManager.canDoBasicProduction(playerDashboard))
             startBasicProduction.setVisible(true);
         if(clientManager.canDoDevCardProduction(playerDashboard)) {
             for(int i=0;i<3;i++){
@@ -372,16 +360,261 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
+    /**
+     * When endTurn button is clicked, end the turn
+     */
+    public void endTurn() {
+        setImage(board,"/img/board/inactiveBoard.jpg");
+        bwFaithPath.setVisible(true);
+        getGuiManager().endTurn();
+    }
+
+    /**
+     * When discardLeader2 is clicked, send the discardLeader message to the server
+     */
+    public void discardLeader2() {
+        Platform.runLater(()->clientManager.discardLeader(playerDashboard.getLeaderCards().get(1)));
+    }
+
+    /**
+     * When playLeader2 is clicked, send the discardLeader message to the server
+     */
+    public void playLeader2() {
+        Platform.runLater(()->clientManager.playLeader(playerDashboard.getLeaderCards().get(1)));
+    }
+
+    /**
+     * When discardLeader1 is clicked, send the discardLeader message to the server
+     */
+    public void discardLeader1() {
+        Platform.runLater(()->clientManager.discardLeader(playerDashboard.getLeaderCards().get(0)));
+    }
+
+    /**
+     * When playLeader1 is clicked, send the discardLeader message to the server
+     */
+    public void playLeader1() {
+        Platform.runLater(()->clientManager.playLeader(playerDashboard.getLeaderCards().get(0)));
+    }
+
+    /**
+     * After a player is selected, switch dashboard to watch him
+     */
+    public void selectPlayer() {
+        String selectedPlayer = otherPlayers.getSelectionModel().getSelectedItem().toString();
+        Platform.runLater(()->getGuiManager().watchPlayer(selectedPlayer));
+    }
+
+    /**
+     * When an updatePathPosition arrives from the server, update the GUI
+     *
+     * @param nickname nickname of the player affected
+     */
+    @Override
+    public void updatePathPosition(String nickname){
+        if(nickname.equals(playerDashboard.getNickname()))
+            setFaithPath(playerDashboard.getPathPosition());
+    }
+
+    /**
+     * When an updateLeaders arrives from the server, update the GUI
+     *
+     * @param nickname nickname of the player affected
+     */
+    @Override
+    public void updateLeaders(String nickname){
+        if(nickname.equals(playerDashboard.getNickname()))
+            setLeaderCards(playerDashboard.getLeaderCards(),!playerDashboard.getNickname().equals(clientManager.getNickname()));
+        if(clientManager.canDoProduction()&&!clientManager.isMainActionDone()){
+            productionButton.setDisable(false);
+        }
+    }
+
+    /**
+     * When an updateArrayDeposits arrives from the server, update the GUI
+     *
+     * @param nickname nickname of the player affected
+     */
+    @Override
+    public void updateArrayDeposits(String nickname){
+        if(nickname.equals(playerDashboard.getNickname()))
+            setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
+    }
+
+    /**
+     * When an updateChest arrives from the server, update the GUI
+     *
+     * @param nickname nickname of the player affected
+     */
+    @Override
+    public void updateChest(String nickname){
+        if(nickname.equals(playerDashboard.getNickname()))
+            Platform.runLater(()->setChest(playerDashboard.getChest(),xCoin,xShield,xRock,xServant));
+    }
+
+    /**
+     * When an updateBufferProduction arrives from the server, update the GUI
+     *
+     * @param nickname nickname of the player affected
+     */
+    @Override
+    public void updateBufferProduction(String nickname){
+        if(nickname.equals(playerDashboard.getNickname()))
+            Platform.runLater(()->setChest(playerDashboard.getBufferProduction(),xCoinBufferProduction,xShieldBufferProduction,xRockBufferProduction,xServantBufferProduction));
+    }
+
+    /**
+     * When an updateDevCards arrives from the server, update the GUI
+     *
+     * @param nickname nickname of the player affected
+     */
+    @Override
+    public void updateDevCards(String nickname){
+        if(nickname.equals(playerDashboard.getNickname()))
+            setDevCards(playerDashboard.getDevCards(),firstPositionLevel1,secondPositionLevel1,thirdPositionLevel1,firstPositionLevel2,secondPositionLevel2,thirdPositionLevel2
+                    ,firstPositionLevel3,secondPositionLevel3,thirdPositionLevel3);
+        if(clientManager.canPlayLeader()){
+            setLeaderCards(playerDashboard.getLeaderCards(),false);
+        }
+    }
+
+    /**
+     * When an updateStorage arrives from the server, update the GUI
+     *
+     * @param nickname nickname of the player affected
+     */
+    @Override
+    public void updateStorage(String nickname){
+        if(nickname.equals(playerDashboard.getNickname())) {
+            setStorage(playerDashboard.getStorage(), firstRowImage, secondRowImage1, secondRowImage2, thirdRowImage1, thirdRowImage2, thirdRowImage3);
+        }
+    }
+
+    /**
+     * When an updateVaticanReport arrives from the server, update the GUI
+     */
+    @Override
+    public void updateVaticanReports(){
+        setVaticanReport(clientManager.getGameStatus().getReports());
+    }
+
+    /**
+     * Switch back to the client's dashboard
+     */
+    public void backToHome() {
+        getGuiManager().callDashboard();
+    }
+
+    /**
+     * Starts the productionAction, disables all other possible mainActions, once a production is done, it will be disabled
+     *
+     */
+    public void startProduction() {
+        clientManager.setProductionActionOnGoing(true);
+        shopButton.setDisable(true);
+        marketButton.setDisable(true);
+        organizeButton.setDisable(true);
+        productionButton.setDisable(true);
+        otherPlayers.setDisable(true);
+        setAvailableProductions();
+        bufferProduction.setVisible(true);
+        endProduction.setVisible(true);
+    }
+
+    /**
+     * Start the basic production, launching the chooseOutput modal
+     */
+    public void startBasicProduction() {
+        Stage modal = launchModal("/fxml/chooseResources.fxml");
+        getGuiManager().getCurrentController().setModal(true,null,modal);
+        Platform.runLater(modal::show);
+    }
+
+    /**
+     * Starts the first leaderProduction when clicked, launching the choose resource modal
+     */
+    public void startLeaderProduction1() {
+        launchChooseResourceLeaderProduction(playerDashboard.getLeaderCards().get(0));
+    }
+
+    /**
+     * Starts the second leaderProduction when clicked, launching the choose resource modal
+     */
+    public void startLeaderProduction2() {
+        launchChooseResourceLeaderProduction(playerDashboard.getLeaderCards().get(1));
+    }
+
+    /**
+     * Starts the first devCard production when clicked, switching to the payment scene
+     */
+    public void startDevCardProduction1() {
+        goToPayment(playerDashboard.getDevCards()[0].getFirst());
+    }
+
+    /**
+     * Starts the second devCard production when clicked, switching to the payment scene
+     */
+    public void startDevCardProduction2() {
+        goToPayment(playerDashboard.getDevCards()[1].getFirst());
+    }
+
+    /**
+     * Starts the third devCard production when clicked, switching to the payment scene
+     */
+    public void startDevCardProduction3() {
+        goToPayment(playerDashboard.getDevCards()[2].getFirst());
+    }
+
+    /**
+     * Switch to payment scene
+     *
+     * @param card devCard chosen
+     */
+    private void goToPayment(DevelopmentCard card){
+        getGuiManager().setLayout("payment.fxml");
+        getGuiManager().getCurrentController().setDevCardProduction(card);
+    }
+
+    /**
+     * When endProduction is clicked, if the mainAction is not done, then reset all the production, otherwise send the endAction to the server
+     */
+    public void endProduction() {
+        clientManager.setProductionActionOnGoing(false);
+        if(!clientManager.isMainActionDone()) {
+            resetProduction();
+            productionButton.setDisable(false);
+        }
+        else {
+            resetProduction();
+            Platform.runLater(() -> clientManager.endAction());
+        }
+    }
+
+    /**
+     * Launch choose resource modal for the leader card production
+     * @param card LeaderCard chosen
+     */
+    private void launchChooseResourceLeaderProduction(LeaderCard card){
+        Stage modal = launchModal("/fxml/chooseResources.fxml");
+        getGuiManager().getCurrentController().setModal(false,card,modal);
+        Platform.runLater(modal::show);
+    }
+
+    /**
+     * When a productionAction is interrupted, disable production buttons and enable the other actions buttons
+     */
     public void resetProduction(){
         disableProductionFields();
         shopButton.setDisable(false);
         marketButton.setDisable(false);
-        productionButton.setDisable(false);
         endProduction.setVisible(false);
         organizeButton.setDisable(false);
         otherPlayers.setDisable(false);
     }
 
+    /**
+     * Disable the production fields
+     */
     private void disableProductionFields(){
         startBasicProduction.setVisible(false);
         devCardProduction1.setVisible(false);
@@ -392,137 +625,7 @@ public class ClientDashboardController extends GuiController{
         bufferProduction.setVisible(false);
     }
 
-    public void startBasicProduction(MouseEvent mouseEvent) {
-        Stage modal = launchModal("/fxml/chooseResources.fxml");
-        getGuiManager().getCurrentController().setModal(true,null,modal);
-        Platform.runLater(modal::show);
-    }
-
-    public void endTurn(MouseEvent mouseEvent) {
-        setImage(board,"/img/board/inactiveBoard.jpg");
-        bwFaithPath.setVisible(true);
-        getGuiManager().endTurn();
-    }
-
-    public void discardLeader2(MouseEvent mouseEvent) {
-        Platform.runLater(()->clientManager.discardLeader(playerDashboard.getLeaderCards().get(1)));
-    }
-
-    public void playLeader2(MouseEvent mouseEvent) {
-        Platform.runLater(()->clientManager.playLeader(playerDashboard.getLeaderCards().get(1)));
-    }
-
-    public void discardLeader1(MouseEvent mouseEvent) {
-        Platform.runLater(()->clientManager.discardLeader(playerDashboard.getLeaderCards().get(0)));
-    }
-
-    public void playLeader1(MouseEvent mouseEvent) {
-        Platform.runLater(()->clientManager.playLeader(playerDashboard.getLeaderCards().get(0)));
-    }
-
-    public void selectPlayer(ActionEvent actionEvent) {
-        String selectedPlayer = otherPlayers.getSelectionModel().getSelectedItem().toString();
-        Platform.runLater(()->getGuiManager().watchPlayer(selectedPlayer));
-    }
-
-    @Override
-    public void updatePathPosition(String nickname){
-        if(nickname.equals(playerDashboard.getNickname()))
-            setFaithPath(playerDashboard.getPathPosition());
-    }
-
-    @Override
-    public void updateLeaders(String nickname){
-        if(nickname.equals(playerDashboard.getNickname()))
-            setLeaderCards(playerDashboard.getLeaderCards(),!playerDashboard.getNickname().equals(clientManager.getNickname()));
-        if(clientManager.canDoProduction()&&!clientManager.isMainActionDone()){
-            productionButton.setDisable(false);
-        }
-    }
-
-    @Override
-    public void updateArrayDeposits(String nickname){
-        if(nickname.equals(playerDashboard.getNickname()))
-            setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
-    }
-    @Override
-    public void updateChest(String nickname){
-        if(nickname.equals(playerDashboard.getNickname()))
-            Platform.runLater(()->setChest(playerDashboard.getChest(),xCoin,xShield,xRock,xServant));
-    }
-    @Override
-    public void updateBufferProduction(String nickname){
-        if(nickname.equals(playerDashboard.getNickname()))
-            Platform.runLater(()->setChest(playerDashboard.getBufferProduction(),xCoinBufferProduction,xShieldBufferProduction,xRockBufferProduction,xServantBufferProduction));
-    }
-    @Override
-    public void updateDevCards(String nickname){
-        if(nickname.equals(playerDashboard.getNickname()))
-            setDevCards(playerDashboard.getDevCards(),firstPositionLevel1,secondPositionLevel1,thirdPositionLevel1,firstPositionLevel2,secondPositionLevel2,thirdPositionLevel2
-                    ,firstPositionLevel3,secondPositionLevel3,thirdPositionLevel3);
-        if(clientManager.canPlayLeader()){
-            setLeaderCards(playerDashboard.getLeaderCards(),false);
-        }
-    }
-    @Override
-    public void updateStorage(String nickname){
-        if(nickname.equals(playerDashboard.getNickname())) {
-            setStorage(playerDashboard.getStorage(), firstRowImage, secondRowImage1, secondRowImage2, thirdRowImage1, thirdRowImage2, thirdRowImage3);
-        }
-    }
-    @Override
-    public void updateVaticanReports(){
-        setVaticanReport(clientManager.getGameStatus().getReports());
-    }
-
-    public void backToHome(MouseEvent mouseEvent) {
-        getGuiManager().callDashboard();
-    }
-
-    public void startDevCardProduction1(MouseEvent mouseEvent) {
-        goToPayment(playerDashboard.getDevCards()[0].getFirst());
-    }
-    public void startDevCardProduction2(MouseEvent mouseEvent) {
-        goToPayment(playerDashboard.getDevCards()[1].getFirst());
-    }
-    public void startDevCardProduction3(MouseEvent mouseEvent) {
-        goToPayment(playerDashboard.getDevCards()[2].getFirst());
-    }
-
-    private void goToPayment(DevelopmentCard card){
-        getGuiManager().setLayout("payment.fxml");
-        getGuiManager().getCurrentController().setDevCardProduction(card);
-    }
-
-    public void endProduction(MouseEvent mouseEvent) {
-        clientManager.setProductionActionOnGoing(false);
-        if(!clientManager.isMainActionDone())
-            resetProduction();
-        else {
-            disableProductionFields();
-            endProduction.setVisible(false);
-            marketButton.setDisable(false);
-            shopButton.setDisable(false);
-            otherPlayers.setDisable(false);
-            Platform.runLater(() -> clientManager.endAction());
-        }
-    }
-
-    public void startLeaderProduction1(MouseEvent mouseEvent) {
-        launchChooseResourceLeaderProduction(playerDashboard.getLeaderCards().get(0));
-    }
-
-    public void startLeaderProduction2(MouseEvent mouseEvent) {
-        launchChooseResourceLeaderProduction(playerDashboard.getLeaderCards().get(1));
-    }
-
-    private void launchChooseResourceLeaderProduction(LeaderCard card){
-        Stage modal = launchModal("/fxml/chooseResources.fxml");
-        getGuiManager().getCurrentController().setModal(false,card,modal);
-        Platform.runLater(modal::show);
-    }
-
-    public void startOrganizing(MouseEvent mouseEvent) {
+    public void startOrganizing() {
         if(getGuiManager().getClientManager().canMoveResources()) {
         shopButton.setDisable(true);
         marketButton.setDisable(true);
@@ -542,7 +645,7 @@ public class ClientDashboardController extends GuiController{
     }
 
 
-    public void firstStorageSelected(MouseEvent mouseEvent) {
+    public void firstStorageSelected() {
         if(firstCounterTopSwapped==-1) {
             firstCounterTopSwapped = 1;
         }
@@ -554,7 +657,7 @@ public class ClientDashboardController extends GuiController{
             getGuiManager().callDashboard();
         }
     }
-    public void secondStorageSelected(MouseEvent mouseEvent) {
+    public void secondStorageSelected() {
         if(firstCounterTopSwapped==-1)
             firstCounterTopSwapped = 2;
         else{
@@ -566,7 +669,7 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
-    public void thirdStorageSelected(MouseEvent mouseEvent) {
+    public void thirdStorageSelected() {
         if(firstCounterTopSwapped==-1)
             firstCounterTopSwapped = 3;
         else{
@@ -579,7 +682,7 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
-    public void firstLeaderSelected(MouseEvent mouseEvent) {
+    public void firstLeaderSelected() {
         if(firstCounterTopSwapped==-1) {
             firstCounterTopSwapped = 4;
             Stage modal = launchModal("/fxml/askResourcesToMove.fxml");
@@ -593,7 +696,7 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
-    public void secondLeaderSelected(MouseEvent mouseEvent) {
+    public void secondLeaderSelected() {
         if(firstCounterTopSwapped==-1) {
             firstCounterTopSwapped = 5;
             Stage modal = launchModal("/fxml/askResourcesToMove.fxml");
@@ -623,8 +726,8 @@ public class ClientDashboardController extends GuiController{
 
     //FAITH PATH IMG POSITION
     private static class FaithPos{
-        private int x;
-        private int y;
+        private final int x;
+        private final int y;
 
         public FaithPos(int x, int y) {
             this.x = x;

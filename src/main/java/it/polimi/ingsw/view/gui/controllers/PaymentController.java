@@ -1,6 +1,5 @@
 package it.polimi.ingsw.view.gui.controllers;
 
-import it.polimi.ingsw.model.CounterTop;
 import it.polimi.ingsw.model.DeckDashboard;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
@@ -11,22 +10,18 @@ import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
 
 public class PaymentController extends GuiController{
     @FXML
     public AnchorPane stillToPay;
     @FXML
     public Text title,basicProductionTitle,stillToPayText;
-    @FXML
-    private Button continueButton;
     @FXML //XCHOSEN
     private Label xCoinChosen,xShieldChosen,xServantChosen,xRockChosen;
     @FXML //CHESTCHOSEN
@@ -468,17 +463,16 @@ public class PaymentController extends GuiController{
 
     /**
      * based on which payment this scen has been called, proceed to end the payment
-     * @param mouseEvent clicked on the confirm button
      */
-    public void endBuy(MouseEvent mouseEvent) {
+    public void endBuy() {
         if(shopAction)
-            Platform.runLater(() -> goToEndBuyCard());
+            Platform.runLater(this::goToEndBuyCard);
         if(basicProduction)
-            Platform.runLater(() -> payBasicProduction());
+            Platform.runLater(this::payBasicProduction);
         if(leaderCardProduction)
-            Platform.runLater(() -> payLeaderCardProduction());
+            Platform.runLater(this::payLeaderCardProduction);
         if(devCardProduction)
-            Platform.runLater(() -> payDevCardProduction());
+            Platform.runLater(this::payDevCardProduction);
     }
 
     /**
