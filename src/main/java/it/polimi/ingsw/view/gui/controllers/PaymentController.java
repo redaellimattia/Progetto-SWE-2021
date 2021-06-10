@@ -412,48 +412,56 @@ public class PaymentController extends GuiController{
         String id = SOURCE.getId();
         switch (id){
             case "chestCoinChosen":
-                chestCount.removeCoins(1);
-                xCoinChosen.setText("x"+ chestCount.getCoins());
-                playerChest.addCoins(1);
-                xCoinYouHave.setText("x"+ playerChest.getCoins());
-                if(playerChest.getCoins()!=0)
-                    chestCoinYouHave.setDisable(false);
-                if(chestCount.getCoins()==0)
-                    chestCoinChosen.setDisable(true);
-                resourceDeselected(Resource.COIN);
+                if(chestCount.getCoins()>0) {
+                    chestCount.removeCoins(1);
+                    xCoinChosen.setText("x" + chestCount.getCoins());
+                    playerChest.addCoins(1);
+                    xCoinYouHave.setText("x" + playerChest.getCoins());
+                    if (playerChest.getCoins() != 0)
+                        chestCoinYouHave.setDisable(false);
+                    if (chestCount.getCoins() == 0)
+                        chestCoinChosen.setDisable(true);
+                    resourceDeselected(Resource.COIN);
+                }
                 break;
             case "chestRockChosen":
-                chestCount.removeRocks(1);
-                xRockChosen.setText("x"+ chestCount.getRocks());
-                playerChest.addRocks(1);
-                xRockYouHave.setText("x"+ playerChest.getRocks());
-                if(playerChest.getRocks()!=0)
-                    chestRockYouHave.setDisable(false);
-                if(chestCount.getRocks()==0)
-                    chestRockChosen.setDisable(true);
-                resourceDeselected(Resource.ROCK);
+                if(chestCount.getRocks()>0) {
+                    chestCount.removeRocks(1);
+                    xRockChosen.setText("x" + chestCount.getRocks());
+                    playerChest.addRocks(1);
+                    xRockYouHave.setText("x" + playerChest.getRocks());
+                    if (playerChest.getRocks() != 0)
+                        chestRockYouHave.setDisable(false);
+                    if (chestCount.getRocks() == 0)
+                        chestRockChosen.setDisable(true);
+                    resourceDeselected(Resource.ROCK);
+                }
                 break;
             case "chestShieldChosen":
-                chestCount.removeShields(1);
-                xShieldChosen.setText("x"+ chestCount.getShields());
-                playerChest.addShields(1);
-                xShieldYouHave.setText("x"+ playerChest.getShields());
-                if(playerChest.getShields()!=0)
-                    chestShieldYouHave.setDisable(false);
-                if(chestCount.getShields()==0)
-                    chestShieldChosen.setDisable(true);
-                resourceDeselected(Resource.SHIELD);
+                if(chestCount.getShields()>0) {
+                    chestCount.removeShields(1);
+                    xShieldChosen.setText("x" + chestCount.getShields());
+                    playerChest.addShields(1);
+                    xShieldYouHave.setText("x" + playerChest.getShields());
+                    if (playerChest.getShields() != 0)
+                        chestShieldYouHave.setDisable(false);
+                    if (chestCount.getShields() == 0)
+                        chestShieldChosen.setDisable(true);
+                    resourceDeselected(Resource.SHIELD);
+                }
                 break;
             case "chestServantChosen":
-                chestCount.removeServants(1);
-                xServantChosen.setText("x"+ chestCount.getServants());
-                playerChest.addServants(1);
-                xServantYouHave.setText("x"+ playerChest.getServants());
-                if(playerChest.getServants()!=0)
-                    chestServantYouHave.setDisable(false);
-                if(chestCount.getServants()==0)
-                    chestServantChosen.setDisable(true);
-                resourceDeselected(Resource.SERVANT);
+                if(chestCount.getServants()>0) {
+                    chestCount.removeServants(1);
+                    xServantChosen.setText("x" + chestCount.getServants());
+                    playerChest.addServants(1);
+                    xServantYouHave.setText("x" + playerChest.getServants());
+                    if (playerChest.getServants() != 0)
+                        chestServantYouHave.setDisable(false);
+                    if (chestCount.getServants() == 0)
+                        chestServantChosen.setDisable(true);
+                    resourceDeselected(Resource.SERVANT);
+                }
                 break;
         }
     }
