@@ -113,7 +113,7 @@ public class ServerLobby extends Thread implements Observer {
         String nextPlayerNickname = getTurnManager().getPlayer().getNickname();
         SocketConnection socketConnection = clients.get(nextPlayerNickname);
         if(socketConnection!=null){
-            Server.LOGGER.log(Level.INFO,"LobbyID: "+lobbyID+" it's "+nextPlayerNickname+" round!");
+            Server.LOGGER.log(Level.INFO,"LobbyID: "+lobbyID+" it's "+nextPlayerNickname+"'s round!");
             pingTimer = new PingTimer(this,socketConnection);
             pingTimer.startPinging();
             socketConnection.send(new YourTurnMessage().serialize());
@@ -211,7 +211,7 @@ public class ServerLobby extends Thread implements Observer {
      */
     public void createGame(boolean singlePlayer){
         gameLobby.initGame(singlePlayer,this);
-        sendToAll(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(), gameLobby.getGameManager().getGame().getMarket(),gameLobby.getGameManager().getGame().getvReports()).serialize());
+        sendToAll(new InitGameStatusMessage(gameLobby.getGameManager().getGame().getPlayers(), gameLobby.getGameManager().getGame().getShop(), gameLobby.getGameManager().getGame().getMarket(),gameLobby.getGameManager().getGame().getvReports()).serialize(),null);
         preGame();
     }
 
@@ -357,7 +357,7 @@ public class ServerLobby extends Thread implements Observer {
     public void startGame(){
         gameLobby.setGameStarted(true);
         SocketConnection socketConnection;
-        sendToAll(new GameStartedMessage().serialize());
+        sendToAll(new GameStartedMessage().serialize(),null);
         if(gameLobby.getNumberOfPlayers()==1&&clients.size()==0)
             gameLobby.getGameManager().getTurnManager().setPlayer(gameLobby.getGameManager().getGame().getPlayers().get(0));
         else {
@@ -401,10 +401,14 @@ public class ServerLobby extends Thread implements Observer {
      *
      * @param msg serialized message
      */
-    public void sendToAll(String msg){
+    public void sendToAll(String msg,String except){
         synchronized (gameLock) {
-            for (String key : clients.keySet())
-                clients.get(key).send(msg);
+            for (String key : clients.keySet()) {
+                if (except == null)
+                    clients.get(key).send(msg);
+                else if (!key.equals(except))
+                    clients.get(key).send(msg);
+            }
         }
     }
 
@@ -423,79 +427,79 @@ public class ServerLobby extends Thread implements Observer {
 
     @Override
     public void updateShop(DeckShop[][] shopGrid) {
-        sendToAll(new ShopUpdateMessage(shopGrid).serialize());
+        sendToAll(new ShopUpdateMessage(shopGrid).serialize(),null);
     }
 
     @Override
     public void updateMarket(MarketMarble[][] structure, MarketMarble freeMarble) {
-        sendToAll(new MarketUpdateMessage(structure,freeMarble).serialize());
+        sendToAll(new MarketUpdateMessage(structure,freeMarble).serialize(),null);
     }
 
     @Override
     public void updateChest(String nickname, ResourceCount chest) {
-        sendToAll(new ResourceCountUpdateMessage(PlayerUpdateType.CHEST,nickname,chest).serialize());
+        sendToAll(new ResourceCountUpdateMessage(PlayerUpdateType.CHEST,nickname,chest).serialize(),null);
     }
 
     @Override
     public void updateBufferProduction(String nickname, ResourceCount chest) {
-        sendToAll(new ResourceCountUpdateMessage(PlayerUpdateType.BUFFERPRODUCTION,nickname,chest).serialize());
+        sendToAll(new ResourceCountUpdateMessage(PlayerUpdateType.BUFFERPRODUCTION,nickname,chest).serialize(),null);
     }
 
     @Override
     public void updateArrayDeposit(String nickname, ArrayList<CounterTop> arrayDeposit) {
-        sendToAll(new ArrayDepositUpdateMessage(nickname,arrayDeposit).serialize());
+        sendToAll(new ArrayDepositUpdateMessage(nickname,arrayDeposit).serialize(),null);
     }
 
     @Override
     public void updateInitArrayDeposit(String nickname, Resource res) {
-        sendToAll(new InitArrayDepositUpdateMessage(nickname, res).serialize());
+        sendToAll(new InitArrayDepositUpdateMessage(nickname, res).serialize(),null);
     }
 
     @Override
     public void updateDevCards(String nickname, DeckDashboard[] devCards) {
-        sendToAll(new DevCardsUpdateMessage(nickname,devCards).serialize());
+        sendToAll(new DevCardsUpdateMessage(nickname,devCards).serialize(),null);
     }
 
     @Override
     public void updateRemoveLeader(String nickname, ArrayList<LeaderCard> leaderCards) {
-        sendToAll(new LeaderUpdateMessage(PlayerUpdateType.DISCARDLEADER,nickname,leaderCards).serialize());
+        sendToAll(new LeaderUpdateMessage(PlayerUpdateType.DISCARDLEADER,nickname,leaderCards).serialize(),null);
     }
 
     @Override
     public void updatePathPosition(PlayerDashboard player, int position) {
         if(gameLobby.getGameManager()!=null)
             gameLobby.getGameManager().getGame().checkFaithPath(player);
-        sendToAll(new PathPositionUpdateMessage(player.getNickname(),position).serialize());
+        sendToAll(new PathPositionUpdateMessage(player.getNickname(),position).serialize(),null);
     }
 
     @Override
     public void updateInGameLeader(String nickname, ArrayList<LeaderCard> leaderCards) {
-        sendToAll(new LeaderUpdateMessage(PlayerUpdateType.INGAMELEADER,nickname,leaderCards).serialize());
+        sendToAll(new LeaderUpdateMessage(PlayerUpdateType.INGAMELEADER,nickname,leaderCards).serialize(),null);
     }
 
     @Override
     public void updateFirstRow(String nickname, CounterTop firstRow) {
-        sendToAll(new StorageUpdateMessage(PlayerUpdateType.FIRSTROW,nickname,firstRow).serialize());
+        sendToAll(new StorageUpdateMessage(PlayerUpdateType.FIRSTROW,nickname,firstRow).serialize(),null);
     }
 
     @Override
     public void updateSecondRow(String nickname, CounterTop secondRow) {
-        sendToAll(new StorageUpdateMessage(PlayerUpdateType.SECONDROW,nickname,secondRow).serialize());
+        sendToAll(new StorageUpdateMessage(PlayerUpdateType.SECONDROW,nickname,secondRow).serialize(),null);
     }
 
     @Override
     public void updateThirdRow(String nickname, CounterTop thirdRow) {
-        sendToAll(new StorageUpdateMessage(PlayerUpdateType.THIRDROW,nickname,thirdRow).serialize());
+        sendToAll(new StorageUpdateMessage(PlayerUpdateType.THIRDROW,nickname,thirdRow).serialize(),null);
     }
 
     @Override
     public void updateVictoryPoints(String nickname, int points) {
-        sendToAll(new VictoryPointsUpdateMessage(nickname,points).serialize());
+        sendToAll(new VictoryPointsUpdateMessage(nickname,points).serialize(),null);
     }
 
     @Override
     public void updateVaticanReport(int victoryPoints,ArrayList<String> nicknames){
-        sendToAll(new VaticanReportActivatedMessage(victoryPoints,nicknames).serialize());
+        sendToAll(new VaticanReportActivatedMessage(victoryPoints,nicknames).serialize(),null);
     }
 
     @Override
@@ -506,15 +510,15 @@ public class ServerLobby extends Thread implements Observer {
     @Override
     public void updateEndGame(){
         if (gameLobby.getNumberOfPlayers() == 1)
-            sendToAll(new EndSinglePlayerGameMessage(gameLobby.getGameManager().getGame().isLorenzoWin(), gameLobby.getGameManager().getTurnManager().getPlayer().getPoints()).serialize());
+            sendToAll(new EndSinglePlayerGameMessage(gameLobby.getGameManager().getGame().isLorenzoWin(), gameLobby.getGameManager().getTurnManager().getPlayer().getPoints()).serialize(),null);
         else
-            sendToAll(new EndMultiPlayerGameMessage(gameLobby.getGameManager().getGame().getPlayers()).serialize());
+            sendToAll(new EndMultiPlayerGameMessage(gameLobby.getGameManager().getGame().getPlayers()).serialize(),null);
         closeLobby();
     }
 
     @Override
     public void updateLeaders(String nickname, ArrayList<LeaderCard> leaderCards){
-        sendToAll(new LeaderChoiceMessage(nickname,leaderCards).serialize());
+        sendToAll(new LeaderChoiceMessage(nickname,leaderCards).serialize(),null);
     }
 
     @Override
@@ -533,6 +537,12 @@ public class ServerLobby extends Thread implements Observer {
             clientConnection.send(new DoneMessage().serialize());
         }
     }
+
+    @Override
+    public void lorenzoAction(String msg){
+        sendToAll(new PrintMessage(msg).serialize(),null);
+    }
+
     @Override
     public void setGameMustEnd(){
         gameLobby.getGameManager().setGameMustEnd();

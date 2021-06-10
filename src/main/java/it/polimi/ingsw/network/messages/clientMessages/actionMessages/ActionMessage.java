@@ -89,14 +89,16 @@ public abstract class ActionMessage extends ClientMessage {
      *  call the turnManager to set and use the action;
      *
      * @param action the action that needs to be done
-     * @param socketConnection the connection from which the message has arrived
      * @param serverLobby serverLobby of the game where the player is playing
      */
-    public void useActionMessage(Action action, SocketConnection socketConnection, ServerLobby serverLobby){
+    public boolean useActionMessage(Action action, ServerLobby serverLobby){
         PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
         turnManager.setAction(action);
-        if(turnManager.useAction())
-            serverLobby.sendToAll(new DoneMessage().serialize());
+        if(turnManager.useAction()) {
+            serverLobby.sendToAll(new DoneMessage().serialize(), null);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -105,9 +107,9 @@ public abstract class ActionMessage extends ClientMessage {
      * @param socketConnection the connection from which the message has arrived
      * @param serverLobby serverLobby of the game where the player is playing
      */
-    public void useSideActionMessage(Action action, SocketConnection socketConnection, ServerLobby serverLobby){
+    public boolean useSideActionMessage(Action action, SocketConnection socketConnection, ServerLobby serverLobby){
         PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
         turnManager.setSideAction(action);
-        turnManager.useSideAction();
+        return turnManager.useSideAction();
     }
 }

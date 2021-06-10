@@ -6,6 +6,7 @@ import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.network.enumeration.ActionType;
 import it.polimi.ingsw.network.messages.serverMessages.DoneMessage;
+import it.polimi.ingsw.network.messages.serverMessages.PrintMessage;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
@@ -33,8 +34,10 @@ public class DevCardProductionMessage extends ActionMessage{
         DevCardProductionAction action = new DevCardProductionAction(card, storageCount, chestCount);
         PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
         Server.LOGGER.log(Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+": DevCard Production arrived from: "+getNickname());
-        if(turnManager.addDevCardProduction(action))
-            serverLobby.sendToAll(new DoneMessage().serialize());
+        if(turnManager.addDevCardProduction(action)) {
+            serverLobby.sendToAll(new DoneMessage().serialize(), null);
+            serverLobby.sendToAll(new PrintMessage("Player: "+getNickname()+" used a DevCard production!").serialize(),getNickname());
+        }
     }
 
 }

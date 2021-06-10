@@ -75,11 +75,12 @@ public class PlayerTurnManager {
     /**
      * use a side action upon receiving a message
      */
-    public void useSideAction(){
+    public boolean useSideAction(){
         try {
-            sideAction.useAction(player,this);
+            return sideAction.useAction(player,this);
         }catch(MasterOfRenaissanceRuntimeException e){
             Server.LOGGER.log(Level.SEVERE,e.getMessage());}
+        return false;
     }
     /**
      *  used to call the endAction method

@@ -5,6 +5,7 @@ import it.polimi.ingsw.controller.action.leaderAction.PlayLeaderAction;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.network.enumeration.ActionType;
 import it.polimi.ingsw.network.messages.serverMessages.DoneMessage;
+import it.polimi.ingsw.network.messages.serverMessages.PrintMessage;
 import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.network.server.ServerLobby;
 import it.polimi.ingsw.network.server.SocketConnection;
@@ -25,9 +26,10 @@ public class PlayLeaderMessage extends ActionMessage {
      */
     @Override
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
-        PlayLeaderAction action = new PlayLeaderAction(card);
-        useSideActionMessage(action,socketConnection, serverLobby);
         Server.LOGGER.log(Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+": Play Leader Action arrived from: "+getNickname());
-        serverLobby.sendToAll(new DoneMessage().serialize());
+        PlayLeaderAction action = new PlayLeaderAction(card);
+        if(useSideActionMessage(action,socketConnection, serverLobby))
+            serverLobby.sendToAll(new PrintMessage("Player: "+getNickname()+" played a leader!").serialize(),getNickname());
+        serverLobby.sendToAll(new DoneMessage().serialize(),null);
     }
 }

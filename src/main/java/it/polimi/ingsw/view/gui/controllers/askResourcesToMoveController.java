@@ -11,10 +11,7 @@ import javafx.stage.Stage;
 
 public class askResourcesToMoveController extends GuiController{
     @FXML
-    private Button confirmButton;
-    @FXML
-    private AnchorPane one,two;
-    private int numSelected;
+    private Button one,two;
     private ClientDashboardController clientDashboard;
     private boolean toLeader;
     private CounterTop leaderDeposit;
@@ -29,7 +26,6 @@ public class askResourcesToMoveController extends GuiController{
      */
     @Override
     public void setModal(boolean toLeader, CounterTop leaderDeposit, ClientDashboardController clientDashboard, Stage modal){
-        numSelected = 0;
         if(!toLeader){
            if(leaderDeposit.getContent()==1)
                two.setDisable(true);
@@ -46,15 +42,13 @@ public class askResourcesToMoveController extends GuiController{
         this.toLeader=toLeader;
         this.leaderDeposit = leaderDeposit;
         this.modal=modal;
-        confirmButton.setDisable(true);
     }
 
     /**
-     * called upon the click of the "confirm" button, either ends the action sending a message
-     * or set some parameters on the calling clientDashboardController
-     * @param mouseEvent
+     * called after clicking 1 or 2 in the askResourcesToMove Modal
+     * either send a message or set the clientDashboardController params for the leaderMove
      */
-    public void confirmClick(MouseEvent mouseEvent) {
+    public void confirmClick(int numSelected) {
         if(toLeader)
             clientDashboard.getGuiManager().sendMoveToLeader(leaderDeposit.getResourceType(),numSelected);
         else {
@@ -66,25 +60,23 @@ public class askResourcesToMoveController extends GuiController{
 
     /**
      * player selected the number one
-     * @param mouseEvent
+     * @param mouseEvent clickEvent
      */
     public void selectedOne(MouseEvent mouseEvent) {
-        numSelected = 1;
         one.setDisable(true);
         two.setDisable(true);
         two.setVisible(false);
-        confirmButton.setDisable(false);
+        confirmClick(1);
     }
 
     /**
      * player selected the number two
-     * @param mouseEvent
+     * @param mouseEvent clickEvent
      */
     public void selectedTwo(MouseEvent mouseEvent) {
-        numSelected = 2;
         one.setDisable(true);
         two.setDisable(true);
         one.setVisible(false);
-        confirmButton.setDisable(false);
+        confirmClick(2);
     }
 }

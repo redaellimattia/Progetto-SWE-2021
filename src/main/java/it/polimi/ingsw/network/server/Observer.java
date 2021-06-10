@@ -31,5 +31,6 @@ public interface Observer {
     void updateMainActionException(String nickname,String message);
     void updateSideActionException(String nickname,String message);
     void setGameMustEnd();
+    void lorenzoAction(String msg);
 
 }

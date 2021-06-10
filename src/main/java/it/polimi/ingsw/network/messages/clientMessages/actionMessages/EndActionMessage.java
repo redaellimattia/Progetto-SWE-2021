@@ -25,6 +25,6 @@ public class EndActionMessage extends ActionMessage{
         PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
         turnManager.endAction(turnManager.getPlayer());
         Server.LOGGER.log(Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+": End Action arrived from: "+getNickname());
-        serverLobby.sendToAll(new DoneMessage().serialize());
+        serverLobby.sendToAll(new DoneMessage().serialize(),null);
     }
 }
