@@ -7,6 +7,10 @@ import javafx.application.Platform;
 public class SplashScreenController extends GuiController{
     private GuiManager guiManager;
 
+    /**
+     * performing the connection to the server
+     */
+    @Override
     public void initialize() {
         guiManager = GuiManager.getInstance();
         ClientManager clientManager = guiManager.getClientManager();

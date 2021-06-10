@@ -12,6 +12,10 @@ public class WaitingPageController extends GuiController{
         super.initialize();
     }
 
+    /**
+     * if there is text to be showed, it is passed to through this method
+     * @param text to print
+     */
     @FXML
     @Override
     public void setTextForWaiting(String text){

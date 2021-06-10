@@ -30,6 +30,9 @@ public class LandingPageController extends GuiController{
     private ClientManager clientManager;
     private ArrayList<ReturnLobbiesMessage.availableGameLobbies> lobbies;
 
+    /**
+     * setting all parameters for the login/create (such as number of players list)
+     */
     @FXML
     @Override
     public void initialize() {
@@ -40,6 +43,10 @@ public class LandingPageController extends GuiController{
         numberOfPlayers.setItems(numbers);
     }
 
+    /**
+     * when the "Create Game" button is clicked, check validity of parameters then send message
+     * @param actionEvent
+     */
     @FXML
     public void onCreateButtonClick(MouseEvent actionEvent) {
         String nickname = nicknameField.getText();
@@ -65,6 +72,10 @@ public class LandingPageController extends GuiController{
         }
     }
 
+    /**
+     * upon receiving a ReturnLobbiesMessage set the list of available lobbies to be shown to the player
+     * @param lobbies list of lobbies passed by the server
+     */
     @FXML
     public void setLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> lobbies){
         this.lobbies = lobbies;
@@ -80,6 +91,10 @@ public class LandingPageController extends GuiController{
 
     }
 
+    /**
+     * upon selecting a lobby from the list, check validity of username and then send Join message
+     * @param mouseEvent
+     */
     @FXML
     public void handleMouseClick(MouseEvent mouseEvent) {
         ReturnLobbiesMessage.availableGameLobbies selected = lobbyList.getSelectionModel().getSelectedItem();
@@ -99,11 +114,20 @@ public class LandingPageController extends GuiController{
             goToWaiting("Wait for all players to join the lobby!");
         }
     }
+
+    /**
+     * set the scene on the Waiting  Page
+     * @param msg message to show as text in the waiting page
+     */
     public void goToWaiting(String msg){
         getGuiManager().setLayout("waitingPage.fxml");
         getGuiManager().getCurrentController().setTextForWaiting(msg);
     }
 
+    /**
+     * handle "Ask Lobbies Again" button click, ask again the available lobbies to the server
+     * @param mouseEvent
+     */
     public void askLobbies(MouseEvent mouseEvent) {
         Platform.runLater(()-> clientManager.askLobbies());
     }

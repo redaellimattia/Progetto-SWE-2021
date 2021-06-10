@@ -12,8 +12,6 @@ import javafx.scene.input.MouseEvent;
 
 public class shopViewController extends GuiController {
     @FXML
-    private Button backToDashboard;
-    @FXML
     private Label errorLabel;
     @FXML
     private ImageView g3;
@@ -45,6 +43,10 @@ public class shopViewController extends GuiController {
     private ImageView selected;
     private int row;
     private int col;
+
+    /**
+     * setting disable/enable based on the player's turn and loaading the shop
+     */
     @FXML
     @Override
     public void initialize() {
@@ -58,6 +60,10 @@ public class shopViewController extends GuiController {
         setShop();
     }
 
+    /**
+     * upon selecting an image, show it in the selected frame and save row and column of the selected one
+     * @param event
+     */
     @FXML
     private void selectImage(MouseEvent event) {
         String id = event.getPickResult().getIntersectedNode().getId();
@@ -126,6 +132,10 @@ public class shopViewController extends GuiController {
         confirmButton.setDisable(false);
     }
 
+    /**
+     * after clicking "Confirm" button, call the method to pass on to the payment scene
+     * @param event
+     */
     @FXML
     private void sendToPayment(MouseEvent event) {
         if(confirmButton.isDisable()) {
@@ -140,22 +150,35 @@ public class shopViewController extends GuiController {
         }
     }
 
+    /**
+     * setting the layout for the payment scene and passing the card as parameter
+     */
     private void goToPayment(){
         Shop shopGrid = getGuiManager().getClientManager().getGameStatus().getShop();
         getGuiManager().setLayout("payment.fxml");
         getGuiManager().getCurrentController().setBuyCard(shopGrid.getGrid()[row][col].getFirst());
     }
 
+    /**
+     * go back to dashboard not committing the choice
+     * @param mouseEvent
+     */
     public void goBackToDashboard(MouseEvent mouseEvent) {
         Platform.runLater(()->getGuiManager().callDashboard());
         //getGuiManager().setNextScene();
     }
 
+    /**
+     * called by the GuiObserver upon receiving a shop update, refresh the shop
+     */
     @Override
     public void updateShop(){
         setShop();
     }
 
+    /**
+     * loading the graphic resources for the shop
+     */
     private void setShop(){
         Shop shopGrid = getGuiManager().getClientManager().getGameStatus().getShop();
         //GREEN CARDS

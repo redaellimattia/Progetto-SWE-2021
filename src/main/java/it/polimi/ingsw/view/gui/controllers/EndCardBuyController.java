@@ -19,6 +19,9 @@ public class EndCardBuyController extends GuiController{
     ResourceCount storageCount,chestCount;
     DevelopmentCard card;
 
+    /**
+     * setting the decks of development cards owned by the player when choosing where to place the card
+     */
     @FXML
     @Override
     public void initialize(){
@@ -27,6 +30,12 @@ public class EndCardBuyController extends GuiController{
                     firstDeck1,secondDeck1,thirdDeck1,firstDeck2,secondDeck2,thirdDeck2,firstDeck3,secondDeck3,thirdDeck3);
     }
 
+    /**
+     * passing the parameters in order to send the buyCardMessage after the selection of the deck
+     * @param card chosen card
+     * @param storageCount resources chosen from the storage
+     * @param chestCount resources chosen from the chest
+     */
     @Override
     public void setFinalStageBuy(DevelopmentCard card, ResourceCount storageCount, ResourceCount chestCount){
         this.card=card;
@@ -34,6 +43,11 @@ public class EndCardBuyController extends GuiController{
         this.chestCount=chestCount;
         setImage(chosenCard,"/img/cards/front/DevelopmentCards/"+ card.getId() + ".png");
     }
+
+    /**
+     * called upon the click of the "firstDeck" button
+     * @param mouseEvent
+     */
     @FXML
     private void firstDeckChosen(MouseEvent mouseEvent) {
         Platform.runLater(()-> getGuiManager().getClientManager().buyCard(storageCount,chestCount, card.getId(), 0));
@@ -43,6 +57,11 @@ public class EndCardBuyController extends GuiController{
         getGuiManager().getClientManager().setMainActionDone(true);
         getGuiManager().callDashboard();
     }
+
+    /**
+     * called upon the click of the "secondDeck" button
+     * @param mouseEvent
+     */
     @FXML
     private void secondDeckChosen(MouseEvent mouseEvent) {
         Platform.runLater(()-> getGuiManager().getClientManager().buyCard(storageCount,chestCount, card.getId(), 1));
@@ -52,6 +71,11 @@ public class EndCardBuyController extends GuiController{
         getGuiManager().getClientManager().setMainActionDone(true);
         getGuiManager().callDashboard();
     }
+
+    /**
+     * called upon the click of the "thirdDeck" button
+     * @param mouseEvent
+     */
     @FXML
     private void thirdDeckChosen(MouseEvent mouseEvent) {
         Platform.runLater(()-> getGuiManager().getClientManager().buyCard(storageCount,chestCount, card.getId(), 2));

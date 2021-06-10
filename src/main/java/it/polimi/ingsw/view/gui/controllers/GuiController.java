@@ -165,6 +165,19 @@ public abstract class GuiController {
         }
     }
 
+    /**
+     * setting the images of development cards deck for a player (used both in clientDashboard and endBuyCard)
+     * @param devCards player's devCards
+     * @param firstDeck1 first deck level 1
+     * @param secondDeck1 second deck level 1
+     * @param thirdDeck1 third deck level 1
+     * @param firstDeck2 first deck level 2
+     * @param secondDeck2 second deck level 2
+     * @param thirdDeck2 third deck level 2
+     * @param firstDeck3 first deck level 3
+     * @param secondDeck3 second deck level 3
+     * @param thirdDeck3 third deck level 3
+     */
     protected void setDevCards(DeckDashboard[] devCards,ImageView firstDeck1, ImageView secondDeck1, ImageView thirdDeck1,
                                 ImageView firstDeck2, ImageView secondDeck2, ImageView thirdDeck2,
                                 ImageView firstDeck3, ImageView secondDeck3, ImageView thirdDeck3){
@@ -184,6 +197,14 @@ public abstract class GuiController {
         }
     }
 
+    /**
+     * supporting function used by setDevCards
+     * @param ID id of the card
+     * @param i position of the card in the specific deck
+     * @param firstPosition deck level 1
+     * @param secondPosition deck level 2
+     * @param thirdPosition deck level 3
+     */
     protected void insertCard(int ID, int i, ImageView firstPosition, ImageView secondPosition, ImageView thirdPosition) {
         switch (i){
             case 0: setImage(firstPosition,"/img/cards/front/DevelopmentCards/"+ID+".png");
@@ -308,6 +329,11 @@ public abstract class GuiController {
     public void setModal(boolean isBasic,LeaderCard card,Stage modal){}
     public void setModal(boolean toLeader,CounterTop leaderDeposit,ClientDashboardController clientDashboard,Stage modal){}
 
+    /**
+     * launching a modal stage for particular actions
+     * @param fxml fxml path of the scene to launch
+     * @return a stage containing the selected scene
+     */
     protected Stage launchModal(String fxml){
         GuiController controller = null;
         Stage modal = new Stage();

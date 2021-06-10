@@ -15,7 +15,7 @@
          <Font name="Roboto Light" size="40.0" />
       </font>
    </Text>
-   <Button layoutX="505.0" layoutY="189.0" mnemonicParsing="false" onMouseClicked="#confirmClick" text="Confirm">
+   <Button fx:id="confirmButton" layoutX="505.0" layoutY="189.0" mnemonicParsing="false" onMouseClicked="#confirmClick" text="Confirm">
       <font>
          <Font name="Roboto Light" size="12.0" />
       </font></Button>

@@ -19,6 +19,12 @@ public class EndGameController extends GuiController{
     public void initialize(){
         super.setGuiManager(GuiManager.getInstance());
     }
+
+    /**
+     * setting the endGame view in the case of a single player game
+     * @param lorenzoWin boolean representing win/lose of the player
+     * @param playerPoints points scored by the player
+     */
     @FXML
     @Override
     public void setEndGame(boolean lorenzoWin, int playerPoints){
@@ -34,6 +40,11 @@ public class EndGameController extends GuiController{
             firstPlayer.setText("You won with a total of: " + playerPoints+ " points");
         }
     }
+
+    /**
+     * setting the endGame view in the case of a multi player game
+     * @param scoreboard list of all the players with relative points
+     */
     @FXML
     @Override
     public void setEndGame(ArrayList<PlayerPoints> scoreboard){

@@ -39,6 +39,8 @@ public class CardShopAction extends Action {
     /**
      *
      * @param player player that wants to buy the card
+     * @param turnManager object responsible for the handling of the turn
+     * @return true if everything went fine
      */
     //AFTER CHECKING IF THE CHOSEN POSITION ON THE BOARD CAN FIT THE CHOSEN CARD AND THE PLAYER CAN AFFORD IT, RETURN TRUE IF EVERYTHING IS DONE CORRECTLY, FALSE IF NOT
     @Override
@@ -54,17 +56,6 @@ public class CardShopAction extends Action {
         if(checkIfPossible(chosen.getLevel(),deckPosition, player) && chosenCost.equals(ResourceCount.getTotal(storageCount,chestCount))){
             chosen = shop.buy(row,column,player,turnManager);
             player.addDevCards(chosen,deckPosition);
-            int storageToInt = ResourceCount.resCountToInt(storageCount);
-            int chestToInt = ResourceCount.resCountToInt(chestCount);
-            /*for (LeaderCard l: player.getLeaderCards()) {
-                Resource res = l.getSpecialAbility().getResourceType();
-                if(storageToInt != 0)
-                    if(res.get(storageCount) != 0)
-                        l.getSpecialAbility().useDiscountAbility(storageCount);
-                    else if (chestToInt != 0)
-                        if(res.get(chestCount) != 0)
-                            l.getSpecialAbility().useDiscountAbility(chestCount);
-            }*/
             deleteRes(storageCount,chestCount,player);
             return true;
         }
