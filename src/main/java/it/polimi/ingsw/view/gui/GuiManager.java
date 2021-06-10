@@ -56,7 +56,10 @@ public class GuiManager implements View, GuiObserver{
         this.currentScene = scene;
     }
 
-
+    /**
+     *
+     * @param fileName
+     */
     public void setLayout(String fileName){
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(GuiManager.class.getResource("/fxml/"+fileName));
