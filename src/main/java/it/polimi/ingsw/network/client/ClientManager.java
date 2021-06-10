@@ -28,7 +28,7 @@ public class ClientManager {
     private boolean gameEnded;
     private boolean productionActionOnGoing;
     private boolean basicProductionDone;
-    private int lastProduction,lastIndex,numProd;
+    private int lastProduction,lastIndex;
     private boolean[] leaderCardProductionDone;
     private boolean[] devCardProductionDone;
     private String address;
@@ -52,7 +52,6 @@ public class ClientManager {
         this.gameStarted = false;
         this.leaderCardProductionDone = new boolean[2];
         this.devCardProductionDone = new boolean[3];
-        this.numProd = 0;
         this.gameEnded=false;
         view.start();
     }
@@ -89,9 +88,6 @@ public class ClientManager {
     }
     public boolean[] getDevCardProductionDone() {
         return devCardProductionDone;
-    }
-    public int getNumProd() {
-        return numProd;
     }
 
     public boolean isGameEnded() {
@@ -138,7 +134,6 @@ public class ClientManager {
     }
 
     private void initProductionDone(){
-        numProd = 0;
         basicProductionDone = false;
         for(int i=0;i<3;i++)
             devCardProductionDone[i] = thisPlayerDashboard.getDevCards()[i].getDeck().size() <= 0;
@@ -259,7 +254,6 @@ public class ClientManager {
         mainActionDone = true;
         basicProductionDone = true;
         lastProduction = 1;
-        numProd++;
         clientSocket.send(new BasicProductionMessage(nickname,serverLobbyID,outputResource,storagePayment,chestPayment).serialize());
     }
 
@@ -277,7 +271,6 @@ public class ClientManager {
         leaderCardProductionDone[index] = true;
         lastProduction = 2;
         lastIndex = index;
-        numProd++;
         clientSocket.send(new LeaderProductionMessage(nickname,serverLobbyID,card,storageCount,chestCount,res).serialize());
     }
 
@@ -294,7 +287,6 @@ public class ClientManager {
         devCardProductionDone[index] = true;
         lastProduction = 3;
         lastIndex = index;
-        numProd++;
         clientSocket.send(new DevCardProductionMessage(nickname,serverLobbyID,card,storageCount,chestCount).serialize());
     }
 

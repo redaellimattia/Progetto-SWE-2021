@@ -325,25 +325,27 @@ public class PaymentController extends GuiController{
      * @param res deselected resource
      */
     public void resourceDeselected(Resource res){
-        switch (res){
-            case COIN:
-                if(cost.getCoins()< fixedCost.getCoins() && chestCount.getCoins() <fixedCost.getCoins())
-                    cost.addCoins(1);
-                break;
-            case ROCK:
-                if(cost.getRocks()< fixedCost.getRocks() && chestCount.getRocks() <fixedCost.getRocks())
-                    cost.addRocks(1);
-                break;
-            case SHIELD:
-                if(cost.getShields()< fixedCost.getShields() && chestCount.getShields() <fixedCost.getShields())
-                    cost.addShields(1);
-                break;
-            case SERVANT:
-                if(cost.getServants()< fixedCost.getServants() && chestCount.getServants() <fixedCost.getServants())
-                    cost.addServants(1);
-                break;
+        if(!basicProduction) {
+            switch (res) {
+                case COIN:
+                    if (cost.getCoins() < fixedCost.getCoins() && chestCount.getCoins() < fixedCost.getCoins())
+                        cost.addCoins(1);
+                    break;
+                case ROCK:
+                    if (cost.getRocks() < fixedCost.getRocks() && chestCount.getRocks() < fixedCost.getRocks())
+                        cost.addRocks(1);
+                    break;
+                case SHIELD:
+                    if (cost.getShields() < fixedCost.getShields() && chestCount.getShields() < fixedCost.getShields())
+                        cost.addShields(1);
+                    break;
+                case SERVANT:
+                    if (cost.getServants() < fixedCost.getServants() && chestCount.getServants() < fixedCost.getServants())
+                        cost.addServants(1);
+                    break;
+            }
+            setStillToPay(cost);
         }
-        setStillToPay(cost);
     }
 
     /**
