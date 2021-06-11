@@ -9,6 +9,23 @@ Scopo del progetto è quello di implementare il gioco da tavola [Masters of Rena
 Sono implementate le regole complete del gioco, e sono presenti due interfacce utente, sia a linea di comando (CLI) che grafica (GUI).  
 La rete è stata gestita tramite socket. Sono inoltre presenti le funzionalià aggiuntive per le partite multiple e per la resilienza alle disconnessioni
 
+## Documentazione
+
+### UML
+- [UML Alto Livello]()
+- [UML Dettaglio]()
+
+### JavaDoc
+La seguente documentazione include una descrizione per la maggiore parte delle classi e dei metodi utilizzati, segue le tecniche di documentazione di Java e può essere consultata al seguente indirizzo: [Javadoc]()
+
+### Librerie e Plugins
+|Libreria/Plugin|Descrizione|
+|---------------|-----------|
+|__maven__|strumento di gestione build automation|
+|__junit__|Java unit testing|
+|__gson__|libreria per il supporto al parsing di file in formato json|
+|__JavaFx__|libreria grafica di Java|
+
 ## Funzionalità
 
 - Regole Complete
