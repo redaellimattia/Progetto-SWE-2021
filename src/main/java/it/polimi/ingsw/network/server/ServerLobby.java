@@ -36,7 +36,7 @@ public class ServerLobby extends Thread implements Observer {
         this.lobbyID = lobbyID;
         this.gameLobby = new GameLobby(this.lobbyID,numberOfPlayers);
         this.gameLobby.addObserver(this);
-        Server.LOGGER.log(Level.INFO, "Server: "+ this.lobbyID +" Game lobby created with "+numberOfPlayers+" players.");
+        Server.LOGGER.log(Level.INFO, "Lobby: "+ this.lobbyID +" Game lobby created with "+numberOfPlayers+" players.");
     }
 
     //GETTERS
@@ -416,11 +416,10 @@ public class ServerLobby extends Thread implements Observer {
      * When the game ends, close this lobby
      */
     private void closeLobby(){
-        for (String key : clients.keySet()) {
-            clients.get(key).disconnect();
-        }
+        for (String key : clients.keySet())
+            clients.get(key).closeConnection();
         clients.clear();
-        if(noOneConnectedTimer!=null)
+        if (noOneConnectedTimer != null)
             noOneConnectedTimer.cancel();
         Server.closeLobby(this.lobbyID);
     }

@@ -75,7 +75,7 @@ public class SocketConnection implements Runnable{
     }
 
     /**
-     * Client is disconnecting
+     * Client is disconnecting during game
      */
     public void disconnect() {
         if (isConnected) {
@@ -89,6 +89,22 @@ public class SocketConnection implements Runnable{
             } catch (IOException e) {
                 Server.LOGGER.log(Level.SEVERE,"Error while closing the Socket Connection\n"+ e.getMessage());}
 
+            socketListener.interrupt(); // Interrupts the thread
+            isConnected = false;
+        }
+    }
+
+    /**
+     * Close connection to the client
+     */
+    public void closeConnection(){
+        if (isConnected) {
+            try {
+                if (!socket.isClosed()) {
+                    socket.close();
+                }
+            } catch (IOException e) {
+                Server.LOGGER.log(Level.SEVERE,"Error while closing the Socket Connection\n"+ e.getMessage());}
             socketListener.interrupt(); // Interrupts the thread
             isConnected = false;
         }

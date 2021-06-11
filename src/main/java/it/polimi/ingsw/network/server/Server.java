@@ -79,7 +79,7 @@ public class Server {
         SocketServer serverSocket = new SocketServer(this, socketPort);
         serverSocket.startSocketServer();
 
-        LOGGER.info("Socket ServerLobby listening on port: "+socketPort);
+        LOGGER.info("Socket server listening on port: "+socketPort);
     }
 
     /**
