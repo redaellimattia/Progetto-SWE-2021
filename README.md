@@ -4,9 +4,10 @@
 <p>
   <img src="/utilities/coverage/coverage 10-06.png">
 </p>
-Scopo del progetto è quello di implementare il gioco da tavola [Masters of Renaissance](http://craniointernational.com/products/masters-of-renaissance/) utilizzando il pattern architetturale Model View Controller.  
+
+Scopo del progetto è quello di implementare il gioco da tavola [Masters of Renaissance](http://craniointernational.com/products/masters-of-renaissance/) utilizzando il pattern architetturale `MVC` Model View Controller.  
 Sono implementate le regole complete del gioco, e sono presenti due interfacce utente, sia a linea di comando (CLI) che grafica (GUI).  
-La rete è stata gestita tramite socket.
+La rete è stata gestita tramite socket. Sono inoltre presenti le funzionalià aggiuntive per le partite multiple e per la resilienza alle disconnessioni
 
 ## Funzionalità
 
@@ -20,8 +21,6 @@ La rete è stata gestita tramite socket.
 - Partite multiple
 - Resilienza alle disconnessioni
 
-
-  
 ## Esecuzione dei JAR
 Per l'avvio é necessario solamente aver installato il `JDK` di JAVA.   
 Per lo sviluppo abbiamo utilizzato il `JDK 15` .
@@ -29,7 +28,7 @@ Per lo sviluppo abbiamo utilizzato il `JDK 15` .
 I JAR sono disponibili [qui](https://github.com/).  
 
 ### Server
-- `GC47-server.jar`
+- `GC47-server.jar`  
 Il comando da eseguire da command line é il seguente:
 ```bash 
   java -jar ./GC47-server.jar [-p port]
@@ -38,7 +37,7 @@ Il comando da eseguire da command line é il seguente:
 - `-p`: porta che si vuole utilizzare in ascolto.
 
 ### Client
-- `GC47-client.jar`
+- `GC47-client.jar`  
 Il comando da eseguire da command line é il seguente:
 ```bash 
   java -jar ./GC47-client.jar [-ip serverip] [-p serverport] [-cli]
