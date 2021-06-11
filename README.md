@@ -38,6 +38,12 @@ Documentazione di metodi Java: [Javadoc]()
 - Partite multiple
 - Resilienza alle disconnessioni
 
+## Coverage dei casi di test
+Aggiornata al 10 Giugno.
+<p>
+  <img src="/utilities/coverage/coverage 10-06.png">
+</p>
+
 ## Esecuzione dei JAR
 Per l'avvio é necessario solamente aver installato il `JDK` di JAVA.   
 Per lo sviluppo abbiamo utilizzato il `JDK 15` .
@@ -63,12 +69,6 @@ Il comando da eseguire da command line é il seguente:
 - `-ip`: ip del server al quale ci si vuole connettere, di default `localhost`.
 - `-p`: porta del server al quale ci si vuole connettere, di default `65500`.
 - `-cli`: opzione necessaria per lanciare il client con interfaccia a linea di comando, di default viene avviato con `GUI`.
-    
-## Coverage dei casi di test
-Aggiornata al 10 Giugno.
-<p>
-  <img src="/utilities/coverage/coverage 10-06.png">
-</p>
 
 ## Gruppo GC47
 
