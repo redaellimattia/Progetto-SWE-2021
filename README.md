@@ -2,7 +2,7 @@
 # Progetto di Ingegneria Del Software - A.A. 2020/2021
 
 <p>
-  <img src="/utilities/coverage/coverage 10-06.png">
+  <img src="src/main/resources/img/javaFX/background.jpg">
 </p>
 
 Scopo del progetto è quello di implementare il gioco da tavola [Masters of Renaissance](http://craniointernational.com/products/masters-of-renaissance/) utilizzando il pattern architetturale `MVC` Model View Controller.  
