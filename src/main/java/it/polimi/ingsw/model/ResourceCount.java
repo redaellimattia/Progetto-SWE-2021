@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model;
 
-import it.polimi.ingsw.model.enumeration.Resource;
 
 public class ResourceCount {
     private int coins;
@@ -98,14 +97,6 @@ public class ResourceCount {
      */
     public void addShields(int shields){
         this.shields += shields;
-    }
-
-    /**
-     *
-     * @param faith Resource.FAITH counter incremented by faith
-     */
-    public void addFaith(int faith){
-        this.faith += faith;
     }
 
     //REMOVE ON A SINGLE PARAMETER

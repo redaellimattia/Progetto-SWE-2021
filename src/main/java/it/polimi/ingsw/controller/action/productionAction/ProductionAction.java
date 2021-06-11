@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 public class ProductionAction extends Action {
-    private ArrayList<LeaderCardProductionAction> leaderCardProductions;
-    private ArrayList<DevCardProductionAction> devCardProductions;
+    private final ArrayList<LeaderCardProductionAction> leaderCardProductions;
+    private final ArrayList<DevCardProductionAction> devCardProductions;
     private BasicProductionAction basicProduction;
 
     /**

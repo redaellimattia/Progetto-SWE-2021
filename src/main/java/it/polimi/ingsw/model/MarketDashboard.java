@@ -16,14 +16,6 @@ public class MarketDashboard {
     }
 
     /**
-     * Remove reference to the observer
-     * @param observer ServerLobby that is observing the Market
-     */
-    public void removeObserver(Observer observer) {
-        this.observer = null;
-    }
-
-    /**
      *
      * @param structure the matrix representing the MarketDashboard
      * @param freeMarble the marble that is not in the matrix
@@ -66,7 +58,6 @@ public class MarketDashboard {
                 structure[pos-1][cur] = structure[pos-1][cur+1]; // left shift
             }
             structure[pos-1][3] = freeMarble;
-            freeMarble = temp;
         }
         else {
             if(pos < 1 || pos > 4) {
@@ -77,8 +68,8 @@ public class MarketDashboard {
                 structure[cur][pos-1] = structure[cur+1][pos-1];
             }
             structure[2][pos-1] = freeMarble;
-            freeMarble = temp;
         }
+        freeMarble = temp;
         observer.updateMarket(structure,freeMarble);
     }
 

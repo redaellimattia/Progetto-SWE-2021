@@ -7,14 +7,11 @@ import it.polimi.ingsw.exceptions.action.WrongResourcesMovedException;
 import it.polimi.ingsw.model.CounterTop;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.Storage;
-import it.polimi.ingsw.model.card.LeaderCard;
-
-import javax.swing.*;
 
 public class MoveFromLeaderToDeposit extends Action {
-    private int from_leader;
-    private int to_deposit;
-    private int number;
+    private final int from_leader;
+    private final int to_deposit;
+    private final int number;
 
     /**
      *

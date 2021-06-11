@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Game {
-    private ArrayList<PlayerDashboard> players;
-    private Shop shop;
-    private MarketDashboard market;
-    private ArrayList<SoloToken> tokensDeck;
-    private ArrayList<SoloToken> discardedTokens;
+    private final ArrayList<PlayerDashboard> players;
+    private final Shop shop;
+    private final MarketDashboard market;
+    private final ArrayList<SoloToken> tokensDeck;
+    private final ArrayList<SoloToken> discardedTokens;
     private boolean lorenzoWin;
-    private VaticanReport[] vReports;
+    private final VaticanReport[] vReports;
     private transient Observer observer;
 
     /**
@@ -24,16 +24,6 @@ public class Game {
         this.vReports[0].addObserver(observer);
         this.vReports[1].addObserver(observer);
         this.vReports[2].addObserver(observer);
-    }
-
-    /**
-     * Remove reference to the observer
-     * @param observer ServerLobby that is observing the Player
-     */
-    public void removeObserver(Observer observer) {
-        this.vReports[0].removeObserver();
-        this.vReports[1].removeObserver();
-        this.vReports[2].removeObserver();
     }
 
     public Game(ArrayList<PlayerDashboard> players,Shop shop,MarketDashboard market,ArrayList<SoloToken> tokensDeck) {
@@ -107,16 +97,9 @@ public class Game {
         return picked;
     }
 
-    public ArrayList<SoloToken> getTokensDeck() {
-        return tokensDeck;
-    }
-
-    public ArrayList<SoloToken> getDiscardedTokens() {
-        return discardedTokens;
-    }
-
     /**
      *  check whether the  VaticanReports need to be activated || the game must end
+     *
      * @param player the player whom we need to check the FaithPath position
      */
     public void checkFaithPath(PlayerDashboard player){

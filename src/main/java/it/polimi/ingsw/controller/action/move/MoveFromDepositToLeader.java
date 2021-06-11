@@ -8,9 +8,9 @@ import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.Storage;
 
 public class MoveFromDepositToLeader extends Action {
-    private int from_deposit;
-    private int to_leader;
-    private int number;
+    private final int from_deposit;
+    private final int to_leader;
+    private final int number;
 
     /**
      *

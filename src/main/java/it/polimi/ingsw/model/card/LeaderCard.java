@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.card;
 
 public class LeaderCard extends Card {
-    private Requirement requirement;
-    private SpecialAbility specialAbility;
+    private final Requirement requirement;
+    private final SpecialAbility specialAbility;
     private boolean inGame;
 
     /**

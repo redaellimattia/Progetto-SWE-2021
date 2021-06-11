@@ -8,7 +8,7 @@ import it.polimi.ingsw.model.enumeration.CardColour;
 import java.util.ArrayList;
 
 public class TypeOfCardRequirement implements Requirement {
-    private ColourCount cardColours;
+    private final ColourCount cardColours;
 
     /**
      *

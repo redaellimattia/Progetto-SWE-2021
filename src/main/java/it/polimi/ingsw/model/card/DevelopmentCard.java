@@ -5,10 +5,10 @@ import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.CardColour;
 
 public class DevelopmentCard extends Card {
-    private ResourceCount cost;
-    private Production productionPower;
+    private final ResourceCount cost;
+    private final Production productionPower;
     private int level;
-    private CardColour colour;
+    private final CardColour colour;
 
     /**
      *

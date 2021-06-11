@@ -21,14 +21,6 @@ public class Shop {
     }
 
     /**
-     * Remove reference to the observer
-     * @param observer ServerLobby that is observing the Shop
-     */
-    public void removeObserver(Observer observer) {
-        this.observer = null;
-    }
-
-    /**
      *
      * @param shopGrid the matrix used to initialize the shop
      */
@@ -105,7 +97,7 @@ public class Shop {
     }
 
     public DevelopmentCard getCardByID(int ID){
-        DevelopmentCard card = null;
+        DevelopmentCard card;
         for(int i=0;i<3;i++)
             for(int j=0;j<4;j++) {
                 if(shopGrid[i][j].getDeck().size()>0) {

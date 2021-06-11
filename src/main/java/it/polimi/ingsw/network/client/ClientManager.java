@@ -1,6 +1,5 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.controller.action.marketAction.AtomicMarketAction;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
@@ -20,7 +19,7 @@ public class ClientManager {
     private String nickname;
     private ClientSocket clientSocket;
     private long serverLobbyID = -1;
-    private View view;
+    private final View view;
     private ClientGameStatus gameStatus;
     private boolean mainActionDone;
     private boolean isMyTurn;
@@ -29,8 +28,8 @@ public class ClientManager {
     private boolean productionActionOnGoing;
     private boolean basicProductionDone;
     private int lastProduction,lastIndex,numOfProd;
-    private boolean[] leaderCardProductionDone;
-    private boolean[] devCardProductionDone;
+    private final boolean[] leaderCardProductionDone;
+    private final boolean[] devCardProductionDone;
     private final String address;
     private final int socketPort;
     private PlayerDashboard thisPlayerDashboard;
@@ -78,9 +77,6 @@ public class ClientManager {
     }
     public int getLastProduction() {
         return lastProduction;
-    }
-    public boolean isBasicProductionDone() {
-        return basicProductionDone;
     }
     public boolean[] getLeaderCardProductionDone() {
         return leaderCardProductionDone;
@@ -134,6 +130,9 @@ public class ClientManager {
         this.devCardProductionDone[lastIndex] = false;
     }
 
+    /**
+     * Reset the production at the start of the turn
+     */
     private void initProductionDone(){
         numOfProd = 0;
         basicProductionDone = false;
@@ -414,7 +413,7 @@ public class ClientManager {
      * Check if it's is possible to swap two selected countertops
      * @param from the starting position
      * @param to the arriving position
-     * @return true if it's doable
+     * @return true if it's possible
      */
     public boolean swapOk(int from, int to){
         PlayerDashboard p = thisPlayerDashboard;
@@ -433,7 +432,7 @@ public class ClientManager {
 
     /**
      * Check if the player has resources to enable an organize action
-     * @return true if it's doable
+     * @return true if it's possible
      */
     public boolean canMoveResources(){
         PlayerDashboard p = thisPlayerDashboard;
@@ -505,7 +504,7 @@ public class ClientManager {
 
     /**
      * Check if the player has the possibility to buy at least one card from the shop
-     * @return true if it's doable
+     * @return true if it's possible
      */
     public boolean canBuyCardFromShop(){
         Deck[][] shop = gameStatus.getShop().getGrid();
@@ -531,7 +530,7 @@ public class ClientManager {
     /**
      * Check if the player can buy a specific Development Card
      * @param ID id of the specific Development Card
-     * @return true if it's doable
+     * @return true if it's possible
      */
     public boolean canBuySpecificCard(int ID){
         DevelopmentCard c = getShopCardByID(ID);
@@ -553,7 +552,7 @@ public class ClientManager {
      * Check if the player can place a Development Card in a chosen position
      * @param position chosen position
      * @param level card's level
-     * @return true if it's doable
+     * @return true if it's possible
      */
     public boolean positionPossible(int position, int level){
         if(position == -1)
@@ -709,24 +708,16 @@ public class ClientManager {
         return null;
     }
 
-    public void takeResourcesFromMarket(int type, int pos, ArrayList<AtomicMarketAction> choices) {
-        // System.out.println(new MarketActionMessage(nickname, serverLobbyID, type, pos, choices).serialize());
-        // clientSocket.send(new MarketActionMessage(nickname, serverLobbyID, type, pos, choices).serialize());
-    }
-
     public void getResource(int row) {
-        // System.out.println(new GetResourceMessage(nickname, serverLobbyID, row).serialize());
         clientSocket.send(new GetResourceMessage(nickname, serverLobbyID, row).serialize());
     }
 
     public void discardResource() {
-        // System.out.println(new DiscardResourceMessage(nickname, serverLobbyID).serialize());
         clientSocket.send(new DiscardResourceMessage(nickname, serverLobbyID).serialize());
     }
 
     public void convertMarble(LeaderCard leaderCard, int row) {
         int cardId = leaderCard.getId();
-        // System.out.println(new ConvertMarbleMessage(nickname, serverLobbyID, cardId, row).serialize());
         clientSocket.send(new ConvertMarbleMessage(nickname, serverLobbyID, cardId, row).serialize());
     }
 

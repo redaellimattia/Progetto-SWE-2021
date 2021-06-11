@@ -11,5 +11,5 @@ public interface Requirement {
      * @return true if it's possible to play the card
      */
     boolean isPlayable(PlayerDashboard player);
-    public String toString();
+    String toString();
 }

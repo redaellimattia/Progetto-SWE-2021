@@ -1,22 +1,19 @@
 package it.polimi.ingsw.controller.action;
 
 import it.polimi.ingsw.controller.PlayerTurnManager;
-import it.polimi.ingsw.exceptions.EmptyDeckException;
 import it.polimi.ingsw.exceptions.action.PaymentFailedException;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.Shop;
 import it.polimi.ingsw.model.card.DevelopmentCard;
-import it.polimi.ingsw.model.card.LeaderCard;
-import it.polimi.ingsw.model.enumeration.Resource;
 
 public class CardShopAction extends Action {
-    private Shop shop;
-    private int row;
-    private int column;
-    private int deckPosition;
-    private ResourceCount storageCount;
-    private ResourceCount chestCount;
+    private final Shop shop;
+    private final int row;
+    private final int column;
+    private final int deckPosition;
+    private final ResourceCount storageCount;
+    private final ResourceCount chestCount;
 
     /**
      *

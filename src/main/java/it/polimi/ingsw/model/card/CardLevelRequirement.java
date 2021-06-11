@@ -8,8 +8,8 @@ import it.polimi.ingsw.view.cli.CliColours;
 import java.util.ArrayList;
 
 public class CardLevelRequirement implements Requirement {
-    private CardColour colour;
-    private int level; //Assuming level goes from 1 to 3
+    private final CardColour colour;
+    private final int level; //Assuming level goes from 1 to 3
 
     /**
      *

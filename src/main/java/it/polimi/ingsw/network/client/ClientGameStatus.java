@@ -2,20 +2,16 @@ package it.polimi.ingsw.network.client;
 
 import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
-import it.polimi.ingsw.network.server.Observer;
 import it.polimi.ingsw.view.gui.GuiObserver;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ClientGameStatus {
     private ArrayList<PlayerDashboard> players;
     private Shop shop;
     private MarketDashboard market;
-    private VaticanReport[] vReports;
+    private final VaticanReport[] vReports;
     private GuiObserver guiObserver;
 
     public ClientGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market, VaticanReport[] vReports) {
@@ -31,13 +27,6 @@ public class ClientGameStatus {
      */
     public void addObserver(GuiObserver observer) {
         this.guiObserver = observer;
-    }
-
-    /**
-     * Remove reference to the observer
-     */
-    public void removeObserver() {
-        this.guiObserver = null;
     }
 
     public VaticanReport[] getReports() {
@@ -102,7 +91,7 @@ public class ClientGameStatus {
     }
 
     /**
-     * Puth the leader in Game
+     * Put the leader in Game
      * @param nickname nickname of the player
      * @param updatedLeaderCards updated leader cards
      */

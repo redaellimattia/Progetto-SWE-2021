@@ -22,14 +22,6 @@ public class Storage {
     }
 
     /**
-     * Remove reference to the observer
-     * @param observer ServerLobby that is observing the Storage
-     */
-    public void removeObserver(StorageObserver observer) {
-        this.observer = null;
-    }
-
-    /**
      * Constructor of the object
      * @param firstRow storage.firstRow
      * @param secondRow storage.secondRow
@@ -132,7 +124,7 @@ public class Storage {
      * @return the number of elements that don't fit in the secondRow
      */
     public int addToSecondRow(int n){
-        int i = 0;
+        int i;
         for(i = 0; i<n && secondRow.getContent()<2; i++)
                 secondRow.addContent(1);
         if((n-i)!=n && observer != null)
@@ -146,7 +138,7 @@ public class Storage {
      * @return the number of elements that don't fit in the thirdRow
      */
     public int addToThirdRow(int n){
-        int i = 0;
+        int i;
         for(i = 0; i<n && thirdRow.getContent()<3; i++)
                 thirdRow.addContent(1);
         if((n-i)!=n && observer != null)
@@ -185,7 +177,9 @@ public class Storage {
         try{setFirstRow(supportShelves.get(0));
             setSecondRow(supportShelves.get(1));
             setThirdRow(supportShelves.get(2));}
-        catch(CounterTopOverloadException e){};
+        catch(CounterTopOverloadException e){
+
+        };
     }
 
 

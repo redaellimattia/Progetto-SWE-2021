@@ -8,11 +8,10 @@ import java.util.ArrayList;
 
 
 public class GameManager {
-    private Game game;
+    private final Game game;
     private PlayerTurnManager turnManager;
-    private boolean isSinglePlayer;
+    private final boolean isSinglePlayer;
     private boolean gameMustEnd;
-    private boolean gameEnded;
     private Observer observer;
     /**
      * Adds reference to the observer
@@ -21,14 +20,6 @@ public class GameManager {
     public void addObserver(Observer observer) {
         this.observer = observer;
         this.game.addObserver(observer);
-    }
-
-    /**
-     * Remove reference to the observer
-     * @param observer ServerLobby that is observing the Player
-     */
-    public void removeObserver(Observer observer) {
-        this.observer = null;
     }
 
     public GameManager(Game game, PlayerTurnManager turnManager, boolean isSinglePlayer) {
@@ -61,12 +52,6 @@ public class GameManager {
         this.gameMustEnd = true;
     }
 
-    public boolean isGameEnded() {
-        return gameEnded;
-    }
-
-
-
     /**
      * Add a faith point to each player when a player discard resources from the market
      *
@@ -81,6 +66,7 @@ public class GameManager {
     }
 
     /**
+     * Calculate and update the points of a given player
      *
      * @param p the player we want to calculate the total points scored
      */
@@ -132,7 +118,6 @@ public class GameManager {
                 //SUM THE TOTAL POINTS OF THE ONLY PLAYER
                 calculatePoints(game.getPlayers().get(0));
         }
-        gameEnded = true;
         observer.updateEndGame();
     }
 

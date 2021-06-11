@@ -12,7 +12,7 @@ public class GuiMain extends Application {
     /**
      * starting a new Stage loading the SplashScreen who will perform the connection to the server.
      * setting parameters for the window such as not resizable, title, icon.
-     * @param stage
+     * @param stage gui window
      */
     @Override
     public void start(Stage stage) {

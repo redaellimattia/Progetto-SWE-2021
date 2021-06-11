@@ -19,14 +19,6 @@ public class VaticanReport {
         this.observer = observer;
     }
 
-    /**
-     * Remove reference to the observer
-     */
-    public void removeObserver() {
-        this.observer = null;
-    }
-
-
     public VaticanReport(int victoryPoints, int start, int finish) {
         this.isUsed = false;
         this.victoryPoints = victoryPoints;
@@ -44,6 +36,10 @@ public class VaticanReport {
 
     public boolean isUsed() { return isUsed; }
 
+    /**
+     * Activate a report, add points to the affected players and update the observer
+     * @param players players in the game
+     */
     public void activateReport(ArrayList<PlayerDashboard> players){
         ArrayList<String> nicknames = new ArrayList<>();
         for (PlayerDashboard p: players) {

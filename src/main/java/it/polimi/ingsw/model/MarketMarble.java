@@ -15,7 +15,7 @@ public class MarketMarble {
 
     /**
      *
-     * @returns the color of the marble
+     * @return the color of the marble
      */
     public MarbleColour getColour() {
         return colour;

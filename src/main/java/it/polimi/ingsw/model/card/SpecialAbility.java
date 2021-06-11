@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 public abstract class SpecialAbility {
-    private Resource resourceType;
+    private final Resource resourceType;
 
     /**
      *

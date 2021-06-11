@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class PlayerDashboard extends Player implements StorageObserver{
     private int pathPosition;
-    private Storage storage;
+    private final Storage storage;
     private ResourceCount chest;
     private DeckDashboard[] devCards;
     private ArrayList<LeaderCard> leaderCards;
@@ -24,14 +24,6 @@ public class PlayerDashboard extends Player implements StorageObserver{
      */
     public void addObserver(Observer observer) {
         this.observer = observer;
-    }
-
-    /**
-     * Remove reference to the observer
-     * @param observer ServerLobby that is observing the Player
-     */
-    public void removeObserver(Observer observer) {
-        this.observer = null;
     }
 
     /**
@@ -179,11 +171,11 @@ public class PlayerDashboard extends Player implements StorageObserver{
     }
 
     /**
+     * ADD A GIVEN DEVCARD TO A GIVEN DEVCARD DECK ON THE PLAYERDASHBOARD
      *
      * @param card DevelopmentCard that has been bought
      * @param position specific deck on which the player has chosen to add the bought card
      */
-    //ADD A GIVEN DEVCARD TO A GIVEN DEVCARD DECK ON THE PLAYERDASHBOARD;
     public void addDevCards(DevelopmentCard card, int position){ //the controller checks before buying the card if the player can place it, then checks where to put it;
         devCards[position].addCard(card);
         addPoints(card.getVictoryPoints());
@@ -191,19 +183,19 @@ public class PlayerDashboard extends Player implements StorageObserver{
     }
 
     /**
+     * RETURN TRUE IF AT LEAST ONE LEADER IS IN GAME
      *
      * @return true if at least one leader is in game
      */
-    //RETURN TRUE IF AT LEAST ONE LEADER IS IN GAME;
     public boolean leadersInGame(){
         return (leaderCards.get(0).isInGame() || leaderCards.get(1).isInGame());
     }
 
     /**
+     * METHOD TO DISCARD A LEADER FROM THE HAND TO GAIN A FAITH POINT
      *
      * @param position position of the leader the player has chosen to discard to gain a faith point
      */
-    //METHOD TO DISCARD A LEADER FROM THE HAND TO GAIN A FAITH POINT;
     public void discardLeader(int position){
         leaderCards.remove(position);
         observer.updateRemoveLeader(getNickname(),leaderCards);
@@ -261,10 +253,10 @@ public class PlayerDashboard extends Player implements StorageObserver{
     }
 
     /**
+     * RETURN IN A RESOURCECOUNT THE RESOURCES STORED ON THE LEADERCARDS
      *
      * @return total resources stored on SpecialAbility deposit
      */
-    //RETURN IN A RESOURCECOUNT THE RESOURCES STORED ON THE LEADERCARDS;
     public ResourceCount getAbilityDepositResources(){
         ResourceCount count = new ResourceCount(0,0,0,0,0);
         for (CounterTop c: arrayDeposit)

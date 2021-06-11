@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.card.DevelopmentCard;
 import java.util.ArrayList;
 
 public abstract class Deck {
-    private ArrayList<DevelopmentCard> cardsDeck;
+    private final ArrayList<DevelopmentCard> cardsDeck;
 
     /**
      *

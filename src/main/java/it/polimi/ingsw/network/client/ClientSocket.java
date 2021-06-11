@@ -1,14 +1,10 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.view.gui.GuiManager;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.logging.Level;
 
 public class ClientSocket implements Runnable {
     private BufferedReader in;
@@ -58,7 +54,6 @@ public class ClientSocket implements Runnable {
      */
     @Override
     public void run() {
-        ArrayList<String> messageQueue = new ArrayList<>();
         while (!socketListener.isInterrupted()) {
             try {
                 String msg = in.readLine();

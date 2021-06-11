@@ -27,7 +27,7 @@ public class PlayerTurnManager {
     public PlayerTurnManager(PlayerDashboard player) {
         this.player = player;
         action = null;
-        marketChoices = new ArrayList<AtomicMarketAction>();
+        marketChoices = new ArrayList<>();
     }
 
     /**
@@ -90,10 +90,6 @@ public class PlayerTurnManager {
 
     public Action getAction() {
         return action;
-    }
-
-    public Action getSideAction() {
-        return sideAction;
     }
 
     public ArrayList<AtomicMarketAction> getMarketChoices() {

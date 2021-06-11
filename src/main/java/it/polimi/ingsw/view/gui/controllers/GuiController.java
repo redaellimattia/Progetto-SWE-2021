@@ -7,7 +7,6 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.PlayerPoints;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 import it.polimi.ingsw.view.gui.GuiManager;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

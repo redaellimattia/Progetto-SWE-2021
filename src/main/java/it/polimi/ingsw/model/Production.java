@@ -4,8 +4,8 @@ package it.polimi.ingsw.model;
 import java.util.Optional;
 
 public class Production {
-    private ResourceCount input;
-    private ResourceCount output;
+    private final ResourceCount input;
+    private final ResourceCount output;
 
     /**
      *

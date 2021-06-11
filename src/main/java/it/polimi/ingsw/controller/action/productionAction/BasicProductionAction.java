@@ -9,9 +9,9 @@ import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.Resource;
 
 public class BasicProductionAction extends Action {
-    private Resource res;
-    private ResourceCount storageCount ;
-    private ResourceCount chestCount ;
+    private final Resource res;
+    private final ResourceCount storageCount ;
+    private final ResourceCount chestCount ;
 
     /**
      *

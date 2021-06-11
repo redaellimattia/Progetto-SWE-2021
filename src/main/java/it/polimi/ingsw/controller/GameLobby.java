@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.logging.Level;
 
 public class GameLobby {
-    private ArrayList<String> players;
+    private final ArrayList<String> players;
     private GameManager gameManager;
     private final long serverThreadID;
     private final int numberOfPlayers;
@@ -43,14 +43,6 @@ public class GameLobby {
      */
     public void addObserver(Observer observer) {
         this.observer = observer;
-    }
-
-    /**
-     * Remove reference to the observer
-     * @param observer ServerLobby that is observing the Player
-     */
-    public void removeObserver(Observer observer) {
-        this.observer = null;
     }
 
     public GameLobby(long serverThreadID,int numberOfPlayers) {
@@ -170,7 +162,7 @@ public class GameLobby {
         for(int i = 0; i < 3; i++) {
             devCards[i] = new DeckDashboard();
         }
-        ArrayList<LeaderCard> leaderCards = new ArrayList<LeaderCard>();
+        ArrayList<LeaderCard> leaderCards = new ArrayList<>();
         return new PlayerDashboard(storage, chest, devCards, leaderCards, nickname, 0, isLorenzo);
     }
 
@@ -265,9 +257,6 @@ public class GameLobby {
         JsonReader json = readJsonFile("/Tokens");
         JsonArray tokensJsonArray = gson.fromJson(json, JsonElement.class);
         ArrayList<SoloToken> tokenList = new ArrayList<>();
-        /* for (JsonElement j: tokensJsonArray) {
-            tokenList.add(gson.fromJson(j, SoloToken.class));
-        } */
         for (JsonElement j: tokensJsonArray) {
             switch(j.getAsJsonObject().get("type").getAsString()) {
                 case "discardToken": tokenList.add(gson.fromJson(j, DiscardToken.class)); break;
@@ -290,7 +279,7 @@ public class GameLobby {
         Gson gson = builder.setPrettyPrinting().create();
         JsonReader json = new GameLobby(0, 0).readJsonFile("/LeaderCards");
         JsonArray array = gson.fromJson(json, JsonElement.class);
-        ArrayList<LeaderCard> leadersList = new ArrayList<LeaderCard>();
+        ArrayList<LeaderCard> leadersList = new ArrayList<>();
         for (JsonElement s: array) {
             int id = s.getAsJsonObject().get("id").getAsInt();
             int victoryPoints = s.getAsJsonObject().get("victoryPoints").getAsInt();

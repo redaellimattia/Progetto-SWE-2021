@@ -16,7 +16,13 @@ public abstract class Action {
     public boolean addDevCardProduction(DevCardProductionAction devCardProduction,PlayerDashboard player,PlayerTurnManager turnManager) {return false;}
     public boolean addLeaderCardProduction(LeaderCardProductionAction leaderCardProduction,PlayerDashboard player,PlayerTurnManager turnManager) {return false;}
 
-    //TRUE IF BOTH STORAGE AND CHEST PAY ARE DONE CORRECTLY
+    /**
+     *
+     * @param storageCount payment from storage
+     * @param chestCount payment from chest
+     * @param player player that is paying
+     * @return TRUE IF BOTH STORAGE AND CHEST PAY ARE DONE CORRECTLY
+     */
     public boolean deleteRes(ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player){
         boolean storageDone = false,chestDone = false;
         int storageToInt = ResourceCount.resCountToInt(storageCount);
@@ -34,7 +40,13 @@ public abstract class Action {
             return chestDone;
         return false;
     }
-    //REMOVING RESOURCES FROM STORAGE || USED 2 ARRAY OF SUPPORT TO SCAN THE RESOURCES IN THE COST AND THE SHELVES IN THE STORAGE;
+    /**
+     * REMOVING RESOURCES FROM STORAGE || USED 2 ARRAY OF SUPPORT TO SCAN THE RESOURCES IN THE COST AND THE SHELVES IN THE STORAGE
+     *
+     * @param storageCost resources the player wants to use from the storage
+     * @param storage storage of the player that is paying
+     * @return true if paid
+     */
     public boolean removeFromStorage(ResourceCount storageCost, Storage storage){
         if(!storage.readStorage().hasMoreOrEqualsResources(storageCost))
             return false;
@@ -63,7 +75,15 @@ public abstract class Action {
         }
         return true;
     }
-    //REMOVING RESOURCES FROM CHEST
+
+
+    /**
+     * REMOVING RESOURCES FROM CHEST
+     *
+     * @param chestCost resources the player wants to use from the chest
+     * @param player player that is paying
+     * @return true if paid
+     */
     public boolean removeFromChest(ResourceCount chestCost,PlayerDashboard player){
         ResourceCount chest = player.getChest();
         if(!chest.hasMoreOrEqualsResources(chestCost))

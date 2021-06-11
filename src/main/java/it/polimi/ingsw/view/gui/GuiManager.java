@@ -18,12 +18,12 @@ import java.util.ArrayList;
 
 
 public class GuiManager implements View, GuiObserver{
-    private ClientManager clientManager;
+    private final ClientManager clientManager;
 
     private GuiController currentController;
     private Scene currentScene;
     private Stage stage;
-    private ArrayList<String> log;
+    private final ArrayList<String> log;
     private static GuiManager instance;
 
 
@@ -38,9 +38,6 @@ public class GuiManager implements View, GuiObserver{
     }
     public GuiController getCurrentController() {
         return currentController;
-    }
-    public Scene getCurrentScene() {
-        return currentScene;
     }
     public static GuiManager getInstance() {
         return instance;
@@ -124,7 +121,7 @@ public class GuiManager implements View, GuiObserver{
 
     /**
      * add to the log a message that will be printed in the clientDashboardController scrollpane
-     * @param msg
+     * @param msg msg coming from the server
      */
     @Override
     public void printMsg(String msg) {
@@ -207,7 +204,7 @@ public class GuiManager implements View, GuiObserver{
     @Override
     public void endTurn() {
         log.clear();
-        Platform.runLater(()->clientManager.endTurn());
+        Platform.runLater(clientManager::endTurn);
     }
 
     @Override

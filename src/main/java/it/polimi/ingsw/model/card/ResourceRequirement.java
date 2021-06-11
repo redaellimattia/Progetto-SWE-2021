@@ -5,7 +5,7 @@ import it.polimi.ingsw.model.ResourceCount;
 import it.polimi.ingsw.model.enumeration.CardColour;
 
 public class ResourceRequirement implements Requirement {
-    private ResourceCount resources;
+    private final ResourceCount resources;
 
     /**
      *
