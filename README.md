@@ -34,7 +34,7 @@ Il comando da eseguire da command line é il seguente:
   java -jar ./GC47-server.jar [-p port]
 ```
 #### Parametri
-- `-p`: porta che si vuole utilizzare in ascolto, di default 65500.
+- `-p`: porta che si vuole utilizzare in ascolto, di default `65500`.
 
 ### Client
 - `GC47-client.jar`  
@@ -44,7 +44,7 @@ Il comando da eseguire da command line é il seguente:
 ```
 #### Parametri
 - `-ip`: ip del server al quale ci si vuole connettere, di default `localhost`.
-- `-p`: porta del server al quale ci si vuole connettere, di default 65500.
+- `-p`: porta del server al quale ci si vuole connettere, di default `65500`.
 - `-cli`: opzione necessaria per lanciare il client con interfaccia a linea di comando, di default viene avviato con `GUI`.
     
 ## Coverage dei casi di test
