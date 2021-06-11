@@ -28,11 +28,11 @@ public class ClientManager {
     private boolean gameEnded;
     private boolean productionActionOnGoing;
     private boolean basicProductionDone;
-    private int lastProduction,lastIndex;
+    private int lastProduction,lastIndex,numOfProd;
     private boolean[] leaderCardProductionDone;
     private boolean[] devCardProductionDone;
-    private String address;
-    private int socketPort;
+    private final String address;
+    private final int socketPort;
     private PlayerDashboard thisPlayerDashboard;
     /**
      * Creates client Object, handles client connection and instantiates view
@@ -55,8 +55,8 @@ public class ClientManager {
         this.gameEnded=false;
         view.start();
     }
-    //GETTERS
 
+    //GETTERS
     public String getAddress() {
         return address;
     }
@@ -73,7 +73,6 @@ public class ClientManager {
         return nickname;
     }
     public View getView(){ return view;}
-    public ClientSocket getClientSocket(){return clientSocket;}
     public boolean isProductionActionOnGoing() {
         return productionActionOnGoing;
     }
@@ -89,7 +88,9 @@ public class ClientManager {
     public boolean[] getDevCardProductionDone() {
         return devCardProductionDone;
     }
-
+    public int getNumOfProd() {
+        return numOfProd;
+    }
     public boolean isGameEnded() {
         return gameEnded;
     }
@@ -134,6 +135,7 @@ public class ClientManager {
     }
 
     private void initProductionDone(){
+        numOfProd = 0;
         basicProductionDone = false;
         for(int i=0;i<3;i++)
             devCardProductionDone[i] = thisPlayerDashboard.getDevCards()[i].getDeck().size() <= 0;
@@ -251,6 +253,7 @@ public class ClientManager {
      * @param outputResource Resource chosen by the user as output
      */
     public void basicProduction(ResourceCount storagePayment,ResourceCount chestPayment, Resource outputResource){
+        numOfProd++;
         mainActionDone = true;
         basicProductionDone = true;
         lastProduction = 1;
@@ -267,6 +270,7 @@ public class ClientManager {
      * @param res Resource chosen by the user as output
      */
     public void leaderProduction(int index,LeaderCard card,ResourceCount storageCount, ResourceCount chestCount, Resource res){
+        numOfProd++;
         mainActionDone = true;
         leaderCardProductionDone[index] = true;
         lastProduction = 2;
@@ -283,6 +287,7 @@ public class ClientManager {
      * @param chestCount amount of resources from the chest that the user wants to use in order to pay
      */
     public void devCardProduction(int index,DevelopmentCard card,ResourceCount storageCount, ResourceCount chestCount){
+        numOfProd++;
         mainActionDone = true;
         devCardProductionDone[index] = true;
         lastProduction = 3;
