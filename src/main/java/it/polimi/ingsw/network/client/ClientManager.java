@@ -33,8 +33,10 @@ public class ClientManager {
     private final String address;
     private final int socketPort;
     private PlayerDashboard thisPlayerDashboard;
+
     /**
      * Creates client Object, handles client connection and instantiates view
+     *
      * @param address address chosen
      * @param socketPort port chosen
      */

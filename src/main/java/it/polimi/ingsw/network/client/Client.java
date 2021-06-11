@@ -3,10 +3,10 @@ package it.polimi.ingsw.network.client;
 public class Client {
     private static final int DEFAULT_SOCKET_PORT = 65500;
     private static final String DEFAULT_SOCKET_IP = "127.0.0.1";
-    private static final String DEFAULT_CHOICE = "-cli";
+    private static final String DEFAULT_CHOICE = "-gui";
     /**
      * IP - PORT - CLI/GUI
-     * ex: -ip 127.0.0.1 -p 1337 -gui
+     * ex: -ip 127.0.0.1 -p 1337 -cli
      * @param args args passed when launching the .jar
      */
     public static void main(String[] args){
@@ -21,7 +21,7 @@ public class Client {
                     address = args[++i];
                 if(args[i].equals("-p"))
                     socketPort= Integer.parseInt(args[++i]);
-                if(args[i].equals("-gui"))
+                if(args[i].equals("-cli"))
                     choice = args[i];
                 i++;
             }
