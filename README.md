@@ -16,7 +16,7 @@ La rete è stata gestita tramite socket. Sono inoltre presenti le funzionalià a
 - [UML Dettaglio]()
 
 ### JavaDoc
-La seguente documentazione include una descrizione per la maggiore parte delle classi e dei metodi utilizzati, segue le tecniche di documentazione di Java e può essere consultata al seguente indirizzo: [Javadoc]()
+Documentazione di metodi Java: [Javadoc]()
 
 ### Librerie e Plugins
 |Libreria/Plugin|Descrizione|
