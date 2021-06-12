@@ -153,8 +153,8 @@
     "cardColours": {
       "green": 1,
       "yellow": 0,
-      "blue": 2,
-      "purple": 0
+      "blue": 0,
+      "purple": 2
     },
     "abilityType": "whiteChange",
     "resourceType": "COIN"
