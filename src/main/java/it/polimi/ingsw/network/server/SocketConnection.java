@@ -50,7 +50,7 @@ public class SocketConnection implements Runnable{
      */
     @Override
     public void run() {
-        while (!Thread.currentThread().isInterrupted()) {
+        while (!socketListener.isInterrupted()) {
             try {
                 String msg = in.readLine();
                 //System.out.println(msg); //------------DEBUG------------------
@@ -109,5 +109,4 @@ public class SocketConnection implements Runnable{
             isConnected = false;
         }
     }
-
 }
