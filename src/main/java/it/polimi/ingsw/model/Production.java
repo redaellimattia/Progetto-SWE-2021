@@ -37,7 +37,6 @@ public class Production {
      * @param count resources chosen by the player as payment for the production
      * @return output if the production is doable, null the other way
      */
-    //CHECK IF PRODUCTION IS DOABLE WITH THE RESOURCES PASSED AND EVENTUALLY RETURNS THE OUTPUT;
     public Optional<ResourceCount> useProduction(ResourceCount count){
         if(input.equals(count))
             return Optional.of(output);

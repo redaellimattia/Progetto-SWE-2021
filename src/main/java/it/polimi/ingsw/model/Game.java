@@ -40,14 +40,27 @@ public class Game {
 
     }
 
+    /**
+     * return true if the player is the last in the list
+     * @param player the player we want to examine
+     * @return true if is the last player
+     */
     public boolean isLastPlayer(PlayerDashboard player){
         return player.equals(players.get(players.size() - 1));
     }
 
+    /**
+     *
+     * @return true if lorenzo won the game
+     */
     public boolean isLorenzoWin() {
         return lorenzoWin;
     }
 
+    /**
+     *
+     * @return the PlayerDashboard referring to Lorenzo il Magnifico
+     */
     public PlayerDashboard getLorenzo(){
         for (PlayerDashboard p: players) {
             if(p.isLorenzo())
@@ -55,10 +68,15 @@ public class Game {
         }
         return null;
     }
+
+
     public void setLorenzoWin(){
         this.lorenzoWin = true;
     }
 
+    /**
+     * when a token reroll is needed, this funtion shuffle the whole deck
+     */
     public void rollTokens(){
         tokensDeck.addAll(discardedTokens);
         Collections.shuffle(tokensDeck);
@@ -68,6 +86,11 @@ public class Game {
         return vReports;
     }
 
+    /**
+     *
+     * @param player the actual player
+     * @return the player who's after the passed one
+     */
     public PlayerDashboard getNextPlayer(PlayerDashboard player){
         for(int i=0;i<players.size();i++){
             if(players.get(i).equals(player)&&i<players.size()-1)
@@ -91,6 +114,10 @@ public class Game {
         return players;
     }
 
+    /**
+     *
+     * @return the token picked from the top of the deck
+     */
     public SoloToken pickNextToken() {
         SoloToken picked = tokensDeck.get(0);
         discardedTokens.add(tokensDeck.remove(0));

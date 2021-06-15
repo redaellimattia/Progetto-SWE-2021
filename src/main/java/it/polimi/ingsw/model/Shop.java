@@ -50,12 +50,11 @@ public class Shop {
 
 
     /**
-     *
+     * BUY A SELECTED CARD FROM SHOP, RETURN THE CARD TO THE CALLER AND DELETE IT FROM THE GRID;
      * @param row selected shop's row
      * @param column selected shop's column
      * @return the first visible card from that position [row,column], after removing it from the shop
      */
-    // BUY A SELECTED CARD FROM SHOP, RETURN THE CARD TO THE CALLER AND DELETE IT FROM THE GRID;
     public DevelopmentCard buy(int row, int column, PlayerDashboard player, PlayerTurnManager turnManager) throws EmptyDeckException { //the controller check if the player can buy the card before;
         if(shopGrid[row][column].getDeck().size() == 0)
             throw new EmptyDeckException(player,turnManager);
@@ -69,10 +68,9 @@ public class Shop {
 
 
     /**
-     *
+     * METHOD TO DISCARD 2 CARD FROM THE POOL OF CARD OF THAT COLOUR BECAUSE OF THE SOLOTOKEN;
      * @param colour the specific colour of which 2 development card have to be discarded from the shop (soloplayer)
      */
-    //METHOD TO DISCARD 2 CARD FROM THE POOL OF CARD OF THAT COLOUR BECAUSE OF THE SOLOTOKEN;
     public void discardFromToken(CardColour colour){
         int column = colour.getColumn();
         ArrayList<DevelopmentCard> deck;

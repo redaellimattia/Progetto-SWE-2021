@@ -145,12 +145,18 @@ public class PlayerDashboard extends Player implements StorageObserver{
             observer.updateLeaders(getNickname(),leaderCards);
     }
 
-
+    /**
+     * set the Main Action Error message in player and calls the updates of the observer
+     * @param error message
+     */
     public void setMainActionError(String error){
         super.setMainActionError(error);
         observer.updateMainActionException(getNickname(),getMainActionError());
     }
-
+    /**
+     * set the Side Action Error message in player and calls the updates of the observer
+     * @param error message
+     */
     public void setSideActionError(String error){
         super.setSideActionError(error);
         observer.updateSideActionException(getNickname(),getSideActionError());
@@ -268,7 +274,6 @@ public class PlayerDashboard extends Player implements StorageObserver{
      *
      * @return total of resources from storage and chest
      */
-    //RETURN ALL THE RESOURCES IN THE CHEST AND IN THE STORAGE;
     public ResourceCount getTotalResources(){
         ResourceCount count = storage.readStorage(); //initialize count to the content of storage
         count.addResources(chest.getCoins(), chest.getRocks(), chest.getServants(), chest.getShields(),chest.getFaith()); //add chest resources to count
@@ -280,7 +285,6 @@ public class PlayerDashboard extends Player implements StorageObserver{
      * @param card LeaderCard that needs to be searched in player.getLeaderCards()
      * @return true if it's owned, false if not
      */
-    //CHECK IF THE GIVEN LEADERCARD IS OWNED BY THE PLAYER
     public boolean leaderCardExists(LeaderCard card){
         for(LeaderCard l:this.getLeaderCards())
             if (l.equals(card))
@@ -293,7 +297,6 @@ public class PlayerDashboard extends Player implements StorageObserver{
      * @param card DevelopmentCard that needs to be searched in player.getDevCards() (and its visible)
      * @return true if it's owned, false if not
      */
-    //CHECK IF THE GIVEN DEVELOPMENTCARD IS OWNED BY THE PLAYER
     public boolean devCardExists(DevelopmentCard card){
         for(int i=0;i<this.getDevCards().length;i++)
             if(this.getDevCards()[i].getDeck().size()!=0) {
@@ -309,7 +312,6 @@ public class PlayerDashboard extends Player implements StorageObserver{
      * @param card LeaderCard that needs to be searched in player.getLeaderCards()
      * @return the position if it's found, -1 if not
      */
-    //RETURNS POSITION IF EXISTS, -1 IF NOT FOUND
     public int getLeaderPos(LeaderCard card){
         for(int i=0;i<this.getLeaderCards().size();i++) {
             LeaderCard l = this.getLeaderCards().get(i);
@@ -321,10 +323,9 @@ public class PlayerDashboard extends Player implements StorageObserver{
 
 
     /**
-     *
+     * SET THE LEADER AT THE GIVEN POSITION IN GAME (LEADERACTION)
      * @param position specific position of the leader the player wants to play
      */
-    //SET THE LEADER AT THE GIVEN POSITION IN GAME (LEADERACTION)
     public void setLeaderInGame(int position){
         LeaderCard leaderCard = this.getLeaderCards().get(position);
         leaderCard.setInGame();
@@ -335,7 +336,6 @@ public class PlayerDashboard extends Player implements StorageObserver{
     /**
      *  at the end of a ProductionAction, the produced resources are given to the player in his chest
      */
-    //EMPTY BUFFERPRODUCTION WHEN PRODUCTIONACTION ENDS
     public void emptyBufferProduction(){
         int faith = bufferProduction.getFaith();
         bufferProduction.removeFaith(faith);

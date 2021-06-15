@@ -102,11 +102,10 @@ public class Storage {
 
 
     /**
-     *
+     * METHODS THAT ADD TO THE COUNTERTOP AND RETURNS HOW MANY ELEMENTS ARE BEING LEFT FOR NO SPACE;
      * @param n number of elements to add at firstRow.content
      * @return the number of elements that don't fit in the firstRow
      */
-    //METHODS THAT ADD TO THE COUNTERTOP AND RETURNS HOW MANY ELEMENTS ARE BEING LEFT FOR NO SPACE;
     public int addToFirstRow(int n){
         if(firstRow.getContent() == 0 && n == 1){
             firstRow.addContent(n);
@@ -148,12 +147,11 @@ public class Storage {
 
 
     /**
-     *
+     * CHECKS IF ITS POSSIBLE TO SWAP THE SELECTED COUNTERTOPS, AND IF SO IT DOES IT;
      * @param to where i want to put the "from" row
      * @param from the row from which the swap is started
      * @return the result of the swap (true/false)
      */
-    //CHECKS IF ITS POSSIBLE TO SWAP THE SELECTED COUNTERTOPS, AND IF SO IT DOES IT;
     public boolean swapRows(int to, int from){
         ArrayList<CounterTop> supportShelves = getShelvesArray();
         if(supportShelves.get(to-1).getContent() <= from){
@@ -165,11 +163,10 @@ public class Storage {
 
 
     /**
-     *
+     * METHOD THAT SWAP TWO SHELVES, NEEDED CHECKS ARE MADE BY THE METHOD WHO INVOKES THIS ONE
      * @param from the row from which the swap is started
      * @param to where i want to put the "from" row
      */
-    //METHOD THAT SWAP TWO SHELVES, NEEDED CHECKS ARE MADE BY THE METHOD WHO INVOKES THIS ONE
     public void swap(int from, int to){
         ArrayList<CounterTop> supportShelves = getShelvesArray();
         Collections.swap(supportShelves,from,to);
@@ -188,7 +185,6 @@ public class Storage {
      *
      * @return a ResourceCount containing all the resources contained in the storage
      */
-    //RETURN IN A RESOURCECOUNT THE TOTAL OF THE RESOURCES PRESENT IN THE STORAGE;
     public ResourceCount readStorage(){
         ResourceCount count = new ResourceCount(0,0,0,0,0);
         firstRow.getResourceType().add(count,firstRow.getContent()); //Reading storage first row
@@ -203,7 +199,6 @@ public class Storage {
      *
      * @return an ArrayList of Countertop containing the storage's rows
      */
-    //RETURN AN ARRAYLIST WITH THE SHELVES OF STORAGE;
     public ArrayList<CounterTop> getShelvesArray(){
         ArrayList<CounterTop> array = new ArrayList<>();
         array.add(0,thirdRow);
@@ -218,7 +213,6 @@ public class Storage {
      *
      * @return true if every row of the storage contains a different ResourceType from the others
      */
-    //CHECK IF EVERY COUNTERTOP OF THE STORAGE HAS A DIFFERENT RESOURCETYPE
     public boolean checkShelves(){
         return !this.getFirstRow().getResourceType().equals(this.getSecondRow().getResourceType()) &&
                 !this.getFirstRow().getResourceType().equals(this.getThirdRow().getResourceType()) &&
