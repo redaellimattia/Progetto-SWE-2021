@@ -653,7 +653,7 @@ public class ClientDashboardController extends GuiController{
             if(firstCounterTopSwapped<4)
                 getGuiManager().getClientManager().organizeStorage(firstCounterTopSwapped, 1);
             else
-                clientManager.moveLeaderResources(resourceTypeMove,numberOfResourcesLeaderMove,true);
+                clientManager.sendMoveFromLeader(firstCounterTopSwapped-3,1,numberOfResourcesLeaderMove);
             getGuiManager().callDashboard();
         }
     }
@@ -664,7 +664,7 @@ public class ClientDashboardController extends GuiController{
             if(firstCounterTopSwapped<4)
                 getGuiManager().getClientManager().organizeStorage(firstCounterTopSwapped, 2);
             else
-                clientManager.moveLeaderResources(resourceTypeMove,numberOfResourcesLeaderMove,true);
+                clientManager.sendMoveFromLeader(firstCounterTopSwapped-3,2,numberOfResourcesLeaderMove);
             getGuiManager().callDashboard();
         }
     }
@@ -676,7 +676,7 @@ public class ClientDashboardController extends GuiController{
             if(firstCounterTopSwapped<4)
                 getGuiManager().getClientManager().organizeStorage(firstCounterTopSwapped, 3);
             else
-                clientManager.moveLeaderResources(resourceTypeMove,numberOfResourcesLeaderMove,true);
+                clientManager.sendMoveFromLeader(firstCounterTopSwapped-3,3,numberOfResourcesLeaderMove);
 
             getGuiManager().callDashboard();
         }
@@ -686,12 +686,12 @@ public class ClientDashboardController extends GuiController{
         if(firstCounterTopSwapped==-1) {
             firstCounterTopSwapped = 4;
             Stage modal = launchModal("/fxml/askResourcesToMove.fxml");
-            getGuiManager().getCurrentController().setModal(false,playerDashboard.getArrayDeposit().get(0),this,modal);
+            getGuiManager().getCurrentController().setModal(false,playerDashboard.getArrayDeposit().get(0),this,modal,0);
             Platform.runLater(modal::show);
         }
         else{
             Stage modal = launchModal("/fxml/askResourcesToMove.fxml");
-            getGuiManager().getCurrentController().setModal(true,playerDashboard.getArrayDeposit().get(0),this,modal);
+            getGuiManager().getCurrentController().setModal(true,playerDashboard.getArrayDeposit().get(0),this,modal,1);
             Platform.runLater(modal::show);
         }
     }
@@ -701,23 +701,27 @@ public class ClientDashboardController extends GuiController{
             firstCounterTopSwapped = 5;
             Stage modal = launchModal("/fxml/askResourcesToMove.fxml");
             if(playerDashboard.getArrayDeposit().size()>1)
-                getGuiManager().getCurrentController().setModal(false,playerDashboard.getArrayDeposit().get(1),this,modal);
+                getGuiManager().getCurrentController().setModal(false,playerDashboard.getArrayDeposit().get(1),this,modal,0);
             else
-                getGuiManager().getCurrentController().setModal(false,playerDashboard.getArrayDeposit().get(0),this,modal);
+                getGuiManager().getCurrentController().setModal(false,playerDashboard.getArrayDeposit().get(0),this,modal,0);
             Platform.runLater(modal::show);
         }
         else{
             Stage modal = launchModal("/fxml/askResourcesToMove.fxml");
             if(playerDashboard.getArrayDeposit().size()>1)
-                getGuiManager().getCurrentController().setModal(true,playerDashboard.getArrayDeposit().get(1),this,modal);
+                getGuiManager().getCurrentController().setModal(true,playerDashboard.getArrayDeposit().get(1),this,modal,2);
             else
-                getGuiManager().getCurrentController().setModal(true,playerDashboard.getArrayDeposit().get(0),this,modal);
+                getGuiManager().getCurrentController().setModal(true,playerDashboard.getArrayDeposit().get(0),this,modal,2);
             Platform.runLater(modal::show);
         }
     }
 
     public void setNumberOfResourcesLeaderMove(int numberOfResourcesLeaderMove) {
         this.numberOfResourcesLeaderMove = numberOfResourcesLeaderMove;
+    }
+
+    public int getFirstCounterTopSwapped() {
+        return firstCounterTopSwapped;
     }
 
     public void setResourceTypeMove(Resource resourceTypeMove) {

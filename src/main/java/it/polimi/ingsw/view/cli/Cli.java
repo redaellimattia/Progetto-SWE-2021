@@ -847,7 +847,7 @@ public class Cli implements View {
         ArrayList<Integer> id = new ArrayList<>();
         int ID;
         for (LeaderCard l : passedLeaders)
-            if(!l.isInGame())
+            if(l.isInGame())
                 id.add(l.getId());
         printLeaders(passedLeaders);
         out.println("Choose the leaderCard ID of the card you want to use the production: ");
@@ -999,17 +999,23 @@ public class Cli implements View {
         String input;
         do{
             if(clientManager.canMoveToLeader(leaderDeposit.getResourceType()) && leaderDeposit.getContent()<2)
-                out.println("Press \"from\" if you want to move resources from the chosen special deposit;");
-            if(clientManager.canMoveFromLeader(leaderDeposit.getResourceType()) && leaderDeposit.getContent()>0)
                 out.println("Press \"to\" if you want to move resources to the chosen special deposit;");
+            if(clientManager.canMoveFromLeader(leaderDeposit.getResourceType()) && leaderDeposit.getContent()>0)
+                out.println("Press \"from\" if you want to move resources from the chosen special deposit;");
             out.println("Press \"Q\" to quit this action.");
             input = readLine();
         }while(!input.equalsIgnoreCase("from") && !input.equalsIgnoreCase("to") && !input.equalsIgnoreCase("q"));
 
         if(input.equalsIgnoreCase("from"))
             moveFromLeader(leaderDeposit);
-        if(input.equalsIgnoreCase("to"))
-            moveToLeader(leaderDeposit);
+        if(input.equalsIgnoreCase("to")) {
+            ArrayList<CounterTop> shelves = clientManager.getThisClientDashboard().getStorage().getShelvesArray();
+            for (CounterTop c: shelves)
+                if(c.getResourceType().equals(leaderDeposit.getResourceType()) && c.getContent()>0) {
+                    moveToLeader(c);
+                    break;
+                }
+        }
         if(input.equalsIgnoreCase("q"))
             chooseAction();
     }
@@ -1035,7 +1041,7 @@ public class Cli implements View {
             out.println("How many resources do you want to move?");
             input = readLine();
             try{num = Integer.parseInt(input);}catch(NumberFormatException e) { num = -1;}
-        }while(num <= counterTop.getContent());
+        }while(num > counterTop.getContent() || num == 0);
         return num;
     }
 

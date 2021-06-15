@@ -236,6 +236,16 @@ public class ClientManager {
         clientSocket.send(new DiscardLeaderMessage(nickname,serverLobbyID,leaderCard).serialize());
     }
 
+    public void sendMoveFromLeader(int from, int to, int numberOfResources){
+        clientSocket.send(new MoveFromLeaderToDepositMessage(nickname,serverLobbyID,from,to,numberOfResources).serialize());
+
+    }
+
+    public void sendMoveToLeader(int from, int to, int numberOfResources){
+        clientSocket.send(new MoveFromDepositToLeaderMessage(nickname,serverLobbyID,from,to,numberOfResources).serialize());
+
+    }
+
     /**
      * Ends Action, sending a EndActionMessage to the server
      */
@@ -390,7 +400,7 @@ public class ClientManager {
         PlayerDashboard p = thisPlayerDashboard;
         Storage storage = p.getStorage();
         for (CounterTop c : storage.getShelvesArray()) {
-            if(c.getResourceType().equals(resource) && !p.isFull(resource))
+            if(c.getResourceType().equals(resource) && c.getContent()>0 && !p.isFull(resource))
                 return true;
         }
         return false;
@@ -457,17 +467,28 @@ public class ClientManager {
             for (int i = 0; i < shelves.size(); i++) {
                 if (shelves.get(i).getResourceType().equals(resource) || shelves.get(i).getContent()==0) {
                     if(i==0){
-                        if(shelves.get(1).getResourceType()!=resource && shelves.get(2).getResourceType()!= resource){
-                            to = i+1;
-                            break;
+                        if((shelves.get(1).getResourceType()!=resource || shelves.get(1).getContent()==0) && (shelves.get(2).getResourceType()!= resource || shelves.get(2).getContent()== 0)){
+                            if(num==1) {
+                                to = i + 1;
+                                break;
+                            }
                         }
                     }
                     else{
-                        if(i==1 && shelves.get(i).getContent()==0){
-                            if(shelves.get(2).getResourceType()!=resource){
-                                to=i+1;
-                                break;
+                        if(i==1){
+                            if(num == 1 && shelves.get(i).getContent()<=1) {
+                                if (shelves.get(2).getResourceType() != resource || shelves.get(2).getContent()==0 ) {
+                                    to = i + 1;
+                                    break;
+                                }
                             }
+                            else
+                                if(num==2 && shelves.get(i).getContent()==0){
+                                    if (shelves.get(2).getResourceType() != resource || shelves.get(2).getContent()==0 ) {
+                                        to = i + 1;
+                                        break;
+                                    }
+                                }
                         }
                         else {
                             to = i + 1;
@@ -483,11 +504,11 @@ public class ClientManager {
                     break;
                 }
             }
-            clientSocket.send(new MoveFromLeaderToDepositMessage(nickname,serverLobbyID,from,to,num).serialize());
+            sendMoveFromLeader(from,to,num);
         }
         else{
             for (int i = 0; i < shelves.size(); i++) {
-                if (shelves.get(i).getResourceType().equals(resource)) {
+                if (shelves.get(i).getResourceType().equals(resource) && shelves.get(i).getContent() >= num) {
                     to = i+1;
                     break;
                 }
@@ -498,7 +519,7 @@ public class ClientManager {
                     break;
                 }
             }
-            clientSocket.send(new MoveFromDepositToLeaderMessage(nickname,serverLobbyID,to,from,num).serialize());
+            sendMoveToLeader(to,from,num);
         }
 
 

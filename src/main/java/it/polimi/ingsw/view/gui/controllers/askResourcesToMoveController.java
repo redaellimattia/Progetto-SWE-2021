@@ -2,6 +2,7 @@ package it.polimi.ingsw.view.gui.controllers;
 
 import it.polimi.ingsw.model.CounterTop;
 import it.polimi.ingsw.view.cli.Cli;
+import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,6 +17,13 @@ public class askResourcesToMoveController extends GuiController{
     private boolean toLeader;
     private CounterTop leaderDeposit;
     private Stage modal;
+    private int leaderPosition;
+
+    @Override
+    @FXML
+    public void initialize(){
+        super.setGuiManager(GuiManager.getInstance());
+    }
 
     /**
      * set a modal asking the number of resources a player wants to move to/from a leader.
@@ -25,7 +33,7 @@ public class askResourcesToMoveController extends GuiController{
      * @param modal the modal created and called
      */
     @Override
-    public void setModal(boolean toLeader, CounterTop leaderDeposit, ClientDashboardController clientDashboard, Stage modal){
+    public void setModal(boolean toLeader, CounterTop leaderDeposit, ClientDashboardController clientDashboard, Stage modal,int leaderPosition){
         if(!toLeader){
            if(leaderDeposit.getContent()==1)
                two.setDisable(true);
@@ -42,6 +50,7 @@ public class askResourcesToMoveController extends GuiController{
         this.toLeader=toLeader;
         this.leaderDeposit = leaderDeposit;
         this.modal=modal;
+        this.leaderPosition = leaderPosition;
     }
 
     /**
@@ -49,8 +58,10 @@ public class askResourcesToMoveController extends GuiController{
      * either send a message or set the clientDashboardController params for the leaderMove
      */
     public void confirmClick(int numSelected) {
-        if(toLeader)
-            clientDashboard.getGuiManager().sendMoveToLeader(leaderDeposit.getResourceType(),numSelected);
+        if(toLeader) {
+            getGuiManager().sendMoveToLeader(clientDashboard.getFirstCounterTopSwapped(),leaderPosition,numSelected);
+            //clientDashboard.getGuiManager().sendMoveToLeader(leaderDeposit.getResourceType(), numSelected);
+        }
         else {
             clientDashboard.setNumberOfResourcesLeaderMove(numSelected);
             clientDashboard.setResourceTypeMove(leaderDeposit.getResourceType());

@@ -258,8 +258,8 @@ public class GuiManager implements View, GuiObserver{
 
     }
 
-    public void sendMoveToLeader(Resource res, int num){
-        getClientManager().moveLeaderResources(res,num,false);
+    public void sendMoveToLeader(int from, int to, int num){
+        getClientManager().sendMoveToLeader(from,to,num);
         Platform.runLater(this::callDashboard);
     }
 

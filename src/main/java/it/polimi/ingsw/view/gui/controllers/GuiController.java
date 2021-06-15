@@ -326,7 +326,7 @@ public abstract class GuiController {
 
     //SET MODAL
     public void setModal(boolean isBasic,LeaderCard card,Stage modal){}
-    public void setModal(boolean toLeader,CounterTop leaderDeposit,ClientDashboardController clientDashboard,Stage modal){}
+    public void setModal(boolean toLeader,CounterTop leaderDeposit,ClientDashboardController clientDashboard,Stage modal,int leaderPosition){}
 
     /**
      * launching a modal stage for particular actions
