@@ -34,12 +34,11 @@ public class CardShopAction extends Action {
     }
 
     /**
-     *
+     *AFTER CHECKING IF THE CHOSEN POSITION ON THE BOARD CAN FIT THE CHOSEN CARD AND THE PLAYER CAN AFFORD IT, RETURN TRUE IF EVERYTHING IS DONE CORRECTLY, FALSE IF NOT
      * @param player player that wants to buy the card
      * @param turnManager object responsible for the handling of the turn
      * @return true if everything went fine
      */
-    //AFTER CHECKING IF THE CHOSEN POSITION ON THE BOARD CAN FIT THE CHOSEN CARD AND THE PLAYER CAN AFFORD IT, RETURN TRUE IF EVERYTHING IS DONE CORRECTLY, FALSE IF NOT
     @Override
     public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {
 
@@ -61,7 +60,14 @@ public class CardShopAction extends Action {
         }
     }
 
-    //CHECK IF THE CHOSEN POSITION FIT THE CARD CHOSEN
+
+    /**
+     * CHECK IF THE CHOSEN POSITION FIT THE CARD CHOSEN
+     * @param level of the card
+     * @param position of the deck chosen by the player
+     * @param player player who's doing the action
+     * @return true if the positioning is doable
+     */
     private boolean checkIfPossible(int level, int position, PlayerDashboard player){
         if(level == 1)
             return player.getDevCards()[position].getDeck().size() == 0;

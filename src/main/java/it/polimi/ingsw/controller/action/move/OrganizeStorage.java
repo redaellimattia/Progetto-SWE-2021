@@ -20,10 +20,9 @@ public class OrganizeStorage extends Action {
     }
 
     /**
-     *
+     * RETURN TRUE IF THE SHELVES ARE SWAPPED CORRECTLY AND THE STORAGE RESPECTS THE RULES FOR RESOURCETYPES;
      * @param player player that wanted to switch Storage's shelves
      */
-    //RETURN TRUE IF THE SHELVES ARE SWAPPED CORRECTLY AND THE STORAGE RESPECTS THE RULES FOR RESOURCETYPES;
     @Override
     public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {
         if(player.getStorage().swapRows(from,to)) {

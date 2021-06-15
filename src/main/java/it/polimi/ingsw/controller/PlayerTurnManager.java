@@ -30,6 +30,7 @@ public class PlayerTurnManager {
         marketChoices = new ArrayList<>();
     }
 
+    //GETTER
     /**
      *
      * @return player actually playing
@@ -38,6 +39,15 @@ public class PlayerTurnManager {
         return player;
     }
 
+    public Action getAction() {
+        return action;
+    }
+
+    public ArrayList<AtomicMarketAction> getMarketChoices() {
+        return marketChoices;
+    }
+
+    //SETTER
     public void setPlayer(PlayerDashboard player) {
         this.player = player;
     }
@@ -87,15 +97,6 @@ public class PlayerTurnManager {
      * @param player player who sent the EndActionMessage
      */
     public void endAction(PlayerDashboard player ){action.endAction(player);}
-
-    public Action getAction() {
-        return action;
-    }
-
-    public ArrayList<AtomicMarketAction> getMarketChoices() {
-        return marketChoices;
-    }
-
 
     /**
      * Adds an atomic production to the main action or creates a new MainAction as ProductionAction

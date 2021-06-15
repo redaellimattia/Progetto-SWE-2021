@@ -25,10 +25,9 @@ public class MoveFromDepositToLeader extends Action {
     }
 
     /**
-     *
+     * FOR EACH CASE CHECK IF: THE SHELVES HAS ENOUGH RESOURCES TO MOVE (CONTENT >= NUMBER), THE NUMBER+ CONTENT OF ARRAY IS MAX 2 AND THAT RESOURCES ARE COMPATIBLE;
      * @param player player that wanted to switch resources
      */
-    //FOR EACH CASE CHECK IF: THE SHELVES HAS ENOUGH RESOURCES TO MOVE (CONTENT >= NUMBER), THE NUMBER+ CONTENT OF ARRAY IS MAX 2 AND THAT RESOURCES ARE COMPATIBLE;
     @Override
     public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager){
         Storage storage = player.getStorage();
