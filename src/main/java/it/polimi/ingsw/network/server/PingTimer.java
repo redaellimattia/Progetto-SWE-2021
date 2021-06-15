@@ -66,6 +66,7 @@ public class PingTimer {
     public void deleteTimer(){
         if(waitResponse!=null)
             waitResponse.cancel();
-        pingDuringGame.cancel();
+        if(pingDuringGame!=null)
+            pingDuringGame.cancel();
     }
 }

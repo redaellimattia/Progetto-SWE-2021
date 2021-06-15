@@ -54,11 +54,11 @@ public class SocketConnection implements Runnable{
             try {
                 String msg = in.readLine();
                 //System.out.println(msg); //------------DEBUG------------------
-                if(msg!=null) socketServer.onMessage(this,msg);
+                if (msg != null) socketServer.onMessage(this, msg);
                 else
                     disconnect();
             } catch (IOException e) {
-                Server.LOGGER.log(Level.SEVERE,"Error while reading.\n"+ e.getMessage());
+                Server.LOGGER.log(Level.SEVERE, "Error while reading.\n" + e.getMessage());
                 disconnect();
             }
         }
@@ -88,7 +88,6 @@ public class SocketConnection implements Runnable{
                 }
             } catch (IOException e) {
                 Server.LOGGER.log(Level.SEVERE,"Error while closing the Socket Connection\n"+ e.getMessage());}
-
             socketListener.interrupt(); // Interrupts the thread
             isConnected = false;
         }
