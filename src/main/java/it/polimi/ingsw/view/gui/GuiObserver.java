@@ -1,5 +1,7 @@
 package it.polimi.ingsw.view.gui;
 
+import java.util.ArrayList;
+
 public interface GuiObserver {
     void updateShop();
     void updatePathPosition(String nickname);
@@ -11,4 +13,5 @@ public interface GuiObserver {
     void updateStorage(String nickname);
     void updateVaticanReports();
     void updateBufferProduction(String nickname);
+    void updateLogger(ArrayList<String> log);
 }

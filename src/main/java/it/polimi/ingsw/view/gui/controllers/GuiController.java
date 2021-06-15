@@ -37,7 +37,7 @@ public abstract class GuiController {
     public void setLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> lobbies){}
     public void setPreGameChoice(ArrayList<LeaderCard> leaders, int numberOfResources){}
     public void setTextForWaiting(String text){}
-    public void setPlayer(PlayerDashboard player,boolean watchingPlayer,ArrayList<String> log){}
+    public void setPlayer(PlayerDashboard player,boolean watchingPlayer){}
     public void setBuyCard(DevelopmentCard card){}
     public void setDevCardProduction(DevelopmentCard card){}
     public void setLeaderCardProduction(LeaderCard card, Resource res){}
@@ -58,6 +58,7 @@ public abstract class GuiController {
     public void updateStorage(String nickname){}
     public void updateVaticanReports(){}
     public void updateBufferProduction(String nickname){}
+    public void updateLogger(ArrayList<String> log){}
 
 
     /**

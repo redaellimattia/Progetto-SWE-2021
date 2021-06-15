@@ -76,7 +76,7 @@ public class ClientDashboardController extends GuiController{
      * @param log ArrayList of messages coming from the server
      */
     @Override
-    public void setPlayer(PlayerDashboard playerDashboard,boolean watchingPlayer,ArrayList<String> log) {
+    public void setPlayer(PlayerDashboard playerDashboard,boolean watchingPlayer) {
         this.playerDashboard = playerDashboard;
         setFaithPath(playerDashboard.getPathPosition());
         setDevCards(playerDashboard.getDevCards(),firstPositionLevel1,secondPositionLevel1,thirdPositionLevel1,firstPositionLevel2,secondPositionLevel2,thirdPositionLevel2
@@ -95,12 +95,6 @@ public class ClientDashboardController extends GuiController{
         resourceTypeMove=null;
         if(!getGuiManager().getClientManager().canMoveResources())
             organizeButton.setDisable(true);
-        for(String msg:log) {
-            Text text = new Text(msg + "\n");
-            text.setFill(Color.RED);
-            text.getStyleClass().add("log");
-            textFlowLog.getChildren().add(text);
-        }
         if(watchingPlayer){
             if(playerDashboard.isLorenzo())
                 setImage(faithPath,"/img/punchboard/croce.png");
@@ -136,7 +130,15 @@ public class ClientDashboardController extends GuiController{
             }
         }
     }
-
+    @FXML
+    private void printLog(ArrayList<String> log) {
+        for (String msg : log) {
+            Text text = new Text(msg + "\n");
+            text.setFill(Color.RED);
+            text.getStyleClass().add("log");
+            textFlowLog.getChildren().add(text);
+        }
+    }
     /**
      * Init the guiManager, the vaticanReports, the otherPlayers and the positions on the faithPath
      */
@@ -498,6 +500,15 @@ public class ClientDashboardController extends GuiController{
         setVaticanReport(clientManager.getGameStatus().getReports());
     }
 
+    /**
+     * when some text is added to the log i reprint it
+     *
+     * @param log the logger
+     */
+    @Override
+    public void updateLogger(ArrayList<String> log){
+        printLog(log);
+    }
     /**
      * Switch back to the client's dashboard
      */

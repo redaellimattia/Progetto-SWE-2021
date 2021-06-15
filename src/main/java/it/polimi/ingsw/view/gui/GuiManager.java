@@ -126,6 +126,7 @@ public class GuiManager implements View, GuiObserver{
     @Override
     public void printMsg(String msg) {
         log.add(msg);
+        Platform.runLater(()->updateLogger(log));
     }
 
     /**
@@ -163,12 +164,12 @@ public class GuiManager implements View, GuiObserver{
 
     public void goToClientDashboard(boolean watchingPlayer){
         setLayout("clientDashboard.fxml");
-        currentController.setPlayer(clientManager.getThisClientDashboard(),watchingPlayer,log);
+        currentController.setPlayer(clientManager.getThisClientDashboard(),watchingPlayer);
     }
 
     public void callDashboard(){
         setLayout("clientDashboard.fxml");
-        currentController.setPlayer(getClientManager().getThisClientDashboard(), false,log);
+        currentController.setPlayer(getClientManager().getThisClientDashboard(), false);
         setNextScene();
     }
 
@@ -179,7 +180,7 @@ public class GuiManager implements View, GuiObserver{
             if(p.getNickname().equals(player))
                 chosenPlayer = p;
         }
-        currentController.setPlayer(chosenPlayer, true,log);
+        currentController.setPlayer(chosenPlayer, true);
     }
 
     @Override
@@ -304,5 +305,9 @@ public class GuiManager implements View, GuiObserver{
     @Override
     public void updateBufferProduction(String nickname){
         Platform.runLater(()->currentController.updateBufferProduction(nickname));
+    }
+    @Override
+    public void updateLogger(ArrayList<String> log){
+        currentController.updateLogger(log);
     }
 }
