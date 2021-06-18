@@ -160,6 +160,7 @@ public class GuiManager implements View, GuiObserver{
     @Override
     public void yourTurn() {
         log.add("It's your turn!");
+        Platform.runLater(()->updateLogger(log));
         Platform.runLater(()->goToClientDashboard(false));
     }
 
@@ -253,6 +254,7 @@ public class GuiManager implements View, GuiObserver{
             }
         }
         log.add(toAdd);
+        Platform.runLater(()->updateLogger(log));
     }
 
     @Override
@@ -310,5 +312,6 @@ public class GuiManager implements View, GuiObserver{
     @Override
     public void updateLogger(ArrayList<String> log){
         currentController.updateLogger(log);
+        log.clear();
     }
 }
