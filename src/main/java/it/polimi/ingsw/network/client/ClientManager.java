@@ -57,13 +57,6 @@ public class ClientManager {
         this.leaderCardProductionDone = new boolean[2];
         this.devCardProductionDone = new boolean[3];
         this.gameEnded=false;
-        keepAliveTimer = new Timer();
-        keepAliveTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                clientSocket.send(new KeepAliveMessage("",-1).serialize());
-            }
-        },60000); //3min
         view.start();
     }
 
@@ -180,6 +173,15 @@ public class ClientManager {
         askLobbies();
         if(!clientSocket.isConnected())
             view.failedConnection("Failed to connect to: "+ address+":" + socketPort);
+        else {
+            keepAliveTimer = new Timer();
+            keepAliveTimer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    clientSocket.send(new KeepAliveMessage("", -1).serialize());
+                }
+            }, 0, 60000); //3min
+        }
     }
 
     /**
