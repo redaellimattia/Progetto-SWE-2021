@@ -272,14 +272,13 @@ public class ServerLobby extends Thread implements Observer {
      * @param socketConnection Client that is disconnecting
      */
     public void onDisconnect(SocketConnection socketConnection){
-        Server.LOGGER.log(Level.INFO,"LobbyID: "+lobbyID+": No answer from client, going to disconnect it.");
         String disconnectedPlayerNickname = getPlayerNickname(socketConnection);
-        Server.LOGGER.log(Level.INFO, "LobbyID: "+lobbyID+": Disconnecting client: " + disconnectedPlayerNickname);
+        Server.LOGGER.log(Level.INFO,"LobbyID: "+lobbyID+": No answer from:"+disconnectedPlayerNickname+", going to disconnect him.");
         synchronized (gameLock) {
             if (!gameLobby.isGameCreated()) {
                 gameLobby.removePlayer(disconnectedPlayerNickname);
                 clients.remove(disconnectedPlayerNickname);
-                Server.LOGGER.log(Level.INFO, "LobbyID: "+lobbyID+": Client disconnected, waiting for players to join the lobby...");
+                Server.LOGGER.log(Level.INFO, "LobbyID: "+lobbyID+" "+disconnectedPlayerNickname+" disconnected, waiting for players to join the lobby...");
             } else {
                 if(gameLobby.isGameStarted()){
                     for(PlayerDashboard p: gameLobby.getGameManager().getGame().getPlayers())
@@ -330,7 +329,7 @@ public class ServerLobby extends Thread implements Observer {
                     }
                     deletePreGameTimer(disconnectedPlayerNickname);
                     clients.remove(disconnectedPlayerNickname);
-                    Server.LOGGER.log(Level.INFO, "LobbyID: "+lobbyID+": Client disconnected during preGame, setPlaying to false...");
+                    Server.LOGGER.log(Level.INFO, "LobbyID: "+lobbyID+" "+disconnectedPlayerNickname+ " disconnected during preGame, setPlaying to false...");
                     gameLobby.addReadyPlayer();
                 }
 
