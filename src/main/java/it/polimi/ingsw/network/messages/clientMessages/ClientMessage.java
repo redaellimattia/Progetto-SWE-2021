@@ -69,6 +69,8 @@ public abstract class ClientMessage {
                 return gson.fromJson(msg,EndTurnMessage.class);
             case PINGRESPONSE:
                 return gson.fromJson(msg, PingResponseMessage.class);
+            case KEEPALIVE:
+                return gson.fromJson(msg, KeepAliveMessage.class);
             default:
                 throw new IllegalArgumentException("ClientMessageType not valid.");
         }

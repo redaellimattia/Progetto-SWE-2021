@@ -92,8 +92,6 @@ public class ClientDashboardController extends GuiController{
         firstCounterTopSwapped = -1;
         numberOfResourcesLeaderMove=0;
         resourceTypeMove=null;
-        //if(getGuiManager().getLog().size()!=0)
-        //    Platform.runLater(()->updateLogger(getGuiManager().getLog()));
         if(!getGuiManager().getClientManager().canMoveResources())
             organizeButton.setDisable(true);
         if(watchingPlayer){

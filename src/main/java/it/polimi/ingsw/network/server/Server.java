@@ -65,8 +65,7 @@ public class Server {
         //if the player sending the message has not the turn active, i don't do it and i send him a message.
         ClientMessage deserializedMessage = ClientMessage.deserializeMessage(msg);
         long serverThreadID = deserializedMessage.getServerThreadID();
-
-        if(serverThreadID!=-1&& lobbies.containsKey(serverThreadID))
+        if (serverThreadID != -1 && lobbies.containsKey(serverThreadID))
             lobbies.get(serverThreadID).onMessage(sockConnection, deserializedMessage);
         else
             deserializedMessage.useMessage(sockConnection);

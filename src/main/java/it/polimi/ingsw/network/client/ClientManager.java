@@ -9,11 +9,13 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.messages.clientMessages.*;
 import it.polimi.ingsw.network.messages.clientMessages.actionMessages.*;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
+import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.GuiManager;
 
 import java.util.*;
+import java.util.logging.Level;
 
 public class ClientManager {
     private String nickname;
@@ -33,6 +35,7 @@ public class ClientManager {
     private final String address;
     private final int socketPort;
     private PlayerDashboard thisPlayerDashboard;
+    private Timer keepAliveTimer;
 
     /**
      * Creates client Object, handles client connection and instantiates view
@@ -54,6 +57,13 @@ public class ClientManager {
         this.leaderCardProductionDone = new boolean[2];
         this.devCardProductionDone = new boolean[3];
         this.gameEnded=false;
+        keepAliveTimer = new Timer();
+        keepAliveTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                clientSocket.send(new KeepAliveMessage("",serverLobbyID).serialize());
+            }
+        },60000); //3min
         view.start();
     }
 

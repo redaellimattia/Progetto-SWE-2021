@@ -273,7 +273,7 @@ public class ServerLobby extends Thread implements Observer {
      */
     public void onDisconnect(SocketConnection socketConnection){
         String disconnectedPlayerNickname = getPlayerNickname(socketConnection);
-        Server.LOGGER.log(Level.INFO,"LobbyID: "+lobbyID+": No answer from:"+disconnectedPlayerNickname+", going to disconnect him.");
+        Server.LOGGER.log(Level.INFO,"LobbyID: "+lobbyID+": No answer from: "+disconnectedPlayerNickname+", going to disconnect him.");
         synchronized (gameLock) {
             if (!gameLobby.isGameCreated()) {
                 gameLobby.removePlayer(disconnectedPlayerNickname);
