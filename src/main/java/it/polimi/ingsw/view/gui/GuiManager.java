@@ -32,7 +32,9 @@ public class GuiManager implements View, GuiObserver{
         instance = this;
         log = new ArrayList<>();
     }
-
+    public ArrayList<String> getLog(){
+        return log;
+    }
     public ClientManager getClientManager() {
         return clientManager;
     }
@@ -127,7 +129,6 @@ public class GuiManager implements View, GuiObserver{
     @Override
     public void printMsg(String msg) {
         log.add(msg);
-        Platform.runLater(this::updateLogger);
     }
 
     /**
@@ -160,8 +161,8 @@ public class GuiManager implements View, GuiObserver{
     @Override
     public void yourTurn() {
         log.add("It's your turn!");
-        Platform.runLater(()->goToClientDashboard(false));
-        Platform.runLater(this::updateLogger);
+        Platform.runLater(this::callDashboard);
+        //Platform.runLater(this::updateLogger);
     }
 
     public void goToClientDashboard(boolean watchingPlayer){
@@ -172,7 +173,7 @@ public class GuiManager implements View, GuiObserver{
     public void callDashboard(){
         setLayout("clientDashboard.fxml");
         currentController.setPlayer(getClientManager().getThisClientDashboard(), false);
-        setNextScene();
+        Platform.runLater(this::updateLogger);
     }
 
     public void watchPlayer(String player){
@@ -312,6 +313,7 @@ public class GuiManager implements View, GuiObserver{
     @Override
     public void updateLogger(){
         currentController.updateLogger(log);
-        log.clear();
+        Platform.runLater(log::clear);
     }
+
 }

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.network.client;
 
-import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -219,6 +218,6 @@ public class ClientGameStatus {
             if(p.getNickname().equals(nickname))
                 return p;
         }
-        throw new UnrecognisedPlayerException();
+        return null;
     }
 }

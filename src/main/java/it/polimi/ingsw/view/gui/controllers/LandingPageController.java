@@ -69,6 +69,14 @@ public class LandingPageController extends GuiController{
         }
     }
 
+    @FXML
+    public void setTextForWaiting(String msg){
+        if(clientManager.getNickname()!=null)
+            clientManager.setNickname("");
+        error.setText(msg);
+        error.setVisible(true);
+    }
+
     /**
      * upon receiving a ReturnLobbiesMessage set the list of available lobbies to be shown to the player
      * @param lobbies list of lobbies passed by the server

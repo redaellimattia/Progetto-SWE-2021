@@ -2,9 +2,6 @@ package it.polimi.ingsw.network.server;
 
 import it.polimi.ingsw.controller.GameLobby;
 import it.polimi.ingsw.controller.PlayerTurnManager;
-import it.polimi.ingsw.exceptions.network.GameAlreadyStartedException;
-import it.polimi.ingsw.exceptions.network.NotYourTurnException;
-import it.polimi.ingsw.exceptions.network.UnrecognisedPlayerException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -89,14 +86,16 @@ public class ServerLobby extends Thread implements Observer {
                     socketConnection.send(Server.createReturnLobbiesMessage("You can't join this lobby, it's already started without you").serialize());
                 }
                 //If there isn't the askingPlayer or the askingPlayer nickname on the clients map doesn't match the socketConnection
-                if (!clients.containsKey(askingPlayer) || !clients.get(askingPlayer).equals(socketConnection))
-                    throw new UnrecognisedPlayerException();
-
-                if (actualPlayer.equals(askingPlayer)) { //If it's the player's turn
-                    deserializedMessage.useMessage(socketConnection, this);
+                if (!clients.containsKey(askingPlayer) || !clients.get(askingPlayer).equals(socketConnection)) {
+                    socketConnection.send(Server.createReturnLobbiesMessage("This nickname doesn't belong to this lobby!").serialize());
+                    Server.LOGGER.log(Level.SEVERE, "Unrecognized player: " + askingPlayer);
                 }
-                else
-                    throw new NotYourTurnException();
+                else {
+                    if (actualPlayer.equals(askingPlayer)) { //If it's the player's turn
+                        deserializedMessage.useMessage(socketConnection, this);
+                    } else
+                        Server.LOGGER.log(Level.SEVERE, "Not " + askingPlayer + " turn!");
+                }
             }
         }
         else
@@ -109,7 +108,8 @@ public class ServerLobby extends Thread implements Observer {
      */
     public void endRound(){
         gameLobby.getGameManager().nextRound(false);
-        pingTimer.deleteTimer();
+        if(pingTimer!=null)
+            pingTimer.deleteTimer();
         String nextPlayerNickname = getTurnManager().getPlayer().getNickname();
         SocketConnection socketConnection = clients.get(nextPlayerNickname);
         if(socketConnection!=null){
@@ -168,7 +168,7 @@ public class ServerLobby extends Thread implements Observer {
     public void newPlayerLogin(String nickname,SocketConnection clientConnection){
         synchronized (gameLock) {
             if (gameLobby.isGameStarted())
-                throw new GameAlreadyStartedException();
+                clientConnection.send(Server.createReturnLobbiesMessage("Cannot Join, game already started.").serialize());
             gameLobby.addPlayer(nickname);
             clients.put(nickname, clientConnection);
             Server.LOGGER.log(Level.INFO,nickname+" joined the lobby #"+ this.lobbyID +", "+(gameLobby.getNumberOfPlayers()-clients.size())+" players to go!");

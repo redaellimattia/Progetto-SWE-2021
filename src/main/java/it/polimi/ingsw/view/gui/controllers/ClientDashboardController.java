@@ -92,6 +92,8 @@ public class ClientDashboardController extends GuiController{
         firstCounterTopSwapped = -1;
         numberOfResourcesLeaderMove=0;
         resourceTypeMove=null;
+        //if(getGuiManager().getLog().size()!=0)
+        //    Platform.runLater(()->updateLogger(getGuiManager().getLog()));
         if(!getGuiManager().getClientManager().canMoveResources())
             organizeButton.setDisable(true);
         if(watchingPlayer){
@@ -110,6 +112,7 @@ public class ClientDashboardController extends GuiController{
             backHome.setVisible(true);
         }
         else{
+
             if(!clientManager.isMyTurn()){
                 productionButton.setDisable(true);
                 endTurnButton.setDisable(true);
@@ -506,8 +509,10 @@ public class ClientDashboardController extends GuiController{
      */
     @Override
     public void updateLogger(ArrayList<String> log){
-        printLog(log);
+        Platform.runLater(()->printLog(log));
+        //getGuiManager().clearLog();
     }
+
     /**
      * Switch back to the client's dashboard
      */
