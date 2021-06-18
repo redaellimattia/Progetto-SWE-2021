@@ -73,7 +73,6 @@ public class ClientDashboardController extends GuiController{
      *
      * @param playerDashboard dashboard the client wants to see
      * @param watchingPlayer true if the client is watching another player not himself
-     * @param log ArrayList of messages coming from the server
      */
     @Override
     public void setPlayer(PlayerDashboard playerDashboard,boolean watchingPlayer) {
