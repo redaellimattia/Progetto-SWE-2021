@@ -61,7 +61,7 @@ public class ClientManager {
         keepAliveTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                clientSocket.send(new KeepAliveMessage("",serverLobbyID).serialize());
+                clientSocket.send(new KeepAliveMessage("",-1).serialize());
             }
         },60000); //3min
         view.start();
