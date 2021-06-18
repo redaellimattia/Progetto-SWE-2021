@@ -520,6 +520,7 @@ public class ClientDashboardController extends GuiController{
      *
      */
     public void startProduction() {
+        resetProduction();
         clientManager.setProductionActionOnGoing(true);
         shopButton.setDisable(true);
         marketButton.setDisable(true);
