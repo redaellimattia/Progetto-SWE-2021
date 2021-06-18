@@ -180,7 +180,7 @@ public class ClientManager {
                 public void run() {
                     clientSocket.send(new KeepAliveMessage("", -1).serialize());
                 }
-            }, 0, 60000); //3min
+            }, 0, 180000); //3min
         }
     }
 

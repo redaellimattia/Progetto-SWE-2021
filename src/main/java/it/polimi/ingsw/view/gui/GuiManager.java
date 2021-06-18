@@ -129,6 +129,7 @@ public class GuiManager implements View, GuiObserver{
     @Override
     public void printMsg(String msg) {
         log.add(msg);
+        Platform.runLater(this::updateLogger);
     }
 
     /**
@@ -268,9 +269,6 @@ public class GuiManager implements View, GuiObserver{
         Platform.runLater(this::callDashboard);
     }
 
-    public void setNextScene(){
-        Platform.runLater(()->stage.setScene(currentScene));
-    }
 
     @Override
     public void updateShop(){
@@ -313,7 +311,10 @@ public class GuiManager implements View, GuiObserver{
     @Override
     public void updateLogger(){
         currentController.updateLogger(log);
-        Platform.runLater(log::clear);
+    }
+
+    public void clearLog(){
+        log.clear();
     }
 
 }

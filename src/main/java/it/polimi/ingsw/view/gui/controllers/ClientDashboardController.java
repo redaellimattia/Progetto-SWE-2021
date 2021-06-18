@@ -138,6 +138,7 @@ public class ClientDashboardController extends GuiController{
             text.getStyleClass().add("log");
             textFlowLog.getChildren().add(text);
         }
+        getGuiManager().clearLog();
     }
     /**
      * Init the guiManager, the vaticanReports, the otherPlayers and the positions on the faithPath
