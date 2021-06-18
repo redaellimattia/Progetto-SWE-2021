@@ -13,5 +13,5 @@ public interface GuiObserver {
     void updateStorage(String nickname);
     void updateVaticanReports();
     void updateBufferProduction(String nickname);
-    void updateLogger(ArrayList<String> log);
+    void updateLogger();
 }
