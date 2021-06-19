@@ -130,16 +130,7 @@ public class ClientDashboardController extends GuiController{
             }
         }
     }
-    @FXML
-    private void printLog(ArrayList<String> log) {
-        for (String msg : log) {
-            Text text = new Text(msg + "\n");
-            text.setFill(Color.RED);
-            text.getStyleClass().add("log");
-            textFlowLog.getChildren().add(text);
-        }
-        getGuiManager().clearLog();
-    }
+
     /**
      * Init the guiManager, the vaticanReports, the otherPlayers and the positions on the faithPath
      */
@@ -508,8 +499,20 @@ public class ClientDashboardController extends GuiController{
      */
     @Override
     public void updateLogger(ArrayList<String> log){
-        Platform.runLater(()->printLog(log));
+        printLog(log);
+        //Platform.runLater(()->printLog(log));
         //getGuiManager().clearLog();
+    }
+
+    @FXML
+    private void printLog(ArrayList<String> log) {
+        for (String msg : log) {
+            Text text = new Text(msg + "\n");
+            text.setFill(Color.RED);
+            text.getStyleClass().add("log");
+            textFlowLog.getChildren().add(text);
+        }
+        getGuiManager().clearLog();
     }
 
     /**

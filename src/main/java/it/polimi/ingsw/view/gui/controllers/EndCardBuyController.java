@@ -55,7 +55,7 @@ public class EndCardBuyController extends GuiController{
         secondDeck.setDisable(true);
         thirdDeck.setDisable(true);
         getGuiManager().getClientManager().setMainActionDone(true);
-        getGuiManager().callDashboard();
+        Platform.runLater(()->getGuiManager().callDashboard());
     }
 
     /**
@@ -69,7 +69,7 @@ public class EndCardBuyController extends GuiController{
         secondDeck.setDisable(true);
         thirdDeck.setDisable(true);
         getGuiManager().getClientManager().setMainActionDone(true);
-        getGuiManager().callDashboard();
+        Platform.runLater(()->getGuiManager().callDashboard());
     }
 
     /**
@@ -83,6 +83,6 @@ public class EndCardBuyController extends GuiController{
         secondDeck.setDisable(true);
         thirdDeck.setDisable(true);
         getGuiManager().getClientManager().setMainActionDone(true);
-        getGuiManager().callDashboard();
+        Platform.runLater(()->getGuiManager().callDashboard());
     }
 }

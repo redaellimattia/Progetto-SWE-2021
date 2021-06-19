@@ -129,7 +129,8 @@ public class GuiManager implements View, GuiObserver{
     @Override
     public void printMsg(String msg) {
         log.add(msg);
-        //Platform.runLater(this::updateLogger);
+        if(!clientManager.isMyTurn())
+         Platform.runLater(this::updateLogger);
     }
 
     /**
