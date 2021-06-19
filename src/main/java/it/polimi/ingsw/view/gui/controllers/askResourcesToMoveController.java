@@ -71,9 +71,8 @@ public class askResourcesToMoveController extends GuiController{
 
     /**
      * player selected the number one
-     * @param mouseEvent clickEvent
      */
-    public void selectedOne(MouseEvent mouseEvent) {
+    public void selectedOne() {
         one.setDisable(true);
         two.setDisable(true);
         two.setVisible(false);
@@ -82,9 +81,8 @@ public class askResourcesToMoveController extends GuiController{
 
     /**
      * player selected the number two
-     * @param mouseEvent clickEvent
      */
-    public void selectedTwo(MouseEvent mouseEvent) {
+    public void selectedTwo() {
         one.setDisable(true);
         two.setDisable(true);
         one.setVisible(false);

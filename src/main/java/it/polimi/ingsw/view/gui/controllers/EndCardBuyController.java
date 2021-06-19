@@ -46,10 +46,9 @@ public class EndCardBuyController extends GuiController{
 
     /**
      * called upon the click of the "firstDeck" button
-     * @param mouseEvent
      */
     @FXML
-    private void firstDeckChosen(MouseEvent mouseEvent) {
+    private void firstDeckChosen() {
         Platform.runLater(()-> getGuiManager().getClientManager().buyCard(storageCount,chestCount, card.getId(), 0));
         firstDeck.setDisable(true);
         secondDeck.setDisable(true);
@@ -60,10 +59,9 @@ public class EndCardBuyController extends GuiController{
 
     /**
      * called upon the click of the "secondDeck" button
-     * @param mouseEvent
      */
     @FXML
-    private void secondDeckChosen(MouseEvent mouseEvent) {
+    private void secondDeckChosen() {
         Platform.runLater(()-> getGuiManager().getClientManager().buyCard(storageCount,chestCount, card.getId(), 1));
         firstDeck.setDisable(true);
         secondDeck.setDisable(true);
@@ -74,10 +72,9 @@ public class EndCardBuyController extends GuiController{
 
     /**
      * called upon the click of the "thirdDeck" button
-     * @param mouseEvent
      */
     @FXML
-    private void thirdDeckChosen(MouseEvent mouseEvent) {
+    private void thirdDeckChosen() {
         Platform.runLater(()-> getGuiManager().getClientManager().buyCard(storageCount,chestCount, card.getId(), 2));
         firstDeck.setDisable(true);
         secondDeck.setDisable(true);

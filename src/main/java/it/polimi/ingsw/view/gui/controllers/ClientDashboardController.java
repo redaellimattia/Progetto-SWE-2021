@@ -643,6 +643,9 @@ public class ClientDashboardController extends GuiController{
         bufferProduction.setVisible(false);
     }
 
+    /**
+     * enable the organizing fields
+     */
     public void startOrganizing() {
         if(getGuiManager().getClientManager().canMoveResources()) {
         shopButton.setDisable(true);
@@ -662,7 +665,9 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
-
+    /**
+     * the first storage's row is selected to start/end the swap
+     */
     public void firstStorageSelected() {
         if(firstCounterTopSwapped==-1) {
             firstCounterTopSwapped = 1;
@@ -675,6 +680,10 @@ public class ClientDashboardController extends GuiController{
             getGuiManager().callDashboard();
         }
     }
+
+    /**
+     * the second storage's row is selected to start/end the swap
+     */
     public void secondStorageSelected() {
         if(firstCounterTopSwapped==-1)
             firstCounterTopSwapped = 2;
@@ -687,6 +696,9 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
+    /**
+     * the third storage's row is selected to start/end the swap
+     */
     public void thirdStorageSelected() {
         if(firstCounterTopSwapped==-1)
             firstCounterTopSwapped = 3;
@@ -700,6 +712,9 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
+    /**
+     * the first leader deposit is selected to start/end the swap
+     */
     public void firstLeaderSelected() {
         if(firstCounterTopSwapped==-1) {
             firstCounterTopSwapped = 4;
@@ -714,6 +729,9 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
+    /**
+     * the second leader deposit is selected to start/end the swap
+     */
     public void secondLeaderSelected() {
         if(firstCounterTopSwapped==-1) {
             firstCounterTopSwapped = 5;
@@ -734,6 +752,9 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
+    /**
+     * number of resources to swap for a from leader swap (set by the modal stage)
+     */
     public void setNumberOfResourcesLeaderMove(int numberOfResourcesLeaderMove) {
         this.numberOfResourcesLeaderMove = numberOfResourcesLeaderMove;
     }

@@ -167,11 +167,18 @@ public class GuiManager implements View, GuiObserver{
         //Platform.runLater(this::updateLogger);
     }
 
+    /**
+     * go back to the player's dashboard
+     * @param watchingPlayer true if the dashboard is not of this client
+     */
     public void goToClientDashboard(boolean watchingPlayer){
         setLayout("clientDashboard.fxml");
         currentController.setPlayer(clientManager.getThisClientDashboard(),watchingPlayer);
     }
 
+    /**
+     * go back to the player's dashboard
+     */
     public void callDashboard(){
         setLayout("clientDashboard.fxml");
         currentController.setPlayer(getClientManager().getThisClientDashboard(), false);
@@ -238,6 +245,11 @@ public class GuiManager implements View, GuiObserver{
 
     }
 
+    /**
+     *
+     * @param victoryPoints value of the vatican report
+     * @param nicknames player affected by the vatican report
+     */
     @Override
     public void vaticanReportActivated(int victoryPoints, ArrayList<String> nicknames) {
         String playerNickname = clientManager.getNickname();
@@ -261,10 +273,14 @@ public class GuiManager implements View, GuiObserver{
     }
 
     @Override
-    public void clearView() {
+    public void clearView() {}
 
-    }
-
+    /**
+     *
+     * @param from the starting position of the move
+     * @param to the target position of the move
+     * @param num number of resources to move
+     */
     public void sendMoveToLeader(int from, int to, int num){
         getClientManager().sendMoveToLeader(from,to,num);
         Platform.runLater(this::callDashboard);
