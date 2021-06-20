@@ -61,6 +61,9 @@ public class MarketActionController extends GuiController {
     private ArrayList<ImageView> marblesView;
     private ClientManager clientManager;
 
+    /**
+     * Called to set initial values of GUI elements and to retrieve the clientManager
+     */
     @Override
     @FXML
     public void initialize() {

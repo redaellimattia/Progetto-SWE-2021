@@ -25,10 +25,18 @@ public class MarketDashboard {
         this.freeMarble = freeMarble;
     }
 
+    /**
+     * Sets the initial structure of the market
+     * @param structure the market structure to use
+     */
     public void setStructure(MarketMarble[][] structure) {
         this.structure = structure;
     }
 
+    /**
+     * Sets the free marble
+     * @param freeMarble the marble that is not placed in the structure
+     */
     public void setFreeMarble(MarketMarble freeMarble) {
         this.freeMarble = freeMarble;
     }
