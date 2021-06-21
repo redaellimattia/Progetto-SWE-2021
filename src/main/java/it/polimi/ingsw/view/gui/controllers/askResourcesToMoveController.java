@@ -11,7 +11,6 @@ public class askResourcesToMoveController extends GuiController{
     private Button one,two;
     private ClientDashboardController clientDashboard;
     private boolean toLeader;
-    private CounterTop leaderDeposit;
     private Stage modal;
     private int leaderPosition;
 
@@ -44,7 +43,6 @@ public class askResourcesToMoveController extends GuiController{
         }
         this.clientDashboard = clientDashboard;
         this.toLeader=toLeader;
-        this.leaderDeposit = leaderDeposit;
         this.modal=modal;
         this.leaderPosition = leaderPosition;
     }
@@ -54,13 +52,10 @@ public class askResourcesToMoveController extends GuiController{
      * either send a message or set the clientDashboardController params for the leaderMove
      */
     public void confirmClick(int numSelected) {
-        if(toLeader) {
+        if(toLeader)
             getGuiManager().sendMoveToLeader(clientDashboard.getFirstCounterTopSwapped(),leaderPosition,numSelected);
-            //clientDashboard.getGuiManager().sendMoveToLeader(leaderDeposit.getResourceType(), numSelected);
-        }
-        else {
+        else
             clientDashboard.setNumberOfResourcesLeaderMove(numSelected);
-        }
         modal.close();
     }
 
