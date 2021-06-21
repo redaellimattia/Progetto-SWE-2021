@@ -60,7 +60,6 @@ public class askResourcesToMoveController extends GuiController{
         }
         else {
             clientDashboard.setNumberOfResourcesLeaderMove(numSelected);
-            clientDashboard.setResourceTypeMove(leaderDeposit.getResourceType());
         }
         modal.close();
     }
