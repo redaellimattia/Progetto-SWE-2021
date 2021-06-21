@@ -55,7 +55,7 @@ public class GuiManager implements View, GuiObserver{
     }
 
     /**
-     * setting the scene on the passed path, updating also the controller for the specific fxml
+     * Setting the scene on the passed path, updating also the controller for the specific fxml
      * @param fileName the fxml path for the selected scene
      */
     public void setLayout(String fileName){
@@ -72,7 +72,7 @@ public class GuiManager implements View, GuiObserver{
     }
 
     /**
-     * called if the connection is refused from the server
+     * Called if the connection is refused from the server
      * @param msg message to be printed on terminal
      */
     @Override
@@ -82,7 +82,7 @@ public class GuiManager implements View, GuiObserver{
     }
 
     /**
-     * launch of the Gui Application with the splash screen
+     * Launch of the Gui Application with the splash screen
      */
     @Override
     public void start() {
@@ -90,7 +90,7 @@ public class GuiManager implements View, GuiObserver{
     }
 
     /**
-     * call the landing page with the passed available lobbies, if there are any
+     * Call the landing page with the passed available lobbies, if there are any
      * @param availableGameLobbies lobbies passed by the server
      * @param message optional message to be printed
      */
@@ -100,7 +100,7 @@ public class GuiManager implements View, GuiObserver{
     }
 
     /**
-     * called in the runlater of printLobbies, set the layout and parameters on the controller
+     * Called in the runlater of printLobbies, set the layout and parameters on the controller
      * @param availableGameLobbies the list of lobbies
      * @param message optional message
      */

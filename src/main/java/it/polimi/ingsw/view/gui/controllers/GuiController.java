@@ -21,6 +21,9 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Gui Controller abstract class
+ */
 public abstract class GuiController {
     private GuiManager guiManager;
 
@@ -166,7 +169,7 @@ public abstract class GuiController {
     }
 
     /**
-     * setting the images of development cards deck for a player (used both in clientDashboard and endBuyCard)
+     * Setting the images of development cards deck for a player (used both in clientDashboard and endBuyCard)
      * @param devCards player's devCards
      * @param firstDeck1 first deck level 1
      * @param secondDeck1 second deck level 1
@@ -198,7 +201,7 @@ public abstract class GuiController {
     }
 
     /**
-     * supporting function used by setDevCards
+     * Supporting function used by setDevCards
      * @param ID id of the card
      * @param i position of the card in the specific deck
      * @param firstPosition deck level 1
@@ -330,7 +333,7 @@ public abstract class GuiController {
     public void setModal(boolean toLeader,CounterTop leaderDeposit,ClientDashboardController clientDashboard,Stage modal,int leaderPosition){}
 
     /**
-     * launching a modal stage for particular actions
+     * Launching a modal stage for particular actions
      * @param fxml fxml path of the scene to launch
      * @return a stage containing the selected scene
      */

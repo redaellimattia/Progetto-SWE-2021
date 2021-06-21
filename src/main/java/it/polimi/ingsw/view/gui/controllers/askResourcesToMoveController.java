@@ -6,6 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+/**
+ * Ask resources to move scene controller
+ */
 public class askResourcesToMoveController extends GuiController{
     @FXML
     private Button one,two;

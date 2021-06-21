@@ -22,6 +22,9 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import java.util.ArrayList;
 
+/**
+ * Player's dashboard controller
+ */
 public class ClientDashboardController extends GuiController{
     @FXML
     private AnchorPane bufferProduction;

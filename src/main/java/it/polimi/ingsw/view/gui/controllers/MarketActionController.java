@@ -22,7 +22,9 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
-
+/**
+ * Market action scene controller
+ */
 public class MarketActionController extends GuiController {
 
     @FXML

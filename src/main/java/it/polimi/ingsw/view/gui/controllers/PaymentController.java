@@ -16,7 +16,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-
+/**
+ * Payment scene controller
+ */
 public class PaymentController extends GuiController{
     @FXML
     public AnchorPane stillToPay;

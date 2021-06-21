@@ -9,7 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-
+/**
+ * Shop view scene controller
+ */
 public class shopViewController extends GuiController {
     @FXML
     private Label errorLabel;

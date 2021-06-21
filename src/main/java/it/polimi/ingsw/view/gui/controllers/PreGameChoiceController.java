@@ -14,6 +14,9 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
+/**
+ * PreGame choice scene controller
+ */
 public class PreGameChoiceController extends GuiController{
 
     @FXML

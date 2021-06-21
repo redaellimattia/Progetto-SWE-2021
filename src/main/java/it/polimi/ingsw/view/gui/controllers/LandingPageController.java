@@ -12,6 +12,9 @@ import javafx.scene.control.*;
 
 import java.util.ArrayList;
 
+/**
+ * LandingPage scene controller
+ */
 public class LandingPageController extends GuiController{
     @FXML
     private ComboBox numberOfPlayers;
@@ -29,7 +32,7 @@ public class LandingPageController extends GuiController{
     private ClientManager clientManager;
 
     /**
-     * setting all parameters for the login/create (such as number of players list)
+     * Setting all parameters for the login/create (such as number of players list)
      */
     @FXML
     @Override
@@ -42,7 +45,7 @@ public class LandingPageController extends GuiController{
     }
 
     /**
-     * when the "Create Game" button is clicked, check validity of parameters then send message
+     * When the "Create Game" button is clicked, check validity of parameters then send message
      */
     @FXML
     public void onCreateButtonClick() {
@@ -78,7 +81,7 @@ public class LandingPageController extends GuiController{
     }
 
     /**
-     * upon receiving a ReturnLobbiesMessage set the list of available lobbies to be shown to the player
+     * Upon receiving a ReturnLobbiesMessage set the list of available lobbies to be shown to the player
      * @param lobbies list of lobbies passed by the server
      */
     @FXML
@@ -96,7 +99,7 @@ public class LandingPageController extends GuiController{
     }
 
     /**
-     * upon selecting a lobby from the list, check validity of username and then send Join message
+     * Upon selecting a lobby from the list, check validity of username and then send Join message
      */
     @FXML
     public void handleMouseClick() {
@@ -119,7 +122,7 @@ public class LandingPageController extends GuiController{
     }
 
     /**
-     * set the scene on the Waiting  Page
+     * Set the scene on the Waiting  Page
      * @param msg message to show as text in the waiting page
      */
     public void goToWaiting(String msg){
@@ -128,7 +131,7 @@ public class LandingPageController extends GuiController{
     }
 
     /**
-     * handle "Ask Lobbies Again" button click, ask again the available lobbies to the server
+     * Handle "Ask Lobbies Again" button click, ask again the available lobbies to the server
      */
     public void askLobbies() {
         Platform.runLater(()-> clientManager.askLobbies());

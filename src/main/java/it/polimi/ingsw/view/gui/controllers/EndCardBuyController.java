@@ -8,6 +8,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 
+/**
+ * End card shop buy scene controller
+ */
 public class EndCardBuyController extends GuiController{
     @FXML
     private ImageView firstDeck1,firstDeck2,firstDeck3,secondDeck1,secondDeck2,secondDeck3,thirdDeck1,thirdDeck2,thirdDeck3,chosenCard;

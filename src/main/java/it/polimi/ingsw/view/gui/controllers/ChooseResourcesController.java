@@ -10,6 +10,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * Choose resource scene controller
+ */
 public class ChooseResourcesController extends GuiController{
     @FXML
     private ImageView coin,rock,shield,servant;

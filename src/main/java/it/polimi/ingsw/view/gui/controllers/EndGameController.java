@@ -8,6 +8,9 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
+/**
+ * End game scene controller
+ */
 public class EndGameController extends GuiController{
     @FXML
     private Text firstPlayer,secondPlayer,thirdPlayer,fourthPlayer;
@@ -21,7 +24,8 @@ public class EndGameController extends GuiController{
     }
 
     /**
-     * setting the endGame view in the case of a single player game
+     * Setting the endGame view in the case of a single player game
+     *
      * @param lorenzoWin boolean representing win/lose of the player
      * @param playerPoints points scored by the player
      */
@@ -42,7 +46,7 @@ public class EndGameController extends GuiController{
     }
 
     /**
-     * setting the endGame view in the case of a multi player game
+     * Setting the endGame view in the case of a multi player game
      * @param scoreboard list of all the players with relative points
      */
     @FXML

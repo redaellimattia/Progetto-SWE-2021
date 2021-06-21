@@ -4,6 +4,9 @@ import it.polimi.ingsw.network.server.Observer;
 
 import java.util.ArrayList;
 
+/**
+ * VaticanReports Class
+ */
 public class VaticanReport {
     private boolean isUsed;
     private final int victoryPoints;

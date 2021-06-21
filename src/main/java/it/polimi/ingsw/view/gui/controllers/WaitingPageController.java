@@ -3,6 +3,9 @@ package it.polimi.ingsw.view.gui.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 
+/**
+ * WaitingPage scene controller
+ */
 public class WaitingPageController extends GuiController{
     @FXML
     private Text textBox;
@@ -13,7 +16,7 @@ public class WaitingPageController extends GuiController{
     }
 
     /**
-     * if there is text to be showed, it is passed to through this method
+     * If there is text to be showed, it is passed to through this method
      * @param text to print
      */
     @FXML
