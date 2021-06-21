@@ -7,9 +7,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
-
-import java.util.ArrayList;
 
 public class EndCardBuyController extends GuiController{
     @FXML

@@ -14,9 +14,9 @@ public abstract class ClientMessage {
 
     static GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Requirement.class, new InterfaceAdapter()).registerTypeAdapter(SpecialAbility.class, new InterfaceAdapter());
     static Gson gson = builder.create();
-    private ClientMessageType type;
-    private String nickname;
-    private long serverThreadID;
+    private final ClientMessageType type;
+    private final String nickname;
+    private final long serverThreadID;
 
 
     /**

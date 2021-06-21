@@ -16,7 +16,6 @@ import java.util.Scanner;
 
 public class Cli implements View {
     private static final String RESET = CliColours.RESET.toString();
-    private static final String BLACK = CliColours.BLACK.toString();
     private static final String RED = CliColours.RED.toString();
     private static final String GREEN = CliColours.GREEN.toString();
     private static final String YELLOW = CliColours.YELLOW.toString();
@@ -24,22 +23,9 @@ public class Cli implements View {
     private static final String PURPLE = CliColours.PURPLE.toString();
     private static final String CYAN = CliColours.CYAN.toString();
     private static final String WHITE = CliColours.WHITE.toString();
-    private static final String BLACK_BOLD = CliColours.BLACK_BOLD.toString();
     private static final String RED_BOLD = CliColours.RED_BOLD.toString();
-    private static final String GREEN_BOLD = CliColours.GREEN_BOLD.toString();
-    private static final String YELLOW_BOLD = CliColours.YELLOW_BOLD.toString();
     private static final String BLUE_BOLD = CliColours.BLUE_BOLD.toString();
-    private static final String PURPLE_BOLD = CliColours.PURPLE_BOLD.toString();
     private static final String CYAN_BOLD = CliColours.CYAN_BOLD.toString();
-    private static final String WHITE_BOLD = CliColours.WHITE_BOLD.toString();
-    private static final String BLACK_UNDERLINE = CliColours.BLACK_UNDERLINED.toString();
-    private static final String RED_UNDERLINED = CliColours.RED_UNDERLINED.toString();
-    private static final String GREEN_UNDERLINED = CliColours.GREEN_UNDERLINED.toString();
-    private static final String YELLOW_UNDERLINED = CliColours.YELLOW_UNDERLINED.toString();
-    private static final String BLUE_UNDERLINED = CliColours.BLUE_UNDERLINED.toString();
-    private static final String PURPLE_UNDERLINED = CliColours.PURPLE_UNDERLINED.toString();
-    private static final String CYAN_UNDERLINED = CliColours.CYAN_UNDERLINED.toString();
-    private static final String WHITE_UNDERLINED = CliColours.WHITE_UNDERLINED.toString();
 
     private final String lostLogo =     "██╗   ██╗ ██████╗ ██╗   ██╗    ██╗      ██████╗ ███████╗████████╗\n" +
                                         "╚██╗ ██╔╝██╔═══██╗██║   ██║    ██║     ██╔═══██╗██╔════╝╚══██╔══╝\n" +
@@ -85,9 +71,6 @@ public class Cli implements View {
      * prints the logo of the game
      */
     public void printLogo() {
-        //SITO PER GENERARE ASCII ART
-        //https://patorjk.com/software/taag/#p=testall&f=Elite&t=Master%20of%20Renaissance%20
-        //ANSI SHADOWS
         String logo = CYAN + "\n" +
                 "███╗   ███╗ █████╗ ███████╗████████╗███████╗██████╗      ██████╗ ███████╗    ██████╗ ███████╗███╗   ██╗ █████╗ ██╗███████╗███████╗ █████╗ ███╗   ██╗ ██████╗███████╗    \n" +
                 "████╗ ████║██╔══██╗██╔════╝╚══██╔══╝██╔════╝██╔══██╗    ██╔═══██╗██╔════╝    ██╔══██╗██╔════╝████╗  ██║██╔══██╗██║██╔════╝██╔════╝██╔══██╗████╗  ██║██╔════╝██╔════╝    \n" +
@@ -535,7 +518,7 @@ public class Cli implements View {
     }
 
     /**
-     *  ask for the resources from the Storage to pay with
+     * ask for the resources from the Storage to pay with
      * @param cost cost that still needs to be covered
      * @return a ResourceCount containing the resources chosen from the storage
      */
@@ -549,7 +532,7 @@ public class Cli implements View {
     }
 
     /**
-     *  ask for the resources from the Chest to pay with
+     * ask for the resources from the Chest to pay with
      * @param cost cost that still needs to be covered
      * @return a ResourceCount containing the resources chosen from the chest
      */
@@ -1514,6 +1497,7 @@ public class Cli implements View {
     public void failedConnection(String msg){
         printMsg(msg);
     }
+
     /**
      * used to clear the cli window.
      */
@@ -1522,5 +1506,4 @@ public class Cli implements View {
         out.print("\033[H\033[2J");
         out.flush();
     }
-
 }

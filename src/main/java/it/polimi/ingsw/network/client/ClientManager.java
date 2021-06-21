@@ -9,13 +9,11 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.messages.clientMessages.*;
 import it.polimi.ingsw.network.messages.clientMessages.actionMessages.*;
 import it.polimi.ingsw.network.messages.serverMessages.ServerMessage;
-import it.polimi.ingsw.network.server.Server;
 import it.polimi.ingsw.view.cli.Cli;
 import it.polimi.ingsw.view.View;
 import it.polimi.ingsw.view.gui.GuiManager;
 
 import java.util.*;
-import java.util.logging.Level;
 
 public class ClientManager {
     private String nickname;
@@ -35,7 +33,6 @@ public class ClientManager {
     private final String address;
     private final int socketPort;
     private PlayerDashboard thisPlayerDashboard;
-    private Timer keepAliveTimer;
 
     /**
      * Creates client Object, handles client connection and instantiates view
@@ -174,7 +171,7 @@ public class ClientManager {
         if(!clientSocket.isConnected())
             view.failedConnection("Failed to connect to: "+ address+":" + socketPort);
         else {
-            keepAliveTimer = new Timer();
+            Timer keepAliveTimer = new Timer();
             keepAliveTimer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
@@ -691,21 +688,6 @@ public class ClientManager {
         else {
             return gameStatus.getMarket().getColumn(pos);
         }
-    }
-
-
-    /**
-     * Check if the user already has a non-empty counterTop for this resource type
-     * @param res the resource type
-     * @return true if there is NOT another counterTop of the same type
-     */
-    public boolean canCreateNewRow(Resource res) {
-        for(CounterTop c: thisPlayerDashboard.getStorage().getShelvesArray()) {
-            if(c.getContent() != 0 && c.getResourceType().equals(res)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public boolean hasWhiteChangeAbility() {

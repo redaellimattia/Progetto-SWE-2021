@@ -18,9 +18,6 @@ public class AdvanceToken implements SoloToken {
          else
              this.steps = 2;
     }
-    public int getSteps() {
-        return steps;
-    }
 
     public boolean isReRoll() {
         return reRoll;

@@ -5,7 +5,6 @@ import it.polimi.ingsw.model.card.DepositAbility;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.card.ProductionAbility;
-import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.application.Platform;
@@ -66,7 +65,6 @@ public class ClientDashboardController extends GuiController{
     private ClientManager clientManager;
     private FaithPos[] faithPos;
     private int firstCounterTopSwapped,numberOfResourcesLeaderMove;
-    private Resource resourceTypeMove;
 
     /**
      * Sets playerdashboard, if the client is watching a player or not, and the ArrayList of log
@@ -91,7 +89,6 @@ public class ClientDashboardController extends GuiController{
         secondLeaderButton.setVisible(false);
         firstCounterTopSwapped = -1;
         numberOfResourcesLeaderMove=0;
-        resourceTypeMove=null;
         if(!getGuiManager().getClientManager().canMoveResources())
             organizeButton.setDisable(true);
         if(watchingPlayer){
@@ -355,6 +352,17 @@ public class ClientDashboardController extends GuiController{
     }
 
     /**
+     * number of resources to swap for a from leader swap (set by the modal stage)
+     */
+    public void setNumberOfResourcesLeaderMove(int numberOfResourcesLeaderMove) {
+        this.numberOfResourcesLeaderMove = numberOfResourcesLeaderMove;
+    }
+
+    public int getFirstCounterTopSwapped() {
+        return firstCounterTopSwapped;
+    }
+
+    /**
      * When endTurn button is clicked, end the turn
      */
     public void endTurn() {
@@ -500,8 +508,6 @@ public class ClientDashboardController extends GuiController{
     @Override
     public void updateLogger(ArrayList<String> log){
         printLog(log);
-        //Platform.runLater(()->printLog(log));
-        //getGuiManager().clearLog();
     }
 
     @FXML
@@ -752,20 +758,7 @@ public class ClientDashboardController extends GuiController{
         }
     }
 
-    /**
-     * number of resources to swap for a from leader swap (set by the modal stage)
-     */
-    public void setNumberOfResourcesLeaderMove(int numberOfResourcesLeaderMove) {
-        this.numberOfResourcesLeaderMove = numberOfResourcesLeaderMove;
-    }
 
-    public int getFirstCounterTopSwapped() {
-        return firstCounterTopSwapped;
-    }
-
-    public void setResourceTypeMove(Resource resourceTypeMove) {
-        this.resourceTypeMove = resourceTypeMove;
-    }
 
     //FAITH PATH IMG POSITION
     private static class FaithPos{

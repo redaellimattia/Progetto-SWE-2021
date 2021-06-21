@@ -6,7 +6,7 @@ import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.network.server.Observer;
 
 public class DiscardToken implements SoloToken {
-    private CardColour colour;
+    private final CardColour colour;
 
     public DiscardToken(CardColour colour){
         this.colour = colour;

@@ -163,7 +163,6 @@ public class shopViewController extends GuiController {
      */
     public void goBackToDashboard() {
         Platform.runLater(()->getGuiManager().callDashboard());
-        //getGuiManager().setNextScene();
     }
 
     /**

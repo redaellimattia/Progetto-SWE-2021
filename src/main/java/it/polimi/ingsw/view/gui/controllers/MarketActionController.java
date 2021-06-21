@@ -242,18 +242,15 @@ public class MarketActionController extends GuiController {
 
     /**
      * Returns to the dashboard scene
-     * @param mouseEvent (could be null)
      */
-    public void goBackToDashboard(MouseEvent mouseEvent) {
+    public void goBackToDashboard() {
         Platform.runLater(()->getGuiManager().callDashboard());
-        //getGuiManager().setNextScene();
     }
 
     /**
      * Called when the user confirms the row/column choice
-     * @param mouseEvent the mouseEvent that triggered the method invocation
      */
-    public void doMarketAction(MouseEvent mouseEvent) {
+    public void doMarketAction() {
         disableArrows();
         confirmAction.setVisible(false);
         backToDashboard.setDisable(true);
@@ -272,7 +269,7 @@ public class MarketActionController extends GuiController {
     public void doNextAtomicChoice() {
         if((type == 0 && curChoice == 4) || (type == 1 && curChoice == 3)) {
             clientManager.endMarketAction(type, pos);
-            goBackToDashboard(null);
+            goBackToDashboard();
         }
         else {
             // Highlight only the marble associated with this atomicMarketAction
@@ -315,9 +312,8 @@ public class MarketActionController extends GuiController {
 
     /**
      * Called when the user closes a message informing that there was only one possible choice
-     * @param mouseEvent the mouseEvent that triggered the method invocation
      */
-    public void noChoiceMessageClosed(MouseEvent mouseEvent) {
+    public void noChoiceMessageClosed() {
         closeMessage.setVisible(false);
         curChoice++;
         doNextAtomicChoice();
@@ -340,9 +336,8 @@ public class MarketActionController extends GuiController {
 
     /**
      * Shows options related to the conversion of a white marble
-     * @param mouseEvent the mouseEvent that triggered the method invocation
      */
-    public void whiteMarbleChoice(MouseEvent mouseEvent) {
+    public void whiteMarbleChoice() {
         // Check if the user has clicked on a part of the list with no item
         if(choicesList.getSelectionModel().getSelectedIndex() < 0) {
             return; // return without saving choice
@@ -364,9 +359,8 @@ public class MarketActionController extends GuiController {
 
     /**
      * Called when the user selects where to store a resource
-     * @param mouseEvent the mouseEvent that triggered the method invocation
      */
-    public void storeResourceChoice(MouseEvent mouseEvent) {
+    public void storeResourceChoice() {
         // Check if the user has clicked on a part of the list with no item
         if(getResourceList.getSelectionModel().getSelectedIndex() < 0) {
             return; // return without saving choice

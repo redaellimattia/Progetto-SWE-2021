@@ -2,7 +2,6 @@ package it.polimi.ingsw.model.card;
 
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.ResourceCount;
-import it.polimi.ingsw.model.enumeration.CardColour;
 
 public class ResourceRequirement implements Requirement {
     private final ResourceCount resources;

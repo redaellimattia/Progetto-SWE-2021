@@ -1,8 +1,8 @@
 package it.polimi.ingsw.model.card;
 
 public abstract class Card {
-    private int victoryPoints;
-    private int id;
+    private final int victoryPoints;
+    private final int id;
 
     /**
      *

@@ -26,8 +26,8 @@ public class OrganizeStorage extends Action {
     @Override
     public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {
         if(player.getStorage().swapRows(from,to)) {
-            player.getStorage().checkShelves();
-            return true;
+            return player.getStorage().checkShelves();
+            //return true;
         }
         else
             throw new WrongResourcesMovedException(player);

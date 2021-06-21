@@ -161,6 +161,7 @@ public class ServerLobby extends Thread implements Observer {
     }
 
     /**
+     * New Player is logging in
      *
      * @param nickname nickname chosen by the client
      * @param clientConnection socketConnection of the client
@@ -186,6 +187,7 @@ public class ServerLobby extends Thread implements Observer {
     }
 
     /**
+     * PlayerLogin, will dispatch to knownPlayerLogin or newPlayerLogin
      *
      * @param nickname nickname chosen by the client
      * @param clientConnection socketConnection of the client
@@ -215,6 +217,10 @@ public class ServerLobby extends Thread implements Observer {
         preGame();
     }
 
+    /**
+     * Removes pre game timer
+     * @param nickname affected player
+     */
     public void deletePreGameTimer(String nickname){
         preGamePing.get(nickname).deleteTimer();
     }

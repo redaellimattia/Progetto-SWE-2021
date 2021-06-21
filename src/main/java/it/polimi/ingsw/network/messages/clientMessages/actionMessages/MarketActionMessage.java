@@ -19,9 +19,6 @@ public abstract class MarketActionMessage extends ActionMessage{
     static GsonBuilder builder = new GsonBuilder();
     static Gson gson = builder.create();
     private MarketActionType marketActionType;
-    //private final int rowColType;
-    //private final int pos;
-    //private final ArrayList<AtomicMarketAction> choices;
 
     public MarketActionMessage(String nickname, long serverThreadID, MarketActionType marketActionType) {
         super(ActionType.MARKETACTION, nickname, serverThreadID);
@@ -52,16 +49,4 @@ public abstract class MarketActionMessage extends ActionMessage{
                 throw new IllegalArgumentException("actionType not found.");
         }
     }
-
-    /*
-    /**
-     * Create a MarketAction and uses it.
-     * @param socketConnection the connection from which the message has arrived
-     */
-    /*
-    @Override
-    public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby) {
-        MarketAction action = new MarketAction(rowColType, pos, choices, serverLobby.getGameLobby().getGameManager());
-        useActionMessage(action, socketConnection, serverLobby);
-    } */
 }

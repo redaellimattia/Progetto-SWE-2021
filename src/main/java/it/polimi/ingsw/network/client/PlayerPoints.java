@@ -1,5 +1,8 @@
 package it.polimi.ingsw.network.client;
 
+/**
+ * Class used to save a player points for the endGame message
+ */
 public class PlayerPoints {
     private final String player;
     private final int victoryPoints;

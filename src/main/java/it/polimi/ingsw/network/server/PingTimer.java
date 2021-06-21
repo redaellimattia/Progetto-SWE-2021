@@ -7,10 +7,10 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 
 public class PingTimer {
-    private ServerLobby serverLobby;
-    private SocketConnection socketConnection;
+    private final ServerLobby serverLobby;
+    private final SocketConnection socketConnection;
     private Timer waitResponse;
-    private Timer pingDuringGame;
+    private final Timer pingDuringGame;
 
     /**
      * Creating PingTimer object that is used to ping clients and check if they are still connected
@@ -66,7 +66,6 @@ public class PingTimer {
     public void deleteTimer(){
         if(waitResponse!=null)
             waitResponse.cancel();
-        if(pingDuringGame!=null)
-            pingDuringGame.cancel();
+        pingDuringGame.cancel();
     }
 }

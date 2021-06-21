@@ -11,11 +11,11 @@ import it.polimi.ingsw.model.enumeration.MarbleColour;
 import java.util.ArrayList;
 
 public class MarketAction extends Action {
-    private int type;
-    private int pos;
-    private ArrayList<AtomicMarketAction> choices;
-    private MarketDashboard market;
-    private GameManager gameManager;
+    private final int type;
+    private final int pos;
+    private final ArrayList<AtomicMarketAction> choices;
+    private final MarketDashboard market;
+    private final GameManager gameManager;
     private Storage tempStorage;
     private ArrayList<CounterTop> tempArrayDeposit;
 
@@ -38,8 +38,8 @@ public class MarketAction extends Action {
      * that will be updated when user makes choices in order to perform validity controls before executing actions
      */
     public void initTempStorage(PlayerDashboard player) {
-        ArrayList<CounterTop> tempStorageRows = new ArrayList<CounterTop>();
-        tempArrayDeposit = new ArrayList<CounterTop>();
+        ArrayList<CounterTop> tempStorageRows = new ArrayList<>();
+        tempArrayDeposit = new ArrayList<>();
         // Create a COPY of each "regular" counterTop
         for(CounterTop c: player.getStorage().getShelvesArray()) {
             tempStorageRows.add(new CounterTop(c.getResourceType(), c.getContent()));
