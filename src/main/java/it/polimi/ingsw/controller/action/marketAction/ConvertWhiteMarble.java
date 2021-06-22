@@ -1,9 +1,6 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
 import it.polimi.ingsw.controller.GameManager;
-import it.polimi.ingsw.exceptions.action.CardNotExistsException;
-import it.polimi.ingsw.exceptions.action.NoWhiteMarbleException;
-import it.polimi.ingsw.exceptions.action.WrongAbilityException;
 import it.polimi.ingsw.model.CounterTop;
 import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.model.PlayerDashboard;
@@ -16,8 +13,8 @@ import java.util.ArrayList;
 
 public class ConvertWhiteMarble extends AtomicMarketAction {
 
-    private LeaderCard leaderCard;
-    private int storageRow;
+    private final LeaderCard leaderCard;
+    private final int storageRow;
 
     /**
      *

@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -60,7 +59,6 @@ public class MarketActionController extends GuiController {
     int curChoice;
     boolean isWhiteMarbleConversion; // true if the current atomicMarketAction is a conversion with white marble
     LeaderCard chosenLeaderCard;
-    private ArrayList<ImageView> marblesView;
     private ClientManager clientManager;
 
     /**
@@ -88,7 +86,7 @@ public class MarketActionController extends GuiController {
      * Shows the market dashboard placing marble images in the grid
      */
     public void setGrid(){
-        marblesView = new ArrayList<>();
+        ArrayList<ImageView> marblesView = new ArrayList<>();
         marblesView.add(marble1);
         marblesView.add(marble2);
         marblesView.add(marble3);

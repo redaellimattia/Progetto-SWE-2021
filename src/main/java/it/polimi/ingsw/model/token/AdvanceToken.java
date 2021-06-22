@@ -1,6 +1,5 @@
 package it.polimi.ingsw.model.token;
 
-import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.model.Game;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.network.server.Observer;

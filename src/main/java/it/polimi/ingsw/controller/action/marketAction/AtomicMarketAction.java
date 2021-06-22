@@ -2,9 +2,6 @@ package it.polimi.ingsw.controller.action.marketAction;
 
 import it.polimi.ingsw.controller.GameManager;
 import it.polimi.ingsw.exceptions.CounterTopOverloadException;
-import it.polimi.ingsw.exceptions.action.InvalidRowException;
-import it.polimi.ingsw.exceptions.action.NoAdditionalDepositException;
-import it.polimi.ingsw.exceptions.action.WrongCounterTopException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.enumeration.Resource;
 
@@ -40,7 +37,7 @@ public abstract class AtomicMarketAction {
         switch(row) {
             case 1:
                 if(tempStorage.getFirstRow().getContent() == 0) {
-                    if(!canCreateNewRow(res, tempStorage)){
+                    if(cannotCreateNewRow(res, tempStorage)){
                         return false; // User cannot have two counterTops with the same Resource type
                         //throw new WrongCounterTopException(res);
                     }
@@ -59,7 +56,7 @@ public abstract class AtomicMarketAction {
                 return true;
             case 2:
                 if(tempStorage.getSecondRow().getContent() == 0) {
-                    if(!canCreateNewRow(res, tempStorage)){
+                    if(cannotCreateNewRow(res, tempStorage)){
                         return false; // User cannot have two counterTops with the same Resource type
                         //throw new WrongCounterTopException(res);
                     }
@@ -78,7 +75,7 @@ public abstract class AtomicMarketAction {
                 return true;
             case 3:
                 if(tempStorage.getThirdRow().getContent() == 0) {
-                    if(!canCreateNewRow(res, tempStorage)){
+                    if(cannotCreateNewRow(res, tempStorage)){
                         return false;  // User cannot have two counterTops with the same Resource type
                         //throw new WrongCounterTopException(res);
                     }
@@ -162,12 +159,12 @@ public abstract class AtomicMarketAction {
      * @param tempStorage the storage of the player
      * @return true if there is NOT another counterTop of the same type
      */
-    public boolean canCreateNewRow(Resource res, Storage tempStorage) {
+    public boolean cannotCreateNewRow(Resource res, Storage tempStorage) {
         for(CounterTop c: tempStorage.getShelvesArray()) {
             if(c.getContent() != 0 && c.getResourceType().equals(res)) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 }
