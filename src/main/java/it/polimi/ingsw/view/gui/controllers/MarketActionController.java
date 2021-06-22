@@ -107,32 +107,7 @@ public class MarketActionController extends GuiController {
         int cur = 0;
         for(MarketMarble[] row: structure) {
             for(MarketMarble m: row) {
-                switch (m.getColour()) {
-                    case RED:
-                        setImage(marblesView.get(cur), "/img/marbles/redMarble.png");
-                        //marblesView.get(cur).setImage(redMarble);
-                        break;
-                    case BLUE:
-                        setImage(marblesView.get(cur), "/img/marbles/blueMarble.png");
-                        //marblesView.get(cur).setImage(blueMarble);
-                        break;
-                    case GREY:
-                        setImage(marblesView.get(cur), "/img/marbles/greyMarble.png");
-                        //marblesView.get(cur).setImage(greyMarble);
-                        break;
-                    case WHITE:
-                        setImage(marblesView.get(cur), "/img/marbles/whiteMarble.png");
-                        //marblesView.get(cur).setImage(whiteMarble);
-                        break;
-                    case PURPLE:
-                        setImage(marblesView.get(cur), "/img/marbles/purpleMarble.png");
-                        //marblesView.get(cur).setImage(purpleMarble);
-                        break;
-                    case YELLOW:
-                        setImage(marblesView.get(cur), "/img/marbles/yellowMarble.png");
-                        //marblesView.get(cur).setImage(yellowMarble);
-                        break;
-                }
+                setMarbleImage(m, marblesView.get(cur));
                 cur++;
             }
         }
