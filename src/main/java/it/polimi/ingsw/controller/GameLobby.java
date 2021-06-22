@@ -112,7 +112,6 @@ public class GameLobby {
 
     /**
      * Initializes all objects for a new game, loading default initial configuration
-     *
      * @param singlePlayer true if the game is in single player mode
      * @param observer the observer that will listen for changes in the game status
      */
@@ -133,13 +132,11 @@ public class GameLobby {
         leadersDeck = initLeadersDeck();
 
         if(singlePlayer){
-            // TO-DO: Check that Lorenzo name is not used by player
             PlayerDashboard lorenzo = createPlayer("Lorenzo il Magnifico", true);
             lorenzo.addObserver(observer);
             playerDashboards.add(lorenzo);
             Game game = new Game(playerDashboards, shop, market, initTokensDeck());
             gameManager = new GameManager(game, new PlayerTurnManager(playerDashboards.get(0)), true);
-            // TO-DO: Set gameManager in every token
         }
         else {
             Game game = new Game(playerDashboards, shop, market, null);
