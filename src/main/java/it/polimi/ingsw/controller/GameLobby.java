@@ -262,7 +262,7 @@ public class GameLobby {
                 case "discardToken": tokenList.add(gson.fromJson(j, DiscardToken.class)); break;
                 // In this case we need to use the constructor to build the AdvanceToken object
                 // because steps value is not in JSON file (it can be inferred by reRoll value)
-                case "advanceToken": tokenList.add(new AdvanceToken(gson.fromJson(j, AdvanceToken.class).isReRoll(), null)); break;
+                case "advanceToken": tokenList.add(new AdvanceToken(gson.fromJson(j, AdvanceToken.class).isReRoll())); break;
             }
         }
         // Shuffle tokens

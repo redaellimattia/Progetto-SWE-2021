@@ -13,7 +13,6 @@ import it.polimi.ingsw.model.token.DiscardToken;
 import it.polimi.ingsw.model.token.SoloToken;
 import org.junit.jupiter.api.Test;
 
-import java.io.Reader;
 import java.util.ArrayList;
 
 public class CardJSONTest {
@@ -71,7 +70,7 @@ public class CardJSONTest {
                 case "discardToken": tokensDeck.add(gson.fromJson(s, DiscardToken.class)); break;
                 // In this case we need to use the constructor to build the AdvanceToken object
                 // because steps value is not in JSON file (it can be inferred by reRoll value)
-                case "advanceToken": tokensDeck.add(new AdvanceToken(gson.fromJson(s, AdvanceToken.class).isReRoll(), null)); break;
+                case "advanceToken": tokensDeck.add(new AdvanceToken(gson.fromJson(s, AdvanceToken.class).isReRoll())); break;
             }
         }
         for (SoloToken s: tokensDeck) {

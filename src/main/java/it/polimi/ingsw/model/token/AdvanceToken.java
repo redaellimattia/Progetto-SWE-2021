@@ -6,12 +6,10 @@ import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.network.server.Observer;
 
 public class AdvanceToken implements SoloToken {
-    private int steps;
-    private boolean reRoll;
-    private GameManager gameManager;
+    private final int steps;
+    private final boolean reRoll;
 
-    public AdvanceToken(boolean reRoll, GameManager gameManager){
-        this.gameManager = gameManager;
+    public AdvanceToken(boolean reRoll){
         this.reRoll = reRoll;
          if(reRoll)
              this.steps = 1;

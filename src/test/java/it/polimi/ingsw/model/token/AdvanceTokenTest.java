@@ -52,7 +52,7 @@ class AdvanceTokenTest {
         players.add(player1);
         players.add(lorenzo);
         Game game = new Game(players, new Shop(new DeckShop[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
-        AdvanceToken testToken = new AdvanceToken(false, buildGameManager());
+        AdvanceToken testToken = new AdvanceToken(false);
         testToken.useToken(testDashboard, game,new ServerLobby(1,1));
         assertEquals(oldPos + 2, testDashboard.getPathPosition());
     }
@@ -67,7 +67,7 @@ class AdvanceTokenTest {
         players.add(player1);
         players.add(lorenzo);
         Game game = new Game(players, new Shop(new DeckShop[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
-        AdvanceToken testToken = new AdvanceToken(true, buildGameManager());
+        AdvanceToken testToken = new AdvanceToken(true);
         testToken.useToken(testDashboard, game,new ServerLobby(1,1));
         assertEquals(oldPos + 1, testDashboard.getPathPosition());
     }
