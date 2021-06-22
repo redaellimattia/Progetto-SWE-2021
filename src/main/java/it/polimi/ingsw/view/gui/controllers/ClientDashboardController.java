@@ -355,7 +355,7 @@ public class ClientDashboardController extends GuiController{
     }
 
     /**
-     * number of resources to swap for a from leader swap (set by the modal stage)
+     * Number of resources to swap for a from leader swap (set by the modal stage)
      */
     public void setNumberOfResourcesLeaderMove(int numberOfResourcesLeaderMove) {
         this.numberOfResourcesLeaderMove = numberOfResourcesLeaderMove;
@@ -653,7 +653,7 @@ public class ClientDashboardController extends GuiController{
     }
 
     /**
-     * enable the organizing fields
+     * Enable the organizing fields
      */
     public void startOrganizing() {
         if(getGuiManager().getClientManager().canMoveResources()) {
@@ -675,7 +675,7 @@ public class ClientDashboardController extends GuiController{
     }
 
     /**
-     * the first storage's row is selected to start/end the swap
+     * The first storage's row is selected to start/end the swap
      */
     public void firstStorageSelected() {
         if(firstCounterTopSwapped==-1) {
@@ -691,7 +691,7 @@ public class ClientDashboardController extends GuiController{
     }
 
     /**
-     * the second storage's row is selected to start/end the swap
+     * The second storage's row is selected to start/end the swap
      */
     public void secondStorageSelected() {
         if(firstCounterTopSwapped==-1)
@@ -706,7 +706,7 @@ public class ClientDashboardController extends GuiController{
     }
 
     /**
-     * the third storage's row is selected to start/end the swap
+     * The third storage's row is selected to start/end the swap
      */
     public void thirdStorageSelected() {
         if(firstCounterTopSwapped==-1)
@@ -722,7 +722,7 @@ public class ClientDashboardController extends GuiController{
     }
 
     /**
-     * the first leader deposit is selected to start/end the swap
+     * The first leader deposit is selected to start/end the swap
      */
     public void firstLeaderSelected() {
         if(firstCounterTopSwapped==-1) {
@@ -739,7 +739,7 @@ public class ClientDashboardController extends GuiController{
     }
 
     /**
-     * the second leader deposit is selected to start/end the swap
+     * The second leader deposit is selected to start/end the swap
      */
     public void secondLeaderSelected() {
         if(firstCounterTopSwapped==-1) {
@@ -762,8 +762,9 @@ public class ClientDashboardController extends GuiController{
     }
 
 
-
-    //FAITH PATH IMG POSITION
+    /**
+     * Class used to identify the position of the image on the faith path
+     */
     private static class FaithPos{
         private final int x;
         private final int y;

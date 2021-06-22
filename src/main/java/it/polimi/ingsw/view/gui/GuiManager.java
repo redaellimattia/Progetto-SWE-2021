@@ -15,7 +15,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+/**
+ * Class that handles the GUI view
+ */
 public class GuiManager implements View, GuiObserver{
     private final ClientManager clientManager;
 
@@ -122,7 +124,7 @@ public class GuiManager implements View, GuiObserver{
     }
 
     /**
-     * add to the log a message that will be printed in the clientDashboardController scrollpane
+     * Add to the log a message that will be printed in the clientDashboardController scrollpane
      * @param msg msg coming from the server
      */
     @Override
@@ -133,7 +135,7 @@ public class GuiManager implements View, GuiObserver{
     }
 
     /**
-     * define how many resources a player can choose in the pregame and which four leaders are given him
+     * Define how many resources a player can choose in the pregame and which four leaders are given him
      * to choose two
      * @param leaders arraylist of the four leaders
      * @param numberOfResources number of resources he can choose
@@ -163,11 +165,10 @@ public class GuiManager implements View, GuiObserver{
     public void yourTurn() {
         log.add("It's your turn!");
         Platform.runLater(this::callDashboard);
-        //Platform.runLater(this::updateLogger);
     }
 
     /**
-     * go back to the player's dashboard
+     * Go back to the player's dashboard
      * @param watchingPlayer true if the dashboard is not of this client
      */
     public void goToClientDashboard(boolean watchingPlayer){
@@ -176,7 +177,7 @@ public class GuiManager implements View, GuiObserver{
     }
 
     /**
-     * go back to the player's dashboard
+     * Go back to the player's dashboard
      */
     public void callDashboard(){
         setLayout("clientDashboard.fxml");
@@ -184,6 +185,10 @@ public class GuiManager implements View, GuiObserver{
         Platform.runLater(this::updateLogger);
     }
 
+    /**
+     * Sets the watching another player dashboard scene
+     * @param player player chosen to be watched
+     */
     public void watchPlayer(String player){
         setLayout("clientDashboard.fxml");
         PlayerDashboard chosenPlayer = null;
@@ -198,16 +203,28 @@ public class GuiManager implements View, GuiObserver{
     public void endGame(ArrayList<PlayerPoints> scoreboard) {
         Platform.runLater(()->goToEndGameMulti(scoreboard));
     }
+
+    /**
+     * Switch to multiplayer endgame scene
+     * @param scoreboard scoreboard of the game
+     */
     private void goToEndGameMulti(ArrayList<PlayerPoints> scoreboard){
         setLayout("endGame.fxml");
         currentController.setEndGame(scoreboard);
         stage.setScene(currentScene);
     }
+
+    /**
+     * Switch to singleplayer endgame scene
+     * @param lorenzoWin true if lorenzo won
+     * @param playerPoints points of the player
+     */
     private void goToEndGameSingle(boolean lorenzoWin, int playerPoints){
         setLayout("endGame.fxml");
         currentController.setEndGame(lorenzoWin,playerPoints);
         stage.setScene(currentScene);
     }
+
     @Override
     public void endGame(boolean lorenzoWin, int playerPoints) {
         Platform.runLater(()->goToEndGameSingle(lorenzoWin,playerPoints));

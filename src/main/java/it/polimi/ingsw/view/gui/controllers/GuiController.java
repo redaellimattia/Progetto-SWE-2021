@@ -328,8 +328,22 @@ public abstract class GuiController {
         rock.setDisable(false);
     }
 
-    //SET MODAL
+    /**
+     * Sets modal for the basic and leader production
+     * @param isBasic true if it's a basic production
+     * @param card leader card (can be null if basic production)
+     * @param modal modal
+     */
     public void setModal(boolean isBasic,LeaderCard card,Stage modal){}
+
+    /**
+     * Sets modal for a leader deposit move
+     * @param toLeader true if to Leader
+     * @param leaderDeposit Countertop of the leader
+     * @param clientDashboard clientDashboard
+     * @param modal modal
+     * @param leaderPosition position of the leader card
+     */
     public void setModal(boolean toLeader,CounterTop leaderDeposit,ClientDashboardController clientDashboard,Stage modal,int leaderPosition){}
 
     /**

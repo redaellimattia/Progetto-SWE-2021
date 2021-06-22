@@ -24,7 +24,7 @@ public class askResourcesToMoveController extends GuiController{
     }
 
     /**
-     * set a modal asking the number of resources a player wants to move to/from a leader.
+     * Set a modal asking the number of resources a player wants to move to/from a leader.
      * @param toLeader true if moving TO a leader
      * @param leaderDeposit the interested leader deposit
      * @param clientDashboard the clientDashboardController who called the modal
@@ -51,7 +51,7 @@ public class askResourcesToMoveController extends GuiController{
     }
 
     /**
-     * called after clicking 1 or 2 in the askResourcesToMove Modal
+     * Called after clicking 1 or 2 in the askResourcesToMove Modal
      * either send a message or set the clientDashboardController params for the leaderMove
      */
     public void confirmClick(int numSelected) {
@@ -63,7 +63,7 @@ public class askResourcesToMoveController extends GuiController{
     }
 
     /**
-     * player selected the number one
+     * Player selected the number one
      */
     public void selectedOne() {
         one.setDisable(true);
@@ -73,7 +73,7 @@ public class askResourcesToMoveController extends GuiController{
     }
 
     /**
-     * player selected the number two
+     * Player selected the number two
      */
     public void selectedTwo() {
         one.setDisable(true);

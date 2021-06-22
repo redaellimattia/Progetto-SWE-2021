@@ -46,7 +46,7 @@ public class PaymentController extends GuiController{
     private PlayerDashboard playerDashboard;
 
     /**
-     * initializing graphic resources for the scene
+     * Initializing graphic resources for the scene
      */
     @FXML
     @Override
@@ -90,7 +90,7 @@ public class PaymentController extends GuiController{
     }
 
     /**
-     * setting the panel showing how much resources still need to be selected
+     * Setting the panel showing how much resources still need to be selected
      * @param resourceCount actual cost that needs to be covered
      */
     public void setStillToPay(ResourceCount resourceCount){
@@ -98,7 +98,7 @@ public class PaymentController extends GuiController{
     }
 
     /**
-     * in case of payment for a Development Card production
+     * In case of payment for a Development Card production
      * @param card card selected for the production
      */
     @Override
@@ -108,7 +108,7 @@ public class PaymentController extends GuiController{
         setCost(card.getProductionPower().getInput());
     }
     /**
-     * in case of payment for a Leader Card production
+     * In case of payment for a Leader Card production
      * @param card card selected for the production
      * @param res resource chosen as output
      */
@@ -123,7 +123,7 @@ public class PaymentController extends GuiController{
     }
 
     /**
-     * in case of payment for a basic production
+     * In case of payment for a basic production
      * @param res resource chosen as output
      */
     @Override
@@ -137,7 +137,7 @@ public class PaymentController extends GuiController{
     }
 
     /**
-     * setting the fixed cost (used as control for the resources switches) and the still to pay cost
+     * Setting the fixed cost (used as control for the resources switches) and the still to pay cost
      * @param cost actual cost for this payment
      */
     private void setCost(ResourceCount cost){
@@ -147,7 +147,7 @@ public class PaymentController extends GuiController{
     }
 
     /**
-     * in case of payment for a Card Buy action
+     * In case of payment for a Card Buy action
      * @param card chosen Development Card to be bought
      */
     @Override
@@ -159,7 +159,7 @@ public class PaymentController extends GuiController{
     }
 
     /**
-     * a resource has been selected from the player's storage
+     * A resource has been selected from the player's storage
      * @param mouseEvent clicked on resource
      */
     @FXML
@@ -224,7 +224,7 @@ public class PaymentController extends GuiController{
     }
 
     /**
-     * after a resource has been selected from the chest/storage, update the still to pay
+     * After a resource has been selected from the chest/storage, update the still to pay
      * @param res selected resource type
      */
     public void resourceSelected(Resource res){
@@ -252,7 +252,7 @@ public class PaymentController extends GuiController{
     }
 
     /**
-     * a resources has been selected to be removed from the "temporary storage payment"
+     * A resources has been selected to be removed from the "temporary storage payment"
      * @param mouseEvent clicked on resource
      */
     @FXML
@@ -318,7 +318,7 @@ public class PaymentController extends GuiController{
     }
 
     /**
-     * after a resource has been deselected from the chest/storage, update the still to pay
+     * After a resource has been deselected from the chest/storage, update the still to pay
      * @param res deselected resource
      */
     public void resourceDeselected(Resource res){
@@ -346,7 +346,7 @@ public class PaymentController extends GuiController{
     }
 
     /**
-     * a resource has been selected from the player's chest
+     * A resource has been selected from the player's chest
      * @param mouseEvent clicked on resource
      */
     public void registerPaymentChest(MouseEvent mouseEvent) {
@@ -401,7 +401,7 @@ public class PaymentController extends GuiController{
     }
 
     /**
-     * a resource has been selected to be removed from the "temporary chest payment"
+     * A resource has been selected to be removed from the "temporary chest payment"
      * @param mouseEvent clicked on a resource
      */
     public void deselectPaymentChest(MouseEvent mouseEvent) {
@@ -464,7 +464,7 @@ public class PaymentController extends GuiController{
     }
 
     /**
-     * based on which payment this scen has been called, proceed to end the payment
+     * Based on which payment this scen has been called, proceed to end the payment
      */
     public void endBuy() {
         if(shopAction)
@@ -478,7 +478,7 @@ public class PaymentController extends GuiController{
     }
 
     /**
-     * end the payment for a Development Card Production
+     * End the payment for a Development Card Production
      */
     private void payDevCardProduction(){
         int index = -1;
@@ -493,7 +493,7 @@ public class PaymentController extends GuiController{
     }
 
     /**
-     * end the payment for a Leader Card Production
+     * End the payment for a Leader Card Production
      */
     private void payLeaderCardProduction(){
         getGuiManager().getClientManager().leaderProduction(playerDashboard.getLeaderPos(leaderCard),leaderCard,storageCount, chestCount,res);
@@ -502,7 +502,7 @@ public class PaymentController extends GuiController{
     }
 
     /**
-     * end the payment for a Basic Production
+     * End the payment for a Basic Production
      */
     private void payBasicProduction(){
         getGuiManager().getClientManager().basicProduction(storageCount, chestCount,res);
@@ -511,7 +511,7 @@ public class PaymentController extends GuiController{
     }
 
     /**
-     * end the payment for a Buy Card Production
+     * End the payment for a Buy Card Production
      */
     private void goToEndBuyCard(){
         getGuiManager().setLayout("endCardBuy.fxml");

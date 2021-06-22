@@ -1,7 +1,5 @@
 package it.polimi.ingsw.view.gui;
 
-import java.util.ArrayList;
-
 public interface GuiObserver {
     void updateShop();
     void updatePathPosition(String nickname);

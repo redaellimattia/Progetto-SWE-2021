@@ -47,7 +47,7 @@ public class shopViewController extends GuiController {
     private int col;
 
     /**
-     * setting disable/enable based on the player's turn and loaading the shop
+     * Setting disable/enable based on the player's turn and loaading the shop
      */
     @FXML
     @Override
@@ -63,7 +63,7 @@ public class shopViewController extends GuiController {
     }
 
     /**
-     * upon selecting an image, show it in the selected frame and save row and column of the selected one
+     * Upon selecting an image, show it in the selected frame and save row and column of the selected one
      * @param event click event
      */
     @FXML
@@ -135,7 +135,7 @@ public class shopViewController extends GuiController {
     }
 
     /**
-     * after clicking "Confirm" button, call the method to pass on to the payment scene
+     * After clicking "Confirm" button, call the method to pass on to the payment scene
      */
     @FXML
     private void sendToPayment() {
@@ -152,7 +152,7 @@ public class shopViewController extends GuiController {
     }
 
     /**
-     * setting the layout for the payment scene and passing the card as parameter
+     * Setting the layout for the payment scene and passing the card as parameter
      */
     private void goToPayment(){
         Shop shopGrid = getGuiManager().getClientManager().getGameStatus().getShop();
@@ -161,14 +161,14 @@ public class shopViewController extends GuiController {
     }
 
     /**
-     * go back to dashboard not committing the choice
+     * Go back to dashboard not committing the choice
      */
     public void goBackToDashboard() {
         Platform.runLater(()->getGuiManager().callDashboard());
     }
 
     /**
-     * called by the GuiObserver upon receiving a shop update, refresh the shop
+     * Called by the GuiObserver upon receiving a shop update, refresh the shop
      */
     @Override
     public void updateShop(){
@@ -176,7 +176,7 @@ public class shopViewController extends GuiController {
     }
 
     /**
-     * loading the graphic resources for the shop
+     * Loading the graphic resources for the shop
      */
     private void setShop(){
         Shop shopGrid = getGuiManager().getClientManager().getGameStatus().getShop();

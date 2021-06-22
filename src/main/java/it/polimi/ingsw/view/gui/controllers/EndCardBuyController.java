@@ -20,7 +20,7 @@ public class EndCardBuyController extends GuiController{
     DevelopmentCard card;
 
     /**
-     * setting the decks of development cards owned by the player when choosing where to place the card
+     * Setting the decks of development cards owned by the player when choosing where to place the card
      */
     @FXML
     @Override
@@ -31,7 +31,7 @@ public class EndCardBuyController extends GuiController{
     }
 
     /**
-     * passing the parameters in order to send the buyCardMessage after the selection of the deck
+     * Passing the parameters in order to send the buyCardMessage after the selection of the deck
      * @param card chosen card
      * @param storageCount resources chosen from the storage
      * @param chestCount resources chosen from the chest
@@ -45,7 +45,7 @@ public class EndCardBuyController extends GuiController{
     }
 
     /**
-     * called upon the click of the "firstDeck" button
+     * Called upon the click of the "firstDeck" button
      */
     @FXML
     private void firstDeckChosen() {
@@ -58,7 +58,7 @@ public class EndCardBuyController extends GuiController{
     }
 
     /**
-     * called upon the click of the "secondDeck" button
+     * Called upon the click of the "secondDeck" button
      */
     @FXML
     private void secondDeckChosen() {
@@ -71,7 +71,7 @@ public class EndCardBuyController extends GuiController{
     }
 
     /**
-     * called upon the click of the "thirdDeck" button
+     * Called upon the click of the "thirdDeck" button
      */
     @FXML
     private void thirdDeckChosen() {
