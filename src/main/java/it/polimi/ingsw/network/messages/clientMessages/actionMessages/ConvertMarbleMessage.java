@@ -17,6 +17,11 @@ public class ConvertMarbleMessage extends MarketActionMessage {
         this.storageRow = storageRow;
     }
 
+    /**
+     * Creates a ConvertWhiteMarble action and adds it to the MarketChoice buffer.
+     * @param socketConnection the connection from which the message has arrived
+     * @param serverLobby serverLobby of the client
+     */
     @Override
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby) {
         LeaderCard leaderCard;
