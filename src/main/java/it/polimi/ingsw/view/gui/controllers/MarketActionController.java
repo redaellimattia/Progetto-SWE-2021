@@ -47,12 +47,12 @@ public class MarketActionController extends GuiController {
     @FXML
     private HBox preview;
 
-    private Image whiteMarble = new Image("/img/marbles/whiteMarble.png");
+    /*private Image whiteMarble = new Image("/img/marbles/whiteMarble.png");
     private Image redMarble = new Image("/img/marbles/redMarble.png");
     private Image yellowMarble = new Image("/img/marbles/yellowMarble.png");
     private Image blueMarble = new Image("/img/marbles/blueMarble.png");
     private Image purpleMarble = new Image("/img/marbles/purpleMarble.png");
-    private Image greyMarble = new Image("/img/marbles/greyMarble.png");
+    private Image greyMarble = new Image("/img/marbles/greyMarble.png"); */
 
     private int type;
     private int pos;
@@ -109,25 +109,28 @@ public class MarketActionController extends GuiController {
             for(MarketMarble m: row) {
                 switch (m.getColour()) {
                     case RED:
-                        //setImage(marblesView.get(cur), "/img/marbles/whiteMarble.png");
-                        marblesView.get(cur).setImage(redMarble);
+                        setImage(marblesView.get(cur), "/img/marbles/redMarble.png");
+                        //marblesView.get(cur).setImage(redMarble);
                         break;
                     case BLUE:
-                        //setImage(marblesView.get(cur), "/img/marbles/blueMarble.png");
-                        marblesView.get(cur).setImage(blueMarble);
+                        setImage(marblesView.get(cur), "/img/marbles/blueMarble.png");
+                        //marblesView.get(cur).setImage(blueMarble);
                         break;
                     case GREY:
-                        //setImage(marblesView.get(cur), "/img/marbles/greyMarble.png");
-                        marblesView.get(cur).setImage(greyMarble);
+                        setImage(marblesView.get(cur), "/img/marbles/greyMarble.png");
+                        //marblesView.get(cur).setImage(greyMarble);
                         break;
                     case WHITE:
-                        marblesView.get(cur).setImage(whiteMarble);
+                        setImage(marblesView.get(cur), "/img/marbles/whiteMarble.png");
+                        //marblesView.get(cur).setImage(whiteMarble);
                         break;
                     case PURPLE:
-                        marblesView.get(cur).setImage(purpleMarble);
+                        setImage(marblesView.get(cur), "/img/marbles/purpleMarble.png");
+                        //marblesView.get(cur).setImage(purpleMarble);
                         break;
                     case YELLOW:
-                        marblesView.get(cur).setImage(yellowMarble);
+                        setImage(marblesView.get(cur), "/img/marbles/yellowMarble.png");
+                        //marblesView.get(cur).setImage(yellowMarble);
                         break;
                 }
                 cur++;
@@ -145,22 +148,28 @@ public class MarketActionController extends GuiController {
     private void setMarbleImage(MarketMarble marble, ImageView imageView) {
         switch (marble.getColour()) {
             case RED:
-                imageView.setImage(redMarble);
+                setImage(imageView, "/img/marbles/redMarble.png");
+                //imageView.setImage(redMarble);
                 break;
             case BLUE:
-                imageView.setImage(blueMarble);
+                setImage(imageView, "/img/marbles/blueMarble.png");
+                //imageView.setImage(blueMarble);
                 break;
             case GREY:
-                imageView.setImage(greyMarble);
+                setImage(imageView, "/img/marbles/greyMarble.png");
+                //imageView.setImage(greyMarble);
                 break;
             case WHITE:
-                imageView.setImage(whiteMarble);
+                setImage(imageView, "/img/marbles/whiteMarble.png");
+                //imageView.setImage(whiteMarble);
                 break;
             case PURPLE:
-                imageView.setImage(purpleMarble);
+                setImage(imageView, "/img/marbles/purpleMarble.png");
+                //imageView.setImage(purpleMarble);
                 break;
             case YELLOW:
-                imageView.setImage(yellowMarble);
+                setImage(imageView, "/img/marbles/yellowMarble.png");
+                //imageView.setImage(yellowMarble);
                 break;
         }
     }
