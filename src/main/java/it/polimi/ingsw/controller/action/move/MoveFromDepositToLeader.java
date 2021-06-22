@@ -25,7 +25,7 @@ public class MoveFromDepositToLeader extends Action {
     }
 
     /**
-     * FOR EACH CASE CHECK IF: THE SHELVES HAS ENOUGH RESOURCES TO MOVE (CONTENT >= NUMBER), THE NUMBER+ CONTENT OF ARRAY IS MAX 2 AND THAT RESOURCES ARE COMPATIBLE;
+     * For each case check if: the shelves has enough resources to move (content >= number), the number + content of array is max 2 and that resources are compatible
      * @param player player that wanted to switch resources
      */
     @Override

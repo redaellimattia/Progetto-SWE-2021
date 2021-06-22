@@ -6,8 +6,8 @@ import it.polimi.ingsw.exceptions.action.WrongResourcesMovedException;
 import it.polimi.ingsw.model.PlayerDashboard;
 
 public class OrganizeStorage extends Action {
-    private int from;
-    private int to;
+    private final int from;
+    private final int to;
 
     /**
      *
@@ -20,7 +20,7 @@ public class OrganizeStorage extends Action {
     }
 
     /**
-     * RETURN TRUE IF THE SHELVES ARE SWAPPED CORRECTLY AND THE STORAGE RESPECTS THE RULES FOR RESOURCETYPES;
+     * Return true if the shelves are swapped correctly and the storage respects the rules for resourcetypes
      * @param player player that wanted to switch Storage's shelves
      */
     @Override

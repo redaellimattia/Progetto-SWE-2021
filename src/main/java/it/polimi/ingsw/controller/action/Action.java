@@ -17,11 +17,11 @@ public abstract class Action {
     public boolean addLeaderCardProduction(LeaderCardProductionAction leaderCardProduction,PlayerDashboard player,PlayerTurnManager turnManager) {return false;}
 
     /**
-     *
+     * Payment
      * @param storageCount payment from storage
      * @param chestCount payment from chest
      * @param player player that is paying
-     * @return TRUE IF BOTH STORAGE AND CHEST PAY ARE DONE CORRECTLY
+     * @return true if both storage and chest pay are done correctly
      */
     public boolean deleteRes(ResourceCount storageCount, ResourceCount chestCount, PlayerDashboard player){
         boolean storageDone = false,chestDone = false;
@@ -41,7 +41,7 @@ public abstract class Action {
         return false;
     }
     /**
-     * REMOVING RESOURCES FROM STORAGE || USED 2 ARRAY OF SUPPORT TO SCAN THE RESOURCES IN THE COST AND THE SHELVES IN THE STORAGE
+     * Removing resources from storage || used 2 array of support to scan the resources in the cost and the shelves in the storage
      *
      * @param storageCost resources the player wants to use from the storage
      * @param storage storage of the player that is paying
@@ -78,7 +78,7 @@ public abstract class Action {
 
 
     /**
-     * REMOVING RESOURCES FROM CHEST
+     * Removing resources from chest
      *
      * @param chestCost resources the player wants to use from the chest
      * @param player player that is paying

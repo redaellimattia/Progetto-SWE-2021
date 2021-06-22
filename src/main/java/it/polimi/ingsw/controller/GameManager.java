@@ -101,8 +101,8 @@ public class GameManager {
     }
 
     /**
-     * MULTIPLAYER: SORT THE LIST OF PLAYER ON THE POINTS THEY HAVE;
-     * SOLOPLAYER: EITHER LORENZO WINS OR YOU GET YOUR TOTAL OF POINTS SCORED;
+     * Multiplayer: sort the list of player on the points they have.
+     * Soloplayer: either lorenzo wins or you get your total of points scored
      */
     public void endGame() {
         if(!isSinglePlayer) {

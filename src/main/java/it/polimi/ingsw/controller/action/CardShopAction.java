@@ -34,7 +34,7 @@ public class CardShopAction extends Action {
     }
 
     /**
-     *AFTER CHECKING IF THE CHOSEN POSITION ON THE BOARD CAN FIT THE CHOSEN CARD AND THE PLAYER CAN AFFORD IT, RETURN TRUE IF EVERYTHING IS DONE CORRECTLY, FALSE IF NOT
+     * After checking if the chosen position on the board can fit the chosen card and the player can afford it, return true if everything is done correctly, false if not
      * @param player player that wants to buy the card
      * @param turnManager object responsible for the handling of the turn
      * @return true if everything went fine
@@ -62,7 +62,7 @@ public class CardShopAction extends Action {
 
 
     /**
-     * CHECK IF THE CHOSEN POSITION FIT THE CARD CHOSEN
+     * Check if the chosen position fit the card chosen
      * @param level of the card
      * @param position of the deck chosen by the player
      * @param player player who's doing the action

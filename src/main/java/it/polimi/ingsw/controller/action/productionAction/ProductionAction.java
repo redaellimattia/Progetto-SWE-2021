@@ -82,7 +82,7 @@ public class ProductionAction extends Action {
     }
 
     /**
-     * EMPTY BUFFER
+     * Empty the buffer
      *
      * @param player player that is ending the action
      */

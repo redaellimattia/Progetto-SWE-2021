@@ -352,7 +352,7 @@ public class GameLobby {
     }
 
     /**
-     * used to save the configuration chosen by the player to start the game with
+     * Used to save the configuration chosen by the player to start the game with
      * @param nickname of the player
      * @param chosen resources
      * @param chosenLeaders the two chosen leaders

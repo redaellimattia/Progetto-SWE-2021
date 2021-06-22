@@ -26,8 +26,8 @@ public class MoveFromLeaderToDeposit extends Action {
     }
 
     /**
-     * MOVE GIVEN RESOURCES FROM A LEADER DEPOSIT TO A SHELF, RESPECTING BASIC STORAGE RULES (CONTENT AND RESOURCETYPE) OR CONSIDERING THE CASE THE SHELF IS EMPTY;
-     * RETURN FALSE IF THAT DEPOSIT DOESN'T HAVE THE REQUIRED RESOURCES TO MOVE;
+     * Move given resources from a leader deposit to a shelf, respecting basic storage rules (content and resourcetype)
+     * or considering the case the shelf is empty, return false if that deposit doesn't have the required resources to move
      * @param player player that wanted to switch resources
      */
     @Override

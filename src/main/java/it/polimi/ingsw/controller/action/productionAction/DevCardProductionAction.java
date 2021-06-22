@@ -28,8 +28,9 @@ public class DevCardProductionAction extends Action {
     }
 
     /**
-     * DEVCARDS || RETURN TRUE IF EVERYTHING IS DONE CORRECTLY (PAYMENT FROM STORAGE AND/OR CHEST) AND PLAYER HAS ENOUGH RESOURCES
-     * I GET FROM THE VIEW THE CARD, THE CHOSEN AMOUNT OF RESOURCES FROM STORAGE AND CHEST (EVENTUALLY NULL) AND THE PLAYER
+     * Devcards,
+     * return true if everything is done correctly (payment from storage and/or chest) and player has enough resources
+     * i get from the view the card, the chosen amount of resources from storage and chest (eventually null) and the player
      *
      * @param player player that is doing the action
      */
@@ -48,5 +49,4 @@ public class DevCardProductionAction extends Action {
         player.incrementBufferProduction(output.get());
         return true;
     }
-
 }

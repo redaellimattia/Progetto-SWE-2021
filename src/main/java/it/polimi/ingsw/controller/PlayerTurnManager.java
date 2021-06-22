@@ -72,7 +72,7 @@ public class PlayerTurnManager {
     }
 
     /**
-     * use the main action upon receiving a message
+     * Use the main action upon receiving a message
      */
     public boolean useAction(){
         try {
@@ -83,7 +83,7 @@ public class PlayerTurnManager {
     }
 
     /**
-     * use a side action upon receiving a message
+     * Use a side action upon receiving a message
      */
     public boolean useSideAction(){
         try {
@@ -93,7 +93,7 @@ public class PlayerTurnManager {
         return false;
     }
     /**
-     *  used to call the endAction method
+     * Used to call the endAction method
      * @param player player who sent the EndActionMessage
      */
     public void endAction(PlayerDashboard player ){action.endAction(player);}

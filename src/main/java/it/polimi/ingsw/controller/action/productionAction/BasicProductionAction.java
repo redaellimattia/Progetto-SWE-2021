@@ -26,7 +26,7 @@ public class BasicProductionAction extends Action {
     }
 
     /**
-     * RECEIVING COST CHOSEN BY THE PLAYER, AND COUNT OF RESOURCES FROM THE STORAGE,COUNT OF RESOURCES FROM THE CHEST,PLAYER,AND THE RESOURCE AS THE CHOSEN OUTPUT
+     * Receiving cost chosen by the player, and count of resources from the storage,count of resources from the chest,player,and the resource as the chosen output
      *
      * @param player player that is doing the action
      */
