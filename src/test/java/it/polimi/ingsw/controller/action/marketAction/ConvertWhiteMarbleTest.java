@@ -78,4 +78,11 @@ class ConvertWhiteMarbleTest {
         assertEquals(Resource.COIN, testPlayer.getStorage().getFirstRow().getResourceType());
         assertEquals(0, testPlayer.getStorage().getFirstRow().getContent());
     }
+
+    @Test
+    void nullLeaderCard() {
+        PlayerDashboard testPlayer = buildPlayerDashboard(0, 2, 3);
+        ConvertWhiteMarble test = new ConvertWhiteMarble(null, 1);
+        assertFalse(test.checkAction(new MarketMarble(MarbleColour.WHITE), testPlayer, testPlayer.getStorage(), testPlayer.getArrayDeposit()));
+    }
 }

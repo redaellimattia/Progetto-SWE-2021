@@ -25,7 +25,7 @@ public class ConvertMarbleMessage extends MarketActionMessage {
     @Override
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby) {
         LeaderCard leaderCard;
-        leaderCard = null; // TO-DO: check behaviour with malicious client
+        leaderCard = null;
         for(PlayerDashboard p: serverLobby.getGameLobby().getGameManager().getGame().getPlayers()) {
             if(p.getNickname().equals(getNickname())) {
                 for(LeaderCard c: p.getLeaderCards()) {
