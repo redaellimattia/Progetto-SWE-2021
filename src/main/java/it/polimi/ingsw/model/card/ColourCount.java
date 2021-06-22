@@ -127,7 +127,7 @@ public class ColourCount {
 
 
     /**
-     * ADD COLOURS, TO MODIFY MORE THAN ONE PARAMETER AT ONCE
+     * Add colours, to modify more than one parameter at once
      *
      * @param green CardColour.GREEN counter incremented of green
      * @param yellow CardColour.YELLOW counter incremented of yellow
@@ -142,7 +142,7 @@ public class ColourCount {
     }
 
     /**
-     * REMOVE COLOURS, TO MODIFY MORE THAN ONE PARAMETER AT ONCE
+     * Remove colours, to modify more than one parameter at once
      *
      * @param green CardColour.GREEN counter reduced of green
      * @param yellow CardColour.YELLOW counter reduced of yellow
@@ -157,7 +157,7 @@ public class ColourCount {
     }
 
     /**
-     * SUM 2 COLOURCOUNT
+     * Sum 2 colourcount
      *
      * @param add passed ColourCount
      */
@@ -167,12 +167,11 @@ public class ColourCount {
     }
 
     /**
-     * EQUALS
+     * Equals
      *
      * @param o passed Object
      * @return true if o is the same object of this, or it has the same number of colours
      */
-    //EQUALS
     @Override
     public boolean equals(Object o){
         if (o == this) { //True if it's this instance

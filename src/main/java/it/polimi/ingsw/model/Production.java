@@ -32,6 +32,7 @@ public class Production {
     public ResourceCount getOutput() {
         return output;
     }
+
     /**
      *
      * @param count resources chosen by the player as payment for the production
@@ -43,6 +44,7 @@ public class Production {
         else
             return Optional.empty();
     }
+
     /**
      *
      * @param o passed Object

@@ -12,7 +12,7 @@ public class DiscountAbility extends SpecialAbility {
     public DiscountAbility(Resource resourceType) {super(resourceType);}
 
     /**
-     * WHEN TRYING TO BUY A CARD FROM THE SHOP,DECREASE ITS COST
+     * When trying to buy a card from the shop,decrease its cost
      *
      * @param cost passed ResourceCount, it's the DevCard cost
      */
@@ -24,7 +24,7 @@ public class DiscountAbility extends SpecialAbility {
     }
 
     /**
-     * EQUALS
+     * Equals
      *
      * @param o passed Object
      * @return true if o is the same object of this, or it has the same Resource discount

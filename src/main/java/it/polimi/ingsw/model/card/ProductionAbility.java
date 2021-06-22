@@ -14,7 +14,7 @@ public class ProductionAbility extends SpecialAbility {
     }
 
     /**
-     * WHEN IN PRODUCTIONACTION, THIS PRODUCTION IS AVAILABLE, TRUE IF POSSIBLE
+     * When in productionaction, this production is available, true if possible
      *
      * @param count passed ResourceCount, equals to the resources chosen to pay
      * @return true if there are enough resources to use the production
@@ -28,7 +28,7 @@ public class ProductionAbility extends SpecialAbility {
     }
 
     /**
-     * EQUALS
+     * Equals
      *
      * @param o passed Object
      * @return true if o is the same object of this, or it has the same Resource cost

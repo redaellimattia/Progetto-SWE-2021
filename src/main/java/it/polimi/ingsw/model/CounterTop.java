@@ -52,7 +52,7 @@ public class CounterTop {
     }
 
     /**
-     * ADD N ELEMENT TO THE SHELF;
+     * Add n element to the shelf
      * @param n elements to add to content
      */
     public void addContent(int n){
@@ -60,7 +60,7 @@ public class CounterTop {
     }
 
     /**
-     *REMOVE N ELEMENT FROM THE SHELF;
+     * Remove n element from the shelf
      * @param n elements to remove from content
      */
 

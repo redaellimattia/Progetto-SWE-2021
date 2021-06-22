@@ -50,7 +50,7 @@ public class Shop {
 
 
     /**
-     * BUY A SELECTED CARD FROM SHOP, RETURN THE CARD TO THE CALLER AND DELETE IT FROM THE GRID;
+     * Buy a selected card from shop, return the card to the caller and delete it from the grid
      * @param row selected shop's row
      * @param column selected shop's column
      * @return the first visible card from that position [row,column], after removing it from the shop
@@ -68,7 +68,7 @@ public class Shop {
 
 
     /**
-     * METHOD TO DISCARD 2 CARD FROM THE POOL OF CARD OF THAT COLOUR BECAUSE OF THE SOLOTOKEN;
+     * Method to discard 2 card from the pool of card of that colour because of the solotoken
      * @param colour the specific colour of which 2 development card have to be discarded from the shop (soloplayer)
      */
     public void discardFromToken(CardColour colour){

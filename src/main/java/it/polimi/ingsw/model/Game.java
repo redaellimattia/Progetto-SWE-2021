@@ -41,7 +41,7 @@ public class Game {
     }
 
     /**
-     * return true if the player is the last in the list
+     * Return true if the player is the last in the list
      * @param player the player we want to examine
      * @return true if is the last player
      */
@@ -75,7 +75,7 @@ public class Game {
     }
 
     /**
-     * when a token reroll is needed, this funtion shuffle the whole deck
+     * When a token reroll is needed, this funtion shuffle the whole deck
      */
     public void rollTokens(){
         tokensDeck.addAll(discardedTokens);
@@ -125,7 +125,7 @@ public class Game {
     }
 
     /**
-     *  check whether the  VaticanReports need to be activated || the game must end
+     *  Check whether the  VaticanReports need to be activated || the game must end
      *
      * @param player the player whom we need to check the FaithPath position
      */

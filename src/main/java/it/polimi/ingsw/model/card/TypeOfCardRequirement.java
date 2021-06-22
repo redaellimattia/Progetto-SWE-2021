@@ -40,7 +40,7 @@ public class TypeOfCardRequirement implements Requirement {
     }
 
     /**
-     * COUNTS NUMBER OF PLAYER'S DEVCARDS COLOURS
+     * Counts number of player's devcards colours
      *
      * @param count will be equal to sum of DevCards colours
      * @param devCards needed to sum up to the total
@@ -55,7 +55,7 @@ public class TypeOfCardRequirement implements Requirement {
     }
 
     /**
-     * EQUALS
+     * Equals
      *
      * @param o passed Object
      * @return true if o is the same object of this, or it has the same ColourCount cost

@@ -14,7 +14,7 @@ public class  DepositAbility extends SpecialAbility {
     }
 
     /**
-     * WHEN PLAYED, INITIALIZE arrayDeposit IN PLAYERDASHBOARD
+     * When played, initialize arraydeposit in playerdashboard
      *
      * @param player player whom i am adding the deposit
      */
@@ -25,7 +25,7 @@ public class  DepositAbility extends SpecialAbility {
     }
 
     /**
-     * EQUALS
+     * Equals
      *
      * @param o passed Object
      * @return true if o is the same object of this, or it has the same Resource deposit

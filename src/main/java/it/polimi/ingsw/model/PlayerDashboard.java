@@ -52,7 +52,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
     }
 
     /**
-     * call to the observer responsible for an update on the leaders deposit
+     * Call to the observer responsible for an update on the leaders deposit
      */
     public void updateArrayDeposits(){
         this.observer.updateArrayDeposit(getNickname(),arrayDeposit);
@@ -146,15 +146,16 @@ public class PlayerDashboard extends Player implements StorageObserver{
     }
 
     /**
-     * set the Main Action Error message in player and calls the updates of the observer
+     * Set the Main Action Error message in player and calls the updates of the observer
      * @param error message
      */
     public void setMainActionError(String error){
         super.setMainActionError(error);
         observer.updateMainActionException(getNickname(),getMainActionError());
     }
+
     /**
-     * set the Side Action Error message in player and calls the updates of the observer
+     * Set the Side Action Error message in player and calls the updates of the observer
      * @param error message
      */
     public void setSideActionError(String error){
@@ -163,7 +164,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
     }
 
     /**
-     * INITIALIZE A NEW SHELF WHEN A DEPOSITABILITY LEADER IS PLAYED
+     * Initialize a new shelf when a depositability leader is played
      *
      * @param res Resource of a particular DepositAbility
      */
@@ -177,7 +178,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
     }
 
     /**
-     * ADD A GIVEN DEVCARD TO A GIVEN DEVCARD DECK ON THE PLAYERDASHBOARD
+     * Add a given devcard to a given devcard deck on the playerdashboard
      *
      * @param card DevelopmentCard that has been bought
      * @param position specific deck on which the player has chosen to add the bought card
@@ -189,7 +190,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
     }
 
     /**
-     * RETURN TRUE IF AT LEAST ONE LEADER IS IN GAME
+     * Return true if at least one leader is in game
      *
      * @return true if at least one leader is in game
      */
@@ -198,7 +199,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
     }
 
     /**
-     * METHOD TO DISCARD A LEADER FROM THE HAND TO GAIN A FAITH POINT
+     * Method to discard a leader from the hand to gain a faith point
      *
      * @param position position of the leader the player has chosen to discard to gain a faith point
      */
@@ -209,7 +210,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
     }
 
     /**
-     * ADVANCE OF 1 ON THE PATH POSITION
+     * Advance of 1 on the path position
      */
     public void updatePathPosition(){
         if(pathPosition<24)
@@ -219,7 +220,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
     }
 
     /**
-     * IF A LEADER WITH A DEPOSITABILITY WITH A CERTAIN RESOURCES IS IN GAME AND IS ALREADY FULL RETURN TRUE; IN EVERY OTHER CASE FALSE
+     * If a leader with a depositability with a certain resources is in game and is already full return true; in every other case false
      * @param res specific resource searched
      * @return true if there's a full SpecialDeposit for that resource or if there is none
      */
@@ -243,7 +244,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
     }
 
     /**
-     * METHOD TO TRY TO ADD A SINGLE RESOURCE AT A TIME TO A SPECIALABILITY DEPOSIT
+     * Method to try to add a single resource at a time to a specialability deposit
      *
      * @param res specific resource searched
      */
@@ -259,7 +260,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
     }
 
     /**
-     * RETURN IN A RESOURCECOUNT THE RESOURCES STORED ON THE LEADERCARDS
+     * Return in a resourcecount the resources stored on the leadercards
      *
      * @return total resources stored on SpecialAbility deposit
      */
@@ -323,7 +324,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
 
 
     /**
-     * SET THE LEADER AT THE GIVEN POSITION IN GAME (LEADERACTION)
+     * Set the leader at the given position in game (leaderaction)
      * @param position specific position of the leader the player wants to play
      */
     public void setLeaderInGame(int position){
@@ -334,7 +335,7 @@ public class PlayerDashboard extends Player implements StorageObserver{
     }
 
     /**
-     *  at the end of a ProductionAction, the produced resources are given to the player in his chest
+     *  At the end of a ProductionAction, the produced resources are given to the player in his chest
      */
     public void emptyBufferProduction(){
         int faith = bufferProduction.getFaith();

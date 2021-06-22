@@ -103,7 +103,7 @@ public class Storage {
 
 
     /**
-     * METHODS THAT ADD TO THE COUNTERTOP AND RETURNS HOW MANY ELEMENTS ARE BEING LEFT FOR NO SPACE;
+     * Add to the countertop and returns how many elements are being left for no space
      * @param n number of elements to add at firstRow.content
      * @return the number of elements that don't fit in the firstRow
      */
@@ -148,7 +148,7 @@ public class Storage {
 
 
     /**
-     * CHECKS IF ITS POSSIBLE TO SWAP THE SELECTED COUNTERTOPS, AND IF SO IT DOES IT;
+     * Checks if its possible to swap the selected countertops, and if so it does it
      * @param to where i want to put the "from" row
      * @param from the row from which the swap is started
      * @return the result of the swap (true/false)
@@ -164,7 +164,7 @@ public class Storage {
 
 
     /**
-     * METHOD THAT SWAP TWO SHELVES, NEEDED CHECKS ARE MADE BY THE METHOD WHO INVOKES THIS ONE
+     * Method that swap two shelves, needed checks are made by the method who invokes this one
      * @param from the row from which the swap is started
      * @param to where i want to put the "from" row
      */
@@ -175,9 +175,7 @@ public class Storage {
         try{setFirstRow(supportShelves.get(0));
             setSecondRow(supportShelves.get(1));
             setThirdRow(supportShelves.get(2));}
-        catch(CounterTopOverloadException e){
-
-        };
+        catch(CounterTopOverloadException ignored){}
     }
 
 

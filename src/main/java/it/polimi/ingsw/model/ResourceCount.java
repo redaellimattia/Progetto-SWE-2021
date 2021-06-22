@@ -145,7 +145,7 @@ public class ResourceCount {
 
 
     /**
-     * ADD RESOURCES, TO MODIFY MORE THAN ONE PARAMETER AT ONCE
+     * Add resources, to modify more than one parameter at once
      *
      * @param coins  Resource.COIN counter incremented of coins
      * @param rocks Resource.ROCK counter incremented of rocks
@@ -162,7 +162,7 @@ public class ResourceCount {
     }
 
     /**
-     * REMOVE RESOURCES, TO MODIFY MORE THAN ONE PARAMETER AT ONCE
+     * Remove resources, to modify more than one parameter at once
      *
      * @param coins  Resource.COIN counter reduced of coins
      * @param rocks Resource.ROCK counter reduced of rocks
@@ -180,7 +180,7 @@ public class ResourceCount {
     }
 
     /**
-     * RETURN TRUE IF THIS RESOURCECOUNT HAS >= RESOURCES THAN THE PASSED ONE
+     * Return true if this resourcecount has >= resources than the passed one
      *
      * @param count passed ResourceCount
      * @return true if this has more or equal resources compared to count
@@ -190,7 +190,7 @@ public class ResourceCount {
     }
 
     /**
-     * SUM 2 RESOURCECOUNT
+     * Sum 2 resourcecount
      *
      * @param add passed ResourceCount
      */
@@ -200,7 +200,7 @@ public class ResourceCount {
     }
 
     /**
-     * SUBTRACT 2 RESOURCECOUNT
+     * Subtract 2 resourcecount
      *
      * @param sub passed ResourceCount
      */
@@ -210,7 +210,7 @@ public class ResourceCount {
     }
 
     /**
-     * RETURNS SUM OF 2 RESOURCECOUNT AS A SINGLE NEW RESOURCECOUNT
+     * Returns sum of 2 resourcecount as a single new resourcecount
      *
      * @param rc1 first ResourceCount passed
      * @param rc2 second ResourceCount passed
@@ -229,15 +229,16 @@ public class ResourceCount {
     }
 
     /**
-     * RETURN AS AN INT THE NUMBER OF THE TOTAL RESOURCES
+     * Return as an int the number of the total resources
      * @param rc ResourceCount to convert to an int
      * @return the number of resources in rc
      */
     public static int resCountToInt(ResourceCount rc){
         return rc.getCoins()+rc.getRocks()+rc.getServants()+rc.getShields();
     }
+
     /**
-     * EQUALS
+     * Equals
      *
      * @param o passed Object
      * @return true if o is the same object of this, or it has the same number of resources
