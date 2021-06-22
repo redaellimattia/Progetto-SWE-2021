@@ -14,7 +14,7 @@ public class GetResourceMessage extends MarketActionMessage {
     }
 
     /**
-     * Creates a GetResource action and adds it to the MarketChoice buffer.
+     * Creates a GetResource atomic action and adds it to the MarketChoice buffer.
      * @param socketConnection the connection from which the message has arrived
      * @param serverLobby serverLobby of the client
      */
