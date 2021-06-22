@@ -1,19 +1,17 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
 import it.polimi.ingsw.controller.GameManager;
-import it.polimi.ingsw.exceptions.action.WrongMarbleException;
 import it.polimi.ingsw.model.CounterTop;
 import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.Storage;
-import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
 
 import java.util.ArrayList;
 
 public class GetResource extends AtomicMarketAction {
 
-    private int storageRow;
+    private final int storageRow;
 
     /**
      *

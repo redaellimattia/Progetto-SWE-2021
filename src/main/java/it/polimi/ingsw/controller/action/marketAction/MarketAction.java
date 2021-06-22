@@ -59,7 +59,7 @@ public class MarketAction extends Action {
     public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {
         MarketMarble[] marbles = new MarketMarble[0];
 
-        // Getting marbles from the market
+        // Get marbles from the market
         if (type == 0) { // A row is selected
             try {
                 marbles = market.getRow(pos);
@@ -77,7 +77,7 @@ public class MarketAction extends Action {
             }
         }
 
-        // Checking actions
+        // Check actions
         initTempStorage(player);
         int j = 0; // current position in choices list
         // (different from i because choices doesn't contain elements associated to red marbles)
@@ -94,7 +94,7 @@ public class MarketAction extends Action {
             }
         }
 
-        // Executing actions (useAction method will check if an action is legal)
+        // Execute actions (useAction method will check if an action is legal)
         j = 0; // current position in choices list
         // (different from i because choices doesn't contain elements associated to red marbles)
         for (MarketMarble marble : marbles) {
@@ -110,7 +110,7 @@ public class MarketAction extends Action {
             }
         }
 
-        // Fixing grid
+        // Fix grid
         market.fixGrid(type, pos);
         return true;
     }

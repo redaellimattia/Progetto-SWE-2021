@@ -17,7 +17,7 @@ public class DiscardResource extends AtomicMarketAction {
      * Checks if the action is legal
      * @param marble the marble to discard
      * @param player the player performing the action
-     * @param tempStorage
+     * @param tempStorage the storage copy updated during checks on different marbles, to perform controls without updating the real storage
      *
      * @return true if the action is legal
      *         false if the action is illegal
