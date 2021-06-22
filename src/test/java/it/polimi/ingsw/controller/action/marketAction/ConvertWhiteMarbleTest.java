@@ -1,9 +1,6 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
 import it.polimi.ingsw.exceptions.CounterTopOverloadException;
-import it.polimi.ingsw.exceptions.action.CardNotExistsException;
-import it.polimi.ingsw.exceptions.action.NoWhiteMarbleException;
-import it.polimi.ingsw.exceptions.action.WrongAbilityException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
 import it.polimi.ingsw.model.enumeration.CardColour;
@@ -18,8 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ConvertWhiteMarbleTest {
 
-    LeaderCard buildLeaderCard(Resource type) {
-        return new LeaderCard(0,2, new CardLevelRequirement(CardColour.YELLOW, 2), new WhiteChangeAbility(type));
+    LeaderCard buildLeaderCard() {
+        return new LeaderCard(0,2, new CardLevelRequirement(CardColour.YELLOW, 2), new WhiteChangeAbility(Resource.COIN));
     }
 
     public PlayerDashboard buildPlayerDashboard(int val1, int val2, int val3) {
@@ -31,7 +28,7 @@ class ConvertWhiteMarbleTest {
         ResourceCount testChest = new ResourceCount(0, 0, 0, 0, 0);
         DeckDashboard[] testDevCards = new DeckDashboard[3];
         ArrayList<LeaderCard> testLeaderCards = new ArrayList<>(0);
-        testLeaderCards.add(buildLeaderCard(Resource.COIN));
+        testLeaderCards.add(buildLeaderCard());
         testLeaderCards.add(new LeaderCard(0,3, new CardLevelRequirement(CardColour.YELLOW, 2), new DepositAbility(Resource.ROCK)));
         for(LeaderCard c: testLeaderCards) {
             c.setInGame();
@@ -56,7 +53,6 @@ class ConvertWhiteMarbleTest {
 
     @Test
     void leaderCardNotOwned() throws CounterTopOverloadException {
-        boolean ok;
         PlayerDashboard testPlayer = buildPlayerDashboard(0, 2, 3);
         LeaderCard leaderTest = new LeaderCard(0,3, new CardLevelRequirement(CardColour.YELLOW, 2), new WhiteChangeAbility(Resource.COIN));
         ConvertWhiteMarble test = new ConvertWhiteMarble(leaderTest, 1);

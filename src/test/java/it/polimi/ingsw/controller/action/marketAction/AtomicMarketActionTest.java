@@ -1,8 +1,6 @@
 package it.polimi.ingsw.controller.action.marketAction;
 
 import it.polimi.ingsw.exceptions.CounterTopOverloadException;
-import it.polimi.ingsw.exceptions.action.NoAdditionalDepositException;
-import it.polimi.ingsw.exceptions.action.WrongCounterTopException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.Resource;
@@ -37,8 +35,8 @@ class AtomicMarketActionTest {
         AtomicMarketAction testAction = new AtomicMarketAction() {};
         ok = testAction.storeResource(testPlayer, Resource.SHIELD, 1);
         assertTrue(ok);
-        assertTrue(testPlayer.getStorage().getFirstRow().getResourceType() == Resource.SHIELD);
-        assertTrue(testPlayer.getStorage().getFirstRow().getContent() == 1);
+        assertSame(testPlayer.getStorage().getFirstRow().getResourceType(), Resource.SHIELD);
+        assertEquals(testPlayer.getStorage().getFirstRow().getContent(), 1);
     }
 
     @Test
@@ -48,8 +46,8 @@ class AtomicMarketActionTest {
         AtomicMarketAction testAction = new AtomicMarketAction() {};
         ok = testAction.storeResource(testPlayer, Resource.ROCK, 2);
         assertTrue(ok);
-        assertTrue(testPlayer.getStorage().getSecondRow().getResourceType() == Resource.ROCK);
-        assertTrue(testPlayer.getStorage().getSecondRow().getContent() == 2);
+        assertSame(testPlayer.getStorage().getSecondRow().getResourceType(), Resource.ROCK);
+        assertEquals(testPlayer.getStorage().getSecondRow().getContent(), 2);
     }
 
     @Test
