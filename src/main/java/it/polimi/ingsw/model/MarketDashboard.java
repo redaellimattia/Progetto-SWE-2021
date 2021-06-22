@@ -50,7 +50,7 @@ public class MarketDashboard {
     }
 
     /**
-     *
+     * Inserts the freeMarble in the grid and removes another marble that will be the new freeMarble
      * @param type 0: row to be fixed; 1: column to be fixed
      * @param pos number of the row/column (starting from 1)
      */

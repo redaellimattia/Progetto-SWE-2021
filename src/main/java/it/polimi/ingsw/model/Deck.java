@@ -19,7 +19,6 @@ public abstract class Deck {
      *
      * @return the array of cards that are part of the Deck
      */
-    //Return cardsDeck
     public ArrayList<DevelopmentCard> getDeck() {
         return cardsDeck;
     }
@@ -32,7 +31,9 @@ public abstract class Deck {
         return cardsDeck.get(0);
     }
 
-    // Removes the card on top
+    /**
+     * Removes the card on top
+     */
     public void removeFirst(){
         cardsDeck.remove(0);
     }
@@ -47,12 +48,11 @@ public abstract class Deck {
     }
 
     /**
-     *
+     * Inserts card on top (only for DeckDashboard)
      * @param card the card to be added
      * @throws IllegalArgumentException if the card to be added has not the right level
      * @throws IllegalStateException if Deck is full
      */
-    // Insert card on top (only for DeckDashboard)
     public void addCard(DevelopmentCard card) throws IllegalStateException, IllegalArgumentException {
         if(this.cardsDeck.size()>=3) {
             throw new IllegalStateException();
