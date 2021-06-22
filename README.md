@@ -16,7 +16,7 @@ La rete è stata gestita tramite socket. Sono inoltre presenti le funzionalià a
 - [UML Dettaglio]()
 
 ### JavaDoc
-Documentazione di metodi Java: [Javadoc](/derivables/JavaDoc)
+Documentazione di metodi Java: [Javadoc](/deliverables/JavaDoc)
 
 ### Librerie e Plugins
 |Libreria/Plugin|Descrizione|
