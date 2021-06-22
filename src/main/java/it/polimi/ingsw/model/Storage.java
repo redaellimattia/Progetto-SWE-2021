@@ -60,6 +60,7 @@ public class Storage {
 
     public void setPlayer(PlayerDashboard p){this.player = p;}
     //SETTERS
+
     /**
      *
      * @param firstRow new first row to put as storage.firstRow

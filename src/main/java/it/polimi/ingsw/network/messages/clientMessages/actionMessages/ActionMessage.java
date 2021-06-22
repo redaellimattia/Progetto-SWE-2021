@@ -86,7 +86,7 @@ public abstract class ActionMessage extends ClientMessage {
     }
 
     /**
-     *  call the turnManager to set and use the action;
+     *  Call the turnManager to set and use the action;
      *
      * @param action the action that needs to be done
      * @param serverLobby serverLobby of the game where the player is playing
@@ -102,7 +102,7 @@ public abstract class ActionMessage extends ClientMessage {
     }
 
     /**
-     * call the turnManager to set and use the action;
+     * Call the turnManager to set and use the action;
      * @param action the action that needs to be done
      * @param socketConnection the connection from which the message has arrived
      * @param serverLobby serverLobby of the game where the player is playing

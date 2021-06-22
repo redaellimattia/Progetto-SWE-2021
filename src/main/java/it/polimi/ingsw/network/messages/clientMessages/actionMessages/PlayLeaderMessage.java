@@ -21,7 +21,7 @@ public class PlayLeaderMessage extends ActionMessage {
     }
 
     /**
-     * set a specific leader card in game
+     * Set a specific leader card in game
      * @param socketConnection the connection from which the message has arrived
      */
     @Override

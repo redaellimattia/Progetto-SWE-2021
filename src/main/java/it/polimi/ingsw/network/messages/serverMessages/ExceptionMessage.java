@@ -11,6 +11,12 @@ public class ExceptionMessage extends ServerMessage {
         this.msg = msg;
     }
 
+    /**
+     * Print the message, if the production is still going and only 1 action has been rejected, then set the mainActionDone to false.
+     * If it's a production set the lastDoneProduction to not done and put the view in startProduction mode.
+     * Otherwise (If not a production) set the mainAction done to false and put the player in yourturn mode.
+     * @param clientManager clientManager of the player
+     */
     @Override
     public void useMessage(ClientManager clientManager){
         clientManager.getView().printMsg(msg);

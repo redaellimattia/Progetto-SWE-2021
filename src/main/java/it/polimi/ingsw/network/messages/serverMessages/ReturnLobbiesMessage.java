@@ -18,6 +18,9 @@ public class ReturnLobbiesMessage extends ServerMessage {
         this.message = message;
     }
 
+    /**
+     * Class used to identify the available lobby
+     */
     public static class availableGameLobbies {
         private final long serverThreadID;
         private final int numberOfPlayers;

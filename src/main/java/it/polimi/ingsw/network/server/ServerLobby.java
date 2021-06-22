@@ -208,7 +208,7 @@ public class ServerLobby extends Thread implements Observer {
     }
 
     /**
-     * starting the game initializing the timer and then creating the model
+     * Starting the game initializing the timer and then creating the model
      * @param singlePlayer true if it's a singlePlayer game
      */
     public void createGame(boolean singlePlayer){
@@ -233,6 +233,9 @@ public class ServerLobby extends Thread implements Observer {
             pingTimer.hasResponded();
     }
 
+    /**
+     * Start preGame pings, checking for disconnections
+     */
     public void preGamePing(){
         for (String pNickname:gameLobby.getPlayers()) {
             if(!pNickname.equals("Lorenzo il Magnifico")) {
@@ -430,46 +433,90 @@ public class ServerLobby extends Thread implements Observer {
         Server.closeLobby(this.lobbyID);
     }
 
+    /**
+     * Shop changed, update clients
+     * @param shopGrid new shopgrid
+     */
     @Override
     public void updateShop(DeckShop[][] shopGrid) {
         sendToAll(new ShopUpdateMessage(shopGrid).serialize(),null);
     }
 
+    /**
+     * Market changed, update clients
+     * @param structure new market structure
+     * @param freeMarble new free marble
+     */
     @Override
     public void updateMarket(MarketMarble[][] structure, MarketMarble freeMarble) {
         sendToAll(new MarketUpdateMessage(structure,freeMarble).serialize(),null);
     }
 
+    /**
+     * Chest changed, update clients
+     * @param nickname nickname of the player with the updated chest
+     * @param chest new chest
+     */
     @Override
     public void updateChest(String nickname, ResourceCount chest) {
         sendToAll(new ResourceCountUpdateMessage(PlayerUpdateType.CHEST,nickname,chest).serialize(),null);
     }
 
+    /**
+     * BufferProduction changed, update clients
+     * @param nickname nickname of the player with the updated bufferproduction
+     * @param bufferProduction new bufferproduction
+     */
     @Override
-    public void updateBufferProduction(String nickname, ResourceCount chest) {
-        sendToAll(new ResourceCountUpdateMessage(PlayerUpdateType.BUFFERPRODUCTION,nickname,chest).serialize(),null);
+    public void updateBufferProduction(String nickname, ResourceCount bufferProduction) {
+        sendToAll(new ResourceCountUpdateMessage(PlayerUpdateType.BUFFERPRODUCTION,nickname,bufferProduction).serialize(),null);
     }
 
+    /**
+     * Leader Deposit changed, update clients
+     * @param nickname nickname of the player with the updated leader deposit
+     * @param arrayDeposit new leader deposit
+     */
     @Override
     public void updateArrayDeposit(String nickname, ArrayList<CounterTop> arrayDeposit) {
         sendToAll(new ArrayDepositUpdateMessage(nickname,arrayDeposit).serialize(),null);
     }
 
+    /**
+     * ArrayDeposit initialized, update clients
+     * @param nickname nickname of the player with the updated array deposit
+     * @param res res of the countertop
+     */
     @Override
     public void updateInitArrayDeposit(String nickname, Resource res) {
         sendToAll(new InitArrayDepositUpdateMessage(nickname, res).serialize(),null);
     }
 
+    /**
+     * DevCards changed, update clients
+     * @param nickname nickname of the player with the updated dev cards
+     * @param devCards new devCards
+     */
     @Override
     public void updateDevCards(String nickname, DeckDashboard[] devCards) {
         sendToAll(new DevCardsUpdateMessage(nickname,devCards).serialize(),null);
     }
 
+    /**
+     * A leader has been discarded, update clients
+     * @param nickname nickname of the player that discarded the leader
+     * @param leaderCards new leaderCards
+     */
     @Override
     public void updateRemoveLeader(String nickname, ArrayList<LeaderCard> leaderCards) {
         sendToAll(new LeaderUpdateMessage(PlayerUpdateType.DISCARDLEADER,nickname,leaderCards).serialize(),null);
     }
 
+    /**
+     * Path position increase, update clients
+     * @param player PlayerDashboard of the player with the updated path position
+     * @param position new path position
+     */
     @Override
     public void updatePathPosition(PlayerDashboard player, int position) {
         if(gameLobby.getGameManager()!=null)
@@ -477,41 +524,77 @@ public class ServerLobby extends Thread implements Observer {
         sendToAll(new PathPositionUpdateMessage(player.getNickname(),position).serialize(),null);
     }
 
+    /**
+     * A leader has been played, update clients
+     * @param nickname nickname of the player that played a leader
+     * @param leaderCards new leadercards
+     */
     @Override
     public void updateInGameLeader(String nickname, ArrayList<LeaderCard> leaderCards) {
         sendToAll(new LeaderUpdateMessage(PlayerUpdateType.INGAMELEADER,nickname,leaderCards).serialize(),null);
     }
 
+    /**
+     * Storage's first row changed, update clients
+     * @param nickname nickname of the affected player
+     * @param firstRow new storage's first row
+     */
     @Override
     public void updateFirstRow(String nickname, CounterTop firstRow) {
         sendToAll(new StorageUpdateMessage(PlayerUpdateType.FIRSTROW,nickname,firstRow).serialize(),null);
     }
 
+    /**
+     * Storage's second row changed, update clients
+     * @param nickname nickname of the affected player
+     * @param secondRow new storage's second row
+     */
     @Override
     public void updateSecondRow(String nickname, CounterTop secondRow) {
         sendToAll(new StorageUpdateMessage(PlayerUpdateType.SECONDROW,nickname,secondRow).serialize(),null);
     }
 
+    /**
+     * Storage's third row changed, update clients
+     * @param nickname nickname of the affected player
+     * @param thirdRow new storage's third row
+     */
     @Override
     public void updateThirdRow(String nickname, CounterTop thirdRow) {
         sendToAll(new StorageUpdateMessage(PlayerUpdateType.THIRDROW,nickname,thirdRow).serialize(),null);
     }
 
+    /**
+     * Victory points change, update clients
+     * @param nickname nickname of the affected player
+     * @param points new points
+     */
     @Override
     public void updateVictoryPoints(String nickname, int points) {
         sendToAll(new VictoryPointsUpdateMessage(nickname,points).serialize(),null);
     }
 
+    /**
+     * Vatican report activated, update clients
+     * @param victoryPoints victorypoints of the vaticanreport
+     * @param nicknames affected players
+     */
     @Override
     public void updateVaticanReport(int victoryPoints,ArrayList<String> nicknames){
         sendToAll(new VaticanReportActivatedMessage(victoryPoints,nicknames).serialize(),null);
     }
 
+    /**
+     * Start the game
+     */
     @Override
     public void updateStartGame(){
         startGame();
     }
 
+    /**
+     * Game ended, update clients
+     */
     @Override
     public void updateEndGame(){
         if (gameLobby.getNumberOfPlayers() == 1)
@@ -521,11 +604,21 @@ public class ServerLobby extends Thread implements Observer {
         closeLobby();
     }
 
+    /**
+     * Leader Choice, update clients
+     * @param nickname nickname of the affected player
+     * @param leaderCards chosen leader cards
+     */
     @Override
     public void updateLeaders(String nickname, ArrayList<LeaderCard> leaderCards){
         sendToAll(new LeaderChoiceMessage(nickname,leaderCards).serialize(),null);
     }
 
+    /**
+     * Main action exception, update client
+     * @param nickname nickname of the affected player
+     * @param message message of the exception
+     */
     @Override
     public void updateMainActionException(String nickname, String message){
         SocketConnection clientConnection = clients.get(nickname);
@@ -534,6 +627,11 @@ public class ServerLobby extends Thread implements Observer {
         }
     }
 
+    /**
+     * Side action exception, update client
+     * @param nickname nickname of the affected player
+     * @param message message of the exception
+     */
     @Override
     public void updateSideActionException(String nickname, String message){
         SocketConnection clientConnection = clients.get(nickname);
@@ -543,11 +641,18 @@ public class ServerLobby extends Thread implements Observer {
         }
     }
 
+    /**
+     * Lorenzo action, update client
+     * @param msg action done by lorenzo
+     */
     @Override
     public void lorenzoAction(String msg){
         sendToAll(new PrintMessage(msg).serialize(),null);
     }
 
+    /**
+     * When called, starts endgame procedures
+     */
     @Override
     public void setGameMustEnd(){
         gameLobby.getGameManager().setGameMustEnd();

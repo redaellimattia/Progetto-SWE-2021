@@ -20,7 +20,7 @@ public class OrganizeStorageMessage extends ActionMessage{
     }
 
     /**
-     * move resources on the storage
+     * Move resources on the storage
      * @param socketConnection the connection from which the message has arrived
      */
     @Override

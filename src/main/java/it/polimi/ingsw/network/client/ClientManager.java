@@ -559,6 +559,7 @@ public class ClientManager {
 
         return discountCost;
     }
+
     /**
      * Check if the player can buy a specific Development Card
      * @param ID id of the specific Development Card

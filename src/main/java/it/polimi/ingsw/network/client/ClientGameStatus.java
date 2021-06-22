@@ -6,6 +6,9 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.view.gui.GuiObserver;
 import java.util.ArrayList;
 
+/**
+ * Model of the client, light version of the server's model
+ */
 public class ClientGameStatus {
     private ArrayList<PlayerDashboard> players;
     private Shop shop;

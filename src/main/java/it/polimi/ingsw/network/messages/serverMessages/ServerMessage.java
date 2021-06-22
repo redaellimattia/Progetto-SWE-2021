@@ -22,6 +22,11 @@ public abstract class ServerMessage {
         this.type = type;
     }
 
+    /**
+     *
+     * @param msg message that needs to be deserialized
+     * @return deserialized message
+     */
     public static ServerMessage deserializeMessage(String msg){
         JsonObject jsonObj = gson.fromJson(msg, JsonElement.class).getAsJsonObject();
         String msgType = jsonObj.get("type").getAsString();

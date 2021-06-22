@@ -4,6 +4,7 @@ public class Client {
     private static final int DEFAULT_SOCKET_PORT = 65500;
     private static final String DEFAULT_SOCKET_IP = "127.0.0.1";
     private static final String DEFAULT_CHOICE = "-gui";
+
     /**
      * IP - PORT - CLI/GUI
      * ex: -ip 127.0.0.1 -p 1337 -cli
@@ -28,5 +29,4 @@ public class Client {
         }
         new ClientManager(address,socketPort,choice);
     }
-
 }
