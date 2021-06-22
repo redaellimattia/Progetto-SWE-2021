@@ -12,6 +12,12 @@ public class DiscardToken implements SoloToken {
         this.colour = colour;
     }
 
+    /**
+     * Executes the action represented by the token
+     * @param player Lorenzo's dashboard
+     * @param game the current Game object
+     * @param observer serverLobby observer
+     */
     @Override
     public void useToken(PlayerDashboard player, Game game, Observer observer) {
         game.getShop().discardFromToken(colour);

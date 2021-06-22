@@ -20,6 +20,12 @@ public class AdvanceToken implements SoloToken {
         return reRoll;
     }
 
+    /**
+     * Executes the action represented by the token
+     * @param lorenzo
+     * @param game the current Game object
+     * @param observer serverLobby observer
+     */
     @Override
     public void useToken(PlayerDashboard lorenzo, Game game, Observer observer){
         int countSteps = steps;
