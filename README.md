@@ -16,7 +16,7 @@ La rete è stata gestita tramite socket. Sono inoltre presenti le funzionalià a
 - [UML Dettaglio]()
 
 ### JavaDoc
-Documentazione di metodi Java: [Javadoc](derivables/JavaDoc)
+Documentazione di metodi Java: [Javadoc](/derivables/JavaDoc)
 
 ### Librerie e Plugins
 |Libreria/Plugin|Descrizione|
@@ -41,7 +41,7 @@ Documentazione di metodi Java: [Javadoc](derivables/JavaDoc)
 ## Coverage dei casi di test
 Aggiornata al 22 Giugno.
 <p>
-  <img src="/utilities/coverage/coverage 22=06.png">
+  <img src="/utilities/coverage/coverage 22-06.png">
 </p>
 
 ## Esecuzione dei JAR
