@@ -25,7 +25,7 @@ class DiscardTokenTest {
         testShop.discardFromToken(testColour);
         for(int i=0; i<4; i++) {
             if(i == testColour.getColumn()) {
-                assertTrue(testShop.getGrid()[2][i].getDeck().size() == 2);
+                assertEquals(testShop.getGrid()[2][i].getDeck().size(), 2);
                 for(int j = 0; j<2; j++) {
                     assertEquals(testShopOld.getGrid()[2][i].getDeck().get(j+2), testShop.getGrid()[2][i].getDeck().get(j));
                 }
@@ -83,8 +83,8 @@ class DiscardTokenTest {
         testShop.discardFromToken(testColour); // Removed 1 card in level 1 row and 1 card in level 2
         for(int i=0; i<4; i++) {
             if(i == testColour.getColumn()) {
-                assertTrue(testShop.getGrid()[2][i].getDeck().size() == 0);
-                assertTrue(testShop.getGrid()[1][i].getDeck().size() == 3);
+                assertEquals(testShop.getGrid()[2][i].getDeck().size(), 0);
+                assertEquals(testShop.getGrid()[1][i].getDeck().size(), 3);
                 for(int j = 0; j<3; j++) {
                     assertEquals(testShopOld.getGrid()[1][i].getDeck().get(j+1), testShop.getGrid()[1][i].getDeck().get(j));
                 }
@@ -114,8 +114,8 @@ class DiscardTokenTest {
         testShop.discardFromToken(testColour);
         for(int i=0; i<4; i++) {
             if(i == testColour.getColumn()) {
-                assertTrue(testShop.getGrid()[2][i].getDeck().size() == 0);
-                assertTrue(testShop.getGrid()[1][i].getDeck().size() == 2);
+                assertEquals(testShop.getGrid()[2][i].getDeck().size(), 0);
+                assertEquals(testShop.getGrid()[1][i].getDeck().size(), 2);
                 for(int j = 0; j<2; j++) {
                     assertEquals(testShopOld.getGrid()[1][i].getDeck().get(j+2), testShop.getGrid()[1][i].getDeck().get(j));
                 }
@@ -289,7 +289,7 @@ class DiscardTokenTest {
         return shop;
     }
     PlayerDashboard createPlayer(){
-        String nickname = "Prova";
+        String nickname = "Player";
         Resource coins =  Resource.COIN;
         CounterTop firstRow = new CounterTop(coins,0);
         CounterTop secondRow = new CounterTop(coins,0);

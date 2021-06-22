@@ -9,7 +9,6 @@ import it.polimi.ingsw.model.card.WhiteChangeAbility;
 import it.polimi.ingsw.model.enumeration.CardColour;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
 import it.polimi.ingsw.model.enumeration.Resource;
-import it.polimi.ingsw.model.token.SoloToken;
 import it.polimi.ingsw.network.server.ServerLobby;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +22,7 @@ class MarketActionTest {
         DeckShop[][] emptyGrid = new DeckShop[3][4];
         PlayerDashboard player1 = buildPlayerDashboard("Test1");
         PlayerDashboard player2 = buildPlayerDashboard("Test2");
-        ArrayList<PlayerDashboard> players = new ArrayList<PlayerDashboard>();
+        ArrayList<PlayerDashboard> players = new ArrayList<>();
         players.add(player1);
         players.add(player2);
         MarketMarble[][] testMarket = new MarketMarble[3][4];
@@ -34,7 +33,7 @@ class MarketActionTest {
         MarketDashboard market = new MarketDashboard(testMarket, new MarketMarble(MarbleColour.PURPLE));
         ServerLobby observer = new ServerLobby(2,1);
         market.addObserver(observer);
-        Game game = new Game(players, new Shop(emptyGrid), market, new ArrayList<SoloToken>());
+        Game game = new Game(players, new Shop(emptyGrid), market, new ArrayList<>());
         return new GameManager(game, new PlayerTurnManager(player1),true);
     }
 
@@ -62,7 +61,7 @@ class MarketActionTest {
         GameManager testGameManager = buildGameManager();
         PlayerDashboard player = buildPlayerDashboard("gianni");
         PlayerTurnManager turnManager = createTurnManager(player);
-        ArrayList<AtomicMarketAction> testChoices = new ArrayList<AtomicMarketAction>();
+        ArrayList<AtomicMarketAction> testChoices = new ArrayList<>();
         testChoices.add(new DiscardResource());
         testChoices.add(new ConvertWhiteMarble(testGameManager.getGame().getPlayers().get(0).getLeaderCards().get(0), 1));
         MarketAction test = new MarketAction(0, 1, testChoices, testGameManager);

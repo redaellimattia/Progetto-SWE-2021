@@ -1,7 +1,5 @@
 package it.polimi.ingsw.model.token;
 
-import it.polimi.ingsw.controller.GameManager;
-import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.LeaderCard;
 import it.polimi.ingsw.model.enumeration.MarbleColour;
@@ -30,28 +28,16 @@ class AdvanceTokenTest {
         return player;
     }
 
-    public GameManager buildGameManager() {
-        PlayerDashboard player1 = buildPlayerDashboard();
-        PlayerDashboard lorenzo = buildPlayerDashboard();
-        ArrayList<PlayerDashboard> players = new ArrayList<PlayerDashboard>();
-        players.add(player1);
-        players.add(lorenzo);
-        ServerLobby observer = new ServerLobby(2,1);
-        Game game = new Game(players, new Shop(new DeckShop[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
-        GameManager gameManager = new GameManager(game, new PlayerTurnManager(player1),true);
-        return gameManager;
-    }
-
     @Test
     public void testNoReRollToken() {
         PlayerDashboard testDashboard = buildPlayerDashboard();
         int oldPos = testDashboard.getPathPosition();
         PlayerDashboard player1 = buildPlayerDashboard();
         PlayerDashboard lorenzo = buildPlayerDashboard();
-        ArrayList<PlayerDashboard> players = new ArrayList<PlayerDashboard>();
+        ArrayList<PlayerDashboard> players = new ArrayList<>();
         players.add(player1);
         players.add(lorenzo);
-        Game game = new Game(players, new Shop(new DeckShop[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
+        Game game = new Game(players, new Shop(new DeckShop[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<>());
         AdvanceToken testToken = new AdvanceToken(false);
         testToken.useToken(testDashboard, game,new ServerLobby(1,1));
         assertEquals(oldPos + 2, testDashboard.getPathPosition());
@@ -63,10 +49,10 @@ class AdvanceTokenTest {
         int oldPos = testDashboard.getPathPosition();
         PlayerDashboard player1 = buildPlayerDashboard();
         PlayerDashboard lorenzo = buildPlayerDashboard();
-        ArrayList<PlayerDashboard> players = new ArrayList<PlayerDashboard>();
+        ArrayList<PlayerDashboard> players = new ArrayList<>();
         players.add(player1);
         players.add(lorenzo);
-        Game game = new Game(players, new Shop(new DeckShop[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<SoloToken>());
+        Game game = new Game(players, new Shop(new DeckShop[3][4]), new MarketDashboard(new MarketMarble[3][4], new MarketMarble(MarbleColour.PURPLE)), new ArrayList<>());
         AdvanceToken testToken = new AdvanceToken(true);
         testToken.useToken(testDashboard, game,new ServerLobby(1,1));
         assertEquals(oldPos + 1, testDashboard.getPathPosition());
