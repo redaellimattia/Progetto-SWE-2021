@@ -10,11 +10,9 @@ public class InterfaceAdapter implements JsonSerializer, JsonDeserializer<Object
 
     /**
      * Used to deserialize an interface/abstract class, since gson can't do that alone without a predefined constructor
-     * @param jsonElement
-     * @param type
-     * @param jsonDeserializationContext
-     * @return
-     * @throws JsonParseException
+     * @param jsonElement element to be deserialized
+     * @param jsonDeserializationContext Context for serialization that is passed to a custom serializer during invocation of its JsonSerializer.serialize(Object, Type, JsonSerializationContext) method.
+     * @return the deserialized object corresponding to the jsonElement
      */
     public Object deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
 
@@ -27,10 +25,9 @@ public class InterfaceAdapter implements JsonSerializer, JsonDeserializer<Object
 
     /**
      * Used to serialize an interface/abstract class, since gson can't do that alone without a predefined constructor
-     * @param jsonElement
-     * @param type
-     * @param jsonSerializationContext
-     * @return
+     * @param jsonElement element to be serialized
+     * @param jsonSerializationContext Context for serialization that is passed to a custom serializer during invocation of its JsonSerializer.serialize(Object, Type, JsonSerializationContext) method.
+     * @return a jsonObject representing the jsonElement
      */
     public JsonElement serialize(Object jsonElement, Type type, JsonSerializationContext jsonSerializationContext) {
         JsonObject jsonObject = new JsonObject();
