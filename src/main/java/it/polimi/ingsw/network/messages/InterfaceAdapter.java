@@ -11,6 +11,7 @@ public class InterfaceAdapter implements JsonSerializer, JsonDeserializer<Object
     /**
      * Used to deserialize an interface/abstract class, since gson can't do that alone without a predefined constructor
      * @param jsonElement element to be deserialized
+     * @param type of the object
      * @param jsonDeserializationContext Context for serialization that is passed to a custom serializer during invocation of its JsonSerializer.serialize(Object, Type, JsonSerializationContext) method.
      * @return the deserialized object corresponding to the jsonElement
      */
@@ -26,6 +27,7 @@ public class InterfaceAdapter implements JsonSerializer, JsonDeserializer<Object
     /**
      * Used to serialize an interface/abstract class, since gson can't do that alone without a predefined constructor
      * @param jsonElement element to be serialized
+     * @param type of the object
      * @param jsonSerializationContext Context for serialization that is passed to a custom serializer during invocation of its JsonSerializer.serialize(Object, Type, JsonSerializationContext) method.
      * @return a jsonObject representing the jsonElement
      */
@@ -38,14 +40,13 @@ public class InterfaceAdapter implements JsonSerializer, JsonDeserializer<Object
 
     /**
      * Helper method to get the className of the object to be deserialized
-     * @param className string representing the name of the classe
+     * @param className string representing the name of the class
      * @return the Class corresponding to that name
      */
     public Class getObjectClass(String className) {
         try {
             return Class.forName(className);
         } catch (ClassNotFoundException e) {
-            //e.printStackTrace();
             throw new JsonParseException(e.getMessage());
         }
     }
