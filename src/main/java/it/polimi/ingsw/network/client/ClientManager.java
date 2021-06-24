@@ -593,7 +593,10 @@ public class ClientManager {
         if(thisPlayerDashboard.getDevCards()[position].getDeck().size() == 0 && level == 1)
             return true;
         else
-            return thisPlayerDashboard.getDevCards()[position].getFirst().getLevel() == level-1;
+            if(thisPlayerDashboard.getDevCards()[position].getDeck().size() >0)
+                return thisPlayerDashboard.getDevCards()[position].getFirst().getLevel() == level-1;
+            else
+                return false;
     }
 
     /**
