@@ -939,7 +939,7 @@ public class Cli implements View {
     }
 
     /**
-     * called upon player's choice to organize resources, display possible choices
+     * Called upon player's choice to organize resources, display possible choices
      */
     @Override
     public void organizeResources(){
