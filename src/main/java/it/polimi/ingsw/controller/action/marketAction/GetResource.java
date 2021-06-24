@@ -39,8 +39,7 @@ public class GetResource extends AtomicMarketAction {
             return true; // GetResource on a white marble does nothing (and is always possible)
         }
         if (marble.getColour() == MarbleColour.RED) {
-            return false;
-            //throw new WrongMarbleException(marble, player); // User cannot obtain a resource from red marble
+            return false; // User cannot obtain a resource from red marble
         }
         return checkStore(tempStorage, tempArrayDeposit, marble.getColour().convertToResource(), storageRow);
     }

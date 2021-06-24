@@ -122,27 +122,21 @@ public class MarketActionController extends GuiController {
         switch (marble.getColour()) {
             case RED:
                 setImage(imageView, "/img/marbles/redMarble.png");
-                //imageView.setImage(redMarble);
                 break;
             case BLUE:
                 setImage(imageView, "/img/marbles/blueMarble.png");
-                //imageView.setImage(blueMarble);
                 break;
             case GREY:
                 setImage(imageView, "/img/marbles/greyMarble.png");
-                //imageView.setImage(greyMarble);
                 break;
             case WHITE:
                 setImage(imageView, "/img/marbles/whiteMarble.png");
-                //imageView.setImage(whiteMarble);
                 break;
             case PURPLE:
                 setImage(imageView, "/img/marbles/purpleMarble.png");
-                //imageView.setImage(purpleMarble);
                 break;
             case YELLOW:
                 setImage(imageView, "/img/marbles/yellowMarble.png");
-                //imageView.setImage(yellowMarble);
                 break;
         }
     }
