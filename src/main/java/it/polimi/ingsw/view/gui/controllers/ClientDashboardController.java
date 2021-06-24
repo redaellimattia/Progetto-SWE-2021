@@ -453,8 +453,10 @@ public class ClientDashboardController extends GuiController{
      */
     @Override
     public void updateChest(String nickname){
-        if(nickname.equals(playerDashboard.getNickname()))
-            Platform.runLater(()->setChest(playerDashboard.getChest(),xCoin,xShield,xRock,xServant));
+        if(nickname.equals(playerDashboard.getNickname())) {
+            Platform.runLater(() -> setChest(playerDashboard.getChest(), xCoin, xShield, xRock, xServant));
+            Platform.runLater(()->setLeaderCards(playerDashboard.getLeaderCards(),false));
+        }
     }
 
     /**
