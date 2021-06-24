@@ -28,8 +28,10 @@ public class PlayLeaderMessage extends ActionMessage {
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
         Server.LOGGER.log(Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+": Play Leader Action arrived from: "+getNickname());
         PlayLeaderAction action = new PlayLeaderAction(card);
-        if(useSideActionMessage(action,socketConnection, serverLobby))
-            serverLobby.sendToAll(new PrintMessage("Player: "+getNickname()+" played a leader!").serialize(),getNickname());
-        serverLobby.sendToAll(new DoneMessage().serialize(),null);
+        if(useSideActionMessage(action,socketConnection, serverLobby)) {
+            serverLobby.sendToAll(new PrintMessage("Player: " + getNickname() + " played a leader!").serialize(), getNickname());
+            serverLobby.sendToAll(new DoneMessage().serialize(),null);
+        }
+
     }
 }

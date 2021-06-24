@@ -57,9 +57,8 @@ public class ClientSocket implements Runnable {
         while (!socketListener.isInterrupted()) {
             try {
                 String msg = in.readLine();
-                if (msg != null) {
+                if (msg != null)
                     clientManager.onMessage(msg);
-                }
                 else
                     disconnect();
             } catch (IOException e) {

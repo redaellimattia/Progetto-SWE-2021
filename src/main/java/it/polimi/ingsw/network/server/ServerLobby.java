@@ -408,6 +408,7 @@ public class ServerLobby extends Thread implements Observer {
      * Broadcasting a message
      *
      * @param msg serialized message
+     * @param except nickname of the player that won't receive the message
      */
     public void sendToAll(String msg,String except){
         synchronized (gameLock) {

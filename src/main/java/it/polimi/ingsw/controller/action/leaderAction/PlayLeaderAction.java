@@ -2,6 +2,7 @@ package it.polimi.ingsw.controller.action.leaderAction;
 
 import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.controller.action.Action;
+import it.polimi.ingsw.exceptions.action.CannotPlayCardException;
 import it.polimi.ingsw.exceptions.action.CardNotExistsException;
 import it.polimi.ingsw.model.PlayerDashboard;
 import it.polimi.ingsw.model.card.LeaderCard;
@@ -26,8 +27,12 @@ public class PlayLeaderAction extends Action {
         int position = player.getLeaderPos(card);
         if(position==-1)
             throw new CardNotExistsException("Leader Card",player);
-        player.setLeaderInGame(position);
-        card.getSpecialAbility().useDepositAbility(player);
-        return true;
+        if(card.getRequirement().isPlayable(player)) {
+            player.setLeaderInGame(position);
+            card.getSpecialAbility().useDepositAbility(player);
+            return true;
+        }
+        else
+            throw new CannotPlayCardException(player);
     }
 }
