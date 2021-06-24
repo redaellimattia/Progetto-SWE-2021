@@ -137,7 +137,7 @@ public class Server {
      */
     private void initLogger() {
         try {
-            FileHandler fh = new FileHandler("server.log");
+            FileHandler fh = new FileHandler("serverLog.log");
             fh.setFormatter(new SimpleFormatter());
             LOGGER.addHandler(fh);
         } catch (IOException e) {
