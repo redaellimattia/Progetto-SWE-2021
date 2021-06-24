@@ -468,10 +468,7 @@ public class Cli implements View {
         }while(!cardID.contains(id) || (cardID.contains(id) && !clientManager.canBuySpecificCard(id)));
 
         DevelopmentCard card = clientManager.getShopCardByID(id);
-        ResourceCount cost = new ResourceCount(0,0,0,0,0);
-
-        cost.sumCounts(card.getCost());
-        clientManager.discountCardCost(cost);
+        ResourceCount cost = clientManager.discountCardCost(card.getCost());
         ArrayList<ResourceCount> payments = askPayment(cost);
         ResourceCount storagePayment = payments.get(0);
         ResourceCount chestPayment = payments.get(1);
