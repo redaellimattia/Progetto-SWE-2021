@@ -5,8 +5,6 @@ import it.polimi.ingsw.network.messages.clientMessages.ClientMessage;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -138,14 +136,12 @@ public class Server {
      * Creating logger file handler
      */
     private void initLogger() {
-        Date date = GregorianCalendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM_HH.mm.ss");
-
         try {
-            FileHandler fh = new FileHandler("utilities/server_log/server-" + dateFormat.format(date) + ".log");
+            FileHandler fh = new FileHandler("server.log");
             fh.setFormatter(new SimpleFormatter());
-
             LOGGER.addHandler(fh);
-        } catch (IOException e) { LOGGER.severe(e.getMessage()); }
+        } catch (IOException e) {
+            LOGGER.severe(e.getMessage());
+        }
     }
 }
