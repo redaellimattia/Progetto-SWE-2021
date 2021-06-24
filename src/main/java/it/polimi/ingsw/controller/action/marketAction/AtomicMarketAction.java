@@ -39,18 +39,15 @@ public abstract class AtomicMarketAction {
                 if(tempStorage.getFirstRow().getContent() == 0) {
                     if(cannotCreateNewRow(res, tempStorage)){
                         return false; // User cannot have two counterTops with the same Resource type
-                        //throw new WrongCounterTopException(res);
                     }
                     tempStorage.setFirstRow(new CounterTop(res, 1));
                     return true;
                 }
                 if(tempStorage.getFirstRow().getResourceType() != res) {
                     return false; // User cannot add a resource of a different type
-                    //throw new WrongCounterTopException(res);
                 }
                 if(tempStorage.getFirstRow().getContent() > 0) {
                     return false; // User cannot add a resource into a full counterTop
-                    //throw new CounterTopOverloadException();
                 }
                 tempStorage.addToFirstRow(1);
                 return true;
@@ -58,18 +55,15 @@ public abstract class AtomicMarketAction {
                 if(tempStorage.getSecondRow().getContent() == 0) {
                     if(cannotCreateNewRow(res, tempStorage)){
                         return false; // User cannot have two counterTops with the same Resource type
-                        //throw new WrongCounterTopException(res);
                     }
                     tempStorage.setSecondRow(new CounterTop(res, 1));
                     return true;
                 }
                 if(tempStorage.getSecondRow().getResourceType() != res) {
                     return false;  // User cannot add a resource of a different type
-                    //throw new WrongCounterTopException(res);
                 }
                 if(tempStorage.getSecondRow().getContent() > 1) {
                     return false; // User cannot add a resource into a full counterTop
-                    //throw new CounterTopOverloadException();
                 }
                 tempStorage.addToSecondRow(1);
                 return true;
@@ -77,18 +71,15 @@ public abstract class AtomicMarketAction {
                 if(tempStorage.getThirdRow().getContent() == 0) {
                     if(cannotCreateNewRow(res, tempStorage)){
                         return false;  // User cannot have two counterTops with the same Resource type
-                        //throw new WrongCounterTopException(res);
                     }
                     tempStorage.setThirdRow(new CounterTop(res, 1));
                     return true;
                 }
                 if(tempStorage.getThirdRow().getResourceType() != res) {
                     return false;  // User cannot add a resource of a different type
-                    //throw new WrongCounterTopException(res);
                 }
                 if(tempStorage.getThirdRow().getContent() > 2) {
                     return false; // User cannot add a resource into a full counterTop
-                    //throw new CounterTopOverloadException();
                 }
                 tempStorage.addToThirdRow(1);
                 return true;
@@ -100,16 +91,8 @@ public abstract class AtomicMarketAction {
                     }
                 }
                 return false;
-                /*if(getThisClientDashboard().isFull(res)) {
-                    return false;
-                    //throw new NoAdditionalDepositException(res);
-                }
-                else {
-                    return true;
-                }*/
             default:
                 return false;
-            //throw new IllegalArgumentException();
         }
     }
 
