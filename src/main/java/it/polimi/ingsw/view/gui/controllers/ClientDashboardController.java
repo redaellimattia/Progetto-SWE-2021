@@ -81,9 +81,9 @@ public class ClientDashboardController extends GuiController{
         setFaithPath(playerDashboard.getPathPosition());
         setDevCards(playerDashboard.getDevCards(),firstPositionLevel1,secondPositionLevel1,thirdPositionLevel1,firstPositionLevel2,secondPositionLevel2,thirdPositionLevel2
                                                  ,firstPositionLevel3,secondPositionLevel3,thirdPositionLevel3);
-        setLeaderCards(playerDashboard.getLeaderCards(),watchingPlayer);
         setStorage(playerDashboard.getStorage(),firstRowImage,secondRowImage1,secondRowImage2,thirdRowImage1,thirdRowImage2,thirdRowImage3);
         setChest(playerDashboard.getChest(),xCoin,xShield,xRock,xServant);
+        setLeaderCards(playerDashboard.getLeaderCards(),watchingPlayer);
         setAbilityDeposit(playerDashboard.getArrayDeposit(),playerDashboard.getLeaderCards());
         firstStorage.setVisible(false);
         secondStorage.setVisible(false);
