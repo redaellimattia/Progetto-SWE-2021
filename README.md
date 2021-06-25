@@ -39,9 +39,9 @@ Documentazione di metodi Java: [Javadoc](/deliverables/JavaDoc)
 - Resilienza alle disconnessioni
 
 ## Coverage dei casi di test
-Aggiornata al 22 Giugno.
+Aggiornata al 25 Giugno.
 <p>
-  <img src="/utilities/coverage/coverage 22-06.png">
+  <img src="/utilities/coverage/coverage 25-06.png">
 </p>
 
 ## Esecuzione dei JAR
