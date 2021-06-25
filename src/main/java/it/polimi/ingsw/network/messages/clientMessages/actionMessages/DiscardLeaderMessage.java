@@ -27,7 +27,7 @@ public class DiscardLeaderMessage extends ActionMessage{
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
         DiscardLeaderAction action = new DiscardLeaderAction(card);
         Server.LOGGER.log(Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+": Discard Leader Action arrived from: "+getNickname());
-        if(useSideActionMessage(action,socketConnection, serverLobby))
+        if(useSideActionMessage(action, serverLobby))
             serverLobby.sendToAll(new PrintMessage("Player: "+getNickname()+" discarded a leader!").serialize(),getNickname());
         serverLobby.sendToAll(new DoneMessage().serialize(),null);
     }

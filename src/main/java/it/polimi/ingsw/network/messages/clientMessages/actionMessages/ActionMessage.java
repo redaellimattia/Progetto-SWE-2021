@@ -104,10 +104,9 @@ public abstract class ActionMessage extends ClientMessage {
     /**
      * Call the turnManager to set and use the action;
      * @param action the action that needs to be done
-     * @param socketConnection the connection from which the message has arrived
      * @param serverLobby serverLobby of the game where the player is playing
      */
-    public boolean useSideActionMessage(Action action, SocketConnection socketConnection, ServerLobby serverLobby){
+    public boolean useSideActionMessage(Action action, ServerLobby serverLobby){
         PlayerTurnManager turnManager = getPlayerTurnManager(serverLobby);
         turnManager.setSideAction(action);
         return turnManager.useSideAction();

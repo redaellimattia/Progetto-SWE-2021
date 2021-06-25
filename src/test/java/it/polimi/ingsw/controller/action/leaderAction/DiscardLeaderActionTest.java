@@ -20,7 +20,7 @@ class DiscardLeaderActionTest {
     void useActionFirstCard() { //DISCARD FIRST CARD
         PlayerDashboard player = createPlayer();
         PlayerTurnManager turnManager = createTurnManager(player);
-        LeaderCard card = createLeaderCard(new ColourCount(1, 0, 0, 0));
+        LeaderCard card = createLeaderCard(new ResourceCount(1,0,0,0,0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
         action.useAction(player,turnManager);
         assertEquals(1, player.getPathPosition());
@@ -30,7 +30,7 @@ class DiscardLeaderActionTest {
     void useActionSecondCard() { //DISCARD SECOND CARD
         PlayerDashboard player = createPlayer();
         PlayerTurnManager turnManager = createTurnManager(player);
-        LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
+        LeaderCard card = createLeaderCard(new ResourceCount(1,0,0,0,0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
         action.useAction(player,turnManager);
         assertEquals(1,player.getPathPosition());
@@ -40,10 +40,10 @@ class DiscardLeaderActionTest {
     void useActionFirstAndSecondCard() { //DISCARD FIRST CARD AFTER SECOND
         PlayerDashboard player = createPlayer();
         PlayerTurnManager turnManager = createTurnManager(player);
-        LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
+        LeaderCard card = createLeaderCard(new ResourceCount(0,1,0,0,0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
         action.useAction(player,turnManager);
-        card = createLeaderCard(new ColourCount(1,0,0,0));
+        card = createLeaderCard(new ResourceCount(1,0,0,0,0));
         action = new DiscardLeaderAction(card);
         action.useAction(player,turnManager);
         assertEquals(2,player.getPathPosition());
@@ -53,7 +53,7 @@ class DiscardLeaderActionTest {
     void useActionCardNotInModel() { //CAN'T DISCARD, DOESN'T EXIST IN MODEL
         PlayerDashboard player = createPlayer();
         PlayerTurnManager turnManager = createTurnManager(player);
-        LeaderCard card = createLeaderCard(new ColourCount(5,5,5,5));
+        LeaderCard card = createLeaderCard(new ResourceCount(5,0,0,0,0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
         assertThrows(CardNotExistsException.class, () -> action.useAction(player,turnManager)); //CAN'T DISCARD
         assertEquals(0,player.getPathPosition());
@@ -63,7 +63,7 @@ class DiscardLeaderActionTest {
     void useActionInGame() { //CAN'T DISCARD, IT'S IN GAME
         PlayerDashboard player = createPlayer();
         PlayerTurnManager turnManager = createTurnManager(player);
-        LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
+        LeaderCard card = createLeaderCard(new ResourceCount(1,0,0,0,0));
         DiscardLeaderAction action = new DiscardLeaderAction(card);
         PlayLeaderAction playAction = new PlayLeaderAction(card);
         playAction.useAction(player,turnManager); //Playing leader
@@ -84,16 +84,16 @@ class DiscardLeaderActionTest {
         DeckDashboard[] devCards = new DeckDashboard[3];
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
 
-        leaderCards.add(0,createLeaderCard(new ColourCount(1,0,0,0)));
-        leaderCards.add(0,createLeaderCard(new ColourCount(0,2,1,0)));
+        leaderCards.add(0,createLeaderCard(new ResourceCount(1,0,0,0,0)));
+        leaderCards.add(0,createLeaderCard(new ResourceCount(0,1,0,0,0)));
         PlayerDashboard p = new PlayerDashboard(storage,chest,devCards,leaderCards,nickname,2,false);
         p.addObserver(playerObserver);
         p.getStorage().addObserver(p);
         return p;
     }
 
-    LeaderCard createLeaderCard(ColourCount count){
-        TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
+    LeaderCard createLeaderCard(ResourceCount count){
+        ResourceRequirement requirement = new ResourceRequirement(count);
         SpecialAbility specialAbility = new ProductionAbility(Resource.COIN);
         return new LeaderCard(0,0,requirement,specialAbility);
     }

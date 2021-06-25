@@ -26,7 +26,7 @@ public class OrganizeStorageMessage extends ActionMessage{
     @Override
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){
         OrganizeStorage action = new OrganizeStorage(from,to);
-        useSideActionMessage(action,socketConnection, serverLobby);
+        useSideActionMessage(action, serverLobby);
         Server.LOGGER.log(Level.INFO,"LobbyID: "+serverLobby.getLobbyId()+": Organize Storage arrived from: "+getNickname());
         serverLobby.sendToAll(new DoneMessage().serialize(),null);
     }

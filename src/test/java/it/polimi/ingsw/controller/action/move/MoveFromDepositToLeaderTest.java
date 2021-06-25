@@ -79,23 +79,7 @@ class MoveFromDepositToLeaderTest {
         assertEquals(2, player.getArrayDeposit().get(1).getContent());
         assertEquals(1, player.getStorage().getThirdRow().getContent());
     }
-    PlayerDashboard createPlayer(){
-        String nickname = "Prova";
-        CounterTop firstRow = new CounterTop(Resource.COIN,1);
-        CounterTop secondRow = new CounterTop(Resource.ROCK,2);
-        CounterTop thirdRow = new CounterTop(Resource.SERVANT,0);
-        Storage storage = new Storage(firstRow,secondRow,thirdRow);
-        ResourceCount chest = new ResourceCount(5,5,0,0,0);
-        DeckDashboard[] devCards = new DeckDashboard[3];
 
-        ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        leaderCards.add(0,createLeaderCard(false));
-        leaderCards.add(0,createLeaderCard(false));
-        PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,nickname,2,false);
-        devCards[0].addCard(createDevCard(1));
-        devCards[1].addCard(createDevCard(1));
-        return player;
-    }
     PlayerDashboard createPlayerThirdFull(){
         String nickname = "Prova";
         CounterTop firstRow = new CounterTop(Resource.COIN,1);
@@ -107,27 +91,23 @@ class MoveFromDepositToLeaderTest {
         DeckDashboard[] devCards = new DeckDashboard[3];
 
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        leaderCards.add(0,createLeaderCard(false));
-        leaderCards.add(0,createLeaderCard(false));
+        leaderCards.add(0,createLeaderCard());
+        leaderCards.add(0,createLeaderCard());
         PlayerDashboard player = new PlayerDashboard(storage,chest,devCards,leaderCards,nickname,2,false);
         player.addObserver(playerObserver);
         player.getStorage().addObserver(player);
-        devCards[0].addCard(createDevCard(1));
-        devCards[1].addCard(createDevCard(1));
+        devCards[0].addCard(createDevCard());
+        devCards[1].addCard(createDevCard());
         return player;
     }
-    LeaderCard createLeaderCard(boolean inGame){
-        ColourCount count = new ColourCount(1,0,0,0);
-        TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
+    LeaderCard createLeaderCard(){
+        ResourceRequirement requirement = new ResourceRequirement(new ResourceCount(1,0,0,0,0));
         SpecialAbility specialAbility = new DepositAbility(Resource.SERVANT);
-        LeaderCard leader = new LeaderCard(0,0,requirement,specialAbility);
-        if(inGame)
-            leader.setInGame();
-        return leader;
+        return new LeaderCard(0,0,requirement,specialAbility);
     }
-    DevelopmentCard createDevCard(int level){
+    DevelopmentCard createDevCard(){
         Production prod = new Production(new ResourceCount(1,2,0,0,0),new ResourceCount(0,0,3,0,0));
-        return new DevelopmentCard(0,5,new ResourceCount(0,0,0,0,0),prod,level, CardColour.BLUE);
+        return new DevelopmentCard(0,5,new ResourceCount(0,0,0,0,0),prod,1, CardColour.BLUE);
     }
     PlayerTurnManager createTurnManager(PlayerDashboard player){
         return new PlayerTurnManager(player);
