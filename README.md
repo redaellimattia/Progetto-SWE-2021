@@ -48,7 +48,7 @@ Aggiornata al 25 Giugno.
 Per l'avvio é necessario solamente aver installato il `JDK` di JAVA.   
 Per lo sviluppo abbiamo utilizzato il `JDK 15` .
 
-I JAR sono disponibili [qui](https://github.com/).  
+I JAR sono disponibili [qui](/deliverables/jar).  
 
 ### Server
 - `GC47-server.jar`  
