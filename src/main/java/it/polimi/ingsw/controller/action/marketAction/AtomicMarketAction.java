@@ -140,7 +140,7 @@ public abstract class AtomicMarketAction {
      * Check if the user already has a non-empty counterTop for this resource type
      * @param res the resource type
      * @param tempStorage the storage of the player
-     * @return true if there is NOT another counterTop of the same type
+     * @return true if there is another counterTop of the same type
      */
     public boolean cannotCreateNewRow(Resource res, Storage tempStorage) {
         for(CounterTop c: tempStorage.getShelvesArray()) {
