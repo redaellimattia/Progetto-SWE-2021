@@ -13,7 +13,7 @@ La rete è stata gestita tramite socket. Sono inoltre presenti le funzionalià a
 
 ### UML
 - [UML Alto Livello]()
-- [UML Dettaglio](/deliverables/UML/DetailedUML)
+- [UML Dettaglio](/deliverables/UML/Detailed%20UML)
 
 ### JavaDoc
 Documentazione di metodi Java: [Javadoc](/deliverables/JavaDoc)
