@@ -58,7 +58,7 @@ Il comando da eseguire da command line é il seguente:
 ```
 #### Parametri
 - `-p`: porta che si vuole utilizzare in ascolto, di default `65500`.  
-- Assicurarsi che la porta da utilizzare in ascolto sia disponibile.
+Assicurarsi che la porta da utilizzare in ascolto sia disponibile.
 
 ### Client
 - `GC47-client.jar`  
