@@ -1,6 +1,7 @@
 package it.polimi.ingsw.controller.action.leaderAction;
 
 import it.polimi.ingsw.controller.PlayerTurnManager;
+import it.polimi.ingsw.exceptions.action.CannotPlayCardException;
 import it.polimi.ingsw.exceptions.action.CardNotExistsException;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.*;
@@ -18,7 +19,7 @@ class PlayLeaderActionTest {
     void useActionFirstCard() { //PLAY FIRST CARD
         PlayerDashboard player = createPlayer();
         PlayerTurnManager turnManager = createTurnManager(player);
-        LeaderCard card = createLeaderCard(new ColourCount(1, 0, 0, 0));
+        LeaderCard card = createLeaderCard(new ResourceCount(1,0,0,0,0));
         PlayLeaderAction action = new PlayLeaderAction(card);
         assertFalse(player.leadersInGame()); //Not in game
         action.useAction(player,turnManager); //Play the card
@@ -31,7 +32,7 @@ class PlayLeaderActionTest {
     void useActionSecondCard() { //PLAY SECOND CARD
         PlayerDashboard player = createPlayer();
         PlayerTurnManager turnManager = createTurnManager(player);
-        LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
+        LeaderCard card = createLeaderCard(new ResourceCount(0,1,0,0,0));
         PlayLeaderAction action = new PlayLeaderAction(card);
         assertFalse(player.leadersInGame()); //Not in game
         action.useAction(player,turnManager); //Play the card
@@ -44,10 +45,10 @@ class PlayLeaderActionTest {
     void useActionPlayFirstAfterSecondIsInGame() { //PLAY FIRST CARD AFTER SECOND ALREADY IN GAME
         PlayerDashboard player = createPlayer();
         PlayerTurnManager turnManager = createTurnManager(player);
-        LeaderCard card = createLeaderCard(new ColourCount(0,2,1,0));
+        LeaderCard card = createLeaderCard(new ResourceCount(0,1,0,0,0));
         PlayLeaderAction action = new PlayLeaderAction(card);
         action.useAction(player,turnManager); //Play the card
-        card = createLeaderCard(new ColourCount(1,0,0,0));
+        card = createLeaderCard(new ResourceCount(1,0,0,0,0));
         action = new PlayLeaderAction(card);
         action.useAction(player,turnManager); //Play the card
         assertTrue(player.getLeaderCards().get(1).isInGame()); //CARD POS=0 IN GAME
@@ -57,10 +58,23 @@ class PlayLeaderActionTest {
     void useActionCardDoesntExists(){ //CARD THAT DOESN'T EXISTS
         PlayerDashboard player = createPlayer();
         PlayerTurnManager turnManager = createTurnManager(player);
-        LeaderCard card = createLeaderCard(new ColourCount(5,5,5,5));
+        LeaderCard card = createLeaderCard(new ResourceCount(5,0,0,0,0));
         PlayLeaderAction action = new PlayLeaderAction(card);
         assertFalse(player.leadersInGame()); //Not in game
         assertThrows(CardNotExistsException.class, () -> action.useAction(player,turnManager)); //Play the card
+        assertFalse(player.leadersInGame()); //Not in game
+    }
+
+    @Test
+    void useActionCantPlay(){ //CANT PLAY CARD
+        PlayerDashboard player = createPlayer();
+        PlayerTurnManager turnManager = createTurnManager(player);
+        player.getStorage().getFirstRow().removeContent(1);
+        assertEquals(0,player.getStorage().getFirstRow().getContent());
+        LeaderCard card = createLeaderCard(new ResourceCount(1,0,0,0,0));
+        PlayLeaderAction action = new PlayLeaderAction(card);
+        assertFalse(player.leadersInGame()); //Not in game
+        assertThrows(CannotPlayCardException.class, () -> action.useAction(player,turnManager)); //Play the card
         assertFalse(player.leadersInGame()); //Not in game
     }
 
@@ -71,20 +85,20 @@ class PlayLeaderActionTest {
         CounterTop thirdRow = new CounterTop(Resource.SERVANT,0);
         Storage storage = new Storage(firstRow,secondRow,thirdRow);
         ServerLobby playerObserver = new ServerLobby(2,1);
-        ResourceCount chest = new ResourceCount(5,5,0,0,0);
+        ResourceCount chest = new ResourceCount(0,5,0,0,0);
         DeckDashboard[] devCards = new DeckDashboard[3];
 
         ArrayList<LeaderCard> leaderCards = new ArrayList<>();
-        leaderCards.add(0,createLeaderCard(new ColourCount(1,0,0,0)));
-        leaderCards.add(0,createLeaderCard(new ColourCount(0,2,1,0)));
+        leaderCards.add(0,createLeaderCard(new ResourceCount(1,0,0,0,0)));
+        leaderCards.add(0,createLeaderCard(new ResourceCount(0,1,0,0,0)));
         PlayerDashboard p = new PlayerDashboard(storage,chest,devCards,leaderCards,nickname,2, false);
         p.addObserver(playerObserver);
         p.getStorage().addObserver(p);
         return p;
     }
 
-    LeaderCard createLeaderCard(ColourCount count){
-        TypeOfCardRequirement requirement = new TypeOfCardRequirement(count);
+    LeaderCard createLeaderCard(ResourceCount count){
+        ResourceRequirement requirement = new ResourceRequirement(count);
         SpecialAbility specialAbility = new ProductionAbility(Resource.COIN);
         return new LeaderCard(0,0,requirement,specialAbility);
     }

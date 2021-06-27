@@ -77,19 +77,19 @@ public abstract class ClientMessage {
     }
 
     /**
-     * Method that will be overridden
+     * Method that will be overridden, before the player has a lobby
      *
      * @param socketConnection method that will be Overrided in the sub-classes
      */
-    public void useMessage(SocketConnection socketConnection){};
+    public void useMessage(SocketConnection socketConnection){}
 
     /**
-     * Method that will be overridden
+     * Method that will be overridden, after the player has a lobby
      *
      * @param socketConnection the connection from which the message has arrived
      * @param serverLobby serverLobby of the client
      */
-    public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){};
+    public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){}
 
     /**
      *

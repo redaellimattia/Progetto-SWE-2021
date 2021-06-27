@@ -13,7 +13,7 @@ La rete è stata gestita tramite socket. Sono inoltre presenti le funzionalià a
 
 ### UML
 - [UML Alto Livello]()
-- [UML Dettaglio]()
+- [UML Dettaglio](/deliverables/UML/Detailed%20UML)
 
 ### JavaDoc
 Documentazione di metodi Java: [Javadoc](/deliverables/JavaDoc)
@@ -39,16 +39,16 @@ Documentazione di metodi Java: [Javadoc](/deliverables/JavaDoc)
 - Resilienza alle disconnessioni
 
 ## Coverage dei casi di test
-Aggiornata al 22 Giugno.
+Aggiornata al 25 Giugno.
 <p>
-  <img src="/utilities/coverage/coverage 22-06.png">
+  <img src="/utilities/coverage/coverage 25-06.png">
 </p>
 
 ## Esecuzione dei JAR
 Per l'avvio é necessario solamente aver installato il `JDK` di JAVA.   
 Per lo sviluppo abbiamo utilizzato il `JDK 15` .
 
-I JAR sono disponibili [qui](https://github.com/).  
+I JAR sono disponibili [qui](/deliverables/jar).  
 
 ### Server
 - `GC47-server.jar`  
@@ -57,7 +57,8 @@ Il comando da eseguire da command line é il seguente:
   java -jar ./GC47-server.jar [-p port]
 ```
 #### Parametri
-- `-p`: porta che si vuole utilizzare in ascolto, di default `65500`.
+- `-p`: porta che si vuole utilizzare in ascolto, di default `65500`.  
+Assicurarsi che la porta da utilizzare in ascolto sia disponibile.
 
 ### Client
 - `GC47-client.jar`  
