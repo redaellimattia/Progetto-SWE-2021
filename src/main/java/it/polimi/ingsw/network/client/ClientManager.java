@@ -685,6 +685,12 @@ public class ClientManager {
     }
 
 
+    /**
+     *
+     * @param type 0: row selected; 1: column selected
+     * @param pos the number of the selected row or column (starting from 1)
+     * @return the marbles in the selected row/column
+     */
     public MarketMarble[] getMarketMarbles(int type, int pos) {
         if(type == 0) {
             return gameStatus.getMarket().getRow(pos);
@@ -694,6 +700,11 @@ public class ClientManager {
         }
     }
 
+    /**
+     * Checks if the current user has played a leader card with WhiteChangeAbility
+     * @return true if the user has played a LeaderCard with WhiteChangeAbility
+     *         false if the user has not played a LeaderCard with WhiteChangeAbility
+     */
     public boolean hasWhiteChangeAbility() {
         for (LeaderCard c: thisPlayerDashboard.getLeaderCards())
             if(c.getSpecialAbility().useWhiteChangeAbility() != null && c.isInGame())
@@ -715,6 +726,11 @@ public class ClientManager {
         return false;
     }
 
+    /**
+     * Returns the Leader Card with WhiteChangeAbility chosen by the user
+     * @param card the number of the Leader Card selected by the user (considering only in-game Leader Cards with WhiteChangeAbility, in the order they are saved)
+     * @return the chosen LeaderCard
+     */
     public LeaderCard getWhiteChangeCard(int card) {
         int count;
         count = 0;
@@ -729,19 +745,36 @@ public class ClientManager {
         return null;
     }
 
+    /**
+     * Sends an AtomicMarketAction that stores a resource
+     * @param row the number of the storage row in which the resource should be added
+     */
     public void getResource(int row) {
         clientSocket.send(new GetResourceMessage(nickname, serverLobbyID, row).serialize());
     }
 
+    /**
+     * Sends an AtomicMarketAction that discards a marble
+     */
     public void discardResource() {
         clientSocket.send(new DiscardResourceMessage(nickname, serverLobbyID).serialize());
     }
 
+    /**
+     * Sends an AtomicMarketAction that converts a white marble
+     * @param leaderCard the used Leader Card
+     * @param row the number of the storage row in which the resource should be added
+     */
     public void convertMarble(LeaderCard leaderCard, int row) {
         int cardId = leaderCard.getId();
         clientSocket.send(new ConvertMarbleMessage(nickname, serverLobbyID, cardId, row).serialize());
     }
 
+    /**
+     * Send a message indicating that the user has completed the MarketAction
+     * @param type 0: the user has selected a row; 1: the user has selected a column
+     * @param pos the number of the row or column chosen (starting from 1)
+     */
     public void endMarketAction(int type, int pos) {
         mainActionDone = true;
         clientSocket.send(new EndMarketActionMessage(nickname, serverLobbyID, type, pos).serialize());
