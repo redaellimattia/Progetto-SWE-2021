@@ -98,7 +98,7 @@ public class Server {
      * @param socketConnection passed client connection
      * @return ServerLobby of the passed socketConnection
      */
-    public static synchronized ServerLobby getServerThread(SocketConnection socketConnection){
+    public static synchronized ServerLobby getServerLobby(SocketConnection socketConnection){
         for(Long key: lobbies.keySet()) {
             ServerLobby serverLobby = lobbies.get(key);
             for (String nickname : serverLobby.getClients().keySet())

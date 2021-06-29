@@ -80,7 +80,7 @@ public class SocketConnection implements Runnable{
         if (isConnected) {
             try {
                 if (!socket.isClosed()) {
-                    ServerLobby serverLobby = Server.getServerThread(this);
+                    ServerLobby serverLobby = Server.getServerLobby(this);
                     if(serverLobby !=null)
                         serverLobby.onDisconnect(this);
                     socket.close();
