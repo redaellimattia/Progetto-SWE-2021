@@ -22,6 +22,7 @@ public class OrganizeStorageMessage extends ActionMessage{
     /**
      * Move resources on the storage
      * @param socketConnection the connection from which the message has arrived
+     * @param serverLobby serverLobby of the client
      */
     @Override
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){

@@ -21,8 +21,10 @@ public class ExceptionMessage extends ServerMessage {
     public void useMessage(ClientManager clientManager){
         clientManager.getView().printMsg(msg);
         if(clientManager.isProductionActionOnGoing()) {
-            if(clientManager.getNumOfProd()==1)
+            if(clientManager.getNumOfProd()==1) {
+                clientManager.setNumOfProd(0);
                 clientManager.setMainActionDone(false);
+            }
             switch (clientManager.getLastProduction()){
                 case 1: clientManager.setBasicProductionDone(false);
                         break;

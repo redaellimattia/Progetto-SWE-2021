@@ -44,10 +44,8 @@ public class ClientManager {
         this.nickname = "defaultNickname";
         this.address = address;
         this.socketPort = socketPort;
-        if(choice.equals("-cli")) {
+        if(choice.equals("-cli"))
             this.view = new Cli(this);
-            connection(address,socketPort);
-        }
         else
             this.view = new GuiManager(this);
         this.gameStarted = false;
@@ -92,7 +90,9 @@ public class ClientManager {
     public boolean isGameEnded() {
         return gameEnded;
     }
-
+    public void setNumOfProd(int numOfProd) {
+        this.numOfProd = numOfProd;
+    }
     public void setGameEnded(boolean gameEnded) {
         this.gameEnded = gameEnded;
     }

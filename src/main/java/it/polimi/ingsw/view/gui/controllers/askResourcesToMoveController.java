@@ -53,6 +53,7 @@ public class askResourcesToMoveController extends GuiController{
     /**
      * Called after clicking 1 or 2 in the askResourcesToMove Modal
      * either send a message or set the clientDashboardController params for the leaderMove
+     * @param numSelected number of selected resources
      */
     public void confirmClick(int numSelected) {
         if(toLeader)

@@ -33,6 +33,7 @@ public class LeaderCardProductionAction extends Action {
      * Receiving leader card,count of resources from the storage,count of resources from the chest,player,and the resource as the chosen output
      *
      * @param player player that is doing the action
+     * @param turnManager turnManager
      */
     @Override
     public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {

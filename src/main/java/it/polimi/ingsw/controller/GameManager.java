@@ -13,6 +13,7 @@ public class GameManager {
     private final boolean isSinglePlayer;
     private boolean gameMustEnd;
     private Observer observer;
+
     /**
      * Adds reference to the observer
      * @param observer ServerLobby that is observing the Player
@@ -123,6 +124,7 @@ public class GameManager {
 
     /**
      * Upon being called, switch the PlayerTurnManager to the next player on the list of players
+     * @param singlePlayerFirstRound true if it's the single player's first round
      */
     public void nextRound(boolean singlePlayerFirstRound) {
             PlayerDashboard player = this.turnManager.getPlayer();

@@ -36,6 +36,7 @@ public class MarketAction extends Action {
     /**
      * Creates a copy of the user storage at the beginning of the MarketAction
      * that will be updated when user makes choices in order to perform validity controls before executing actions
+     * @param player player
      */
     public void initTempStorage(PlayerDashboard player) {
         ArrayList<CounterTop> tempStorageRows = new ArrayList<>();
@@ -54,6 +55,7 @@ public class MarketAction extends Action {
     /**
      *
      * @param player the player performing the action
+     * @param turnManager turnManager
      */
     @Override
     public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {

@@ -28,6 +28,7 @@ public class BasicProductionMessage extends ActionMessage{
     /**
      * Create a BasicProductionAction and uses it
      * @param socketConnection the connection from which the message has arrived
+     * @param serverLobby serverLobby of the client
      */
     @Override
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby) {

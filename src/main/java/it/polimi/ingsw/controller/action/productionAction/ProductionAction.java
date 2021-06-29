@@ -30,6 +30,8 @@ public class ProductionAction extends Action {
      * Adding a leaderCardProduction
      *
      * @param leaderCardProduction leaderCardProduction chosen by the client to do in this turn
+     * @param player player that is doing the action
+     * @param turnManager turnManager
      */
     @Override
     public boolean addLeaderCardProduction(LeaderCardProductionAction leaderCardProduction, PlayerDashboard player,PlayerTurnManager turnManager) {
@@ -48,6 +50,8 @@ public class ProductionAction extends Action {
      * Adding a devCardProduction
      *
      * @param devCardProduction devCardProduction chosen by the client to do in this turn
+     * @param player player that is doing the action
+     * @param turnManager turnManager
      */
     @Override
     public boolean addDevCardProduction(DevCardProductionAction devCardProduction,PlayerDashboard player,PlayerTurnManager turnManager) {

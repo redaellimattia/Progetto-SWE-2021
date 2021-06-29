@@ -33,6 +33,7 @@ public class CardShopMessage extends ActionMessage {
     /**
      * Create a CardShopAction and uses it.
      * @param socketConnection the connection from which the message has arrived
+     * @param serverLobby serverLobby of the client
      */
     @Override
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){

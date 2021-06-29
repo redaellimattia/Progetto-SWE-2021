@@ -33,6 +33,7 @@ public class DevCardProductionAction extends Action {
      * i get from the view the card, the chosen amount of resources from storage and chest (eventually null) and the player
      *
      * @param player player that is doing the action
+     * @param turnManager turnManager
      */
     @Override
     public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {

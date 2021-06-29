@@ -53,7 +53,6 @@ public class SocketConnection implements Runnable{
         while (!socketListener.isInterrupted()) {
             try {
                 String msg = in.readLine();
-                //System.out.println(msg); //------------DEBUG------------------
                 if (msg != null) socketServer.onMessage(this, msg);
                 else
                     disconnect();

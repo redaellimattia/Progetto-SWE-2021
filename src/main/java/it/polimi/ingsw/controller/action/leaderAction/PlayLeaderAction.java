@@ -19,8 +19,9 @@ public class PlayLeaderAction extends Action {
     }
 
     /**
-     *
+     * Plays a leader
      * @param player player that is doing the action
+     * @param turnManager turnManager
      */
     @Override
     public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager){

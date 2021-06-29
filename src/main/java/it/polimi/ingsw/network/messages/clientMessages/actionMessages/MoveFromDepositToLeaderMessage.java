@@ -24,6 +24,7 @@ public class MoveFromDepositToLeaderMessage extends ActionMessage{
     /**
      * Move of resources from a deposit to a leader deposit
      * @param socketConnection the connection from which the message has arrived
+     * @param serverLobby serverLobby of the client
      */
     @Override
     public void useMessage(SocketConnection socketConnection, ServerLobby serverLobby){

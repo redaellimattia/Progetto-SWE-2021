@@ -65,6 +65,7 @@ public class Cli implements View {
     @Override
     public void start() {
         printLogo();
+        clientManager.connection(clientManager.getAddress(), clientManager.getSocketPort());
     }
 
     /**
@@ -87,6 +88,7 @@ public class Cli implements View {
     /**
      * shows to the player all the lobby already created and display choice on how to proceed
      * @param availableGameLobbies arraylist of lobbies provided by the server upon connection
+     * @param message message
      */
     @Override
     public void printLobbies(ArrayList<ReturnLobbiesMessage.availableGameLobbies> availableGameLobbies,String message) {
@@ -132,7 +134,7 @@ public class Cli implements View {
     }
 
     /**
-     * method called when the player wants to create a new game
+     * Method called when the player wants to create a new game
      */
     @Override
     public void createNewGame() {
@@ -146,7 +148,7 @@ public class Cli implements View {
     }
 
     /**
-     * method called when the player wants to join an already existing game
+     * Method called when the player wants to join an already existing game
      * @param availableGameLobbies arraylist used to do proper controls on the choice of the player
      */
     @Override
@@ -235,7 +237,7 @@ public class Cli implements View {
     }
 
     /**
-     * initialization of game, with leaders and resources
+     * Initialization of game, with leaders and resources
      * @param leaders four leaders provided by the server, of which the player needs to choose two
      * @param numberOfResources (optional) choice of resources by the player to start the game with
      */
@@ -280,7 +282,7 @@ public class Cli implements View {
     }
 
     /**
-     * method used to print on screen leader cards
+     * Method used to print on screen leader cards
      * @param leaders the arraylist of leaders to print
      */
     private void printLeaders(ArrayList<LeaderCard> leaders) {
@@ -302,7 +304,7 @@ public class Cli implements View {
     }
 
     /**
-     * method used in the pregame settings to give the 2nd, 3rd and 4th player 1,1 and 2 resources each respectively
+     * Method used in the pregame settings to give the 2nd, 3rd and 4th player 1,1 and 2 resources each respectively
      * @param numberOfResources counter of resources the player need to choose
      * @return an arraylist containing the chosen resources
      */
@@ -346,7 +348,7 @@ public class Cli implements View {
     }
 
     /**
-     * displays the current situation of the game to a waiting player, upon update from the server
+     * Displays the current situation of the game to a waiting player, upon update from the server
      */
     @Override
     public void waitingForTurn() {
@@ -362,7 +364,7 @@ public class Cli implements View {
     }
 
     /**
-     * shows current situation of the board of a player who has the turn
+     * Shows current situation of the board of a player who has the turn
      */
     @Override
     public void yourTurn() {
@@ -373,7 +375,7 @@ public class Cli implements View {
     }
 
     /**
-     * used to ask the player how he wants to go on with his turn, the choice for the action to make
+     * Used to ask the player how he wants to go on with his turn, the choice for the action to make
      */
     public void chooseAction(){
         PlayerDashboard thisPlayerDashboard = clientManager.getThisClientDashboard();
@@ -444,7 +446,7 @@ public class Cli implements View {
     }
 
     /**
-     * upon choice to end the turn, call the clientManager method who handles the choice
+     * Upon choice to end the turn, call the clientManager method who handles the choice
      */
     @Override
     public void endTurn(){
@@ -452,7 +454,7 @@ public class Cli implements View {
     }
 
     /**
-     * upon choice to buy a card, shows the market and calls the method to continue the purchase
+     * Upon choice to buy a card, shows the market and calls the method to continue the purchase
      */
     @Override
     public void buyCard(){
@@ -483,7 +485,7 @@ public class Cli implements View {
     }
 
     /**
-     * ask the player how he prefers to pay (where to take resources first) and calls proper methods
+     * Ask the player how he prefers to pay (where to take resources first) and calls proper methods
      * @param cost cost that needs to be covered to complete the purchase
      */
     private ArrayList<ResourceCount> askPayment(ResourceCount cost){
@@ -515,7 +517,7 @@ public class Cli implements View {
     }
 
     /**
-     * ask for the resources from the Storage to pay with
+     * Ask for the resources from the Storage to pay with
      * @param cost cost that still needs to be covered
      * @return a ResourceCount containing the resources chosen from the storage
      */
@@ -529,7 +531,7 @@ public class Cli implements View {
     }
 
     /**
-     * ask for the resources from the Chest to pay with
+     * Ask for the resources from the Chest to pay with
      * @param cost cost that still needs to be covered
      * @return a ResourceCount containing the resources chosen from the chest
      */
@@ -881,7 +883,7 @@ public class Cli implements View {
     }
 
     /**
-     * method used to ask the player for a card ID
+     * Method used to ask the player for a card ID
      * @param id arraylist containing possible ids to chose within
      * @param msg message to print before the choice
      * @return chosen id
@@ -972,7 +974,7 @@ public class Cli implements View {
     }
 
     /**
-     * organizing resources concerning a special ability's deposit
+     * Organizing resources concerning a special ability's deposit
      * @param leaderDeposit the chosen special ability's deposit
      */
     private void leaderMoveResources(CounterTop leaderDeposit){
@@ -1001,7 +1003,7 @@ public class Cli implements View {
     }
 
     /**
-     * moving resources from a leader's deposit to the storage
+     * Moving resources from a leader's deposit to the storage
      * @param leaderDeposit chosen leader's deposit
      */
     private void moveFromLeader(CounterTop leaderDeposit){
@@ -1010,7 +1012,7 @@ public class Cli implements View {
     }
 
     /**
-     * asking how many resources the player wants to include in the move
+     * Asking how many resources the player wants to include in the move
      * @param counterTop shelf from which the resources will be removed
      * @return chosen number of resources
      */
@@ -1026,7 +1028,7 @@ public class Cli implements View {
     }
 
     /**
-     * moving resources from the storage to a leader's deposit
+     * Moving resources from the storage to a leader's deposit
      * @param leaderDeposit chosen leader's deposit
      */
     private void moveToLeader(CounterTop leaderDeposit){
@@ -1035,7 +1037,7 @@ public class Cli implements View {
     }
 
     /**
-     * swap of two shelves on the storage
+     * Swap of two shelves on the storage
      */
     private void organizeStorage(){
         String input;
@@ -1063,7 +1065,7 @@ public class Cli implements View {
     }
 
     /**
-     * printing the board of a specific player
+     * Printing the board of a specific player
      * @param nickname of the player we want to print the board
      */
     private void printPlayer(String nickname) {
@@ -1107,7 +1109,7 @@ public class Cli implements View {
     }
 
     /**
-     * print the current situation of the Market Dashboard
+     * Print the current situation of the Market Dashboard
      */
     private void printMarket() {
         MarketDashboard market = clientManager.getGameStatus().getMarket();
@@ -1164,7 +1166,7 @@ public class Cli implements View {
     }
 
     /**
-     * print the current situation of the Shop
+     * Print the current situation of the Shop
      * @param isMyTurn if it's my turn, the Id-lookup functionality is activated in case of a card shop action
      */
     private void printShop(boolean isMyTurn) {
@@ -1227,7 +1229,7 @@ public class Cli implements View {
     }
 
     /**
-     * method to print a specific Development Card
+     * Method to print a specific Development Card
      * @param card that needs to be printed
      */
     void printDevCard(DevelopmentCard card){
@@ -1254,7 +1256,7 @@ public class Cli implements View {
     }
 
     /**
-     * called upon Vatican Report activation, show the player if they benefits from it or not
+     * Called upon Vatican Report activation, show the player if they benefits from it or not
      * @param victoryPoints points gained from the vatican report
      * @param nicknames arraylist containing all the names of the players affected by the vatican report
      */
@@ -1279,7 +1281,7 @@ public class Cli implements View {
     }
 
     /**
-     * print the player's leader cards
+     * Print the player's leader cards
      * @param leaderCards arraylist of the leader cards in his possess
      */
     private void printPlayerLeaderCards(ArrayList<LeaderCard> leaderCards){
@@ -1291,7 +1293,7 @@ public class Cli implements View {
     }
 
     /**
-     * print the development cards in possess of a player
+     * Print the development cards in possess of a player
      * @param devCards decks of cards to print
      */
     private void printPlayerDevCards(DeckDashboard[] devCards){
@@ -1309,7 +1311,7 @@ public class Cli implements View {
     }
 
     /**
-     * print the position of a player on the faith path
+     * Print the position of a player on the faith path
      * @param position the specific position
      * @param nickname of the player
      */
@@ -1348,7 +1350,7 @@ public class Cli implements View {
     }
 
     /**
-     * used to model the faith path
+     * Used to model the faith path
      * @param playerIsHere indicates the player is on the specific cell
      * @param victoryPoints granted by surpassing the cell on the faith path
      * @param isVaticanReport is a Pope's dialogue cell that activates a vatican report
@@ -1384,7 +1386,7 @@ public class Cli implements View {
     }
 
     /**
-     * print the player's special ability deposits
+     * Print the player's special ability deposits
      * @param arrayDeposits arraylist of the special ability deposits
      */
     private void printArrayDeposits(ArrayList<CounterTop> arrayDeposits){
@@ -1394,7 +1396,7 @@ public class Cli implements View {
     }
 
     /**
-     * print the temporary situation of the buffer during a production action
+     * Print the temporary situation of the buffer during a production action
      * @param bufferProduction temporary buffer
      */
     private void printBufferProduction(ResourceCount bufferProduction){
@@ -1403,7 +1405,7 @@ public class Cli implements View {
     }
 
     /**
-     * print the resources contained in the chest
+     * Print the resources contained in the chest
      * @param chest player's chest
      */
     private void printChest(ResourceCount chest){
@@ -1415,7 +1417,7 @@ public class Cli implements View {
     }
 
     /**
-     * print the situation of the countertops in the storage
+     * Print the situation of the countertops in the storage
      * @param storage player's storage
      */
     private void printStorage(Storage storage){
@@ -1426,7 +1428,7 @@ public class Cli implements View {
     }
 
     /**
-     * print a specific countertop (resource,content)
+     * Print a specific countertop (resource,content)
      * @param counterTop specific countertop
      */
     private void printCounterTop(CounterTop counterTop){
@@ -1441,7 +1443,7 @@ public class Cli implements View {
     }
 
     /**
-     * endgame method for a single player game, displays final points and whether is a win or a lose
+     * Endgame method for a single player game, displays final points and whether is a win or a lose
      * @param lorenzoWin true if Lorenzo won the game
      * @param playerPoints final points of the player
      */
@@ -1454,7 +1456,7 @@ public class Cli implements View {
     }
 
     /**
-     * endgame method for a multiplayer game, displays the scoreboard and a logo
+     * Endgame method for a multiplayer game, displays the scoreboard and a logo
      * @param scoreboard final scoreboard sorted by the number of victory points
      */
     @Override
@@ -1483,7 +1485,7 @@ public class Cli implements View {
     }
 
     /**
-     * generic method used to print a message
+     * Generic method used to print a message
      * @param msg String that needs to be printed
      */
     @Override
@@ -1496,7 +1498,7 @@ public class Cli implements View {
     }
 
     /**
-     * used to clear the cli window.
+     * Used to clear the cli window.
      */
     @Override
     public void clearView() {

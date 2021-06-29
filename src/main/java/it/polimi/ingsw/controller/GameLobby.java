@@ -76,6 +76,7 @@ public class GameLobby {
     public void addPlayer(String nickname) {
         this.players.add(nickname);
     }
+
     /**
      *
      * @param chosenNickname chosenNickname by the view while trying to access the game

@@ -96,7 +96,7 @@ public class PlayerTurnManager {
      * Used to call the endAction method
      * @param player player who sent the EndActionMessage
      */
-    public void endAction(PlayerDashboard player ){action.endAction(player);}
+    public void endAction(PlayerDashboard player){action.endAction(player);}
 
     /**
      * Adds an atomic production to the main action or creates a new MainAction as ProductionAction

@@ -22,6 +22,7 @@ public class OrganizeStorage extends Action {
     /**
      * Return true if the shelves are swapped correctly and the storage respects the rules for resourcetypes
      * @param player player that wanted to switch Storage's shelves
+     * @param turnManager turnManager
      */
     @Override
     public boolean useAction(PlayerDashboard player, PlayerTurnManager turnManager) {

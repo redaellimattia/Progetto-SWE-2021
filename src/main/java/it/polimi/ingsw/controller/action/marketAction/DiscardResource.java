@@ -31,6 +31,7 @@ public class DiscardResource extends AtomicMarketAction {
      *
      * @param marble the marble to discard
      * @param player the player performing the action
+     * @param gameManager gameManager
      * @return true if ended correctly
      */
     @Override
