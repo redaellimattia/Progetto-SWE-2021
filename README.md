@@ -13,7 +13,7 @@ La rete è stata gestita tramite socket. Sono inoltre presenti le funzionalià a
 
 ### UML
 - [UML Alto Livello]()
-- [UML Dettaglio]()
+- [UML Dettaglio](/deliverables/UML/Detailed%20UML)
 
 ### JavaDoc
 Documentazione di metodi Java: [Javadoc](/deliverables/JavaDoc)
@@ -57,7 +57,8 @@ Il comando da eseguire da command line é il seguente:
   java -jar ./GC47-server.jar [-p port]
 ```
 #### Parametri
-- `-p`: porta che si vuole utilizzare in ascolto, di default `65500`.
+- `-p`: porta che si vuole utilizzare in ascolto, di default `65500`.  
+Assicurarsi che la porta da utilizzare in ascolto sia disponibile.
 
 ### Client
 - `GC47-client.jar`  
