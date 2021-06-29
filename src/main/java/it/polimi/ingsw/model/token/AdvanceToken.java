@@ -22,7 +22,7 @@ public class AdvanceToken implements SoloToken {
 
     /**
      * Executes the action represented by the token
-     * @param lorenzo
+     * @param lorenzo lorenzo dashboard
      * @param game the current Game object
      * @param observer serverLobby observer
      */

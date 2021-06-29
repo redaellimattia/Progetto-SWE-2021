@@ -9,7 +9,7 @@ import it.polimi.ingsw.network.enumeration.MarketActionType;
 public abstract class MarketActionMessage extends ActionMessage{
     static GsonBuilder builder = new GsonBuilder();
     static Gson gson = builder.create();
-    private MarketActionType marketActionType;
+    private final MarketActionType marketActionType;
 
     public MarketActionMessage(String nickname, long serverThreadID, MarketActionType marketActionType) {
         super(ActionType.MARKETACTION, nickname, serverThreadID);

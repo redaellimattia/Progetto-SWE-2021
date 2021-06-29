@@ -12,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 /**
  * Shop view scene controller
  */
-public class shopViewController extends GuiController {
+public class ShopViewController extends GuiController {
     @FXML
     private Label errorLabel;
     @FXML

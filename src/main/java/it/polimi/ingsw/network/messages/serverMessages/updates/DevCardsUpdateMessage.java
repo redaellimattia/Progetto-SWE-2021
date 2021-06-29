@@ -1,7 +1,6 @@
 package it.polimi.ingsw.network.messages.serverMessages.updates;
 
 import it.polimi.ingsw.model.DeckDashboard;
-import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.network.enumeration.PlayerUpdateType;
 

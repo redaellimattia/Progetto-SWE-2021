@@ -46,13 +46,6 @@ public class MarketActionController extends GuiController {
     @FXML
     private HBox preview;
 
-    /*private Image whiteMarble = new Image("/img/marbles/whiteMarble.png");
-    private Image redMarble = new Image("/img/marbles/redMarble.png");
-    private Image yellowMarble = new Image("/img/marbles/yellowMarble.png");
-    private Image blueMarble = new Image("/img/marbles/blueMarble.png");
-    private Image purpleMarble = new Image("/img/marbles/purpleMarble.png");
-    private Image greyMarble = new Image("/img/marbles/greyMarble.png"); */
-
     private int type;
     private int pos;
     MarketMarble[] marbles;

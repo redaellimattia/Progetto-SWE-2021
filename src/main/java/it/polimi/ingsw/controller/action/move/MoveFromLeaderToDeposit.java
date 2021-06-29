@@ -45,7 +45,7 @@ public class MoveFromLeaderToDeposit extends Action {
         switch(to_deposit){
             case 1: if(storage.getFirstRow().getContent() == 0 && number == 1) {
                 CounterTop substitute = new CounterTop(leaderDeposit.getResourceType(),number);
-                try{storage.setFirstRow(substitute);}catch(CounterTopOverloadException e){}
+                try{storage.setFirstRow(substitute);}catch(CounterTopOverloadException ignored){}
                 leaderDeposit.removeContent(number);
                 player.updateArrayDeposits();
                 return true;
@@ -54,7 +54,7 @@ public class MoveFromLeaderToDeposit extends Action {
                 throw new WrongResourcesMovedException(player);
             case 2: if((storage.getSecondRow().getContent() + number) <= 2 && storage.getSecondRow().getResourceType().equals(leaderDeposit.getResourceType()) || (storage.getSecondRow().getContent() == 0)){
                 CounterTop substitute = new CounterTop(leaderDeposit.getResourceType(),number+storage.getSecondRow().getContent());
-                try{storage.setSecondRow(substitute);}catch(CounterTopOverloadException e){};
+                try{storage.setSecondRow(substitute);}catch(CounterTopOverloadException ignored){}
                 leaderDeposit.removeContent(number);
                 player.updateArrayDeposits();
                 return true;
@@ -63,7 +63,7 @@ public class MoveFromLeaderToDeposit extends Action {
                 throw new WrongResourcesMovedException(player);
             case 3: if(((storage.getThirdRow().getContent() + number) <= 3 && storage.getThirdRow().getResourceType().equals(leaderDeposit.getResourceType())) || (storage.getThirdRow().getContent() == 0)){
                 CounterTop substitute = new CounterTop(leaderDeposit.getResourceType(),number+storage.getThirdRow().getContent());
-                try{storage.setThirdRow(substitute);}catch(CounterTopOverloadException e){};
+                try{storage.setThirdRow(substitute);}catch(CounterTopOverloadException ignored){}
                 leaderDeposit.removeContent(number);
                 player.updateArrayDeposits();
                 return true;

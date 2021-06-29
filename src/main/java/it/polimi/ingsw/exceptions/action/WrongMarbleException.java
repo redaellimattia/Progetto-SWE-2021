@@ -4,7 +4,6 @@ import it.polimi.ingsw.controller.PlayerTurnManager;
 import it.polimi.ingsw.exceptions.MasterOfRenaissanceRuntimeException;
 import it.polimi.ingsw.model.MarketMarble;
 import it.polimi.ingsw.model.PlayerDashboard;
-import it.polimi.ingsw.model.enumeration.MarbleColour;
 
 public class WrongMarbleException extends MasterOfRenaissanceRuntimeException {
     public WrongMarbleException(MarketMarble marble, PlayerDashboard player,PlayerTurnManager turnManager) {
