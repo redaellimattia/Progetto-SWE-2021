@@ -69,7 +69,7 @@ Il comando da eseguire da command line é il seguente:
 #### Parametri
 - `-ip`: ip del server al quale ci si vuole connettere, di default `localhost`.
 - `-p`: porta del server al quale ci si vuole connettere, di default `65500`.
-- `-cli`: opzione necessaria per lanciare il client con interfaccia a linea di comando, di default viene avviato con `GUI`.  
+- `-cli`: necessaria per lanciare il client con interfaccia a linea di comando, di default viene avviato con `GUI`.  
 É preferibile, in caso di `CLI`, avviare il client con un terminale che supporti la codifica UTF-8 e gli ANSI escape, per una migliore esperienza.
 
 ## Gruppo GC47
