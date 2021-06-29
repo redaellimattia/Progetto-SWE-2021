@@ -41,7 +41,7 @@ Documentazione di metodi Java: [Javadoc](/deliverables/JavaDoc)
 ## Coverage dei casi di test
 Aggiornata al 25 Giugno.
 <p>
-  <img src="/utilities/coverage/coverage 25-06.png">
+  <img src="/deliverables/coverage/coverage 25-06.png">
 </p>
 
 ## Esecuzione dei JAR
