@@ -1,10 +1,8 @@
 package it.polimi.ingsw.view.gui.controllers;
 
 import it.polimi.ingsw.model.*;
-import it.polimi.ingsw.model.card.DepositAbility;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
-import it.polimi.ingsw.model.card.ProductionAbility;
 import it.polimi.ingsw.network.client.ClientManager;
 import it.polimi.ingsw.view.gui.GuiManager;
 import javafx.application.Platform;
@@ -247,7 +245,7 @@ public class ClientDashboardController extends GuiController{
     private void setAbilityDeposit(ArrayList<CounterTop> arrayDeposit,ArrayList<LeaderCard> leaderCards){
         for(int i=0;i<leaderCards.size();i++) {
             LeaderCard l = leaderCards.get(i);
-            if (l.isInGame() && l.getSpecialAbility() instanceof DepositAbility){
+            if (l.isInGame() && l.getSpecialAbility().isDepositAbility()){
                 if(i==0) {
                     firstAbilityDeposit.setVisible(true);
                     if(arrayDeposit.get(0).getResourceType().equals(l.getSpecialAbility().getResourceType()))
@@ -344,7 +342,7 @@ public class ClientDashboardController extends GuiController{
                 resource = new ResourceCount(0,0,0,0,0);
                 LeaderCard l = playerDashboard.getLeaderCards().get(i);
                 l.getSpecialAbility().getResourceType().add(resource, 1);
-                if(l.isInGame()&&l.getSpecialAbility() instanceof ProductionAbility&&!clientManager.getLeaderCardProductionDone()[i]&&playerDashboard.getTotalResources().hasMoreOrEqualsResources(resource)){
+                if(l.isInGame()&&l.getSpecialAbility().isProductionAbility() && !clientManager.getLeaderCardProductionDone()[i]&&playerDashboard.getTotalResources().hasMoreOrEqualsResources(resource)){
                     if(i==0)
                         leaderProduction1.setVisible(true);
                     else

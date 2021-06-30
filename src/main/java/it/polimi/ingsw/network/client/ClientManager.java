@@ -3,7 +3,6 @@ package it.polimi.ingsw.network.client;
 import it.polimi.ingsw.model.*;
 import it.polimi.ingsw.model.card.DevelopmentCard;
 import it.polimi.ingsw.model.card.LeaderCard;
-import it.polimi.ingsw.model.card.ProductionAbility;
 import it.polimi.ingsw.model.card.Requirement;
 import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.messages.clientMessages.*;
@@ -33,6 +32,7 @@ public class ClientManager {
     private final String address;
     private final int socketPort;
     private PlayerDashboard thisPlayerDashboard;
+    private final boolean isGui;
 
     /**
      * Creates client Object, handles client connection and instantiates view
@@ -44,10 +44,14 @@ public class ClientManager {
         this.nickname = "defaultNickname";
         this.address = address;
         this.socketPort = socketPort;
-        if(choice.equals("-cli"))
+        if(choice.equals("-cli")) {
             this.view = new Cli(this);
-        else
+            this.isGui = false;
+        }
+        else {
             this.view = new GuiManager(this);
+            this.isGui = true;
+        }
         this.gameStarted = false;
         this.leaderCardProductionDone = new boolean[2];
         this.devCardProductionDone = new boolean[3];
@@ -156,7 +160,7 @@ public class ClientManager {
     public void initGameStatus(ArrayList<PlayerDashboard> players, Shop shop, MarketDashboard market,VaticanReport[] vReports){
         gameStatus = new ClientGameStatus(players,shop,market,vReports);
         thisPlayerDashboard = getThisClientDashboard();
-        if(view instanceof GuiManager)
+        if(isGui)
             gameStatus.addObserver(GuiManager.getInstance());
     }
 
@@ -373,7 +377,7 @@ public class ClientManager {
         PlayerDashboard thisPlayer = thisPlayerDashboard;
         ArrayList<LeaderCard> productionLeaders = new ArrayList<>();
         for(LeaderCard l:thisPlayer.getLeaderCards())
-            if(l.getSpecialAbility() instanceof ProductionAbility && l.isInGame())
+            if(l.getSpecialAbility().isProductionAbility() && l.isInGame())
                 productionLeaders.add(l);
         return productionLeaders;
     }
@@ -659,7 +663,7 @@ public class ClientManager {
             resource = new ResourceCount(0,0,0,0,0);
             LeaderCard l = p.getLeaderCards().get(i);
             l.getSpecialAbility().getResourceType().add(resource, 1);
-            if (l.isInGame()&&l.getSpecialAbility() instanceof ProductionAbility&&p.getTotalResources().hasMoreOrEqualsResources(resource)&&!leaderCardProductionDone[i])
+            if (l.isInGame()&& l.getSpecialAbility().isProductionAbility() && p.getTotalResources().hasMoreOrEqualsResources(resource)&&!leaderCardProductionDone[i])
                 return true;
         }
         return false;

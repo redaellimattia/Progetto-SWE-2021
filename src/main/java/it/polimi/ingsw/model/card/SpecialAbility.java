@@ -46,5 +46,18 @@ public abstract class SpecialAbility {
      */
     public Resource useWhiteChangeAbility(){return null;}  //Used in WhiteChangeAbility
 
+    /**
+     *
+     * @return true if the card has a production ability
+     */
+    public boolean isProductionAbility(){return false;}
+
+    /**
+     *
+     * @return true if the card has a production ability
+     */
+    public boolean isDepositAbility(){return false;}
+
     public String toString(){return null;}
+
 }

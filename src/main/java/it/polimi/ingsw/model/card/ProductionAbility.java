@@ -47,6 +47,11 @@ public class ProductionAbility extends SpecialAbility {
     }
 
     @Override
+    public boolean isProductionAbility(){
+        return true;
+    }
+
+    @Override
     public String toString(){
         return "You can use these card to obtain a chosen resource and a faith point using a: " + getResourceType();
     }
