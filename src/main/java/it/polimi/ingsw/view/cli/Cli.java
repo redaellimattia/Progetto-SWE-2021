@@ -225,7 +225,7 @@ public class Cli implements View {
         String input;
         do {
             do {
-                out.println("Insert a nickname (\"Lorenzo il Magnifico\" is not available as nickname) :");
+                out.println("Insert a nickname: ");
                 nickname = readLine();
             } while (nickname.equals("Lorenzo il Magnifico"));
             out.println("The choosen nickname is : " + nickname +
