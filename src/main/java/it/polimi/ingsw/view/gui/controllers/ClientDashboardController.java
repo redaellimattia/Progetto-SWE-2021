@@ -108,7 +108,6 @@ public class ClientDashboardController extends GuiController{
             backHome.setVisible(true);
         }
         else{
-
             if(!clientManager.isMyTurn()){
                 productionButton.setDisable(true);
                 endTurnButton.setDisable(true);
@@ -158,6 +157,7 @@ public class ClientDashboardController extends GuiController{
      */
     @Override
     public void setProductionOnGoing(){
+        endTurnButton.setDisable(true);
         endProduction.setVisible(true);
         if(!productionButton.isDisabled())
             productionButton.setDisable(true);
@@ -613,6 +613,7 @@ public class ClientDashboardController extends GuiController{
             productionButton.setDisable(false);
         }
         else {
+            endTurnButton.setDisable(false);
             resetProduction();
             Platform.runLater(() -> clientManager.endAction());
         }

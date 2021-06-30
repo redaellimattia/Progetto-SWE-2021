@@ -942,7 +942,6 @@ public class Cli implements View {
      */
     @Override
     public void organizeResources(){
-        int count = 1;
         String input;
         PlayerDashboard player = clientManager.getThisClientDashboard();
         //Storage print
@@ -951,6 +950,7 @@ public class Cli implements View {
         if(player.getArrayDeposit().size()>0)
             printArrayDeposits(player.getArrayDeposit());
         do{
+            int count = 1;
             out.println("You can select which resources you want to move:");
             out.println("Press \""+count+"\" to move two shelves on the storage;");
             count++;
@@ -1080,31 +1080,33 @@ public class Cli implements View {
         //PathPosition
         printPathPosition(player.getPathPosition(),nickname);
 
-        //BufferProduction
-        if(ResourceCount.resCountToInt(player.getBufferProduction())>0)
-            printBufferProduction(player.getBufferProduction());
-        printStorage(player.getStorage());
+        if(!player.isLorenzo()) {
+            //BufferProduction
+            if (ResourceCount.resCountToInt(player.getBufferProduction()) > 0)
+                printBufferProduction(player.getBufferProduction());
+            printStorage(player.getStorage());
 
-        //ArrayDeposit
-        if(player.getArrayDeposit().size()>0)
-            printArrayDeposits(player.getArrayDeposit());
+            //ArrayDeposit
+            if (player.getArrayDeposit().size() > 0)
+                printArrayDeposits(player.getArrayDeposit());
 
-        //Chest
-        printChest(player.getChest());
+            //Chest
+            printChest(player.getChest());
 
-        //DevCards
-        printPlayerDevCards(player.getDevCards());
+            //DevCards
+            printPlayerDevCards(player.getDevCards());
 
-        //LeaderCards
-        if(nickname.equals(clientManager.getNickname()))
-            printPlayerLeaderCards(player.getLeaderCards());
-        else{
-            ArrayList<LeaderCard> leadersInGame = new ArrayList<>();
-            for(LeaderCard l:player.getLeaderCards()) {
-                if (l.isInGame())
-                    leadersInGame.add(l);
+            //LeaderCards
+            if (nickname.equals(clientManager.getNickname()))
+                printPlayerLeaderCards(player.getLeaderCards());
+            else {
+                ArrayList<LeaderCard> leadersInGame = new ArrayList<>();
+                for (LeaderCard l : player.getLeaderCards()) {
+                    if (l.isInGame())
+                        leadersInGame.add(l);
+                }
+                printPlayerLeaderCards(leadersInGame);
             }
-            printPlayerLeaderCards(leadersInGame);
         }
     }
 
@@ -1170,8 +1172,10 @@ public class Cli implements View {
      * @param isMyTurn if it's my turn, the Id-lookup functionality is activated in case of a card shop action
      */
     private void printShop(boolean isMyTurn) {
-        out.println(YELLOW+"YOUR RESOURCES"+RESET);
-        out.println(clientManager.getThisClientDashboard().getTotalResources());
+        if(isMyTurn) {
+            out.println(YELLOW + "YOUR RESOURCES" + RESET);
+            out.println(clientManager.getThisClientDashboard().getTotalResources());
+        }
         Deck[][] shop = clientManager.getGameStatus().getShop().getGrid();
         out.println(BLUE + "~~SHOP GRID~~" + RESET);
         for (int i = 0; i < 3; i++) {
