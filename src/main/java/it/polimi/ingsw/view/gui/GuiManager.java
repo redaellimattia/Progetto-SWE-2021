@@ -289,7 +289,7 @@ public class GuiManager implements View, GuiObserver{
     }
 
     @Override
-    public void clearView() {}
+    public void updateView() {}
 
     /**
      *

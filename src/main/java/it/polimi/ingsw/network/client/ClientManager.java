@@ -96,7 +96,7 @@ public class ClientManager {
     public void setGameEnded(boolean gameEnded) {
         this.gameEnded = gameEnded;
     }
-
+    public boolean isGameStarted(){return this.gameStarted;}
     /**
      *
      * @return true if the mainAction has been already done
@@ -805,25 +805,5 @@ public class ClientManager {
         mainActionDone = false;
         initProductionDone();
         view.yourTurn();
-    }
-
-    /**
-     * Updates the view
-     */
-    public void updateViewWithClear(){
-        view.clearView();
-        updateView();
-    }
-
-    /**
-     * Updates the view
-     */
-    public void updateView(){
-        if(gameStarted) {
-            if (isMyTurn)
-                view.yourTurn();
-            else
-                view.waitingForTurn();
-        }
     }
 }

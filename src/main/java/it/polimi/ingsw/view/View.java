@@ -24,6 +24,6 @@ public interface View {
     void leaderAction(ArrayList<LeaderCard> passedLeader,boolean isDiscard);
     void organizeResources();
     void vaticanReportActivated(int victoryPoints,ArrayList<String> nicknames);
-    void clearView();
     void failedConnection(String message);
+    void updateView();
 }

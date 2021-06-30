@@ -20,7 +20,6 @@ public class DoneMessage extends ServerMessage{
         if(clientManager.isProductionActionOnGoing())
             clientManager.getView().startProduction();
         else
-            if(clientManager.getView() instanceof Cli)
-                clientManager.updateViewWithClear();
+            clientManager.getView().updateView();
     }
 }

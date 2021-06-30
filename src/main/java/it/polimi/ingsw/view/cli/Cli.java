@@ -1498,10 +1498,23 @@ public class Cli implements View {
     }
 
     /**
-     * Used to clear the cli window.
+     * Update the view after a Done message
      */
     @Override
-    public void clearView() {
+    public void updateView() {
+        clearView();
+        if(clientManager.isGameStarted()) {
+            if (clientManager.isMyTurn())
+                yourTurn();
+            else
+                waitingForTurn();
+        }
+    }
+
+    /**
+     * Used to clear the cli window.
+     */
+    public void clearView(){
         out.print("\033[H\033[2J");
         out.flush();
     }
