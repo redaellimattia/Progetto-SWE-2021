@@ -44,7 +44,7 @@ public class LeaderCardProductionAction extends Action {
         abilityRes.add(cost,1);
 
         if(chestToInt==0&&storageToInt==0)
-            throw new PaymentFailedException("Chest and Player",player);
+            throw new PaymentFailedException("Chest and Storage",player);
         //If leaderCard doesnt exist in the model then throw Exception
         if(!(player.leaderCardExists(card)&&card.isInGame()))
             throw new CardNotExistsException("Leader Card",player,turnManager);
