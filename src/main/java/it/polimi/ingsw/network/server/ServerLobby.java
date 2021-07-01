@@ -425,7 +425,8 @@ public class ServerLobby extends Thread implements Observer {
      * When the game ends, close this lobby
      */
     private void closeLobby(){
-        pingTimer.deleteTimer();
+        if(pingTimer!=null)
+            pingTimer.deleteTimer();
         for (String key : clients.keySet())
             clients.get(key).closeConnection();
         clients.clear();

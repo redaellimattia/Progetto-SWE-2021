@@ -7,6 +7,7 @@ import it.polimi.ingsw.model.enumeration.Resource;
 import it.polimi.ingsw.network.client.PlayerPoints;
 import it.polimi.ingsw.network.messages.serverMessages.ReturnLobbiesMessage;
 import it.polimi.ingsw.view.gui.GuiManager;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -367,7 +368,7 @@ public abstract class GuiController {
         }
         getGuiManager().setCurrentController(controller);
         modal.initModality(Modality.APPLICATION_MODAL);
-        modal.initStyle(StageStyle.UNDECORATED);
+        modal.setTitle("Choose");
         modal.setResizable(false);
         modal.getIcons().add(new Image(this.getClass().getResourceAsStream("/img/javaFX/icon.png")));
         return modal;
